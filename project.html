@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project | Joseph Byrne</title>
+  <meta name="description" content="Project detail, Joseph Byrne portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+
+  <!-- ── CURSOR ── -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav is-scrolled" id="nav">
+    <a href="index.html#portfolio" class="back-btn" id="backBtn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Work
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#portfolio">Work</a></li>
+      <li><a href="index.html#academic">Academic</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav__menu" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <ul>
+      <li><a href="index.html#about"     class="mobile-link">About</a></li>
+      <li><a href="index.html#portfolio" class="mobile-link">Work</a></li>
+      <li><a href="index.html#academic"  class="mobile-link">Academic</a></li>
+      <li><a href="index.html#contact"   class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ── PROJECT PAGE (populated by project.js) ── -->
+  <main id="projectPage" class="project-page" aria-live="polite">
+
+    <!-- HERO -->
+    <section class="proj-hero">
+      <div class="container">
+        <div class="proj-hero__meta">
+          <span class="proj-hero__index" id="projIndex">—</span>
+          <span class="proj-hero__divider">/</span>
+          <span class="proj-hero__cat" id="projCat">—</span>
+        </div>
+        <h1 class="proj-hero__title" id="projTitle">Loading&hellip;</h1>
+        <p class="proj-hero__subtitle" id="projSubtitle"></p>
+        <a class="proj-hero__link" id="projLink" href="#" target="_blank" rel="noopener noreferrer" style="display:none">
+          Visit Website
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- DETAILS STRIP -->
+    <div class="proj-details" id="projDetails">
+      <div class="container">
+        <div class="proj-details__grid">
+          <div class="proj-detail">
+            <span class="proj-detail__label">Year</span>
+            <span class="proj-detail__value" id="detailYear">—</span>
+          </div>
+          <div class="proj-detail">
+            <span class="proj-detail__label">Category</span>
+            <span class="proj-detail__value" id="detailCat">—</span>
+          </div>
+          <div class="proj-detail">
+            <span class="proj-detail__label">Context</span>
+            <span class="proj-detail__value" id="detailContext">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <section class="proj-section proj-desc-section">
+      <div class="container">
+        <div class="proj-section__header">
+          <span class="proj-section__label">Overview</span>
+        </div>
+        <div class="proj-desc" id="projDesc"></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="proj-section proj-skills-section">
+      <div class="container">
+        <div class="proj-section__header">
+          <span class="proj-section__label">Skills Gained</span>
+        </div>
+        <div class="proj-skills" id="projSkills"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="proj-section proj-gallery-section">
+      <div class="container">
+        <div class="proj-section__header">
+          <span class="proj-section__label">Gallery</span>
+          <p class="proj-gallery__hint">Click any image to expand</p>
+        </div>
+        <div class="proj-gallery" id="projGallery"></div>
+      </div>
+    </section>
+
+    <!-- PROJECT NAVIGATION -->
+    <nav class="proj-nav" id="projNav" aria-label="Project navigation">
+      <a href="#" class="proj-nav__btn proj-nav__btn--prev" id="prevProject">
+        <span class="proj-nav__name" id="prevName">—</span>
+        <span class="proj-nav__dir">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Previous
+        </span>
+      </a>
+      <a href="#" class="proj-nav__btn proj-nav__btn--next" id="nextProject">
+        <span class="proj-nav__name" id="nextName">—</span>
+        <span class="proj-nav__dir">
+          Next
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </nav>
+
+  </main>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" id="lbPrev" aria-label="Previous image">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M18 10H2M9 3L2 10l7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="lightbox__stage" id="lbStage"></div>
+    <button class="lightbox__arrow lightbox__arrow--next" id="lbNext" aria-label="Next image">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M2 10h16M11 3l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="lightbox__counter" id="lbCounter"></div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <span class="footer__logo">JB</span>
+          <p>Multidisciplinary Designer<br>Fashion &middot; Digital &middot; Brand</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="index.html#about">About</a>
+          <a href="index.html#portfolio">Work</a>
+          <a href="index.html#academic">Academic</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 Joseph Byrne. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="projects-data.js"></script>
+  <script src="script.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>
