@@ -989,7 +989,7 @@ h1, h2, h3, h4 {
 
 .websites__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -1078,6 +1078,9 @@ h1, h2, h3, h4 {
   font-size: 9px;
   letter-spacing: 0.1em;
   color: var(--text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .site-card__btn {
@@ -1241,9 +1244,7 @@ h1, h2, h3, h4 {
   font-size: 15px;
   line-height: 1.7;
   color: var(--text-2);
-  margin-top: 12px;
-  margin-bottom: 48px;
-  max-width: 340px;
+  margin-top: 8px;
 }
 
 .contact__links {
