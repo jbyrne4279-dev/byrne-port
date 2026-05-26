@@ -3,7 +3,10 @@
    ============================================================ */
 
 /* ── NAV override: always dark on project pages ── */
-.nav { background: rgba(0,0,0,0.92); border-bottom: 1px solid var(--border); }
+.nav { background: rgba(0,0,0,0.92); border-bottom: 1px solid var(--border); justify-content: space-between; }
+
+/* ── BACK BUTTON sits on the left, nav__links on the right ── */
+.nav .back-btn { margin-right: auto; }
 
 /* ── BACK BUTTON ── */
 .back-btn {

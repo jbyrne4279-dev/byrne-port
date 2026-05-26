@@ -1,5 +1,5 @@
 /* ============================================================
-   PROJECT PAGE LOGIC — project.js
+   PROJECT PAGE LOGIC |project.js
    Reads ?slug= from URL, populates page, handles lightbox.
    ============================================================ */
 
@@ -19,7 +19,7 @@
   }
 
   /* ── 2. UPDATE <title> ── */
-  document.title = project.title + ' — Joseph Byrne';
+  document.title = project.title + ' |Joseph Byrne';
 
   /* ── 3. POPULATE PAGE ELEMENTS ── */
   function set(id, html, attr) {
@@ -84,7 +84,7 @@
       if (src) {
         return `
           <div class="gallery-item" data-index="${i}" role="button" tabindex="0" aria-label="Open image ${num}">
-            <img src="${src}" alt="${proj.title} — image ${num}" loading="lazy">
+            <img src="${src}" alt="${proj.title} |image ${num}" loading="lazy">
           </div>`;
       }
 
@@ -205,7 +205,7 @@
 
   /* ── 6. NOT FOUND ── */
   function renderNotFound() {
-    document.title = '404 — Joseph Byrne';
+    document.title = '404 |Joseph Byrne';
     const page = document.getElementById('projectPage');
     if (!page) return;
     page.innerHTML = `
