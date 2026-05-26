@@ -244,52 +244,6 @@
   });
 })();
 
-/* ── SITE CARD SCROLL ── */
-(function initSiteScroll() {
-  document.querySelectorAll('.site-card__viewport').forEach(vp => {
-    const iframe = vp.querySelector('iframe');
-    if (!iframe) return;
-
-    const vpH  = vp.offsetHeight || 540;
-    const ifrH = 6000;
-    const maxY = ifrH - vpH;
-    let scrollY = 0;
-
-    function applyScroll() {
-      iframe.style.transform = `translateY(${-scrollY}px)`;
-    }
-
-    vp.addEventListener('wheel', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      scrollY = Math.max(0, Math.min(maxY, scrollY + e.deltaY));
-      applyScroll();
-    }, { passive: false });
-
-    let lastTY = 0;
-    vp.addEventListener('touchstart', e => { lastTY = e.touches[0].clientY; }, { passive: true });
-    vp.addEventListener('touchmove', e => {
-      const dy = lastTY - e.touches[0].clientY;
-      lastTY = e.touches[0].clientY;
-      scrollY = Math.max(0, Math.min(maxY, scrollY + dy));
-      applyScroll();
-    }, { passive: true });
-
-    // Detect X-Frame-Options blocking: blocked iframes stay at about:blank
-    iframe.addEventListener('load', function () {
-      setTimeout(function () {
-        try {
-          const href = iframe.contentWindow.location.href;
-          if (href === 'about:blank' || href === '') {
-            vp.closest('.site-card').classList.add('site-card--blocked');
-          }
-        } catch (e) {
-          // SecurityError = cross-origin iframe loaded successfully — no fallback needed
-        }
-      }, 1500);
-    });
-  });
-})();
 
 /* ── HERO MIST ── */
 (function initHeroMist() {
