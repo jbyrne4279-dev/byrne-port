@@ -1088,24 +1088,106 @@ h1, h2, h3, h4 {
 }
 
 /* Blocked / unavailable fallback */
-.site-card--blocked .site-card__viewport iframe { visibility: hidden; }
+.site-card--blocked .site-card__viewport iframe { display: none; }
 
-.site-card--blocked .site-card__viewport::after {
-  content: 'Preview unavailable';
+.site-card__fallback {
+  display: none;
   position: absolute;
   inset: 0;
   z-index: 5;
-  background: var(--bg-3);
+  overflow: hidden;
+}
+
+.site-card--blocked .site-card__fallback {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.site-card__fallback-grid {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg-2);
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.site-card__fallback-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(176,0,32,0.08) 0%, transparent 70%);
+}
+
+.site-card__fallback-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 32px;
+}
+
+.site-card__fallback-tag {
   font-family: var(--font-mono);
   font-size: 9px;
-  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid rgba(176,0,32,0.4);
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.site-card__fallback-tag::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 6px var(--red);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.site-card__fallback-name {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-transform: uppercase;
+  margin: 8px 0 4px;
+}
+
+.site-card__fallback-url {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
   color: var(--text-3);
+  text-transform: lowercase;
+}
+
+.site-card__fallback-cta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-top: 12px;
   border-top: 1px solid var(--border);
+  padding-top: 14px;
+  width: 100%;
 }
 
 .site-card__footer {
