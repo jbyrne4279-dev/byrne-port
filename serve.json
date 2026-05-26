@@ -2,9 +2,15 @@
   "cleanUrls": true,
   "headers": [
     {
-      "source": "**",
+      "source": "**/*.webp",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "**/*.{html,js,css,json}",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
       ]
     }
   ]
