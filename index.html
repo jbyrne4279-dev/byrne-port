@@ -436,12 +436,11 @@
       <div class="section__header reveal">
         <span class="section__label">05 Contact</span>
         <h2 class="section__title">Let's Work Together</h2>
+        <p class="contact__intro">Available for freelance projects, collaborations, and new opportunities. Feel free to reach out.</p>
       </div>
 
       <div class="contact__grid">
         <div class="contact__info reveal">
-          <p class="contact__intro">Available for freelance projects, collaborations, and new opportunities. Feel free to reach out.</p>
-
           <div class="contact__links">
             <div class="contact__link">
               <span class="contact__link-label">Email</span>
@@ -453,11 +452,6 @@
             </div>
           </div>
 
-          <!-- Replace href with the actual path to your CV PDF, e.g. "assets/Joseph-Byrne-CV.pdf" -->
-          <a href="assets/cv.pdf" class="btn btn--primary contact__cv" download>
-            Download CV
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
         </div>
 
         <form class="contact__form reveal reveal--delay" id="contactForm" novalidate>
@@ -473,10 +467,16 @@
             <textarea id="f-message" name="message" rows="5" placeholder="Your Message" required></textarea>
             <label for="f-message">Your Message</label>
           </div>
-          <button type="submit" class="btn btn--primary" id="submitBtn">
-            Send Message
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+          <div class="contact__form-actions">
+            <button type="submit" class="btn btn--primary" id="submitBtn">
+              Send Message
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <a href="assets/cv.pdf" class="btn btn--outline contact__cv" download>
+              Download CV
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
         </form>
       </div>
     </div>

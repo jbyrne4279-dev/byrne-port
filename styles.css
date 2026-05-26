@@ -1366,9 +1366,10 @@ h1, h2, h3, h4 {
 }
 
 .contact__intro {
-  font-size: 16px;
-  line-height: 1.82;
+  font-size: 15px;
+  line-height: 1.7;
   color: var(--text-2);
+  margin-top: 12px;
   margin-bottom: 48px;
   max-width: 340px;
 }
@@ -1426,6 +1427,12 @@ h1, h2, h3, h4 {
 }
 
 .contact__cv { align-self: flex-start; }
+
+.contact__form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
 /* ── FORM ── */
 .contact__form { display: flex; flex-direction: column; gap: 16px; }
