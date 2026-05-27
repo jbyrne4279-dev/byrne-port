@@ -1611,6 +1611,7 @@ h1, h2, h3, h4 {
   .footer__grid { align-items: center; }
   .footer__info { text-align: center; }
   .academic-row__badge { justify-self: center; }
+  .academic-row__grade { justify-content: center; }
   .academic-row__title,
   .academic-row__detail { text-align: center; }
   .site-card__body { justify-content: center; }
