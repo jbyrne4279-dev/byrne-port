@@ -900,15 +900,26 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 
-.project-card__img--1  { background-color: #1e120a; background-image: url('assets/projects/clothing-brand/XTC%20SUMMER%20SHORTS%20HOODIE%20T%20SHIRT%20JOGGERS-Cover.webp'); background-size: cover; background-position: center; }
-.project-card__img--2  { background-color: #111111; background-image: url('assets/projects/named-collective/1920X1080.webp'); background-size: cover; background-position: center; }
-.project-card__img--3  { background-color: #1a0610; background-image: url('assets/projects/next-collection/IMG_0610.webp'); background-size: cover; background-position: center; }
-.project-card__img--4  { background-color: #0e0e28; background-image: url('assets/projects/trimas-internship/3group_v2.webp'); background-size: cover; background-position: center; }
-.project-card__img--5  { background-color: #3a1a08; background-image: url('assets/projects/selfridges-project/thumbnail_IMG_2787.webp'); background-size: cover; background-position: center; }
-.project-card__img--6  { background-color: #02050c; background-image: url('assets/projects/cv-lab/cv%20banner.webp'); background-size: cover; background-position: center; }
+/* Cover img replaces CSS background-image (avoids URL-encoding issues with spaces) */
+.project-card__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.project-card__img--1  { background-color: #1e120a; }
+.project-card__img--2  { background-color: #111111; }
+.project-card__img--3  { background-color: #1a0610; }
+.project-card__img--4  { background-color: #0e0e28; }
+.project-card__img--5  { background-color: #3a1a08; }
+.project-card__img--6  { background-color: #02050c; }
 .project-card__img--7  { background: linear-gradient(135deg, #0a0316 0%, #1a0840 30%, #4a0f90 60%, #8f0028 100%); }
-.project-card__img--8  { background-color: #080c10; background-image: url('assets/projects/trend-forecasting/Trend%20Forcasting-01.webp'); background-size: cover; background-position: center; }
-.project-card__img--9  { background-color: #0f0018; background-image: url('assets/projects/slimmer-app/photo_2026-04-16_22-19-47.webp'); background-size: cover; background-position: center; }
+.project-card__img--8  { background-color: #080c10; }
+.project-card__img--9  { background-color: #0f0018; }
 .project-card__img--10 { background: linear-gradient(145deg, #0a0e06 0%, #141e08 35%, #1e300a 60%, #2a420e 100%); }
 
 .project-card__inner {
