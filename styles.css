@@ -1292,14 +1292,9 @@ h1, h2, h3, h4 {
 
 .contact__grid {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: clamp(56px, 8vw, 112px);
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vw, 72px);
   align-items: start;
-}
-
-@media (min-width: 769px) {
-  .contact__form  { order: -1; }
-  .contact__info  { order:  1; }
 }
 
 .contact__intro {
