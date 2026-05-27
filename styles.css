@@ -1530,6 +1530,29 @@ h1, h2, h3, h4 {
   .nav__links { display: none; }
   .nav__menu  { display: flex; }
 
+  /* Centre all text on mobile */
+  body { text-align: center; }
+  .section__label,
+  .section__subtitle,
+  .section__label::before { margin-left: auto; margin-right: auto; }
+  .about__body,
+  .about__skills,
+  .about__stats,
+  .hero__tagline,
+  .hero__cta,
+  .contact__intro,
+  .portfolio__filter,
+  .footer__nav { justify-content: center; }
+  .about__skills { justify-content: center; }
+  .stat { align-items: center; }
+  .footer__grid { align-items: center; }
+  .footer__info { text-align: center; }
+  .academic-row__badge { justify-self: center; }
+  .academic-row__title,
+  .academic-row__detail { text-align: center; }
+  .site-card__body { justify-content: center; }
+  .contact__form-actions { justify-content: center; }
+
   .about__grid { grid-template-columns: 1fr; gap: 48px; }
   .about__text::before { display: none; }
   .about__visual { position: static; }
@@ -1545,11 +1568,10 @@ h1, h2, h3, h4 {
     gap: 12px;
     padding: 24px 0;
   }
-  .academic-row__badge { justify-self: start; }
 
   .contact__grid { grid-template-columns: 1fr; gap: 48px; }
   .footer__grid  { flex-direction: column; }
-  .footer__nav   { justify-content: flex-start; }
+  .footer__nav   { justify-content: center; }
 }
 
 @media (max-width: 480px) {
