@@ -448,6 +448,7 @@ h1, h2, h3, h4 {
   text-align: center;
   padding: 0 24px;
   max-width: 1100px;
+  width: 100%;
 }
 
 .hero__label {
@@ -464,8 +465,9 @@ h1, h2, h3, h4 {
 
 .hero__name {
   display: flex;
-  align-items: baseline;
-  gap: 0.45em;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   margin-bottom: 32px;
   opacity: 0;
   transform: translateY(20px);
@@ -473,15 +475,23 @@ h1, h2, h3, h4 {
 }
 
 .hero__name-line {
-  display: inline-block;
+  display: block;
   font-family: var(--font-mono);
-  font-size: clamp(28px, 5.5vw, 72px);
+  font-size: clamp(40px, 14vw, 190px);
   font-weight: 700;
-  letter-spacing: 0.22em;
-  line-height: 1;
+  letter-spacing: 0.03em;
+  line-height: 0.92;
   text-transform: uppercase;
   position: relative;
-  color: var(--text);
+}
+
+.hero__name-line--outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--text);
+}
+
+.hero__name-line--fill {
+  color: var(--red);
   -webkit-text-stroke: 0;
 }
 
