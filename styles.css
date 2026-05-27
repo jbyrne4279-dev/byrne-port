@@ -828,9 +828,7 @@ h1, h2, h3, h4 {
 }
 
 .project-card.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.97);
+  display: none;
 }
 
 .project-card__img {
