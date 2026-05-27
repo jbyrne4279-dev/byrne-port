@@ -348,8 +348,7 @@ h1, h2, h3, h4 {
   transition: transform 0.3s var(--ease-out), background 0.2s;
 }
 .nav__menu:hover span { background: var(--red); }
-.nav__menu.is-open span:first-child { transform: rotate(45deg) translate(3px, 6px); }
-.nav__menu.is-open span:last-child  { transform: rotate(-45deg) translate(3px, -6px); }
+.nav__menu.is-open { visibility: hidden; }
 
 /* ── MOBILE MENU ── */
 .mobile-menu {
@@ -381,8 +380,9 @@ h1, h2, h3, h4 {
 
 .mobile-menu__close {
   position: absolute;
-  top: 24px;
-  right: var(--gap-container);
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.1em;
@@ -399,7 +399,7 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 10px var(--red-dim);
 }
 
-.mobile-menu ul { text-align: left; z-index: 1; position: relative; }
+.mobile-menu ul { text-align: center; z-index: 1; position: relative; }
 .mobile-menu ul li + li { margin-top: 4px; }
 
 .mobile-menu ul li a {
