@@ -728,6 +728,12 @@ h1, h2, h3, h4 {
   max-width: 520px;
 }
 
+.academic__stats {
+  max-width: none;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
 .stat {
   text-align: center;
   padding: 24px 12px;
@@ -1277,6 +1283,11 @@ h1, h2, h3, h4 {
   font-weight: 500;
   color: var(--text);
   flex: 1;
+}
+
+.contact__link-value--phone {
+  color: var(--red);
+  text-decoration: none;
 }
 
 .contact__link-arrow {
