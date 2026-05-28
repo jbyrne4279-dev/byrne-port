@@ -1183,6 +1183,31 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
 }
 
+.academic-row__download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: transparent;
+  border: 1px solid var(--border-2);
+  padding: 8px 14px;
+  transition: color 0.22s var(--ease-out), border-color 0.22s var(--ease-out), background 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), transform 0.22s var(--ease-out);
+}
+
+.academic-row__download:hover {
+  color: var(--red);
+  border-color: var(--red);
+  background: var(--red-dim);
+  box-shadow: 0 0 14px var(--red-dim);
+  transform: translateY(-2px);
+}
+
 .academic-row__badge {
   font-family: var(--font-mono);
   font-size: 8px;
