@@ -980,13 +980,13 @@ h1, h2, h3, h4 {
 /* ── WEBSITES ── */
 .websites { background: var(--bg-2); }
 
-.academic__intro,
-.contact__heading {
+.academic__intro {
   margin-bottom: clamp(40px, 5vw, 64px);
 }
 
 .websites__intro,
-.portfolio__intro {
+.portfolio__intro,
+.contact__heading {
   margin-bottom: clamp(56px, 7vw, 96px);
 }
 
