@@ -380,15 +380,15 @@ h1, h2, h3, h4 {
 
 .mobile-menu__close {
   position: absolute;
-  bottom: 48px;
+  top: 48px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.1em;
   background: none;
-  border: 1px solid var(--border-2);
-  color: var(--text-2);
+  border: 1px solid var(--red);
+  color: var(--red);
   padding: 8px 14px;
   transition: all 0.2s;
   z-index: 1;
