@@ -730,8 +730,8 @@ h1, h2, h3, h4 {
 
 .academic__stats {
   max-width: none;
-  margin-top: 0;
-  margin-bottom: 32px;
+  margin-top: 48px;
+  margin-bottom: 0;
 }
 
 .stat {
