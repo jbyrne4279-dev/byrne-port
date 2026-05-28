@@ -981,10 +981,13 @@ h1, h2, h3, h4 {
 .websites { background: var(--bg-2); }
 
 .websites__intro,
-.portfolio__intro,
 .academic__intro,
 .contact__heading {
   margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.portfolio__intro {
+  margin-bottom: clamp(56px, 7vw, 96px);
 }
 
 .websites__grid {
