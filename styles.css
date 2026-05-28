@@ -541,14 +541,32 @@ h1, h2, h3, h4 {
 }
 
 .hero__tagline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   font-family: var(--font-mono);
-  font-size: clamp(10px, 1.2vw, 13px);
-  letter-spacing: 0.18em;
+  font-size: clamp(10px, 1.05vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--text-2);
-  margin-bottom: 52px;
+  margin-bottom: 32px;
   opacity: 0;
   transform: translateY(10px);
   animation: fadeUp 0.8s var(--ease-out) 0.78s forwards;
+}
+
+.hero__tagline-role { color: var(--text); }
+.hero__tagline-tags { color: var(--text-3); }
+
+.hero__tagline-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red-dim);
+  display: inline-block;
 }
 
 .hero__cta {
