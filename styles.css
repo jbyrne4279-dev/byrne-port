@@ -1142,10 +1142,6 @@ h1, h2, h3, h4 {
   font-size: clamp(40px, 5vw, 60px);
   letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--text-2);
-}
-
-.academic-row--top .academic-row__pct {
   color: var(--red);
   text-shadow: 0 0 20px var(--red-dim);
 }
