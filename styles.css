@@ -980,6 +980,10 @@ h1, h2, h3, h4 {
 /* ── WEBSITES ── */
 .websites { background: var(--bg-2); }
 
+.websites__intro {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
 .websites__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
