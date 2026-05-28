@@ -1026,32 +1026,32 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 18px 24px;
+  gap: 20px;
+  padding: 20px 22px;
   border-top: 1px solid var(--border);
 }
 
 .site-card__meta {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   min-width: 0;
+  flex: 1;
 }
 
 .site-card__name {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: 0.04em;
+  line-height: 1.1;
   color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 .site-card__url {
   font-family: var(--font-mono);
   font-size: 9px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-3);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1062,19 +1062,21 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
+  gap: 7px;
+  padding: 9px 16px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #fff;
   background: var(--red);
   border: 1px solid var(--red);
   white-space: nowrap;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
+
+.site-card__btn svg { width: 11px; height: 11px; }
 
 .site-card:hover .site-card__btn {
   box-shadow: 0 0 24px var(--red-glow);
@@ -1082,9 +1084,9 @@ h1, h2, h3, h4 {
 
 @media (max-width: 768px) {
   .websites__grid { grid-template-columns: 1fr; }
-  .site-card__name { font-size: 18px; }
-  .site-card__body { padding: 14px 16px; gap: 12px; }
-  .site-card__btn { padding: 10px 16px; }
+  .site-card__name { font-size: 17px; }
+  .site-card__body { padding: 16px 18px; gap: 14px; }
+  .site-card__btn { padding: 8px 14px; font-size: 8px; }
 }
 
 /* ── ACADEMIC ── */
