@@ -1553,6 +1553,25 @@ h1, h2, h3, h4 {
 
 /* Centre all text site-wide */
 body { text-align: center; }
+.container,
+.section__header,
+.about__text,
+.about__heading,
+.about__body,
+.section__title,
+.section__subtitle,
+.academic__intro,
+.portfolio__intro,
+.websites__intro,
+.contact__heading,
+.academic-row__body,
+.academic-row__module,
+.academic-row__detail,
+.site-card__meta,
+.site-card__name,
+.site-card__url,
+.footer,
+.footer__bottom { text-align: center; }
 .section__label,
 .section__subtitle,
 .section__label::before { margin-left: auto; margin-right: auto; }
