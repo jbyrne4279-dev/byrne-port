@@ -678,7 +678,7 @@ h1, h2, h3, h4 {
   font-size: 16px;
   line-height: 1.85;
   color: var(--text-2);
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   max-width: 520px;
 }
 
@@ -686,7 +686,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 40px;
+  margin: 40px auto 0;
   max-width: 520px;
 }
 
@@ -716,7 +716,7 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
-  margin-top: 40px;
+  margin: 40px auto 0;
   max-width: 520px;
 }
 
@@ -1551,34 +1551,34 @@ h1, h2, h3, h4 {
   }
 }
 
+/* Centre all text site-wide */
+body { text-align: center; }
+.section__label,
+.section__subtitle,
+.section__label::before { margin-left: auto; margin-right: auto; }
+.about__body,
+.about__skills,
+.about__stats,
+.hero__name,
+.hero__tagline,
+.hero__cta,
+.contact__intro,
+.portfolio__filter,
+.footer__nav { justify-content: center; }
+.about__skills { justify-content: center; }
+.stat { align-items: center; }
+.footer__grid { align-items: center; }
+.footer__info { text-align: center; }
+.academic-row__badge { justify-self: center; }
+.academic-row__grade { justify-content: center; }
+.academic-row__title,
+.academic-row__detail { text-align: center; }
+.site-card__body { justify-content: center; }
+.contact__form-actions { justify-content: center; }
+
 @media (max-width: 768px) {
   .nav__links { display: none; }
   .nav__menu  { display: flex; }
-
-  /* Centre all text on mobile */
-  body { text-align: center; }
-  .section__label,
-  .section__subtitle,
-  .section__label::before { margin-left: auto; margin-right: auto; }
-  .about__body,
-  .about__skills,
-  .about__stats,
-  .hero__name,
-  .hero__tagline,
-  .hero__cta,
-  .contact__intro,
-  .portfolio__filter,
-  .footer__nav { justify-content: center; }
-  .about__skills { justify-content: center; }
-  .stat { align-items: center; }
-  .footer__grid { align-items: center; }
-  .footer__info { text-align: center; }
-  .academic-row__badge { justify-self: center; }
-  .academic-row__grade { justify-content: center; }
-  .academic-row__title,
-  .academic-row__detail { text-align: center; }
-  .site-card__body { justify-content: center; }
-  .contact__form-actions { justify-content: center; }
 
   .about__text::before { display: none; }
 
@@ -1595,7 +1595,6 @@ h1, h2, h3, h4 {
 
   .contact__grid { grid-template-columns: 1fr; gap: 48px; }
   .footer__grid  { flex-direction: column; }
-  .footer__nav   { justify-content: center; }
 }
 
 @media (max-width: 480px) {
