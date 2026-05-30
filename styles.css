@@ -568,6 +568,7 @@ h1, h2, h3, h4 {
   background: var(--red);
   box-shadow: 0 0 8px var(--red-dim);
   display: inline-block;
+  animation: blink 2s step-start infinite;
 }
 
 .hero__cta {
