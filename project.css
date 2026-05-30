@@ -4,6 +4,21 @@
 
 /* Keep project page content left-aligned (overrides mobile body centering) */
 .project-page { text-align: left; }
+.project-page .container,
+.project-page .section__header,
+.project-page .section__title,
+.project-page .section__subtitle,
+.project-page .proj-desc,
+.project-page .proj-desc p,
+.project-page .proj-detail,
+.project-page .proj-section__header,
+.project-page .proj-section__label,
+.project-page .proj-skills,
+.project-page .proj-gallery,
+.project-page .proj-nav,
+.project-page .proj-hero,
+.project-page .proj-hero__title,
+.project-page .proj-hero__subtitle { text-align: left; }
 
 /* ── NAV override: always dark on project pages ── */
 .nav { background: rgba(0,0,0,0.92); border-bottom: 1px solid var(--border); justify-content: space-between; }
