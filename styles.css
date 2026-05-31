@@ -1060,6 +1060,12 @@ h1, h2, h3, h4 {
   transform: scale(1.04);
 }
 
+/* Logo-only variant: no text body, logo fits centered with padding */
+.site-card--logo .site-card__img-wrap { aspect-ratio: 1 / 1; padding: 18%; background: var(--bg-3); }
+.site-card--logo .site-card__img-wrap::after { content: none; }
+.site-card--logo .site-card__img { object-fit: contain; object-position: center; }
+.site-card--logo:hover .site-card__img { transform: scale(1.06); }
+
 .site-card__body {
   display: flex;
   align-items: center;
