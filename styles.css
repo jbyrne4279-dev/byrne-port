@@ -563,13 +563,23 @@ h1, h2, h3, h4 {
 .hero__tagline-tags { color: var(--text-3); }
 
 .hero__tagline-dot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--red);
-  box-shadow: 0 0 8px var(--red-dim);
   display: inline-block;
-  animation: blink 2s step-start infinite;
+  animation: dot-glow 2.6s ease-in-out infinite;
+}
+
+@keyframes dot-glow {
+  0%, 100% {
+    opacity: 0.45;
+    box-shadow: 0 0 2px var(--red-dim);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 10px var(--red-glow), 0 0 22px var(--red-dim);
+  }
 }
 
 .hero__cta {
