@@ -164,37 +164,35 @@
     });
     if (!allValid) return;
 
-    // Visual feedback — swap to sent state
     const originalHTML = submitBtn.innerHTML;
     submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Message Sent! ✓';
-    submitBtn.style.background = '#2d7a4a';
+    submitBtn.innerHTML = 'Sending…';
 
-    // Reset after 3 seconds
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalHTML;
-      submitBtn.style.background = '';
-      form.reset();
-      form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
-    }, 3000);
-
-    /* ── To wire up a real backend, replace the setTimeout block above with: ──
     try {
-      const res = await fetch('YOUR_FORM_ENDPOINT', {
+      const res = await fetch('https://formspree.io/f/xbdbnvye', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
       });
       if (!res.ok) throw new Error('Network error');
       submitBtn.innerHTML = 'Message Sent! ✓';
-    } catch(err) {
+      submitBtn.style.background = '#2d7a4a';
+      form.reset();
+      form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = '';
+      }, 3000);
+    } catch (err) {
       submitBtn.innerHTML = 'Try Again';
       submitBtn.style.background = '#c0392b';
-    } finally {
-      submitBtn.disabled = false;
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = '';
+      }, 3000);
     }
-    ── */
   });
 })();
 

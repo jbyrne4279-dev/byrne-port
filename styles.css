@@ -121,6 +121,16 @@ h1, h2, h3, h4 {
 
 .section__header { margin-bottom: clamp(40px, 5vw, 64px); }
 
+.about .section__header { text-align: center; }
+.about .section__label { margin-left: auto; margin-right: auto; }
+
+.websites .section__header { text-align: center; }
+.websites .section__label,
+.websites .section__subtitle { margin-left: auto; margin-right: auto; }
+.websites .section__label { margin-bottom: 24px; }
+.websites .section__title { margin-bottom: 24px; }
+.websites .section__subtitle { margin-top: 0; }
+
 .section__label {
   display: inline-flex;
   align-items: center;
@@ -130,7 +140,7 @@ h1, h2, h3, h4 {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-3);
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .section__label::before {
@@ -147,6 +157,7 @@ h1, h2, h3, h4 {
   color: var(--text);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .section__subtitle {
@@ -154,7 +165,7 @@ h1, h2, h3, h4 {
   line-height: 1.75;
   color: var(--text-3);
   max-width: 540px;
-  margin-top: 12px;
+  margin-top: 0;
   letter-spacing: 0.01em;
 }
 
@@ -489,6 +500,7 @@ h1, h2, h3, h4 {
 .hero__name {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.45em;
   margin-bottom: 32px;
   opacity: 0;
@@ -640,30 +652,18 @@ h1, h2, h3, h4 {
 }
 
 .about__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
+  display: flex;
+  justify-content: center;
 }
 
 .about__text {
   position: relative;
+  max-width: 680px;
+  text-align: left;
 }
 
 /* Faint section watermark behind text */
-.about__text::before {
-  content: '01';
-  position: absolute;
-  top: -32px;
-  left: -8px;
-  font-family: var(--font-display);
-  font-size: clamp(120px, 18vw, 220px);
-  letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.025);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
+.about__text::before { display: none; }
 
 .about__text > * { position: relative; z-index: 1; }
 
@@ -676,6 +676,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
   margin-bottom: 36px;
   color: var(--text);
+  text-align: center;
 }
 
 .about__heading em {
@@ -690,8 +691,8 @@ h1, h2, h3, h4 {
   font-size: 16px;
   line-height: 1.85;
   color: var(--text-2);
-  margin: 0 auto 20px;
-  max-width: 520px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .about__skills {
@@ -1157,7 +1158,7 @@ h1, h2, h3, h4 {
 
 .academic-row {
   display: grid;
-  grid-template-columns: 160px 1fr auto;
+  grid-template-columns: 160px 1fr 120px;
   align-items: center;
   gap: 40px;
   padding: 32px 0;
@@ -1264,18 +1265,43 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 16px var(--red-glow);
 }
 
-.academic-row__badge:empty { display: none; }
+.academic-row__badge:empty { visibility: hidden; }
 .academic-row--top .academic-row__badge { opacity: 1; }
 
 /* ── CONTACT ── */
 .contact { background: var(--bg-2); position: relative; }
 
+.contact .section__header { text-align: center; }
+.contact .section__label { margin-left: auto; margin-right: auto; }
+.contact .section__title { text-align: center; }
+.contact__intro { margin-left: auto; margin-right: auto; text-align: center; }
+
 .contact__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(40px, 6vw, 72px);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 5vw, 64px);
 }
+
+.contact__info,
+.contact__form {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+}
+
+.contact__links {
+  align-items: center;
+}
+
+.contact__link {
+  justify-content: center;
+}
+
+.contact__form-actions {
+  justify-content: center;
+}
+
 
 .contact__intro {
   font-size: 15px;
@@ -1290,6 +1316,10 @@ h1, h2, h3, h4 {
   gap: 0;
   margin-bottom: 40px;
   border-top: 1px solid var(--border);
+}
+
+.contact__links--below {
+  margin-top: 40px;
 }
 
 .contact__link {
@@ -1420,9 +1450,11 @@ h1, h2, h3, h4 {
   border-top: 1px solid var(--border);
 }
 
+.footer__brand { display: none; }
+
 .footer__grid {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   gap: 40px;
   margin-bottom: 40px;
@@ -1632,6 +1664,8 @@ body { text-align: center; }
 
   .contact__grid { grid-template-columns: 1fr; gap: 48px; }
   .footer__grid  { flex-direction: column; }
+  .footer__nav   { justify-content: center; }
+  .footer__brand { display: block; }
 }
 
 @media (max-width: 480px) {
