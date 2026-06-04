@@ -1450,7 +1450,7 @@ h1, h2, h3, h4 {
   border-top: 1px solid var(--border);
 }
 
-.footer__brand { display: none; }
+.footer__brand { display: block; }
 
 .footer__grid {
   display: flex;
@@ -1530,6 +1530,72 @@ h1, h2, h3, h4 {
   border-radius: 50%;
   box-shadow: 0 0 8px var(--red);
   animation: blink 2s step-start infinite;
+}
+
+/* ── Footer services ── */
+.footer__services {
+  flex: 1;
+  min-width: 260px;
+  max-width: 620px;
+}
+
+.footer__services-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0 0 18px;
+}
+
+.footer__services-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.footer__service-link {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, background 0.2s;
+  text-decoration: none;
+}
+.footer__service-link:hover {
+  border-color: var(--red);
+  background: rgba(255,255,255,0.02);
+}
+
+.footer__service-name {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 5px;
+  transition: color 0.2s;
+}
+.footer__service-link:hover .footer__service-name {
+  color: var(--red);
+}
+
+.footer__service-link--all .footer__service-name {
+  color: var(--red);
+}
+
+.footer__service-desc {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+  color: var(--text-3);
 }
 
 /* ── KEYFRAMES ── */
