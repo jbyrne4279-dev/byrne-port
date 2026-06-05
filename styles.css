@@ -965,6 +965,7 @@ h1, h2, h3, h4 {
   color: rgba(255,255,255,0.75);
   max-width: 380px;
   margin-bottom: 18px;
+  text-align: center;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s var(--ease-out) 0.04s,
