@@ -1227,11 +1227,19 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
 }
 
+.academic-row__downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  justify-content: flex-start;
+}
+
 .academic-row__download {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 0;
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 700;
@@ -1643,6 +1651,7 @@ body { text-align: center; }
 .academic-row__grade { justify-content: center; }
 .academic-row__title,
 .academic-row__detail { text-align: center; }
+.academic-row__downloads { justify-content: center; }
 .site-card__body { justify-content: center; }
 .contact__form-actions { justify-content: center; }
 
