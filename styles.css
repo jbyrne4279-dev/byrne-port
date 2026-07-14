@@ -24,6 +24,10 @@ ul { list-style: none; }
   --red-dim:  rgba(176, 0, 32, 0.25);
   --red-glow: rgba(176, 0, 32, 0.55);
 
+  --green:      #1DB954;
+  --green-dim:  rgba(29, 185, 84, 0.25);
+  --green-glow: rgba(29, 185, 84, 0.55);
+
   --border:   rgba(255,255,255,0.07);
   --border-2: rgba(255,255,255,0.14);
   --border-r: rgba(255, 0, 46, 0.3);
@@ -84,6 +88,11 @@ h1, h2, h3, h4 {
   line-height: 1.05;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+/* All h1s flicker in time with the ambient background glow */
+h1 {
+  animation: flame-vibrate 2.6s ease-in-out infinite;
 }
 
 /* ── CUSTOM CURSOR ── */
@@ -250,10 +259,17 @@ h1, h2, h3, h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal.in-view {
+  .reveal, .reveal.in-view,
+  .academic-row.reveal.in-view {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  h1 {
+    animation: none;
+  }
+  .hero__name {
+    animation: fadeUp 0.9s var(--ease-out) 0.5s forwards;
   }
 }
 
@@ -551,7 +567,7 @@ h1, h2, h3, h4 {
 
 /* Ambient glitch — fires every 8s */
 .hero__name {
-  animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite;
+  animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite, flame-vibrate 2.6s ease-in-out infinite;
 }
 
 .hero__tagline {
@@ -1062,8 +1078,8 @@ h1, h2, h3, h4 {
   transform: scale(1.04);
 }
 
-/* Logo-only variant: no text body, logo fits centered with padding */
-.site-card--logo .site-card__img-wrap { aspect-ratio: 1 / 1; padding: 18%; background: var(--bg-3); }
+/* Logo variant: same frame as screenshots, logo fits contained with padding */
+.site-card--logo .site-card__img-wrap { padding: 14%; background: var(--bg-3); }
 .site-card--logo .site-card__img-wrap::after { content: none; }
 .site-card--logo .site-card__img { object-fit: contain; object-position: center; }
 .site-card--logo:hover .site-card__img { transform: scale(1.06); }
@@ -1188,8 +1204,19 @@ h1, h2, h3, h4 {
   font-size: clamp(40px, 5vw, 60px);
   letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--red);
-  text-shadow: 0 0 20px var(--red-dim);
+  color: var(--green);
+  text-shadow: 0 0 20px var(--green-dim);
+}
+
+/* Apple-notification-style drop-in for each grade row */
+.academic-row.reveal.in-view {
+  animation: notification-drop 0.6s var(--ease-out) both;
+}
+
+@keyframes notification-drop {
+  0%   { opacity: 0; transform: translateY(-30px) scale(0.85); }
+  60%  { opacity: 1; transform: translateY(4px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .academic-row__class {
@@ -1595,6 +1622,22 @@ h1, h2, h3, h4 {
   94%  { transform: translate(0, 2px);  filter: none; }
   94.5%{ transform: translate(-2px, 0); filter: saturate(2); }
   95%  { transform: none; filter: none; }
+}
+
+/* Subtle flame-like flicker — uses translate/rotate (not transform) so it
+   layers on top of any transform-based animation already on the element */
+@keyframes flame-vibrate {
+  0%, 100% { translate: 0 0;          rotate: 0deg;    text-shadow: 0 0 8px var(--red-dim); }
+  8%       { translate: 0.6px -0.4px; rotate: 0.15deg; text-shadow: 0 0 14px var(--red-glow); }
+  17%      { translate: -0.5px 0.3px; rotate: -0.2deg; text-shadow: 0 0 6px var(--red-dim); }
+  26%      { translate: 0.4px 0.5px;  rotate: 0.1deg;  text-shadow: 0 0 18px var(--red-glow); }
+  35%      { translate: -0.6px -0.3px;rotate: -0.15deg;text-shadow: 0 0 8px var(--red-dim); }
+  44%      { translate: 0.3px 0.2px;  rotate: 0.2deg;  text-shadow: 0 0 12px var(--red-glow); }
+  53%      { translate: -0.3px -0.5px;rotate: -0.1deg; text-shadow: 0 0 6px var(--red-dim); }
+  62%      { translate: 0.5px 0.4px;  rotate: 0.15deg; text-shadow: 0 0 16px var(--red-glow); }
+  71%      { translate: -0.4px -0.2px;rotate: -0.2deg; text-shadow: 0 0 8px var(--red-dim); }
+  80%      { translate: 0.6px -0.5px; rotate: 0.1deg;  text-shadow: 0 0 14px var(--red-glow); }
+  89%      { translate: -0.5px 0.3px; rotate: -0.15deg;text-shadow: 0 0 6px var(--red-dim); }
 }
 
 /* ── RESPONSIVE ── */
