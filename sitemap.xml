@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://josephbyrne.co.uk/</loc>
+    <loc>https://josephbyrne.org/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=clothing-brand</loc>
+    <loc>https://josephbyrne.org/project?slug=clothing-brand</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=named-collective</loc>
+    <loc>https://josephbyrne.org/project?slug=named-collective</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=next-collection</loc>
+    <loc>https://josephbyrne.org/project?slug=next-collection</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=trend-forecasting</loc>
+    <loc>https://josephbyrne.org/project?slug=trend-forecasting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=selfridges-project</loc>
+    <loc>https://josephbyrne.org/project?slug=selfridges-project</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=trimas-internship</loc>
+    <loc>https://josephbyrne.org/project?slug=trimas-internship</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=slimmer-app</loc>
+    <loc>https://josephbyrne.org/project?slug=slimmer-app</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://josephbyrne.co.uk/project?slug=cv-lab</loc>
+    <loc>https://josephbyrne.org/project?slug=cv-lab</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://josephbyrne.co.uk/sitemap.xml
+Sitemap: https://josephbyrne.org/sitemap.xml
