@@ -697,6 +697,16 @@ h1, h2, h3, h4 {
   letter-spacing: 0;
 }
 
+.glow-text {
+  color: var(--red);
+  animation: text-glow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% { text-shadow: 0 0 10px var(--red-dim); }
+  50%      { text-shadow: 0 0 20px var(--red-glow), 0 0 44px var(--red-dim); }
+}
+
 .about__body {
   font-size: 16px;
   line-height: 1.85;
