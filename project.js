@@ -33,6 +33,9 @@
   set('projCat',     project.category);
   set('projTitle',   project.title);
   set('projSubtitle', project.subtitle);
+
+  const projTitleEl = document.getElementById('projTitle');
+  if (projTitleEl && window.TerminalFlicker) window.TerminalFlicker.arm(projTitleEl);
   set('detailYear',    project.year);
   set('detailCat',     project.category);
   set('detailContext', project.context);
@@ -214,6 +217,9 @@
         <p>Project not found</p>
         <a href="index.html#portfolio" class="btn btn--outline" style="margin-top:16px">← Back to Work</a>
       </div>`;
+
+    const notFoundH1 = page.querySelector('h1');
+    if (notFoundH1 && window.TerminalFlicker) window.TerminalFlicker.arm(notFoundH1);
   }
 
 })();

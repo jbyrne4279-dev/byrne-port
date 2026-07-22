@@ -90,10 +90,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
 }
 
-/* All h1s flicker in time with the ambient background glow */
-h1 {
-  animation: flame-vibrate 1.8s ease-in-out infinite;
-}
+/* All h1s decode in like terminal text — see TerminalFlicker in script.js */
 
 /* ── CUSTOM CURSOR ── */
 .cursor {
@@ -264,9 +261,6 @@ h1 {
     animation: none;
     opacity: 1;
     transform: none;
-  }
-  h1 {
-    animation: none;
   }
   .hero__name {
     animation: fadeUp 0.9s var(--ease-out) 0.5s forwards;
@@ -567,7 +561,7 @@ h1 {
 
 /* Ambient glitch — fires every 8s */
 .hero__name {
-  animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite, flame-vibrate 1.8s ease-in-out infinite;
+  animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite;
 }
 
 .hero__tagline {
@@ -1624,20 +1618,10 @@ h1 {
   95%  { transform: none; filter: none; }
 }
 
-/* Flame-like flicker — uses translate/rotate (not transform) so it
-   layers on top of any transform-based animation already on the element */
-@keyframes flame-vibrate {
-  0%, 100% { translate: 0 0;        rotate: 0deg;   text-shadow: 0 0 8px var(--red-dim); }
-  8%       { translate: 2px -1.5px; rotate: 0.6deg; text-shadow: 0 0 16px var(--red-glow); }
-  17%      { translate: -2px 1px;   rotate: -0.7deg;text-shadow: 0 0 6px var(--red-dim); }
-  26%      { translate: 1.5px 2px;  rotate: 0.5deg; text-shadow: 0 0 20px var(--red-glow); }
-  35%      { translate: -2.5px -1px;rotate: -0.6deg;text-shadow: 0 0 8px var(--red-dim); }
-  44%      { translate: 1px 1px;    rotate: 0.7deg; text-shadow: 0 0 14px var(--red-glow); }
-  53%      { translate: -1px -2px;  rotate: -0.4deg;text-shadow: 0 0 6px var(--red-dim); }
-  62%      { translate: 2px 1.5px;  rotate: 0.6deg; text-shadow: 0 0 18px var(--red-glow); }
-  71%      { translate: -1.5px -1px;rotate: -0.7deg;text-shadow: 0 0 8px var(--red-dim); }
-  80%      { translate: 2.5px -2px; rotate: 0.5deg; text-shadow: 0 0 16px var(--red-glow); }
-  89%      { translate: -2px 1px;   rotate: -0.6deg;text-shadow: 0 0 6px var(--red-dim); }
+/* Terminal decode flicker — brief text-shadow pulse while
+   TerminalFlicker (script.js) scrambles the h1 characters */
+h1.is-decoding {
+  text-shadow: 0 0 16px var(--red-glow);
 }
 
 /* ── RESPONSIVE ── */

@@ -312,6 +312,79 @@
   })();
 })();
 
+/* ── H1 TERMINAL FLICKER ── */
+/* Decodes h1 text in from random terminal glyphs, like a console
+   resolving a string, then re-flickers it on an ambient interval.
+   Exposed on window so project.js can (re)trigger it once the real
+   project title replaces the "Loading…" placeholder. */
+window.TerminalFlicker = (function () {
+  const CHARS = '!<>-_\\/[]{}=+*^?#01';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function scramble(el, finalText, { duration = 650, attr } = {}) {
+    if (reduceMotion || !finalText) {
+      el.textContent = finalText;
+      if (attr) el.setAttribute(attr, finalText);
+      return;
+    }
+
+    const len   = finalText.length;
+    const start = performance.now();
+    el.classList.add('is-decoding');
+
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const revealCount = Math.floor(t * len);
+      let out = '';
+      for (let i = 0; i < len; i++) {
+        out += (finalText[i] === ' ' || i < revealCount)
+          ? finalText[i]
+          : CHARS[(Math.random() * CHARS.length) | 0];
+      }
+      el.textContent = out;
+      if (attr) el.setAttribute(attr, out);
+
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = finalText;
+        if (attr) el.setAttribute(attr, finalText);
+        el.classList.remove('is-decoding');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function arm(h1, { repeat = true } = {}) {
+    if (!h1 || h1._flickerArmed) return;
+    h1._flickerArmed = true;
+
+    // Elements with data-text (e.g. hero__name-line glitch clones) keep
+    // their attribute in sync so the ::before/::after layers match.
+    const lines   = h1.querySelectorAll('[data-text]');
+    const targets = lines.length ? Array.from(lines) : [h1];
+
+    targets.forEach(t => {
+      t._flickerText = t.hasAttribute('data-text') ? t.getAttribute('data-text') : t.textContent;
+    });
+
+    function run() {
+      targets.forEach(t => scramble(t, t._flickerText, {
+        attr: t.hasAttribute('data-text') ? 'data-text' : null
+      }));
+    }
+
+    run();
+    if (repeat && !reduceMotion) {
+      setInterval(run, 7000 + Math.random() * 5000);
+    }
+  }
+
+  document.querySelectorAll('h1:not([data-flicker-manual])').forEach(h1 => arm(h1));
+
+  return { arm };
+})();
+
 /* ── SMOOTH ANCHOR SCROLL (cross-browser fallback) ── */
 (function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
