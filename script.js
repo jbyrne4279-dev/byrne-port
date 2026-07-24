@@ -265,14 +265,14 @@
       this.y          = initial ? Math.random() * canvas.height : canvas.height + 60;
       this.radius     = 90 + Math.random() * 200;
       this.opacity    = 0;
-      this.maxOpacity = 0.045 + Math.random() * 0.09;
+      this.maxOpacity = 0.09 + Math.random() * 0.13;
       this.vy         = -(0.15 + Math.random() * 0.45);
       this.vx         = (Math.random() - 0.5) * 0.25;
       this.phase      = Math.random() * Math.PI * 2;
       this.growing    = true;
       this.color      = Math.random() > 0.35
-        ? `176,0,32`    // blood red
-        : `100,0,18`;   // darker wine
+        ? `216,20,40`   // blood red
+        : `140,10,24`;  // darker wine
     };
     this.reset(!!initialY);
 
@@ -282,7 +282,7 @@
       this.phase += 0.004;
 
       if (this.growing) {
-        this.opacity = Math.min(this.opacity + 0.0015, this.maxOpacity);
+        this.opacity = Math.min(this.opacity + 0.003, this.maxOpacity);
         if (this.opacity >= this.maxOpacity) this.growing = false;
       } else {
         this.opacity -= 0.0008;
@@ -304,6 +304,8 @@
   }
 
   for (let i = 0; i < COUNT; i++) particles.push(new MistParticle(true));
+
+  ctx.globalCompositeOperation = 'lighter';
 
   (function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -377,6 +379,38 @@ window.TerminalFlicker = (function () {
     run();
     if (repeat && !reduceMotion) {
       setInterval(run, 7000 + Math.random() * 5000);
+    }
+
+    // Hover: scramble continuously while the pointer is over the h1,
+    // then decode back to the real text once it leaves.
+    if (!reduceMotion) {
+      let hovering = false;
+
+      function hoverFrame() {
+        if (!hovering) return;
+        targets.forEach(t => {
+          const text = t._flickerText;
+          let out = '';
+          for (let i = 0; i < text.length; i++) {
+            out += text[i] === ' ' ? ' ' : CHARS[(Math.random() * CHARS.length) | 0];
+          }
+          t.textContent = out;
+          if (t.hasAttribute('data-text')) t.setAttribute('data-text', out);
+        });
+        requestAnimationFrame(hoverFrame);
+      }
+
+      h1.addEventListener('mouseenter', () => {
+        if (hovering) return;
+        hovering = true;
+        targets.forEach(t => t.classList.add('is-decoding'));
+        requestAnimationFrame(hoverFrame);
+      });
+
+      h1.addEventListener('mouseleave', () => {
+        hovering = false;
+        run();
+      });
     }
   }
 
