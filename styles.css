@@ -956,7 +956,7 @@ h1, h2, h3, h4 {
   line-height: 1.65;
   color: rgba(255,255,255,0.75);
   max-width: 380px;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
   text-align: center;
   opacity: 0;
   transform: translateY(6px);
