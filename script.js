@@ -421,6 +421,72 @@ window.TerminalFlicker = (function () {
   return { arm };
 })();
 
+/* ── TYPE-IN TEXT REVEAL ── */
+/* Fades body copy in word by word, typewriter-style, once it scrolls
+   into view. Words wrap in place around any existing inline markup
+   (the red highlight spans in the about/websites copy) so only the
+   opacity/position animate — colors and structure are untouched.
+   Exposed on window so project.js can run it on description
+   paragraphs it injects after this script has already scanned the DOM. */
+window.TypeReveal = (function () {
+  const STAGGER     = 25;  // ms between each word's reveal
+  const MAX_STAGGER = 450; // cap so long paragraphs don't crawl
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-typed');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  function wrapWords(node, counter) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      if (!node.textContent.trim()) return;
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (part === '') return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'word-fade';
+          span.style.transitionDelay = Math.min(counter.i++ * STAGGER, MAX_STAGGER) + 'ms';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      Array.from(node.childNodes).forEach(child => wrapWords(child, counter));
+    }
+  }
+
+  function run(el) {
+    if (!el || el._typeArmed || !el.textContent.trim()) return;
+    el._typeArmed = true;
+    if (reduceMotion) return;
+
+    wrapWords(el, { i: 0 });
+
+    // Project card descriptions are hidden (opacity: 0) until the card
+    // is hovered, so scroll-visibility isn't the right trigger for them —
+    // type in on the first hover instead, once, like everything else.
+    const card = el.closest('.project-card');
+    if (card) {
+      card.addEventListener('mouseenter', () => el.classList.add('is-typed'), { once: true });
+    } else {
+      io.observe(el);
+    }
+  }
+
+  document.querySelectorAll('.type-reveal').forEach(run);
+
+  return { run };
+})();
+
 /* ── SMOOTH ANCHOR SCROLL (cross-browser fallback) ── */
 (function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -36,6 +36,10 @@
 
   const projTitleEl = document.getElementById('projTitle');
   if (projTitleEl && window.TerminalFlicker) window.TerminalFlicker.arm(projTitleEl);
+
+  const projSubtitleEl = document.getElementById('projSubtitle');
+  if (projSubtitleEl && window.TypeReveal) window.TypeReveal.run(projSubtitleEl);
+
   set('detailYear',    project.year);
   set('detailCat',     project.category);
   set('detailContext', project.context);
@@ -52,7 +56,10 @@
   }
 
   // Description paragraphs
-  set('projDesc', project.description.map(p => `<p>${p}</p>`).join(''));
+  set('projDesc', project.description.map(p => `<p class="type-reveal">${p}</p>`).join(''));
+  if (window.TypeReveal) {
+    document.querySelectorAll('#projDesc .type-reveal').forEach(p => window.TypeReveal.run(p));
+  }
 
   // Skills
   set('projSkills',

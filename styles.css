@@ -1593,6 +1593,22 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
 }
 
+/* Type-in word reveal — TypeReveal (script.js) wraps body copy in
+   .word-fade spans and adds .is-typed once the paragraph scrolls into
+   view; each word's transition-delay (inline style) staggers the
+   reveal into a fast typewriter effect. */
+.word-fade {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.is-typed .word-fade {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .portfolio__grid {
