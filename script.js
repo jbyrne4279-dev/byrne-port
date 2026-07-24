@@ -477,9 +477,18 @@ window.TypeReveal = (function () {
     const card = el.closest('.project-card');
     if (card) {
       card.addEventListener('mouseenter', () => el.classList.add('is-typed'), { once: true });
-    } else {
-      io.observe(el);
+      return;
     }
+
+    // Delayed past the h1 terminal-scramble window (TerminalFlicker's
+    // default duration is 650ms) before the first intersection check.
+    // The scramble forces a monospace font on the title while it runs,
+    // which briefly changes its line-wrap and shifts everything below
+    // it — including, on project pages, this description. Observing too
+    // early can catch that transient layout and mark an element that's
+    // really below the fold as already-visible, permanently unobserving
+    // it before it ever gets to animate.
+    setTimeout(() => io.observe(el), 800);
   }
 
   document.querySelectorAll('.type-reveal').forEach(run);
