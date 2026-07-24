@@ -314,9 +314,10 @@
   })();
 })();
 
-/* ── H1 TERMINAL FLICKER ── */
-/* Decodes h1 text in from random terminal glyphs, like a console
-   resolving a string, then re-flickers it on an ambient interval.
+/* ── HEADING TERMINAL FLICKER ── */
+/* Decodes heading text in from random terminal glyphs, like a console
+   resolving a string, then re-flickers it on an ambient interval and
+   on hover. Applies to the hero h1 and each section's main heading.
    Exposed on window so project.js can (re)trigger it once the real
    project title replaces the "Loading…" placeholder. */
 window.TerminalFlicker = (function () {
@@ -414,7 +415,8 @@ window.TerminalFlicker = (function () {
     }
   }
 
-  document.querySelectorAll('h1:not([data-flicker-manual])').forEach(h1 => arm(h1));
+  const HEADING_SELECTOR = 'h1:not([data-flicker-manual]), h2.section__title, h2.about__heading';
+  document.querySelectorAll(HEADING_SELECTOR).forEach(h1 => arm(h1));
 
   return { arm };
 })();
