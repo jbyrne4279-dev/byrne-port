@@ -361,8 +361,8 @@ window.TerminalFlicker = (function () {
     if (!h1 || h1._flickerArmed) return;
     h1._flickerArmed = true;
 
-    // Elements with data-text (e.g. hero__name-line glitch clones) keep
-    // their attribute in sync so the ::before/::after layers match.
+    // Elements with data-text (e.g. hero__name-line spans) keep their
+    // attribute in sync with the scrambled/resolved text.
     const lines   = h1.querySelectorAll('[data-text]');
     const targets = lines.length ? Array.from(lines) : [h1];
 
@@ -378,7 +378,7 @@ window.TerminalFlicker = (function () {
 
     run();
     if (repeat && !reduceMotion) {
-      setInterval(run, 7000 + Math.random() * 5000);
+      setInterval(run, 20000);
     }
 
     // Hover: scramble continuously while the pointer is over the h1,

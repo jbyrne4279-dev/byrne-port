@@ -531,34 +531,6 @@ h1, h2, h3, h4 {
   -webkit-text-stroke: 0;
 }
 
-/* Glitch layers */
-.hero__name-line::before,
-.hero__name-line::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  font-family: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
-  line-height: inherit;
-  pointer-events: none;
-}
-
-.hero__name-line::before { color: var(--red); }
-.hero__name-line::after  { color: rgba(0, 255, 220, 0.7); }
-
-/* Glitch trigger — fires on hover */
-.hero__name:hover .hero__name-line::before {
-  opacity: 0.7;
-  animation: glitch-r 0.45s steps(1) infinite;
-}
-
-.hero__name:hover .hero__name-line::after {
-  opacity: 0.5;
-  animation: glitch-c 0.45s steps(1) infinite reverse;
-}
-
 /* Ambient glitch — fires every 8s */
 .hero__name {
   animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite;
@@ -1601,24 +1573,7 @@ h1, h2, h3, h4 {
   50%       { opacity: 0; }
 }
 
-/* Glitch animations */
-@keyframes glitch-r {
-  0%  { clip-path: inset(0 0 98% 0);  transform: translate(-4px, 0); }
-  10% { clip-path: inset(15% 0 70% 0); transform: translate(3px, 0); }
-  20% { clip-path: inset(55% 0 25% 0); transform: translate(-3px, 1px); }
-  30% { clip-path: inset(80% 0 4% 0);  transform: translate(4px, 0); }
-  40% { clip-path: inset(5% 0 88% 0);  transform: translate(-2px, 0); }
-  50%, 100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); opacity: 0; }
-}
-
-@keyframes glitch-c {
-  0%  { clip-path: inset(0 0 92% 0);  transform: translate(4px, 0); }
-  15% { clip-path: inset(30% 0 50% 0); transform: translate(-3px, 0); }
-  30% { clip-path: inset(60% 0 20% 0); transform: translate(3px, -1px); }
-  45% { clip-path: inset(85% 0 2% 0);  transform: translate(-4px, 0); }
-  55%, 100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); opacity: 0; }
-}
-
+/* Ambient glitch — subtle hue/saturation pulse, unrelated to hover */
 @keyframes ambient-glitch {
   0%, 91%, 100%  { filter: none; }
   92%  { filter: hue-rotate(60deg) brightness(1.1); }
