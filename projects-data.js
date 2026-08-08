@@ -664,6 +664,10 @@ const PROJECTS = [
       'Dashboard Design', 'Data Management', 'Requirements Analysis',
       'Operational Optimisation', 'Problem Solving', 'Project Management'
     ],
+    links: [
+      { label: 'View Live Site', url: 'https://cafe-system-production-d109.up.railway.app/', color: 'purple' }
+    ],
+    linksNote: 'Designed for mobile view',
     gradient: 'linear-gradient(145deg, #02060c 0%, #06283d 35%, #0a3d5c 60%, #10617a 100%)',
     imageCount: 0,
     imagePaths: []

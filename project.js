@@ -63,6 +63,17 @@
     linksEl.style.display = links.length ? 'flex' : 'none';
   }
 
+  // Optional caption under the link buttons (e.g. "Designed for mobile view")
+  const noteEl = document.getElementById('projLinksNote');
+  if (noteEl) {
+    if (project.linksNote) {
+      noteEl.textContent = project.linksNote;
+      noteEl.style.display = 'block';
+    } else {
+      noteEl.style.display = 'none';
+    }
+  }
+
   // Description paragraphs
   set('projDesc', project.description.map(p => `<p class="type-reveal">${p}</p>`).join(''));
   if (window.TypeReveal) {
