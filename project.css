@@ -96,11 +96,12 @@
 }
 
 .proj-hero__title {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 10vw, 130px);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  line-height: 0.92;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6.5vw, 88px);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  line-height: 1.08;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 20px;
 }
