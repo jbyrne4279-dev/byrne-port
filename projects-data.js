@@ -645,5 +645,72 @@ const PROJECTS = [
     gradient: 'linear-gradient(145deg, #0a0e06 0%, #141e08 35%, #1e300a 60%, #2a420e 100%)',
     imageCount: 0,
     imagePaths: []
+  },
+  {
+    slug:     'cafe-compliance',
+    index:    '11',
+    category: 'Digital Product',
+    title:    'Cafe Compliance Management System',
+    subtitle: 'Digital Compliance Platform & Supervisor Dashboard',
+    year:     '2026',
+    context:  'Summer Role — Supervisor — Self-Initiated',
+    description: [
+      'After being promoted to Supervisor during my summer role in 2026, I identified inefficiencies in the council\'s paper-based compliance process across three catering sites. Daily fridge and freezer temperature checks, cleaning records and operational logs were all managed manually, creating gaps in accountability and forcing supervisors to spend significant time chasing incomplete records.',
+      'I independently designed and developed a digital compliance management system to replace the existing paper workflow. The platform automated staff identification and record tracking while giving supervisors a centralised dashboard for daily, weekly, monthly and annual compliance monitoring. Key functionality included submission timestamps, staff accountability, incomplete-record detection and management-level reporting, so supervisors could immediately see outstanding checks and the staff members responsible.',
+      'The project demonstrated my ability to identify operational problems, translate them into digital product requirements, and build a practical technology-led solution off my own initiative, without being asked to do so.'
+    ],
+    skills: [
+      'Digital Product Development', 'UX/UI Design', 'Process Automation',
+      'Dashboard Design', 'Data Management', 'Requirements Analysis',
+      'Operational Optimisation', 'Problem Solving', 'Project Management'
+    ],
+    gradient: 'linear-gradient(145deg, #02060c 0%, #06283d 35%, #0a3d5c 60%, #10617a 100%)',
+    imageCount: 0,
+    imagePaths: []
+  },
+  {
+    slug:     'arc26',
+    index:    '12',
+    category: 'App Design',
+    title:    'Arc26',
+    subtitle: 'Productivity & Accountability App',
+    year:     '2026',
+    context:  'Co-Founder — Product & UI/UX',
+    description: [
+      'Arc26 is a productivity and accountability app I co-founded with two friends after spotting gaps in the existing solutions on the market. My role spanned market research, competitor analysis, product strategy, feature development and launch planning, helping translate identified consumer needs into a clear product proposition.',
+      'I also led significant elements of the app\'s UI/UX development, using AI-assisted design and prompting workflows to rapidly prototype interfaces, test concepts and iterate on the product experience. This let our small team move from initial concept to refined digital product concepts at real speed.',
+      'The project has given me practical experience across digital product development, consumer research, UX strategy, AI-assisted workflows, brand positioning, digital marketing and collaborative project management.'
+    ],
+    skills: [
+      'Product Strategy', 'Competitor Analysis', 'Market Research',
+      'UI/UX Design', 'AI Prompt Engineering', 'Digital Product Development',
+      'Brand Strategy', 'Digital Marketing', 'Project Management'
+    ],
+    gradient: 'linear-gradient(145deg, #0a0616 0%, #160a2e 35%, #241045 60%, #3a1a70 100%)',
+    imageCount: 0,
+    imagePaths: []
+  },
+  {
+    slug:     'reinstatement-cost-assessment',
+    index:    '13',
+    category: 'Web & Marketing',
+    title:    'Reinstatement Cost Assessment Businesses',
+    subtitle: 'Web Development & Performance Marketing',
+    year:     '2026',
+    context:  'Freelance — Web Development & Go-to-Market',
+    description: [
+      'I led the digital development and go-to-market strategy for two Reinstatement Cost Assessment businesses, taking them from initial market research and competitor analysis through to website development, digital marketing and launch.',
+      'I identified gaps in the existing market and built bespoke websites using AI-assisted development workflows with Claude Code, incorporating technical SEO, local SEO, lead-generation forms and cloud-based hosting infrastructure. After launch, I planned and optimised Google Search campaigns focused on high-intent queries, and implemented GA4, Google Tag Manager, conversion tracking and event tracking to create a measurable acquisition funnel and monitor performance.',
+      'Within the first month the campaigns generated 18 qualified enquiries and 10 new clients from just £80 in advertising spend, showing the commercial impact of combining web development, performance marketing and data-driven optimisation.'
+    ],
+    skills: [
+      'Web Development', 'AI-Assisted Development', 'Technical SEO',
+      'Local SEO', 'Google Ads', 'Performance Marketing',
+      'GA4', 'Google Tag Manager', 'Conversion Tracking',
+      'Lead Generation', 'Competitor Analysis', 'Digital Strategy', 'Project Management'
+    ],
+    gradient: 'linear-gradient(145deg, #04100a 0%, #08281a 35%, #0c3d28 60%, #10613c 100%)',
+    imageCount: 0,
+    imagePaths: []
   }
 ];
