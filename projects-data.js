@@ -710,8 +710,8 @@ const PROJECTS = [
       'Lead Generation', 'Competitor Analysis', 'Digital Strategy', 'Project Management'
     ],
     links: [
-      { label: 'RCA Website', url: 'https://reinstatementcostassessment.org/' },
-      { label: 'Stearling Reinstatement', url: 'https://stearlingreinstatement.com/' }
+      { label: 'RCA Website', url: 'https://reinstatementcostassessment.org/', color: 'green', arrow: false },
+      { label: 'Stearling Reinstatement', url: 'https://stearlingreinstatement.com/', color: 'green', arrow: false }
     ],
     gradient: 'linear-gradient(145deg, #04100a 0%, #08281a 35%, #0c3d28 60%, #10613c 100%)',
     imageCount: 0,
