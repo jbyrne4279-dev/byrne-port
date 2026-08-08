@@ -358,7 +358,7 @@ const PROJECTS = [
     slug:     'selfridges-project',
     index:    '05',
     category: 'Retail Design',
-    title:    'Selfridges Project',
+    title:    'Selfridges',
     subtitle: 'Visual Merchandising & Retail Strategy',
     year:     '2024',
     context:  'University,Visual Merchandising,67% Upper Second Class',
