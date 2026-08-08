@@ -44,15 +44,22 @@
   set('detailCat',     project.category);
   set('detailContext', project.context);
 
-  // Live site link
-  const linkEl = document.getElementById('projLink');
-  if (linkEl) {
-    if (project.url) {
-      linkEl.href = project.url;
-      linkEl.style.display = 'inline-flex';
-    } else {
-      linkEl.style.display = 'none';
+  // Live site link(s) — supports a single `url` or a `links` array of { label, url }
+  const linksEl = document.getElementById('projLinks');
+  if (linksEl) {
+    let links = [];
+    if (Array.isArray(project.links)) {
+      links = project.links;
+    } else if (project.url) {
+      links = [{ label: 'Visit Website', url: project.url }];
     }
+    linksEl.innerHTML = links.map(l =>
+      '<a class="proj-hero__link" href="' + l.url + '" target="_blank" rel="noopener noreferrer">'
+      + (l.label || 'Visit Website')
+      + '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + '</a>'
+    ).join('');
+    linksEl.style.display = links.length ? 'flex' : 'none';
   }
 
   // Description paragraphs

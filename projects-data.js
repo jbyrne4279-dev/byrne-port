@@ -709,6 +709,10 @@ const PROJECTS = [
       'GA4', 'Google Tag Manager', 'Conversion Tracking',
       'Lead Generation', 'Competitor Analysis', 'Digital Strategy', 'Project Management'
     ],
+    links: [
+      { label: 'RCA Website', url: 'https://reinstatementcostassessment.org/' },
+      { label: 'Stearling Reinstatement', url: 'https://stearlingreinstatement.com/' }
+    ],
     gradient: 'linear-gradient(145deg, #04100a 0%, #08281a 35%, #0c3d28 60%, #10613c 100%)',
     imageCount: 0,
     imagePaths: []

@@ -105,11 +105,18 @@
   margin-bottom: 20px;
 }
 
+.proj-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
 .proj-hero__link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 0;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
