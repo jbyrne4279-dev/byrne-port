@@ -1334,6 +1334,38 @@ h1, h2, h3, h4 {
 
 .contact__links--below {
   margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 56px;
+  border-top: none;
+}
+
+.contact__links--below .contact__link {
+  justify-content: center;
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  gap: 14px;
+}
+
+.contact__links--below .contact__link-label {
+  width: auto;
+}
+
+.contact__links--below .contact__link-value {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 560px) {
+  .contact__links--below {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+  .contact__links--below .contact__link {
+    justify-content: space-between;
+  }
+  .contact__links--below .contact__link-value {
+    flex: 1;
+  }
 }
 
 .contact__link {
