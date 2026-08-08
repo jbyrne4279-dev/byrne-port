@@ -482,27 +482,6 @@ const PROJECTS = [
     ]
   },
   {
-    slug:     'graphic-design',
-    index:    '07',
-    category: 'Graphic Design',
-    title:    'Graphic Design Showcase',
-    subtitle: 'Selected Works Across Multiple Briefs',
-    year:     '2023–25',
-    context:  'Various,Personal & University Projects',
-    description: [
-      'A mix of graphic design work across personal projects, uni briefs and commercial experiments. Covers visual identities, editorial layouts, digital graphics and illustration.',
-      'Each piece is a different kind of design challenge, from minimal type-led work to bold, colour-heavy brand materials. The whole body of work reflects how my design sensibility has developed through fashion, culture and digital media.'
-    ],
-    skills: [
-      'Graphic Design', 'Typography', 'Brand Identity',
-      'Editorial Design', 'Adobe Illustrator', 'Adobe Photoshop',
-      'Adobe InDesign', 'Digital Illustration', 'Layout Design'
-    ],
-    gradient: 'linear-gradient(135deg, #0a0316 0%, #1a0840 30%, #4a0f90 60%, #8f0028 100%)',
-    imageCount: 0,
-    imagePaths: []
-  },
-  {
     slug:     'trend-forecasting',
     index:    '08',
     category: 'Trend Forecasting',
