@@ -1179,35 +1179,47 @@ h1, h2, h3, h4 {
 }
 
 .academic-row__pct {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-display);
   font-size: clamp(40px, 5vw, 60px);
   letter-spacing: 0.02em;
   line-height: 1;
   color: var(--red);
   text-shadow: 0 0 20px var(--red-dim);
+}
+
+/* Shine highlight lives on a shadow-free overlay so the glowing base
+   layer never repaints during the animation (keeps it smooth). */
+.academic-row__pct::after {
+  content: attr(data-pct);
+  position: absolute;
+  inset: 0;
+  color: transparent;
   background: linear-gradient(
     100deg,
-    var(--red) 0%,
-    var(--red) 42%,
-    #ff9a9a 50%,
-    var(--red) 58%,
-    var(--red) 100%
+    transparent 38%,
+    rgba(255, 210, 210, 0.95) 50%,
+    transparent 62%
   );
-  background-size: 220% 100%;
+  background-size: 250% 100%;
+  background-position: 210% 0;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  will-change: background-position;
   animation: pct-shine 3.2s ease-in-out infinite;
 }
 
 @keyframes pct-shine {
-  0%   { background-position: 220% 0; }
-  60%  { background-position: -120% 0; }
-  100% { background-position: -120% 0; }
+  0%   { background-position: 210% 0; }
+  55%  { background-position: -140% 0; }
+  100% { background-position: -140% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .academic-row__pct { animation: none; }
+  .academic-row__pct::after { animation: none; content: none; }
 }
 
 /* Apple-notification-style drop-in for each grade row */
