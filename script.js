@@ -112,12 +112,12 @@
   const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let visible = allCards.slice();            // cards in the current filter
-  let active  = Math.floor(visible.length / 2); // committed centre (int)
+  let anchor  = Math.floor(visible.length / 2); // committed centre (unbounded)
   let hover   = 0;                           // cursor-driven offset (float)
-  let pos     = active;                      // animated centre (float)
+  let pos     = anchor;                      // animated centre (float)
   let rafId   = null;
 
-  const HOVER_RANGE = 1.6;   // how many cards the cursor can scrub each way
+  const HOVER_RANGE = 2.0;   // how many cards the cursor can scrub each way
   const EASE        = 0.14;  // lerp factor toward the target position
 
   // Responsive coverflow parameters
@@ -125,15 +125,27 @@
     const w = window.innerWidth;
     if (w < 560) return { step: 38, rot: 0,  z: 40, maxVis: 2 };
     if (w < 900) return { step: 43, rot: 24, z: 55, maxVis: 3 };
-    return { step: 47, rot: 34, z: 70, maxVis: 4 };
+    return { step: 40, rot: 32, z: 60, maxVis: 5 };
   }
+
+  // The reel wraps into an infinite loop only when there are enough cards
+  // to keep the wrap seam (offset ≈ N/2) hidden off-screen.
+  function isLoop(p) {
+    return visible.length > 2 * (p || params()).maxVis + 1;
+  }
+
+  const mod = (n, m) => ((n % m) + m) % m;
 
   // Render the reel for a fractional centre position
   function layout(center) {
     const p = params();
-    const centreIndex = Math.round(center);
+    const N = visible.length;
+    const loop = isLoop(p);
+    const centreIndex = mod(Math.round(center), N);
+
     visible.forEach((card, i) => {
-      const offset = i - center;
+      let offset = i - center;
+      if (loop) offset -= N * Math.round(offset / N);  // shortest wrapped path
       const abs    = Math.abs(offset);
       const sign   = offset === 0 ? 0 : (offset > 0 ? 1 : -1);
       const clamp  = Math.min(abs, 3);
@@ -156,10 +168,11 @@
     });
   }
 
-  // Smoothly ease the reel toward (active + hover); the cursor moves the
+  // Smoothly ease the reel toward (anchor + hover); the cursor moves the
   // items in sync in real time, snapping back to a centred card on leave.
   function tick() {
-    const target = clampN(active + hover, 0, visible.length - 1);
+    let target = anchor + hover;
+    if (!isLoop()) target = clampN(target, 0, visible.length - 1);
     pos += (target - pos) * EASE;
     if (Math.abs(target - pos) < 0.0015) {
       pos = target;
@@ -175,8 +188,21 @@
     if (rafId == null) rafId = requestAnimationFrame(tick);
   }
 
-  function go(index) {
-    active = clampN(index, 0, visible.length - 1);
+  // Step by ±1 (keyboard / swipe); loops forever when looping is on
+  function step(dir) {
+    anchor += dir;
+    if (!isLoop()) anchor = clampN(anchor, 0, visible.length - 1);
+    render();
+  }
+
+  // Centre a specific card via the shortest (possibly wrapped) path
+  function focus(idx) {
+    const N = visible.length;
+    if (isLoop()) {
+      anchor = idx + N * Math.round((pos - idx) / N);
+    } else {
+      anchor = clampN(idx, 0, N - 1);
+    }
     render();
   }
 
@@ -187,10 +213,10 @@
       if (suppressClick) { e.preventDefault(); return; }
       const idx = visible.indexOf(card);
       if (idx === -1) return;
-      const centreIndex = Math.round(pos);
+      const centreIndex = mod(Math.round(pos), visible.length);
       if (idx !== centreIndex) {
         e.preventDefault();       // don't navigate — just centre it
-        go(idx);
+        focus(idx);
       } else if (link) {
         // whatever is in the middle → follow its project link
         e.preventDefault();
@@ -212,15 +238,16 @@
         card.style.display = match ? '' : 'none';
       });
       visible = allCards.filter(c => c.style.display !== 'none');
-      active  = Math.floor(visible.length / 2);
+      anchor  = Math.floor(visible.length / 2);
       hover   = 0;
-      pos     = active;
+      pos     = anchor;
       layout(pos);
     });
   });
 
   // Cursor-reactive scrub (desktop pointers only) — the reel glides with
-  // the mouse; move right and the items follow to the right.
+  // the mouse; move right and the items follow to the right, wrapping
+  // around endlessly when the cursor reaches the edges.
   if (canHover && !reduce) {
     carousel.addEventListener('pointermove', e => {
       if (e.pointerType && e.pointerType !== 'mouse') return;
@@ -234,8 +261,8 @@
 
   // Keyboard navigation
   carousel.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(active - 1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
   });
 
   // Drag / swipe navigation (touch / coarse pointers)
@@ -252,7 +279,7 @@
       if (!dragging) return;
       dragging = false;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 45) go(active + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
       setTimeout(() => { suppressClick = false; }, 0);
     });
   }
