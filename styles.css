@@ -987,6 +987,129 @@ h1, h2, h3, h4 {
 .project-card:hover .project-card__link { opacity: 1; }
 .project-card__link:hover { color: #fff; text-shadow: none; }
 
+/* ── PROJECTS CINEMA CAROUSEL ── */
+.portfolio__carousel {
+  position: relative;
+  width: 100%;
+  height: clamp(440px, 64vh, 660px);
+  margin-top: 44px;
+  perspective: 2200px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  outline: none;
+}
+
+.carousel__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.carousel__hint {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Cards become absolutely-positioned coverflow slides; JS sets transforms */
+.portfolio__carousel .project-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(272px, 40vw, 440px);
+  height: clamp(392px, 56vh, 580px);
+  margin: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 0.6s var(--ease-out),
+              opacity 0.55s var(--ease-out),
+              filter 0.55s var(--ease-out),
+              box-shadow 0.35s;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Card image fills the fixed-size slide */
+.portfolio__carousel .project-card__img,
+.portfolio__carousel .project-card--featured .project-card__img {
+  min-height: 0;
+  height: 100%;
+}
+
+/* Neutralise the old grid hover treatment inside the carousel */
+.portfolio__carousel .project-card:hover .project-card__img {
+  transform: none;
+  filter: none;
+}
+
+/* Centered card = "now showing": reveal its copy + red tint */
+.portfolio__carousel .project-card.is-active .project-card__desc,
+.portfolio__carousel .project-card.is-active .project-card__link {
+  opacity: 1;
+  transform: none;
+}
+.portfolio__carousel .project-card.is-active .project-card__img::after {
+  opacity: 1;
+}
+
+/* Electric red outline on the focused / hovered slide.
+   Uses box-shadow (spread ring + glow) on the card itself, so it is
+   never clipped by the card's own overflow: hidden. */
+.portfolio__carousel .project-card.is-active,
+.portfolio__carousel .project-card:hover {
+  animation: electric-outline 1.5s steps(1, end) infinite;
+  z-index: 50;
+}
+
+@keyframes electric-outline {
+  0% {
+    box-shadow: 0 0 0 2px var(--red),
+                0 0 22px var(--red-glow),
+                0 0 55px var(--red-dim);
+  }
+  25% {
+    box-shadow: 0 0 0 2px #ff3b5c,
+                0 0 34px var(--red-glow),
+                0 0 82px var(--red-dim);
+  }
+  50% {
+    box-shadow: 0 0 0 2px var(--red),
+                0 0 18px var(--red-glow),
+                0 0 44px var(--red-dim);
+  }
+  75% {
+    box-shadow: 0 0 0 2px #ff6680,
+                0 0 30px var(--red-glow),
+                0 0 74px var(--red-dim);
+  }
+  100% {
+    box-shadow: 0 0 0 2px var(--red),
+                0 0 22px var(--red-glow),
+                0 0 55px var(--red-dim);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio__carousel .project-card.is-active,
+  .portfolio__carousel .project-card:hover {
+    animation: none;
+    box-shadow: 0 0 0 2px var(--red), 0 0 26px var(--red-glow);
+  }
+  .portfolio__carousel .project-card { transition: none; }
+}
+
 /* ── WEBSITES ── */
 .websites { background: var(--bg-2); }
 

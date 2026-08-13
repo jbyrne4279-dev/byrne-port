@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -159,10 +159,11 @@
         </div>
       </div>
 
-      <div class="portfolio__grid">
+      <div class="portfolio__carousel reveal" id="projectCarousel" tabindex="0" role="group" aria-label="Projects carousel">
+        <div class="carousel__stage" id="carouselStage">
 
         <!-- 1 — Featured: My Clothing Brand -->
-        <article class="project-card project-card--featured reveal" data-category="fashion">
+        <article class="project-card project-card--featured" data-category="fashion">
           <a class="project-card__cover-link" href="project?slug=clothing-brand" aria-label="View My Clothing Brand project"></a>
           <div class="project-card__img project-card__img--1">
             <img class="project-card__cover" src="assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp" alt="" loading="lazy" aria-hidden="true">
@@ -176,7 +177,7 @@
         </article>
 
         <!-- 2 — Named Collective -->
-        <article class="project-card reveal reveal--delay" data-category="brand">
+        <article class="project-card" data-category="brand">
           <a class="project-card__cover-link" href="project?slug=named-collective" aria-label="View Named Collective project"></a>
           <div class="project-card__img project-card__img--2">
             <img class="project-card__cover" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" aria-hidden="true">
@@ -190,7 +191,7 @@
         </article>
 
         <!-- 3 — NEXT A/W 25/26 -->
-        <article class="project-card reveal" data-category="fashion">
+        <article class="project-card" data-category="fashion">
           <a class="project-card__cover-link" href="project?slug=next-collection" aria-label="View NEXT A/W 25/26 Collection project"></a>
           <div class="project-card__img project-card__img--3">
             <img class="project-card__cover" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy" aria-hidden="true">
@@ -204,7 +205,7 @@
         </article>
 
         <!-- 8 — Trend Forecasting -->
-        <article class="project-card reveal reveal--delay" data-category="fashion">
+        <article class="project-card" data-category="fashion">
           <a class="project-card__cover-link" href="project?slug=trend-forecasting" aria-label="View Trend Forecasting project"></a>
           <div class="project-card__img project-card__img--8">
             <img class="project-card__cover" src="assets/projects/trend-forecasting/Trend Forcasting-01.webp" alt="" loading="lazy" aria-hidden="true">
@@ -218,7 +219,7 @@
         </article>
 
         <!-- 4 — TriMas Internship -->
-        <article class="project-card reveal reveal--delay" data-category="brand">
+        <article class="project-card" data-category="brand">
           <a class="project-card__cover-link" href="project?slug=trimas-internship" aria-label="View TriMas Internship project"></a>
           <div class="project-card__img project-card__img--4">
             <img class="project-card__cover" src="assets/projects/trimas-internship/3group_v2.webp" alt="" loading="lazy" aria-hidden="true">
@@ -232,7 +233,7 @@
         </article>
 
         <!-- 5 — Selfridges -->
-        <article class="project-card reveal" data-category="fashion">
+        <article class="project-card" data-category="fashion">
           <a class="project-card__cover-link" href="project?slug=selfridges-project" aria-label="View Selfridges project"></a>
           <div class="project-card__img project-card__img--5">
             <img class="project-card__cover" src="assets/projects/selfridges-project/thumbnail_IMG_2787.webp" alt="" loading="lazy" aria-hidden="true">
@@ -246,7 +247,7 @@
         </article>
 
         <!-- 6 — CV Lab SaaS -->
-        <article class="project-card reveal reveal--delay" data-category="digital">
+        <article class="project-card" data-category="digital">
           <a class="project-card__cover-link" href="project?slug=cv-lab" aria-label="View CV Lab SaaS project"></a>
           <div class="project-card__img project-card__img--6">
             <img class="project-card__cover" src="assets/projects/cv-lab/cv banner.webp" alt="" loading="lazy" aria-hidden="true">
@@ -260,7 +261,7 @@
         </article>
 
         <!-- 9 — Slimmer App -->
-        <article class="project-card reveal" data-category="digital">
+        <article class="project-card" data-category="digital">
           <a class="project-card__cover-link" href="project?slug=slimmer-app" aria-label="View Slimmer App project"></a>
           <div class="project-card__img project-card__img--9">
             <img class="project-card__cover" src="assets/projects/slimmer-app/photo_2026-04-16_22-19-47.webp" alt="" loading="lazy" aria-hidden="true">
@@ -274,7 +275,7 @@
         </article>
 
         <!-- 10 — Make Progress -->
-        <article class="project-card reveal reveal--delay" data-category="brand">
+        <article class="project-card" data-category="brand">
           <a class="project-card__cover-link" href="project?slug=make-progress" aria-label="View Make Progress project"></a>
           <div class="project-card__img project-card__img--10">
             <div class="project-card__inner">
@@ -287,7 +288,7 @@
         </article>
 
         <!-- 11 — Cafe Compliance Management System -->
-        <article class="project-card reveal" data-category="digital">
+        <article class="project-card" data-category="digital">
           <a class="project-card__cover-link" href="project?slug=cafe-compliance" aria-label="View Cafe Compliance Management System project"></a>
           <div class="project-card__img project-card__img--11">
             <div class="project-card__inner">
@@ -300,7 +301,7 @@
         </article>
 
         <!-- 12 — Arc26 -->
-        <article class="project-card reveal reveal--delay" data-category="digital">
+        <article class="project-card" data-category="digital">
           <a class="project-card__cover-link" href="project?slug=arc26" aria-label="View Arc26 project"></a>
           <div class="project-card__img project-card__img--12">
             <div class="project-card__inner">
@@ -313,7 +314,7 @@
         </article>
 
         <!-- 13 — Reinstatement Cost Assessment Businesses -->
-        <article class="project-card reveal" data-category="digital">
+        <article class="project-card" data-category="digital">
           <a class="project-card__cover-link" href="project?slug=reinstatement-cost-assessment" aria-label="View Reinstatement Cost Assessment Businesses project"></a>
           <div class="project-card__img project-card__img--13">
             <div class="project-card__inner">
@@ -325,6 +326,8 @@
           </div>
         </article>
 
+        </div>
+        <p class="carousel__hint">Click a project to focus &middot; drag or use &larr; &rarr; to browse</p>
       </div>
     </div>
   </section>
@@ -603,6 +606,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

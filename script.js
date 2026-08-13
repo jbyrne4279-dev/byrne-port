@@ -98,24 +98,123 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
 
-/* ── PORTFOLIO FILTER ── */
-(function initFilter() {
-  const btns  = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.project-card');
+/* ── PROJECTS CINEMA CAROUSEL (coverflow + filter) ── */
+(function initCarousel() {
+  const carousel = document.getElementById('projectCarousel');
+  const stage    = document.getElementById('carouselStage');
+  if (!carousel || !stage) return;
 
+  const btns     = Array.from(document.querySelectorAll('.filter-btn'));
+  const allCards = Array.from(stage.querySelectorAll('.project-card'));
+
+  let visible = allCards.slice();   // cards in the current filter
+  let active  = Math.floor(visible.length / 2);
+
+  // Responsive coverflow parameters
+  function params() {
+    const w = window.innerWidth;
+    if (w < 560) return { step: 38, rot: 0,  z: 40, maxVis: 2 };
+    if (w < 900) return { step: 43, rot: 24, z: 55, maxVis: 3 };
+    return { step: 47, rot: 34, z: 70, maxVis: 4 };
+  }
+
+  function layout() {
+    const p = params();
+    visible.forEach((card, i) => {
+      const offset = i - active;
+      const abs    = Math.abs(offset);
+      const sign   = Math.sign(offset);
+      const clamp  = Math.min(abs, 3);
+
+      const scale = Math.max(0.55, 1 - abs * 0.14);
+      const rot   = -sign * clamp * p.rot;
+      const tx    = offset * p.step;              // % of card width
+      const tz    = -abs * p.z;                   // push side cards back
+      const bright = Math.max(0.35, 1 - abs * 0.16);
+      const hidden = abs > p.maxVis;
+
+      card.style.transform =
+        `translate(-50%, -50%) translateX(${tx}%) translateZ(${tz}px) ` +
+        `rotateY(${rot}deg) scale(${scale})`;
+      card.style.zIndex  = String(100 - abs);
+      card.style.opacity = hidden ? '0' : '1';
+      card.style.filter  = `brightness(${bright})`;
+      card.style.pointerEvents = hidden ? 'none' : 'auto';
+      card.classList.toggle('is-active', offset === 0);
+    });
+  }
+
+  function go(index) {
+    active = Math.max(0, Math.min(visible.length - 1, index));
+    layout();
+  }
+
+  // Click a side card to focus it; click the centered card to open it
+  allCards.forEach(card => {
+    const link = card.querySelector('.project-card__cover-link');
+    card.addEventListener('click', e => {
+      if (suppressClick) { e.preventDefault(); return; }
+      const idx = visible.indexOf(card);
+      if (idx === -1) return;
+      if (idx !== active) {
+        e.preventDefault();       // don't navigate — just centre it
+        go(idx);
+      } else if (link && e.target !== link) {
+        // centered card clicked anywhere → follow its project link
+        window.location.href = link.getAttribute('href');
+      }
+    });
+  });
+
+  // Filter buttons rebuild the visible set
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
       btns.forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
 
-      cards.forEach(card => {
+      const filter = btn.dataset.filter;
+      allCards.forEach(card => {
         const match = filter === 'all' || card.dataset.category === filter;
         card.classList.toggle('is-hidden', !match);
+        card.style.display = match ? '' : 'none';
       });
+      visible = allCards.filter(c => c.style.display !== 'none');
+      active  = Math.floor(visible.length / 2);
+      layout();
     });
   });
+
+  // Keyboard navigation
+  carousel.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(active - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+  });
+
+  // Drag / swipe navigation
+  let startX = 0, dragging = false, suppressClick = false;
+  carousel.addEventListener('pointerdown', e => {
+    startX = e.clientX; dragging = true; suppressClick = false;
+  });
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    if (Math.abs(e.clientX - startX) > 8) suppressClick = true;
+  });
+  window.addEventListener('pointerup', e => {
+    if (!dragging) return;
+    dragging = false;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 45) go(active + (dx < 0 ? 1 : -1));
+    // let the just-fired click be swallowed, then re-enable
+    setTimeout(() => { suppressClick = false; }, 0);
+  });
+
+  let resizeRAF;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeRAF);
+    resizeRAF = requestAnimationFrame(layout);
+  });
+
+  layout();
 })();
 
 /* ── SCROLL REVEAL ── */
