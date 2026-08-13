@@ -1183,8 +1183,8 @@ h1, h2, h3, h4 {
   font-size: clamp(40px, 5vw, 60px);
   letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--green);
-  text-shadow: 0 0 20px var(--green-dim);
+  color: var(--red);
+  text-shadow: 0 0 20px var(--red-dim);
 }
 
 /* Apple-notification-style drop-in for each grade row */
