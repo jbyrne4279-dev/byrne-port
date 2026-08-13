@@ -117,8 +117,8 @@
   let pos     = anchor;                      // animated centre (float)
   let rafId   = null;
 
-  const HOVER_RANGE = 2.0;   // how many cards the cursor can scrub each way
-  const EASE        = 0.14;  // lerp factor toward the target position
+  const HOVER_RANGE = 2.6;   // how many cards the cursor can scrub each way
+  const EASE        = 0.32;  // lerp factor toward the target position (snappy)
 
   // Responsive coverflow parameters
   function params() {
