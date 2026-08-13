@@ -107,8 +107,18 @@
   const btns     = Array.from(document.querySelectorAll('.filter-btn'));
   const allCards = Array.from(stage.querySelectorAll('.project-card'));
 
-  let visible = allCards.slice();   // cards in the current filter
-  let active  = Math.floor(visible.length / 2);
+  const clampN = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let visible = allCards.slice();            // cards in the current filter
+  let active  = Math.floor(visible.length / 2); // committed centre (int)
+  let hover   = 0;                           // cursor-driven offset (float)
+  let pos     = active;                      // animated centre (float)
+  let rafId   = null;
+
+  const HOVER_RANGE = 1.6;   // how many cards the cursor can scrub each way
+  const EASE        = 0.14;  // lerp factor toward the target position
 
   // Responsive coverflow parameters
   function params() {
@@ -118,49 +128,72 @@
     return { step: 47, rot: 34, z: 70, maxVis: 4 };
   }
 
-  function layout() {
+  // Render the reel for a fractional centre position
+  function layout(center) {
     const p = params();
+    const centreIndex = Math.round(center);
     visible.forEach((card, i) => {
-      const offset = i - active;
+      const offset = i - center;
       const abs    = Math.abs(offset);
-      const sign   = Math.sign(offset);
+      const sign   = offset === 0 ? 0 : (offset > 0 ? 1 : -1);
       const clamp  = Math.min(abs, 3);
 
-      const scale = Math.max(0.55, 1 - abs * 0.14);
-      const rot   = -sign * clamp * p.rot;
-      const tx    = offset * p.step;              // % of card width
-      const tz    = -abs * p.z;                   // push side cards back
+      const scale  = Math.max(0.55, 1 - abs * 0.14);
+      const rot    = -sign * clamp * p.rot;
+      const tx     = offset * p.step;           // % of card width
+      const tz     = -abs * p.z;                // push side cards back
       const bright = Math.max(0.35, 1 - abs * 0.16);
-      const hidden = abs > p.maxVis;
+      const hidden = abs > p.maxVis + 0.5;
 
       card.style.transform =
         `translate(-50%, -50%) translateX(${tx}%) translateZ(${tz}px) ` +
         `rotateY(${rot}deg) scale(${scale})`;
-      card.style.zIndex  = String(100 - abs);
+      card.style.zIndex  = String(100 - Math.round(abs));
       card.style.opacity = hidden ? '0' : '1';
       card.style.filter  = `brightness(${bright})`;
       card.style.pointerEvents = hidden ? 'none' : 'auto';
-      card.classList.toggle('is-active', offset === 0);
+      card.classList.toggle('is-active', i === centreIndex);
     });
   }
 
-  function go(index) {
-    active = Math.max(0, Math.min(visible.length - 1, index));
-    layout();
+  // Smoothly ease the reel toward (active + hover); the cursor moves the
+  // items in sync in real time, snapping back to a centred card on leave.
+  function tick() {
+    const target = clampN(active + hover, 0, visible.length - 1);
+    pos += (target - pos) * EASE;
+    if (Math.abs(target - pos) < 0.0015) {
+      pos = target;
+      layout(pos);
+      rafId = null;
+      return;
+    }
+    layout(pos);
+    rafId = requestAnimationFrame(tick);
   }
 
-  // Click a side card to focus it; click the centered card to open it
+  function render() {
+    if (rafId == null) rafId = requestAnimationFrame(tick);
+  }
+
+  function go(index) {
+    active = clampN(index, 0, visible.length - 1);
+    render();
+  }
+
+  // Click a side card to focus it; click the centred card to open it
   allCards.forEach(card => {
     const link = card.querySelector('.project-card__cover-link');
     card.addEventListener('click', e => {
       if (suppressClick) { e.preventDefault(); return; }
       const idx = visible.indexOf(card);
       if (idx === -1) return;
-      if (idx !== active) {
+      const centreIndex = Math.round(pos);
+      if (idx !== centreIndex) {
         e.preventDefault();       // don't navigate — just centre it
         go(idx);
-      } else if (link && e.target !== link) {
-        // centered card clicked anywhere → follow its project link
+      } else if (link) {
+        // whatever is in the middle → follow its project link
+        e.preventDefault();
         window.location.href = link.getAttribute('href');
       }
     });
@@ -180,9 +213,24 @@
       });
       visible = allCards.filter(c => c.style.display !== 'none');
       active  = Math.floor(visible.length / 2);
-      layout();
+      hover   = 0;
+      pos     = active;
+      layout(pos);
     });
   });
+
+  // Cursor-reactive scrub (desktop pointers only) — the reel glides with
+  // the mouse; move right and the items follow to the right.
+  if (canHover && !reduce) {
+    carousel.addEventListener('pointermove', e => {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      const r = carousel.getBoundingClientRect();
+      const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
+      hover = -norm * HOVER_RANGE;   // items move in the cursor's direction
+      render();
+    });
+    carousel.addEventListener('pointerleave', () => { hover = 0; render(); });
+  }
 
   // Keyboard navigation
   carousel.addEventListener('keydown', e => {
@@ -190,31 +238,32 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
   });
 
-  // Drag / swipe navigation
+  // Drag / swipe navigation (touch / coarse pointers)
   let startX = 0, dragging = false, suppressClick = false;
-  carousel.addEventListener('pointerdown', e => {
-    startX = e.clientX; dragging = true; suppressClick = false;
-  });
-  window.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    if (Math.abs(e.clientX - startX) > 8) suppressClick = true;
-  });
-  window.addEventListener('pointerup', e => {
-    if (!dragging) return;
-    dragging = false;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 45) go(active + (dx < 0 ? 1 : -1));
-    // let the just-fired click be swallowed, then re-enable
-    setTimeout(() => { suppressClick = false; }, 0);
-  });
+  if (!canHover) {
+    carousel.addEventListener('pointerdown', e => {
+      startX = e.clientX; dragging = true; suppressClick = false;
+    });
+    window.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      if (Math.abs(e.clientX - startX) > 8) suppressClick = true;
+    });
+    window.addEventListener('pointerup', e => {
+      if (!dragging) return;
+      dragging = false;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 45) go(active + (dx < 0 ? 1 : -1));
+      setTimeout(() => { suppressClick = false; }, 0);
+    });
+  }
 
   let resizeRAF;
   window.addEventListener('resize', () => {
     cancelAnimationFrame(resizeRAF);
-    resizeRAF = requestAnimationFrame(layout);
+    resizeRAF = requestAnimationFrame(() => layout(pos));
   });
 
-  layout();
+  layout(pos);
 })();
 
 /* ── SCROLL REVEAL ── */
