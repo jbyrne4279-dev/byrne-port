@@ -111,14 +111,16 @@
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let visible   = allCards.slice();               // cards in the current filter
-  let basePos   = Math.floor(visible.length / 2); // committed centre (unbounded)
-  let easedBase = basePos;                        // eased toward basePos (glide)
-  let cursorOff = 0;                              // instant cursor-driven offset
-  let rafId     = null;
+  let visible    = allCards.slice();               // cards in the current filter
+  let pos        = Math.floor(visible.length / 2); // current centre (float, unbounded)
+  let vel        = 0;                              // scroll speed (cards/sec) from cursor
+  let snapTarget = null;                           // eased target for click / keyboard
+  let lastT      = 0;                              // last frame timestamp
+  let rafId      = null;
 
-  const HOVER_RANGE = 3;     // cards the cursor scrubs from centre to an edge
-  const EASE        = 0.34;  // glide factor for click / keyboard moves
+  const MAX_SPEED = 5.5;   // cards/sec the reel scrolls at the far edge
+  const DEAD      = 0.10;  // central rest zone (fraction of half width)
+  const SNAP_EASE = 0.22;  // ease factor when settling onto a card
 
   // Responsive coverflow parameters
   function params() {
@@ -168,48 +170,60 @@
     });
   }
 
-  // Live centre = eased base (discrete nav) + cursor offset. The cursor
-  // offset is added with NO easing, so the reel tracks the pointer 1:1.
-  function currentPos() {
-    let c = easedBase + cursorOff;
+  function draw() {
+    let c = pos;
     if (!isLoop()) c = clampN(c, 0, visible.length - 1);
-    return c;
+    layout(c);
   }
 
-  function draw() { layout(currentPos()); }
+  // Single rAF loop. The cursor sets a scroll velocity (hold the mouse to
+  // one side and the reel keeps gliding + looping in that direction); when
+  // there's no velocity it eases onto the nearest card and rests.
+  function frame(t) {
+    const dt = Math.min(0.05, lastT ? (t - lastT) / 1000 : 0.016);
+    lastT = t;
+    let running = false;
 
-  // rAF loop eases only the committed base toward its target; the cursor
-  // offset is folded in live every frame by draw().
-  function tick() {
-    easedBase += (basePos - easedBase) * EASE;
-    if (Math.abs(basePos - easedBase) < 0.001) {
-      easedBase = basePos;
-      draw();
-      rafId = null;
-      return;
+    if (vel !== 0) {
+      pos += vel * dt;                 // continuous cursor-driven scroll
+      snapTarget = null;
+      running = true;
+    } else if (snapTarget !== null) {
+      pos += (snapTarget - pos) * SNAP_EASE;
+      if (Math.abs(snapTarget - pos) < 0.001) { pos = snapTarget; snapTarget = null; }
+      else running = true;
     }
+
+    if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
     draw();
-    rafId = requestAnimationFrame(tick);
+    rafId = running ? requestAnimationFrame(frame) : null;
   }
 
-  function ensureAnim() { if (rafId == null) rafId = requestAnimationFrame(tick); }
+  function ensureLoop() {
+    if (rafId == null) { lastT = 0; rafId = requestAnimationFrame(frame); }
+  }
 
-  // Immediate redraw for live cursor updates when no glide is running
-  function drawNow() { if (rafId == null) draw(); }
+  function settleToNearest() {
+    vel = 0;
+    snapTarget = Math.round(pos);
+    ensureLoop();
+  }
 
   // Step by ±1 (keyboard / swipe); loops forever when looping is on
   function step(dir) {
-    basePos += dir;
-    if (!isLoop()) basePos = clampN(basePos, 0, visible.length - 1);
-    ensureAnim();
+    vel = 0;
+    snapTarget = Math.round(pos) + dir;
+    if (!isLoop()) snapTarget = clampN(snapTarget, 0, visible.length - 1);
+    ensureLoop();
   }
 
   // Centre a specific card via the shortest (possibly wrapped) path
   function focus(idx) {
+    vel = 0;
     const N = visible.length;
-    if (isLoop()) basePos = idx + N * Math.round((easedBase - idx) / N);
-    else basePos = clampN(idx, 0, N - 1);
-    ensureAnim();
+    if (isLoop()) snapTarget = idx + N * Math.round((pos - idx) / N);
+    else snapTarget = clampN(idx, 0, N - 1);
+    ensureLoop();
   }
 
   // Click a side card to focus it; click the centred card to open it
@@ -219,7 +233,7 @@
       if (suppressClick) { e.preventDefault(); return; }
       const idx = visible.indexOf(card);
       if (idx === -1) return;
-      const centreIndex = mod(Math.round(currentPos()), visible.length);
+      const centreIndex = mod(Math.round(pos), visible.length);
       if (idx !== centreIndex) {
         e.preventDefault();       // don't navigate — just centre it
         focus(idx);
@@ -243,26 +257,34 @@
         card.classList.toggle('is-hidden', !match);
         card.style.display = match ? '' : 'none';
       });
-      visible   = allCards.filter(c => c.style.display !== 'none');
-      basePos   = Math.floor(visible.length / 2);
-      easedBase = basePos;
-      cursorOff = 0;
+      visible    = allCards.filter(c => c.style.display !== 'none');
+      pos        = Math.floor(visible.length / 2);
+      vel        = 0;
+      snapTarget = null;
       draw();
     });
   });
 
-  // Cursor-reactive scrub (desktop pointers only) — the reel glides with
-  // the mouse; move right and the items follow to the right, wrapping
-  // around endlessly when the cursor reaches the edges.
+  // Cursor-reactive scrub (desktop pointers only) — the cursor's distance
+  // from centre sets the scroll speed/direction, so holding the mouse to
+  // one side keeps the reel gliding and looping that way. The middle is a
+  // rest zone; leaving settles onto the nearest card.
   if (canHover && !reduce) {
     carousel.addEventListener('pointermove', e => {
       if (e.pointerType && e.pointerType !== 'mouse') return;
       const r = carousel.getBoundingClientRect();
       const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
-      cursorOff = norm * HOVER_RANGE;   // cursor right → later cards, tracked live
-      drawNow();
+      const a = Math.abs(norm);
+      if (a <= DEAD) {
+        vel = 0;
+        if (snapTarget === null) snapTarget = Math.round(pos);  // rest on a card
+      } else {
+        const m = (a - DEAD) / (1 - DEAD);          // 0..1 outside the dead zone
+        vel = Math.sign(norm) * m * m * MAX_SPEED;  // quadratic: fine near centre
+      }
+      ensureLoop();
     });
-    carousel.addEventListener('pointerleave', () => { cursorOff = 0; drawNow(); });
+    carousel.addEventListener('pointerleave', settleToNearest);
   }
 
   // Keyboard navigation
