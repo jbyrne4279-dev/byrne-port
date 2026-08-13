@@ -111,14 +111,14 @@
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let visible = allCards.slice();            // cards in the current filter
-  let anchor  = Math.floor(visible.length / 2); // committed centre (unbounded)
-  let hover   = 0;                           // cursor-driven offset (float)
-  let pos     = anchor;                      // animated centre (float)
-  let rafId   = null;
+  let visible   = allCards.slice();               // cards in the current filter
+  let basePos   = Math.floor(visible.length / 2); // committed centre (unbounded)
+  let easedBase = basePos;                        // eased toward basePos (glide)
+  let cursorOff = 0;                              // instant cursor-driven offset
+  let rafId     = null;
 
-  const HOVER_RANGE = 2.6;   // how many cards the cursor can scrub each way
-  const EASE        = 0.32;  // lerp factor toward the target position (snappy)
+  const HOVER_RANGE = 3;     // cards the cursor scrubs from centre to an edge
+  const EASE        = 0.34;  // glide factor for click / keyboard moves
 
   // Responsive coverflow parameters
   function params() {
@@ -168,42 +168,48 @@
     });
   }
 
-  // Smoothly ease the reel toward (anchor + hover); the cursor moves the
-  // items in sync in real time, snapping back to a centred card on leave.
+  // Live centre = eased base (discrete nav) + cursor offset. The cursor
+  // offset is added with NO easing, so the reel tracks the pointer 1:1.
+  function currentPos() {
+    let c = easedBase + cursorOff;
+    if (!isLoop()) c = clampN(c, 0, visible.length - 1);
+    return c;
+  }
+
+  function draw() { layout(currentPos()); }
+
+  // rAF loop eases only the committed base toward its target; the cursor
+  // offset is folded in live every frame by draw().
   function tick() {
-    let target = anchor + hover;
-    if (!isLoop()) target = clampN(target, 0, visible.length - 1);
-    pos += (target - pos) * EASE;
-    if (Math.abs(target - pos) < 0.0015) {
-      pos = target;
-      layout(pos);
+    easedBase += (basePos - easedBase) * EASE;
+    if (Math.abs(basePos - easedBase) < 0.001) {
+      easedBase = basePos;
+      draw();
       rafId = null;
       return;
     }
-    layout(pos);
+    draw();
     rafId = requestAnimationFrame(tick);
   }
 
-  function render() {
-    if (rafId == null) rafId = requestAnimationFrame(tick);
-  }
+  function ensureAnim() { if (rafId == null) rafId = requestAnimationFrame(tick); }
+
+  // Immediate redraw for live cursor updates when no glide is running
+  function drawNow() { if (rafId == null) draw(); }
 
   // Step by ±1 (keyboard / swipe); loops forever when looping is on
   function step(dir) {
-    anchor += dir;
-    if (!isLoop()) anchor = clampN(anchor, 0, visible.length - 1);
-    render();
+    basePos += dir;
+    if (!isLoop()) basePos = clampN(basePos, 0, visible.length - 1);
+    ensureAnim();
   }
 
   // Centre a specific card via the shortest (possibly wrapped) path
   function focus(idx) {
     const N = visible.length;
-    if (isLoop()) {
-      anchor = idx + N * Math.round((pos - idx) / N);
-    } else {
-      anchor = clampN(idx, 0, N - 1);
-    }
-    render();
+    if (isLoop()) basePos = idx + N * Math.round((easedBase - idx) / N);
+    else basePos = clampN(idx, 0, N - 1);
+    ensureAnim();
   }
 
   // Click a side card to focus it; click the centred card to open it
@@ -213,7 +219,7 @@
       if (suppressClick) { e.preventDefault(); return; }
       const idx = visible.indexOf(card);
       if (idx === -1) return;
-      const centreIndex = mod(Math.round(pos), visible.length);
+      const centreIndex = mod(Math.round(currentPos()), visible.length);
       if (idx !== centreIndex) {
         e.preventDefault();       // don't navigate — just centre it
         focus(idx);
@@ -237,11 +243,11 @@
         card.classList.toggle('is-hidden', !match);
         card.style.display = match ? '' : 'none';
       });
-      visible = allCards.filter(c => c.style.display !== 'none');
-      anchor  = Math.floor(visible.length / 2);
-      hover   = 0;
-      pos     = anchor;
-      layout(pos);
+      visible   = allCards.filter(c => c.style.display !== 'none');
+      basePos   = Math.floor(visible.length / 2);
+      easedBase = basePos;
+      cursorOff = 0;
+      draw();
     });
   });
 
@@ -253,10 +259,10 @@
       if (e.pointerType && e.pointerType !== 'mouse') return;
       const r = carousel.getBoundingClientRect();
       const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
-      hover = norm * HOVER_RANGE;    // move cursor right → reel scrubs right
-      render();
+      cursorOff = norm * HOVER_RANGE;   // cursor right → later cards, tracked live
+      drawNow();
     });
-    carousel.addEventListener('pointerleave', () => { hover = 0; render(); });
+    carousel.addEventListener('pointerleave', () => { cursorOff = 0; drawNow(); });
   }
 
   // Keyboard navigation
@@ -287,10 +293,10 @@
   let resizeRAF;
   window.addEventListener('resize', () => {
     cancelAnimationFrame(resizeRAF);
-    resizeRAF = requestAnimationFrame(() => layout(pos));
+    resizeRAF = requestAnimationFrame(draw);
   });
 
-  layout(pos);
+  draw();
 })();
 
 /* ── SCROLL REVEAL ── */
