@@ -158,11 +158,12 @@ h1, h2, h3, h4 {
 }
 
 .section__title {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: clamp(48px, 7vw, 88px);
   color: var(--text);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  font-weight: 600;
   margin-bottom: 20px;
 }
 
