@@ -209,10 +209,13 @@
     ensureLoop();
   }
 
-  // Step by ±1 (keyboard / swipe); loops forever when looping is on
+  // Step by ±1 (keyboard / wheel / swipe); loops forever when looping is on.
+  // Accumulates off the pending target so rapid steps add up (e.g. spinning
+  // the wheel) instead of collapsing onto the same card.
   function step(dir) {
     vel = 0;
-    snapTarget = Math.round(pos) + dir;
+    const from = (snapTarget !== null) ? snapTarget : Math.round(pos);
+    snapTarget = from + dir;
     if (!isLoop()) snapTarget = clampN(snapTarget, 0, visible.length - 1);
     ensureLoop();
   }
@@ -287,11 +290,42 @@
     carousel.addEventListener('pointerleave', settleToNearest);
   }
 
-  // Keyboard navigation
-  carousel.addEventListener('keydown', e => {
+  // Track whether the carousel is on screen, so global arrow/wheel input
+  // only drives it while it's actually in view.
+  let inView = false;
+  new IntersectionObserver(
+    entries => { inView = entries[0].isIntersecting; },
+    { threshold: 0.25 }
+  ).observe(carousel);
+
+  // Keyboard navigation — works whenever the carousel is on screen (no need
+  // to click it first). Left/Right don't scroll the page, so intercepting
+  // them is safe.
+  window.addEventListener('keydown', e => {
+    if (!inView) return;
+    const t = e.target;
+    if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
     if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
   });
+
+  // Scroll-wheel navigation — spinning the wheel (or a trackpad swipe) over
+  // the carousel steps through the reel. Accumulate delta so one notch is
+  // roughly one card regardless of device.
+  let wheelAcc = 0;
+  const WHEEL_STEP = 120;
+  carousel.addEventListener('wheel', e => {
+    let d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (e.deltaMode === 1) d *= 16;   // line units → approx pixels
+    if (d === 0) return;
+    e.preventDefault();               // scrub the reel instead of the page
+    vel = 0;                          // wheel overrides hover-scroll
+    wheelAcc += d;
+    while (Math.abs(wheelAcc) >= WHEEL_STEP) {
+      step(wheelAcc > 0 ? 1 : -1);
+      wheelAcc -= Math.sign(wheelAcc) * WHEEL_STEP;
+    }
+  }, { passive: false });
 
   // Drag / swipe navigation (touch / coarse pointers)
   let startX = 0, dragging = false, suppressClick = false;
