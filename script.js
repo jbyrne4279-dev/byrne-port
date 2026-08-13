@@ -253,7 +253,7 @@
       if (e.pointerType && e.pointerType !== 'mouse') return;
       const r = carousel.getBoundingClientRect();
       const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
-      hover = -norm * HOVER_RANGE;   // items move in the cursor's direction
+      hover = norm * HOVER_RANGE;    // move cursor right → reel scrubs right
       render();
     });
     carousel.addEventListener('pointerleave', () => { hover = 0; render(); });
