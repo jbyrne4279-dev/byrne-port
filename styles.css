@@ -1185,6 +1185,29 @@ h1, h2, h3, h4 {
   line-height: 1;
   color: var(--red);
   text-shadow: 0 0 20px var(--red-dim);
+  background: linear-gradient(
+    100deg,
+    var(--red) 0%,
+    var(--red) 42%,
+    #ff9a9a 50%,
+    var(--red) 58%,
+    var(--red) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pct-shine 3.2s ease-in-out infinite;
+}
+
+@keyframes pct-shine {
+  0%   { background-position: 220% 0; }
+  60%  { background-position: -120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .academic-row__pct { animation: none; }
 }
 
 /* Apple-notification-style drop-in for each grade row */
