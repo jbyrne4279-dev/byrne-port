@@ -480,9 +480,10 @@
 })();
 
 
-/* ── HERO MIST ── */
-(function initHeroMist() {
-  const canvas = document.getElementById('heroMist');
+/* ── RED MIST (hero + portfolio backgrounds) ── */
+['heroMist', 'portfolioMist'].forEach(initMist);
+function initMist(canvasId) {
+  const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
@@ -549,7 +550,7 @@
     particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(loop);
   })();
-})();
+}
 
 /* ── HEADING TERMINAL FLICKER ── */
 /* Decodes heading text in from random terminal glyphs, like a console

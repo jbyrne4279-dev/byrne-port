@@ -765,7 +765,8 @@ h1, h2, h3, h4 {
 }
 
 /* ── PORTFOLIO ── */
-.portfolio { background: var(--bg); position: relative; }
+.portfolio { background: var(--bg); position: relative; overflow: hidden; }
+.portfolio > .container { position: relative; z-index: 2; }
 
 .portfolio__filter {
   display: flex;
