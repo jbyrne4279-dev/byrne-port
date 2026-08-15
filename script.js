@@ -554,8 +554,8 @@ function initMist(canvasId) {
 
 /* ── HEADING TERMINAL FLICKER ── */
 /* Decodes heading text in from random terminal glyphs, like a console
-   resolving a string, then re-flickers it on an ambient interval and
-   on hover. Applies to the hero h1 and each section's main heading.
+   resolving a string, then re-flickers it on an ambient interval.
+   Applies to the hero h1 and each section's main heading.
    Exposed on window so project.js can (re)trigger it once the real
    project title replaces the "Loading…" placeholder. */
 window.TerminalFlicker = (function () {
@@ -618,38 +618,6 @@ window.TerminalFlicker = (function () {
     run();
     if (repeat && !reduceMotion) {
       setInterval(run, 20000);
-    }
-
-    // Hover: scramble continuously while the pointer is over the h1,
-    // then decode back to the real text once it leaves.
-    if (!reduceMotion) {
-      let hovering = false;
-
-      function hoverFrame() {
-        if (!hovering) return;
-        targets.forEach(t => {
-          const text = t._flickerText;
-          let out = '';
-          for (let i = 0; i < text.length; i++) {
-            out += text[i] === ' ' ? ' ' : CHARS[(Math.random() * CHARS.length) | 0];
-          }
-          t.textContent = out;
-          if (t.hasAttribute('data-text')) t.setAttribute('data-text', out);
-        });
-        requestAnimationFrame(hoverFrame);
-      }
-
-      h1.addEventListener('mouseenter', () => {
-        if (hovering) return;
-        hovering = true;
-        targets.forEach(t => t.classList.add('is-decoding'));
-        requestAnimationFrame(hoverFrame);
-      });
-
-      h1.addEventListener('mouseleave', () => {
-        hovering = false;
-        run();
-      });
     }
   }
 
