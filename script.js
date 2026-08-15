@@ -220,16 +220,25 @@
     ensureLoop();
   }
 
-  // Centre a specific card via the shortest (possibly wrapped) path
-  function focus(idx) {
+  // Centre a specific card via the shortest (possibly wrapped) path.
+  // `instant` snaps straight there (used for clicks) instead of easing.
+  function focus(idx, instant) {
     vel = 0;
     const N = visible.length;
-    if (isLoop()) snapTarget = idx + N * Math.round((pos - idx) / N);
-    else snapTarget = clampN(idx, 0, N - 1);
-    ensureLoop();
+    const target = isLoop() ? idx + N * Math.round((pos - idx) / N)
+                             : clampN(idx, 0, N - 1);
+    if (instant) {
+      pos = target;
+      snapTarget = null;
+      if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
+      draw();
+    } else {
+      snapTarget = target;
+      ensureLoop();
+    }
   }
 
-  // Click a side card to focus it; click the centred card to open it
+  // Click a side card to jump straight to it; click the centred card to open it
   allCards.forEach(card => {
     const link = card.querySelector('.project-card__cover-link');
     card.addEventListener('click', e => {
@@ -238,8 +247,8 @@
       if (idx === -1) return;
       const centreIndex = mod(Math.round(pos), visible.length);
       if (idx !== centreIndex) {
-        e.preventDefault();       // don't navigate — just centre it
-        focus(idx);
+        e.preventDefault();       // don't navigate — just centre it, instantly
+        focus(idx, true);
       } else if (link) {
         // whatever is in the middle → follow its project link
         e.preventDefault();
