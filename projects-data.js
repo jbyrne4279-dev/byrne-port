@@ -734,7 +734,7 @@ const PROJECTS = [
       'Brand Strategy', 'Digital Marketing', 'Project Management'
     ],
     gradient: 'linear-gradient(145deg, #0a0616 0%, #160a2e 35%, #241045 60%, #3a1a70 100%)',
-    imageCount: 35,
+    imageCount: 46,
     imagePaths: [
       'assets/projects/arc26/arc-logo.webp',
       'assets/projects/arc26/background.webp',
@@ -770,7 +770,18 @@ const PROJECTS = [
       'assets/projects/arc26/photo_2026-08-06_22-24-18.webp',
       'assets/projects/arc26/photo_2026-08-06_22-24-19.webp',
       'assets/projects/arc26/photo_2026-08-07_11-50-57.webp',
-      'assets/projects/arc26/photo_2026-08-10_15-06-10.webp'
+      'assets/projects/arc26/photo_2026-08-10_15-06-10.webp',
+      'assets/projects/arc26/photo_2026-08-12_21-41-15.webp',
+      'assets/projects/arc26/photo_2026-08-14_00-44-51.webp',
+      'assets/projects/arc26/photo_2026-08-14_01-03-14.webp',
+      'assets/projects/arc26/photo_2026-08-14_22-30-53.webp',
+      'assets/projects/arc26/photo_2026-08-15_00-09-43.webp',
+      'assets/projects/arc26/photo_2026-08-15_00-09-43_(2).webp',
+      'assets/projects/arc26/photo_2026-08-15_00-09-45.webp',
+      'assets/projects/arc26/photo_2026-08-15_10-44-23.webp',
+      'assets/projects/arc26/photo_2026-08-15_10-54-41.webp',
+      'assets/projects/arc26/photo_2026-08-15_11-17-27.webp',
+      'assets/projects/arc26/photo_2026-08-15_18-56-30.webp'
     ]
   },
   {
