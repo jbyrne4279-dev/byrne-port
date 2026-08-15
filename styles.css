@@ -1064,6 +1064,20 @@ h1, h2, h3, h4 {
   height: 100%;
 }
 
+/* Liquid-glass backdrop behind the caption — busy cover photos (menus,
+   app screenshots) can fight with the title/description, so frost the
+   band behind the text instead of relying on the image gradient alone. */
+.portfolio__carousel .project-card__inner {
+  background: linear-gradient(to top,
+    rgba(10,10,14,0.62) 0%,
+    rgba(10,10,14,0.5) 45%,
+    rgba(10,10,14,0.16) 85%,
+    rgba(10,10,14,0) 100%);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
 /* Neutralise the old grid hover treatment inside the carousel */
 .portfolio__carousel .project-card:hover .project-card__img {
   transform: none;
