@@ -22,7 +22,7 @@ const PROJECTS = [
     ],
     url: 'https://xtcclothing.com/',
     gradient: 'linear-gradient(145deg, #0d0806 0%, #1e120a 40%, #3d2214 100%)',
-    imageCount: 105,
+    imageCount: 121,
     imagePaths: [
       'assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp',
       'assets/projects/clothing-brand/XTC-ZIP-HOODIE-WAR-SS26.webp',
@@ -128,7 +128,23 @@ const PROJECTS = [
       'assets/projects/clothing-brand/tartan_pattern.webp',
       'assets/projects/clothing-brand/campaign_only50_solo.webp',
       'assets/projects/clothing-brand/campaign_only50_duo.webp',
-      'assets/projects/clothing-brand/campaign_original_members.webp'
+      'assets/projects/clothing-brand/campaign_original_members.webp',
+      'assets/projects/clothing-brand/warx_tee_black_1.webp',
+      'assets/projects/clothing-brand/warx_tee_black_2.webp',
+      'assets/projects/clothing-brand/warx_tee_white.webp',
+      'assets/projects/clothing-brand/war_tee_white.webp',
+      'assets/projects/clothing-brand/blank_black_tee_mockup.webp',
+      'assets/projects/clothing-brand/cargo_shorts_floral_dragon.webp',
+      'assets/projects/clothing-brand/cargo_shorts_black_flat.webp',
+      'assets/projects/clothing-brand/cargo_pants_black_eagle_crest.webp',
+      'assets/projects/clothing-brand/cargo_pants_denim_blue.webp',
+      'assets/projects/clothing-brand/cargo_pants_denim_grey.webp',
+      'assets/projects/clothing-brand/saint_crucifix_lineup.webp',
+      'assets/projects/clothing-brand/saint_tee_back.webp',
+      'assets/projects/clothing-brand/saint_boxers_front.webp',
+      'assets/projects/clothing-brand/saint_thong.webp',
+      'assets/projects/clothing-brand/crucifix_sweatpants_front.webp',
+      'assets/projects/clothing-brand/crucifix_sweatpants_back.webp'
     ]
   },
   {
