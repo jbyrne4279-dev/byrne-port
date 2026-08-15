@@ -318,13 +318,16 @@
     else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
   });
 
-  // Scroll-wheel navigation — spinning the wheel (or a trackpad swipe) over
-  // the carousel steps through the reel. Accumulate delta so one notch is
-  // roughly one card regardless of device.
+  // Scroll-wheel navigation — a horizontal trackpad swipe over the carousel
+  // steps through the reel. Vertical wheel input (a normal mouse wheel, or
+  // scrolling the page on a trackpad) is left alone so the page keeps
+  // scrolling normally instead of getting stuck scrubbing the reel.
+  // Accumulate delta so one notch is roughly one card regardless of device.
   let wheelAcc = 0;
   const WHEEL_STEP = 120;
   carousel.addEventListener('wheel', e => {
-    let d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;  // vertical → let the page scroll
+    let d = e.deltaX;
     if (e.deltaMode === 1) d *= 16;   // line units → approx pixels
     if (d === 0) return;
     e.preventDefault();               // scrub the reel instead of the page
