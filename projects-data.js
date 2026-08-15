@@ -12,8 +12,12 @@ const PROJECTS = [
     year:     '2024–25',
     context:  'Personal Project',
     description: [
-      'A clothing brand I built from scratch. Started with the concept and brand identity, then moved into actual garment design, production and marketing. The aim was something that sits between real streetwear and something a bit more considered and elevated.',
-      'I handled full creative direction across branding, photography, social media and e-commerce planning. Every touchpoint from the logo to the swing tag was done in-house, which meant complete control over how the brand came across.'
+      'XTC Clothing is my clothing brand that I have independently founded and run since 2024, out of a growing passion for grunge and alternative design.',
+      'Since then I have been curating collections through Procreate, InDesign and Photoshop to create tech packs that I then communicate with my Chinese suppliers.',
+      'This project has taught me a lot about fashion design, marketing, garment tech, international communication, negotiation, as well as how to form relationships with influencers to help promote a brand that aligns with their brand identity.',
+      'This venture has also taught me the ins and outs of Meta Business Suite, how to run my own paid advertising campaigns, manage budgets, creatives, A/B testing, and target audiences.',
+      'Most recently, I have developed a fully custom coded website using Claude Code to create a unique, on-brand website, setting up Stripe payments, Supabase and various other backend systems that will now save me £780 a year, which Shopify was once robbing from me.',
+      'There are loads of other skills I have learnt during this venture, but to keep it short I have done everything from idea to consumer-facing product.'
     ],
     skills: [
       'Garment Design', 'Brand Identity', 'Creative Direction',
@@ -681,9 +685,16 @@ const PROJECTS = [
     year:     '2026',
     context:  'Summer Role — Supervisor — Self-Initiated',
     description: [
-      'After being promoted to Supervisor during my summer role in 2026, I identified inefficiencies in the council\'s paper-based compliance process across three catering sites. Daily fridge and freezer temperature checks, cleaning records and operational logs were all managed manually, creating gaps in accountability and forcing supervisors to spend significant time chasing incomplete records.',
-      'I independently designed and developed a digital compliance management system to replace the existing paper workflow. The platform automated staff identification and record tracking while giving supervisors a centralised dashboard for daily, weekly, monthly and annual compliance monitoring. Key functionality included submission timestamps, staff accountability, incomplete-record detection and management-level reporting, so supervisors could immediately see outstanding checks and the staff members responsible.',
-      'The project demonstrated my ability to identify operational problems, translate them into digital product requirements, and build a practical technology-led solution off my own initiative, without being asked to do so.'
+      'After being promoted to Supervisor at North Hertfordshire Council in Summer 2026, to help manage and run a Museum Cafe, Howard Park Kiosk and Bancroft Park Kiosk, I took some independent initiative to look into the systems and forms in which they presented themselves to the public, as they were struggling to keep these sites from shutting down due to unsustainable revenue.',
+      'The first red flag that was apparent was their use of outdated and unengaging menus and a lack of physical advertising for key cash cow products.',
+      'So without being asked, I designed six new menus for these cash cow products — and just like that, sales went up.',
+      'Whilst designing these menus using ChatGPT\'s image model, I made sure to incorporate strong visual elements and eye-catching product images to create a better visual display of their product offerings and help better inform the consumer.',
+      'And let\'s just say it worked — here are the revenue figures from 2025 and 2026, with still the busiest month to come.',
+      '<div class="proj-table-wrap"><table class="proj-table"><thead><tr><th>Month</th><th>2025</th><th>2026 to 27 Jul</th><th>Uplift</th></tr></thead><tbody><tr><td>May</td><td>£9,113.72</td><td>£15,609.46</td><td class="proj-table__up">+71.27%</td></tr><tr><td>June</td><td>£9,784.83</td><td>£10,841.86</td><td class="proj-table__up">+10.80%</td></tr><tr><td>July</td><td>£7,700.27</td><td>£14,900.98</td><td class="proj-table__up">+93.51%</td></tr><tr><td>August</td><td>£16,038.29</td><td>£0.00</td><td class="proj-table__down">−100.00%</td></tr><tr><td>September</td><td>£1,117.57</td><td>£0.00</td><td class="proj-table__down">−100.00%</td></tr></tbody><tfoot><tr><td>Total</td><td>£43,754.68</td><td>£41,352.30</td><td></td></tr></tfoot></table></div>',
+      'Additionally, whilst working this role for a couple of months, I realised the inefficiency of our site log books that hold temperature readings, daily summaries and checklists — staff would often forget to fill them in, pages would get lost, and each book was bound to a single site, resulting in poor maintenance and a risk of low ratings when inspectors came around.',
+      'So I decided to create a fully digital logging system which staff could access using the web and easily submit data to.',
+      'Additionally, I also added a dashboard and tracking system that notified managers when days were missed and pinpointed the staff and task missed, allowing for hasty correction.',
+      'Although none of these tasks were in my job description, I thought I would take advantage of this opportunity and provide value to my team and business.'
     ],
     skills: [
       'Digital Product Development', 'UX/UI Design', 'Process Automation',

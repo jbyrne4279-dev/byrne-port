@@ -74,8 +74,14 @@
     }
   }
 
-  // Description paragraphs
-  set('projDesc', project.description.map(p => `<p class="type-reveal">${p}</p>`).join(''));
+  // Description paragraphs. An entry that's already a block element (e.g. a
+  // data table) is passed through as-is instead of being wrapped in a <p> —
+  // block content isn't valid inside <p> and the browser would just hoist
+  // it back out, breaking the wrapping tag around it.
+  set('projDesc', project.description.map(p => {
+    const trimmed = p.trim();
+    return /^<(table|div|ul|ol)[ >]/i.test(trimmed) ? trimmed : `<p class="type-reveal">${p}</p>`;
+  }).join(''));
   if (window.TypeReveal) {
     document.querySelectorAll('#projDesc .type-reveal').forEach(p => window.TypeReveal.run(p));
   }
