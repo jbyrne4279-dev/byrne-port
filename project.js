@@ -241,7 +241,7 @@
       <div class="proj-not-found" style="padding-top: var(--nav-h)">
         <h1>404</h1>
         <p>Project not found</p>
-        <a href="index.html#portfolio" class="btn btn--outline" style="margin-top:16px">← Back to Work</a>
+        <a href="/#portfolio" class="btn btn--outline" style="margin-top:16px">← Back to Work</a>
       </div>`;
 
     const notFoundH1 = page.querySelector('h1');
