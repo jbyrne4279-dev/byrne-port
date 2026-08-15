@@ -765,7 +765,22 @@ h1, h2, h3, h4 {
 }
 
 /* ── PORTFOLIO ── */
-.portfolio { background: var(--bg); position: relative; }
+.portfolio { background: var(--bg); position: relative; overflow: hidden; }
+.portfolio > .container { position: relative; z-index: 2; }
+
+.portfolio__glow--carousel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 720px;
+  height: 720px;
+  margin: -360px 0 0 -360px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(176,0,32,0.2) 0%, transparent 70%);
+}
 
 .portfolio__filter {
   display: flex;

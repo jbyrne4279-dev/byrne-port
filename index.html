@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=12">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -145,6 +145,9 @@
 
   <!-- ── PORTFOLIO ── -->
   <section class="portfolio section" id="portfolio">
+    <canvas class="hero__mist" id="portfolioMist" aria-hidden="true"></canvas>
+    <div class="hero__glow hero__glow--1"></div>
+    <div class="hero__glow hero__glow--2"></div>
     <div class="container">
       <div class="section__header reveal">
         <span class="section__label">02 Work</span>
@@ -154,9 +157,7 @@
       </div>
 
       <div class="portfolio__carousel reveal" id="projectCarousel" tabindex="0" role="group" aria-label="Projects carousel">
-        <canvas class="hero__mist" id="portfolioMist" aria-hidden="true"></canvas>
-        <div class="hero__glow hero__glow--1"></div>
-        <div class="hero__glow hero__glow--2"></div>
+        <div class="portfolio__glow--carousel"></div>
         <div class="carousel__stage" id="carouselStage">
 
         <!-- 1 — Featured: My Clothing Brand -->
@@ -610,6 +611,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

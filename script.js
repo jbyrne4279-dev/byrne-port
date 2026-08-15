@@ -494,7 +494,10 @@ function initMist(canvasId) {
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const COUNT = 30;
+  // Scale particle density to canvas height so taller sections (like the
+  // portfolio, which is much taller than the hero's 100vh) don't read as
+  // sparser than the hero's mist.
+  const COUNT = Math.round(Math.max(30, canvas.height / 26));
   const particles = [];
 
   function MistParticle(initialY) {
