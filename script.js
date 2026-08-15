@@ -125,9 +125,9 @@
   // Responsive coverflow parameters
   function params() {
     const w = window.innerWidth;
-    if (w < 560) return { step: 38, rot: 0,  z: 40, maxVis: 2 };
-    if (w < 900) return { step: 43, rot: 24, z: 55, maxVis: 3 };
-    return { step: 40, rot: 32, z: 60, maxVis: 5 };
+    if (w < 560) return { step: 38, rot: 0, z: 40, maxVis: 2 };
+    if (w < 900) return { step: 43, rot: 0, z: 55, maxVis: 3 };
+    return { step: 40, rot: 0, z: 60, maxVis: 5 };
   }
 
   // The reel wraps into an infinite loop only when there are enough cards
@@ -156,7 +156,7 @@
       const rot    = -sign * clamp * p.rot;
       const tx     = offset * p.step;           // % of card width
       const tz     = -abs * p.z;                // push side cards back
-      const bright = Math.max(0.35, 1 - abs * 0.16);
+      const bright = Math.max(0.7, 1 - abs * 0.08);
       const hidden = abs > p.maxVis + 0.5;
 
       card.style.transform =
