@@ -26,7 +26,7 @@ const PROJECTS = [
     ],
     url: 'https://xtcclothing.com/',
     gradient: 'linear-gradient(145deg, #0d0806 0%, #1e120a 40%, #3d2214 100%)',
-    imageCount: 121,
+    imageCount: 122,
     imagePaths: [
       'assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp',
       'assets/projects/clothing-brand/XTC-ZIP-HOODIE-WAR-SS26.webp',
@@ -148,7 +148,8 @@ const PROJECTS = [
       'assets/projects/clothing-brand/saint_boxers_front.webp',
       'assets/projects/clothing-brand/saint_thong.webp',
       'assets/projects/clothing-brand/crucifix_sweatpants_front.webp',
-      'assets/projects/clothing-brand/crucifix_sweatpants_back.webp'
+      'assets/projects/clothing-brand/crucifix_sweatpants_back.webp',
+      'assets/projects/clothing-brand/xtc-admin.webp'
     ]
   },
   {
