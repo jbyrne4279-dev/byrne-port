@@ -22,7 +22,7 @@ const PROJECTS = [
     ],
     url: 'https://xtcclothing.com/',
     gradient: 'linear-gradient(145deg, #0d0806 0%, #1e120a 40%, #3d2214 100%)',
-    imageCount: 95,
+    imageCount: 105,
     imagePaths: [
       'assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp',
       'assets/projects/clothing-brand/XTC-ZIP-HOODIE-WAR-SS26.webp',
@@ -99,6 +99,10 @@ const PROJECTS = [
       'assets/projects/clothing-brand/white_bracelet.webp',
       'assets/projects/clothing-brand/white_bracelet_.webp',
       'assets/projects/clothing-brand/white_black_bracelet_Nero_AI_Image_Upscaler_Photo_Face.webp',
+      'assets/projects/clothing-brand/white_bracelet_on_wrist.webp',
+      'assets/projects/clothing-brand/black_bracelet_white_bg.webp',
+      'assets/projects/clothing-brand/black_bracelet_black_bg.webp',
+      'assets/projects/clothing-brand/snake_dagger_love_logo.webp',
       'assets/projects/clothing-brand/cv_lab_character (2).webp',
       'assets/projects/clothing-brand/cv_lab_character (3).webp',
       'assets/projects/clothing-brand/cv_lab_character (8).webp',
@@ -118,7 +122,13 @@ const PROJECTS = [
       'assets/projects/clothing-brand/WhatsApp Image 2025-09-20 at 23.29.04_fff02852.webp',
       'assets/projects/clothing-brand/WhatsApp Image 2025-10-01 at 4.26.55 PM.webp',
       'assets/projects/clothing-brand/WhatsApp Image 2026-02-04 at 11.38.29 PM.webp',
-      'assets/projects/clothing-brand/white al.webp'
+      'assets/projects/clothing-brand/white al.webp',
+      'assets/projects/clothing-brand/hoodie_black_flat.webp',
+      'assets/projects/clothing-brand/hoodie_tartan_lining_mockup.webp',
+      'assets/projects/clothing-brand/tartan_pattern.webp',
+      'assets/projects/clothing-brand/campaign_only50_solo.webp',
+      'assets/projects/clothing-brand/campaign_only50_duo.webp',
+      'assets/projects/clothing-brand/campaign_original_members.webp'
     ]
   },
   {
