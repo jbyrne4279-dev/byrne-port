@@ -695,8 +695,25 @@ const PROJECTS = [
     ],
     linksNote: 'Designed for mobile view',
     gradient: 'linear-gradient(145deg, #02060c 0%, #06283d 35%, #0a3d5c 60%, #10617a 100%)',
-    imageCount: 0,
-    imagePaths: []
+    imageCount: 16,
+    imagePaths: [
+      'assets/projects/cafe-compliance/app_temps_freezers.webp',
+      'assets/projects/cafe-compliance/app_temps_fridges_save.webp',
+      'assets/projects/cafe-compliance/app_cleaning_checklist.webp',
+      'assets/projects/cafe-compliance/app_hot_food.webp',
+      'assets/projects/cafe-compliance/app_daily_diary.webp',
+      'assets/projects/cafe-compliance/app_check_times.webp',
+      'assets/projects/cafe-compliance/app_monthly_overview.webp',
+      'assets/projects/cafe-compliance/app_who_worked.webp',
+      'assets/projects/cafe-compliance/app_daily_completion_calendar.webp',
+      'assets/projects/cafe-compliance/app_needs_attention.webp',
+      'assets/projects/cafe-compliance/menu_bancroft_drinks_paninis.webp',
+      'assets/projects/cafe-compliance/menu_bancroft_gelato_icecreams.webp',
+      'assets/projects/cafe-compliance/menu_howard_kiosk.webp',
+      'assets/projects/cafe-compliance/menu_panini.webp',
+      'assets/projects/cafe-compliance/menu_gelato.webp',
+      'assets/projects/cafe-compliance/menu_ice_creams.webp'
+    ]
   },
   {
     slug:     'arc26',
