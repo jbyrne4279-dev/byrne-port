@@ -327,23 +327,42 @@
     }
   }, { passive: false });
 
-  // Drag / swipe navigation (touch / coarse pointers)
-  let startX = 0, dragging = false, suppressClick = false;
+  // Drag / swipe navigation (touch / coarse pointers). Tracks the finger
+  // 1:1 in real time (instead of only reacting once on release) so the
+  // reel feels like it's actually under the thumb instead of laggy.
+  let startX = 0, startPos = 0, dragging = false, suppressClick = false;
   if (!canHover) {
     carousel.addEventListener('pointerdown', e => {
-      startX = e.clientX; dragging = true; suppressClick = false;
-    });
-    window.addEventListener('pointermove', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      startX = e.clientX;
+      startPos = pos;
+      dragging = true;
+      suppressClick = false;
+      vel = 0;
+      snapTarget = null;
+      if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
+      carousel.setPointerCapture(e.pointerId);
+    }, { passive: true });
+
+    carousel.addEventListener('pointermove', e => {
       if (!dragging) return;
-      if (Math.abs(e.clientX - startX) > 8) suppressClick = true;
-    });
-    window.addEventListener('pointerup', e => {
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 8) suppressClick = true;
+      const r = carousel.getBoundingClientRect();
+      const pxPerCard = r.width * 0.36;   // drag distance ≈ one card's worth
+      pos = startPos - dx / pxPerCard;
+      if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
+      draw();                              // apply immediately, no rAF delay
+    }, { passive: true });
+
+    const endDrag = e => {
       if (!dragging) return;
       dragging = false;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
+      settleToNearest();
       setTimeout(() => { suppressClick = false; }, 0);
-    });
+    };
+    carousel.addEventListener('pointerup', endDrag);
+    carousel.addEventListener('pointercancel', endDrag);
   }
 
   let resizeRAF;
