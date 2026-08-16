@@ -119,6 +119,8 @@
   let rafId      = null;
   let dragging   = false;                          // finger/mouse currently dragging
   let flinging   = false;                          // swipe momentum decaying
+  let prevPos    = pos;                            // last frame's position (for speed)
+  let motionBlur = 0;                              // current blur (px), from speed
 
   const MAX_SPEED = 7;     // cards/sec the reel scrolls at the far edge (hover)
   const DEAD      = 0.08;  // central rest zone (fraction of half width)
@@ -130,6 +132,11 @@
   const FLICK_MIN  = 1.4;   // min swipe speed (cards/sec) to fling
   const MAX_FLING  = 24;    // cap on fling speed (cards/sec)
   const VEL_MIN    = 0.2;   // momentum stops below this (cards/sec)
+
+  // Motion blur driven by how fast the reel is actually moving on screen
+  const BLUR_MIN_SPEED = 1.5;  // cards/sec below which there's no blur
+  const BLUR_PER_SPEED = 1.1;  // px of blur per card/sec above the floor
+  const MAX_BLUR       = 7;    // cap (px)
 
   // Responsive coverflow parameters
   function params() {
@@ -173,7 +180,9 @@
         `rotateY(${rot}deg) scale(${scale})`;
       card.style.zIndex  = String(100 - Math.round(abs));
       card.style.opacity = hidden ? '0' : '1';
-      card.style.filter  = `brightness(${bright})`;
+      card.style.filter  = motionBlur > 0.05
+        ? `brightness(${bright}) blur(${motionBlur.toFixed(2)}px)`
+        : `brightness(${bright})`;
       card.style.pointerEvents = hidden ? 'none' : 'auto';
       card.classList.toggle('is-active', i === centreIndex);
     });
@@ -213,6 +222,18 @@
     }
 
     if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
+
+    // Motion blur from the reel's real on-screen speed (cards/sec)
+    if (running) {
+      const speed = Math.abs(pos - prevPos) / dt;
+      const target = Math.min(MAX_BLUR, Math.max(0, speed - BLUR_MIN_SPEED) * BLUR_PER_SPEED);
+      motionBlur += (target - motionBlur) * 0.4;
+      if (motionBlur < 0.05) motionBlur = 0;
+    } else {
+      motionBlur = 0;
+    }
+    prevPos = pos;
+
     draw();
     rafId = running ? requestAnimationFrame(frame) : null;
   }

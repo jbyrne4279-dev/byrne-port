@@ -1047,13 +1047,12 @@ h1, h2, h3, h4 {
   overflow: hidden;
   cursor: pointer;
   transform: translate(-50%, -50%);
-  /* Transform is driven every frame by JS (eased in script), so it must NOT
-     have a CSS transition or the two fight and the scrub feels laggy.
-     Only the position-independent props get a transition. */
+  /* Transform AND filter are driven every frame by JS (eased in script), so
+     they must NOT have a CSS transition or the two fight — the scrub feels
+     laggy and the motion blur smears. Only opacity / box-shadow transition. */
   transition: opacity 0.28s var(--ease-out),
-              filter 0.28s var(--ease-out),
               box-shadow 0.35s;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   backface-visibility: hidden;
 }
 
