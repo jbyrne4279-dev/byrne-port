@@ -52,6 +52,9 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  /* Paint the root dark so iOS Safari fills the status-bar / safe-area and
+     overscroll regions with the site colour instead of a grey gap. */
+  background: var(--bg);
 }
 
 body {
