@@ -113,14 +113,23 @@
 
   let visible    = allCards.slice();               // cards in the current filter
   let pos        = Math.floor(visible.length / 2); // current centre (float, unbounded)
-  let vel        = 0;                              // scroll speed (cards/sec) from cursor
+  let vel        = 0;                              // scroll speed (cards/sec)
   let snapTarget = null;                           // eased target for click / keyboard
   let lastT      = 0;                              // last frame timestamp
   let rafId      = null;
+  let dragging   = false;                          // finger/mouse currently dragging
+  let flinging   = false;                          // swipe momentum decaying
 
-  const MAX_SPEED = 5.5;   // cards/sec the reel scrolls at the far edge
-  const DEAD      = 0.10;  // central rest zone (fraction of half width)
+  const MAX_SPEED = 7;     // cards/sec the reel scrolls at the far edge (hover)
+  const DEAD      = 0.08;  // central rest zone (fraction of half width)
   const SNAP_EASE = 0.22;  // ease factor when settling onto a card
+
+  // Swipe / flick momentum: the speed of the swipe modifies the scroll speed
+  const FRICTION   = 0.93;  // momentum decay per 60fps frame
+  const FLICK_MULT = 1.25;  // swipe-speed → scroll-speed modifier
+  const FLICK_MIN  = 1.4;   // min swipe speed (cards/sec) to fling
+  const MAX_FLING  = 24;    // cap on fling speed (cards/sec)
+  const VEL_MIN    = 0.2;   // momentum stops below this (cards/sec)
 
   // Responsive coverflow parameters
   function params() {
@@ -176,16 +185,25 @@
     layout(c);
   }
 
-  // Single rAF loop. The cursor sets a scroll velocity (hold the mouse to
-  // one side and the reel keeps gliding + looping in that direction); when
-  // there's no velocity it eases onto the nearest card and rests.
+  // Single rAF loop handling four modes, in priority:
+  //  · dragging  — pos is set live in pointermove; keep the loop alive
+  //  · flinging  — swipe momentum: glide on and decay by friction, then snap
+  //  · vel != 0  — cursor-held scroll (hold the mouse to one side)
+  //  · snapTarget— ease onto the nearest / chosen card and rest
   function frame(t) {
     const dt = Math.min(0.05, lastT ? (t - lastT) / 1000 : 0.016);
     lastT = t;
     let running = false;
 
-    if (vel !== 0) {
-      pos += vel * dt;                 // continuous cursor-driven scroll
+    if (dragging) {
+      running = true;                        // pos updated by pointermove
+    } else if (flinging) {
+      pos += vel * dt;
+      vel *= Math.pow(FRICTION, dt * 60);    // frame-rate-independent decay
+      if (Math.abs(vel) <= VEL_MIN) { vel = 0; flinging = false; snapTarget = Math.round(pos); }
+      running = true;
+    } else if (vel !== 0) {
+      pos += vel * dt;                        // continuous cursor-driven scroll
       snapTarget = null;
       running = true;
     } else if (snapTarget !== null) {
@@ -277,12 +295,53 @@
     });
   });
 
-  // Cursor-reactive scrub (desktop pointers only) — the cursor's distance
-  // from centre sets the scroll speed/direction, so holding the mouse to
-  // one side keeps the reel gliding and looping that way. The middle is a
-  // rest zone; leaving settles onto the nearest card.
-  if (canHover && !reduce) {
-    carousel.addEventListener('pointermove', e => {
+  // ── Pointer interaction: drag-to-scrub with flick momentum (all pointers)
+  //    plus, on fine pointers, cursor-position velocity scrubbing ──
+  let startX = 0, startPos = 0, lastX = 0, lastMoveT = 0, dragVel = 0;
+  let suppressClick = false;
+
+  function pxPerCard() {
+    const w = allCards[0] ? allCards[0].offsetWidth
+                          : carousel.getBoundingClientRect().width * 0.3;
+    return Math.max(60, w * (params().step / 100));
+  }
+
+  carousel.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    startX = lastX = e.clientX;
+    startPos = pos;
+    lastMoveT = performance.now();
+    dragVel = 0;
+    dragging = true;
+    flinging = false;
+    suppressClick = false;
+    vel = 0;
+    snapTarget = null;
+    if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
+    try { carousel.setPointerCapture(e.pointerId); } catch (_) {}
+  });
+
+  carousel.addEventListener('pointermove', e => {
+    // Active drag: track the pointer 1:1 and measure its speed for the flick
+    if (dragging) {
+      const now = performance.now();
+      const ppc = pxPerCard();
+      const dx  = e.clientX - startX;
+      if (Math.abs(dx) > 6) suppressClick = true;
+      pos = startPos - dx / ppc;
+      if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
+      const ddt = (now - lastMoveT) / 1000;
+      if (ddt > 0) {
+        const instant = -((e.clientX - lastX) / ppc) / ddt;  // cards/sec
+        dragVel = dragVel * 0.7 + instant * 0.3;             // smooth the estimate
+      }
+      lastX = e.clientX;
+      lastMoveT = now;
+      draw();
+      return;
+    }
+    // Cursor-position velocity scrub (fine pointers, when idle)
+    if (canHover && !reduce && !flinging) {
       if (e.pointerType && e.pointerType !== 'mouse') return;
       const r = carousel.getBoundingClientRect();
       const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
@@ -295,8 +354,32 @@
         vel = Math.sign(norm) * m * m * MAX_SPEED;  // quadratic: fine near centre
       }
       ensureLoop();
+    }
+  });
+
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    // The swipe's speed becomes the scroll speed: a faster flick sends the
+    // reel further and quicker; a gentle release just settles on a card.
+    if (Math.abs(dragVel) > FLICK_MIN) {
+      vel = clampN(dragVel * FLICK_MULT, -MAX_FLING, MAX_FLING);
+      flinging = true;
+      ensureLoop();
+    } else {
+      settleToNearest();
+    }
+    setTimeout(() => { suppressClick = false; }, 0);
+  };
+  carousel.addEventListener('pointerup', endDrag);
+  carousel.addEventListener('pointercancel', endDrag);
+
+  // Leaving with a fine pointer settles onto a card (unless mid-fling/drag)
+  if (canHover && !reduce) {
+    carousel.addEventListener('pointerleave', () => {
+      if (dragging || flinging) return;
+      settleToNearest();
     });
-    carousel.addEventListener('pointerleave', settleToNearest);
   }
 
   // Track whether the carousel is on screen, so global arrow/wheel input
@@ -338,44 +421,6 @@
       wheelAcc -= Math.sign(wheelAcc) * WHEEL_STEP;
     }
   }, { passive: false });
-
-  // Drag / swipe navigation (touch / coarse pointers). Tracks the finger
-  // 1:1 in real time (instead of only reacting once on release) so the
-  // reel feels like it's actually under the thumb instead of laggy.
-  let startX = 0, startPos = 0, dragging = false, suppressClick = false;
-  if (!canHover) {
-    carousel.addEventListener('pointerdown', e => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      startX = e.clientX;
-      startPos = pos;
-      dragging = true;
-      suppressClick = false;
-      vel = 0;
-      snapTarget = null;
-      if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
-      carousel.setPointerCapture(e.pointerId);
-    }, { passive: true });
-
-    carousel.addEventListener('pointermove', e => {
-      if (!dragging) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 8) suppressClick = true;
-      const r = carousel.getBoundingClientRect();
-      const pxPerCard = r.width * 0.36;   // drag distance ≈ one card's worth
-      pos = startPos - dx / pxPerCard;
-      if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
-      draw();                              // apply immediately, no rAF delay
-    }, { passive: true });
-
-    const endDrag = e => {
-      if (!dragging) return;
-      dragging = false;
-      settleToNearest();
-      setTimeout(() => { suppressClick = false; }, 0);
-    };
-    carousel.addEventListener('pointerup', endDrag);
-    carousel.addEventListener('pointercancel', endDrag);
-  }
 
   let resizeRAF;
   window.addEventListener('resize', () => {
