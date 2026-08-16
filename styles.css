@@ -1067,14 +1067,15 @@ h1, h2, h3, h4 {
    app screenshots) can fight with the title/description, so frost the
    band behind the text instead of relying on the image gradient alone. */
 .portfolio__carousel .project-card__inner {
+  /* Gradient only — no backdrop-filter or border-top: those clip to the
+     panel's rectangle and draw a hard-edged "box" / seam across the cards
+     (very visible on the side cards peeking out). The fade keeps text
+     legible without any hard edge. */
   background: linear-gradient(to top,
     rgba(10,10,14,0.62) 0%,
     rgba(10,10,14,0.5) 45%,
     rgba(10,10,14,0.16) 85%,
     rgba(10,10,14,0) 100%);
-  backdrop-filter: blur(6px) saturate(140%);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 /* Neutralise the old grid hover treatment inside the carousel */
