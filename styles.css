@@ -65,6 +65,22 @@ body {
   overflow-x: clip;
 }
 
+/* Solid black fill for the iOS status-bar / notch safe area, so the top of
+   the screen matches the nav instead of showing a translucent grey strip.
+   Height is 0 on devices without a top inset, so it's invisible elsewhere.
+   z-index 98 keeps it under the nav (100) and the mobile menu (99). */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top, 0px);
+  background: #000;
+  z-index: 98;
+  pointer-events: none;
+}
+
 
 /* Global noise grain overlay */
 body::before {
