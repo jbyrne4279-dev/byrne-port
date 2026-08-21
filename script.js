@@ -111,8 +111,17 @@
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Start centred on the clothing-brand project (fall back to the middle)
+  const startIdx = (() => {
+    const i = allCards.findIndex(c => {
+      const link = c.querySelector('.project-card__cover-link');
+      return link && /clothing-brand/.test(link.getAttribute('href') || '');
+    });
+    return i >= 0 ? i : Math.floor(allCards.length / 2);
+  })();
+
   let visible    = allCards.slice();               // cards in the current filter
-  let pos        = Math.floor(visible.length / 2); // current centre (float, unbounded)
+  let pos        = startIdx;                       // current centre (float, unbounded)
   let vel        = 0;                              // scroll speed (cards/sec)
   let snapTarget = null;                           // eased target for click / keyboard
   let lastT      = 0;                              // last frame timestamp
