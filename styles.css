@@ -1529,8 +1529,14 @@ h1, h2, h3, h4 {
 .contact__links--below .contact__link {
   justify-content: center;
   border-bottom: none;
-  border-top: 1px solid var(--border);
+  border-top: none;
   gap: 14px;
+}
+
+/* An empty contact__links container still draws its border-top as a stray
+   grey line — hide it so it doesn't float in the layout. */
+.contact__links:empty {
+  display: none;
 }
 
 .contact__links--below .contact__link-label {
