@@ -287,23 +287,43 @@
     }
   }
 
-  // Click a side card to jump straight to it; click the centred card to open it
-  allCards.forEach(card => {
-    const link = card.querySelector('.project-card__cover-link');
-    card.addEventListener('click', e => {
-      if (suppressClick) { e.preventDefault(); return; }
-      const idx = visible.indexOf(card);
-      if (idx === -1) return;
-      const centreIndex = mod(Math.round(pos), visible.length);
-      if (idx !== centreIndex) {
-        e.preventDefault();       // don't navigate — just centre it, instantly
-        focus(idx, true);
-      } else if (link) {
-        // whatever is in the middle → follow its project link
+  // Delegated click: click a side card to jump straight to it; click the
+  // centred card to open it. Delegating (instead of per-card listeners) is
+  // robust against pointer-capture retargeting and the 3D transforms, which
+  // offset each card's hit-box from where it visually appears — so we resolve
+  // the target by hit-test first, then fall back to the nearest card by x.
+  carousel.addEventListener('click', e => {
+    if (suppressClick) { e.preventDefault(); return; }
+    const N = visible.length;
+    if (!N) return;
+
+    let card = document.elementFromPoint(e.clientX, e.clientY);
+    card = card && card.closest ? card.closest('.project-card') : null;
+    if (!card || visible.indexOf(card) === -1) {
+      // No direct hit — pick the visible card whose centre is nearest the click
+      let best = null, bestD = Infinity;
+      visible.forEach(c => {
+        if (getComputedStyle(c).opacity === '0') return;
+        const r = c.getBoundingClientRect();
+        const d = Math.abs((r.left + r.width / 2) - e.clientX);
+        if (d < bestD) { bestD = d; best = c; }
+      });
+      card = best;
+    }
+    const idx = card ? visible.indexOf(card) : -1;
+    if (idx === -1) return;
+
+    const centreIndex = mod(Math.round(pos), N);
+    if (idx !== centreIndex) {
+      e.preventDefault();          // side card → just centre it, instantly
+      focus(idx, true);
+    } else {
+      const link = card.querySelector('.project-card__cover-link');
+      if (link) {                  // centred card → open its project
         e.preventDefault();
         window.location.href = link.getAttribute('href');
       }
-    });
+    }
   });
 
   // Filter buttons rebuild the visible set
@@ -337,6 +357,8 @@
     return Math.max(60, w * (params().step / 100));
   }
 
+  let activePointerId = null;
+
   carousel.addEventListener('pointerdown', e => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     startX = lastX = e.clientX;
@@ -346,10 +368,13 @@
     dragging = true;
     flinging = false;
     suppressClick = false;
+    activePointerId = e.pointerId;
     vel = 0;
     snapTarget = null;
     if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
-    try { carousel.setPointerCapture(e.pointerId); } catch (_) {}
+    // NOTE: pointer capture is deferred until an actual drag starts (below).
+    // Capturing on pointerdown makes the follow-up `click` fire on the
+    // carousel instead of the card, which breaks clicking cards on desktop.
   });
 
   carousel.addEventListener('pointermove', e => {
@@ -358,7 +383,10 @@
       const now = performance.now();
       const ppc = pxPerCard();
       const dx  = e.clientX - startX;
-      if (Math.abs(dx) > 6) suppressClick = true;
+      if (Math.abs(dx) > 6 && !suppressClick) {
+        suppressClick = true;              // it's a drag, not a click
+        try { carousel.setPointerCapture(e.pointerId); } catch (_) {}
+      }
       pos = startPos - dx / ppc;
       if (!isLoop()) pos = clampN(pos, 0, visible.length - 1);
       const ddt = (now - lastMoveT) / 1000;
@@ -391,6 +419,10 @@
   const endDrag = () => {
     if (!dragging) return;
     dragging = false;
+    if (activePointerId != null) {
+      try { carousel.releasePointerCapture(activePointerId); } catch (_) {}
+      activePointerId = null;
+    }
     // The swipe's speed becomes the scroll speed: a faster flick sends the
     // reel further and quicker; a gentle release just settles on a card.
     if (Math.abs(dragVel) > FLICK_MIN) {
