@@ -674,8 +674,19 @@ const PROJECTS = [
       'Adobe Photoshop', 'Event Design', 'Marketing Strategy'
     ],
     gradient: 'linear-gradient(145deg, #0a0e06 0%, #141e08 35%, #1e300a 60%, #2a420e 100%)',
-    imageCount: 0,
-    imagePaths: []
+    imageCount: 10,
+    imagePaths: [
+      'assets/projects/make-progress/1.webp',
+      'assets/projects/make-progress/2.webp',
+      'assets/projects/make-progress/3.webp',
+      'assets/projects/make-progress/4.webp',
+      'assets/projects/make-progress/5.webp',
+      'assets/projects/make-progress/6.webp',
+      'assets/projects/make-progress/7.webp',
+      'assets/projects/make-progress/8.webp',
+      'assets/projects/make-progress/9.webp',
+      'assets/projects/make-progress/10.webp'
+    ]
   },
   {
     slug:     'cafe-compliance',
