@@ -118,6 +118,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 0;
+  animation: pulseSoft 2.6s ease-in-out infinite;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
@@ -134,6 +135,15 @@
 .proj-hero__link:hover {
   box-shadow: 0 0 32px var(--red-glow);
   transform: translateY(-2px);
+  animation: none;
+}
+
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-hero__link { animation: none; }
 }
 
 /* Green variant — use background-color so the glossy overlay is kept */

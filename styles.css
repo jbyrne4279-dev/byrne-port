@@ -870,7 +870,7 @@ h1, h2, h3, h4 {
 
 .project-card__img {
   width: 100%;
-  min-height: 360px;
+  min-height: 460px;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -884,7 +884,7 @@ h1, h2, h3, h4 {
   filter: contrast(1.05) brightness(0.9);
 }
 
-.project-card--featured .project-card__img { min-height: 500px; }
+.project-card--featured .project-card__img { min-height: 640px; }
 
 /* Dark overlay — heavier on this dark theme */
 .project-card__img::before {
@@ -1744,7 +1744,6 @@ h1, h2, h3, h4 {
 
 .footer__bottom {
   padding-top: 24px;
-  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1920,4 +1919,34 @@ body { text-align: center; }
   .hero__cta { flex-direction: column; align-items: stretch; }
   .hero__cta .btn { text-align: center; justify-content: center; }
   .about__stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Pulse the "Visit Site" buttons like the primary buttons ── */
+.site-card__btn {
+  animation: pulsePrimary 2.4s ease-in-out infinite;
+}
+.site-card:hover .site-card__btn {
+  animation-play-state: paused;
+}
+
+/* ── Stronger, staggered slide-up for the website cards ── */
+@keyframes slide-up-lg {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.websites__grid .site-card.reveal { transform: translateY(60px); }
+.websites__grid .site-card.in-view {
+  animation: slide-up-lg 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.websites__grid .site-card:nth-child(1).in-view { animation-delay: 0.05s; }
+.websites__grid .site-card:nth-child(2).in-view { animation-delay: 0.15s; }
+.websites__grid .site-card:nth-child(3).in-view { animation-delay: 0.25s; }
+.websites__grid .site-card:nth-child(4).in-view { animation-delay: 0.35s; }
+.websites__grid .site-card:nth-child(5).in-view { animation-delay: 0.45s; }
+.websites__grid .site-card:nth-child(6).in-view { animation-delay: 0.55s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-card__btn { animation: none; }
+  .websites__grid .site-card.reveal { transform: none; }
+  .websites__grid .site-card.in-view { animation: none; opacity: 1; transform: none; }
 }
