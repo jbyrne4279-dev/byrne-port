@@ -948,6 +948,7 @@ h1, h2, h3, h4 {
 .project-card__img--11 { background: linear-gradient(145deg, #02060c 0%, #06283d 35%, #0a3d5c 60%, #10617a 100%); }
 .project-card__img--12 { background: linear-gradient(145deg, #0a0616 0%, #160a2e 35%, #241045 60%, #3a1a70 100%); }
 .project-card__img--13 { background: linear-gradient(145deg, #04100a 0%, #08281a 35%, #0c3d28 60%, #10613c 100%); }
+.project-card__img--14 { background: linear-gradient(145deg, #0a0a0c 0%, #18181b 35%, #232326 60%, #333336 100%); }
 
 .project-card__inner {
   position: absolute;
