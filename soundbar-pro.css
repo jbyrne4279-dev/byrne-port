@@ -159,6 +159,7 @@ a { text-decoration: none; color: inherit; }
   position: relative;
   z-index: 2;
 }
+.sb-container--wide { max-width: 1240px; }
 .sb-kicker {
   font-size: 13px;
   font-weight: 600;
@@ -208,7 +209,7 @@ a { text-decoration: none; color: inherit; }
 /* ── MARKET ENTRY LAYOUT (large square image left, text right) ── */
 .sb-market {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: 56px;
   align-items: center;
 }
