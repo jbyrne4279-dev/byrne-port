@@ -63,7 +63,7 @@ a { text-decoration: none; color: inherit; }
 /* ── HERO ── */
 .sb-hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 90svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +71,7 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
   overflow: hidden;
   background: var(--ap-grey);
-  padding: 120px 24px 64px;
+  padding: 120px 24px 40px;
 }
 .sb-hero__content {
   position: relative;
@@ -143,7 +143,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ── HERO FEATURE STRIP ── */
 .sb-features {
-  padding: 72px 0;
+  padding: 40px 0 72px;
   background: var(--ap-white);
 }
 .sb-features__grid {
