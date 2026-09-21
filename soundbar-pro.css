@@ -254,7 +254,9 @@ a { text-decoration: none; color: inherit; }
   inset: -10% 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
+  opacity: 0.16;
+  filter: blur(60px) saturate(105%);
+  transform: scale(1.15);
   z-index: 1;
   will-change: transform;
 }
@@ -262,7 +264,7 @@ a { text-decoration: none; color: inherit; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, var(--ap-grey) 0%, rgba(245,245,247,0.2) 30%, rgba(245,245,247,0.2) 70%, var(--ap-grey) 100%);
+  background: rgba(245,245,247,0.6);
   z-index: 1;
 }
 .sb-section--image .sb-headline { color: var(--ap-near-black); }
