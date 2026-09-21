@@ -577,13 +577,31 @@ a { text-decoration: none; color: inherit; }
   transform: scale(1.25);
 }
 
-/* ── SHOWCASE IMAGE ── */
+/* ── SHOWCASE IMAGE / GALLERY SLIDESHOW ── */
 .sb-showcase { padding: 0; background: var(--ap-white); }
 .sb-showcase img {
   width: 100%;
   height: auto;
   max-height: 88vh;
   object-fit: cover;
+}
+.sb-slideshow--gallery {
+  max-width: 100%;
+  margin: 0;
+}
+.sb-slideshow--gallery .sb-slide--gallery {
+  padding: 0;
+}
+.sb-slideshow--gallery .sb-slide__media {
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+.sb-slideshow--gallery .sb-slideshow__nav {
+  margin-top: 20px;
+  padding-bottom: 32px;
+}
+@media (max-width: 720px) {
+  .sb-slideshow--gallery .sb-slide__media { aspect-ratio: 4 / 3; }
 }
 
 /* ── CLOSING ── */

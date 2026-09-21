@@ -140,9 +140,36 @@
     </div>
   </section>
 
-  <!-- ── DETAIL SHOT ── -->
+  <!-- ── DETAIL SHOT SLIDESHOW ── -->
   <section class="sb-showcase">
-    <img src="assets/projects/apple-soundbar-pro/detail-2.webp" alt="Soundbar Pro concept detail shot" loading="lazy" class="reveal-scale">
+    <div class="sb-slideshow sb-slideshow--gallery reveal-scale" id="detailSlideshow">
+      <div class="sb-slideshow__track">
+        <div class="sb-slide sb-slide--gallery">
+          <div class="sb-slide__media"><img src="assets/projects/apple-soundbar-pro/detail-1.webp" alt="Soundbar Pro detail shot 1" loading="lazy"></div>
+        </div>
+        <div class="sb-slide sb-slide--gallery">
+          <div class="sb-slide__media"><img src="assets/projects/apple-soundbar-pro/detail-2.webp" alt="Soundbar Pro detail shot 2" loading="lazy"></div>
+        </div>
+        <div class="sb-slide sb-slide--gallery">
+          <div class="sb-slide__media"><img src="assets/projects/apple-soundbar-pro/usecase-1.webp" alt="Soundbar Pro in a home cinema setup" loading="lazy"></div>
+        </div>
+        <div class="sb-slide sb-slide--gallery">
+          <div class="sb-slide__media"><img src="assets/projects/apple-soundbar-pro/usecase-2.webp" alt="Soundbar Pro on an Apple desk setup" loading="lazy"></div>
+        </div>
+        <div class="sb-slide sb-slide--gallery">
+          <div class="sb-slide__media"><img src="assets/projects/apple-soundbar-pro/usecase-3.webp" alt="Soundbar Pro in a presentation room" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="sb-slideshow__nav">
+        <button class="sb-slideshow__arrow sb-slideshow__arrow--prev" aria-label="Previous slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="sb-slideshow__dots"></div>
+        <button class="sb-slideshow__arrow sb-slideshow__arrow--next" aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
   </section>
 
   <!-- ── USE CASES ── -->
@@ -151,65 +178,36 @@
       <p class="sb-kicker reveal-up">Use Cases</p>
       <h2 class="sb-headline reveal-up">One speaker.<br>Every room.</h2>
 
-      <div class="sb-slideshow reveal-up" id="useCasesSlideshow">
-        <div class="sb-slideshow__track">
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-1.webp" alt="Home Cinema" loading="lazy">
-            </div>
-            <span class="sb-slide__num">01</span>
-            <h3 class="sb-slide__title">Home Cinema</h3>
-            <p class="sb-slide__body">Pair with Apple TV for immersive, premium home cinema audio.</p>
-          </div>
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-2.webp" alt="Apple Workspace" loading="lazy">
-            </div>
-            <span class="sb-slide__num">02</span>
-            <h3 class="sb-slide__title">Apple Workspace</h3>
-            <p class="sb-slide__body">Pair seamlessly with iMac, MacBook and other Apple devices for high‑quality desktop audio.</p>
-          </div>
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-3.webp" alt="Presentations" loading="lazy">
-            </div>
-            <span class="sb-slide__num">03</span>
-            <h3 class="sb-slide__title">Presentations</h3>
-            <p class="sb-slide__body">Instant wireless audio for meeting rooms, presentations and collaborative spaces.</p>
-          </div>
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-4.webp" alt="Siri Control" loading="lazy">
-            </div>
-            <span class="sb-slide__num">04</span>
-            <h3 class="sb-slide__title">Siri Control</h3>
-            <p class="sb-slide__body">Ask Siri to play music, set timers, control playback and manage smart‑home features.</p>
-          </div>
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-5.webp" alt="AirPlay & Multi-Room" loading="lazy">
-            </div>
-            <span class="sb-slide__num">05</span>
-            <h3 class="sb-slide__title">AirPlay &amp; Multi‑Room</h3>
-            <p class="sb-slide__body">Stream instantly from Apple devices and connect multiple Soundbar Pros throughout the home.</p>
-          </div>
-          <div class="sb-slide">
-            <div class="sb-slide__media">
-              <img src="assets/projects/apple-soundbar-pro/usecase-6.webp" alt="Smart Home" loading="lazy">
-            </div>
-            <span class="sb-slide__num">06</span>
-            <h3 class="sb-slide__title">Smart Home</h3>
-            <p class="sb-slide__body">Use Soundbar Pro as a central interface for compatible smart‑home devices and everyday controls.</p>
-          </div>
+      <div class="sb-grid sb-grid--6">
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">01</span>
+          <h3 class="sb-card__title">Home Cinema</h3>
+          <p class="sb-card__body">Pair with Apple TV for immersive, premium home cinema audio.</p>
         </div>
-        <div class="sb-slideshow__nav">
-          <button class="sb-slideshow__arrow sb-slideshow__arrow--prev" aria-label="Previous slide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <div class="sb-slideshow__dots"></div>
-          <button class="sb-slideshow__arrow sb-slideshow__arrow--next" aria-label="Next slide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">02</span>
+          <h3 class="sb-card__title">Apple Workspace</h3>
+          <p class="sb-card__body">Pair seamlessly with iMac, MacBook and other Apple devices for high‑quality desktop audio.</p>
+        </div>
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">03</span>
+          <h3 class="sb-card__title">Presentations</h3>
+          <p class="sb-card__body">Instant wireless audio for meeting rooms, presentations and collaborative spaces.</p>
+        </div>
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">04</span>
+          <h3 class="sb-card__title">Siri Control</h3>
+          <p class="sb-card__body">Ask Siri to play music, set timers, control playback and manage smart‑home features.</p>
+        </div>
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">05</span>
+          <h3 class="sb-card__title">AirPlay &amp; Multi‑Room</h3>
+          <p class="sb-card__body">Stream instantly from Apple devices and connect multiple Soundbar Pros throughout the home.</p>
+        </div>
+        <div class="sb-card reveal-up">
+          <span class="sb-card__num">06</span>
+          <h3 class="sb-card__title">Smart Home</h3>
+          <p class="sb-card__body">Use Soundbar Pro as a central interface for compatible smart‑home devices and everyday controls.</p>
         </div>
       </div>
     </div>
