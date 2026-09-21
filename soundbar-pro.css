@@ -338,6 +338,8 @@ a { text-decoration: none; color: inherit; }
 
 /* ── IMAGE / PARALLAX SECTION ── */
 .sb-section--image { overflow: hidden; background: var(--ap-grey); }
+.sb-section--image.sb-section--light { background: var(--ap-white); }
+.sb-section--image.sb-section--light::before { background: rgba(255,255,255,0.6); }
 .sb-parallax {
   position: absolute;
   inset: -10% 0;
@@ -450,6 +452,7 @@ a { text-decoration: none; color: inherit; }
   background: var(--ap-white);
   padding: 34px 28px;
   border-radius: 18px;
+  border: 1px solid var(--ap-hairline);
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   will-change: transform;
 }
@@ -638,7 +641,7 @@ a { text-decoration: none; color: inherit; }
 /* ── SHOWCASE IMAGE / GALLERY SLIDESHOW ── */
 .sb-showcase {
   padding: 64px 24px;
-  background: var(--ap-white);
+  background: var(--ap-grey);
 }
 .sb-showcase img {
   width: 100%;
