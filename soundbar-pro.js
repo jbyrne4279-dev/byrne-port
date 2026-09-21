@@ -45,6 +45,42 @@
   }, { threshold: 0.4 });
   stats.forEach(s => statIO.observe(s));
 
+  /* ── LETTER-BY-LETTER FADE-IN ── */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.reveal-letters[data-split]').forEach(el => {
+    const nodes = Array.from(el.childNodes);
+    el.innerHTML = '';
+    let letterIndex = 0;
+    nodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        el.appendChild(document.createElement('br'));
+        return;
+      }
+      const text = node.textContent || '';
+      Array.from(text).forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'sb-letter';
+        span.textContent = ch === ' ' ? ' ' : ch;
+        if (!reduceMotion) {
+          span.style.transitionDelay = (letterIndex * 0.028) + 's';
+        }
+        letterIndex += 1;
+        el.appendChild(span);
+      });
+    });
+  });
+
+  const letterEls = document.querySelectorAll('.reveal-letters');
+  const letterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        letterIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '0px 0px -8% 0px' });
+  letterEls.forEach(el => letterIO.observe(el));
+
   /* ── PARALLAX ── */
   const parallaxEls = document.querySelectorAll('.sb-parallax');
   if (parallaxEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

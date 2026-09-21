@@ -193,10 +193,16 @@ a { text-decoration: none; color: inherit; }
   max-width: 880px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 36px;
+  gap: 24px;
 }
 @media (max-width: 720px) {
   .sb-copy--split { grid-template-columns: 1fr; }
+}
+.sb-copy__box {
+  border: 1px solid #ff3b30;
+  border-radius: 14px;
+  padding: 22px 24px;
+  background: rgba(255,59,48,0.04);
 }
 
 /* ── MARKET ENTRY LAYOUT (large square image, text below) ── */
@@ -314,6 +320,19 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.04;
   margin-top: 6px;
   color: var(--ap-near-black);
+}
+.sb-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.reveal-letters.is-visible .sb-letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-letter { opacity: 1; transform: none; transition: none; }
 }
 .sb-intro__sub {
   position: relative;
