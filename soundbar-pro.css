@@ -695,9 +695,7 @@ a { text-decoration: none; color: inherit; }
 .sb-slideshow__arrow:hover { background: var(--ap-grey-2); border-color: var(--ap-gray); }
 .sb-slideshow__arrow:disabled { opacity: 0.35; pointer-events: none; }
 .sb-slideshow__dots {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: none;
 }
 .sb-slideshow__dot {
   width: 7px;
