@@ -56,10 +56,11 @@
         el.appendChild(document.createElement('br'));
         return;
       }
+      const extraClass = node.nodeType === Node.ELEMENT_NODE ? node.className : '';
       const text = node.textContent || '';
       Array.from(text).forEach(ch => {
         const span = document.createElement('span');
-        span.className = 'sb-letter';
+        span.className = extraClass ? 'sb-letter ' + extraClass : 'sb-letter';
         span.textContent = ch === ' ' ? ' ' : ch;
         if (!reduceMotion) {
           span.style.transitionDelay = (letterIndex * 0.028) + 's';
