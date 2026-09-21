@@ -496,8 +496,25 @@ a { text-decoration: none; color: inherit; }
   -webkit-overflow-scrolling: touch;
   border-radius: 24px;
   scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
 }
 .sb-slideshow__track::-webkit-scrollbar { display: none; }
+.sb-slideshow__track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+.sb-slideshow__track.is-moving .sb-slide__media img {
+  filter: blur(7px);
+  transform: scale(1.03);
+}
+.sb-slide__media img {
+  transition: filter .22s var(--ease), transform .22s var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-slideshow__track.is-moving .sb-slide__media img { filter: none; transform: none; }
+}
 .sb-slide {
   flex: 0 0 100%;
   scroll-snap-align: center;

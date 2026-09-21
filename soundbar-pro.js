@@ -82,7 +82,8 @@
   }, { threshold: 0.3, rootMargin: '0px 0px -8% 0px' });
   letterEls.forEach(el => letterIO.observe(el));
 
-  /* ── POSITIONING SLIDESHOW ── */
+  /* ── SLIDESHOWS: autoplay, drag-to-swipe, motion blur ── */
+  const reduceMotionSlides = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.sb-slideshow').forEach(slideshow => {
     const track = slideshow.querySelector('.sb-slideshow__track');
     const slides = Array.from(track.querySelectorAll('.sb-slide'));
@@ -96,7 +97,8 @@
       dot.className = 'sb-slideshow__dot';
       dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
       dot.addEventListener('click', () => {
-        track.scrollTo({ left: slides[i].offsetLeft, behavior: 'smooth' });
+        goTo(i);
+        pauseAutoplay();
       });
       dotsWrap.appendChild(dot);
     });
@@ -112,6 +114,11 @@
       return closest;
     }
 
+    function goTo(i, smooth = true) {
+      const idx = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: slides[idx].offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    }
+
     function updateUI() {
       const idx = currentIndex();
       dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
@@ -119,24 +126,95 @@
       if (nextBtn) nextBtn.disabled = idx === slides.length - 1;
     }
 
+    /* Motion blur while the track is actively moving (scroll, drag, or autoplay) */
+    let blurTimeout;
+    function markMoving() {
+      if (reduceMotionSlides) return;
+      track.classList.add('is-moving');
+      clearTimeout(blurTimeout);
+      blurTimeout = setTimeout(() => track.classList.remove('is-moving'), 160);
+    }
+
     let scrollTicking = false;
     track.addEventListener('scroll', () => {
+      markMoving();
       if (scrollTicking) return;
       scrollTicking = true;
       requestAnimationFrame(() => { updateUI(); scrollTicking = false; });
     }, { passive: true });
 
-    if (prevBtn) prevBtn.addEventListener('click', () => {
-      const idx = Math.max(0, currentIndex() - 1);
-      track.scrollTo({ left: slides[idx].offsetLeft, behavior: 'smooth' });
+    if (prevBtn) prevBtn.addEventListener('click', () => { goTo(currentIndex() - 1); pauseAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { goTo(currentIndex() + 1); pauseAutoplay(); });
+
+    /* ── Drag-to-swipe (mouse + touch via pointer events) ── */
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+    let moved = false;
+
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      isDragging = true;
+      moved = false;
+      dragStartX = e.clientX;
+      dragStartScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+      track.style.scrollSnapType = 'none';
+      try { track.setPointerCapture(e.pointerId); } catch (_) {}
     });
-    if (nextBtn) nextBtn.addEventListener('click', () => {
-      const idx = Math.min(slides.length - 1, currentIndex() + 1);
-      track.scrollTo({ left: slides[idx].offsetLeft, behavior: 'smooth' });
+
+    track.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = dragStartScroll - dx;
+      markMoving();
     });
+
+    function endDrag(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      track.style.scrollSnapType = '';
+      if (moved) {
+        goTo(currentIndex());
+        pauseAutoplay();
+      }
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('pointerleave', () => { if (isDragging) endDrag(); });
+
+    // Prevent images inside the track from triggering native browser drag-ghosting.
+    track.querySelectorAll('img').forEach(img => { img.draggable = false; });
+
+    /* ── Autoplay ── */
+    let autoplayTimer = null;
+    const AUTOPLAY_MS = 4500;
+    function startAutoplay() {
+      if (reduceMotionSlides || slides.length < 2) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        const idx = currentIndex();
+        const next = idx >= slides.length - 1 ? 0 : idx + 1;
+        goTo(next);
+      }, AUTOPLAY_MS);
+    }
+    function stopAutoplay() {
+      if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+    }
+    let resumeTimeout;
+    function pauseAutoplay() {
+      stopAutoplay();
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(startAutoplay, 6000);
+    }
+    slideshow.addEventListener('mouseenter', stopAutoplay);
+    slideshow.addEventListener('mouseleave', startAutoplay);
 
     updateUI();
     window.addEventListener('resize', updateUI);
+    startAutoplay();
   });
 
   /* ── CONCEPT REVIEWS ── */
