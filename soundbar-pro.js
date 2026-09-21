@@ -217,126 +217,6 @@
     startAutoplay();
   });
 
-  /* ── CONCEPT REVIEWS ── */
-  (() => {
-    const form = document.getElementById('reviewForm');
-    if (!form) return;
-
-    const STORAGE_KEY = 'soundbarPro.reviews';
-    const starsWrap = document.getElementById('reviewStars');
-    const stars = Array.from(starsWrap.querySelectorAll('.sb-star'));
-    const nameInput = document.getElementById('reviewName');
-    const textInput = document.getElementById('reviewText');
-    const submitBtn = document.getElementById('reviewSubmit');
-    const listEl = document.getElementById('reviewList');
-    const scoreEl = document.getElementById('reviewScore');
-    const countEl = document.getElementById('reviewCount');
-    const summaryStarsEl = document.getElementById('reviewSummaryStars');
-
-    let rating = 0;
-
-    function loadReviews() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      } catch (e) {
-        return [];
-      }
-    }
-    function saveReviews(reviews) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-      } catch (e) { /* storage unavailable */ }
-    }
-    const STAR_PATH = 'M10 1.5l2.63 5.53 6.1.62-4.55 4.13 1.28 5.97L10 14.77l-5.46 3-1.28-5.97-4.55-4.13 6.1-.62L10 1.5z';
-    function starString(n) {
-      return Array.from({ length: 5 }, (_, i) =>
-        `<svg viewBox="0 0 20 20" class="${i < n ? 'is-filled' : ''}"><path d="${STAR_PATH}"/></svg>`
-      ).join('');
-    }
-    function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str;
-      return div.innerHTML;
-    }
-
-    function renderSummary(reviews) {
-      if (!reviews.length) {
-        scoreEl.textContent = '0.0';
-        summaryStarsEl.innerHTML = starString(0);
-        summaryStarsEl.removeAttribute('data-filled');
-        countEl.textContent = 'No reviews yet';
-        return;
-      }
-      const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
-      scoreEl.textContent = avg.toFixed(1);
-      summaryStarsEl.innerHTML = starString(Math.round(avg));
-      summaryStarsEl.setAttribute('data-filled', 'true');
-      countEl.textContent = reviews.length + (reviews.length === 1 ? ' review' : ' reviews');
-    }
-
-    function renderList(reviews) {
-      if (!reviews.length) {
-        listEl.innerHTML = '<p class="sb-review-list__empty">Be the first to review this concept.</p>';
-        return;
-      }
-      listEl.innerHTML = reviews.slice().reverse().map(r => `
-        <div class="sb-review">
-          <div class="sb-review__stars">${starString(r.rating)}</div>
-          <div class="sb-review__meta">
-            <span class="sb-review__name">${escapeHtml(r.name || 'Anonymous')}</span>
-            <span class="sb-review__date">${escapeHtml(r.date)}</span>
-          </div>
-          <p class="sb-review__text">${escapeHtml(r.text)}</p>
-        </div>
-      `).join('');
-    }
-
-    function render() {
-      const reviews = loadReviews();
-      renderSummary(reviews);
-      renderList(reviews);
-    }
-
-    function setRating(value) {
-      rating = value;
-      stars.forEach(star => {
-        star.classList.toggle('is-filled', parseInt(star.dataset.value, 10) <= value);
-      });
-    }
-
-    stars.forEach(star => {
-      star.addEventListener('click', () => setRating(parseInt(star.dataset.value, 10)));
-      star.addEventListener('mouseenter', () => {
-        const v = parseInt(star.dataset.value, 10);
-        stars.forEach(s => s.classList.toggle('is-filled', parseInt(s.dataset.value, 10) <= v));
-      });
-    });
-    starsWrap.addEventListener('mouseleave', () => setRating(rating));
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = textInput.value.trim();
-      if (!rating || !text) {
-        if (!rating) starsWrap.classList.add('sb-shake');
-        setTimeout(() => starsWrap.classList.remove('sb-shake'), 400);
-        return;
-      }
-      const reviews = loadReviews();
-      reviews.push({
-        rating,
-        name: nameInput.value.trim().slice(0, 40),
-        text: text.slice(0, 400),
-        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-      });
-      saveReviews(reviews);
-      form.reset();
-      setRating(0);
-      render();
-    });
-
-    render();
-  })();
-
   /* ── PARALLAX ── */
   const parallaxEls = document.querySelectorAll('.sb-parallax');
   if (parallaxEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -356,4 +236,61 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+
+  /* ── CONTACT FORM ── */
+  (() => {
+    const form = document.getElementById('sbContactForm');
+    const submitBtn = document.getElementById('sbSubmitBtn');
+    if (!form) return;
+
+    function validate(field) {
+      const group = field.closest('.sb-contact-field');
+      const valid = field.checkValidity();
+      group.classList.toggle('has-error', !valid);
+      return valid;
+    }
+
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('blur', () => validate(field));
+      field.addEventListener('input', () => {
+        if (field.closest('.sb-contact-field').classList.contains('has-error')) validate(field);
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      let allValid = true;
+      form.querySelectorAll('input, textarea').forEach(field => {
+        if (!validate(field)) allValid = false;
+      });
+      if (!allValid) return;
+
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('https://formspree.io/f/xbdbnvye', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (!res.ok) throw new Error('Network error');
+        submitBtn.textContent = 'Message Sent';
+        form.reset();
+        form.querySelectorAll('.sb-contact-field').forEach(g => g.classList.remove('has-error'));
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }, 3000);
+      } catch (err) {
+        submitBtn.textContent = 'Try Again';
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }, 3000);
+      }
+    });
+  })();
 })();

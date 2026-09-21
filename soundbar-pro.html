@@ -123,10 +123,19 @@
     <div class="sb-container">
       <p class="sb-kicker reveal-up">02 — The Problem</p>
       <h2 class="sb-headline reveal-up">Apple followed the trend.<br>It never redefined it.</h2>
-      <div class="sb-copy sb-copy--split sb-copy--split3 reveal-up">
-        <p class="sb-copy__box">Instead of redefining the category, HomePod followed it.</p>
-        <p class="sb-copy__box">Apple had an opportunity to bring its own premium design language. But they didn't.</p>
-        <p class="sb-copy__box">Apple's iconic design principles were left at home. Missing the opportunity to introduce a premium, luxury alternative to smart‑home speakers.</p>
+      <div class="sb-copy sb-copy--split sb-copy--split3">
+        <div class="sb-copy__box reveal-up">
+          <svg class="sb-copy__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11v11"/><path d="M18 7L6 19"/></svg>
+          <p>Instead of redefining the category, HomePod followed it.</p>
+        </div>
+        <div class="sb-copy__box reveal-up">
+          <svg class="sb-copy__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+          <p>Apple had an opportunity to bring its own premium design language. But they didn't.</p>
+        </div>
+        <div class="sb-copy__box reveal-up">
+          <svg class="sb-copy__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M6 19h12" stroke-dasharray="1.5 3"/></svg>
+          <p>Apple's iconic design principles were left at home. Missing the opportunity to introduce a premium, luxury alternative to smart‑home speakers.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -248,10 +257,27 @@
     </div>
   </section>
 
-  <!-- ── CLOSING ── -->
-  <section class="sb-closing">
-    <p class="sb-eyebrow reveal-up">Soundbar Pro</p>
-    <h2 class="sb-closing__title reveal-up">Designed to belong<br>in an Apple Store.</h2>
+  <!-- ── CONTACT ── -->
+  <section class="sb-closing" id="sb-contact">
+    <p class="sb-eyebrow reveal-up">Get in Touch</p>
+    <h2 class="sb-closing__title reveal-up">Interested in this<br>concept? Let's talk.</h2>
+    <p class="sb-closing__sub reveal-up">I'd love to hear your thoughts on Soundbar Pro.</p>
+
+    <form class="sb-contact-form reveal-up" id="sbContactForm" novalidate>
+      <div class="sb-contact-form__row">
+        <div class="sb-contact-field">
+          <input type="text" id="sb-f-name" name="name" placeholder="Name" autocomplete="name" required>
+        </div>
+        <div class="sb-contact-field">
+          <input type="email" id="sb-f-email" name="email" placeholder="Email" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="sb-contact-field">
+        <textarea id="sb-f-message" name="message" rows="4" placeholder="Message" required></textarea>
+      </div>
+      <button type="submit" class="sb-contact-form__submit" id="sbSubmitBtn">Send Message</button>
+    </form>
+
     <a class="sb-closing__cta reveal-up" href="/#portfolio">Back to Portfolio</a>
   </section>
 
