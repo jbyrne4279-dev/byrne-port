@@ -309,10 +309,7 @@ a { text-decoration: none; color: inherit; }
 /* ── GRID / CARDS ── */
 .sb-grid {
   display: grid;
-  gap: 1px;
-  background: var(--ap-hairline);
-  border-radius: 18px;
-  overflow: hidden;
+  gap: 12px;
 }
 .sb-grid--5 { grid-template-columns: repeat(3, 1fr); }
 .sb-grid--6 { grid-template-columns: repeat(3, 1fr); }
@@ -325,6 +322,23 @@ a { text-decoration: none; color: inherit; }
 .sb-card {
   background: var(--ap-white);
   padding: 34px 28px;
+  border-radius: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  will-change: transform;
+}
+.sb-card:hover,
+.sb-card:focus-within {
+  transform: scale(1.035);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 2;
+}
+@media (hover: none) {
+  .sb-card:hover { transform: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-card { transition: none; }
 }
 .sb-card__num {
   display: block;
