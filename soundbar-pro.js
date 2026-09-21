@@ -237,6 +237,30 @@
     onScroll();
   }
 
+  /* ── COLOR TOGGLE ── */
+  (() => {
+    const toggle = document.querySelector('.sb-color-toggle');
+    const img = document.getElementById('sbHeroShotImg');
+    if (!toggle || !img) return;
+    const swatches = Array.from(toggle.querySelectorAll('.sb-color-swatch'));
+    swatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        const color = swatch.dataset.color;
+        const src = img.dataset[color];
+        if (!src) return;
+        swatches.forEach(s => {
+          s.classList.toggle('is-active', s === swatch);
+          s.setAttribute('aria-pressed', s === swatch ? 'true' : 'false');
+        });
+        img.style.opacity = '0';
+        setTimeout(() => {
+          img.src = src;
+          img.style.opacity = '1';
+        }, 180);
+      });
+    });
+  })();
+
   /* ── CONTACT FORM ── */
   (() => {
     const form = document.getElementById('sbContactForm');
