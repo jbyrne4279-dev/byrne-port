@@ -320,13 +320,28 @@ a { text-decoration: none; color: inherit; }
   .sb-grid--5, .sb-grid--6 { grid-template-columns: 1fr; }
 }
 .sb-card {
+  --stagger: 0s;
   background: var(--ap-white);
   padding: 34px 28px;
   border-radius: 18px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
   will-change: transform;
 }
+/* Higher-specificity rule so this wins over the generic .reveal-up
+   transition below — opacity carries the per-card stagger delay,
+   transform/box-shadow stay instant so hover isn't laggy. */
+.sb-card.reveal-up {
+  transition: opacity .6s var(--ease) var(--stagger),
+              transform .45s var(--ease),
+              box-shadow .4s var(--ease);
+}
+.sb-grid .sb-card:nth-child(1) { --stagger: 0s; }
+.sb-grid .sb-card:nth-child(2) { --stagger: .09s; }
+.sb-grid .sb-card:nth-child(3) { --stagger: .18s; }
+.sb-grid .sb-card:nth-child(4) { --stagger: .27s; }
+.sb-grid .sb-card:nth-child(5) { --stagger: .36s; }
+.sb-grid .sb-card:nth-child(6) { --stagger: .45s; }
+
 .sb-card:hover,
 .sb-card:focus-within {
   transform: scale(1.035);
@@ -338,7 +353,7 @@ a { text-decoration: none; color: inherit; }
   .sb-card:hover { transform: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sb-card { transition: none; }
+  .sb-card.reveal-up { transition: none; }
 }
 .sb-card__num {
   display: block;
@@ -347,6 +362,8 @@ a { text-decoration: none; color: inherit; }
   color: var(--ap-blue);
   letter-spacing: 0;
   margin-bottom: 16px;
+  transform-origin: left center;
+  transition: transform .4s var(--ease);
 }
 .sb-card__title {
   font-size: 19px;
@@ -354,11 +371,29 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: -0.015em;
   margin-bottom: 8px;
   color: var(--ap-near-black);
+  transform-origin: left center;
+  transition: transform .4s var(--ease);
 }
 .sb-card__body {
   font-size: 14.5px;
   line-height: 1.55;
   color: var(--ap-gray-2);
+  transform-origin: left center;
+  transition: transform .4s var(--ease);
+}
+.sb-card:hover .sb-card__num,
+.sb-card:focus-within .sb-card__num { transform: scale(1.08); }
+.sb-card:hover .sb-card__title,
+.sb-card:focus-within .sb-card__title { transform: scale(1.06); }
+.sb-card:hover .sb-card__body,
+.sb-card:focus-within .sb-card__body { transform: scale(1.03); }
+@media (hover: none) {
+  .sb-card:hover .sb-card__num,
+  .sb-card:hover .sb-card__title,
+  .sb-card:hover .sb-card__body { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-card__num, .sb-card__title, .sb-card__body { transition: none; }
 }
 .sb-card__body strong { color: var(--ap-near-black); font-weight: 600; }
 
@@ -431,6 +466,25 @@ a { text-decoration: none; color: inherit; }
 .sb-hero__content .reveal-up:nth-child(1) { transition-delay: .05s; }
 .sb-hero__content .reveal-up:nth-child(2) { transition-delay: .16s; }
 .sb-hero__content .reveal-up:nth-child(3) { transition-delay: .28s; }
+
+/* ── Site-wide fade-in-one-by-one stagger ──
+   Every direct-child text block (kicker → headline → copy → stats →
+   source) and every .sb-intro / .sb-closing block fades in sequentially,
+   same cadence as the card grids above. */
+.sb-container > .reveal-up:nth-child(1) { transition-delay: 0s; }
+.sb-container > .reveal-up:nth-child(2) { transition-delay: .12s; }
+.sb-container > .reveal-up:nth-child(3) { transition-delay: .24s; }
+.sb-container > .reveal-up:nth-child(4) { transition-delay: .36s; }
+.sb-container > .reveal-up:nth-child(5) { transition-delay: .48s; }
+
+.sb-intro > .reveal-up:nth-child(1) { transition-delay: 0s; }
+.sb-intro > .reveal-up:nth-child(2) { transition-delay: .12s; }
+.sb-intro > .reveal-up:nth-child(3) { transition-delay: .24s; }
+.sb-intro > .reveal-scale { transition-delay: .36s; }
+
+.sb-closing > .reveal-up:nth-child(1) { transition-delay: 0s; }
+.sb-closing > .reveal-up:nth-child(2) { transition-delay: .12s; }
+.sb-closing > .reveal-up:nth-child(3) { transition-delay: .24s; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
