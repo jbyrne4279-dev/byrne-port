@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=33">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -147,7 +147,7 @@
               <p class="about-card__lead about-card__lead--sub">I love turning ideas into <span style="color:var(--red)">capturing</span>, <span style="color:var(--red)">immersive</span> and <span style="color:var(--red)">converting</span> experiences.</p>
             </article>
 
-            <article class="about-card about-card--inspire" data-card="1">
+            <article class="about-card about-card--inspire" data-card="1" id="inspoCard">
               <span class="about-card__no" aria-hidden="true">02</span>
               <span class="about-card__tag">What inspires me</span>
               <div class="inspo-scatter">
@@ -159,6 +159,17 @@
                 <span class="inspo-pill">DC Movies</span>
                 <span class="inspo-pill">Grunge aesthetics</span>
                 <span class="inspo-pill">Marketing Psychology</span>
+              </div>
+              <div class="inspo-game" id="inspoGame">
+                <button type="button" class="inspo-game__btn" data-game="start">Pop the bubbles &mdash; 15s challenge</button>
+                <div class="inspo-game__hud" aria-hidden="true">
+                  <span class="inspo-game__score">Popped: <b>0</b></span>
+                  <span class="inspo-game__time"><b>15</b>s</span>
+                </div>
+                <div class="inspo-game__result" aria-hidden="true">
+                  <span class="inspo-game__result-text">Time! You popped <b>0</b> bubbles</span>
+                  <button type="button" class="inspo-game__btn" data-game="restart">Play again</button>
+                </div>
               </div>
             </article>
 
@@ -693,6 +704,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=26"></script>
+  <script src="script.js?v=27"></script>
 </body>
 </html>

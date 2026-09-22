@@ -1039,6 +1039,67 @@ h1, h2, h3, h4 {
 .inspo-pill:nth-child(7) { transform: rotate(-3deg)  translateY(7px); }
 .inspo-pill:nth-child(8) { transform: rotate(5deg)   translateY(-4px); }
 
+/* Bubble-pop mini-game controls */
+.inspo-game {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.inspo-game__btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: 0 0 18px var(--red-dim);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s;
+}
+.inspo-game__btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 26px var(--red-glow);
+  background: #c8001f;
+}
+.inspo-game__hud {
+  display: none;
+  gap: 22px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+.inspo-game__hud b { color: var(--red); font-size: 18px; }
+.inspo-game__time b { color: #fff; }
+.inspo-game__result {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.inspo-game__result-text {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2.6vw, 24px);
+  color: var(--text);
+}
+.inspo-game__result-text b { color: var(--red); font-size: 1.35em; }
+/* state toggles */
+.inspo-game.is-playing .inspo-game__btn,
+.inspo-game.is-playing .inspo-game__result { display: none; }
+.inspo-game.is-playing .inspo-game__hud { display: flex; }
+.inspo-game.is-over .inspo-game__btn[data-game="start"],
+.inspo-game.is-over .inspo-game__hud { display: none; }
+.inspo-game.is-over .inspo-game__result { display: flex; }
+/* during play the card is a playfield, not draggable */
+.about-card--inspire.is-playing { cursor: default; }
+
 /* 03 — Right now */
 .about-card__body--sub {
   font-size: clamp(15px, 2vw, 19px);
