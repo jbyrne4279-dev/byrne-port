@@ -19,31 +19,37 @@
   });
 
   /* ── STAT BARS + COUNT-UP ── */
-  const stats = document.querySelectorAll('.sb-stat');
-  const statIO = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const stat = entry.target;
-      const bar = stat.querySelector('.sb-stat__bar');
-      const valueEl = stat.querySelector('.sb-stat__value');
-      const target = parseInt(bar.dataset.target, 10) || 0;
+  function animateStat(stat) {
+    const bar = stat.querySelector('.sb-stat__bar');
+    const valueEl = stat.querySelector('.sb-stat__value');
+    if (!bar || !valueEl) return;
+    const target = parseInt(bar.dataset.target, 10) || 0;
 
-      bar.style.width = Math.min(target, 100) + '%';
+    bar.style.width = Math.min(target, 100) + '%';
 
-      const duration = 1100;
-      const start = performance.now();
-      function tick(now) {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        valueEl.textContent = Math.round(eased * target) + '%';
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      valueEl.textContent = Math.round(eased * target) + '%';
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
 
-      statIO.unobserve(stat);
-    });
-  }, { threshold: 0.4 });
-  stats.forEach(s => statIO.observe(s));
+  /* Observe the chart container (rows use display:contents and have no box) */
+  document.querySelectorAll('.sb-stats').forEach(chart => {
+    const rows = Array.from(chart.querySelectorAll('.sb-stat'));
+    const statIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        rows.forEach((row, i) => setTimeout(() => animateStat(row), i * 140));
+        statIO.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+    statIO.observe(chart);
+  });
 
   /* ── LETTER-BY-LETTER FADE-IN ── */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
