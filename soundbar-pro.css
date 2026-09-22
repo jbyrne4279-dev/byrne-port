@@ -1201,3 +1201,73 @@ a { text-decoration: none; color: inherit; }
     transition: none !important;
   }
 }
+
+/* ── APPLE MUSIC ── */
+.sb-music {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(130% 130% at 0% 0%, #fb5c74 0%, #fa2d48 42%, #d10019 100%);
+  color: #fff;
+}
+.sb-music__kicker { color: rgba(255,255,255,0.85); }
+.sb-music__headline { color: #fff; }
+.sb-music__accent {
+  color: #fff;
+  text-shadow: 0 0 34px rgba(255,255,255,0.45);
+}
+.sb-music__lead {
+  position: relative;
+  max-width: 660px;
+  margin-top: 16px;
+  font-size: clamp(17px, 2.1vw, 21px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
+}
+.sb-music__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+@media (max-width: 760px) {
+  .sb-music__grid { grid-template-columns: 1fr; }
+}
+.sb-music__card {
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 18px;
+  padding: 30px 28px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.sb-music__card--trial {
+  background: rgba(255,255,255,0.96);
+  border-color: rgba(255,255,255,0.9);
+  color: var(--ap-near-black);
+  box-shadow: 0 24px 60px rgba(120,0,20,0.35);
+}
+.sb-music__badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: #fa2d48;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.sb-music__card-title {
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.sb-music__card-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+}
+.sb-music__card--trial .sb-music__card-body { color: #515154; }
