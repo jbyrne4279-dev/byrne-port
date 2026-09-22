@@ -749,6 +749,64 @@ h1, h2, h3, h4 {
 .matrix-intro.is-done { opacity: 0; }
 .matrix-intro canvas { display: block; width: 100%; height: 100%; }
 
+/* ── AFK SCREENSAVER ── */
+.screensaver {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+}
+.screensaver.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  cursor: none;
+  transition: opacity 0.9s ease;
+}
+.screensaver canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.screensaver__msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+  padding: 24px;
+}
+.screensaver__title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 12vw, 128px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #ff1f3d;
+  animation: saver-glow 2.2s ease-in-out infinite;
+}
+.screensaver__sub {
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 2.6vw, 22px);
+  letter-spacing: 0.06em;
+  color: #ff5a6e;
+  text-shadow: 0 0 12px rgba(255, 0, 46, 0.6);
+}
+@keyframes saver-glow {
+  0%, 100% { text-shadow: 0 0 14px rgba(255,0,46,0.55), 0 0 40px rgba(255,0,46,0.3); }
+  50%      { text-shadow: 0 0 26px rgba(255,0,46,0.95), 0 0 70px rgba(255,0,46,0.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .screensaver__title { animation: none; text-shadow: 0 0 22px rgba(255,0,46,0.7); }
+}
+
 /* ── ABOUT DECK (draggable sticky cards) ── */
 .about-deck {
   position: relative;
@@ -878,12 +936,53 @@ h1, h2, h3, h4 {
 /* 02 — Inspiration: scattered pills */
 .about-card--inspire { justify-content: center; }
 .inspo-scatter {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 12px 10px;
   padding: 10px 0;
+}
+.inspo-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff0033;
+  box-shadow: 0 0 8px rgba(255, 0, 46, 0.8);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 6;
+}
+/* cartoonish pop, then hide, then bounce back in */
+.inspo-pill.is-popping {
+  animation: pill-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
+  z-index: 5;
+}
+.inspo-pill.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0);
+  pointer-events: none;
+}
+.inspo-pill.is-returning {
+  animation: pill-return 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+@keyframes pill-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.4) rotate(-3deg); }
+  70%  { transform: scale(0.7); opacity: 0.7; }
+  100% { transform: scale(0); opacity: 0; }
+}
+@keyframes pill-return {
+  0%   { opacity: 0; transform: scale(0); }
+  60%  { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inspo-pill.is-popping,
+  .inspo-pill.is-returning { animation: none; }
 }
 .inspo-pill {
   font-family: var(--font-serif);
@@ -1031,11 +1130,50 @@ h1, h2, h3, h4 {
 
 .filter-btn:hover { border-color: var(--red); color: var(--red); background: rgba(0, 0, 0, 0.75); }
 
+.filter-btn {
+  position: relative;
+  transform-origin: center;
+}
+
 .filter-btn.is-active {
   background: var(--red);
   border-color: var(--red);
   color: var(--text);
   box-shadow: 0 0 16px var(--red-glow);
+  animation: filter-pulse 1.8s ease-in-out infinite;
+}
+/* Selected category breathes — grows and shrinks forever */
+@keyframes filter-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.13); }
+}
+
+/* Periodic electric-red outline sweep across the filters (visual only).
+   The flash colour loses saturation from All → Brand. */
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid transparent;
+  pointer-events: none;
+  opacity: 0;
+}
+.filter-btn.is-sweeping::after {
+  animation: filter-sweep 0.75s ease-out;
+}
+@keyframes filter-sweep {
+  0%   { opacity: 0; border-color: var(--sweep); box-shadow: 0 0 0 0 var(--sweep); }
+  25%  { opacity: 1; border-color: var(--sweep); box-shadow: 0 0 22px 2px var(--sweep); }
+  100% { opacity: 0; border-color: transparent; box-shadow: 0 0 0 0 transparent; }
+}
+.portfolio__filter .filter-btn:nth-child(1) { --sweep: #ff0033; }
+.portfolio__filter .filter-btn:nth-child(2) { --sweep: #e83247; }
+.portfolio__filter .filter-btn:nth-child(3) { --sweep: #bd5a63; }
+.portfolio__filter .filter-btn:nth-child(4) { --sweep: #96777c; }
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-btn.is-active { animation: none; }
+  .filter-btn.is-sweeping::after { animation: none; }
 }
 
 .portfolio__grid {

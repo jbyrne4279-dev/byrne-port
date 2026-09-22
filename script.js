@@ -64,6 +64,95 @@
   }, 3100);
 })();
 
+/* ── AFK SCREENSAVER (idle → infinite red matrix rain) ── */
+(function initScreensaver() {
+  const saver = document.getElementById('screensaver');
+  const canvas = document.getElementById('screensaverCanvas');
+  if (!saver || !canvas) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const IDLE_MS = 30000;
+  const ctx = canvas.getContext('2d');
+  const chars = 'アカサタナハマヤラワ0123456789ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜｵ<>*/#JBAX'.split('');
+  let dpr = 1, fontSize = 16, cols = 0, drops = [];
+  let raf = null, active = false, timer = null;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    fontSize = 16 * dpr;
+    cols = Math.ceil(canvas.width / fontSize);
+    drops = Array.from({ length: cols }, () => Math.random() * -50);
+  }
+
+  function draw() {
+    if (!active) return;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px "Space Mono", monospace';
+    for (let i = 0; i < cols; i++) {
+      const ch = chars[(Math.random() * chars.length) | 0];
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      ctx.fillStyle = Math.random() > 0.975 ? '#ff5a6e' : '#c8001f';
+      ctx.fillText(ch, x, y);
+      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  function activate() {
+    if (active) return;
+    active = true;
+    saver.classList.add('is-active');
+    saver.setAttribute('aria-hidden', 'false');
+    if (!reduce) { resize(); draw(); }
+  }
+
+  function deactivate() {
+    if (!active) return;
+    active = false;
+    saver.classList.remove('is-active');
+    saver.setAttribute('aria-hidden', 'true');
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+  }
+
+  function onActivity() {
+    if (active) deactivate();
+    clearTimeout(timer);
+    timer = setTimeout(activate, IDLE_MS);
+  }
+
+  ['mousemove', 'mousedown', 'keydown', 'touchstart', 'wheel', 'scroll'].forEach(ev =>
+    window.addEventListener(ev, onActivity, { passive: true })
+  );
+  window.addEventListener('resize', () => { if (active) resize(); });
+  onActivity();   // start the idle countdown
+})();
+
+/* ── PORTFOLIO FILTER SWEEP (visual only — never changes the category) ── */
+(function initFilterSweep() {
+  const btns = Array.from(document.querySelectorAll('.portfolio__filter .filter-btn'));
+  if (!btns.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function sweep() {
+    btns.forEach((btn, i) => {
+      setTimeout(() => {
+        btn.classList.add('is-sweeping');
+        setTimeout(() => btn.classList.remove('is-sweeping'), 800);
+      }, i * 190);
+    });
+    schedule();
+  }
+  function schedule() {
+    setTimeout(sweep, 5000 + Math.random() * 5000);   // every 5–10s
+  }
+  schedule();
+})();
+
 /* ── CUSTOM CURSOR ── */
 (function initCursor() {
   const cursor = document.getElementById('cursor');
@@ -932,7 +1021,7 @@ window.TypeReveal = (function () {
   let drag = null;
 
   stack.addEventListener('pointerdown', e => {
-    if (e.target.closest('a, button')) return;       // let links work
+    if (e.target.closest('a, button, .inspo-pill')) return;   // let links & pills work
     const card = e.target.closest('.about-card');
     if (!card) return;
     const floating = card.dataset.floating === '1';
@@ -1020,6 +1109,61 @@ window.TypeReveal = (function () {
 
   stack.addEventListener('pointerup', endDrag);
   stack.addEventListener('pointercancel', endDrag);
+})();
+
+/* ── INSPIRATION PILLS: cartoon pop + particles on click ── */
+(function initInspoPills() {
+  const card = document.querySelector('.about-card--inspire');
+  if (!card) return;
+  const scatter = card.querySelector('.inspo-scatter');
+  if (!scatter) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function burst(pill) {
+    if (reduce) return;
+    const r = pill.getBoundingClientRect();
+    const sr = scatter.getBoundingClientRect();
+    const cx = r.left - sr.left + r.width / 2;
+    const cy = r.top - sr.top + r.height / 2;
+    const N = 14;
+    for (let i = 0; i < N; i++) {
+      const p = document.createElement('span');
+      p.className = 'inspo-particle';
+      p.style.left = cx + 'px';
+      p.style.top = cy + 'px';
+      scatter.appendChild(p);
+      const ang = (Math.PI * 2 * i) / N + Math.random() * 0.6;
+      const dist = 42 + Math.random() * 54;
+      const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
+      p.animate([
+        { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0)`, opacity: 0 }
+      ], { duration: 500 + Math.random() * 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' })
+        .onfinish = () => p.remove();
+    }
+  }
+
+  scatter.addEventListener('click', e => {
+    const pill = e.target.closest('.inspo-pill');
+    if (!pill || pill.classList.contains('is-hidden') || pill.classList.contains('is-popping')) return;
+
+    burst(pill);
+    pill.classList.add('is-popping');
+
+    setTimeout(() => {
+      pill.classList.remove('is-popping');
+      pill.classList.add('is-hidden');
+
+      setTimeout(() => {
+        pill.classList.remove('is-hidden');
+        // If the card has since faded out (dragged away), just restore
+        // silently instead of animating it back.
+        if (card.dataset.floating === '1') return;
+        pill.classList.add('is-returning');
+        setTimeout(() => pill.classList.remove('is-returning'), 520);
+      }, 5000);
+    }, 380);
+  });
 })();
 
 /* ── SMOOTH ANCHOR SCROLL (cross-browser fallback) ── */
