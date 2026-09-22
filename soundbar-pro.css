@@ -100,6 +100,40 @@ a { text-decoration: none; color: inherit; }
   color: var(--ap-near-black);
 }
 .sb-hero__title-accent { color: var(--ap-blue); }
+
+/* Shine sweep across blue heading accent text */
+.sb-hero__title-accent,
+.sb-letter.sb-intro__title-accent {
+  background: linear-gradient(
+    100deg,
+    var(--ap-blue) 0%,
+    var(--ap-blue) 38%,
+    #7db8ff 48%,
+    #ffffff 50%,
+    #7db8ff 52%,
+    var(--ap-blue) 62%,
+    var(--ap-blue) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: sb-shine 3.6s linear infinite;
+}
+@keyframes sb-shine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -50% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-hero__title-accent,
+  .sb-letter.sb-intro__title-accent {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: var(--ap-blue);
+    color: var(--ap-blue);
+  }
+}
 .sb-hero__sub {
   margin-top: 10px;
   font-size: clamp(17px, 2.4vw, 24px);
@@ -527,8 +561,9 @@ a { text-decoration: none; color: inherit; }
 }
 .sb-letter.sb-intro__title-light {
   font-weight: 400;
-  color: var(--ap-gray-2);
+  color: var(--ap-near-black);
 }
+.sb-letter.sb-intro__title-accent { color: var(--ap-blue); }
 .reveal-letters.is-visible .sb-letter {
   opacity: 1;
   transform: translateY(0);
