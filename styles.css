@@ -1153,6 +1153,31 @@ h1, h2, h3, h4 {
   .about-card { transition: none; }
 }
 
+/* ── ABOUT CARDS on mobile: fit the content, tidy the layout ── */
+@media (max-width: 560px) {
+  .about-deck__stack { height: 72vh; min-height: 440px; }
+  .about-card {
+    padding: 22px 20px;
+    gap: 12px;
+    border-radius: 14px;
+  }
+  .about-card__no { font-size: 46px; top: 12px; right: 14px; }
+  .about-card__tag { font-size: 11px; }
+  .about-card__lead { font-size: 22px; line-height: 1.25; max-width: none; }
+  .about-card__lead--sub { font-size: 15px; }
+  .about-card__body { font-size: 16px; line-height: 1.45; }
+  .about-card__body--sub { font-size: 14px; }
+  .about-card__punch { font-size: 26px; }
+
+  .inspo-scatter { gap: 8px; padding: 4px 0; }
+  .inspo-pill { font-size: 13px; padding: 8px 14px; }
+  /* keep pills upright on small screens so nothing spills out */
+  .inspo-pill:nth-child(n) { transform: none; }
+
+  .inspo-game { margin-top: 10px; }
+  .inspo-game__btn { font-size: 10px; padding: 9px 15px; }
+  .inspo-game__result-score b { font-size: clamp(60px, 22vw, 88px); }
+}
 
 .about__stats {
   display: grid;
