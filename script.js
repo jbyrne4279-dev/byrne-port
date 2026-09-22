@@ -768,9 +768,12 @@
 })();
 
 
-/* ── RED MIST (hero + portfolio backgrounds) ── */
-['heroMist', 'portfolioMist'].forEach(initMist);
+/* ── RED MIST (hero + portfolio) · BLACK SMOKE (contact) ── */
+['heroMist', 'portfolioMist', 'contactSmoke'].forEach(initMist);
 function initMist(canvasId) {
+  // colour palette per canvas: red mist by default, charcoal smoke for contact
+  const SMOKE = canvasId === 'contactSmoke';
+  const PALETTE = SMOKE ? ['46,46,50', '20,20,22'] : ['216,20,40', '140,10,24'];
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -794,14 +797,14 @@ function initMist(canvasId) {
       this.y          = initial ? Math.random() * canvas.height : canvas.height + 60;
       this.radius     = 90 + Math.random() * 200;
       this.opacity    = 0;
-      this.maxOpacity = 0.09 + Math.random() * 0.13;
+      this.maxOpacity = SMOKE
+        ? 0.14 + Math.random() * 0.16
+        : 0.09 + Math.random() * 0.13;
       this.vy         = -(0.15 + Math.random() * 0.45);
       this.vx         = (Math.random() - 0.5) * 0.25;
       this.phase      = Math.random() * Math.PI * 2;
       this.growing    = true;
-      this.color      = Math.random() > 0.35
-        ? `216,20,40`   // blood red
-        : `140,10,24`;  // darker wine
+      this.color      = Math.random() > 0.35 ? PALETTE[0] : PALETTE[1];
     };
     this.reset(!!initialY);
 

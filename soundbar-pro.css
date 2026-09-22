@@ -1383,3 +1383,36 @@ a { text-decoration: none; color: inherit; }
   .sb-bite__chunk { opacity: 0; }
   .sb-bite__wave { opacity: 1; transform: none; }
 }
+
+/* Apple Music branded "1 Month Free" button */
+.am-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 9px 16px 9px 9px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fb5c74 0%, #fa2d48 55%, #d10019 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 18px rgba(250,45,72,0.4);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.am-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(250,45,72,0.55);
+}
+.am-btn__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+.am-btn__mark svg { width: 16px; height: 16px; }

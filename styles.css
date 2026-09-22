@@ -2066,6 +2066,15 @@ h1, h2, h3, h4 {
 /* ── CONTACT ── */
 .contact { background: var(--bg-2); position: relative; overflow: hidden; }
 .contact .container { position: relative; z-index: 2; }
+/* black fire-smoke rising from the bottom of the contact section */
+.contact__smoke {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
 /* Infinite 3D spiral of project images behind the form */
 .contact__spiral {
