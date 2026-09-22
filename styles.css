@@ -1170,8 +1170,8 @@ h1, h2, h3, h4 {
   .about-card__body--sub { font-size: 14px; }
   .about-card__punch { font-size: 26px; }
 
-  .inspo-scatter { gap: 8px; padding: 4px 0; }
-  .inspo-pill { font-size: 13px; padding: 8px 14px; }
+  .inspo-scatter { gap: 11px; padding: 4px 0; }
+  .inspo-pill { font-size: 17px; padding: 13px 20px; }
   /* keep pills upright on small screens so nothing spills out */
   .inspo-pill:nth-child(n) { transform: none; }
 
