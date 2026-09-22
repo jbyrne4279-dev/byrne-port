@@ -773,7 +773,7 @@
 function initMist(canvasId) {
   // colour palette per canvas: red mist by default, charcoal smoke for contact
   const SMOKE = canvasId === 'contactSmoke';
-  const PALETTE = SMOKE ? ['46,46,50', '20,20,22'] : ['216,20,40', '140,10,24'];
+  const PALETTE = SMOKE ? ['200,15,35', '120,8,20'] : ['216,20,40', '140,10,24'];
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
