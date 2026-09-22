@@ -260,19 +260,12 @@
     }
 
     swatches.forEach(swatch => {
-      swatch.addEventListener('click', () => {
-        stopAutoCycle();
-        selectColor(swatch);
-      });
+      swatch.addEventListener('click', () => selectColor(swatch));
     });
 
-    /* Auto-cycle through the finishes every 5s until the user interacts */
-    let autoTimer = null;
-    function stopAutoCycle() {
-      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-    }
-    if (swatches.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      autoTimer = setInterval(() => {
+    /* Infinitely rotate through the finishes every 5s */
+    if (swatches.length > 1) {
+      setInterval(() => {
         const current = swatches.findIndex(s => s.classList.contains('is-active'));
         const next = swatches[(current + 1) % swatches.length];
         selectColor(next);
