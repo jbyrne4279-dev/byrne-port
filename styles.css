@@ -1188,6 +1188,16 @@ h1, h2, h3, h4 {
   font-size: clamp(15px, 2vw, 19px);
   color: var(--text-2);
 }
+.about-card__whisper {
+  font-size: 0.42em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  opacity: 0.75;
+  text-shadow: none;
+  vertical-align: baseline;
+}
 .about-card__wink {
   font-style: italic;
   color: var(--red);
