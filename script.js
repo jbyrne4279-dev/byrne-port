@@ -1125,20 +1125,28 @@ window.TypeReveal = (function () {
     const sr = scatter.getBoundingClientRect();
     const cx = r.left - sr.left + r.width / 2;
     const cy = r.top - sr.top + r.height / 2;
-    const N = 14;
+    const N = 18;
     for (let i = 0; i < N; i++) {
       const p = document.createElement('span');
       p.className = 'inspo-particle';
+      const size = 5 + Math.random() * 8;
+      p.style.width = p.style.height = size + 'px';
       p.style.left = cx + 'px';
       p.style.top = cy + 'px';
       scatter.appendChild(p);
-      const ang = (Math.PI * 2 * i) / N + Math.random() * 0.6;
-      const dist = 42 + Math.random() * 54;
-      const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
+
+      const ang = (Math.PI * 2 * i) / N + Math.random() * 0.5;
+      const dist = 40 + Math.random() * 60;
+      const dx = Math.cos(ang) * dist;
+      const dyOut = Math.sin(ang) * dist;      // initial splash direction
+      const fall = 55 + Math.random() * 50;    // gravity pulls droplets down
+      const dur = 620 + Math.random() * 340;
+      // splash out, then arc down like real droplets
       p.animate([
-        { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0)`, opacity: 0 }
-      ], { duration: 500 + Math.random() * 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' })
+        { transform: 'translate(-50%, -50%) scale(1)', opacity: 1, offset: 0 },
+        { transform: `translate(calc(-50% + ${dx * 0.65}px), calc(-50% + ${dyOut * 0.65 - 14}px)) scale(1)`, opacity: 1, offset: 0.42 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dyOut + fall}px)) scale(0.25)`, opacity: 0, offset: 1 }
+      ], { duration: dur, easing: 'cubic-bezier(0.3, 0.7, 0.4, 1)' })
         .onfinish = () => p.remove();
     }
   }
@@ -1162,7 +1170,7 @@ window.TypeReveal = (function () {
         pill.classList.add('is-returning');
         setTimeout(() => pill.classList.remove('is-returning'), 520);
       }, 5000);
-    }, 380);
+    }, 540);
   });
 })();
 
