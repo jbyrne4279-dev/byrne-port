@@ -952,35 +952,22 @@ h1, h2, h3, h4 {
   padding: 10px 0;
   perspective: 620px;            /* gives the bubble real 3D depth */
 }
-/* water droplets flung out when a bubble bursts */
 .inspo-particle {
   position: absolute;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 34% 28%,
-    rgba(255,255,255,0.95) 0%,
-    rgba(255,120,140,0.6) 45%,
-    rgba(176,0,32,0.4) 100%);
-  box-shadow: 0 0 7px rgba(255,255,255,0.45), inset 0 0 3px rgba(255,255,255,0.7);
+  background: #ff0033;
+  box-shadow: 0 0 8px rgba(255, 0, 46, 0.8);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 6;
 }
-/* a wobbling water-bubble that swells and bursts */
+/* clean cartoon 3D pop — keeps the pill's normal look */
 .inspo-pill.is-popping {
-  animation: pill-bubble 0.56s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: pill-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   transform-style: preserve-3d;
-  color: #fff;
-  border-color: rgba(255,255,255,0.65);
-  background: radial-gradient(circle at 32% 26%,
-    rgba(255,255,255,0.92) 0%,
-    rgba(255,90,116,0.55) 42%,
-    rgba(176,0,32,0.35) 100%);
-  box-shadow: inset 0 6px 14px rgba(255,255,255,0.55),
-              inset 0 -6px 14px rgba(120,0,20,0.4),
-              0 0 26px rgba(255,0,46,0.5);
-  z-index: 7;
+  z-index: 5;
 }
 .inspo-pill.is-hidden {
   opacity: 0;
@@ -991,14 +978,11 @@ h1, h2, h3, h4 {
 .inspo-pill.is-returning {
   animation: pill-return 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both;
 }
-/* jelly squash-and-stretch, a 3D wobble, then swell + burst */
-@keyframes pill-bubble {
-  0%   { transform: perspective(600px) scale3d(1, 1, 1) rotate3d(0,0,0,0deg); }
-  22%  { transform: perspective(600px) scale3d(1.18, 0.82, 1) rotateX(12deg) rotateY(-8deg); }
-  42%  { transform: perspective(600px) scale3d(0.88, 1.22, 1) rotateX(-10deg) rotateY(10deg); }
-  62%  { transform: perspective(600px) scale3d(1.28, 1.12, 1) rotateX(6deg) rotateY(-4deg); }
-  80%  { transform: perspective(600px) scale3d(1.42, 1.42, 1); opacity: 0.75; filter: blur(0.4px); }
-  100% { transform: perspective(600px) scale3d(1.75, 1.75, 1); opacity: 0; filter: blur(2px); }
+@keyframes pill-pop {
+  0%   { transform: perspective(600px) scale3d(1, 1, 1) rotateX(0) rotateY(0); }
+  35%  { transform: perspective(600px) scale3d(1.32, 1.32, 1) rotateX(16deg) rotateY(-12deg); }
+  70%  { transform: perspective(600px) scale3d(0.7, 0.7, 1) rotateX(-8deg) rotateY(8deg); opacity: 0.7; }
+  100% { transform: perspective(600px) scale3d(0, 0, 1); opacity: 0; }
 }
 @keyframes pill-return {
   0%   { opacity: 0; transform: scale(0); }
@@ -1082,14 +1066,32 @@ h1, h2, h3, h4 {
   display: none;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 6px;
 }
-.inspo-game__result-text {
+.inspo-game__result-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.inspo-game__result-score {
+  font-family: var(--font-display);
+  line-height: 0.9;
+}
+.inspo-game__result-score b {
+  color: var(--red);
+  font-weight: 400;
+  font-size: clamp(72px, 16vw, 132px);
+  text-shadow: 0 0 30px var(--red-dim);
+}
+.inspo-game__result-sub {
   font-family: var(--font-serif);
-  font-size: clamp(18px, 2.6vw, 24px);
+  font-size: clamp(16px, 2.2vw, 20px);
   color: var(--text);
+  margin-bottom: 14px;
 }
-.inspo-game__result-text b { color: var(--red); font-size: 1.35em; }
 /* state toggles */
 .inspo-game.is-playing .inspo-game__btn,
 .inspo-game.is-playing .inspo-game__result { display: none; }
@@ -1099,6 +1101,21 @@ h1, h2, h3, h4 {
 .inspo-game.is-over .inspo-game__result { display: flex; }
 /* during play the card is a playfield, not draggable */
 .about-card--inspire.is-playing { cursor: default; }
+
+/* On game over, the result takes over the whole card and everything
+   else is hidden. */
+.about-card--inspire.is-over .inspo-scatter,
+.about-card--inspire.is-over .about-card__tag,
+.about-card--inspire.is-over .about-card__no { visibility: hidden; }
+.about-card--inspire.is-over .inspo-game {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
 
 /* 03 — Right now */
 .about-card__body--sub {
