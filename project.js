@@ -86,10 +86,14 @@
     document.querySelectorAll('#projDesc .type-reveal').forEach(p => window.TypeReveal.run(p));
   }
 
-  // Skills
-  set('projSkills',
-    project.skills.map(s => `<span class="proj-skill">${s}</span>`).join('')
-  );
+  // Skills — distributed around the overview card (top / right / bottom / left)
+  const skillHtml = s => `<span class="proj-skill">${s}</span>`;
+  const groups = [[], [], [], []];
+  (project.skills || []).forEach((s, i) => groups[i % 4].push(s));
+  set('projSkillsTop',    groups[0].map(skillHtml).join(''));
+  set('projSkillsRight',  groups[1].map(skillHtml).join(''));
+  set('projSkillsBottom', groups[2].map(skillHtml).join(''));
+  set('projSkillsLeft',   groups[3].map(skillHtml).join(''));
 
   // Gallery
   set('projGallery', buildGallery(project));

@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=22">
-  <link rel="stylesheet" href="project.css?v=7">
+  <link rel="stylesheet" href="project.css?v=8">
 </head>
 <body>
 
@@ -114,23 +114,24 @@
       </div>
     </div>
 
-    <!-- DESCRIPTION -->
-    <section class="proj-section proj-desc-section">
+    <!-- OVERVIEW + SKILLS -->
+    <section class="proj-section proj-overview-section">
       <div class="container">
         <div class="proj-section__header">
           <span class="proj-section__label">Overview</span>
         </div>
-        <div class="proj-desc" id="projDesc"></div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="proj-section proj-skills-section">
-      <div class="container">
-        <div class="proj-section__header">
-          <span class="proj-section__label">Skills Gained</span>
+        <div class="proj-overview">
+          <div class="proj-skills proj-skills--top" id="projSkillsTop"></div>
+          <div class="proj-overview__mid">
+            <div class="proj-skills proj-skills--side proj-skills--left" id="projSkillsLeft"></div>
+            <article class="proj-card">
+              <span class="proj-card__eyebrow">Skills Gained &mdash; surrounding this overview</span>
+              <div class="proj-desc" id="projDesc"></div>
+            </article>
+            <div class="proj-skills proj-skills--side proj-skills--right" id="projSkillsRight"></div>
+          </div>
+          <div class="proj-skills proj-skills--bottom" id="projSkillsBottom"></div>
         </div>
-        <div class="proj-skills" id="projSkills"></div>
       </div>
     </section>
 
@@ -197,6 +198,6 @@
 
   <script src="projects-data.js?v=5"></script>
   <script src="script.js"></script>
-  <script src="project.js?v=6"></script>
+  <script src="project.js?v=7"></script>
 </body>
 </html>
