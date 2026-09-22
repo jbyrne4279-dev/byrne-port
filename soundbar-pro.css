@@ -550,7 +550,7 @@ a { text-decoration: none; color: inherit; }
   background: var(--ap-grey);
   overflow: hidden;
 }
-.sb-intro .sb-eyebrow { color: var(--ap-near-black); }
+.sb-intro .sb-eyebrow { color: #5ea9ff; }
 .sb-intro__title {
   position: relative;
   font-size: clamp(38px, 8.4vw, 88px);
