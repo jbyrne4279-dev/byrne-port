@@ -243,22 +243,41 @@
     const img = document.getElementById('sbHeroShotImg');
     if (!toggle || !img) return;
     const swatches = Array.from(toggle.querySelectorAll('.sb-color-swatch'));
+
+    function selectColor(swatch) {
+      const color = swatch.dataset.color;
+      const src = img.dataset[color];
+      if (!src) return;
+      swatches.forEach(s => {
+        s.classList.toggle('is-active', s === swatch);
+        s.setAttribute('aria-pressed', s === swatch ? 'true' : 'false');
+      });
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = src;
+        img.style.opacity = '1';
+      }, 180);
+    }
+
     swatches.forEach(swatch => {
       swatch.addEventListener('click', () => {
-        const color = swatch.dataset.color;
-        const src = img.dataset[color];
-        if (!src) return;
-        swatches.forEach(s => {
-          s.classList.toggle('is-active', s === swatch);
-          s.setAttribute('aria-pressed', s === swatch ? 'true' : 'false');
-        });
-        img.style.opacity = '0';
-        setTimeout(() => {
-          img.src = src;
-          img.style.opacity = '1';
-        }, 180);
+        stopAutoCycle();
+        selectColor(swatch);
       });
     });
+
+    /* Auto-cycle through the finishes every 5s until the user interacts */
+    let autoTimer = null;
+    function stopAutoCycle() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+    if (swatches.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      autoTimer = setInterval(() => {
+        const current = swatches.findIndex(s => s.classList.contains('is-active'));
+        const next = swatches[(current + 1) % swatches.length];
+        selectColor(next);
+      }, 5000);
+    }
   })();
 
   /* ── CONTACT FORM ── */
