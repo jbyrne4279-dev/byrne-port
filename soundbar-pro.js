@@ -28,7 +28,7 @@
       const valueEl = stat.querySelector('.sb-stat__value');
       const target = parseInt(bar.dataset.target, 10) || 0;
 
-      bar.style.height = Math.min(target * 1.4, 100) + '%';
+      bar.style.width = Math.min(target, 100) + '%';
 
       const duration = 1100;
       const start = performance.now();

@@ -460,44 +460,51 @@ a { text-decoration: none; color: inherit; }
 
 /* ── STATS ── */
 .sb-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 100%;
-  margin-top: 20px;
-}
-.sb-stat { display: flex; flex-direction: column; gap: 12px; }
-.sb-stat__bar-wrap {
-  height: 150px;
   display: flex;
-  align-items: flex-end;
-  background: var(--ap-white);
-  border-radius: 8px;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 100%;
+  margin-top: 24px;
+}
+.sb-stat { display: flex; flex-direction: column; gap: 9px; }
+.sb-stat__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sb-stat__bar-wrap {
+  height: 10px;
+  width: 100%;
+  display: flex;
+  background: var(--ap-hairline);
+  border-radius: 999px;
   overflow: hidden;
 }
 .sb-stat__bar {
-  width: 100%;
-  height: 0%;
-  border-radius: 8px 8px 0 0;
-  background: var(--ap-hairline);
-  transition: height 1.1s var(--ease);
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ap-gray);
+  transition: width 1.1s var(--ease);
 }
 .sb-stat--green .sb-stat__bar { background: #34c759; }
 .sb-stat--orange .sb-stat__bar { background: #ff9f0a; }
 .sb-stat--red .sb-stat__bar { background: #ff3b30; }
 .sb-stat__value {
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-size: clamp(20px, 2.4vw, 28px);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ap-near-black);
+  font-variant-numeric: tabular-nums;
 }
 .sb-stat--green .sb-stat__value { color: #248a3d; }
 .sb-stat--orange .sb-stat__value { color: #c93400; }
 .sb-stat--red .sb-stat__value { color: #d70015; }
 .sb-stat__label {
-  font-size: 13px;
-  color: var(--ap-gray);
-  font-weight: 400;
+  font-size: 14px;
+  color: var(--ap-gray-2);
+  font-weight: 500;
 }
 .sb-source {
   margin-top: 26px;
@@ -506,8 +513,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 600px) {
-  .sb-stats { grid-template-columns: 1fr; gap: 18px; }
-  .sb-stat__bar-wrap { height: 84px; }
+  .sb-stats { gap: 18px; }
+  .sb-stat__bar-wrap { height: 8px; }
 }
 
 /* ── IMAGE / PARALLAX SECTION ── */
