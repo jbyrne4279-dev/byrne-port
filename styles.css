@@ -1108,6 +1108,18 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   color: rgba(255,255,255,0.78);
 }
+/* flashing play triangle to grab attention */
+.inspo-game__play-tri {
+  display: inline-block;
+  animation: inspo-tri-flash 0.9s steps(1, end) infinite;
+}
+@keyframes inspo-tri-flash {
+  0%, 49%   { opacity: 1; transform: scale(1); }
+  50%, 100% { opacity: 0.15; transform: scale(0.82); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inspo-game__play-tri { animation: none; opacity: 1; }
+}
 .inspo-game__hud {
   display: none;
   gap: 22px;
