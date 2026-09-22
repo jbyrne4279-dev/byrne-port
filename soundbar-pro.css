@@ -1416,3 +1416,175 @@ a { text-decoration: none; color: inherit; }
   color: #fff;
 }
 .am-btn__mark svg { width: 16px; height: 16px; }
+
+/* ── BUY (Apple-style checkout mock) ── */
+.sb-buy {
+  position: relative;
+  padding: 120px 0;
+  background: var(--ap-white);
+  color: var(--ap-near-black);
+}
+.sb-buy__container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .sb-buy__container { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* gallery */
+.sb-buy__gallery { position: sticky; top: 40px; }
+@media (max-width: 860px) { .sb-buy__gallery { position: static; } }
+.sb-buy__img-wrap {
+  background: var(--ap-grey);
+  border-radius: 22px;
+  padding: 8% 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sb-buy__img-wrap img {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.25s var(--ease);
+}
+.sb-buy__gallery-note {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--ap-gray);
+}
+
+/* panel */
+.sb-buy__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ap-blue);
+  margin-bottom: 6px;
+}
+.sb-buy__title {
+  font-size: clamp(30px, 4.4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.sb-buy__from {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--ap-gray-2);
+}
+.sb-buy__from sup { color: var(--ap-blue); }
+
+.sb-buy__group { margin-top: 34px; }
+.sb-buy__group-title {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+.sb-buy__group-title span { color: var(--ap-gray); font-weight: 400; }
+
+.sb-buy__options { display: flex; gap: 12px; }
+.sb-buy__options--stack { flex-direction: column; }
+
+.sb-opt {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--ap-hairline);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.sb-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.sb-opt.is-selected {
+  border-color: var(--ap-blue);
+  box-shadow: 0 0 0 1px var(--ap-blue);
+}
+.sb-opt__dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+}
+.sb-opt__dot--white { background: #e9e9ec; }
+.sb-opt__dot--black { background: #46484c; }
+.sb-opt__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.sb-opt__text b { font-size: 15px; font-weight: 600; }
+.sb-opt__text small { font-size: 12px; color: var(--ap-gray); line-height: 1.4; }
+.sb-opt__price { margin-left: auto; font-size: 14px; font-weight: 600; white-space: nowrap; }
+
+/* summary */
+.sb-buy__summary {
+  margin-top: 34px;
+  padding: 22px 0 6px;
+  border-top: 1px solid var(--ap-hairline);
+}
+.sb-buy__srow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 15px;
+  color: var(--ap-gray-2);
+  padding: 7px 0;
+}
+.sb-buy__srow--total {
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ap-hairline);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ap-near-black);
+}
+.sb-buy__monthly { font-size: 13px; color: var(--ap-gray); margin-top: 6px; }
+.sb-buy__monthly sup { color: var(--ap-blue); }
+
+.sb-buy__delivery {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--ap-gray-2);
+}
+.sb-buy__delivery b { color: var(--ap-near-black); }
+
+/* actions */
+.sb-buy__actions { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+.sb-buy__btn {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--sb-font);
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.15s var(--ease), opacity 0.2s;
+}
+.sb-buy__btn--primary { background: var(--ap-blue); color: #fff; }
+.sb-buy__btn--primary:hover { background: var(--ap-blue-hover); }
+.sb-buy__btn--primary.is-added { background: #34c759; }
+.sb-buy__btn--pay {
+  background: #000;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.sb-buy__btn--pay:hover { background: #1a1a1a; }
+.sb-buy__applelogo { width: 16px; height: 18px; margin-right: 2px; }
+
+.sb-buy__note {
+  margin-top: 18px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ap-gray);
+}
