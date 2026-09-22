@@ -2481,3 +2481,10 @@ body { text-align: center; }
   .websites__grid .site-card.reveal { transform: none; }
   .websites__grid .site-card.in-view { animation: none; opacity: 1; transform: none; }
 }
+
+/* Academic module titles: red -> lava orange down the list */
+.academic__table .academic-row:nth-of-type(1) .academic-row__module { color: #e0143c; }
+.academic__table .academic-row:nth-of-type(2) .academic-row__module { color: #f5391d; }
+.academic__table .academic-row:nth-of-type(3) .academic-row__module { color: #ff5a17; }
+.academic__table .academic-row:nth-of-type(4) .academic-row__module { color: #ff7d10; }
+.academic__table .academic-row:nth-of-type(5) .academic-row__module { color: #ff9500; }
