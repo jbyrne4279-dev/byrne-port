@@ -1601,9 +1601,9 @@ h1, h2, h3, h4 {
 .portfolio__carousel {
   position: relative;
   width: 100%;
-  height: clamp(440px, 64vh, 660px);
+  height: clamp(600px, 88vh, 900px);
   margin-top: 44px;
-  perspective: 2200px;
+  perspective: 2600px;
   overflow: hidden;
   touch-action: pan-y;
   user-select: none;
@@ -1633,8 +1633,8 @@ h1, h2, h3, h4 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(272px, 40vw, 440px);
-  height: clamp(392px, 56vh, 580px);
+  width: clamp(300px, 58vw, 660px);
+  height: clamp(440px, 80vh, 840px);
   margin: 0;
   border-radius: 8px;
   overflow: hidden;
