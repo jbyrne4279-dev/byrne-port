@@ -848,30 +848,6 @@ h1, h2, h3, h4 {
   user-select: none;
   transition: transform 0.5s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-/* animated red wave that fully fills every card's background */
-.about-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(140% 90% at 15% 130%, rgba(255,0,46,0.50) 0%, transparent 55%),
-    radial-gradient(140% 90% at 85% 130%, rgba(176,0,32,0.45) 0%, transparent 58%),
-    radial-gradient(120% 70% at 50% 150%, rgba(255,40,70,0.35) 0%, transparent 60%);
-  background-size: 200% 200%;
-  animation: card-wave 9s ease-in-out infinite alternate;
-}
-@keyframes card-wave {
-  0%   { background-position: 0% 100%, 100% 100%, 50% 100%; }
-  50%  { background-position: 30% 72%, 70% 78%, 55% 68%; }
-  100% { background-position: 12% 84%, 88% 66%, 45% 80%; }
-}
-/* keep all card content above the wave */
-.about-card > * { position: relative; z-index: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .about-card::before { animation: none; }
-}
 .about-card.is-front,
 .about-card[data-floating="1"] {
   cursor: grab;
