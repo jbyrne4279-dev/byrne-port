@@ -101,6 +101,19 @@ a { text-decoration: none; color: inherit; }
 }
 .sb-hero__title-accent { color: var(--ap-blue); }
 
+/* Red glowing word */
+.sb-word-red {
+  color: #ff3b30;
+  animation: sb-red-glow 2.6s ease-in-out infinite;
+}
+@keyframes sb-red-glow {
+  0%, 100% { text-shadow: 0 0 6px rgba(255,59,48,0.45); }
+  50%      { text-shadow: 0 0 16px rgba(255,59,48,0.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-word-red { animation: none; text-shadow: 0 0 10px rgba(255,59,48,0.6); }
+}
+
 /* Shine sweep across blue heading accent text */
 .sb-hero__title-accent,
 .sb-letter.sb-intro__title-accent {
