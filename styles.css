@@ -1062,43 +1062,38 @@ h1, h2, h3, h4 {
   background: #c8001f;
 }
 
-/* Prominent, stand-out Play button */
+/* Play button — matches the site's sharp mono button aesthetic */
 .inspo-game__btn--start {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 16px 34px;
-  border: 2px solid #ff4d63;
-  background: linear-gradient(135deg, #ff2d4a 0%, #c8001f 100%);
-  box-shadow: 0 8px 26px rgba(255, 0, 46, 0.45);
-  animation: inspo-play-pulse 1.8s ease-in-out infinite;
+  padding: 14px 28px;
+  border-radius: 0;
+  border: 1px solid var(--red);
+  background: var(--red);
+  box-shadow: 0 0 16px var(--red-dim);
 }
 .inspo-game__btn--start:hover {
-  background: linear-gradient(135deg, #ff425c 0%, #d10820 100%);
-  box-shadow: 0 10px 34px rgba(255, 0, 46, 0.6);
+  background: var(--red);
+  box-shadow: 0 0 28px var(--red-glow);
+  transform: translateY(-2px);
 }
 .inspo-game__btn-main {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 5vw, 34px);
-  letter-spacing: 0.04em;
-  line-height: 1;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  line-height: 1.1;
 }
 .inspo-game__btn-sub {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-}
-@keyframes inspo-play-pulse {
-  0%, 100% { box-shadow: 0 8px 26px rgba(255,0,46,0.4); transform: scale(1); }
-  50%      { box-shadow: 0 8px 34px rgba(255,0,46,0.7); transform: scale(1.035); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .inspo-game__btn--start { animation: none; }
+  color: rgba(255,255,255,0.78);
 }
 .inspo-game__hud {
   display: none;
