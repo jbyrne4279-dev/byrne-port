@@ -906,7 +906,7 @@ h1, h2, h3, h4 {
 }
 .about-card__cta:hover { color: var(--red); }
 
-/* Big faint index numeral — gives each card its own identity */
+/* Big index numeral — dark-red glowing outline that slowly lights up */
 .about-card__no {
   position: absolute;
   top: clamp(14px, 3vw, 26px);
@@ -915,9 +915,22 @@ h1, h2, h3, h4 {
   font-size: clamp(52px, 10vw, 96px);
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.10);
+  -webkit-text-stroke: 1.5px #6e0014;
   pointer-events: none;
   user-select: none;
+  animation: card-no-glow 4.6s ease-in-out infinite;
+}
+@keyframes card-no-glow {
+  0%, 100% { opacity: 0.5;  filter: drop-shadow(0 0 1px rgba(150,0,25,0.25)); }
+  50%      { opacity: 1;    filter: drop-shadow(0 0 16px rgba(185,0,32,0.85)); }
+}
+/* light up in 1 - 2 - 3 - 4 order */
+.about-card[data-card="0"] .about-card__no { animation-delay: 0s; }
+.about-card[data-card="1"] .about-card__no { animation-delay: 0.5s; }
+.about-card[data-card="2"] .about-card__no { animation-delay: 1s; }
+.about-card[data-card="3"] .about-card__no { animation-delay: 1.5s; }
+@media (prefers-reduced-motion: reduce) {
+  .about-card__no { animation: none; opacity: 0.7; }
 }
 
 /* Keep highlighted words emphasised but not heavy */
