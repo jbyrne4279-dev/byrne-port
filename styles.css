@@ -2129,6 +2129,24 @@ body { text-align: center; }
   animation-play-state: paused;
 }
 
+/* Hovering the intro copy makes every "Visit Site" button beg to be clicked:
+   excessively enlarge, pulse and give a playful shake. */
+@keyframes btn-beg {
+  0%   { transform: scale(1.32) rotate(0deg)  translateY(0); }
+  15%  { transform: scale(1.42) rotate(-4deg) translateY(-2px); }
+  30%  { transform: scale(1.30) rotate(4deg)  translateY(1px); }
+  45%  { transform: scale(1.44) rotate(-3deg) translateY(-3px); }
+  60%  { transform: scale(1.32) rotate(3deg)  translateY(0); }
+  75%  { transform: scale(1.40) rotate(-4deg) translateY(-2px); }
+  100% { transform: scale(1.32) rotate(0deg)  translateY(0); }
+}
+.websites__intro:hover ~ .websites__grid .site-card__btn {
+  position: relative;
+  z-index: 4;
+  animation: btn-beg 0.5s ease-in-out infinite;
+  box-shadow: 0 0 34px var(--red-glow);
+}
+
 /* ── Stronger, staggered slide-up for the website cards ── */
 @keyframes slide-up-lg {
   from { opacity: 0; transform: translateY(60px); }
@@ -2146,7 +2164,8 @@ body { text-align: center; }
 .websites__grid .site-card:nth-child(6).in-view { animation-delay: 0.55s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-card__btn { animation: none; }
+  .site-card__btn,
+  .websites__intro:hover ~ .websites__grid .site-card__btn { animation: none; }
   .websites__grid .site-card.reveal { transform: none; }
   .websites__grid .site-card.in-view { animation: none; opacity: 1; transform: none; }
 }
