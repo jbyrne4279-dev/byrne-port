@@ -4,6 +4,67 @@
 
 'use strict';
 
+/* ── MATRIX RAIN INTRO (red) ── */
+(function initMatrixIntro() {
+  const wrap = document.getElementById('matrixIntro');
+  const canvas = document.getElementById('matrixCanvas');
+  if (!wrap || !canvas) return;
+
+  const finish = () => {
+    wrap.classList.add('is-done');
+    setTimeout(() => wrap.remove(), 950);
+  };
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    finish();
+    return;
+  }
+
+  const ctx = canvas.getContext('2d');
+  const chars = 'アカサタナハマヤラワ0123456789ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜｵ<>*/#JBAX'.split('');
+  let dpr = 1, fontSize = 16, cols = 0, drops = [];
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    fontSize = 16 * dpr;
+    cols = Math.ceil(canvas.width / fontSize);
+    drops = Array.from({ length: cols }, () => Math.random() * -40);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let raf, running = true;
+  function draw() {
+    if (!running) return;
+    // fade the previous frame for the trailing streak
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.09)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px "Space Mono", monospace';
+    for (let i = 0; i < cols; i++) {
+      const ch = chars[(Math.random() * chars.length) | 0];
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      // bright leading glyph, dimmer red trail
+      ctx.fillStyle = Math.random() > 0.975 ? '#ff5a6e' : '#c8001f';
+      ctx.fillText(ch, x, y);
+      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+    raf = requestAnimationFrame(draw);
+  }
+  draw();
+
+  // Rain for a beat, then dissolve into the site.
+  setTimeout(() => {
+    running = false;
+    cancelAnimationFrame(raf);
+    window.removeEventListener('resize', resize);
+    finish();
+  }, 2300);
+})();
+
 /* ── CUSTOM CURSOR ── */
 (function initCursor() {
   const cursor = document.getElementById('cursor');

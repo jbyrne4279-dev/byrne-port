@@ -736,6 +736,19 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
+/* ── MATRIX RAIN INTRO ── */
+.matrix-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.85s ease;
+}
+.matrix-intro.is-done { opacity: 0; }
+.matrix-intro canvas { display: block; width: 100%; height: 100%; }
+
 /* ── ABOUT DECK (draggable sticky cards) ── */
 .about-deck {
   position: relative;
@@ -831,6 +844,92 @@ h1, h2, h3, h4 {
   transition: color 0.25s var(--ease-out);
 }
 .about-card__cta:hover { color: var(--red); }
+
+/* Big faint index numeral — gives each card its own identity */
+.about-card__no {
+  position: absolute;
+  top: clamp(14px, 3vw, 26px);
+  right: clamp(16px, 3.5vw, 30px);
+  font-family: var(--font-display);
+  font-size: clamp(52px, 10vw, 96px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.10);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 01 — Intro: oversized statement */
+.about-card__lead {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3.2vw, 34px);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  color: var(--text);
+  max-width: 22ch;
+}
+.about-card--intro { justify-content: flex-end; }
+
+/* 02 — Inspiration: scattered pills */
+.about-card--inspire { justify-content: center; }
+.inspo-scatter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 10px;
+  padding: 10px 0;
+}
+.inspo-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 9px 16px;
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  transition: color 0.25s var(--ease-out), border-color 0.25s var(--ease-out),
+              background 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+.inspo-pill:hover {
+  color: var(--red);
+  border-color: var(--red);
+  background: var(--red-dim);
+  box-shadow: 0 0 18px var(--red-dim);
+}
+/* scatter each pill a little */
+.inspo-pill:nth-child(1) { transform: rotate(-5deg)  translateY(-8px); }
+.inspo-pill:nth-child(2) { transform: rotate(4deg)   translateY(6px); }
+.inspo-pill:nth-child(3) { transform: rotate(-2deg)  translateY(-2px); }
+.inspo-pill:nth-child(4) { transform: rotate(6deg)   translateY(8px); }
+.inspo-pill:nth-child(5) { transform: rotate(-7deg)  translateY(4px); }
+.inspo-pill:nth-child(6) { transform: rotate(3deg)   translateY(-9px); }
+.inspo-pill:nth-child(7) { transform: rotate(-3deg)  translateY(7px); }
+.inspo-pill:nth-child(8) { transform: rotate(5deg)   translateY(-4px); }
+
+/* 03 — Right now */
+.about-card__body--sub {
+  font-size: 14px;
+  color: var(--text-2);
+}
+.about-card__wink {
+  font-style: italic;
+  color: var(--red);
+}
+
+/* 04 — Off the clock */
+.about-card--off .about-card__body { font-size: 16px; }
+.about-card__punch {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4.4vw, 40px);
+  letter-spacing: 0.02em;
+  color: var(--red);
+  text-shadow: 0 0 20px var(--red-dim);
+  margin-top: 4px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .about-card { transition: none; }

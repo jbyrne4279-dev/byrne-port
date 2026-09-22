@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=25">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -57,6 +57,11 @@
   </script>
 </head>
 <body>
+
+  <!-- ── MATRIX RAIN INTRO ── -->
+  <div class="matrix-intro" id="matrixIntro" aria-hidden="true">
+    <canvas id="matrixCanvas"></canvas>
+  </div>
 
   <!-- ── CURSOR ── -->
   <div class="cursor" id="cursor"></div>
@@ -126,35 +131,39 @@
           <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
           <div class="about-deck__stack">
 
-            <article class="about-card is-front" data-card="0">
+            <article class="about-card about-card--intro is-front" data-card="0">
+              <span class="about-card__no" aria-hidden="true">01</span>
               <span class="about-card__tag">About</span>
-              <h2 class="about-card__title"><span data-text="Designing with">Designing with</span> <span class="glow-text"><strong>Purpose.</strong></span></h2>
-              <p class="about-card__body">I turn ideas into brands people want. Across fashion, products, and services, I pair <span style="color:var(--red)">creative direction</span> with <span style="color:var(--red)">insight-driven marketing</span>, building campaigns that <span style="color:var(--red)">connect with audiences</span> and <span style="color:var(--red)">drive demand</span>.</p>
+              <p class="about-card__lead">I&rsquo;m a <span class="glow-text"><strong>digital designer</strong></span> from the United&nbsp;Kingdom &mdash; turning ideas into <span style="color:var(--red)">immersive</span>, <span style="color:var(--red)">shareable</span> experiences.</p>
             </article>
 
-            <article class="about-card" data-card="1">
-              <span class="about-card__tag">Disciplines</span>
-              <h3 class="about-card__subtitle">What I work across.</h3>
-              <div class="about__skills about-card__skills">
-                <span class="skill-tag">Fashion Design</span>
-                <span class="skill-tag">Brand Identity</span>
-                <span class="skill-tag">Web Design</span>
-                <span class="skill-tag">App Design</span>
-                <span class="skill-tag">Trend Forecasting</span>
-                <span class="skill-tag">Marketing</span>
-                <span class="skill-tag">Visual Merchandising</span>
-                <span class="skill-tag">Graphic Design</span>
-                <span class="skill-tag">Meta Marketing</span>
-                <span class="skill-tag">Google Ads</span>
-                <span class="skill-tag">AI</span>
+            <article class="about-card about-card--inspire" data-card="1">
+              <span class="about-card__no" aria-hidden="true">02</span>
+              <span class="about-card__tag">What inspires me</span>
+              <div class="inspo-scatter">
+                <span class="inspo-pill">Subcultures</span>
+                <span class="inspo-pill">Music</span>
+                <span class="inspo-pill">Alternative Streetwear</span>
+                <span class="inspo-pill">Trends</span>
+                <span class="inspo-pill">Past &amp; future</span>
+                <span class="inspo-pill">DC Movies</span>
+                <span class="inspo-pill">Grunge aesthetics</span>
+                <span class="inspo-pill">Marketing Psychology</span>
               </div>
             </article>
 
-            <article class="about-card" data-card="2">
-              <span class="about-card__tag">Approach</span>
-              <h3 class="about-card__subtitle">Creative direction, end to end.</h3>
-              <p class="about-card__body">From the first idea to the finished campaign &mdash; fashion&#8209;led creative direction, brand identity, and marketing that turns attention into real demand.</p>
-              <a class="about-card__cta" href="#contact">Let&rsquo;s work together &rarr;</a>
+            <article class="about-card about-card--now" data-card="2">
+              <span class="about-card__no" aria-hidden="true">03</span>
+              <span class="about-card__tag">Right now</span>
+              <p class="about-card__body">I&rsquo;m in my <span style="color:var(--red)">final year of university</span>, completing my dissertation as part of my <span style="color:var(--red)">BA&nbsp;(Hons) in Fashion Business &amp; Marketing</span>.</p>
+              <p class="about-card__body about-card__body--sub">Whilst, of course&hellip; working on various projects on the side <span class="about-card__wink">(see below!)</span></p>
+            </article>
+
+            <article class="about-card about-card--off" data-card="3">
+              <span class="about-card__no" aria-hidden="true">04</span>
+              <span class="about-card__tag">Off the clock</span>
+              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness gremlin</strong></span>. HEAVILY into the <span style="color:var(--red)">Gym</span>, <span style="color:var(--red)">Muay&nbsp;Thai</span>, <span style="color:var(--red)">boxing</span> and <span style="color:var(--red)">wrestling</span>&hellip;</p>
+              <p class="about-card__punch">AKA getting my ass beat.</p>
             </article>
 
           </div>
@@ -656,6 +665,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=21"></script>
+  <script src="script.js?v=22"></script>
 </body>
 </html>
