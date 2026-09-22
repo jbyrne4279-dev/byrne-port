@@ -1202,14 +1202,23 @@ window.TypeReveal = (function () {
   }
 
   if (gameEl) {
-    gameEl.addEventListener('click', e => {
-      if (e.target.closest('[data-game="start"], [data-game="restart"]')) startGame();
+    gameEl.addEventListener('pointerup', e => {
+      const btn = e.target.closest('[data-game="start"], [data-game="restart"]');
+      if (btn) { e.preventDefault(); startGame(); }
     });
   }
 
-  scatter.addEventListener('click', e => {
+  // Pop on pointerdown so taps register instantly on touch (click is laggy /
+  // sometimes swallowed on mobile).
+  let lastPop = 0;
+  scatter.addEventListener('pointerdown', e => {
     const pill = e.target.closest('.inspo-pill');
     if (!pill || pill.classList.contains('is-hidden') || pill.classList.contains('is-popping')) return;
+    // guard against the same touch firing twice
+    const now = e.timeStamp || Date.now();
+    if (now - lastPop < 40) return;
+    lastPop = now;
+    e.preventDefault();
 
     if (playing) {
       score++;
