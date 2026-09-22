@@ -852,7 +852,7 @@ window.TypeReveal = (function () {
   if (!stack) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const FADE_MS = 15000;        // how long the dropped card lingers + fades
+  const FADE_MS = 20000;        // how long the dropped card lingers + fades
   let order = Array.from(stack.querySelectorAll('.about-card'));
 
   // Position every non-floating card into its slot in the stack.
@@ -872,64 +872,86 @@ window.TypeReveal = (function () {
   let drag = null;
 
   stack.addEventListener('pointerdown', e => {
-    const front = order[0];
-    if (!front || front.dataset.floating === '1') return;
-    if (!front.contains(e.target)) return;
     if (e.target.closest('a, button')) return;       // let links work
-    drag = { card: front, id: e.pointerId, sx: e.clientX, sy: e.clientY, dx: 0, dy: 0 };
-    front.setPointerCapture(e.pointerId);
-    front.classList.add('is-dragging');
-    front.style.transition = 'none';
+    const card = e.target.closest('.about-card');
+    if (!card) return;
+    const floating = card.dataset.floating === '1';
+    // Only the front card of the deck, or any card that's already floating,
+    // can be picked up.
+    if (!floating && card !== order[0]) return;
+
+    // A floating card being re-grabbed: cancel its pending fade/return and
+    // continue from wherever it currently sits.
+    if (floating) {
+      clearTimeout(card._deckTimer);
+      card.style.opacity = '1';
+    }
+    const baseX = floating ? (card._tx || 0) : 0;
+    const baseY = floating ? (card._ty || 0) : 0;
+
+    drag = { card, id: e.pointerId, sx: e.clientX, sy: e.clientY,
+             baseX, baseY, curX: baseX, curY: baseY, floating };
+    card.setPointerCapture(e.pointerId);
+    card.classList.add('is-dragging');
+    card.style.transition = 'none';
+    card.style.zIndex = '60';
     deck.classList.add('has-dragged');
   });
 
   stack.addEventListener('pointermove', e => {
     if (!drag || e.pointerId !== drag.id) return;
-    drag.dx = e.clientX - drag.sx;
-    drag.dy = e.clientY - drag.sy;
-    const rot = Math.max(-14, Math.min(14, drag.dx * 0.05));
-    drag.card.style.transform = `translate(${drag.dx}px, ${drag.dy}px) rotate(${rot}deg)`;
+    drag.curX = drag.baseX + (e.clientX - drag.sx);
+    drag.curY = drag.baseY + (e.clientY - drag.sy);
+    const rot = Math.max(-14, Math.min(14, drag.curX * 0.05));
+    drag.card.style.transform = `translate(${drag.curX}px, ${drag.curY}px) rotate(${rot}deg)`;
   });
 
-  function endDrag(e) {
-    if (!drag || e.pointerId !== drag.id) return;
-    const card = drag.card;
-    const { dx, dy } = drag;
-    const moved = Math.hypot(dx, dy) > 26;
-    card.classList.remove('is-dragging');
-    try { card.releasePointerCapture(drag.id); } catch (_) {}
-    drag = null;
-
-    if (!moved) {
-      card.style.transition = '';
-      applyStack();
-      return;
-    }
-
-    // Card stays where it was dropped, reveals the next card beneath it,
-    // then slowly fades over 15s and drifts back to its home slot.
-    card.dataset.floating = '1';
-    card.classList.remove('is-front');
-    card.style.zIndex = '60';
-    const rot = Math.max(-14, Math.min(14, dx * 0.05));
+  function startFade(card) {
+    const tx = card._tx || 0, ty = card._ty || 0;
+    const rot = Math.max(-14, Math.min(14, tx * 0.05));
     card.style.transition = 'none';
-    card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
-
-    // Send it to the back of the deck; the card underneath becomes the front.
-    order = order.slice(1).concat(card);
-    applyStack();
-
+    card.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`;
     requestAnimationFrame(() => {
       card.style.transition = reduce ? 'none' : `opacity ${FADE_MS}ms linear`;
       card.style.opacity = reduce ? '1' : '0';
     });
-
     clearTimeout(card._deckTimer);
     card._deckTimer = setTimeout(() => {
       card.dataset.floating = '0';
       card.style.transition = 'transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out)';
       applyStack();
     }, reduce ? 0 : FADE_MS);
+  }
+
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const card = drag.card;
+    const wasFloating = drag.floating;
+    const curX = drag.curX, curY = drag.curY;
+    const moved = Math.hypot(curX - drag.baseX, curY - drag.baseY) > 26;
+    card.classList.remove('is-dragging');
+    try { card.releasePointerCapture(drag.id); } catch (_) {}
+    drag = null;
+
+    // A tiny drag on the deck's front card is treated as a mis-click: snap back.
+    if (!wasFloating && !moved) {
+      card.style.transition = '';
+      applyStack();
+      return;
+    }
+
+    // Freeze wherever it was dropped and (re)start the 20s fade + return.
+    card._tx = curX;
+    card._ty = curY;
+    card.dataset.floating = '1';
+    card.classList.remove('is-front');
+
+    if (!wasFloating) {
+      // First time out of the deck: reveal the card beneath it.
+      order = order.slice(1).concat(card);
+      applyStack();
+    }
+    startFade(card);
   }
 
   stack.addEventListener('pointerup', endDrag);

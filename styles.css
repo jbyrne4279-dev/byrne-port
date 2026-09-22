@@ -776,7 +776,8 @@ h1, h2, h3, h4 {
   user-select: none;
   transition: transform 0.5s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-.about-card.is-front {
+.about-card.is-front,
+.about-card[data-floating="1"] {
   cursor: grab;
   touch-action: none;
 }
