@@ -1625,6 +1625,13 @@ h1, h2, h3, h4 {
 .contact__heading {
   margin-bottom: clamp(56px, 7vw, 96px);
 }
+.portfolio__hint {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+}
 
 .websites__grid {
   display: grid;
