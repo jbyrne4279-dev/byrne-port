@@ -32,6 +32,7 @@ body {
   font-family: var(--sb-font);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  touch-action: manipulation;   /* no double-tap zoom (pinch-zoom still works) */
 }
 
 a { text-decoration: none; color: inherit; }

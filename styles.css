@@ -63,6 +63,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   overflow-x: clip;
+  touch-action: manipulation;   /* no double-tap zoom (pinch-zoom still works) */
 }
 
 /* Solid black fill for the iOS status-bar / notch safe area, so the top of
