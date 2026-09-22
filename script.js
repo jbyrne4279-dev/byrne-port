@@ -981,6 +981,10 @@ window.TypeReveal = (function () {
       card.dataset.floating = '0';
       card.style.transition = 'transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out)';
       applyStack();
+      // Once every card is home again, bring the hint back.
+      if (!stack.querySelector('.about-card[data-floating="1"]')) {
+        deck.classList.remove('has-dragged');
+      }
     }, reduce ? 0 : FADE_MS);
   }
 
