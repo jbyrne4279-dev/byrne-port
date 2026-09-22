@@ -335,4 +335,33 @@
       }
     });
   })();
+
+  /* ── APPLE MUSIC — mouse-reactive parallax on the floating cards ── */
+  (() => {
+    const sec = document.getElementById('apple-music');
+    if (!sec) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const floats = Array.from(sec.querySelectorAll('[data-depth]'));
+    if (!floats.length) return;
+
+    let raf = null, nx = 0, ny = 0;
+    function apply() {
+      raf = null;
+      floats.forEach(el => {
+        const d = parseFloat(el.dataset.depth) || 12;
+        el.style.setProperty('--px', (nx * d).toFixed(1) + 'px');
+        el.style.setProperty('--py', (ny * d).toFixed(1) + 'px');
+      });
+    }
+    sec.addEventListener('pointermove', e => {
+      const r = sec.getBoundingClientRect();
+      nx = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
+      ny = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+    sec.addEventListener('pointerleave', () => {
+      nx = 0; ny = 0;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+  })();
 })();
