@@ -10,13 +10,9 @@
   const canvas = document.getElementById('matrixCanvas');
   if (!wrap || !canvas) return;
 
-  const finish = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     wrap.classList.add('is-done');
     setTimeout(() => wrap.remove(), 950);
-  };
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    finish();
     return;
   }
 
@@ -56,13 +52,16 @@
   }
   draw();
 
-  // Rain for a beat, then dissolve into the site.
+  // Let the rain fall, then start fading the overlay out WHILE it keeps
+  // raining — so the site materialises through the falling code, as if the
+  // rain is drawing it into existence. Once faded, stop and remove.
+  setTimeout(() => wrap.classList.add('is-done'), 1200);
   setTimeout(() => {
     running = false;
     cancelAnimationFrame(raf);
     window.removeEventListener('resize', resize);
-    finish();
-  }, 2300);
+    wrap.remove();
+  }, 3100);
 })();
 
 /* ── CUSTOM CURSOR ── */
