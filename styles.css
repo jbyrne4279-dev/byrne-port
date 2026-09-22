@@ -932,6 +932,13 @@ h1, h2, h3, h4 {
   max-width: 20ch;
 }
 .about-card--intro { justify-content: flex-end; }
+.about-card__lead--sub {
+  font-size: clamp(17px, 2.4vw, 24px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.82);
+  max-width: 24ch;
+}
 
 /* 02 — Inspiration: scattered pills */
 .about-card--inspire { justify-content: center; }
