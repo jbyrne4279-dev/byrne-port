@@ -1310,3 +1310,77 @@ a { text-decoration: none; color: inherit; }
   .sb-music__card { animation: none; }
   .sb-music__card { translate: none; }
 }
+
+/* ── PROBLEM: animated Apple bite logo ── */
+.sb-problem__head {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  margin-bottom: 8px;
+}
+.sb-problem__title { min-width: 0; }
+.sb-problem__logo {
+  flex-shrink: 0;
+  width: clamp(96px, 15vw, 164px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14%;
+  border-radius: 26px;
+  background: radial-gradient(120% 120% at 30% 25%, #2a9bff 0%, #0a6ff0 45%, #0a45c8 100%);
+  box-shadow: 0 22px 50px rgba(10,90,230,0.35);
+}
+@media (max-width: 640px) {
+  .sb-problem__head { flex-direction: column; align-items: flex-start; }
+}
+.sb-bite { width: 100%; height: 100%; overflow: visible; }
+.sb-bite g, .sb-bite circle, .sb-bite path { transform-box: fill-box; }
+
+/* apple fades/scales in */
+.sb-bite__apple {
+  transform-origin: center;
+  animation: sb-bite-apple 4.6s ease-in-out infinite;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+}
+@keyframes sb-bite-apple {
+  0%   { opacity: 0; transform: scale(0.9); }
+  12%  { opacity: 1; transform: scale(1); }
+  84%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}
+/* the bite piece appears then is taken away */
+.sb-bite__chunk {
+  transform-origin: center;
+  opacity: 0;
+  animation: sb-bite-chunk 4.6s ease-in-out infinite;
+}
+@keyframes sb-bite-chunk {
+  0%, 18% { opacity: 0; transform: translate(0,0) scale(1); }
+  26%     { opacity: 1; transform: translate(0,0) scale(1); }
+  30%     { opacity: 1; transform: translate(0,0) scale(1.05); }
+  46%     { opacity: 0; transform: translate(26px,-18px) scale(0.35); }
+  100%    { opacity: 0; }
+}
+/* sound waves fan out */
+.sb-bite__wave {
+  transform-origin: left center;
+  opacity: 0;
+  animation: sb-bite-wave 4.6s ease-in-out infinite;
+}
+.sb-bite__wave:nth-child(1) { animation-delay: 0.02s; }
+.sb-bite__wave:nth-child(2) { animation-delay: 0.12s; }
+.sb-bite__wave:nth-child(3) { animation-delay: 0.22s; }
+.sb-bite__wave:nth-child(4) { animation-delay: 0.32s; }
+@keyframes sb-bite-wave {
+  0%, 44% { opacity: 0; transform: translateX(-6px) scaleX(0.5); }
+  58%     { opacity: 1; transform: translateX(0) scaleX(1); }
+  80%     { opacity: 0.8; transform: translateX(0) scaleX(1); }
+  92%, 100% { opacity: 0; transform: translateX(6px) scaleX(0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-bite__apple, .sb-bite__chunk, .sb-bite__wave { animation: none; }
+  .sb-bite__apple { opacity: 1; }
+  .sb-bite__chunk { opacity: 0; }
+  .sb-bite__wave { opacity: 1; transform: none; }
+}
