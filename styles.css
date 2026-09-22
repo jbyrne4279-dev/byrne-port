@@ -1145,14 +1145,27 @@ h1, h2, h3, h4 {
 .inspo-game.is-playing .inspo-game__btn,
 .inspo-game.is-playing .inspo-game__result { display: none; }
 .inspo-game.is-playing .inspo-game__hud { display: flex; }
-/* while playing, the countdown/score floats above the "What inspires me" text */
+/* while playing, timer sits at the top and the popped counter at the bottom */
 .about-card--inspire.is-playing .inspo-game__hud {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: 4;
+  pointer-events: none;   /* let taps reach the pills underneath */
+}
+.about-card--inspire.is-playing .inspo-game__time {
   position: absolute;
   top: clamp(14px, 3vw, 24px);
   left: 0;
   right: 0;
-  justify-content: center;
-  z-index: 4;
+  text-align: center;
+}
+.about-card--inspire.is-playing .inspo-game__score {
+  position: absolute;
+  bottom: clamp(14px, 3vw, 24px);
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 .inspo-game.is-over .inspo-game__btn[data-game="start"],
 .inspo-game.is-over .inspo-game__hud { display: none; }
