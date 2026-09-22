@@ -1824,49 +1824,53 @@ h1, h2, h3, h4 {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  perspective: 1200px;
-  opacity: 0.55;
+  perspective: 1100px;
+  opacity: 0.6;
+  /* Fade the helix out into the top/bottom section borders so it looks like
+     it spirals away and disappears. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
 }
 .contact__spiral::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: radial-gradient(ellipse at center,
-    rgba(8,8,8,0.30) 0%,
-    rgba(8,8,8,0.72) 55%,
-    rgba(8,8,8,0.96) 100%);
+  background: radial-gradient(ellipse 60% 80% at center,
+    rgba(8,8,8,0.22) 0%,
+    rgba(8,8,8,0.66) 55%,
+    rgba(8,8,8,0.92) 100%);
 }
-.spiral__ring {
+.spiral__helix {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 220px;
-  height: 150px;
-  margin: -75px 0 0 -110px;
+  width: 150px;
+  height: 100px;
+  margin: -50px 0 0 -75px;
   transform-style: preserve-3d;
-  animation: spiral-spin 34s linear infinite;
+  animation: helix-spin 22s linear infinite;
 }
 .spiral__img {
   position: absolute;
   inset: 0;
-  width: 220px;
-  height: 150px;
+  width: 150px;
+  height: 100px;
   object-fit: cover;
   border: 1px solid var(--border-2);
   border-radius: 6px;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.55);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
   backface-visibility: hidden;
 }
-@keyframes spiral-spin {
-  from { transform: rotateX(-10deg) rotateY(0deg); }
-  to   { transform: rotateX(-10deg) rotateY(360deg); }
+@keyframes helix-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
 }
 @media (max-width: 640px) {
-  .contact__spiral { opacity: 0.4; }
+  .contact__spiral { opacity: 0.45; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .spiral__ring { animation: none; }
+  .spiral__helix { animation: none; }
 }
 
 .contact .section__header { text-align: center; }
@@ -2330,19 +2334,17 @@ body { text-align: center; }
 /* Hovering the intro copy makes every "Visit Site" button beg to be clicked:
    excessively enlarge, pulse and give a playful shake. */
 @keyframes btn-beg {
-  0%   { transform: scale(1.32) rotate(0deg)  translateY(0); }
-  15%  { transform: scale(1.42) rotate(-4deg) translateY(-2px); }
-  30%  { transform: scale(1.30) rotate(4deg)  translateY(1px); }
-  45%  { transform: scale(1.44) rotate(-3deg) translateY(-3px); }
-  60%  { transform: scale(1.32) rotate(3deg)  translateY(0); }
-  75%  { transform: scale(1.40) rotate(-4deg) translateY(-2px); }
-  100% { transform: scale(1.32) rotate(0deg)  translateY(0); }
+  0%   { transform: scale(1.14) rotate(0deg)   translateY(0); }
+  25%  { transform: scale(1.18) rotate(-1.5deg) translateY(-1px); }
+  50%  { transform: scale(1.14) rotate(0deg)   translateY(0); }
+  75%  { transform: scale(1.18) rotate(1.5deg)  translateY(-1px); }
+  100% { transform: scale(1.14) rotate(0deg)   translateY(0); }
 }
 .websites__intro:hover ~ .websites__grid .site-card__btn {
   position: relative;
   z-index: 4;
-  animation: btn-beg 0.5s ease-in-out infinite;
-  box-shadow: 0 0 34px var(--red-glow);
+  animation: btn-beg 0.9s ease-in-out infinite;
+  box-shadow: 0 0 28px var(--red-glow);
 }
 
 /* ── Stronger, staggered slide-up for the website cards ── */
