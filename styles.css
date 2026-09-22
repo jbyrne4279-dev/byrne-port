@@ -736,6 +736,105 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
+/* ── ABOUT DECK (draggable sticky cards) ── */
+.about-deck {
+  position: relative;
+  width: min(560px, 100%);
+  margin: 0 auto;
+}
+.about-deck__hint {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 22px;
+  transition: opacity 0.4s var(--ease-out);
+}
+.about-deck.has-dragged .about-deck__hint { opacity: 0; }
+.about-deck__stack {
+  position: relative;
+  height: clamp(380px, 62vw, 440px);
+}
+.about-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(26px, 5vw, 46px);
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  overflow: hidden;
+  transform-origin: center;
+  will-change: transform, opacity;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.about-card.is-front {
+  cursor: grab;
+  touch-action: none;
+}
+.about-card.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 44px 100px rgba(0,0,0,0.72);
+  border-color: var(--border-r);
+}
+.about-card__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.about-card__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--text);
+}
+.about-card__subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--text);
+}
+.about-card__body {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.about-card__skills {
+  margin: 6px 0 0;
+  max-width: none;
+  justify-content: flex-start;
+}
+.about-card__cta {
+  margin-top: 4px;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  border-bottom: 1px solid var(--red);
+  padding-bottom: 2px;
+  transition: color 0.25s var(--ease-out);
+}
+.about-card__cta:hover { color: var(--red); }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card { transition: none; }
+}
+
 
 .about__stats {
   display: grid;

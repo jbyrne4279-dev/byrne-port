@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=23">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -122,21 +122,41 @@
         <span class="section__label">01 About</span>
       </div>
       <div class="about__grid">
-        <div class="about__text reveal">
-          <h2 class="about__heading"><span data-text="Designing with">Designing with</span> <span class="glow-text"><strong>Purpose.</strong></span></h2>
-          <p class="about__body type-reveal">I turn ideas into brands people want. Across fashion, products, and services, I pair <span style="color:var(--red)">creative direction</span> with <span style="color:var(--red)">insight-driven marketing</span>, building campaigns that <span style="color:var(--red)">connect with audiences</span> and <span style="color:var(--red)">drive demand</span>.</p>
-          <div class="about__skills">
-            <span class="skill-tag">Fashion Design</span>
-            <span class="skill-tag">Brand Identity</span>
-            <span class="skill-tag">Web Design</span>
-            <span class="skill-tag">App Design</span>
-            <span class="skill-tag">Trend Forecasting</span>
-            <span class="skill-tag">Marketing</span>
-            <span class="skill-tag">Visual Merchandising</span>
-            <span class="skill-tag">Graphic Design</span>
-            <span class="skill-tag">Meta Marketing</span>
-            <span class="skill-tag">Google Ads</span>
-            <span class="skill-tag">AI</span>
+        <div class="about-deck reveal" id="aboutDeck">
+          <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
+          <div class="about-deck__stack">
+
+            <article class="about-card is-front" data-card="0">
+              <span class="about-card__tag">About</span>
+              <h2 class="about-card__title"><span data-text="Designing with">Designing with</span> <span class="glow-text"><strong>Purpose.</strong></span></h2>
+              <p class="about-card__body">I turn ideas into brands people want. Across fashion, products, and services, I pair <span style="color:var(--red)">creative direction</span> with <span style="color:var(--red)">insight-driven marketing</span>, building campaigns that <span style="color:var(--red)">connect with audiences</span> and <span style="color:var(--red)">drive demand</span>.</p>
+            </article>
+
+            <article class="about-card" data-card="1">
+              <span class="about-card__tag">Disciplines</span>
+              <h3 class="about-card__subtitle">What I work across.</h3>
+              <div class="about__skills about-card__skills">
+                <span class="skill-tag">Fashion Design</span>
+                <span class="skill-tag">Brand Identity</span>
+                <span class="skill-tag">Web Design</span>
+                <span class="skill-tag">App Design</span>
+                <span class="skill-tag">Trend Forecasting</span>
+                <span class="skill-tag">Marketing</span>
+                <span class="skill-tag">Visual Merchandising</span>
+                <span class="skill-tag">Graphic Design</span>
+                <span class="skill-tag">Meta Marketing</span>
+                <span class="skill-tag">Google Ads</span>
+                <span class="skill-tag">AI</span>
+              </div>
+            </article>
+
+            <article class="about-card" data-card="2">
+              <span class="about-card__tag">Approach</span>
+              <h3 class="about-card__subtitle">Creative direction, end to end.</h3>
+              <p class="about-card__body">From the first idea to the finished campaign &mdash; fashion&#8209;led creative direction, brand identity, and marketing that turns attention into real demand.</p>
+              <a class="about-card__cta" href="#contact">Let&rsquo;s work together &rarr;</a>
+            </article>
+
           </div>
         </div>
       </div>
@@ -636,6 +656,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=19"></script>
+  <script src="script.js?v=20"></script>
 </body>
 </html>

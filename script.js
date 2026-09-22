@@ -844,6 +844,98 @@ window.TypeReveal = (function () {
   return { run };
 })();
 
+/* ── ABOUT DECK (draggable sticky cards) ── */
+(function initAboutDeck() {
+  const deck = document.getElementById('aboutDeck');
+  if (!deck) return;
+  const stack = deck.querySelector('.about-deck__stack');
+  if (!stack) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FADE_MS = 15000;        // how long the dropped card lingers + fades
+  let order = Array.from(stack.querySelectorAll('.about-card'));
+
+  // Position every non-floating card into its slot in the stack.
+  function applyStack() {
+    order.forEach((card, i) => {
+      if (card.dataset.floating === '1') return;
+      const rot = i === 0 ? 0 : (i % 2 ? 2.4 : -2.4);
+      card.style.zIndex = String(50 - i);
+      card.style.transform = `translate(${i * 5}px, ${i * 12}px) rotate(${rot}deg)`;
+      card.style.opacity = '1';
+      card.classList.toggle('is-front', i === 0);
+      card.style.cursor = i === 0 ? 'grab' : 'default';
+    });
+  }
+  applyStack();
+
+  let drag = null;
+
+  stack.addEventListener('pointerdown', e => {
+    const front = order[0];
+    if (!front || front.dataset.floating === '1') return;
+    if (!front.contains(e.target)) return;
+    if (e.target.closest('a, button')) return;       // let links work
+    drag = { card: front, id: e.pointerId, sx: e.clientX, sy: e.clientY, dx: 0, dy: 0 };
+    front.setPointerCapture(e.pointerId);
+    front.classList.add('is-dragging');
+    front.style.transition = 'none';
+    deck.classList.add('has-dragged');
+  });
+
+  stack.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.dx = e.clientX - drag.sx;
+    drag.dy = e.clientY - drag.sy;
+    const rot = Math.max(-14, Math.min(14, drag.dx * 0.05));
+    drag.card.style.transform = `translate(${drag.dx}px, ${drag.dy}px) rotate(${rot}deg)`;
+  });
+
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const card = drag.card;
+    const { dx, dy } = drag;
+    const moved = Math.hypot(dx, dy) > 26;
+    card.classList.remove('is-dragging');
+    try { card.releasePointerCapture(drag.id); } catch (_) {}
+    drag = null;
+
+    if (!moved) {
+      card.style.transition = '';
+      applyStack();
+      return;
+    }
+
+    // Card stays where it was dropped, reveals the next card beneath it,
+    // then slowly fades over 15s and drifts back to its home slot.
+    card.dataset.floating = '1';
+    card.classList.remove('is-front');
+    card.style.zIndex = '60';
+    const rot = Math.max(-14, Math.min(14, dx * 0.05));
+    card.style.transition = 'none';
+    card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+
+    // Send it to the back of the deck; the card underneath becomes the front.
+    order = order.slice(1).concat(card);
+    applyStack();
+
+    requestAnimationFrame(() => {
+      card.style.transition = reduce ? 'none' : `opacity ${FADE_MS}ms linear`;
+      card.style.opacity = reduce ? '1' : '0';
+    });
+
+    clearTimeout(card._deckTimer);
+    card._deckTimer = setTimeout(() => {
+      card.dataset.floating = '0';
+      card.style.transition = 'transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out)';
+      applyStack();
+    }, reduce ? 0 : FADE_MS);
+  }
+
+  stack.addEventListener('pointerup', endDrag);
+  stack.addEventListener('pointercancel', endDrag);
+})();
+
 /* ── SMOOTH ANCHOR SCROLL (cross-browser fallback) ── */
 (function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
