@@ -1814,7 +1814,60 @@ h1, h2, h3, h4 {
 .academic-row--top .academic-row__badge { opacity: 1; }
 
 /* ── CONTACT ── */
-.contact { background: var(--bg-2); position: relative; }
+.contact { background: var(--bg-2); position: relative; overflow: hidden; }
+.contact .container { position: relative; z-index: 2; }
+
+/* Infinite 3D spiral of project images behind the form */
+.contact__spiral {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1200px;
+  opacity: 0.55;
+}
+.contact__spiral::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center,
+    rgba(8,8,8,0.30) 0%,
+    rgba(8,8,8,0.72) 55%,
+    rgba(8,8,8,0.96) 100%);
+}
+.spiral__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 150px;
+  margin: -75px 0 0 -110px;
+  transform-style: preserve-3d;
+  animation: spiral-spin 34s linear infinite;
+}
+.spiral__img {
+  position: absolute;
+  inset: 0;
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.55);
+  backface-visibility: hidden;
+}
+@keyframes spiral-spin {
+  from { transform: rotateX(-10deg) rotateY(0deg); }
+  to   { transform: rotateX(-10deg) rotateY(360deg); }
+}
+@media (max-width: 640px) {
+  .contact__spiral { opacity: 0.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spiral__ring { animation: none; }
+}
 
 .contact .section__header { text-align: center; }
 .contact .section__label { margin-left: auto; margin-right: auto; }
