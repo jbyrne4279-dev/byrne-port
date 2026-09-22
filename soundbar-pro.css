@@ -1615,3 +1615,48 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 14px;
 }
 .sb-closing__icon svg { width: 34px; height: 34px; }
+
+/* Apple Music brand assets in the music section */
+.sb-music__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.sb-music__logo {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(120,0,20,0.35);
+}
+.sb-music__logo svg { width: 100%; height: 100%; display: block; }
+.sb-music__logo--sm { width: 24px; height: 24px; border-radius: 7px; box-shadow: none; }
+.sb-music__wordmark {
+  font-size: clamp(20px, 2.6vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+/* keep the eyebrow (redundant with the wordmark now) subtle */
+.sb-music__kicker { display: none; }
+
+.sb-music__listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 11px 20px 11px 12px;
+  border-radius: 999px;
+  background: #fff;
+  color: #1d1d1f;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(120,0,20,0.28);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.sb-music__listen:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(120,0,20,0.42);
+}
