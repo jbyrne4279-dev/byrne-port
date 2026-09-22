@@ -708,6 +708,17 @@ a { text-decoration: none; color: inherit; }
   transform-origin: left center;
   transition: transform .4s var(--ease);
 }
+.sb-card__icon {
+  display: inline-flex;
+  color: var(--ap-blue);
+  margin-bottom: 14px;
+  transform-origin: left center;
+  transition: transform .4s var(--ease);
+}
+.sb-card__icon svg { width: 30px; height: 30px; }
+.sb-card:hover .sb-card__icon,
+.sb-card:focus-within .sb-card__icon { transform: scale(1.08); }
+@media (prefers-reduced-motion: reduce) { .sb-card__icon { transition: none; } }
 .sb-card__title {
   font-size: 19px;
   font-weight: 600;
@@ -1588,3 +1599,19 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.5;
   color: var(--ap-gray);
 }
+
+/* Apple Music promo pill disclaimer */
+.sb-music__disclaimer {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #6b3b44;
+}
+
+/* Email icon above the closing "Get in Touch" */
+.sb-closing__icon {
+  display: inline-flex;
+  color: var(--ap-blue);
+  margin-bottom: 14px;
+}
+.sb-closing__icon svg { width: 34px; height: 34px; }
