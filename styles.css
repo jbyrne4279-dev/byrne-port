@@ -847,13 +847,17 @@ h1, h2, h3, h4 {
   will-change: transform, opacity;
   -webkit-user-select: none;
   user-select: none;
+  touch-action: manipulation;   /* no double-tap zoom on any card */
   transition: transform 0.5s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
+.about-card * { touch-action: manipulation; }
 .about-card.is-front,
 .about-card[data-floating="1"] {
   cursor: grab;
   touch-action: none;
 }
+.about-card.is-front *,
+.about-card[data-floating="1"] * { touch-action: none; }
 .about-card.is-dragging {
   cursor: grabbing;
   box-shadow: 0 44px 100px rgba(0,0,0,0.72);
