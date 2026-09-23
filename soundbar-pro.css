@@ -1660,3 +1660,51 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(120,0,20,0.42);
 }
+
+/* ── Animate all Apple-style line icons across the site ── */
+@keyframes sb-icon-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+.sb-card__icon svg,
+.sb-closing__icon svg {
+  animation: sb-icon-bob 3.4s ease-in-out infinite;
+  will-change: transform;
+}
+.sb-card:nth-child(2) .sb-card__icon svg { animation-delay: .25s; }
+.sb-card:nth-child(3) .sb-card__icon svg { animation-delay: .5s; }
+.sb-card:nth-child(4) .sb-card__icon svg { animation-delay: .75s; }
+.sb-card:nth-child(5) .sb-card__icon svg { animation-delay: 1s; }
+.sb-card:nth-child(6) .sb-card__icon svg { animation-delay: 1.25s; }
+.sb-feature__icon svg { animation: sb-icon-bob 3.8s ease-in-out infinite; }
+.sb-feature:nth-child(2) .sb-feature__icon svg { animation-delay: .4s; }
+.sb-feature:nth-child(3) .sb-feature__icon svg { animation-delay: .8s; }
+@media (prefers-reduced-motion: reduce) {
+  .sb-card__icon svg, .sb-closing__icon svg, .sb-feature__icon svg { animation: none; }
+}
+
+/* ── Colourful Apple light glowing from the bottom of the Introducing section ── */
+.sb-intro__glow {
+  position: absolute;
+  left: 50%;
+  bottom: -120px;
+  width: min(760px, 92%);
+  height: 320px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(closest-side, rgba(255,149,0,0.85), rgba(255,204,0,0.45) 55%, transparent 78%),
+    radial-gradient(closest-side, rgba(255,45,85,0.5), transparent 72%),
+    radial-gradient(closest-side, rgba(90,169,255,0.35), transparent 70%);
+  filter: blur(60px);
+  opacity: 0.9;
+  animation: sb-intro-glow 6.5s ease-in-out infinite;
+}
+@keyframes sb-intro-glow {
+  0%, 100% { opacity: 0.72; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1;    transform: translateX(-50%) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-intro__glow { animation: none; }
+}
