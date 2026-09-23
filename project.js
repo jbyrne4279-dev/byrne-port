@@ -18,8 +18,45 @@
     return;
   }
 
-  /* ── 2. UPDATE <title> ── */
-  document.title = project.title + ' |Joseph Byrne';
+  /* ── 2. UPDATE <title> + META ── */
+  const pageTitle = project.title + ' | Joseph Byrne';
+  document.title = pageTitle;
+
+  // Build a concise meta description: explicit metaDescription > subtitle >
+  // first description paragraph (stripped of tags), trimmed to ~155 chars.
+  function buildMetaDesc() {
+    if (project.metaDescription) return project.metaDescription;
+    let base = project.subtitle || '';
+    if (!base && Array.isArray(project.description) && project.description.length) {
+      base = String(project.description[0]).replace(/<[^>]*>/g, '');
+    }
+    base = base.replace(/\s+/g, ' ').trim();
+    if (base.length > 158) base = base.slice(0, 155).replace(/\s+\S*$/, '') + '…';
+    return base || 'A project from Joseph Byrne’s multidisciplinary design portfolio.';
+  }
+  const metaDesc = buildMetaDesc();
+  const pageUrl  = 'https://josephbyrne.org/project?slug=' + encodeURIComponent(project.slug);
+  const ogImage  = project.ogImage || 'https://josephbyrne.org/assets/og-image.jpg';
+
+  function setMeta(selector, value) {
+    const el = document.head.querySelector(selector);
+    if (el) el.setAttribute('content', value);
+  }
+  function setLink(rel, href) {
+    let el = document.head.querySelector('link[rel="' + rel + '"]');
+    if (!el) { el = document.createElement('link'); el.setAttribute('rel', rel); document.head.appendChild(el); }
+    el.setAttribute('href', href);
+  }
+  setMeta('meta[name="description"]', metaDesc);
+  setMeta('meta[property="og:title"]', pageTitle);
+  setMeta('meta[property="og:description"]', metaDesc);
+  setMeta('meta[property="og:image"]', ogImage);
+  setMeta('meta[name="twitter:title"]', pageTitle);
+  setMeta('meta[name="twitter:description"]', metaDesc);
+  setMeta('meta[name="twitter:image"]', ogImage);
+  setLink('canonical', pageUrl);
+  const ogUrl = document.head.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute('content', pageUrl);
 
   /* ── 3. POPULATE PAGE ELEMENTS ── */
   function set(id, html, attr) {
