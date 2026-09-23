@@ -1018,10 +1018,10 @@ h1, h2, h3, h4 {
 }
 .inspo-pill {
   font-family: var(--font-serif);
-  font-size: clamp(13px, 1.5vw, 16px);
+  font-size: clamp(16px, 1.9vw, 20px);
   font-weight: 500;
   letter-spacing: 0;
-  padding: 9px 16px;
+  padding: 12px 22px;
   border: 1px solid var(--border-2);
   border-radius: 999px;
   color: var(--text);
