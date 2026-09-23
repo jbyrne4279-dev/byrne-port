@@ -1247,26 +1247,30 @@ h1, h2, h3, h4 {
 
 /* ── ABOUT CARDS on mobile: fit the content, tidy the layout ── */
 @media (max-width: 560px) {
-  .about-deck__stack { height: 72vh; min-height: 440px; }
+  /* shorter cards + content pinned to the top so there's no dead black space */
+  .about-deck__stack { height: clamp(400px, 62vh, 500px); min-height: 400px; }
   .about-card {
-    padding: 22px 20px;
-    gap: 12px;
+    padding: 30px 22px;
+    gap: 16px;
     border-radius: 14px;
+    justify-content: flex-start;
   }
-  .about-card__no { font-size: 46px; top: 12px; right: 14px; }
-  .about-card__tag { font-size: 11px; }
-  .about-card__lead { font-size: 22px; line-height: 1.25; max-width: none; }
-  .about-card__lead--sub { font-size: 15px; }
-  .about-card__body { font-size: 16px; line-height: 1.45; }
-  .about-card__body--sub { font-size: 14px; }
-  .about-card__punch { font-size: 26px; }
+  .about-card--intro,
+  .about-card--inspire { justify-content: flex-start; }
+  .about-card__no { font-size: 44px; top: 14px; right: 16px; }
+  .about-card__tag { font-size: 12px; }
+  .about-card__lead { font-size: 28px; line-height: 1.22; max-width: none; }
+  .about-card__lead--sub { font-size: 18px; }
+  .about-card__body { font-size: 20px; line-height: 1.4; }
+  .about-card__body--sub { font-size: 16px; }
+  .about-card__punch { font-size: 32px; }
 
-  .inspo-scatter { gap: 11px; padding: 4px 0; }
-  .inspo-pill { font-size: 17px; padding: 13px 20px; }
+  .inspo-scatter { gap: 12px; padding: 6px 0; }
+  .inspo-pill { font-size: 18px; padding: 13px 20px; }
   /* keep pills upright on small screens so nothing spills out */
   .inspo-pill:nth-child(n) { transform: none; }
 
-  .inspo-game { margin-top: 10px; }
+  .inspo-game { margin-top: 14px; }
   .inspo-game__btn { font-size: 10px; padding: 9px 15px; }
   .inspo-game__result-score b { font-size: clamp(60px, 22vw, 88px); }
 }
