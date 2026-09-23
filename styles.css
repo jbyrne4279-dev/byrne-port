@@ -971,8 +971,8 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 12px 10px;
-  padding: 10px 0;
+  gap: 9px 8px;
+  padding: 6px 0;
   perspective: 620px;            /* gives the bubble real 3D depth */
 }
 .inspo-particle {
@@ -1018,10 +1018,10 @@ h1, h2, h3, h4 {
 }
 .inspo-pill {
   font-family: var(--font-serif);
-  font-size: clamp(15px, 2vw, 19px);
+  font-size: clamp(13px, 1.5vw, 16px);
   font-weight: 500;
   letter-spacing: 0;
-  padding: 12px 22px;
+  padding: 9px 16px;
   border: 1px solid var(--border-2);
   border-radius: 999px;
   color: var(--text);
@@ -1037,14 +1037,16 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 18px var(--red-dim);
 }
 /* scatter each pill a little */
-.inspo-pill:nth-child(1) { transform: rotate(-5deg)  translateY(-8px); }
-.inspo-pill:nth-child(2) { transform: rotate(4deg)   translateY(6px); }
-.inspo-pill:nth-child(3) { transform: rotate(-2deg)  translateY(-2px); }
-.inspo-pill:nth-child(4) { transform: rotate(6deg)   translateY(8px); }
-.inspo-pill:nth-child(5) { transform: rotate(-7deg)  translateY(4px); }
-.inspo-pill:nth-child(6) { transform: rotate(3deg)   translateY(-9px); }
-.inspo-pill:nth-child(7) { transform: rotate(-3deg)  translateY(7px); }
-.inspo-pill:nth-child(8) { transform: rotate(5deg)   translateY(-4px); }
+.inspo-pill:nth-child(1)  { transform: rotate(-4deg) translateY(-4px); }
+.inspo-pill:nth-child(2)  { transform: rotate(3deg)  translateY(3px); }
+.inspo-pill:nth-child(3)  { transform: rotate(-2deg) translateY(-2px); }
+.inspo-pill:nth-child(4)  { transform: rotate(4deg)  translateY(4px); }
+.inspo-pill:nth-child(5)  { transform: rotate(-5deg) translateY(2px); }
+.inspo-pill:nth-child(6)  { transform: rotate(2deg)  translateY(-4px); }
+.inspo-pill:nth-child(7)  { transform: rotate(-3deg) translateY(3px); }
+.inspo-pill:nth-child(8)  { transform: rotate(4deg)  translateY(-2px); }
+.inspo-pill:nth-child(9)  { transform: rotate(-3deg) translateY(3px); }
+.inspo-pill:nth-child(10) { transform: rotate(3deg)  translateY(-3px); }
 
 /* Bubble-pop mini-game controls */
 .inspo-game {
@@ -1254,8 +1256,8 @@ h1, h2, h3, h4 {
   .about-card__body--sub { font-size: 16px; }
   .about-card__punch { font-size: 32px; }
 
-  .inspo-scatter { gap: 12px; padding: 6px 0; }
-  .inspo-pill { font-size: 18px; padding: 13px 20px; }
+  .inspo-scatter { gap: 8px; padding: 4px 0; }
+  .inspo-pill { font-size: 14px; padding: 9px 15px; }
   /* keep pills upright on small screens so nothing spills out */
   .inspo-pill:nth-child(n) { transform: none; }
 
