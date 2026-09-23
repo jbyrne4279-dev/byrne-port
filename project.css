@@ -256,13 +256,13 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  justify-items: center;
+  justify-items: start;
 }
 .proj-overview__mid {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 26px;
   width: 100%;
 }
