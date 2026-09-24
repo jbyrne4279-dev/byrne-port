@@ -177,21 +177,33 @@
     ]
   };
 
-  const YEARS = [2026, 2027];
+  const WEEKDAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']; // Monday-first (UK)
 
   /* ── BUILD FULL EVENT LIST FOR A YEAR ── */
+  const _cache = {};
   function eventsFor(year) {
+    if (_cache[year]) return _cache[year];
     const fixed = FIXED.map(e => ({
       date: year + '-' + e.md,
       name: e.name, region: e.region, cat: e.cat, impact: e.impact, note: e.note
     }));
     const variable = (VARIABLE[year] || []).slice();
-    return fixed.concat(variable).sort((a, b) => a.date.localeCompare(b.date));
+    return (_cache[year] = fixed.concat(variable).sort((a, b) => a.date.localeCompare(b.date)));
   }
+
+  /* ── TODAY (live) ── */
+  const NOW = new Date();
+  const TODAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
+  function iso(d) {
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  const TODAY_ISO = iso(TODAY);
 
   /* ── STATE ── */
   const state = {
-    year: (YEARS.includes(new Date().getFullYear()) ? new Date().getFullYear() : YEARS[0]),
+    viewYear:  TODAY.getFullYear(),
+    viewMonth: TODAY.getMonth(),   // 0-11
+    selected:  null,               // ISO string of a clicked day, or null = whole month
     cat: 'all',
     impact: 'all',
     q: ''
@@ -199,8 +211,8 @@
 
   /* ── DOM HELPERS ── */
   const $ = sel => document.querySelector(sel);
-  function fmtDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
+  function fmtDate(isoStr) {
+    const d = new Date(isoStr + 'T00:00:00');
     const day = d.getDate();
     const suffix = (day % 10 === 1 && day !== 11) ? 'st'
                  : (day % 10 === 2 && day !== 12) ? 'nd'
@@ -208,48 +220,122 @@
     const wk = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
     return { wk, day: day + suffix, mon: MONTHS[d.getMonth()] };
   }
-  function daysUntil(iso) {
-    const today = new Date(); today.setHours(0,0,0,0);
-    const d = new Date(iso + 'T00:00:00');
-    return Math.round((d - today) / 86400000);
+  function daysUntil(isoStr) {
+    const d = new Date(isoStr + 'T00:00:00');
+    return Math.round((d - TODAY) / 86400000);
+  }
+  function matchesFilters(e) {
+    if (state.cat !== 'all' && e.cat !== state.cat) return false;
+    if (state.impact !== 'all' && e.impact !== state.impact) return false;
+    const q = state.q.trim().toLowerCase();
+    if (q && !(e.name.toLowerCase().includes(q) || e.region.toLowerCase().includes(q) || e.note.toLowerCase().includes(q))) return false;
+    return true;
   }
 
-  /* ── RENDER ── */
-  function render() {
-    const all = eventsFor(state.year);
-    const q = state.q.trim().toLowerCase();
-    const filtered = all.filter(e => {
-      if (state.cat !== 'all' && e.cat !== state.cat) return false;
-      if (state.impact !== 'all' && e.impact !== state.impact) return false;
-      if (q && !(e.name.toLowerCase().includes(q) || e.region.toLowerCase().includes(q) || e.note.toLowerCase().includes(q))) return false;
-      return true;
-    });
+  /* ── LIVE BANNER + YEAR PROGRESS ── */
+  function renderLive() {
+    const opts = { weekday:'long', day:'numeric', month:'long', year:'numeric' };
+    $('#calToday').textContent = TODAY.toLocaleDateString('en-GB', opts);
 
-    // Count summary
-    const counts = { demand:0, closure:0, delay:0, watch:0 };
+    const y = TODAY.getFullYear();
+    const start = new Date(y, 0, 1);
+    const end = new Date(y + 1, 0, 1);
+    const dayOfYear = Math.floor((TODAY - start) / 86400000) + 1;
+    const totalDays = Math.round((end - start) / 86400000);
+    const pct = Math.min(100, Math.round((dayOfYear / totalDays) * 100));
+    $('#calYearFill').style.width = pct + '%';
+    $('#calYearMarker').style.left = pct + '%';
+    $('#calYearMeta').textContent = `Day ${dayOfYear} of ${totalDays} · ${pct}% through ${y} · ${totalDays - dayOfYear} days left`;
+  }
+
+  /* ── SUMMARY (counts for the viewed year) ── */
+  function renderSummary() {
+    const all = eventsFor(state.viewYear);
+    const counts = {};
     all.forEach(e => { counts[e.impact] = (counts[e.impact] || 0) + 1; });
     $('#calSummary').innerHTML = Object.keys(IMPACT).map(k =>
       `<div class="cal-summary__item" style="--c:${IMPACT[k].color}">
          <span class="cal-summary__num">${counts[k] || 0}</span>
          <span class="cal-summary__lbl">${IMPACT[k].icon} ${IMPACT[k].label}</span>
        </div>`).join('');
+  }
 
-    // Group by month
-    const grid = $('#calGrid');
-    if (!filtered.length) {
-      grid.innerHTML = `<p class="cal-empty">No events match those filters. Try clearing the search or switching category.</p>`;
-      return;
+  /* ── MONTH GRID ── */
+  function renderMonth() {
+    $('#calMonthTitle').textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear;
+    $('#calWeekdays').innerHTML = WEEKDAYS.map(w => `<span>${w}</span>`).join('');
+
+    // Map ISO date -> filtered events for the viewed year
+    const events = eventsFor(state.viewYear).filter(matchesFilters);
+    const map = {};
+    events.forEach(e => { (map[e.date] ||= []).push(e); });
+
+    const first = new Date(state.viewYear, state.viewMonth, 1);
+    // Monday-first offset: JS getDay() 0=Sun..6=Sat -> 0=Mon..6=Sun
+    const lead = (first.getDay() + 6) % 7;
+    const daysInMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+    const cells = [];
+
+    // Leading days from previous month
+    for (let i = 0; i < lead; i++) {
+      const d = new Date(state.viewYear, state.viewMonth, 1 - (lead - i));
+      cells.push({ d, out: true });
     }
-    const byMonth = {};
-    filtered.forEach(e => { (byMonth[new Date(e.date+'T00:00:00').getMonth()] ||= []).push(e); });
+    for (let day = 1; day <= daysInMonth; day++) {
+      cells.push({ d: new Date(state.viewYear, state.viewMonth, day), out: false });
+    }
+    // Trailing to complete the last week row
+    while (cells.length % 7 !== 0) {
+      const last = cells[cells.length - 1].d;
+      cells.push({ d: new Date(last.getFullYear(), last.getMonth(), last.getDate() + 1), out: true });
+    }
 
-    grid.innerHTML = Object.keys(byMonth).map(m => {
-      const cards = byMonth[m].map(cardHtml).join('');
-      return `<section class="cal-month">
-                <h3 class="cal-month__title">${MONTHS[m]} <span>${state.year}</span></h3>
-                <div class="cal-month__list">${cards}</div>
-              </section>`;
+    $('#calDays').innerHTML = cells.map(c => {
+      const ds = iso(c.d);
+      const evs = map[ds] || [];
+      const isToday = ds === TODAY_ISO;
+      const isSel = ds === state.selected;
+      const dots = evs.slice(0, 4).map(e =>
+        `<span class="cal-day__dot" style="background:${IMPACT[e.impact].color}" title="${e.name}"></span>`).join('');
+      const cls = ['cal-day'];
+      if (c.out) cls.push('is-out');
+      if (isToday) cls.push('is-today');
+      if (isSel) cls.push('is-selected');
+      if (evs.length) cls.push('has-events');
+      return `<button class="${cls.join(' ')}" data-date="${ds}"${evs.length ? '' : ' tabindex="-1"'}>
+                <span class="cal-day__num">${c.d.getDate()}</span>
+                <span class="cal-day__dots">${dots}</span>
+              </button>`;
     }).join('');
+  }
+
+  /* ── AGENDA (viewed month, or a selected day) ── */
+  function renderAgenda() {
+    const grid = $('#calGrid');
+    const titleEl = $('#calAgendaTitle');
+    let list = eventsFor(state.viewYear).filter(matchesFilters);
+
+    if (state.selected) {
+      list = list.filter(e => e.date === state.selected);
+      const f = fmtDate(state.selected);
+      titleEl.innerHTML = `${f.wk} ${f.day} ${f.mon} ${state.viewYear}
+        <button class="cal-agenda__clear" id="calClearSel">Show whole month ✕</button>`;
+    } else {
+      list = list.filter(e => {
+        const d = new Date(e.date + 'T00:00:00');
+        return d.getFullYear() === state.viewYear && d.getMonth() === state.viewMonth;
+      });
+      titleEl.textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear + ' — ' + list.length + ' event' + (list.length === 1 ? '' : 's');
+    }
+
+    if (!list.length) {
+      grid.innerHTML = `<p class="cal-empty">No events ${state.selected ? 'on this day' : 'this month'}${state.cat!=='all'||state.impact!=='all'||state.q?' for these filters':''}.</p>`;
+    } else {
+      grid.innerHTML = `<div class="cal-month__list">${list.map(cardHtml).join('')}</div>`;
+    }
+
+    const clear = $('#calClearSel');
+    if (clear) clear.addEventListener('click', () => { state.selected = null; renderMonth(); renderAgenda(); });
   }
 
   function cardHtml(e) {
@@ -259,6 +345,7 @@
     let countdown = '';
     if (du === 0) countdown = '<span class="cal-card__soon cal-card__soon--today">Today</span>';
     else if (du > 0 && du <= 45) countdown = `<span class="cal-card__soon">in ${du} day${du===1?'':'s'}</span>`;
+    else if (du < 0) countdown = `<span class="cal-card__soon cal-card__soon--past">passed</span>`;
     return `<article class="cal-card" style="--cat:${c.color};--imp:${im.color}">
       <div class="cal-card__date">
         <span class="cal-card__wk">${d.wk}</span>
@@ -279,19 +366,26 @@
     </article>`;
   }
 
+  function renderAll() { renderSummary(); renderMonth(); renderAgenda(); }
+
+  /* ── NAVIGATION ── */
+  function shiftMonth(delta) {
+    let m = state.viewMonth + delta;
+    let y = state.viewYear;
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
+    state.viewMonth = m; state.viewYear = y; state.selected = null;
+    renderAll();
+  }
+  function goToday() {
+    state.viewYear = TODAY.getFullYear();
+    state.viewMonth = TODAY.getMonth();
+    state.selected = null;
+    renderAll();
+  }
+
   /* ── CONTROLS ── */
   function buildControls() {
-    // Year toggle
-    const yearWrap = $('#calYears');
-    yearWrap.innerHTML = YEARS.map(y =>
-      `<button class="cal-yr${y===state.year?' is-active':''}" data-year="${y}">${y}</button>`).join('');
-    yearWrap.addEventListener('click', e => {
-      const b = e.target.closest('[data-year]'); if (!b) return;
-      state.year = parseInt(b.dataset.year, 10);
-      yearWrap.querySelectorAll('.cal-yr').forEach(x => x.classList.toggle('is-active', x === b));
-      render();
-    });
-
     // Category filter
     const catWrap = $('#calCats');
     const catOpts = [['all','All events']].concat(Object.keys(CAT).map(k => [k, CAT[k].label]));
@@ -301,7 +395,7 @@
       const b = e.target.closest('[data-cat]'); if (!b) return;
       state.cat = b.dataset.cat;
       catWrap.querySelectorAll('.cal-chip').forEach(x => x.classList.toggle('is-active', x === b));
-      render();
+      renderMonth(); renderAgenda();
     });
 
     // Impact filter
@@ -313,7 +407,7 @@
       const b = e.target.closest('[data-imp]'); if (!b) return;
       state.impact = b.dataset.imp;
       impWrap.querySelectorAll('.cal-chip--imp').forEach(x => x.classList.toggle('is-active', x === b));
-      render();
+      renderMonth(); renderAgenda();
     });
 
     // Search
@@ -321,14 +415,37 @@
     let t;
     search.addEventListener('input', () => {
       clearTimeout(t);
-      t = setTimeout(() => { state.q = search.value; render(); }, 120);
+      t = setTimeout(() => { state.q = search.value; renderMonth(); renderAgenda(); }, 120);
+    });
+
+    // Month navigation
+    $('#calPrev').addEventListener('click', () => shiftMonth(-1));
+    $('#calNext').addEventListener('click', () => shiftMonth(1));
+    $('#calTodayBtn').addEventListener('click', goToday);
+
+    // Day click (select / deselect)
+    $('#calDays').addEventListener('click', e => {
+      const b = e.target.closest('[data-date]'); if (!b) return;
+      const ds = b.dataset.date;
+      if (!b.classList.contains('has-events')) return;
+      state.selected = (state.selected === ds) ? null : ds;
+      renderMonth(); renderAgenda();
+    });
+
+    // Keyboard arrows for month nav
+    document.addEventListener('keydown', e => {
+      if (e.target.matches('input, textarea')) return;
+      if (e.key === 'ArrowLeft') shiftMonth(-1);
+      else if (e.key === 'ArrowRight') shiftMonth(1);
+      else if (e.key.toLowerCase() === 't') goToday();
     });
   }
 
   /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', () => {
+    renderLive();
     buildControls();
-    render();
+    renderAll();
   });
 
 })();
