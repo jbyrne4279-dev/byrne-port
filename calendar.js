@@ -51,7 +51,7 @@
       note:'India national holiday — pauses Indian supplier communication and dispatch.' },
     { md:'09-01', name:'Back to School (peak)', region:'UK / Europe', cat:'retail', impact:'demand',
       note:'Late Aug–early Sep restock rush for youth & staple basics. Have replenishment stock landed by mid-August.' },
-    { md:'10-01', name:'China National Day / Golden Week', region:'China', cat:'supply', impact:'closure',
+    { md:'10-01', name:'China National Day / Golden Week', region:'China', cat:'supply', impact:'closure', days:7,
       note:'🚨 Chinese factories & freight shut ~1 Oct–7 Oct. Confirm and pay for orders by late August or they slip to mid-October.' },
     { md:'10-31', name:'Halloween', region:'Global', cat:'occasion', impact:'demand',
       note:'Huge costume, going-out & grunge/alt demand — core for the brand aesthetic. Land stock by early October.' },
@@ -76,9 +76,9 @@
         note:'US federal holiday — US carriers & warehouses closed.' },
       { date:'2026-02-16', name:"Presidents' Day", region:'US', cat:'retail', impact:'demand',
         note:'Major US sale weekend — a discount moment for US traffic.' },
-      { date:'2026-02-17', name:'Chinese New Year — Year of the Horse', region:'China / East Asia', cat:'supply', impact:'closure',
+      { date:'2026-02-17', name:'Chinese New Year — Year of the Horse', region:'China / East Asia', cat:'supply', impact:'closure', days:7,
         note:'🚨 CRITICAL: factories close ~2–3 weeks around this date and staff often return slowly. Place, confirm & pay for spring/summer orders by early January or expect 4–6 week slips.' },
-      { date:'2026-02-18', name:'Ramadan begins (approx.)', region:'Middle East / Muslim world', cat:'cultural', impact:'watch',
+      { date:'2026-02-18', name:'Ramadan begins (approx.)', region:'Middle East / Muslim world', cat:'cultural', impact:'watch', days:29,
         note:'Reduced working hours across Muslim-majority supplier regions for ~a month; modest-wear demand rises.' },
       { date:'2026-03-03', name:'Holi', region:'India / South Asia', cat:'cultural', impact:'watch',
         note:'Colour festival — pauses Indian suppliers; colourful/festival content angle.' },
@@ -100,7 +100,7 @@
         note:'UK bank holiday + US Memorial Day sales — summer kick-off shopping weekend on both sides.' },
       { date:'2026-05-27', name:'Eid al-Adha (approx.)', region:'Middle East / Muslim world', cat:'cultural', impact:'watch',
         note:'Second Eid — supplier downtime across Muslim-majority regions.' },
-      { date:'2026-06-19', name:'Dragon Boat Festival', region:'China', cat:'supply', impact:'delay',
+      { date:'2026-06-19', name:'Dragon Boat Festival', region:'China', cat:'supply', impact:'delay', days:3,
         note:'Chinese public holiday — 1–3 days of factory & freight downtime; small slip on lead times.' },
       { date:'2026-06-21', name:"Father's Day (UK & US)", region:'UK / US', cat:'occasion', impact:'demand',
         note:'Menswear gifting peak — push men’s staples & gift bundles from early June.' },
@@ -114,7 +114,7 @@
         note:'Jewish New Year — gifting & new-clothes tradition in Jewish communities.' },
       { date:'2026-09-25', name:'Mid-Autumn Festival', region:'China / East Asia', cat:'supply', impact:'delay',
         note:'Chinese holiday days before Golden Week — factories slow, then shut for National Day. Compounds October risk.' },
-      { date:'2026-11-08', name:'Diwali', region:'India / South Asia', cat:'cultural', impact:'demand',
+      { date:'2026-11-08', name:'Diwali', region:'India / South Asia', cat:'cultural', impact:'demand', days:5,
         note:'Festival of Lights — major gifting & new-clothes occasion; Indian suppliers pause for ~a week.' },
       { date:'2026-11-26', name:'US Thanksgiving', region:'US', cat:'public', impact:'demand',
         note:'US warehouses closed; kicks off the Black Friday weekend — the biggest sales window of the year.' },
@@ -122,15 +122,15 @@
         note:'🔥 Peak sales day. Inventory must already be landed; plan discounts, bundles & ad budget weeks ahead.' },
       { date:'2026-11-30', name:'Cyber Monday', region:'Global', cat:'retail', impact:'demand',
         note:'Online-first sales climax — hold back a fresh offer to re-engage Friday’s traffic.' },
-      { date:'2026-12-04', name:'Hanukkah begins', region:'Global (Jewish)', cat:'cultural', impact:'demand',
+      { date:'2026-12-04', name:'Hanukkah begins', region:'Global (Jewish)', cat:'cultural', impact:'demand', days:8,
         note:'Eight nights of gifting — sustained late-year demand in Jewish communities.' }
     ],
     2027: [
       { date:'2027-01-18', name:'Martin Luther King Jr. Day', region:'US', cat:'public', impact:'watch',
         note:'US federal holiday — US carriers & warehouses closed.' },
-      { date:'2027-02-06', name:'Chinese New Year — Year of the Goat', region:'China / East Asia', cat:'supply', impact:'closure',
+      { date:'2027-02-06', name:'Chinese New Year — Year of the Goat', region:'China / East Asia', cat:'supply', impact:'closure', days:7,
         note:'🚨 CRITICAL: earlier than 2026 — factories close ~2–3 weeks. Confirm & pay spring orders by mid-December 2026 to avoid slips.' },
-      { date:'2027-02-08', name:'Ramadan begins (approx.)', region:'Middle East / Muslim world', cat:'cultural', impact:'watch',
+      { date:'2027-02-08', name:'Ramadan begins (approx.)', region:'Middle East / Muslim world', cat:'cultural', impact:'watch', days:29,
         note:'Reduced working hours across Muslim-majority supplier regions for ~a month.' },
       { date:'2027-02-15', name:"Presidents' Day", region:'US', cat:'retail', impact:'demand',
         note:'Major US sale weekend.' },
@@ -154,7 +154,7 @@
         note:'Second Eid — supplier downtime across the region.' },
       { date:'2027-05-31', name:'Spring Bank Holiday / US Memorial Day', region:'UK / US', cat:'public', impact:'demand',
         note:'UK bank holiday + US Memorial Day sales — summer kick-off weekend.' },
-      { date:'2027-06-09', name:'Dragon Boat Festival', region:'China', cat:'supply', impact:'delay',
+      { date:'2027-06-09', name:'Dragon Boat Festival', region:'China', cat:'supply', impact:'delay', days:3,
         note:'Chinese public holiday — 1–3 days of factory & freight downtime.' },
       { date:'2027-06-20', name:"Father's Day (UK & US)", region:'UK / US', cat:'occasion', impact:'demand',
         note:'Menswear gifting peak — push men’s staples & gift bundles from early June.' },
@@ -168,7 +168,7 @@
         note:'Chinese holiday before Golden Week — factories slow, then shut for National Day.' },
       { date:'2027-10-02', name:'Rosh Hashanah (approx.)', region:'Global (Jewish)', cat:'cultural', impact:'watch',
         note:'Jewish New Year — gifting & new-clothes tradition.' },
-      { date:'2027-10-29', name:'Diwali', region:'India / South Asia', cat:'cultural', impact:'demand',
+      { date:'2027-10-29', name:'Diwali', region:'India / South Asia', cat:'cultural', impact:'demand', days:5,
         note:'Festival of Lights — major gifting occasion; Indian suppliers pause for ~a week.' },
       { date:'2027-11-25', name:'US Thanksgiving', region:'US', cat:'public', impact:'demand',
         note:'US warehouses closed; kicks off Black Friday weekend.' },
@@ -176,7 +176,7 @@
         note:'🔥 Peak sales day. Inventory must already be landed; plan discounts & ad budget ahead.' },
       { date:'2027-11-29', name:'Cyber Monday', region:'Global', cat:'retail', impact:'demand',
         note:'Online-first sales climax.' },
-      { date:'2027-12-24', name:'Hanukkah begins', region:'Global (Jewish)', cat:'cultural', impact:'demand',
+      { date:'2027-12-24', name:'Hanukkah begins', region:'Global (Jewish)', cat:'cultural', impact:'demand', days:8,
         note:'Eight nights of gifting — sustained late-year demand.' }
     ]
   };
@@ -189,7 +189,7 @@
     if (_cache[year]) return _cache[year];
     const fixed = FIXED.map(e => ({
       date: year + '-' + e.md,
-      name: e.name, region: e.region, cat: e.cat, impact: e.impact, note: e.note
+      name: e.name, region: e.region, cat: e.cat, impact: e.impact, note: e.note, days: e.days
     }));
     const variable = (VARIABLE[year] || []).slice();
     return (_cache[year] = fixed.concat(variable).sort((a, b) => a.date.localeCompare(b.date)));
@@ -223,6 +223,10 @@
                  : (day % 10 === 3 && day !== 13) ? 'rd' : 'th';
     const wk = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
     return { wk, day: day + suffix, mon: MONTHS[d.getMonth()] };
+  }
+  function shortName(name) {
+    // Trim qualifiers so the chip stays legible; CSS ellipsis handles the rest.
+    return name.split('—')[0].split('(')[0].trim();
   }
   function daysUntil(isoStr) {
     const d = new Date(isoStr + 'T00:00:00');
@@ -264,15 +268,38 @@
        </div>`).join('');
   }
 
+  /* ── COVERAGE: expand multi-day holidays across their span ──
+     Returns { iso: [{ event, offset, total, isStart, isEnd }] } */
+  const IMPACT_PRIORITY = { closure: 4, delay: 3, demand: 2, watch: 1 };
+  function addDaysIso(isoStr, n) {
+    const d = new Date(isoStr + 'T00:00:00');
+    d.setDate(d.getDate() + n);
+    return iso(d);
+  }
+  function buildCoverage(year) {
+    // include previous year so a late-December span bleeds correctly into January
+    const events = eventsFor(year).concat(eventsFor(year - 1)).filter(matchesFilters);
+    const map = {};
+    events.forEach(e => {
+      const total = e.days && e.days > 1 ? e.days : 1;
+      for (let i = 0; i < total; i++) {
+        const key = addDaysIso(e.date, i);
+        (map[key] ||= []).push({ event: e, offset: i, total, isStart: i === 0, isEnd: i === total - 1 });
+      }
+    });
+    return map;
+  }
+  function dominant(cover) {
+    return cover.slice().sort((a, b) =>
+      IMPACT_PRIORITY[b.event.impact] - IMPACT_PRIORITY[a.event.impact])[0].event.impact;
+  }
+
   /* ── MONTH GRID ── */
   function renderMonth() {
     $('#calMonthTitle').textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear;
     $('#calWeekdays').innerHTML = WEEKDAYS.map(w => `<span>${w}</span>`).join('');
 
-    // Map ISO date -> filtered events for the viewed year
-    const events = eventsFor(state.viewYear).filter(matchesFilters);
-    const map = {};
-    events.forEach(e => { (map[e.date] ||= []).push(e); });
+    const map = buildCoverage(state.viewYear);
 
     const first = new Date(state.viewYear, state.viewMonth, 1);
     // Monday-first offset: JS getDay() 0=Sun..6=Sat -> 0=Mon..6=Sun
@@ -296,19 +323,53 @@
 
     $('#calDays').innerHTML = cells.map(c => {
       const ds = iso(c.d);
-      const evs = map[ds] || [];
+      const cover = map[ds] || [];
       const isToday = ds === TODAY_ISO;
       const isSel = ds === state.selected;
-      const dots = evs.slice(0, 4).map(e =>
-        `<span class="cal-day__dot" style="background:${IMPACT[e.impact].color}" title="${e.name}"></span>`).join('');
       const cls = ['cal-day'];
       if (c.out) cls.push('is-out');
       if (isToday) cls.push('is-today');
       if (isSel) cls.push('is-selected');
-      if (evs.length) cls.push('has-events');
-      return `<button class="${cls.join(' ')}" data-date="${ds}"${evs.length ? '' : ' tabindex="-1"'}>
+
+      let style = '';
+      let chips = '';
+      if (cover.length) {
+        cls.push('has-events');
+        const imp = dominant(cover);
+        style = `--dayc:${IMPACT[imp].color}`;
+
+        // Multi-day span: coloured top bar + rounded ends
+        if (cover.some(x => x.total > 1)) {
+          cls.push('is-span');
+          if (cover.some(x => x.total > 1 && x.isStart)) cls.push('is-span-start');
+          if (cover.some(x => x.total > 1 && x.isEnd)) cls.push('is-span-end');
+        }
+
+        // Chips: name + impact for each event that STARTS on this day.
+        // Ongoing span days show a "continues" chip instead of repeating the name.
+        const starts = cover.filter(x => x.isStart);
+        const items = starts.slice(0, 2).map(x => {
+          const e = x.event, im = IMPACT[e.impact];
+          const alert = e.impact === 'closure' ? '⚠ ' : '';
+          const summary = e.note.replace(/^🚨\s*/, '').replace(/\s+/g, ' ').split(/[.—]/)[0].trim();
+          return `<span class="cal-day__chip" style="--c:${im.color}" title="${e.name} · ${im.label} — ${summary}">
+                    <span class="cal-day__chip-dot"></span>
+                    <span class="cal-day__chip-txt">${alert}${shortName(e.name)}</span>
+                  </span>`;
+        }).join('');
+        const extra = starts.length > 2 ? `<span class="cal-day__more">+${starts.length - 2} more</span>` : '';
+        const ongoing = (!starts.length && cover.length)
+          ? `<span class="cal-day__chip cal-day__chip--cont" style="--c:${IMPACT[imp].color}" title="${cover[0].event.name} (continues)">
+               <span class="cal-day__chip-dot"></span>
+               <span class="cal-day__chip-txt">${shortName(cover[0].event.name)} ›</span>
+             </span>`
+          : '';
+        chips = `<span class="cal-day__chips">${items}${extra}${ongoing}</span>`;
+      }
+
+      return `<button class="${cls.join(' ')}" data-date="${ds}"${cover.length ? '' : ' tabindex="-1"'} style="${style}">
                 <span class="cal-day__num">${c.d.getDate()}</span>
-                <span class="cal-day__dots">${dots}</span>
+                ${chips}
               </button>`;
     }).join('');
   }
@@ -317,12 +378,17 @@
   function renderAgenda() {
     const grid = $('#calGrid');
     const titleEl = $('#calAgendaTitle');
-    let list = eventsFor(state.viewYear).filter(matchesFilters);
+    let list = eventsFor(state.viewYear).concat(eventsFor(state.viewYear - 1)).filter(matchesFilters);
 
     if (state.selected) {
-      list = list.filter(e => e.date === state.selected);
+      // include multi-day holidays whose span covers the selected day
+      const sel = state.selected;
+      list = list.filter(e => {
+        const total = e.days && e.days > 1 ? e.days : 1;
+        return sel >= e.date && sel <= addDaysIso(e.date, total - 1);
+      });
       const f = fmtDate(state.selected);
-      titleEl.innerHTML = `${f.wk} ${f.day} ${f.mon} ${state.viewYear}
+      titleEl.innerHTML = `${f.wk} ${f.day} ${f.mon} ${new Date(sel+'T00:00:00').getFullYear()}
         <button class="cal-agenda__clear" id="calClearSel">Show whole month ✕</button>`;
     } else {
       list = list.filter(e => {
