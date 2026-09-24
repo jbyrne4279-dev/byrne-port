@@ -348,6 +348,7 @@ body.cal-light, html:has(body.cal-light) { background: #0C0D10; }
 .cal-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: clamp(74px, 8vw, 100px);   /* fixed row height → identical month size */
   gap: 6px;
 }
 .cal-day {
@@ -357,8 +358,7 @@ body.cal-light, html:has(body.cal-light) { background: #0C0D10; }
   align-items: center;
   justify-content: flex-start;
   gap: 4px;
-  aspect-ratio: 1.5 / 1;      /* shorter cells so the whole month fits on screen */
-  min-height: 72px;
+  height: 100%;               /* fill the fixed grid row so every month matches */
   padding: 7px 5px 6px;
   background: var(--card);
   border: none;
