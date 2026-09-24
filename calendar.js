@@ -64,7 +64,7 @@
     { md:'12-25', name:'Christmas Day', region:'Global', cat:'public', impact:'demand',
       note:'Peak gifting season climax. Stock must be in-country by late November; nothing new ships now.' },
     { md:'12-26', name:'Boxing Day', region:'UK / Commonwealth', cat:'retail', impact:'demand',
-      note:'Biggest clearance day of the UK year — plan markdowns & a sale drop in advance.' },
+      note:'Biggest clearance day of the UK year — plan markdowns & a sale drop in advance. When it lands on a weekend the UK bank-holiday closure moves to the following Monday (e.g. 28 Dec 2026), so dispatch is paused then.' },
     { md:'12-31', name:"New Year's Eve", region:'Global', cat:'occasion', impact:'demand',
       note:'Going-out & party-wear peak. Sits inside the CNY wind-down, so restocking is already frozen.' }
   ];
@@ -90,6 +90,8 @@
         note:'Easter long weekend — couriers & warehouses closed Fri–Mon; build the gap into delivery promises.' },
       { date:'2026-04-05', name:'Easter Sunday', region:'Global (Christian)', cat:'cultural', impact:'demand',
         note:'Spring refresh & pastel demand + long-weekend shopping.' },
+      { date:'2026-04-06', name:'Easter Monday', region:'UK / Europe', cat:'public', impact:'delay',
+        note:'UK bank holiday — couriers & warehouses closed, closing out the four-day Easter dispatch gap.' },
       { date:'2026-05-04', name:'Early May Bank Holiday', region:'UK', cat:'public', impact:'delay',
         note:'UK bank holiday Monday — a dispatch day lost; warn on shipping times.' },
       { date:'2026-05-10', name:"Mother's Day (US & most)", region:'US / Global', cat:'occasion', impact:'demand',
@@ -142,6 +144,8 @@
         note:'Easter long weekend — couriers & warehouses closed Fri–Mon.' },
       { date:'2027-03-28', name:'Easter Sunday', region:'Global (Christian)', cat:'cultural', impact:'demand',
         note:'Spring refresh demand + long-weekend shopping.' },
+      { date:'2027-03-29', name:'Easter Monday', region:'UK / Europe', cat:'public', impact:'delay',
+        note:'UK bank holiday — couriers & warehouses closed, closing out the four-day Easter dispatch gap.' },
       { date:'2027-05-03', name:'Early May Bank Holiday', region:'UK', cat:'public', impact:'delay',
         note:'UK bank holiday Monday — a dispatch day lost.' },
       { date:'2027-05-09', name:"Mother's Day (US & most)", region:'US / Global', cat:'occasion', impact:'demand',
