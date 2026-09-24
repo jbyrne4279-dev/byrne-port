@@ -9,18 +9,19 @@
 (function () {
 
   /* ── CATEGORY + IMPACT META ── */
+  /* Apple system colours (dark) */
   const CAT = {
-    retail:   { label: 'Retail / Shopping', color: '#e0143c' },
-    occasion: { label: 'Occasion / Gifting', color: '#ff7a00' },
-    cultural: { label: 'Cultural / Religious', color: '#c060ff' },
-    public:   { label: 'Public Holiday', color: '#00b4d8' },
-    supply:   { label: 'Supply Chain', color: '#ffb703' }
+    retail:   { label: 'Retail', color: '#FF453A' },
+    occasion: { label: 'Gifting', color: '#FF9F0A' },
+    cultural: { label: 'Cultural', color: '#BF5AF2' },
+    public:   { label: 'Public Holiday', color: '#0A84FF' },
+    supply:   { label: 'Supply Chain', color: '#FFD60A' }
   };
   const IMPACT = {
-    demand:  { label: 'Demand spike', icon: '▲', color: '#1DB954' },
-    closure: { label: 'Factory closure', icon: '■', color: '#e0143c' },
-    delay:   { label: 'Shipping delay', icon: '◆', color: '#ffb703' },
-    watch:   { label: 'Plan ahead',    icon: '●', color: '#00b4d8' }
+    demand:  { label: 'Demand spike', icon: '▲', color: '#32D74B' },
+    closure: { label: 'Factory closure', icon: '■', color: '#FF453A' },
+    delay:   { label: 'Shipping delay', icon: '◆', color: '#FF9F0A' },
+    watch:   { label: 'Plan ahead',    icon: '●', color: '#0A84FF' }
   };
 
   const MONTHS = ['January','February','March','April','May','June',
