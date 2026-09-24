@@ -224,6 +224,7 @@
   const btn       = document.getElementById('menuBtn');
   const menu      = document.getElementById('mobileMenu');
   const closeBtn  = document.getElementById('menuClose');
+  if (!menu || !btn) return;
   const mobileLinks = menu.querySelectorAll('.mobile-link');
 
   function open() {
