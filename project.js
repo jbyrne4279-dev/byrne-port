@@ -133,6 +133,42 @@
 
   // Gallery
   set('projGallery', buildGallery(project));
+  initGalleryTilt();
+
+  /* ── Scroll-linked 3D tilt for the gallery grid ── */
+  function initGalleryTilt() {
+    const grid = document.getElementById('projGallery');
+    if (!grid) return;
+    const items = Array.from(grid.querySelectorAll('.gallery-item'));
+    if (!items.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+    function update() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length || 3;
+      items.forEach((it, i) => {
+        const r = it.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return; // skip far off-screen
+        const center = r.top + r.height / 2;
+        // -1 = above viewport centre, 0 = centred, 1 = below
+        const rel = Math.max(-1, Math.min(1, (center - vh / 2) / (vh / 2)));
+        const rotX = (rel * 10).toFixed(2);                 // tilt with scroll position
+        const col = i % cols;                                // column-based sideways depth
+        const rotY = ((col - (cols - 1) / 2) * 5 * (1 - Math.abs(rel))).toFixed(2);
+        const ty = (rel * 8).toFixed(1);
+        it.style.transform =
+          `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(${ty}px)`;
+      });
+      ticking = false;
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // run after images/layout settle
+    requestAnimationFrame(update);
+    window.addEventListener('load', update);
+  }
 
   // Prev / Next navigation
   const idx  = PROJECTS.findIndex(p => p.slug === slug);
