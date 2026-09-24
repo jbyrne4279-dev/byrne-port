@@ -9,18 +9,34 @@
   padding-top: var(--nav-h);
   /* SF Pro / system font stack */
   --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
-  --label:   #F5F5F7;   /* primary label */
-  --label-2: #AEAEB2;   /* secondary label */
+  /* Apple LIGHT theme */
+  --page-bg: #F5F5F7;   /* Apple grouped background (grey) */
+  --label:   #1D1D1F;   /* primary label */
+  --label-2: #6E6E73;   /* secondary label */
   --label-3: #8E8E93;   /* tertiary label */
-  --sep:     rgba(255,255,255,0.09);
-  --fill:    rgba(120,120,128,0.16);   /* Apple secondary system fill */
-  --fill-2:  rgba(120,120,128,0.24);
-  --card:    #1C1C1E;   /* Apple grouped background */
-  --card-2:  #2C2C2E;
-  --ap-blue: #0A84FF;
+  --sep:     rgba(0,0,0,0.10);
+  --fill:    rgba(120,120,128,0.12);   /* secondary system fill */
+  --fill-2:  rgba(120,120,128,0.20);
+  --card:    #FFFFFF;   /* elevated card */
+  --card-2:  #F0F0F2;
+  --ap-blue: #007AFF;
+  background: var(--page-bg);
+  color: var(--label);
   font-family: var(--sf);
   letter-spacing: -0.01em;
 }
+/* Light page background + light nav override (this page only) */
+body.cal-light, html:has(body.cal-light) { background: #F5F5F7; }
+body.cal-light .nav {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid rgba(0,0,0,0.1);
+}
+body.cal-light .nav a,
+body.cal-light .back-btn { color: #1D1D1F; }
+body.cal-light .back-btn { color: #007AFF; }
+body.cal-light .nav a:hover { color: #007AFF; }
 .cal-container {
   max-width: 1040px;
   margin: 0 auto;
@@ -123,18 +139,53 @@
 .cal-live__track {
   position: relative; height: 6px; border-radius: 999px;
   background: var(--fill); overflow: visible; border: none;
+  cursor: pointer;
+  padding: 10px 0;                 /* larger hit area for grabbing */
+  margin: -10px 0;
+  touch-action: none;
+  outline: none;
 }
 .cal-live__fill {
-  height: 100%; border-radius: 999px;
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  height: 6px; border-radius: 999px;
   background: var(--ap-blue);
   transition: width 0.9s var(--ease-out);
+  pointer-events: none;
 }
+.cal-live__track.is-scrubbing .cal-live__fill { transition: none; }
 .cal-live__marker {
-  position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%;
+  position: absolute; top: 50%; left: 0; width: 16px; height: 16px; border-radius: 50%;
   background: #fff;
+  border: 3px solid var(--ap-blue);
   transform: translate(-50%, -50%);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+  cursor: grab;
+  transition: left 0.9s var(--ease-out), box-shadow 0.15s, transform 0.15s;
+  pointer-events: none;
 }
+.cal-live__track:hover .cal-live__marker { box-shadow: 0 0 0 6px rgba(10,132,255,0.18), 0 1px 5px rgba(0,0,0,0.35); }
+.cal-live__track.is-scrubbing { cursor: grabbing; }
+.cal-live__track.is-scrubbing .cal-live__marker {
+  transition: none;
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 0 8px rgba(10,132,255,0.22), 0 1px 6px rgba(0,0,0,0.4);
+}
+.cal-live__track:focus-visible .cal-live__marker { box-shadow: 0 0 0 6px rgba(10,132,255,0.28); }
+/* Floating month bubble shown while scrubbing */
+.cal-live__bubble {
+  position: absolute;
+  left: 0; bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--ap-blue);
+  color: #fff;
+  font-family: var(--sf); font-size: 12px; font-weight: 600;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s;
+}
+.cal-live__track.is-scrubbing .cal-live__bubble { opacity: 1; }
 .cal-live__meta {
   display: block; margin-top: 10px;
   font-family: var(--sf); font-size: 13px; letter-spacing: 0; color: var(--label-3);
@@ -166,11 +217,26 @@
 }
 .cal-summary__lbl {
   font-family: var(--sf);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  color: var(--label-2);
+  color: var(--label);
+}
+.cal-summary__desc {
+  font-family: var(--sf);
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--label-3);
+}
+.cal-summary__head {
+  font-family: var(--sf);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--label-3);
+  text-align: center;
+  margin: 26px 0 12px;
 }
 
 /* ── CONTROLS ── */
@@ -178,7 +244,7 @@
   position: sticky;
   top: var(--nav-h);
   z-index: 20;
-  background: rgba(0,0,0,0.72);
+  background: rgba(245,245,247,0.78);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-top: none;
@@ -350,6 +416,8 @@
   line-height: 1;
 }
 .cal-day__chip-txt {
+  flex: 1;
+  min-width: 0;
   font-family: var(--sf);
   font-size: 13px;
   font-weight: 600;
@@ -358,6 +426,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.cal-day__chip-flag {
+  flex-shrink: 0;
+  margin-left: 2px;
+  font-size: 14px;
+  line-height: 1;
+  /* keep letter fallback (CN/UK) legible on non-Apple platforms */
+  font-family: 'Apple Color Emoji', var(--sf);
+  letter-spacing: 0;
 }
 .cal-day__more {
   font-family: var(--sf);
@@ -550,7 +627,7 @@
   .cal-day__chips { flex-direction: row; flex-wrap: wrap; gap: 2px; justify-content: center; margin-top: 4px; }
   .cal-day__chip { width: auto; padding: 0; border: none; background: none; }
   .cal-day__chip-emoji { font-size: 15px; }
-  .cal-day__chip-txt, .cal-day__more { display: none; }
+  .cal-day__chip-txt, .cal-day__more, .cal-day__chip-flag { display: none; }
   .cal-day__chip--cont { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {

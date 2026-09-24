@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#F5F5F7">
   <meta name="color-scheme" content="dark">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Joseph Byrne">
@@ -32,9 +32,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=65">
-  <link rel="stylesheet" href="calendar.css?v=6">
+  <link rel="stylesheet" href="calendar.css?v=7">
 </head>
-<body>
+<body class="cal-light">
 
   <!-- ── NAV ── -->
   <nav class="nav is-scrolled" id="nav">
@@ -71,13 +71,15 @@
             <span class="cal-live__date" id="calToday">—</span>
           </div>
           <div class="cal-live__year">
-            <div class="cal-live__track" id="calYearTrack">
+            <div class="cal-live__track" id="calYearTrack" role="slider" aria-label="Scrub through the months" tabindex="0">
               <div class="cal-live__fill" id="calYearFill"></div>
-              <div class="cal-live__marker" id="calYearMarker"></div>
+              <div class="cal-live__marker" id="calYearMarker" title="Drag to scrub through the year"></div>
+              <div class="cal-live__bubble" id="calScrubBubble" aria-hidden="true"></div>
             </div>
             <span class="cal-live__meta" id="calYearMeta">—</span>
           </div>
         </div>
+        <p class="cal-summary__head" id="calSummaryHead">How many events fall into each category this year</p>
         <div class="cal-summary" id="calSummary"></div>
       </div>
     </header>
@@ -138,6 +140,6 @@
   </main>
 
   <script src="script.js"></script>
-  <script src="calendar.js?v=6"></script>
+  <script src="calendar.js?v=7"></script>
 </body>
 </html>

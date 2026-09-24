@@ -249,6 +249,21 @@
     for (const [re, e] of EMOJI) if (re.test(name)) return e;
     return '📅';
   }
+  // Country tag from a region string. Flag emojis render as flags on Apple/Safari
+  // and as the 2-letter code (CN, UK, US…) on other platforms — clear either way.
+  const REGION_TAG = {
+    'china': { flag: '🇨🇳', code: 'CN' },
+    'uk': { flag: '🇬🇧', code: 'UK' },
+    'us': { flag: '🇺🇸', code: 'US' },
+    'india': { flag: '🇮🇳', code: 'IN' },
+    'ireland': { flag: '🇮🇪', code: 'IE' },
+    'middle east': { flag: '🌙', code: 'ME' },
+    'global': { flag: '🌍', code: 'WW' }
+  };
+  function regionTag(region) {
+    const first = String(region).split('/')[0].trim().toLowerCase();
+    return REGION_TAG[first] || { flag: '🌍', code: 'INT' };
+  }
   function daysUntil(isoStr) {
     const d = new Date(isoStr + 'T00:00:00');
     return Math.round((d - TODAY) / 86400000);
@@ -272,21 +287,34 @@
     const dayOfYear = Math.floor((TODAY - start) / 86400000) + 1;
     const totalDays = Math.round((end - start) / 86400000);
     const pct = Math.min(100, Math.round((dayOfYear / totalDays) * 100));
+    todayPct = pct;
     $('#calYearFill').style.width = pct + '%';
     $('#calYearMarker').style.left = pct + '%';
     $('#calYearMeta').textContent = `Day ${dayOfYear} of ${totalDays} · ${pct}% through ${y} · ${totalDays - dayOfYear} days left`;
   }
+  let todayPct = 0;
 
   /* ── SUMMARY (counts for the viewed year) ── */
+  const IMPACT_MEANING = {
+    demand:  'days shoppers buy more — have stock ready',
+    closure: 'supplier shutdowns — order early',
+    delay:   'slower dispatch — pad your timelines',
+    watch:   'worth planning around'
+  };
   function renderSummary() {
     const all = eventsFor(state.viewYear);
     const counts = {};
     all.forEach(e => { counts[e.impact] = (counts[e.impact] || 0) + 1; });
-    $('#calSummary').innerHTML = Object.keys(IMPACT).map(k =>
-      `<div class="cal-summary__item" style="--c:${IMPACT[k].color}">
-         <span class="cal-summary__num">${counts[k] || 0}</span>
+    const head = $('#calSummaryHead');
+    if (head) head.textContent = `${state.viewYear} at a glance — events grouped by what they mean for the business`;
+    $('#calSummary').innerHTML = Object.keys(IMPACT).map(k => {
+      const n = counts[k] || 0;
+      return `<div class="cal-summary__item" style="--c:${IMPACT[k].color}">
+         <span class="cal-summary__num">${n}</span>
          <span class="cal-summary__lbl">${IMPACT[k].icon} ${IMPACT[k].label}</span>
-       </div>`).join('');
+         <span class="cal-summary__desc">${n} ${n === 1 ? 'day' : 'days'} · ${IMPACT_MEANING[k]}</span>
+       </div>`;
+    }).join('');
   }
 
   /* ── COVERAGE: expand multi-day holidays across their span ──
@@ -336,8 +364,9 @@
     for (let day = 1; day <= daysInMonth; day++) {
       cells.push({ d: new Date(state.viewYear, state.viewMonth, day), out: false });
     }
-    // Trailing to complete the last week row
-    while (cells.length % 7 !== 0) {
+    // Trailing days: always fill a full 6-week (42-cell) grid so every month
+    // is the same height, regardless of how many week-rows it spans.
+    while (cells.length < 42) {
       const last = cells[cells.length - 1].d;
       cells.push({ d: new Date(last.getFullYear(), last.getMonth(), last.getDate() + 1), out: true });
     }
@@ -370,19 +399,22 @@
         // Ongoing span days show a "continues" chip instead of repeating the name.
         const starts = cover.filter(x => x.isStart);
         const items = starts.slice(0, 2).map(x => {
-          const e = x.event, im = IMPACT[e.impact];
+          const e = x.event, im = IMPACT[e.impact], rt = regionTag(e.region);
           const summary = e.note.replace(/^🚨\s*/, '').replace(/\s+/g, ' ').split(/[.—]/)[0].trim();
-          return `<span class="cal-day__chip" style="--c:${im.color}" title="${e.name} · ${im.label} — ${summary}">
+          return `<span class="cal-day__chip" style="--c:${im.color}" title="${e.name} · ${e.region} · ${im.label} — ${summary}">
                     <span class="cal-day__chip-emoji">${emojiFor(e.name)}</span>
                     <span class="cal-day__chip-txt">${shortName(e.name)}</span>
+                    <span class="cal-day__chip-flag" title="${e.region}">${rt.flag}</span>
                   </span>`;
         }).join('');
         const extra = starts.length > 2 ? `<span class="cal-day__more">+${starts.length - 2} more</span>` : '';
         const ongoing = (!starts.length && cover.length)
-          ? `<span class="cal-day__chip cal-day__chip--cont" style="--c:${IMPACT[imp].color}" title="${cover[0].event.name} (continues)">
-               <span class="cal-day__chip-emoji">${emojiFor(cover[0].event.name)}</span>
-               <span class="cal-day__chip-txt">${shortName(cover[0].event.name)} ›</span>
-             </span>`
+          ? (() => { const oe = cover[0].event, rt = regionTag(oe.region);
+              return `<span class="cal-day__chip cal-day__chip--cont" style="--c:${IMPACT[imp].color}" title="${oe.name} · ${oe.region} (continues)">
+               <span class="cal-day__chip-emoji">${emojiFor(oe.name)}</span>
+               <span class="cal-day__chip-txt">${shortName(oe.name)} ›</span>
+               <span class="cal-day__chip-flag" title="${oe.region}">${rt.flag}</span>
+             </span>`; })()
           : '';
         chips = `<span class="cal-day__chips">${items}${extra}${ongoing}</span>`;
       }
@@ -474,6 +506,62 @@
     renderAll();
   }
 
+  /* ── SCRUBBER: drag the progress marker to peek through months,
+     then it springs back to today's date on release ── */
+  function setupScrubber() {
+    const track  = $('#calYearTrack');
+    const marker = $('#calYearMarker');
+    const fill   = $('#calYearFill');
+    const bubble = $('#calScrubBubble');
+    if (!track) return;
+    let dragging = false;
+
+    const pctFromX = clientX => {
+      const r = track.getBoundingClientRect();
+      return Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
+    };
+    const scrubTo = pct => {
+      marker.style.left = pct + '%';
+      fill.style.width = pct + '%';
+      const month = Math.max(0, Math.min(11, Math.floor(pct / 100 * 12)));
+      bubble.style.left = pct + '%';
+      bubble.textContent = MONTHS[month] + ' ' + TODAY.getFullYear();
+      if (month !== state.viewMonth || state.viewYear !== TODAY.getFullYear()) {
+        state.viewYear = TODAY.getFullYear();
+        state.viewMonth = month;
+        state.selected = null;
+        renderMonth(); renderAgenda();
+      }
+    };
+    const start = e => {
+      dragging = true;
+      track.classList.add('is-scrubbing');
+      try { track.setPointerCapture(e.pointerId); } catch (_) {}
+      scrubTo(pctFromX(e.clientX));
+      e.preventDefault();
+    };
+    const move = e => { if (dragging) scrubTo(pctFromX(e.clientX)); };
+    const end = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('is-scrubbing');
+      // Spring the marker back to today and return the grid to the current date
+      marker.style.left = todayPct + '%';
+      fill.style.width = todayPct + '%';
+      goToday();
+    };
+    track.addEventListener('pointerdown', start);
+    track.addEventListener('pointermove', move);
+    track.addEventListener('pointerup', end);
+    track.addEventListener('pointercancel', end);
+    // Keyboard support: arrows scrub, then release returns to today
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') { shiftMonth(-1); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { shiftMonth(1); e.preventDefault(); }
+      else if (e.key === 'Home' || e.key.toLowerCase() === 't') { goToday(); e.preventDefault(); }
+    });
+  }
+
   /* ── CONTROLS ── */
   function buildControls() {
     // Category filter
@@ -535,6 +623,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     renderLive();
     buildControls();
+    setupScrubber();
     renderAll();
   });
 
