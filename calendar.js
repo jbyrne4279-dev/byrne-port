@@ -229,6 +229,26 @@
     // Trim qualifiers so the chip stays legible; CSS ellipsis handles the rest.
     return name.split('—')[0].split('(')[0].trim();
   }
+  // Playful emoji per event, matched by keyword (first hit wins)
+  const EMOJI = [
+    [/chinese new year|lunar/i, '🧧'], [/golden week|national day/i, '🏮'],
+    [/dragon boat/i, '🐉'], [/mid-autumn/i, '🥮'],
+    [/christmas eve/i, '🎁'], [/christmas/i, '🎄'], [/boxing day/i, '🛍️'],
+    [/new year/i, '🎉'], [/valentine/i, '💝'], [/st patrick/i, '☘️'],
+    [/april fool/i, '🃏'], [/earth day/i, '🌍'], [/cinco de mayo/i, '🌮'],
+    [/juneteenth/i, '✊'], [/independence day \(india\)|republic day/i, '🇮🇳'],
+    [/independence/i, '🎆'], [/back to school/i, '🎒'], [/halloween/i, '🎃'],
+    [/bonfire/i, '🎆'], [/singles/i, '🛒'], [/ramadan/i, '🌙'], [/eid/i, '🕌'],
+    [/holi\b/i, '🎨'], [/diwali/i, '🪔'], [/hanukkah/i, '🕎'], [/rosh hashanah/i, '🍎'],
+    [/mother/i, '💐'], [/father/i, '👔'], [/good friday|easter/i, '🐣'],
+    [/memorial day/i, '🇺🇸'], [/labor day/i, '🇺🇸'], [/prime day/i, '📦'],
+    [/thanksgiving/i, '🦃'], [/black friday/i, '🏷️'], [/cyber monday/i, '💻'],
+    [/bank holiday/i, '🏖️']
+  ];
+  function emojiFor(name) {
+    for (const [re, e] of EMOJI) if (re.test(name)) return e;
+    return '📅';
+  }
   function daysUntil(isoStr) {
     const d = new Date(isoStr + 'T00:00:00');
     return Math.round((d - TODAY) / 86400000);
@@ -351,17 +371,16 @@
         const starts = cover.filter(x => x.isStart);
         const items = starts.slice(0, 2).map(x => {
           const e = x.event, im = IMPACT[e.impact];
-          const alert = e.impact === 'closure' ? '⚠ ' : '';
           const summary = e.note.replace(/^🚨\s*/, '').replace(/\s+/g, ' ').split(/[.—]/)[0].trim();
           return `<span class="cal-day__chip" style="--c:${im.color}" title="${e.name} · ${im.label} — ${summary}">
-                    <span class="cal-day__chip-dot"></span>
-                    <span class="cal-day__chip-txt">${alert}${shortName(e.name)}</span>
+                    <span class="cal-day__chip-emoji">${emojiFor(e.name)}</span>
+                    <span class="cal-day__chip-txt">${shortName(e.name)}</span>
                   </span>`;
         }).join('');
         const extra = starts.length > 2 ? `<span class="cal-day__more">+${starts.length - 2} more</span>` : '';
         const ongoing = (!starts.length && cover.length)
           ? `<span class="cal-day__chip cal-day__chip--cont" style="--c:${IMPACT[imp].color}" title="${cover[0].event.name} (continues)">
-               <span class="cal-day__chip-dot"></span>
+               <span class="cal-day__chip-emoji">${emojiFor(cover[0].event.name)}</span>
                <span class="cal-day__chip-txt">${shortName(cover[0].event.name)} ›</span>
              </span>`
           : '';
@@ -424,7 +443,7 @@
       </div>
       <div class="cal-card__body">
         <div class="cal-card__head">
-          <h4 class="cal-card__name">${e.name}</h4>
+          <h4 class="cal-card__name"><span class="cal-card__emoji">${emojiFor(e.name)}</span> ${e.name}</h4>
           ${countdown}
         </div>
         <div class="cal-card__tags">

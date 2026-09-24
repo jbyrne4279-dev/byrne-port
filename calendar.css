@@ -304,25 +304,25 @@
 .cal-day__chip {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   width: 100%;
-  padding: 3px 7px;
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--c) 22%, transparent);
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--c) 24%, transparent);
   border: none;
   text-align: left;
   overflow: hidden;
 }
-.cal-day__chip--cont { opacity: 0.68; }
-.cal-day__chip-dot {
+.cal-day__chip--cont { opacity: 0.66; }
+.cal-day__chip-emoji {
   flex-shrink: 0;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--c);
+  font-size: 15px;
+  line-height: 1;
 }
 .cal-day__chip-txt {
   font-family: var(--sf);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   line-height: 1.25;
   color: var(--label);
   white-space: nowrap;
@@ -439,8 +439,9 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--label);
-  line-height: 1.25;
+  line-height: 1.3;
 }
+.cal-card__emoji { font-size: 18px; margin-right: 2px; }
 .cal-card__soon {
   flex-shrink: 0;
   font-family: var(--sf);
@@ -515,10 +516,10 @@
   .cal-day__num { width: 26px; height: 26px; font-size: 13px; }
   .cal-monthbar__title { min-width: 0; font-size: 20px; }
   .cal-today-btn { padding: 8px 14px; }
-  /* Chips collapse to compact dots on phones */
-  .cal-day__chips { flex-direction: row; flex-wrap: wrap; gap: 3px; justify-content: center; margin-top: 4px; }
+  /* Chips collapse to emoji-only on phones */
+  .cal-day__chips { flex-direction: row; flex-wrap: wrap; gap: 2px; justify-content: center; margin-top: 4px; }
   .cal-day__chip { width: auto; padding: 0; border: none; background: none; }
-  .cal-day__chip-dot { width: 6px; height: 6px; }
+  .cal-day__chip-emoji { font-size: 15px; }
   .cal-day__chip-txt, .cal-day__more { display: none; }
   .cal-day__chip--cont { opacity: 1; }
 }
