@@ -356,13 +356,15 @@ body.cal-light, html:has(body.cal-light) { background: #0C0D10; }
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 5px;
-  aspect-ratio: 1 / 1;
-  padding: 8px 4px 6px;
+  gap: 4px;
+  aspect-ratio: 1.5 / 1;      /* shorter cells so the whole month fits on screen */
+  min-height: 72px;
+  padding: 7px 5px 6px;
   background: var(--card);
   border: none;
   border-radius: 12px;
   color: var(--label);
+  overflow: hidden;
   transition: background 0.16s var(--ease-out), transform 0.16s;
 }
 .cal-day.has-events { cursor: pointer; }
