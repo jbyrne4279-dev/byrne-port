@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=65">
-  <link rel="stylesheet" href="calendar.css?v=8">
+  <link rel="stylesheet" href="calendar.css?v=10">
 </head>
 <body class="cal-light">
 
@@ -139,7 +139,23 @@
 
   </main>
 
+  <!-- DAY POPUP -->
+  <div class="cal-modal" id="calModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="calModalTitle">
+    <div class="cal-modal__panel">
+      <div class="cal-modal__head">
+        <div>
+          <h3 class="cal-modal__title" id="calModalTitle">—</h3>
+          <p class="cal-modal__sub" id="calModalSub"></p>
+        </div>
+        <button class="cal-modal__close" id="calModalClose" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cal-modal__body" id="calModalBody"></div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
-  <script src="calendar.js?v=7"></script>
+  <script src="calendar.js?v=8"></script>
 </body>
 </html>

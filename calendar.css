@@ -601,6 +601,84 @@ body.cal-light, html:has(body.cal-light) { background: #0C0D10; }
   text-align: center;
 }
 
+/* ── DAY POPUP (modal) ── */
+.cal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s var(--ease-out), visibility 0.22s;
+}
+.cal-modal.is-open { opacity: 1; visibility: visible; }
+.cal-modal__panel {
+  width: min(560px, 100%);
+  max-height: min(80vh, 720px);
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 0.5px solid var(--sep);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  transform: translateY(14px) scale(0.98);
+  transition: transform 0.26s var(--ease-out);
+  overflow: hidden;
+}
+.cal-modal.is-open .cal-modal__panel { transform: translateY(0) scale(1); }
+.cal-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px 14px;
+  border-bottom: 0.5px solid var(--sep);
+}
+.cal-modal__title {
+  font-family: var(--sf);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--label);
+}
+.cal-modal__sub {
+  font-family: var(--sf);
+  font-size: 13px;
+  color: var(--label-3);
+  margin-top: 2px;
+}
+.cal-modal__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  color: var(--label-2);
+  background: var(--fill);
+  border: none;
+  transition: background 0.18s, color 0.18s;
+}
+.cal-modal__close:hover { background: var(--fill-2); color: var(--label); }
+.cal-modal__body {
+  padding: 16px 22px 22px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cal-modal__body .cal-card { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .cal-modal, .cal-modal__panel { transition: none; }
+}
+
 /* ── FOOTER NOTE ── */
 .cal-foot {
   border-top: 0.5px solid var(--sep);

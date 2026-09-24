@@ -426,38 +426,57 @@
     }).join('');
   }
 
-  /* ── AGENDA (viewed month, or a selected day) ── */
+  /* ── AGENDA (always the viewed month) ── */
   function renderAgenda() {
     const grid = $('#calGrid');
     const titleEl = $('#calAgendaTitle');
-    let list = eventsFor(state.viewYear).concat(eventsFor(state.viewYear - 1)).filter(matchesFilters);
-
-    if (state.selected) {
-      // include multi-day holidays whose span covers the selected day
-      const sel = state.selected;
-      list = list.filter(e => {
-        const total = e.days && e.days > 1 ? e.days : 1;
-        return sel >= e.date && sel <= addDaysIso(e.date, total - 1);
-      });
-      const f = fmtDate(state.selected);
-      titleEl.innerHTML = `${f.wk} ${f.day} ${f.mon} ${new Date(sel+'T00:00:00').getFullYear()}
-        <button class="cal-agenda__clear" id="calClearSel">Show whole month ✕</button>`;
-    } else {
-      list = list.filter(e => {
+    const list = eventsFor(state.viewYear).concat(eventsFor(state.viewYear - 1))
+      .filter(matchesFilters)
+      .filter(e => {
         const d = new Date(e.date + 'T00:00:00');
         return d.getFullYear() === state.viewYear && d.getMonth() === state.viewMonth;
       });
-      titleEl.textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear + ' — ' + list.length + ' event' + (list.length === 1 ? '' : 's');
-    }
-
+    titleEl.textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear + ' — ' + list.length + ' event' + (list.length === 1 ? '' : 's');
     if (!list.length) {
-      grid.innerHTML = `<p class="cal-empty">No events ${state.selected ? 'on this day' : 'this month'}${state.cat!=='all'||state.impact!=='all'||state.q?' for these filters':''}.</p>`;
+      grid.innerHTML = `<p class="cal-empty">No events this month${state.cat!=='all'||state.impact!=='all'||state.q?' for these filters':''}.</p>`;
     } else {
       grid.innerHTML = `<div class="cal-month__list">${list.map(cardHtml).join('')}</div>`;
     }
+  }
 
-    const clear = $('#calClearSel');
-    if (clear) clear.addEventListener('click', () => { state.selected = null; renderMonth(); renderAgenda(); });
+  /* ── DAY POPUP: events for a clicked day, shown in a centred modal ── */
+  function eventsOnDay(iso) {
+    return eventsFor(new Date(iso+'T00:00:00').getFullYear())
+      .concat(eventsFor(new Date(iso+'T00:00:00').getFullYear() - 1))
+      .filter(matchesFilters)
+      .filter(e => {
+        const total = e.days && e.days > 1 ? e.days : 1;
+        return iso >= e.date && iso <= addDaysIso(e.date, total - 1);
+      });
+  }
+  function openDayModal(iso) {
+    const modal = $('#calModal');
+    if (!modal) return;
+    const list = eventsOnDay(iso);
+    if (!list.length) return;
+    const f = fmtDate(iso);
+    const yr = new Date(iso+'T00:00:00').getFullYear();
+    $('#calModalTitle').textContent = `${f.wk} ${f.day} ${f.mon} ${yr}`;
+    $('#calModalSub').textContent = list.length + ' event' + (list.length === 1 ? '' : 's');
+    $('#calModalBody').innerHTML = list.map(cardHtml).join('');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const closeBtn = $('#calModalClose');
+    if (closeBtn) closeBtn.focus();
+  }
+  function closeDayModal() {
+    const modal = $('#calModal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (state.selected) { state.selected = null; renderMonth(); }
   }
 
   function cardHtml(e) {
@@ -601,18 +620,28 @@
     $('#calNext').addEventListener('click', () => shiftMonth(1));
     $('#calTodayBtn').addEventListener('click', goToday);
 
-    // Day click (select / deselect)
+    // Day click → open the day popup
     $('#calDays').addEventListener('click', e => {
       const b = e.target.closest('[data-date]'); if (!b) return;
       const ds = b.dataset.date;
       if (!b.classList.contains('has-events')) return;
-      state.selected = (state.selected === ds) ? null : ds;
-      renderMonth(); renderAgenda();
+      state.selected = ds;
+      renderMonth();
+      openDayModal(ds);
     });
 
-    // Keyboard arrows for month nav
+    // Modal close: X button, overlay backdrop, Escape
+    const modal = $('#calModal');
+    if (modal) {
+      $('#calModalClose').addEventListener('click', closeDayModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeDayModal(); });
+    }
+
+    // Keyboard: month nav, and Escape closes the popup
     document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeDayModal(); return; }
       if (e.target.matches('input, textarea')) return;
+      if (modal && modal.classList.contains('is-open')) return; // don't nav while popup open
       if (e.key === 'ArrowLeft') shiftMonth(-1);
       else if (e.key === 'ArrowRight') shiftMonth(1);
       else if (e.key.toLowerCase() === 't') goToday();
