@@ -18,10 +18,10 @@
     supply:   { label: 'Supply Chain', color: '#FFD60A' }
   };
   const IMPACT = {
-    demand:  { label: 'Demand spike', icon: '▲', color: '#32D74B' },
-    closure: { label: 'Factory closure', icon: '■', color: '#FF453A' },
-    delay:   { label: 'Shipping delay', icon: '◆', color: '#FF9F0A' },
-    watch:   { label: 'Plan ahead',    icon: '●', color: '#0A84FF' }
+    demand:  { label: 'Demand spike', icon: '📈', color: '#32D74B' },
+    closure: { label: 'Factory closure', icon: '🏭', color: '#FF453A' },
+    delay:   { label: 'Shipping delay', icon: '🚚', color: '#FF9F0A' },
+    watch:   { label: 'Plan ahead',    icon: '📌', color: '#0A84FF' }
   };
 
   const MONTHS = ['January','February','March','April','May','June',
