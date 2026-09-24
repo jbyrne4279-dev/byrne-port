@@ -9,34 +9,24 @@
   padding-top: var(--nav-h);
   /* SF Pro / system font stack */
   --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
-  /* Apple LIGHT theme */
-  --page-bg: #F5F5F7;   /* Apple grouped background (grey) */
-  --label:   #1D1D1F;   /* primary label */
-  --label-2: #6E6E73;   /* secondary label */
-  --label-3: #8E8E93;   /* tertiary label */
-  --sep:     rgba(0,0,0,0.10);
-  --fill:    rgba(120,120,128,0.12);   /* secondary system fill */
-  --fill-2:  rgba(120,120,128,0.20);
-  --card:    #FFFFFF;   /* elevated card */
-  --card-2:  #F0F0F2;
-  --ap-blue: #007AFF;
+  /* Apple DARK theme — dimmed, with vivid glowing accents */
+  --page-bg: #0C0D10;   /* soft dark (not pure black) */
+  --label:   #ECECEF;   /* primary label (not blown-out white) */
+  --label-2: #9A9AA2;   /* secondary label */
+  --label-3: #6E6E76;   /* tertiary label */
+  --sep:     rgba(255,255,255,0.08);
+  --fill:    rgba(255,255,255,0.07);   /* secondary system fill */
+  --fill-2:  rgba(255,255,255,0.12);
+  --card:    #17181C;   /* elevated card */
+  --card-2:  #202127;
+  --ap-blue: #0A84FF;
   background: var(--page-bg);
   color: var(--label);
   font-family: var(--sf);
   letter-spacing: -0.01em;
 }
-/* Light page background + light nav override (this page only) */
-body.cal-light, html:has(body.cal-light) { background: #F5F5F7; }
-body.cal-light .nav {
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 0.5px solid rgba(0,0,0,0.1);
-}
-body.cal-light .nav a,
-body.cal-light .back-btn { color: #1D1D1F; }
-body.cal-light .back-btn { color: #007AFF; }
-body.cal-light .nav a:hover { color: #007AFF; }
+/* Dark page background (this page only) */
+body.cal-light, html:has(body.cal-light) { background: #0C0D10; }
 .cal-container {
   max-width: 1040px;
   margin: 0 auto;
@@ -214,6 +204,7 @@ body.cal-light .nav a:hover { color: #007AFF; }
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--c);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--c) 55%, transparent);
 }
 .cal-summary__lbl {
   font-family: var(--sf);
@@ -244,7 +235,7 @@ body.cal-light .nav a:hover { color: #007AFF; }
   position: sticky;
   top: var(--nav-h);
   z-index: 20;
-  background: rgba(245,245,247,0.78);
+  background: rgba(12,13,16,0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-top: none;
@@ -375,16 +366,23 @@ body.cal-light .nav a:hover { color: #007AFF; }
   transition: background 0.16s var(--ease-out), transform 0.16s;
 }
 .cal-day.has-events { cursor: pointer; }
-/* Tint the whole box on holiday days, coloured by impact (--dayc) */
+/* Tint the whole box on holiday days, coloured + glowing by impact (--dayc) */
 .cal-day.has-events {
-  background: color-mix(in srgb, var(--dayc) 15%, var(--card));
+  background: color-mix(in srgb, var(--dayc) 22%, var(--card));
+  box-shadow: 0 0 18px -4px color-mix(in srgb, var(--dayc) 55%, transparent),
+              inset 0 0 0 1px color-mix(in srgb, var(--dayc) 40%, transparent);
 }
 .cal-day.has-events:hover {
-  background: color-mix(in srgb, var(--dayc) 26%, var(--card));
+  background: color-mix(in srgb, var(--dayc) 34%, var(--card));
+  box-shadow: 0 0 26px -2px color-mix(in srgb, var(--dayc) 70%, transparent),
+              inset 0 0 0 1px color-mix(in srgb, var(--dayc) 60%, transparent);
   transform: translateY(-2px);
 }
-/* Multi-day holidays: a coloured top bar so runs read as one block */
-.cal-day.is-span { box-shadow: inset 0 3px 0 var(--dayc); }
+/* Multi-day holidays: a glowing coloured top bar so runs read as one block */
+.cal-day.is-span {
+  box-shadow: inset 0 3px 0 var(--dayc),
+              0 0 18px -4px color-mix(in srgb, var(--dayc) 55%, transparent);
+}
 .cal-day.is-span-start { border-top-left-radius: 12px; }
 .cal-day.is-span-end   { border-top-right-radius: 12px; }
 
@@ -404,7 +402,9 @@ body.cal-light .nav a:hover { color: #007AFF; }
   width: 100%;
   padding: 4px 8px;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--c) 24%, transparent);
+  background: color-mix(in srgb, var(--c) 30%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent),
+              0 0 12px -4px color-mix(in srgb, var(--c) 70%, transparent);
   border: none;
   text-align: left;
   overflow: hidden;
@@ -458,6 +458,7 @@ body.cal-light .nav a:hover { color: #007AFF; }
   background: #FF453A;
   color: #fff;
   font-weight: 600;
+  box-shadow: 0 0 16px rgba(255,69,58,0.7);
 }
 .cal-day.is-selected {
   box-shadow: 0 0 0 2px var(--ap-blue) inset;
