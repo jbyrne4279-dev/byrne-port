@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=69">
+  <link rel="stylesheet" href="styles.css?v=70">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -552,11 +552,11 @@
               style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:5">
               <img class="cfs__card-img" src="assets/projects/trend-forecasting/Trend Forcasting-01.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
+              <span class="cfs__pct" aria-hidden="true">82%</span>
               <div class="cfs__glass">
                 <span class="cfs__num">01</span>
                 <div class="cfs__body">
-                  <p class="cfs__eyebrow">Trend Forecasting</p>
-                  <h3 class="cfs__title">82%</h3>
+                  <h3 class="cfs__title">Trend Forecasting</h3>
                   <p class="cfs__desc">Top score in the module for my NEXT A/W 25/26 buying report. Got a work experience offer from NEXT off the back of it.</p>
                   <div class="cfs__dls">
                     <a href="assets/coursework/trend-forecasting-coursework.pdf" class="cfs__dl" target="_blank" rel="noopener">
@@ -575,11 +575,11 @@
               style="--cfs-bg:#120300;--cfs-fg:#fff2ee;--cfs-accent:#f5391d;--cfs-z:4">
               <img class="cfs__card-img" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
+              <span class="cfs__pct" aria-hidden="true">77%</span>
               <div class="cfs__glass">
                 <span class="cfs__num">02</span>
                 <div class="cfs__body">
-                  <p class="cfs__eyebrow">Marketing &amp; PR</p>
-                  <h3 class="cfs__title">77%</h3>
+                  <h3 class="cfs__title">Marketing &amp; PR</h3>
                   <p class="cfs__desc">Named Collective brief. Full brand strategy and PR campaign from start to finish.</p>
                   <div class="cfs__dls">
                     <a href="assets/coursework/marketing-pr-campaign.pdf" class="cfs__dl" target="_blank" rel="noopener">
@@ -601,11 +601,11 @@
               style="--cfs-bg:#110500;--cfs-fg:#fff5ee;--cfs-accent:#ff5a17;--cfs-z:3">
               <img class="cfs__card-img" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
+              <span class="cfs__pct" aria-hidden="true">72%</span>
               <div class="cfs__glass">
                 <span class="cfs__num">03</span>
                 <div class="cfs__body">
-                  <p class="cfs__eyebrow">Buying &amp; Merchandising</p>
-                  <h3 class="cfs__title">72%</h3>
+                  <h3 class="cfs__title">Buying &amp; Merchandising</h3>
                   <p class="cfs__desc">NEXT work experience project that led to a formal offer to join their buying team.</p>
                   <div class="cfs__dls">
                     <a href="assets/coursework/buying-merch-coursework.pdf" class="cfs__dl" target="_blank" rel="noopener">
@@ -623,11 +623,11 @@
             <article class="cfs__card cfs__card--no-img" data-cfs-index="3"
               style="--cfs-bg:#100800;--cfs-fg:#fff8ee;--cfs-accent:#ff7d10;--cfs-z:2">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
+              <span class="cfs__pct" aria-hidden="true">69%</span>
               <div class="cfs__glass">
                 <span class="cfs__num">04</span>
                 <div class="cfs__body">
-                  <p class="cfs__eyebrow">International Retailing</p>
-                  <h3 class="cfs__title">69%</h3>
+                  <h3 class="cfs__title">International Retailing</h3>
                   <p class="cfs__desc">Global retail strategy and cross-market consumer research.</p>
                   <div class="cfs__dls">
                     <a href="assets/coursework/international-retailing-coursework.pdf" class="cfs__dl" target="_blank" rel="noopener">
@@ -643,11 +643,11 @@
               style="--cfs-bg:#0f0a00;--cfs-fg:#fffaee;--cfs-accent:#ff9500;--cfs-z:1">
               <img class="cfs__card-img" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
+              <span class="cfs__pct" aria-hidden="true">67%</span>
               <div class="cfs__glass">
                 <span class="cfs__num">05</span>
                 <div class="cfs__body">
-                  <p class="cfs__eyebrow">Visual Merchandising</p>
-                  <h3 class="cfs__title">67%</h3>
+                  <h3 class="cfs__title">Visual Merchandising</h3>
                   <p class="cfs__desc">Selfridges brief. Retail environment design and in-store experience concept.</p>
                   <div class="cfs__dls">
                     <a href="assets/coursework/visual-merch-individual-report.pdf" class="cfs__dl" target="_blank" rel="noopener">
@@ -815,10 +815,14 @@
         const restingOffset   = Math.min(index * 12, 34);
         const restingScale    = 1 - Math.min(index * 0.012, 0.035);
 
-        /* Exit: translateY(-118%) + stackedOffset, rotateX 22° */
-        const exitYPct   = mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : -118);
-        const exitStack  = mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : stackedOffset);
-        const rX         = mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : 22);
+        /* Exit: translateY(-118%) + stackedOffset, rotateX 22°.
+           The last card never exits — otherwise it flies away right
+           before the section unpins, leaving the sticky frame empty
+           for the final stretch of scroll. It just settles and stays. */
+        const isLast     = index === TOTAL - 1;
+        const exitYPct   = isLast ? 0 : mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : -118);
+        const exitStack  = isLast ? 0 : mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : stackedOffset);
+        const rX         = isLast ? 0 : mapRange(p, exitStart, exitEnd, 0, reduceMotion ? 0 : 22);
 
         /* Entry: scale + y from resting to rested */
         const entryScale = index === 0 ? 1 : mapRange(p, entryStart, entryEnd, restingScale, 1);
