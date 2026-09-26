@@ -1,3 +1,8 @@
 node_modules/
 .impeccable/
 .claude/
+
+# Large PDFs — host separately or use Git LFS
+assets/coursework/buying-merch-coursework.pdf
+assets/coursework/visual-merch-group-report.pdf
+assets/coursework/visual-merch-individual-report.pdf
