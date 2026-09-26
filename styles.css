@@ -1313,16 +1313,15 @@ h1, h2, h3, h4 {
 
 /* ── ABOUT CARDS on mobile: fit the content, tidy the layout ── */
 @media (max-width: 560px) {
-  /* shorter cards + content pinned to the top so there's no dead black space */
   .about-deck__stack { height: clamp(400px, 62vh, 500px); min-height: 400px; }
   .about-card {
     padding: 30px 22px;
     gap: 16px;
     border-radius: 14px;
-    justify-content: flex-start;
+    justify-content: center;
   }
   .about-card--intro,
-  .about-card--inspire { justify-content: flex-start; }
+  .about-card--inspire { justify-content: center; }
   .about-card__no { font-size: 44px; top: 14px; right: 16px; }
   .about-card__tag { font-size: 12px; }
   .about-card__lead { font-size: 28px; line-height: 1.22; max-width: none; }
