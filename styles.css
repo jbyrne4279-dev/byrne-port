@@ -2051,14 +2051,6 @@ h1, h2, h3, h4 {
   z-index: 0;
 }
 
-/* Modules without a dedicated photoshoot get a rich gradient instead
-   of borrowing another module's image under the wrong name. */
-.cfs__card--no-img {
-  background: radial-gradient(120% 140% at 15% 10%,
-    color-mix(in srgb, var(--cfs-accent) 26%, var(--cfs-bg)) 0%,
-    var(--cfs-bg) 62%);
-}
-
 /* Darkens the image toward the left so the glass panel's own text
    stays legible even before backdrop-filter kicks in (and covers
    browsers that skip backdrop-filter entirely). */
@@ -2082,10 +2074,13 @@ h1, h2, h3, h4 {
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-width: 0;
   height: 100%;
   width: min(100%, 44%);
   padding: clamp(24px, 3vw, 48px);
+  /* Room at the bottom for the absolutely-positioned card number */
+  padding-bottom: clamp(56px, 6vw, 84px);
   background: rgba(14, 12, 14, 0.42);
   backdrop-filter: blur(26px) saturate(150%);
   -webkit-backdrop-filter: blur(26px) saturate(150%);
@@ -2103,7 +2098,11 @@ h1, h2, h3, h4 {
   }
 }
 
+/* Card index — bottom-left corner of the glass panel */
 .cfs__num {
+  position: absolute;
+  left: clamp(24px, 3vw, 48px);
+  bottom: clamp(20px, 2.4vw, 32px);
   font-size: clamp(18px, 1.6vw, 24px);
   font-weight: 500;
   letter-spacing: -0.06em;
@@ -2113,21 +2112,27 @@ h1, h2, h3, h4 {
 }
 
 /* Content now reads top-down from the panel's own top edge — the
-   module name is the headline, so nothing is bottom-anchored anymore. */
+   module name is the headline, so nothing is bottom-anchored anymore.
+   Centered to match the standard site-wide heading treatment. */
 .cfs__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   margin-top: 0;
   padding-top: clamp(16px, 2vw, 28px);
   max-width: 46rem;
 }
 
 /* The project name — now the dominant headline of the card, replacing
-   the old small eyebrow label. */
+   the old small eyebrow label. Same serif display face used by every
+   other H1/H2 across the site, not the separate display font. */
 .cfs__title {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: clamp(34px, 4.4vw, 64px);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--cfs-fg, #fff);
   max-width: 14ch;
 }
