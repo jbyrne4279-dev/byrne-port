@@ -2184,7 +2184,6 @@ h1, h2, h3, h4 {
     min-height: clamp(320px, 90vw, 420px);
   }
   .cfs__pct { top: 0; right: 0; padding: 16px 18px; font-size: 26px; }
-  .cfs__num { top: 14px; left: 18px; }
   .cfs__glass {
     width: 100%;
     height: auto;
@@ -2197,19 +2196,6 @@ h1, h2, h3, h4 {
   .cfs__desc { font-size: 13px; }
   .cfs__dls { justify-content: center; margin-top: 18px; }
   .cfs__dl { padding: 11px 16px; font-size: 10px; }
-}
-
-/* Card index — top-left corner of the glass panel */
-.cfs__num {
-  position: absolute;
-  left: clamp(24px, 3vw, 48px);
-  top: clamp(20px, 2.4vw, 32px);
-  font-size: clamp(18px, 1.6vw, 24px);
-  font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 1;
-  color: var(--cfs-fg, #fff);
-  opacity: 0.5;
 }
 
 /* Content now reads top-down from the panel's own top edge — the
