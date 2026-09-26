@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=75">
+  <link rel="stylesheet" href="styles.css?v=76">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -426,9 +426,15 @@
         </h2>
         <p class="about__body type-reveal">Sites built to make <span style="color:var(--red)">Products &amp; Services</span> look good and sell. Each one designed and coded from scratch. <span style="color:var(--red)">Visually sharp</span>, <span style="color:var(--red)">SEO optimised</span>, and built to actually <span style="color:var(--red)">convert</span>. <span style="color:var(--red)">Full stack</span> from design to deployment.</p>
       </div>
-      <div class="websites__grid">
+    </div>
 
-        <a class="site-card reveal" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer">
+    <!-- Full-width infinite marquee — two identical card sets back to
+         back, translated exactly -50% so the loop point is seamless.
+         The second set is aria-hidden/untabbable, it's a visual clone. -->
+    <div class="websites__marquee" id="websitesMarquee">
+      <div class="websites__track">
+
+        <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
             <img src="assets/sites/xtc-clothing.webp" alt="XTC Clothing homepage" class="site-card__img" loading="lazy">
           </div>
@@ -441,7 +447,7 @@
           </div>
         </a>
 
-        <a class="site-card reveal reveal--delay" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer">
+        <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
             <img src="assets/sites/reinstatement-cost-assessment.webp" alt="Reinstatement Cost Assessment homepage" class="site-card__img" loading="lazy">
           </div>
@@ -454,7 +460,7 @@
           </div>
         </a>
 
-        <a class="site-card reveal" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer">
+        <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
             <img src="assets/sites/stearling-reinstatement.webp" alt="Stearling Reinstatement homepage" class="site-card__img" loading="lazy">
           </div>
@@ -467,7 +473,7 @@
           </div>
         </a>
 
-        <a class="site-card reveal" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer">
+        <a class="site-card" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
             <img src="assets/sites/botley-byrne.webp" alt="Botley Byrne Production homepage" class="site-card__img" loading="lazy">
           </div>
@@ -480,9 +486,75 @@
           </div>
         </a>
 
-        <a class="site-card reveal reveal--delay" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer">
+        <a class="site-card" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
             <img src="assets/sites/cvlab.webp" alt="CV Lab homepage" class="site-card__img" loading="lazy">
+          </div>
+          <div class="site-card__body">
+            <div class="site-card__meta">
+              <span class="site-card__name">CV Lab</span>
+              <span class="site-card__url">cvlab.ltd</span>
+            </div>
+            <span class="site-card__btn">Visit Site</span>
+          </div>
+        </a>
+
+        <!-- Duplicate set — purely visual, hidden from a11y/tab order -->
+        <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <div class="site-card__img-wrap">
+            <img src="assets/sites/xtc-clothing.webp" alt="" class="site-card__img" loading="lazy">
+          </div>
+          <div class="site-card__body">
+            <div class="site-card__meta">
+              <span class="site-card__name">XTC Clothing</span>
+              <span class="site-card__url">xtcclothing.com</span>
+            </div>
+            <span class="site-card__btn">Visit Site</span>
+          </div>
+        </a>
+
+        <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <div class="site-card__img-wrap">
+            <img src="assets/sites/reinstatement-cost-assessment.webp" alt="" class="site-card__img" loading="lazy">
+          </div>
+          <div class="site-card__body">
+            <div class="site-card__meta">
+              <span class="site-card__name">Reinstatement Cost Assessment</span>
+              <span class="site-card__url">reinstatementcostassessment.org</span>
+            </div>
+            <span class="site-card__btn">Visit Site</span>
+          </div>
+        </a>
+
+        <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <div class="site-card__img-wrap">
+            <img src="assets/sites/stearling-reinstatement.webp" alt="" class="site-card__img" loading="lazy">
+          </div>
+          <div class="site-card__body">
+            <div class="site-card__meta">
+              <span class="site-card__name">Stearling Reinstatement</span>
+              <span class="site-card__url">stearlingreinstatement.com</span>
+            </div>
+            <span class="site-card__btn">Visit Site</span>
+          </div>
+        </a>
+
+        <a class="site-card" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <div class="site-card__img-wrap">
+            <img src="assets/sites/botley-byrne.webp" alt="" class="site-card__img" loading="lazy">
+          </div>
+          <div class="site-card__body">
+            <div class="site-card__meta">
+              <span class="site-card__name">Botley Byrne Production</span>
+              <span class="site-card__url">botleybyrne.co.uk</span>
+            </div>
+            <span class="site-card__btn">Visit Site</span>
+          </div>
+        </a>
+
+        <a class="site-card" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <div class="site-card__img-wrap">
+            <img src="assets/sites/cvlab.webp" alt="" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">

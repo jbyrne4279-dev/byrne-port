@@ -1827,6 +1827,41 @@ h1, h2, h3, h4 {
   color: var(--text-2);
 }
 
+/* ── INFINITE SLIDING MARQUEE ──
+   Full-bleed track holding two identical card sets back to back;
+   translating exactly -50% loops seamlessly since the second set
+   picks up visually where the first left off. Pauses on hover/focus
+   so a visitor can actually read a card or click through. */
+.websites__marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.websites__track {
+  display: flex;
+  width: max-content;
+  gap: 20px;
+  padding: 4px var(--gap-container) 4px;
+  animation: websites-marquee 46s linear infinite;
+}
+
+.websites__marquee:hover .websites__track,
+.websites__marquee:focus-within .websites__track {
+  animation-play-state: paused;
+}
+
+@keyframes websites-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50% - 10px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .websites__track { animation: none; }
+}
+
+/* Free Tools reuses this section layout for its (single-card) grid */
 .websites__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1841,6 +1876,13 @@ h1, h2, h3, h4 {
   overflow: hidden;
   background: var(--bg-3);
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+/* Fixed card width only inside the marquee track — the Free Tools
+   grid card keeps its normal grid-cell sizing. */
+.websites__track .site-card {
+  flex: 0 0 clamp(260px, 30vw, 360px);
+  width: clamp(260px, 30vw, 360px);
 }
 
 .site-card:hover {
@@ -1955,9 +1997,11 @@ h1, h2, h3, h4 {
 
 @media (max-width: 768px) {
   .websites__grid { grid-template-columns: 1fr; }
+  .websites__track .site-card { flex-basis: 78vw; width: 78vw; }
   .site-card__name { font-size: 17px; }
   .site-card__body { padding: 16px 18px; gap: 14px; }
   .site-card__btn { padding: 8px 14px; font-size: 8px; }
+  .websites__track { animation-duration: 30s; }
 }
 
 /* ── ACADEMIC ── */
@@ -2781,7 +2825,6 @@ body { text-align: center; }
   75%  { transform: scale(1.18) rotate(1.5deg)  translateY(-1px); }
   100% { transform: scale(1.14) rotate(0deg)   translateY(0); }
 }
-.websites__intro:hover ~ .websites__grid .site-card__btn,
 .site-card:hover .site-card__btn {
   position: relative;
   z-index: 4;
@@ -2801,29 +2844,10 @@ body { text-align: center; }
   animation: thumb-wiggle 0.9s ease-in-out infinite;
 }
 
-/* ── Stronger, staggered slide-up for the website cards ── */
-@keyframes slide-up-lg {
-  from { opacity: 0; transform: translateY(60px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.websites__grid .site-card.reveal { transform: translateY(60px); }
-.websites__grid .site-card.in-view {
-  animation: slide-up-lg 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.websites__grid .site-card:nth-child(1).in-view { animation-delay: 0.05s; }
-.websites__grid .site-card:nth-child(2).in-view { animation-delay: 0.15s; }
-.websites__grid .site-card:nth-child(3).in-view { animation-delay: 0.25s; }
-.websites__grid .site-card:nth-child(4).in-view { animation-delay: 0.35s; }
-.websites__grid .site-card:nth-child(5).in-view { animation-delay: 0.45s; }
-.websites__grid .site-card:nth-child(6).in-view { animation-delay: 0.55s; }
-
 @media (prefers-reduced-motion: reduce) {
   .site-card__btn,
-  .websites__intro:hover ~ .websites__grid .site-card__btn,
   .site-card:hover .site-card__btn,
   .site-card:hover .site-card__img { animation: none; }
-  .websites__grid .site-card.reveal { transform: none; }
-  .websites__grid .site-card.in-view { animation: none; opacity: 1; transform: none; }
 }
 
 /* cfs card accent colours are set inline via --cfs-accent */
