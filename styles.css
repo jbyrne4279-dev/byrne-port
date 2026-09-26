@@ -1806,8 +1806,8 @@ h1, h2, h3, h4 {
 /* ── WEBSITES ── */
 .websites { background: var(--bg-2); border-top: 1px solid var(--border); }
 
-/* Free Tools reuses the Websites layout but needs its own visual
-   boundary since it sits directly below a section with the same class. */
+/* Free Tools reuses the Websites layout but keeps its own background
+   shade so it still reads as a distinct section from Websites/Academic. */
 #tools {
   background: var(--bg-4);
   border-top: 1px solid var(--border);
