@@ -1,0 +1,6 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "registries": {
+    "@componentry": "https://componentry.dev/r/{name}.json"
+  }
+}
