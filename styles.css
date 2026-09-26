@@ -350,8 +350,7 @@ h1, h2, h3, h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal.in-view,
-  .flip-card.is-active {
+  .reveal, .reveal.in-view {
     opacity: 1;
     transform: none;
   }
@@ -1978,132 +1977,146 @@ h1, h2, h3, h4 {
   opacity: 0.4;
 }
 
-/* ── FLIP STACK (CaseStudyFlipStack) ── */
+/* ══════════════════════════════════════════════════════
+   CaseStudyFlipStack — faithful vanilla port
+   Matches: scroll-driven progress, rotateX + translateY(-118%),
+   spring-smoothed, two-column card layout, resting stack offsets
+   ══════════════════════════════════════════════════════ */
 
-.flip-stack {
+/* Outer section — no overflow clip so sticky works */
+.cfs {
+  margin-top: 24px;
+  /* JS sets --cfs-count; height = (count + 1) × 100vh */
+  /* Fallback if JS hasn't run yet */
+  height: calc(var(--cfs-count, 5) * 100vh + 100vh);
+}
+
+/* The actual scroll-driving track */
+.cfs__track {
   position: relative;
-  margin-top: 56px;
-  /* 5 cards × 260px step + frame height (480) + nav space (80) */
-  height: 1900px;
-}
-
-/* Sticky frame — cards live in here */
-.flip-stack__frame {
-  position: sticky;
-  top: calc(var(--nav-h) + 24px);
-  height: 480px;
-  perspective: 1200px;
-}
-
-@media (max-width: 600px) {
-  .flip-stack { height: 2100px; }
-  .flip-stack__frame { height: 540px; }
-}
-
-/* Every card stacks inside the frame */
-.flip-card {
-  position: absolute;
-  inset: 0;
-  background: var(--card-bg, #0e0e0e);
-  border: 1px solid rgba(255,255,255,0.07);
-  display: flex;
-  flex-direction: column;
-  transform-origin: 50% 110%;
-  will-change: transform, opacity;
-  transition: transform 0.55s var(--ease-out), opacity 0.45s var(--ease-out),
-              box-shadow 0.35s var(--ease-out);
-  overflow: hidden;
-  /* default stack: each card slightly behind the one before */
-  opacity: 0;
-  transform: translateY(40px) scale(0.93);
-  pointer-events: none;
-}
-
-/* Thin coloured top-border accent */
-.flip-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--card-accent, var(--red));
-  opacity: 0.7;
-}
-
-/* Active (front) card */
-.flip-card.is-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  box-shadow: 0 32px 72px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
-  pointer-events: all;
-  z-index: 10;
-}
-
-/* Card about to be dismissed — flies forward & fades */
-.flip-card.is-leaving {
-  opacity: 0;
-  transform: translateY(-60px) scale(1.02);
-  pointer-events: none;
-  z-index: 11;
-}
-
-/* Next card: peek at bottom */
-.flip-card.is-next {
-  opacity: 0.55;
-  transform: translateY(18px) scale(0.97);
-  pointer-events: none;
-  z-index: 9;
-}
-.flip-card.is-next-2 {
-  opacity: 0.25;
-  transform: translateY(32px) scale(0.94);
-  pointer-events: none;
-  z-index: 8;
-}
-
-/* Inner layout */
-.flip-card__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: clamp(32px, 4vw, 56px) clamp(28px, 4vw, 56px) clamp(28px, 3vw, 44px);
   height: 100%;
 }
 
-.flip-card__eyebrow {
+/* Sticky viewport-height frame */
+.cfs__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(14px, 4vw, 64px);
+  padding-top: calc(var(--nav-h) + clamp(14px, 3vw, 40px));
+  padding-bottom: clamp(14px, 3vw, 40px);
+}
+
+/* Perspective stage — cards stack here */
+.cfs__stage {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 860px;
+  /* 3:4 mobile, ~1.76:1 desktop matching original component */
+  aspect-ratio: 3/4;
+  perspective: 800px;
+}
+@media (min-width: 600px) {
+  .cfs__stage { aspect-ratio: 1.76/1; }
+}
+
+/* ── Individual card ── */
+.cfs__card {
+  position: absolute;
+  inset: 0;
+  border-radius: clamp(18px, 2vw, 30px);
+  overflow: hidden;
+  background: var(--cfs-bg, #0a0a0a);
+  color: var(--cfs-fg, #fff);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.45);
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  z-index: var(--cfs-z, 1);
+  /* resting state set by JS via inline style */
+}
+
+/* Two-column inner — matches sm:grid-cols-[1.15fr_0.85fr] */
+.cfs__card-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+@media (min-width: 600px) {
+  .cfs__card-inner { grid-template-columns: 1.15fr 0.85fr; }
+}
+
+/* Left column — text */
+.cfs__card-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(24px, 3vw, 48px);
+}
+@media (min-width: 600px) {
+  .cfs__card-text { padding-right: clamp(22px, 3vw, 48px); }
+}
+
+.cfs__num {
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: var(--cfs-fg, #fff);
+  opacity: 0.6;
+}
+
+.cfs__body {
+  margin-top: auto;
+  padding-top: 32px;
+  max-width: 46rem;
+}
+
+.cfs__eyebrow {
+  display: block;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: clamp(9px, 1vw, 11px);
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--card-accent, var(--red));
-  opacity: 0.85;
+  opacity: 0.7;
+  margin-bottom: clamp(10px, 1.5vw, 22px);
+  color: var(--cfs-fg, #fff);
 }
 
-.flip-card__grade {
+.cfs__title {
   font-family: var(--font-display);
-  font-size: clamp(72px, 10vw, 120px);
-  letter-spacing: 0.01em;
-  line-height: 0.9;
-  color: var(--card-accent, var(--red));
-  text-shadow: 0 0 40px color-mix(in srgb, var(--card-accent, var(--red)) 40%, transparent);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  color: var(--cfs-accent, var(--red));
+  max-width: 16ch;
 }
 
-.flip-card__desc {
+.cfs__desc {
+  margin-top: clamp(16px, 1.8vw, 24px);
   font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.55);
-  max-width: 480px;
+  font-size: clamp(11px, 1.1vw, 14px);
+  line-height: 1.6;
+  opacity: 0.75;
+  max-width: 42rem;
+  color: var(--cfs-fg, #fff);
 }
 
-.flip-card__downloads {
+.cfs__dls {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: auto;
+  margin-top: clamp(20px, 2vw, 32px);
 }
 
-.flip-card__dl {
+.cfs__dl {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -2112,81 +2125,78 @@ h1, h2, h3, h4 {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--cfs-fg, #fff);
+  opacity: 0.55;
+  border: 1px solid rgba(255,255,255,0.18);
   padding: 8px 14px;
-  transition: color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
-              background 0.22s var(--ease-out), transform 0.22s var(--ease-out);
+  border-radius: 2px;
+  transition: opacity 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
 }
-.flip-card__dl:hover {
-  color: var(--card-accent, var(--red));
-  border-color: var(--card-accent, var(--red));
-  background: color-mix(in srgb, var(--card-accent, var(--red)) 10%, transparent);
+.cfs__dl:hover {
+  opacity: 1;
+  border-color: var(--cfs-accent, var(--red));
+  color: var(--cfs-accent, var(--red));
+  background: rgba(255,255,255,0.05);
   transform: translateY(-2px);
 }
 
-/* "Top Score" badge */
-.flip-card__badge {
+/* Right column — coloured panel with big grade number */
+.cfs__card-media {
+  display: none;
+  position: relative;
+  margin: clamp(10px, 1.2vw, 18px);
+  margin-left: 0;
+  border-radius: clamp(12px, 1.4vw, 22px);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--cfs-accent) 18%, var(--cfs-bg)) 0%,
+    color-mix(in srgb, var(--cfs-accent) 6%, var(--cfs-bg)) 100%);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 600px) {
+  .cfs__card-media { display: flex; }
+}
+
+/* Overlay shimmer */
+.cfs__card-media::after {
+  content: '';
   position: absolute;
-  top: 20px;
-  right: 20px;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+}
+
+.cfs__grade {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 88px);
+  letter-spacing: 0.02em;
+  color: var(--cfs-accent, var(--red));
+  text-shadow: 0 0 60px color-mix(in srgb, var(--cfs-accent) 35%, transparent);
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+.cfs__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
   font-family: var(--font-mono);
   font-size: 7px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--bg);
-  background: var(--card-accent, var(--red));
+  background: var(--cfs-accent, var(--red));
+  color: #000;
   padding: 5px 10px;
-  box-shadow: 0 0 14px color-mix(in srgb, var(--card-accent, var(--red)) 50%, transparent);
+  z-index: 2;
 }
 
-/* Dot nav */
-.flip-stack__nav {
-  position: absolute;
-  bottom: -36px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  align-items: center;
+/* ── Reduced motion: no transforms ── */
+@media (prefers-reduced-motion: reduce) {
+  .cfs__card { transition: opacity 0.3s !important; transform: none !important; }
 }
-.flip-stack__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: none;
-  background: var(--text-3);
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  padding: 0;
-}
-.flip-stack__dot--active {
-  background: var(--red);
-  transform: scale(1.4);
-}
-
-/* ── Scroll hint ── */
-.flip-stack__hint {
-  position: absolute;
-  bottom: -58px;
-  right: 0;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  animation: hint-bob 2s ease-in-out infinite;
-}
-@keyframes hint-bob {
-  0%, 100% { opacity: 0.5; transform: translateY(0); }
-  50%       { opacity: 1;   transform: translateY(-3px); }
-}
-
-/* flip-stack mobile handled above */
 
 /* ── CONTACT ── */
 .contact { background: var(--bg-2); border-top: 1px solid var(--border); position: relative; overflow: hidden; }
@@ -2664,7 +2674,7 @@ body { text-align: center; }
 .stat { align-items: center; }
 .footer__grid { align-items: center; }
 .footer__info { text-align: center; }
-.flip-card__downloads { justify-content: flex-start; }
+.cfs__dls { justify-content: flex-start; }
 .site-card__body { justify-content: center; }
 .contact__form-actions { justify-content: center; }
 
@@ -2753,7 +2763,7 @@ body { text-align: center; }
   .websites__grid .site-card.in-view { animation: none; opacity: 1; transform: none; }
 }
 
-/* flip-stack card accent colours are set inline via --card-accent */
+/* cfs card accent colours are set inline via --cfs-accent */
 
 /* Burning red heading */
 .burn-red {
