@@ -2064,11 +2064,15 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 @media (max-width: 599px) {
-  .cfs__card-scrim { background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.86) 55%, rgba(0,0,0,0.92) 100%); }
+  /* Mobile scrim is unused — the image no longer sits behind the text
+     box (see below), so there's nothing left for it to darken. */
+  .cfs__card-scrim { display: none; }
 }
 
-/* Liquid-glass text panel — left column on desktop, bottom sheet on
-   mobile where there's no room for a side panel. */
+/* Liquid-glass text panel — left column on desktop. On mobile this
+   becomes a solid, non-overlapping info box stacked below the image
+   (see the mobile card layout rules further down), so it drops the
+   glass/blur treatment in favour of a plain readable panel. */
 .cfs__glass {
   position: relative;
   z-index: 2;
@@ -2086,15 +2090,69 @@ h1, h2, h3, h4 {
   border-right: 1px solid rgba(255,255,255,0.14);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
+
+/* ══════════════════════════════════════════════════════
+   MOBILE CARD LAYOUT — image on top, info box below
+   The desktop version is a scroll-jacked 3D card stack with the text
+   glassed over the photo. That doesn't translate to a phone screen,
+   so under 600px the whole mechanism is switched off: cards lay out
+   as a plain stacked column (image on top, solid text box under it,
+   sized to fit its own content) and the scroll-driven JS transform is
+   neutralized below.
+   ══════════════════════════════════════════════════════ */
 @media (max-width: 599px) {
+  .cfs { height: auto !important; margin-top: 0; }
+  .cfs__track { height: auto; }
+  .cfs__sticky {
+    position: static;
+    height: auto;
+    padding: 16px;
+    padding-top: 16px;
+  }
+  .cfs__stage {
+    width: 100%;
+    aspect-ratio: auto;
+    perspective: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cfs__card {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    /* Defeats the scroll-driven inline transform/pointer-events the
+       JS sets on every frame — cards just stack in normal flow. */
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+  .cfs__card-img {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+  /* Image-less card (International Retailing's gradient) needs the
+     same top slice even with no <img> in the DOM */
+  .cfs__card:not(:has(.cfs__card-img)) {
+    min-height: clamp(320px, 90vw, 420px);
+  }
+  .cfs__pct { top: 0; right: 0; padding: 16px 18px; font-size: 26px; }
+  .cfs__num { top: 14px; left: 18px; }
   .cfs__glass {
     width: 100%;
     height: auto;
-    margin-top: auto;
-    background: rgba(10, 8, 10, 0.5);
+    padding: 44px 20px 22px;
+    background: rgba(10, 8, 10, 0.92);
     border-right: none;
     border-top: 1px solid rgba(255,255,255,0.14);
   }
+  .cfs__title { font-size: clamp(24px, 7vw, 30px); max-width: none; }
+  .cfs__desc { font-size: 13px; }
+  .cfs__dls { justify-content: center; margin-top: 18px; }
+  .cfs__dl { padding: 11px 16px; font-size: 10px; }
 }
 
 /* Card index — top-left corner of the glass panel */
