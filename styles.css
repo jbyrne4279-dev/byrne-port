@@ -2080,8 +2080,6 @@ h1, h2, h3, h4 {
   height: 100%;
   width: min(100%, 44%);
   padding: clamp(24px, 3vw, 48px);
-  /* Room at the bottom for the absolutely-positioned card number */
-  padding-bottom: clamp(56px, 6vw, 84px);
   background: rgba(14, 12, 14, 0.42);
   backdrop-filter: blur(26px) saturate(150%);
   -webkit-backdrop-filter: blur(26px) saturate(150%);
@@ -2099,11 +2097,11 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Card index — bottom-left corner of the glass panel */
+/* Card index — top-left corner of the glass panel */
 .cfs__num {
   position: absolute;
   left: clamp(24px, 3vw, 48px);
-  bottom: clamp(20px, 2.4vw, 32px);
+  top: clamp(20px, 2.4vw, 32px);
   font-size: clamp(18px, 1.6vw, 24px);
   font-weight: 500;
   letter-spacing: -0.06em;
@@ -2179,24 +2177,25 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
-/* Grade % — moved off the headline onto a small glass pill in the
-   image's top-right corner instead of dominating the panel. */
+/* Grade % — off the headline, sitting directly on the image in the
+   top-right corner. A soft radial vignette (not a pill/chip) keeps it
+   legible against any photo without looking like a slapped-on badge. */
 .cfs__pct {
   position: absolute;
-  top: clamp(16px, 2vw, 28px);
-  right: clamp(16px, 2vw, 28px);
+  top: 0;
+  right: 0;
   z-index: 2;
-  font-family: var(--font-display);
-  font-size: clamp(18px, 1.8vw, 26px);
-  font-weight: 700;
+  padding: clamp(22px, 2.6vw, 38px);
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
   color: var(--cfs-accent, var(--red));
-  background: rgba(10, 8, 10, 0.5);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 8px 18px;
-  border-radius: 999px;
-  text-shadow: 0 0 30px color-mix(in srgb, var(--cfs-accent) 45%, transparent);
+  background: radial-gradient(circle at 78% 22%,
+    rgba(6, 4, 6, 0.7) 0%, rgba(6, 4, 6, 0.32) 50%, transparent 72%);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5),
+               0 0 34px color-mix(in srgb, var(--cfs-accent) 50%, transparent);
 }
 
 /* ── Reduced motion: no transforms ── */
