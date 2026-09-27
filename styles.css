@@ -2107,6 +2107,48 @@ h1, h2, h3, h4 {
                      0 0 32px color-mix(in srgb, var(--cfs-accent, var(--red)) 55%, transparent); }
 }
 
+/* Landing impact — squash on contact, rebound, small settle wobble.
+   Animates the individual translate/rotate/scale properties so it layers
+   on top of the inline `transform` the scroll JS writes every frame.
+   --impact (0–1) and --impact-rot vary per card from the JS. */
+.cfs__card.is-landing {
+  animation: cfs-land 0.75s cubic-bezier(0.22, 1, 0.36, 1) both,
+             cfs-glow-in 1.1s var(--ease-out);
+}
+@keyframes cfs-land {
+  0%   { translate: 0 calc(-14px * var(--impact, 1)); scale: 1;
+         rotate: 0deg; }
+  22%  { translate: 0 calc(6px * var(--impact, 1));
+         scale: calc(1 + 0.018 * var(--impact, 1)) calc(1 - 0.03 * var(--impact, 1));
+         rotate: var(--impact-rot, 1deg); }
+  46%  { translate: 0 calc(-4px * var(--impact, 1));
+         scale: calc(1 - 0.006 * var(--impact, 1)) calc(1 + 0.012 * var(--impact, 1));
+         rotate: calc(var(--impact-rot, 1deg) * -0.5); }
+  70%  { translate: 0 calc(1.5px * var(--impact, 1)); scale: 1;
+         rotate: calc(var(--impact-rot, 1deg) * 0.2); }
+  100% { translate: 0 0; scale: 1; rotate: 0deg; }
+}
+
+/* Cards still stacked behind get knocked when one lands on top. */
+.cfs__card.is-jolt {
+  animation: cfs-jolt 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--jolt-delay, 0ms) both;
+}
+@keyframes cfs-jolt {
+  0%   { translate: 0 0; }
+  30%  { translate: 0 7px; }
+  60%  { translate: 0 -2px; }
+  100% { translate: 0 0; }
+}
+
+@media (max-width: 599px) {
+  /* Mobile cards sit in a plain column, not a physical stack */
+  .cfs__card.is-jolt { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfs__card.is-landing,
+  .cfs__card.is-jolt { animation: none; }
+}
+
 .cfs__card-img {
   position: absolute;
   inset: 0;
