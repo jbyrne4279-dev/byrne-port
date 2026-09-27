@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=78">
+  <link rel="stylesheet" href="styles.css?v=79">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -909,7 +909,31 @@
         const isFront = p < exitEnd || index === TOTAL - 1;
         card.style.pointerEvents = isFront ? '' : 'none';
       });
+
+      if (!mobileMq.matches) setActive(Math.min(TOTAL - 1, Math.floor(p / segment + 0.5)));
     }
+
+    /* The card the visitor has just landed on gets .is-active — red
+       outline glow + a one-shot sparkle on its buttons (CSS). Re-adding
+       the class restarts the animations each time a new card arrives. */
+    let activeIndex = -1;
+    function setActive(i) {
+      if (i === activeIndex) return;
+      if (cards[activeIndex]) cards[activeIndex].classList.remove('is-active');
+      activeIndex = i;
+      if (cards[i]) cards[i].classList.add('is-active');
+    }
+
+    /* Mobile lays the cards out as a plain column (no scroll-jack), so
+       "active" there means the card closest to the middle of the screen. */
+    const mobileMq = window.matchMedia('(max-width: 599px)');
+    const mobileIo = new IntersectionObserver(entries => {
+      if (!mobileMq.matches) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(cards.indexOf(entry.target));
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    cards.forEach(card => mobileIo.observe(card));
 
     /* ── Scroll → rawProgress ── */
     function onScroll() {
