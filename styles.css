@@ -2346,37 +2346,16 @@ h1, h2, h3, h4 {
   filter: drop-shadow(0 0 4px var(--cfs-accent, #e0143c));
   pointer-events: none;
 }
-.cfs__dl::after {
-  content: '\2726';
-  position: absolute;
-  top: 3px; right: 5px;
-  font-size: 10px;
-  line-height: 1;
-  color: #fff;
-  text-shadow: 0 0 6px #fff, 0 0 12px var(--cfs-accent, var(--red));
-  opacity: 0;
-  transform: scale(0) rotate(0deg);
-  pointer-events: none;
-}
 /* Electric-red light that races continuously around each pill's
    border. Buttons are offset so the sparks don't travel in unison. */
 @property --dl-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
 .cfs__dl::before { animation: cfs-dl-orbit 3.2s linear infinite; }
 .cfs__dl:nth-child(2)::before { animation-delay: -1.1s; }
 .cfs__dl:nth-child(3)::before { animation-delay: -2.2s; }
-.cfs__card.is-active .cfs__dl::after  { animation: cfs-dl-twinkle 1.1s ease-out 0.5s 2 both; }
-.cfs__card.is-active .cfs__dl:nth-child(2)::after  { animation-delay: 0.65s; }
-.cfs__card.is-active .cfs__dl:nth-child(3)::after  { animation-delay: 0.8s; }
 @keyframes cfs-dl-orbit { to { --dl-angle: 360deg; } }
-@keyframes cfs-dl-twinkle {
-  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
-  40%  { opacity: 1; transform: scale(1.3) rotate(90deg); }
-  100% { opacity: 0; transform: scale(0) rotate(180deg); }
-}
 @media (prefers-reduced-motion: reduce) {
   .cfs__card.is-active,
-  .cfs__dl::before,
-  .cfs__card.is-active .cfs__dl::after { animation: none; }
+  .cfs__dl::before { animation: none; }
 }
 .cfs__dl:hover {
   color: #fff;
