@@ -836,7 +836,7 @@
        stiffness:120, damping:22, mass:0.8, restDelta:0.0005              */
     /* Slightly under-damped (ζ≈0.7) so the stack carries momentum and
        overshoots a touch before settling, instead of gliding dead-stop. */
-    const K = 120, D = 14, M = 0.8;
+    const K = 85, D = 15, M = 1;
     let springPos = 0, springVel = 0, rawProgress = 0, rafId = null;
 
     function springStep(dt) {
@@ -921,6 +921,12 @@
         const scale      = entryScale.toFixed(4);
 
         card.style.transform        = `translate(${exitXPct.toFixed(3)}%, ${translateY}) rotateX(${rX.toFixed(3)}deg) rotateZ(${rZ.toFixed(3)}deg) scale(${scale})`;
+        /* Motion blur: scales with scroll speed, strongest mid-flight,
+           so fast flicks smear softly instead of snapping sharp. */
+        const moving = !isLast && tExit > 0 && tExit < 1;
+        const speed  = Math.min(Math.abs(springVel) * 12, 1);
+        const blur   = reduceMotion || mobileMq.matches || !moving ? 0 : (1.5 + 5 * Math.sin(Math.PI * tExit)) * speed;
+        card.style.filter           = blur > 0.15 ? `blur(${blur.toFixed(2)}px)` : '';
         card.style.transformOrigin  = '50% 50%';
         card.style.zIndex           = TOTAL - index;
 
