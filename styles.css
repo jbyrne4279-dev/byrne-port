@@ -2386,6 +2386,40 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
+/* Same electric-red orbiting border, applied to the card itself and
+   to its glass text panel — the whole card reads as "live" all the
+   time, not just its download buttons. Runs continuously, offset from
+   each other and from the buttons so the sparks don't all sync up. */
+.cfs__card { position: relative; }
+.cfs__card::before,
+.cfs__glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--dl-angle),
+    transparent 0deg, transparent 250deg,
+    var(--red-dim, rgba(224,20,60,0.35)) 290deg,
+    var(--cfs-accent, #e0143c) 335deg, #fff 352deg,
+    var(--cfs-accent, #e0143c) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter: drop-shadow(0 0 4px var(--cfs-accent, #e0143c));
+  pointer-events: none;
+  z-index: 4;
+}
+.cfs__card::before { animation: cfs-dl-orbit 6s linear infinite; }
+.cfs__glass::before { animation: cfs-dl-orbit 6s linear infinite; animation-delay: -2s; border-radius: 0; }
+@media (max-width: 599px) {
+  .cfs__glass::before { display: none; } /* mobile glass panel is a plain box below the image */
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfs__card::before,
+  .cfs__glass::before { animation: none; }
+}
+
 /* Grade % — off the headline, sitting directly on the image in the
    top-right corner. A soft radial vignette (not a pill/chip) keeps it
    legible against any photo without looking like a slapped-on badge. */
