@@ -1877,6 +1877,17 @@ h1, h2, h3, h4 {
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 
+/* Free Tools cards: electric-red edge glow on hover / keyboard focus */
+#tools .site-card:hover,
+#tools .site-card:focus-visible {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px var(--red),
+              0 0 22px var(--red-glow),
+              0 0 60px var(--red-dim),
+              0 16px 48px rgba(0,0,0,0.5);
+  outline: none;
+}
+
 /* Fixed card width only inside the marquee track — the Free Tools
    grid card keeps its normal grid-cell sizing. */
 .websites__track .site-card {
