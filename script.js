@@ -284,7 +284,7 @@
 
   const MAX_SPEED = 7;     // cards/sec the reel scrolls at the far edge (hover)
   const DEAD      = 0.08;  // central rest zone (fraction of half width)
-  const SNAP_EASE = 0.22;  // ease factor when settling onto a card
+  const SNAP_EASE = 0.10;  // ease factor when settling onto a card (slow, cinematic glide)
 
   // Swipe / flick momentum: the speed of the swipe modifies the scroll speed
   const FRICTION   = 0.93;  // momentum decay per 60fps frame
@@ -294,9 +294,10 @@
   const VEL_MIN    = 0.2;   // momentum stops below this (cards/sec)
 
   // Motion blur driven by how fast the reel is actually moving on screen
-  const BLUR_MIN_SPEED = 1.5;  // cards/sec below which there's no blur
-  const BLUR_PER_SPEED = 1.1;  // px of blur per card/sec above the floor
-  const MAX_BLUR       = 7;    // cap (px)
+  const BLUR_MIN_SPEED = 1.0;  // cards/sec below which there's no blur
+  const BLUR_PER_SPEED = 1.5;  // px of blur per card/sec above the floor
+  const MAX_BLUR       = 11;   // cap (px)
+  const DIM_PER_SPEED  = 0.05; // extra darken per card/sec while transitioning
 
   // Responsive coverflow parameters
   function params() {
@@ -332,17 +333,23 @@
       const rot    = -sign * clamp * p.rot;
       const tx     = offset * p.step;           // % of card width
       const tz     = -abs * p.z;                // push side cards back
-      const bright = Math.max(0.7, 1 - abs * 0.08);
-      const hidden = abs > p.maxVis + 0.5;
+      // Cinematic dip: darken and pull back on top of the normal
+      // side-card falloff while the reel is actually moving, so the
+      // whole transition reads like a graded video cut rather than a
+      // mechanical slide.
+      const moveDim = Math.min(0.35, motionBlur * 0.03);
+      const bright  = Math.max(0.55, 1 - abs * 0.08 - moveDim);
+      const hidden  = abs > p.maxVis + 0.5;
+      const moveScale = 1 - Math.min(0.04, motionBlur * 0.004);
 
       card.style.transform =
         `translate(-50%, -50%) translateX(${tx}%) translateZ(${tz}px) ` +
-        `rotateY(${rot}deg) scale(${scale})`;
+        `rotateY(${rot}deg) scale(${(scale * moveScale).toFixed(4)})`;
       card.style.zIndex  = String(100 - Math.round(abs));
       card.style.opacity = hidden ? '0' : '1';
       card.style.filter  = motionBlur > 0.05
-        ? `brightness(${bright}) blur(${motionBlur.toFixed(2)}px)`
-        : `brightness(${bright})`;
+        ? `brightness(${bright.toFixed(3)}) blur(${motionBlur.toFixed(2)}px) saturate(${(1 - moveDim * 0.6).toFixed(3)})`
+        : `brightness(${bright.toFixed(3)})`;
       card.style.pointerEvents = hidden ? 'none' : 'auto';
       card.classList.toggle('is-active', i === centreIndex);
     });
