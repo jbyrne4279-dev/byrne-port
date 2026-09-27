@@ -1661,9 +1661,12 @@ h1, h2, h3, h4 {
   opacity: 0;
   transition: opacity 0.3s var(--ease-out) 0.08s, color 0.2s;
   text-shadow: 0 0 10px var(--red-dim);
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
 }
 
-.project-card:hover .project-card__link { opacity: 1; }
+.project-card:hover .project-card__link { opacity: 1; color: #fff; text-shadow: none; }
 .project-card__link:hover { color: #fff; text-shadow: none; }
 
 /* ── PROJECTS CINEMA CAROUSEL ── */
@@ -1879,7 +1882,13 @@ h1, h2, h3, h4 {
 
 /* Free Tools cards: electric-red edge glow on hover / keyboard focus */
 #tools .site-card:hover,
-#tools .site-card:focus-visible {
+#tools .site-card:focus-visible,
+#websites .site-card:hover,
+#websites .site-card:focus-visible,
+.project-card:hover,
+.project-card:focus-within,
+.project-card:hover .project-card__link,
+.project-card:focus-within .project-card__link {
   border-color: var(--red);
   box-shadow: 0 0 0 1px var(--red),
               0 0 22px var(--red-glow),
