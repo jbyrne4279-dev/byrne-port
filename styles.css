@@ -2070,23 +2070,28 @@ h1, h2, h3, h4 {
   justify-content: center;
   overflow: hidden;
   padding: clamp(14px, 4vw, 64px);
-  padding-top: calc(var(--nav-h) + clamp(14px, 3vw, 40px));
-  padding-bottom: clamp(14px, 3vw, 40px);
+  padding-top: calc(var(--nav-h) + clamp(8px, 1.6vw, 20px));
+  padding-bottom: clamp(8px, 1.6vw, 20px);
 }
 
 /* Perspective stage — cards stack here. Doubled from the original
-   860px/3:4 sizing per request; width is also capped by viewport
-   height (144vh ≈ 82vh at the 1.76:1 desktop ratio) so a much wider
-   stage never forces the card taller than the sticky 100vh frame. */
+   860px/3:4 sizing per request; width is also capped so the stage's
+   height (at the 1.76:1 desktop ratio) fits the room actually left
+   inside the sticky 100vh frame once the nav bar and padding are
+   subtracted — sized to fill that space edge to edge without being
+   clipped by the frame's overflow:hidden. */
 .cfs__stage {
   position: relative;
   margin: 0 auto;
-  width: min(1720px, 94vw);
+  width: min(1720px, 96vw);
   aspect-ratio: 3/4;
   perspective: 800px;
 }
 @media (min-width: 600px) {
-  .cfs__stage { aspect-ratio: 1.76/1; width: min(1720px, 94vw, 144vh); }
+  .cfs__stage {
+    aspect-ratio: 1.76/1;
+    width: min(1720px, 96vw, calc((100vh - var(--nav-h) - 2 * clamp(8px, 1.6vw, 20px) - 8px) * 1.76));
+  }
 }
 
 /* ── Individual card — full-bleed cover image, no inner grid ── */
@@ -2368,8 +2373,10 @@ h1, h2, h3, h4 {
 /* Same electric-red orbiting border, applied to the card itself and
    to its glass text panel — the whole card reads as "live" all the
    time, not just its download buttons. Runs continuously, offset from
-   each other and from the buttons so the sparks don't all sync up. */
-.cfs__card { position: relative; }
+   each other and from the buttons so the sparks don't all sync up.
+   (.cfs__card is already `position: absolute` from its base rule up
+   top, which is a positioning context on its own — do NOT re-declare
+   position here, it would break the whole coverflow stack layout.) */
 .cfs__card::before,
 .cfs__glass::before {
   content: '';
