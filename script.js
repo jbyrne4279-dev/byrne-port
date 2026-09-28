@@ -508,11 +508,18 @@
   let startX = 0, startPos = 0, lastX = 0, lastMoveT = 0, dragVel = 0;
   let suppressClick = false;
 
+  // Cached instead of read on every pointermove: offsetWidth forces a
+  // synchronous layout, and reading it after every drag frame's style
+  // writes (in draw()) was forcing that layout on *every single*
+  // finger movement — the actual cause of the swipe lag. Recomputed
+  // once per drag (cheap) and on resize, not per pixel of movement.
+  let cachedPxPerCard = 100;
   function pxPerCard() {
     const w = allCards[0] ? allCards[0].offsetWidth
                           : carousel.getBoundingClientRect().width * 0.3;
     return Math.max(60, w * (params().step / 100));
   }
+  window.addEventListener('resize', () => { cachedPxPerCard = pxPerCard(); }, { passive: true });
 
   let activePointerId = null;
 
@@ -528,6 +535,7 @@
     activePointerId = e.pointerId;
     vel = 0;
     snapTarget = null;
+    cachedPxPerCard = pxPerCard(); // one layout read for the whole drag
     if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
     // NOTE: pointer capture is deferred until an actual drag starts (below).
     // Capturing on pointerdown makes the follow-up `click` fire on the
@@ -538,7 +546,7 @@
     // Active drag: track the pointer 1:1 and measure its speed for the flick
     if (dragging) {
       const now = performance.now();
-      const ppc = pxPerCard();
+      const ppc = cachedPxPerCard;
       const dx  = e.clientX - startX;
       if (Math.abs(dx) > 6 && !suppressClick) {
         suppressClick = true;              // it's a drag, not a click
@@ -649,6 +657,7 @@
   });
 
   draw();
+  cachedPxPerCard = pxPerCard();
 })();
 
 /* ── SCROLL REVEAL ── */
