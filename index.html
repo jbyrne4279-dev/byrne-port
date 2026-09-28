@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=91">
+  <link rel="stylesheet" href="styles.css?v=92">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -990,14 +990,27 @@
     }, { rootMargin: '-45% 0px -45% 0px' });
     cards.forEach(card => mobileIo.observe(card));
 
-    /* ── Scroll → rawProgress ── */
-    function onScroll() {
+    /* ── Scroll → rawProgress ──
+       Fast trackpad/wheel scrolling can fire far more 'scroll' events
+       than there are frames to paint them in; reading layout
+       (getBoundingClientRect/offsetHeight) on every single one was
+       piling up redundant forced-layout work on top of everything
+       else the stack already does each frame. Coalesce to at most
+       once per animation frame instead. */
+    let scrollQueued = false;
+    function readScroll() {
+      scrollQueued = false;
       if (!track) return;
       const rect  = track.getBoundingClientRect();
       const total = track.offsetHeight - window.innerHeight;
       rawProgress = total > 0 ? clamp01(-rect.top / total) : 0;
       if (reduceMotion) { applyCards(rawProgress); return; }
       startSpring();
+    }
+    function onScroll() {
+      if (scrollQueued) return;
+      scrollQueued = true;
+      requestAnimationFrame(readScroll);
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
