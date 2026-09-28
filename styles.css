@@ -1765,11 +1765,19 @@ h1, h2, h3, h4 {
 
 /* Electric red outline on the focused / hovered slide.
    Uses box-shadow (spread ring + glow) on the card itself, so it is
-   never clipped by the card's own overflow: hidden. */
+   never clipped by the card's own overflow: hidden. Static by
+   default; the flicker only runs once the carousel settles (see
+   below) — animating this large blurred box-shadow continuously
+   while the active card changes every drag frame was a real cost
+   during a swipe. */
 .portfolio__carousel .project-card.is-active,
 .portfolio__carousel .project-card:hover {
-  animation: electric-outline 1.5s steps(1, end) infinite;
+  box-shadow: 0 0 0 2px var(--red), 0 0 22px var(--red-glow), 0 0 55px var(--red-dim);
   z-index: 50;
+}
+.portfolio__carousel.is-idle .project-card.is-active,
+.portfolio__carousel.is-idle .project-card:hover {
+  animation: electric-outline 1.5s steps(1, end) infinite;
 }
 
 @keyframes electric-outline {
