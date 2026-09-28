@@ -1848,15 +1848,15 @@ h1, h2, h3, h4 {
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 
-/* Free Tools cards: electric-red edge glow on hover / keyboard focus */
+/* Free Tools / Web Dev cards: electric-red edge glow on hover / keyboard
+   focus. Project cards used to be part of this rule too, but that glow
+   is exactly what was still lagging the project carousel on swipe (a
+   large blurred box-shadow repainting as the active/hovered card
+   changed every drag frame) — removed from project cards entirely. */
 #tools .site-card:hover,
 #tools .site-card:focus-visible,
 #websites .site-card:hover,
-#websites .site-card:focus-visible,
-.project-card:hover,
-.project-card:focus-within,
-.project-card:hover .project-card__link,
-.project-card:focus-within .project-card__link {
+#websites .site-card:focus-visible {
   border-color: var(--red);
   box-shadow: 0 0 0 1px var(--red),
               0 0 22px var(--red-glow),
