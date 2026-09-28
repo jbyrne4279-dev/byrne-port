@@ -401,14 +401,6 @@
     }
     prevPos = pos;
 
-    // The active/hovered card's glow only flickers while the reel is
-    // actually holding still — while it's moving (dragging, flinging,
-    // snapping) it's a static glow instead. That infinite flicker
-    // restarts its (large, blurred) box-shadow animation constantly
-    // as the active card changes mid-swipe, which was a real chunk of
-    // the swipe lag.
-    carousel.classList.toggle('is-idle', !running && !dragging);
-
     draw();
     rafId = running ? requestAnimationFrame(frame) : null;
   }
@@ -541,7 +533,6 @@
     flinging = false;
     suppressClick = false;
     activePointerId = e.pointerId;
-    carousel.classList.remove('is-idle');
     vel = 0;
     snapTarget = null;
     cachedPxPerCard = pxPerCard(); // one layout read for the whole drag

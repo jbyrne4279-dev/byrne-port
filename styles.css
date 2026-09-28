@@ -1763,58 +1763,14 @@ h1, h2, h3, h4 {
   opacity: 1;
 }
 
-/* Electric red outline on the focused / hovered slide.
-   Uses box-shadow (spread ring + glow) on the card itself, so it is
-   never clipped by the card's own overflow: hidden. Static by
-   default; the flicker only runs once the carousel settles (see
-   below) — animating this large blurred box-shadow continuously
-   while the active card changes every drag frame was a real cost
-   during a swipe. */
+/* Red outline removed from the focused / hovered slide — it was the
+   last real cost behind the swipe lag (a box-shadow, even static,
+   with this much blur/spread is expensive to repaint on a big card
+   every drag frame). Just raise the active card above its neighbours
+   now. */
 .portfolio__carousel .project-card.is-active,
 .portfolio__carousel .project-card:hover {
-  box-shadow: 0 0 0 2px var(--red), 0 0 22px var(--red-glow), 0 0 55px var(--red-dim);
   z-index: 50;
-}
-.portfolio__carousel.is-idle .project-card.is-active,
-.portfolio__carousel.is-idle .project-card:hover {
-  animation: electric-outline 1.5s steps(1, end) infinite;
-}
-
-@keyframes electric-outline {
-  0% {
-    box-shadow: 0 0 0 2px var(--red),
-                0 0 22px var(--red-glow),
-                0 0 55px var(--red-dim);
-  }
-  25% {
-    box-shadow: 0 0 0 2px #ff3b5c,
-                0 0 34px var(--red-glow),
-                0 0 82px var(--red-dim);
-  }
-  50% {
-    box-shadow: 0 0 0 2px var(--red),
-                0 0 18px var(--red-glow),
-                0 0 44px var(--red-dim);
-  }
-  75% {
-    box-shadow: 0 0 0 2px #ff6680,
-                0 0 30px var(--red-glow),
-                0 0 74px var(--red-dim);
-  }
-  100% {
-    box-shadow: 0 0 0 2px var(--red),
-                0 0 22px var(--red-glow),
-                0 0 55px var(--red-dim);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .portfolio__carousel .project-card.is-active,
-  .portfolio__carousel .project-card:hover {
-    animation: none;
-    box-shadow: 0 0 0 2px var(--red), 0 0 26px var(--red-glow);
-  }
-  .portfolio__carousel .project-card { transition: none; }
 }
 
 /* ── WEBSITES ── */
