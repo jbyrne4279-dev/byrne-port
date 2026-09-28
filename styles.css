@@ -2098,7 +2098,8 @@ h1, h2, h3, h4 {
   margin: 0 auto;
   width: min(1720px, 96vw);
   aspect-ratio: 3/4;
-  perspective: 800px;
+  /* No perspective/3D any more — cards only move on translateY now,
+     so a 3D rendering context here was pure compositing overhead. */
 }
 @media (min-width: 600px) {
   .cfs__stage {
@@ -2117,8 +2118,6 @@ h1, h2, h3, h4 {
   color: var(--cfs-fg, #fff);
   box-shadow: 0 16px 50px rgba(0,0,0,0.45);
   will-change: transform, opacity;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
   z-index: var(--cfs-z, 1);
   /* resting state set by JS via inline style */
 }
@@ -2145,30 +2144,21 @@ h1, h2, h3, h4 {
                      0 0 32px color-mix(in srgb, var(--cfs-accent, var(--red)) 55%, transparent); }
 }
 
-/* Landing — a smooth, single-direction float up into place. No
-   squash, no rebound, no rotate wobble: just a soft ease-out rise.
+/* Landing — a smooth, perfectly vertical float up into place. No
+   squash, no rebound, no rotate, no sideways drift, no wobble at all:
+   just a straight ease-out rise on `translate` alone.
    --impact (0–1) varies the travel distance per card from the JS. */
 .cfs__card.is-landing {
   animation: cfs-land 0.85s cubic-bezier(0.16, 1, 0.3, 1) both,
              cfs-glow-in 1.1s var(--ease-out);
 }
 @keyframes cfs-land {
-  0%   { translate: 0 calc(26px * var(--impact, 1)); scale: 1; rotate: 0deg; }
-  100% { translate: 0 0; scale: 1; rotate: 0deg; }
+  0%   { translate: 0 calc(26px * var(--impact, 1)); }
+  100% { translate: 0 0; }
 }
 
-/* Cards still stacked behind used to get knocked when one landed on
-   top; now they just hold still so the whole stack reads as one
-   smooth float rather than a chain of little impacts. */
-.cfs__card.is-jolt { animation: none; }
-
-@media (max-width: 599px) {
-  /* Mobile cards sit in a plain column, not a physical stack */
-  .cfs__card.is-jolt { animation: none; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .cfs__card.is-landing,
-  .cfs__card.is-jolt { animation: none; }
+  .cfs__card.is-landing { animation: none; }
 }
 
 .cfs__card-img {
