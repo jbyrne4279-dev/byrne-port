@@ -711,6 +711,10 @@ h1, h2, h3, h4 {
 
 /* ── ABOUT ── */
 .about { background: var(--bg-2); position: relative; }
+/* Tighter than the default section gap — less dead air around the
+   "01 About" label, above it and before the cards start. */
+.about.section { padding-top: clamp(40px, 5vw, 64px); padding-bottom: clamp(56px, 7vw, 96px); }
+.about .section__header { margin-bottom: clamp(20px, 2.5vw, 32px); }
 
 /* Section top red rule */
 .about::before,
