@@ -2409,8 +2409,16 @@ h1, h2, h3, h4 {
   pointer-events: none;
   z-index: 4;
 }
-.cfs__card::before { animation: cfs-dl-orbit 6s linear infinite; }
-.cfs__glass::before { animation: cfs-dl-orbit 6s linear infinite; animation-delay: -2s; border-radius: 0; }
+/* Only the active card actually animates its border — with 5 cards
+   stacked, animating this conic-gradient ring on all of them at once
+   was repainting five large elements (plus their backdrop-filter
+   glass panels) every frame and made the whole stack janky. The
+   ring is still drawn (via mask) on every card, it just holds still
+   until that card becomes the active one. */
+.cfs__card::before,
+.cfs__glass::before { animation: none; }
+.cfs__card.is-active::before { animation: cfs-dl-orbit 6s linear infinite; }
+.cfs__card.is-active .cfs__glass::before { animation: cfs-dl-orbit 6s linear infinite; animation-delay: -2s; border-radius: 0; }
 @media (max-width: 599px) {
   .cfs__glass::before { display: none; } /* mobile glass panel is a plain box below the image */
 }
