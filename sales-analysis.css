@@ -1006,3 +1006,10 @@
   .sa-thumb__big { display: none; }
   .sa-controls__row .sa-switch { order: 2; }
 }
+/* Square, larger product images */
+.sa-table td.sa-col-img { width: 96px; }
+.sa-thumb { width: 84px; aspect-ratio: 1 / 1; }
+.sa-thumb__img { object-fit: cover; }
+.sa-thumb__big { aspect-ratio: 1 / 1; width: 240px; }
+.sa-thumb__big img { object-fit: cover; }
+@media (max-width: 760px) { .sa-thumb { width: 72px; } }
