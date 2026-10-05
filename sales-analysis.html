@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=10">
+  <link rel="stylesheet" href="sales-analysis.css?v=13">
 </head>
 <body class="sa-body">
 
@@ -154,10 +154,10 @@
               <div class="sa-thresholds">
                 <label>Reorder when cover is under <input type="number" id="saReorderWks" min="0.5" step="0.5" value="2"> weeks</label>
                 <label>Watch when cover is under <input type="number" id="saWatchWks" min="1" step="0.5" value="4"> weeks</label>
-                <label>Overstocked above <input type="number" id="saOverWks" min="2" step="1" value="20"> weeks</label>
+                <label>Overstocked above <input type="number" id="saOverWks" min="2" step="1" value="20"> weeks <small class="sa-th-note" id="saOverNote"></small></label>
                 <label>Location cover is low at or below <input type="number" id="saLowLoc" min="0" step="1" value="5"> weeks</label>
                 <label>Location cover is healthy from <input type="number" id="saGoodLoc" min="1" step="1" value="9"> weeks</label>
-                <label>High returns from <input type="number" id="saReturnsPct" min="1" step="1" value="10"> %</label>
+                <label>High returns from <input type="number" id="saReturnsPct" min="1" step="1" value="10"> % <small class="sa-th-note" id="saRetNote"></small></label>
                 <label>Trend counts as a move at <input type="number" id="saTrendPct" min="1" step="1" value="10"> %</label>
               </div>
             </div>
@@ -222,6 +222,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=7"></script>
+  <script src="sales-analysis.js?v=9"></script>
 </body>
 </html>

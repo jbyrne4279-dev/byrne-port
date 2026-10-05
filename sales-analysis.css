@@ -915,3 +915,13 @@
 .sa-original__sheet { margin: 4px 20px 8px; font-size: 13px; font-weight: 600; text-transform: none; font-family: var(--font-body); letter-spacing: 0; }
 .sa-original__sheet span { font-weight: 400; color: var(--sa-label-3); margin-left: 6px; }
 .sa-map__sheet { grid-column: 1 / -1; }
+.sa-th-note { display: block; margin-top: 2px; font-size: 11px; color: var(--sa-label-3); }
+/* Wide reports: let the table scroll sideways instead of clipping columns */
+.sa-table-wrap { overflow-x: auto; }
+@media (min-width: 761px) {
+  .sa-table th, .sa-table td { padding-left: 10px; padding-right: 10px; }
+  .sa-table td.sa-col-prod { min-width: 210px; }
+  .sa-table td.sa-col-sold { min-width: 130px; }
+  .sa-table td.sa-col-action { min-width: 140px; }
+}
+.sa-results .sa-container { max-width: 1380px; }

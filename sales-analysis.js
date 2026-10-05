@@ -586,7 +586,11 @@
       const val = {};
       FIELDS.forEach(f => {
         src[f.key] = txt(f.key);
-        if (NUMERIC.has(f.key)) val[f.key] = map[f.key] != null ? num(r[map[f.key]]) : undefined;
+        // Work from the value as displayed (what the user sees in Excel: "3", "7%"),
+        // not Excel's hidden underlying number (2.5, 0.07), so every flag and
+        // colour agrees with the figure on screen. Fall back to the raw value
+        // only if the displayed text isn't a number.
+        if (NUMERIC.has(f.key)) val[f.key] = map[f.key] != null ? (num(tr[map[f.key]]) ?? num(r[map[f.key]])) : undefined;
       });
       if (map.combined != null) {
         const c = tr[map.combined];
@@ -1319,11 +1323,37 @@
     catch (err) { setStatus(esc(err.message), false, true); }
   });
   Object.values(els.th).forEach(inp => inp && inp.addEventListener('input', () => {
+    inp.dataset.user = '1';
     if (!state.sheets.length) return;
     try { runAnalysis(); render(); } catch (err) { /* keep last good view */ }
   }));
 
   /* ───────────────────────── Loading ───────────────────────── */
+
+  // Defaults that follow the file's own norms (from its Total row), unless the
+  // user has typed their own: overstock at 1.5x the average cover, high
+  // returns at 1.5x the average returns rate.
+  function adaptThresholds() {
+    let changed = false;
+    const note = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const cover = num(totalFromFile('totalCover'));
+    if (!els.th.overWks.dataset.user) {
+      if (cover != null && cover > 0) {
+        els.th.overWks.value = Math.max(8, Math.round(cover * 1.5));
+        note('saOverNote', `(1.5× your file’s average cover of ${cover} wks)`);
+      } else { els.th.overWks.value = 20; note('saOverNote', ''); }
+      changed = true;
+    }
+    const ret = num(totalFromFile('returns'));
+    if (!els.th.returnsPct.dataset.user) {
+      if (ret != null && ret > 0) {
+        els.th.returnsPct.value = Math.max(1, Math.round(ret * 1.5));
+        note('saRetNote', `(1.5× your file’s average returns of ${ret}%)`);
+      } else { els.th.returnsPct.value = 10; note('saRetNote', ''); }
+      changed = true;
+    }
+    return changed;
+  }
 
   function skippedNote() {
     const k = state.skipped || {};
@@ -1353,7 +1383,7 @@
     els.search.value = '';
 
     const hasProducts = state.sheets.length > 0;
-    if (hasProducts) runAnalysis();
+    if (hasProducts) { runAnalysis(); if (adaptThresholds()) runAnalysis(); }
     else state.analysis = null;
 
     // What happened to every sheet, so nothing is silently skipped
