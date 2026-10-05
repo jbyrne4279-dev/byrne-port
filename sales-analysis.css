@@ -942,3 +942,67 @@
 .sa-stickyhead.is-on { display: block; }
 .sa-stickyhead .sa-table th { border-bottom: 0; background: var(--sa-panel); }
 .sa-controls { background: #000; }
+
+/* ── Product images (next.co.uk) ── */
+.sa-table td.sa-col-img { width: 72px; padding-right: 4px; }
+.sa-thumb {
+  position: relative;
+  display: grid; place-items: center;
+  width: 60px; aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  background: #fff;
+  overflow: visible;
+  text-decoration: none;
+}
+.sa-thumb__img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: #fff; }
+.sa-thumb::after {            /* shimmer while loading */
+  content: ''; position: absolute; inset: 0; border-radius: 8px;
+  background: linear-gradient(100deg, #1a1a1d 30%, #26262b 50%, #1a1a1d 70%);
+  background-size: 200% 100%; animation: sa-shimmer 1.2s linear infinite;
+}
+.sa-thumb.is-loaded::after,
+.sa-thumb--none::after,
+.sa-thumb:has(.sa-thumb__ph)::after { display: none; }
+@keyframes sa-shimmer { to { background-position: -200% 0; } }
+.sa-thumb--none, .sa-thumb:has(.sa-thumb__ph) { background: var(--sa-panel-2); color: var(--sa-label-3); }
+.sa-thumb__ph { font-size: 10px; line-height: 1.25; text-align: center; color: var(--sa-label-3); padding: 4px; }
+.sa-thumb__ph small { color: #8fb6ff; font-size: 9.5px; }
+/* Hover: larger preview */
+.sa-thumb__big {
+  position: absolute; left: calc(100% + 10px); top: 50%; z-index: 30;
+  width: 220px; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden;
+  background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+  opacity: 0; transform: translateY(-50%) scale(0.96); pointer-events: none;
+  transition: opacity .15s, transform .15s;
+}
+.sa-thumb__big img { width: 100%; height: 100%; object-fit: contain; }
+.sa-thumb.is-loaded:hover .sa-thumb__big { opacity: 1; transform: translateY(-50%) scale(1); }
+.sa-thumb:focus-visible { outline: 2px solid var(--sa-accent); outline-offset: 2px; }
+
+/* Images on/off switch */
+.sa-switch { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--sa-label-2); cursor: pointer; white-space: nowrap; }
+.sa-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.sa-switch__track { position: relative; width: 34px; height: 20px; border-radius: 999px; background: rgba(255,255,255,0.14); transition: background .2s; }
+.sa-switch__track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.sa-switch input:checked + .sa-switch__track { background: var(--sa-accent); }
+.sa-switch input:checked + .sa-switch__track::after { transform: translateX(14px); }
+.sa-switch input:focus-visible + .sa-switch__track { outline: 2px solid var(--sa-accent); outline-offset: 2px; }
+
+@media (max-width: 760px) {
+  .sa-table tr.sa-row {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      "pri  img  prod"
+      ".    img  sold"
+      "m    m    m"
+      "act  act  act";
+  }
+  .sa-table tr.sa-row:not(:has(.sa-a-img)) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "pri prod" ". sold" "m m" "act act";
+  }
+  .sa-table tr.sa-row td.sa-a-img { grid-area: img; }
+  .sa-thumb { width: 56px; }
+  .sa-thumb__big { display: none; }
+  .sa-controls__row .sa-switch { order: 2; }
+}

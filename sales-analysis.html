@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=14">
+  <link rel="stylesheet" href="sales-analysis.css?v=15">
 </head>
 <body class="sa-body">
 
@@ -76,7 +76,7 @@
         <button class="sa-btn sa-btn--ghost" type="button" id="saSample">Try it with sample data</button>
         <p class="sa-privacy">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-          Your file is read in your browser and never uploaded anywhere.
+          Your file is read in your browser and never uploaded. Only item numbers are used to load product photos from next.co.uk.
         </p>
       </div>
       <details class="sa-help">
@@ -170,6 +170,11 @@
           <div class="sa-pills" id="saPills" role="tablist" aria-label="Filter products"></div>
           <div class="sa-controls__row">
             <input class="sa-search" id="saSearch" type="search" placeholder="Search product or code…" aria-label="Search products">
+            <label class="sa-switch" title="Show product photos from next.co.uk, looked up by item number">
+              <input type="checkbox" id="saImgToggle" checked>
+              <span class="sa-switch__track" aria-hidden="true"></span>
+              <span>Next images</span>
+            </label>
             <label class="sa-sort">
               <span>Sort</span>
               <select id="saSort">
@@ -222,6 +227,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=11"></script>
+  <script src="sales-analysis.js?v=13"></script>
 </body>
 </html>

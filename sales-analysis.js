@@ -903,11 +903,82 @@
       ${ranks ? `<div class="sa-prod__ranks">${ranks}</div>` : ''}`;
   }
 
+  /* ───────────────────────── Product images from next.co.uk ─────────────────────────
+     Images load straight into the visitor's browser from Next's image server,
+     addressed by the item number (no scraping, no server). Next's URL scheme
+     isn't published, so several known patterns are tried in turn; whichever
+     works is remembered and tried first for the next product. Only the item
+     number is sent; nothing else from the file leaves the browser. */
+  let IMG_TEMPLATES = [
+    c => `https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/product/lge/${c}s.jpg`,
+    c => `https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/search/lge/${c}.jpg`,
+    c => `https://xcdn.next.co.uk/common/items/default/default/itemimages/altitemshot/315x472/${c}s.jpg`,
+    c => `https://xcdn.next.co.uk/Common/Items/Default/Default/ItemImages/AltItemShot/315x472/${c}s.jpg`,
+    c => `https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/product/lge/${c}.jpg`
+  ];
+  const nextUrl = c => `https://www.next.co.uk/search?w=${encodeURIComponent(c)}`;
+  const imgCode = code => String(code || '').toUpperCase().replace(/[\s\-\/.]/g, '');
+  const imgState = new Map();          // code → { url } | { failed: true }
+  let imgPreferred = 0;
+  try { imgPreferred = parseInt(localStorage.getItem('saImgTpl') || '0', 10) || 0; } catch (e) {}
+  let imagesOn = true;
+  try { imagesOn = localStorage.getItem('saImages') !== 'off'; } catch (e) {}
+  const imgOrder = () => [imgPreferred].concat(IMG_TEMPLATES.map((_, i) => i).filter(i => i !== imgPreferred))
+    .filter(i => i < IMG_TEMPLATES.length);
+
+  function thumb(p) {
+    const code = imgCode(p.code);
+    const label = esc(p.name || p.code || '');
+    if (!code || !/^[A-Z0-9]{4,10}$/.test(code)) return `<span class="sa-thumb sa-thumb--none" title="No item number to look up">—</span>`;
+    const st = imgState.get(code);
+    const link = inner => `<a class="sa-thumb" href="${nextUrl(code)}" target="_blank" rel="noopener noreferrer" title="Open ${esc(code)} on next.co.uk">${inner}</a>`;
+    if (st && st.failed) return link(`<span class="sa-thumb__ph">No image<br><small>View on Next</small></span>`);
+    const first = imgOrder()[0];
+    const src = st && st.url ? st.url : IMG_TEMPLATES[first](code);
+    return link(`<img class="sa-thumb__img" src="${esc(src)}" alt="${label}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-code="${esc(code)}" data-tpl="${st && st.url ? -1 : first}" data-tried="${st && st.url ? '' : first}">` +
+      `<span class="sa-thumb__big" aria-hidden="true"><img src="" alt="" data-big></span>`);
+  }
+  // One listener for every thumbnail: on error try the next URL pattern; on success remember it
+  document.addEventListener('error', e => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.classList.contains('sa-thumb__img')) return;
+    const code = img.dataset.code;
+    // Each image keeps its own list of patterns tried, so another image
+    // learning the working pattern mid-way can't make this one skip it.
+    const tried = img.dataset.tried ? img.dataset.tried.split(',').map(Number) : [];
+    const known = (imgState.get(code) || {}).url;
+    const next = imgOrder().find(i => !tried.includes(i));
+    if (known && img.src !== known) {
+      img.dataset.tpl = -1; img.src = known;
+    } else if (next != null) {
+      tried.push(next);
+      img.dataset.tried = tried.join(',');
+      img.dataset.tpl = next;
+      img.src = IMG_TEMPLATES[next](code);
+    } else {
+      imgState.set(code, { failed: true });
+      const a = img.closest('.sa-thumb');
+      if (a) a.innerHTML = '<span class="sa-thumb__ph">No image<br><small>View on Next</small></span>';
+    }
+  }, true);
+  document.addEventListener('load', e => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.classList.contains('sa-thumb__img')) return;
+    const code = img.dataset.code;
+    const tpl = parseInt(img.dataset.tpl, 10);
+    imgState.set(code, { url: img.currentSrc || img.src });
+    if (tpl >= 0 && tpl !== imgPreferred) { imgPreferred = tpl; try { localStorage.setItem('saImgTpl', String(tpl)); } catch (err) {} }
+    const big = img.parentElement.querySelector('img[data-big]');
+    if (big) big.src = img.currentSrc || img.src;
+    img.parentElement.classList.add('is-loaded');
+  }, true);
+
   // Table columns, built from whatever the file contains
   function columns(A) {
     const h = A.has, cov = A.locCoverMode;
     const cols = [
       { cls: 'sa-col-pri', th: 'Priority', td: p => `<span class="sa-pri sa-pri--${STATUS[p.status].pri}">${p.priority}</span>`, area: 'pri' },
+      ...(imagesOn && h.code ? [{ cls: 'sa-col-img', th: 'Image', td: p => thumb(p), area: 'img' }] : []),
       { cls: 'sa-col-prod', th: 'Product', td: p => productCell(p, A), area: 'prod' },
       { cls: 'sa-col-sold', th: h.value || h.units ? 'Last week sold' : 'Sold', td: (p, mx) => soldCell(p, A, mx), area: 'sold' }
     ];
@@ -1538,6 +1609,15 @@
     renderTable(state.analysis);
   });
   els.search.addEventListener('input', () => { state.query = els.search.value; renderTable(state.analysis); });
+  const imgToggle = document.getElementById('saImgToggle');
+  if (imgToggle) {
+    imgToggle.checked = imagesOn;
+    imgToggle.addEventListener('change', () => {
+      imagesOn = imgToggle.checked;
+      try { localStorage.setItem('saImages', imagesOn ? 'on' : 'off'); } catch (e) {}
+      if (state.analysis) renderTable(state.analysis);
+    });
+  }
   els.sort.addEventListener('change', () => { state.sort = els.sort.value; renderTable(state.analysis); });
   const toggleRow = row => {
     const i = parseInt(row.dataset.uid, 10);
@@ -1587,5 +1667,6 @@
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   });
 
-  window.SalesAnalysis = { handleFiles, loadTables, detectColumns, prepareTable, num };
+  window.SalesAnalysis = { handleFiles, loadTables, detectColumns, prepareTable, num,
+    setImageTemplates(list) { IMG_TEMPLATES = list; imgState.clear(); imgPreferred = 0; } };
 })();
