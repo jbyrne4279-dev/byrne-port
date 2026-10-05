@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Joseph Byrne">
+
+  <title>Sales Analysis for Merchandisers | Weekly Trade Review Tool</title>
+  <meta name="description" content="Upload last week's sales report as Excel, CSV, PDF or an image and get an instant merchandising analysis: what's running out, what to reorder, what's rising and what's slowing down.">
+
+  <link rel="canonical" href="https://josephbyrne.org/sales-analysis">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Joseph Byrne">
+  <meta property="og:title" content="Sales Analysis for Merchandisers">
+  <meta property="og:description" content="Upload a weekly sales report and see what to reorder, what's running out and what's trending.">
+  <meta property="og:url" content="https://josephbyrne.org/sales-analysis">
+  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
+  <meta property="og:locale" content="en_GB">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=97">
+  <link rel="stylesheet" href="sales-analysis.css?v=3">
+</head>
+<body class="sa-body">
+
+  <!-- ── NAV ── -->
+  <nav class="nav is-scrolled" id="nav">
+    <a href="/#tools" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Tools
+    </a>
+    <ul class="nav__links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#portfolio">Work</a></li>
+      <li><a href="/#academic">Academic</a></li>
+      <li><a href="/#tools">Tools</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="sa-page">
+
+    <!-- HERO -->
+    <header class="sa-hero">
+      <div class="sa-container">
+        <p class="sa-eyebrow">Free tool &middot; Merchandising</p>
+        <h1 class="sa-title" data-flicker-manual>Sales <span>Analysis</span></h1>
+        <p class="sa-sub">Drop in last week&rsquo;s sales report and see what&rsquo;s running out, what to reorder, and what&rsquo;s rising or slowing down, in one view.</p>
+      </div>
+    </header>
+
+    <!-- UPLOAD -->
+    <section class="sa-container sa-upload-wrap" id="saUploadWrap">
+      <label class="sa-drop" id="saDrop" for="saFile">
+        <input type="file" id="saFile" accept=".xlsx,.xls,.xlsm,.csv,.tsv,.pdf,.png,.jpg,.jpeg,.webp" hidden>
+        <span class="sa-drop__icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        </span>
+        <span class="sa-drop__title">Drop your weekly sales report here</span>
+        <span class="sa-drop__hint">or <u>browse</u> &middot; Excel, CSV, PDF or a screenshot</span>
+        <span class="sa-drop__formats" aria-hidden="true">
+          <span>XLSX</span><span>CSV</span><span>PDF</span><span>PNG</span><span>JPG</span>
+        </span>
+      </label>
+      <div class="sa-upload-foot">
+        <button class="sa-btn sa-btn--ghost" type="button" id="saSample">Try it with sample data</button>
+        <p class="sa-privacy">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          Your file is read in your browser and never uploaded anywhere.
+        </p>
+      </div>
+      <details class="sa-help">
+        <summary>What should my file include?</summary>
+        <div class="sa-help__body">
+          <p>One row per product. The tool looks for column headings like these (names don&rsquo;t need to match exactly):</p>
+          <ul>
+            <li><b>Product / Description</b> and <b>Code / SKU</b></li>
+            <li><b>Units sold</b> and/or <b>Sales &pound; / Value</b> for the week</li>
+            <li><b>Previous week units</b> (optional, unlocks Improving / Declining)</li>
+            <li><b>Stock</b> by location: <b>Branch</b>, <b>Warehouse</b>, <b>Online</b>, or a single <b>Stock / SOH</b> column</li>
+            <li>Optional: <b>On order</b>, <b>Category</b>, <b>Price</b></li>
+          </ul>
+          <p>Excel and CSV give the most accurate results. PDFs and screenshots are read automatically, so check the column match afterwards.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- STATUS (parsing / errors) -->
+    <div class="sa-container">
+      <div class="sa-status" id="saStatus" role="status" aria-live="polite" hidden></div>
+    </div>
+
+    <!-- RESULTS -->
+    <section class="sa-results" id="saResults" hidden>
+      <div class="sa-container">
+
+        <div class="sa-filebar">
+          <div class="sa-filebar__info">
+            <span class="sa-filebar__label">Analysing</span>
+            <span class="sa-filebar__name" id="saFileName">—</span>
+            <span class="sa-filebar__meta" id="saFileMeta"></span>
+          </div>
+          <div class="sa-filebar__actions">
+            <button class="sa-btn sa-btn--ghost" type="button" id="saExport">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+              Export view
+            </button>
+            <button class="sa-btn" type="button" id="saNew">New file</button>
+          </div>
+        </div>
+
+        <!-- KPI tiles -->
+        <div class="sa-kpis" id="saKpis"></div>
+
+        <!-- Insights + mix -->
+        <div class="sa-split">
+          <article class="sa-panel sa-insights">
+            <h2 class="sa-panel__title">Key takeaways</h2>
+            <ul class="sa-insights__list" id="saInsights"></ul>
+          </article>
+          <article class="sa-panel sa-mix">
+            <h2 class="sa-panel__title">Stock health</h2>
+            <div class="sa-mix__bar" id="saMixBar" aria-hidden="true"></div>
+            <ul class="sa-mix__legend" id="saMixLegend"></ul>
+            <h3 class="sa-panel__sub">Top sellers by &pound;</h3>
+            <ol class="sa-top" id="saTop"></ol>
+          </article>
+        </div>
+
+        <!-- Column mapping + settings -->
+        <details class="sa-panel sa-config" id="saConfig">
+          <summary>
+            <span>Columns &amp; thresholds</span>
+            <span class="sa-config__hint" id="saConfigHint">Check the tool read your columns correctly</span>
+          </summary>
+          <div class="sa-config__body">
+            <div class="sa-config__group">
+              <h3 class="sa-panel__sub">Matched columns</h3>
+              <div class="sa-map" id="saMap"></div>
+            </div>
+            <div class="sa-config__group">
+              <h3 class="sa-panel__sub">Thresholds</h3>
+              <div class="sa-thresholds">
+                <label>Reorder when cover is under <input type="number" id="saReorderWks" min="0.5" step="0.5" value="2"> weeks</label>
+                <label>Watch when cover is under <input type="number" id="saWatchWks" min="1" step="0.5" value="4"> weeks</label>
+                <label>Overstocked above <input type="number" id="saOverWks" min="2" step="1" value="12"> weeks</label>
+                <label>Per-store counts: low at or below <input type="number" id="saLowLoc" min="0" step="1" value="5"> units</label>
+                <label>Per-store counts: healthy from <input type="number" id="saGoodLoc" min="1" step="1" value="9"> units</label>
+                <label>Trend counts as a move at <input type="number" id="saTrendPct" min="1" step="1" value="10"> %</label>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Filter pills + controls -->
+        <div class="sa-controls">
+          <div class="sa-pills" id="saPills" role="tablist" aria-label="Filter products"></div>
+          <div class="sa-controls__row">
+            <input class="sa-search" id="saSearch" type="search" placeholder="Search product or code…" aria-label="Search products">
+            <label class="sa-sort">
+              <span>Sort</span>
+              <select id="saSort">
+                <option value="priority">Priority</option>
+                <option value="value">Sales &pound;</option>
+                <option value="units">Units sold</option>
+                <option value="cover">Weeks cover (lowest)</option>
+                <option value="trendUp">Biggest risers</option>
+                <option value="trendDown">Biggest fallers</option>
+                <option value="stock">Total stock</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="sa-table-wrap">
+          <table class="sa-table" id="saTable">
+            <thead>
+              <tr>
+                <th class="sa-col-pri">Priority</th>
+                <th class="sa-col-prod">Product</th>
+                <th class="sa-col-sold">Last week sold</th>
+                <th class="sa-col-trend">vs prev wk</th>
+                <th class="sa-col-loc" data-loc="branch">Branch</th>
+                <th class="sa-col-loc" data-loc="warehouse">Warehouse</th>
+                <th class="sa-col-loc" data-loc="online">Online</th>
+                <th class="sa-col-loc" data-loc="total">Stock</th>
+                <th class="sa-col-cover">Cover</th>
+                <th class="sa-col-action">Action</th>
+              </tr>
+            </thead>
+            <tbody id="saBody"></tbody>
+          </table>
+          <p class="sa-empty" id="saEmpty" hidden>No products match this filter.</p>
+        </div>
+
+        <p class="sa-method">
+          <b>How it&rsquo;s worked out:</b> weeks cover = total stock &divide; units sold last week. Lines under your reorder threshold, or selling with a location sold out, go to <b>Act now</b>. If your stock figures look like per-store counts rather than totals, products are ranked against each other instead. Trends compare against the previous week where your file includes it.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js?v=36"></script>
+  <script src="sales-analysis.js?v=2"></script>
+</body>
+</html>
