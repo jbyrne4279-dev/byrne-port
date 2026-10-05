@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=3">
+  <link rel="stylesheet" href="sales-analysis.css?v=9">
 </head>
 <body class="sa-body">
 
@@ -62,14 +62,14 @@
     <!-- UPLOAD -->
     <section class="sa-container sa-upload-wrap" id="saUploadWrap">
       <label class="sa-drop" id="saDrop" for="saFile">
-        <input type="file" id="saFile" accept=".xlsx,.xls,.xlsm,.csv,.tsv,.pdf,.png,.jpg,.jpeg,.webp" hidden>
+        <input type="file" id="saFile" accept=".xlsx,.xls,.xlsm,.ods,.csv,.tsv,.html,.htm,.pdf,.png,.jpg,.jpeg,.webp" multiple hidden>
         <span class="sa-drop__icon" aria-hidden="true">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         </span>
         <span class="sa-drop__title">Drop your weekly sales report here</span>
-        <span class="sa-drop__hint">or <u>browse</u> &middot; Excel, CSV, PDF or a screenshot</span>
+        <span class="sa-drop__hint">or <u>browse</u> &middot; Excel, Google Sheets export, CSV, PDF or a screenshot &middot; several sheets at once is fine</span>
         <span class="sa-drop__formats" aria-hidden="true">
-          <span>XLSX</span><span>CSV</span><span>PDF</span><span>PNG</span><span>JPG</span>
+          <span>XLSX</span><span>CSV</span><span>HTML</span><span>PDF</span><span>PNG</span><span>JPG</span>
         </span>
       </label>
       <div class="sa-upload-foot">
@@ -82,15 +82,14 @@
       <details class="sa-help">
         <summary>What should my file include?</summary>
         <div class="sa-help__body">
-          <p>One row per product. The tool looks for column headings like these (names don&rsquo;t need to match exactly):</p>
+          <p>One row per product. The tool recognises headings like these, including two-row headings with <b>Brand / Retail / Online</b> groups above them:</p>
           <ul>
-            <li><b>Product / Description</b> and <b>Code / SKU</b></li>
-            <li><b>Units sold</b> and/or <b>Sales &pound; / Value</b> for the week</li>
-            <li><b>Previous week units</b> (optional, unlocks Improving / Declining)</li>
-            <li><b>Stock</b> by location: <b>Branch</b>, <b>Warehouse</b>, <b>Online</b>, or a single <b>Stock / SOH</b> column</li>
-            <li>Optional: <b>On order</b>, <b>Category</b>, <b>Price</b></li>
+            <li><b>Description</b> and <b>Item Number / SKU</b>, plus ranks, sub group, sell price and distribution</li>
+            <li><b>Last week units</b> and <b>&pound;</b>, and retail <b>Sold</b> / online <b>Orders taken</b></li>
+            <li><b>Cover</b> by location (branch, warehouse, online, total) and <b>Total stock</b></li>
+            <li>Optional: <b>returns rate</b>, <b>on order</b>, a <b>week-before</b> column for Improving / Declining</li>
           </ul>
-          <p>Excel and CSV give the most accurate results. PDFs and screenshots are read automatically, so check the column match afterwards.</p>
+          <p>Summary sheets (sales by product type, colour, size&hellip;) are shown as breakdowns. Any column the tool doesn&rsquo;t recognise is still kept and shown on the product. Spreadsheets and Google Sheets exports give the most accurate results; PDFs and screenshots are read automatically, so check the columns afterwards.</p>
         </div>
       </details>
     </section>
@@ -132,7 +131,7 @@
             <h2 class="sa-panel__title">Stock health</h2>
             <div class="sa-mix__bar" id="saMixBar" aria-hidden="true"></div>
             <ul class="sa-mix__legend" id="saMixLegend"></ul>
-            <h3 class="sa-panel__sub">Top sellers by &pound;</h3>
+            <h3 class="sa-panel__sub" id="saTopTitle">Top sellers</h3>
             <ol class="sa-top" id="saTop"></ol>
           </article>
         </div>
@@ -153,15 +152,17 @@
               <div class="sa-thresholds">
                 <label>Reorder when cover is under <input type="number" id="saReorderWks" min="0.5" step="0.5" value="2"> weeks</label>
                 <label>Watch when cover is under <input type="number" id="saWatchWks" min="1" step="0.5" value="4"> weeks</label>
-                <label>Overstocked above <input type="number" id="saOverWks" min="2" step="1" value="12"> weeks</label>
-                <label>Per-store counts: low at or below <input type="number" id="saLowLoc" min="0" step="1" value="5"> units</label>
-                <label>Per-store counts: healthy from <input type="number" id="saGoodLoc" min="1" step="1" value="9"> units</label>
+                <label>Overstocked above <input type="number" id="saOverWks" min="2" step="1" value="20"> weeks</label>
+                <label>Location cover is low at or below <input type="number" id="saLowLoc" min="0" step="1" value="5"> weeks</label>
+                <label>Location cover is healthy from <input type="number" id="saGoodLoc" min="1" step="1" value="9"> weeks</label>
+                <label>High returns from <input type="number" id="saReturnsPct" min="1" step="1" value="10"> %</label>
                 <label>Trend counts as a move at <input type="number" id="saTrendPct" min="1" step="1" value="10"> %</label>
               </div>
             </div>
           </div>
         </details>
 
+        <div class="sa-products">
         <!-- Filter pills + controls -->
         <div class="sa-controls">
           <div class="sa-pills" id="saPills" role="tablist" aria-label="Filter products"></div>
@@ -176,7 +177,8 @@
                 <option value="cover">Weeks cover (lowest)</option>
                 <option value="trendUp">Biggest risers</option>
                 <option value="trendDown">Biggest fallers</option>
-                <option value="stock">Total stock</option>
+                <option value="returns">Highest returns</option>
+                <option value="file">Order in your file</option>
               </select>
             </label>
           </div>
@@ -185,27 +187,34 @@
         <!-- Table -->
         <div class="sa-table-wrap">
           <table class="sa-table" id="saTable">
-            <thead>
-              <tr>
-                <th class="sa-col-pri">Priority</th>
-                <th class="sa-col-prod">Product</th>
-                <th class="sa-col-sold">Last week sold</th>
-                <th class="sa-col-trend">vs prev wk</th>
-                <th class="sa-col-loc" data-loc="branch">Branch</th>
-                <th class="sa-col-loc" data-loc="warehouse">Warehouse</th>
-                <th class="sa-col-loc" data-loc="online">Online</th>
-                <th class="sa-col-loc" data-loc="total">Stock</th>
-                <th class="sa-col-cover">Cover</th>
-                <th class="sa-col-action">Action</th>
-              </tr>
-            </thead>
+            <thead id="saHead"></thead>
             <tbody id="saBody"></tbody>
           </table>
           <p class="sa-empty" id="saEmpty" hidden>No products match this filter.</p>
         </div>
 
+        <p class="sa-tablehint">Click any product to see every column for it, exactly as in your file.</p>
+        </div>
+
+        <!-- Breakdown tables (e.g. sales by product type / colour / size) -->
+        <section class="sa-breakdowns" id="saBreakdowns" hidden>
+          <h2 class="sa-section-title">Breakdowns</h2>
+          <div class="sa-bd-grid" id="saBdGrid"></div>
+        </section>
+
+        <details class="sa-panel sa-original" id="saOriginal">
+          <summary>
+            <span>Your product sheet, exactly as read</span>
+            <span class="sa-config__hint" id="saOriginalHint">Every row and cell, unchanged, so you can check nothing was altered</span>
+          </summary>
+          <div class="sa-original__scroll">
+            <table class="sa-original__table" id="saOriginalTable"></table>
+          </div>
+        </details>
+
         <p class="sa-method">
-          <b>How it&rsquo;s worked out:</b> weeks cover = total stock &divide; units sold last week. Lines under your reorder threshold, or selling with a location sold out, go to <b>Act now</b>. If your stock figures look like per-store counts rather than totals, products are ranked against each other instead. Trends compare against the previous week where your file includes it.
+          <b>Your data is never changed.</b> Every product, code, sales figure and stock number on this page is shown exactly as it appears in your file, and blank cells stay blank. Nothing is estimated or filled in. Only the layout and the calculated columns (trend, cover, status, action) are added.<br><br>
+          <b>How it&rsquo;s worked out:</b> weeks cover = stock &divide; units sold last week, using only locations that have a figure (blank locations are left out and labelled). Lines under your reorder threshold, or selling with a location sold out, go to <b>Act now</b>. If your stock figures look like per-store counts rather than totals, products are ranked against each other instead. Trends compare against the previous week where your file includes it.
         </p>
       </div>
     </section>
@@ -213,6 +222,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=2"></script>
+  <script src="sales-analysis.js?v=6"></script>
 </body>
 </html>

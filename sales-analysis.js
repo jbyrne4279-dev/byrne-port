@@ -1,9 +1,14 @@
 /* ============================================================
    SALES ANALYSIS FOR MERCHANDISERS | sales-analysis.js
-   Reads a weekly sales report (Excel / CSV / PDF / image) entirely
-   in the browser, works out which columns are which, then scores
-   every product for stock cover, sales strength and week-on-week
-   trend so a merchandiser can see what to act on first.
+   Reads weekly sales reports (Excel / CSV / Google-Sheets or Excel
+   web-page exports / PDF / image) entirely in the browser.
+
+   Ground rule: the user's data is never changed. Every figure shown
+   for a product is the cell text exactly as it appears in the file,
+   blanks stay blank, and nothing is estimated or filled in. Parsed
+   numbers are used only behind the scenes to sort, filter, colour
+   and flag. Anything the tool works out itself (trend %, status,
+   action, a cover figure when the file has none) is labelled as such.
    ============================================================ */
 
 'use strict';
@@ -27,6 +32,7 @@
     mixBar:     $('saMixBar'),
     mixLegend:  $('saMixLegend'),
     top:        $('saTop'),
+    topTitle:   $('saTopTitle'),
     config:     $('saConfig'),
     configHint: $('saConfigHint'),
     map:        $('saMap'),
@@ -34,15 +40,21 @@
     search:     $('saSearch'),
     sort:       $('saSort'),
     table:      $('saTable'),
+    head:       $('saHead'),
     body:       $('saBody'),
     empty:      $('saEmpty'),
+    breakdowns: $('saBreakdowns'),
+    bdGrid:     $('saBdGrid'),
+    origTable:  $('saOriginalTable'),
+    origHint:   $('saOriginalHint'),
     th: {
       reorderWks: $('saReorderWks'),
       watchWks:   $('saWatchWks'),
       overWks:    $('saOverWks'),
       lowLoc:     $('saLowLoc'),
       goodLoc:    $('saGoodLoc'),
-      trendPct:   $('saTrendPct')
+      trendPct:   $('saTrendPct'),
+      returnsPct: $('saReturnsPct')
     }
   };
 
@@ -55,7 +67,7 @@
         const s = document.createElement('script');
         s.src = src;
         s.onload = resolve;
-        s.onerror = () => reject(new Error('Could not load ' + src));
+        s.onerror = () => reject(new Error('Could not load a file reader. Check your connection and try again.'));
         document.head.appendChild(s);
       });
     }
@@ -70,25 +82,25 @@
 
   /* ───────────────────────── Helpers ───────────────────────── */
 
+  // Formatters below are only ever used for figures the tool CALCULATES
+  // (sums, shares). They never round away pence or decimals.
   const fmtGBP = v => v == null ? '—' :
-    '£' + (Math.abs(v) >= 100 ? Math.round(v).toLocaleString('en-GB')
-                              : v.toLocaleString('en-GB', { maximumFractionDigits: 2 }));
-  const fmtInt = v => v == null ? '—' : Math.round(v).toLocaleString('en-GB');
+    '£' + v.toLocaleString('en-GB', { minimumFractionDigits: Number.isInteger(Math.round(v * 100) / 100) ? 0 : 2, maximumFractionDigits: 2 });
+  const fmtNum = v => v == null ? '—' : v.toLocaleString('en-GB', { maximumFractionDigits: 2 });
   const fmtPct = v => (v > 0 ? '+' : '') + Math.round(v) + '%';
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const BLANK = '<span class="sa-blank">blank</span>';
 
-  // "£1,234.50", "1 234", "(12)", "12%", "-", "" → number | null
+  // "£1,234.50", "1 234", "(12)", "12%", "-", "" → number | null (never guesses)
   function num(v) {
     if (v == null) return null;
     if (typeof v === 'number') return isFinite(v) ? v : null;
     let s = String(v).trim();
-    if (!s || /^[-–—]+$/.test(s) || /^(n\/?a|blank|null|none)$/i.test(s)) return null;
+    if (!s || /^[-–—]+$/.test(s)) return null;
     let neg = false;
     if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
     s = s.replace(/[£$€,\s%]/g, '').replace(/units?$/i, '');
-    // OCR commonly reads 0 as O
-    if (/^[0-9oO.]+$/.test(s)) s = s.replace(/[oO]/g, '0');
     if (!/^-?\d*\.?\d+$/.test(s)) return null;
     const n = parseFloat(s);
     return isFinite(n) ? (neg ? -n : n) : null;
@@ -100,75 +112,96 @@
     const m = a.length >> 1;
     return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
   };
+  const isBlankRow = r => !r || !r.some(c => String(c ?? '').trim() !== '');
 
-  /* ───────────────────────── Column detection ───────────────────────── */
+  /* ───────────────────────── Fields ───────────────────────── */
 
   const FIELDS = [
-    { key: 'name',      label: 'Product name' },
-    { key: 'code',      label: 'Code / SKU' },
-    { key: 'category',  label: 'Category' },
-    { key: 'units',     label: 'Units sold (this week)' },
-    { key: 'value',     label: 'Sales £ (this week)' },
-    { key: 'prevUnits', label: 'Units sold (previous week)' },
-    { key: 'prevValue', label: 'Sales £ (previous week)' },
-    { key: 'branch',    label: 'Branch / store stock' },
-    { key: 'warehouse', label: 'Warehouse stock' },
-    { key: 'online',    label: 'Online stock' },
-    { key: 'stock',     label: 'Total stock' },
-    { key: 'onOrder',   label: 'On order' },
-    { key: 'price',     label: 'Price' }
+    { key: 'name',           label: 'Product name / description' },
+    { key: 'code',           label: 'SKU / item number' },
+    { key: 'category',       label: 'Category / sub group' },
+    { key: 'price',          label: 'Sell price' },
+    { key: 'units',          label: 'Units sold (total, last week)' },
+    { key: 'value',          label: 'Sales £ (total, last week)' },
+    { key: 'prevUnits',      label: 'Units sold (week before)' },
+    { key: 'prevValue',      label: 'Sales £ (week before)' },
+    { key: 'retailUnits',    label: 'Retail / branch units sold' },
+    { key: 'retailValue',    label: 'Retail / branch sales £' },
+    { key: 'onlineUnits',    label: 'Online units (orders)' },
+    { key: 'onlineValue',    label: 'Online sales £ (orders)' },
+    { key: 'stock',          label: 'Stock (total / retail)' },
+    { key: 'branch',         label: 'Branch stock' },
+    { key: 'warehouse',      label: 'Warehouse stock' },
+    { key: 'online',         label: 'Online stock' },
+    { key: 'branchCover',    label: 'Branch cover (weeks)' },
+    { key: 'warehouseCover', label: 'Warehouse cover (weeks)' },
+    { key: 'onlineCover',    label: 'Online cover (weeks)' },
+    { key: 'totalCover',     label: 'Total cover (weeks)' },
+    { key: 'onOrder',        label: 'On order' },
+    { key: 'returns',        label: 'Returns rate' },
+    { key: 'distribution',   label: 'Distribution / grade' }
   ];
+  const NUMERIC = new Set(['price', 'units', 'value', 'prevUnits', 'prevValue', 'retailUnits', 'retailValue',
+    'onlineUnits', 'onlineValue', 'stock', 'branch', 'warehouse', 'online', 'branchCover', 'warehouseCover',
+    'onlineCover', 'totalCover', 'onOrder', 'returns']);
 
   const RX = {
     code:      /(code|sku|\bref\b|reference|barcode|\bean\b|\bupc\b|\bplu\b|article|style ?(no|num|number)\b|item ?(no|num|number)\b|^id$|\bid\b)/,
-    name:      /\b(product|description|desc|item|name|title|line|style)\b/,
-    category:  /\b(category|cat|dept|department|division|class|range|group|sub ?cat)\b/,
-    unitsLike: /\b(units?|qty|quantity|sold|volume|pcs|pieces|sell ?through|sales ?qty)\b/,
-    valueLike: /(£|\$|€|\bvalue\b|revenue|turnover|\bnet\b|\bgross\b|takings|\bcash\b|amount|sales ?£|£ ?sales|\bsales\b)/,
+    nameStrong:/(description|^desc\b|product ?name|^product$|item ?name|^item$|^name$|style ?name|^title$)/,
+    name:      /\b(product|description|desc|item|name|title|style)\b/,
+    category:  /\b(category|cat|dept|department|division|class|range|sub ?group|group|sub ?cat)\b/,
+    price:     /(price|\brrp\b|\bsp\b)/,
+    rank:      /\brank(ing)?\b/,
+    cover:     /(cover|\bwoc\b|weeks? ?(of )?stock|\bwks\b)/,
+    returns:   /return/,
+    distrib:   /(distribution|\bgrade\b|cluster|store ?grade)/,
+    stock:     /\b(stock|soh|on ?hand|inventory|available|avail|holding)\b/,
+    branchLoc: /\b(branch|branches|store|stores|shop|shops)\b/,
+    retail:    /\b(retail|branch|branches|store|stores|shop|shops)\b/,
+    warehouse: /(warehouse|w\/h|\bwh\b|\bdc\b|depot|central)/,
+    online:    /(online|\bweb\b|website|e-?com|digital|dotcom|\.com)/,
+    onOrder:   /(on ?order|intake|\bdue\b|in ?transit|\bpo\b|open ?orders?|outstanding)/,
+    valueMark: /(£|\$|€|\bvalue\b|\bv\b|\bv\(|revenue|turnover|takings|amount|\bnet\b|\bgross\b|\bsales\b|£k)/,
+    unitsMark: /(\(u\)|\bu\b|units?|\bqty\b|quantity|volume|\bsold\b|\bpcs\b|pieces|orders? taken|\borders\b)/,
     prevStrong:/(prev|prior|previous|week ?before|2 ?w(ee)?ks?|wk ?-? ?2|w ?-? ?2|lw ?-? ?1|last ?year|\bly\b|lwly)/,
     lastWeek:  /(last ?week|\blw\b)/,
-    thisWeek:  /(this ?week|\btw\b|current|latest|wk ?0)/,
-    branch:    /\b(branch|branches|store|stores|shop|shops|retail)\b/,
-    warehouse: /(warehouse|w\/h|\bwh\b|\bdc\b|depot|distribution|central)/,
-    online:    /(online|\bweb\b|website|e-?com|digital|dotcom|\.com)/,
-    stock:     /\b(stock|soh|on ?hand|inventory|available|avail|holding)\b/,
-    onOrder:   /(on ?order|intake|\bdue\b|in ?transit|\bpo\b|open ?orders?|outstanding)/,
-    price:     /\b(price|rrp|sp|selling ?price|retail ?price|unit ?price)\b/,
-    skipRow:   /^(grand )?total|^sub ?total|^totals?$|^all products/i
+    thisWeek:  /(this ?week|\btw\b|\bty\b|current|latest|wk ?0)/,
+    skipRow:   /^(grand )?total\b|^sub ?total\b|^totals?$|^all products$/i,
+    attrHead:  /(type|colou?r|size|category|group|department|range|material|theme|finish|collection|channel)\s*$/
   };
 
-  function scoreHeaderCell(h) {
+  // How "header-like" a row is (used to find header rows)
+  function headerScore(row) {
+    const tests = [RX.code, RX.name, RX.category, RX.price, RX.cover, RX.stock, RX.retail, RX.warehouse,
+                   RX.online, RX.onOrder, RX.valueMark, RX.unitsMark, RX.rank, RX.returns];
     let s = 0;
-    for (const k of ['code', 'name', 'unitsLike', 'valueLike', 'branch', 'warehouse', 'online', 'stock', 'onOrder', 'price', 'category']) {
-      if (RX[k].test(h)) s++;
-    }
-    return Math.min(s, 1);
+    row.forEach(c => {
+      const h = norm(c);
+      if (!h || num(h) != null) return;
+      if (tests.some(t => t.test(h))) s++;
+    });
+    return s;
   }
-
   function findHeaderRow(rows) {
     let best = -1, bestScore = 1;
-    const limit = Math.min(rows.length, 25);
+    const limit = Math.min(rows.length, 30);
     for (let i = 0; i < limit; i++) {
-      const cells = rows[i].map(norm);
-      const textCells = cells.filter(c => c && num(c) == null);
-      const score = textCells.reduce((t, c) => t + scoreHeaderCell(c), 0);
-      if (score > bestScore) { best = i; bestScore = score; }
+      const sc = headerScore(rows[i] || []);
+      if (sc > bestScore) { best = i; bestScore = sc; }
     }
     return best;
   }
 
-  // Does a sample of the column look like money?
-  function looksLikeMoney(rows, col) {
-    let money = 0, seen = 0;
-    for (const r of rows.slice(0, 30)) {
+  function textyColumn(rows, col) {
+    let t = 0, seen = 0;
+    for (const r of rows.slice(0, 40)) {
       const v = r[col];
-      if (v == null || v === '') continue;
+      if (v == null || String(v).trim() === '') continue;
       seen++;
-      if (/[£$€]/.test(String(v)) || (typeof v === 'number' && !Number.isInteger(v))) money++;
+      if (num(v) == null) t++;
     }
-    return seen > 0 && money / seen > 0.4;
+    return seen > 0 && t / seen > 0.6;
   }
-  // Cells like "£6,164 128 units" (value and units together)
   function looksCombined(rows, col) {
     let hit = 0, seen = 0;
     for (const r of rows.slice(0, 30)) {
@@ -179,162 +212,187 @@
     }
     return seen > 0 && hit / seen > 0.5;
   }
-  function textyColumn(rows, col) {
-    let t = 0, seen = 0;
-    for (const r of rows.slice(0, 30)) {
-      const v = r[col];
-      if (v == null || v === '') continue;
-      seen++;
-      if (num(v) == null) t++;
-    }
-    return seen > 0 && t / seen > 0.6;
-  }
-
   function weekNumber(h) {
     const m = h.match(/w(?:ee)?k\s*-?\s*(\d{1,2})\b/);
     return m ? parseInt(m[1], 10) : null;
   }
 
-  function detectColumns(headers, data) {
-    const H = headers.map(norm);
-    const map = {};
+  // Group-aware column detection. `heads` are the header-row labels,
+  // `groups` the merged labels above them (e.g. "Retail", "Online").
+  function detectColumns(heads, groups, data) {
+    const H = heads.map(norm), G = groups.map(norm);
+    const map = { ranks: [] };
     const used = new Set();
-    const take = (key, i) => { if (i != null && i >= 0 && !used.has(i)) { map[key] = i; used.add(i); } };
-    const find = (test, prefer) => {
-      const hits = [];
-      H.forEach((h, i) => { if (h && !used.has(i) && test(h, i)) hits.push(i); });
-      if (!hits.length) return -1;
-      return prefer ? prefer(hits) : hits[0];
+    const take = (key, i) => {
+      if (i == null || i < 0 || used.has(i) || map[key] != null) return false;
+      map[key] = i; used.add(i); return true;
     };
+    const cols = H.map((h, i) => ({ i, h, g: G[i] || '', both: ((G[i] || '') + ' ' + h).trim() }))
+      .filter(c => c.h);
 
-    // Combined "£x / n units" cell
-    H.forEach((h, i) => {
-      if (map.combined == null && (RX.unitsLike.test(h) || RX.valueLike.test(h)) && looksCombined(data, i)) {
-        map.combined = i; used.add(i);
-      }
+    // Combined "£x / n units" cells (from screenshots of the reference layout)
+    cols.forEach(c => {
+      if (map.combined == null && looksCombined(data, c.i)) { map.combined = c.i; used.add(c.i); }
     });
 
-    // Stock locations first so "store stock" never becomes the name column
-    take('onOrder',   find(h => RX.onOrder.test(h)));
-    take('warehouse', find(h => RX.warehouse.test(h) && !RX.unitsLike.test(h) && !RX.valueLike.test(h)));
-    take('online',    find(h => RX.online.test(h) && !RX.unitsLike.test(h) && !/sales|sold|£/.test(h)));
-    take('branch',    find(h => RX.branch.test(h) && !RX.unitsLike.test(h) && !/sales|sold|£/.test(h)));
-    take('price',     find(h => RX.price.test(h) && !/sales/.test(h)));
+    // Identity columns
+    cols.forEach(c => { if (!used.has(c.i) && RX.rank.test(c.h)) { map.ranks.push(c.i); used.add(c.i); } });
+    for (const c of cols) if (!used.has(c.i) && RX.code.test(c.h)) { take('code', c.i); break; }
+    for (const c of cols) if (!used.has(c.i) && RX.nameStrong.test(c.h) && textyColumn(data, c.i)) { take('name', c.i); break; }
+    if (map.name == null) for (const c of cols) if (!used.has(c.i) && RX.name.test(c.h) && textyColumn(data, c.i)) { take('name', c.i); break; }
+    for (const c of cols) if (!used.has(c.i) && RX.category.test(c.h) && textyColumn(data, c.i)) { take('category', c.i); break; }
+    for (const c of cols) if (!used.has(c.i) && RX.price.test(c.h)) { take('price', c.i); break; }
+    for (const c of cols) if (!used.has(c.i) && RX.distrib.test(c.h)) { take('distribution', c.i); break; }
 
-    // Sales: collect units-like and value-like columns, then decide current vs previous
-    const unitCols = [], valueCols = [];
-    H.forEach((h, i) => {
-      if (!h || used.has(i)) return;
-      if (RX.stock.test(h) && !/sold|sales/.test(h)) return;
-      const isValue = RX.valueLike.test(h) && (looksLikeMoney(data, i) || /£|\$|€|value|revenue|turnover|takings/.test(h));
-      const isUnits = RX.unitsLike.test(h) || (/\bsales\b/.test(h) && !looksLikeMoney(data, i));
-      if (isValue) valueCols.push(i);
-      else if (isUnits && !textyColumn(data, i)) unitCols.push(i);
+    // Cover (weeks) columns: the file's own figures
+    cols.forEach(c => {
+      if (used.has(c.i) || !RX.cover.test(c.h)) return;
+      if (RX.branchLoc.test(c.h)) take('branchCover', c.i);
+      else if (RX.warehouse.test(c.h)) take('warehouseCover', c.i);
+      else if (RX.online.test(c.h) || (RX.online.test(c.g) && !/total/.test(c.h))) take('onlineCover', c.i);
+      else take('totalCover', c.i);
     });
-    const pickCurrentPrev = cols => {
-      if (!cols.length) return [null, null];
-      if (cols.length === 1) return [cols[0], null];
-      const anyThis = cols.some(i => RX.thisWeek.test(H[i]));
+    cols.forEach(c => { if (!used.has(c.i) && RX.returns.test(c.h)) take('returns', c.i); });
+    cols.forEach(c => { if (!used.has(c.i) && RX.onOrder.test(c.h)) take('onOrder', c.i); });
+
+    // Stock (units) columns
+    cols.forEach(c => {
+      if (used.has(c.i) || !RX.stock.test(c.h)) return;
+      if (RX.online.test(c.h) || RX.online.test(c.g)) take('online', c.i);
+      else if (RX.warehouse.test(c.h)) take('warehouse', c.i);
+      else if (RX.branchLoc.test(c.h)) take('branch', c.i);
+      else take('stock', c.i);
+    });
+    // Bare location headings ("Branch", "Warehouse", "Online") with numbers = stock
+    cols.forEach(c => {
+      if (used.has(c.i) || textyColumn(data, c.i)) return;
+      if (RX.unitsMark.test(c.h) || RX.valueMark.test(c.h)) return;
+      if (RX.warehouse.test(c.h)) take('warehouse', c.i);
+      else if (RX.online.test(c.h)) take('online', c.i);
+      else if (RX.branchLoc.test(c.h)) take('branch', c.i);
+    });
+
+    // Sales columns: work out kind (units / £), channel and week
+    const buckets = {};
+    cols.forEach(c => {
+      if (used.has(c.i) || textyColumn(data, c.i)) return;
+      const kind = RX.valueMark.test(c.h) ? 'value' : RX.unitsMark.test(c.h) ? 'units' : null;
+      if (!kind) return;
+      const channel = (RX.online.test(c.h) || RX.online.test(c.g)) ? 'online'
+                    : (RX.retail.test(c.h) || RX.retail.test(c.g)) ? 'retail' : 'total';
+      (buckets[channel + ':' + kind] = buckets[channel + ':' + kind] || []).push(c.i);
+    });
+    const pickCurrentPrev = list => {
+      if (!list || !list.length) return [null, null];
+      if (list.length === 1) return [list[0], RX.prevStrong.test(H[list[0]]) ? null : null];
+      const anyThis = list.some(i => RX.thisWeek.test(H[i]));
       const prevness = i => {
-        const h = H[i];
+        const h = H[i] + ' ' + (G[i] || '');
         let p = 0;
         if (RX.prevStrong.test(h)) p += 2;
         if (RX.lastWeek.test(h) && anyThis) p += 1;
         if (RX.thisWeek.test(h)) p -= 1;
         return p;
       };
-      const sorted = cols.slice().sort((a, b) => {
+      const sorted = list.slice().sort((a, b) => {
         const d = prevness(a) - prevness(b);
         if (d) return d;
         const wa = weekNumber(H[a]), wb = weekNumber(H[b]);
-        if (wa != null && wb != null && wa !== wb) return wb - wa; // higher week number = current
-        return b - a;                                               // otherwise right-most = current
+        if (wa != null && wb != null && wa !== wb) return wb - wa;
+        return b - a;
       });
       return [sorted[0], sorted[1]];
     };
-    const [u, pu] = pickCurrentPrev(unitCols);
-    const [v, pv] = pickCurrentPrev(valueCols);
+    const [u, pu] = pickCurrentPrev(buckets['total:units']);
+    const [v, pv] = pickCurrentPrev(buckets['total:value']);
     take('units', u); take('prevUnits', pu);
     take('value', v); take('prevValue', pv);
+    take('retailUnits', pickCurrentPrev(buckets['retail:units'])[0]);
+    take('retailValue', pickCurrentPrev(buckets['retail:value'])[0]);
+    take('onlineUnits', pickCurrentPrev(buckets['online:units'])[0]);
+    take('onlineValue', pickCurrentPrev(buckets['online:value'])[0]);
 
-    take('stock', find(h => RX.stock.test(h)));
-    take('code',     find(h => RX.code.test(h)));
-    take('category', find((h, i) => RX.category.test(h) && textyColumn(data, i)));
-    take('name',     find((h, i) => RX.name.test(h) && !/^(action|status|notes?|comments?)$/.test(h) && textyColumn(data, i)));
-    // Fall back to the first remaining text column for the name
-    if (map.name == null) take('name', find((h, i) => !/^(action|status|notes?|comments?|priority)$/.test(h) && textyColumn(data, i)));
+    // Last resort for the name: first remaining text column
+    if (map.name == null) for (const c of cols) {
+      if (!used.has(c.i) && !/^(action|status|notes?|comments?|priority)$/.test(c.h) && textyColumn(data, c.i)) { take('name', c.i); break; }
+    }
     return map;
   }
 
-  /* ───────────────────────── Turning grids into products ───────────────────────── */
-
-  function buildProducts(grid, map) {
-    const out = [];
-    for (const r of grid) {
-      const get = k => map[k] != null ? r[map[k]] : null;
-      const name = String(get('name') ?? '').trim();
-      const code = String(get('code') ?? '').trim();
-      if (!name && !code) continue;
-      if (RX.skipRow.test(name) || RX.skipRow.test(code)) continue;
-
-      let units = num(get('units'));
-      let value = num(get('value'));
-      if (map.combined != null) {
-        const s = String(r[map.combined] ?? '');
-        const mv = s.match(/[£$€]\s?([\d,]+(?:\.\d+)?)/);
-        const mu = s.match(/([\d,]+)\s*units?/i);
-        if (mv && value == null) value = num(mv[1]);
-        if (mu && units == null) units = num(mu[1]);
-      }
-      const price = num(get('price'));
-      if (value == null && units != null && price != null) value = units * price;
-      if (units == null && value != null && price) units = Math.round(value / price);
-
-      const branch    = map.branch    != null ? num(get('branch'))    : undefined;
-      const warehouse = map.warehouse != null ? num(get('warehouse')) : undefined;
-      const online    = map.online    != null ? num(get('online'))    : undefined;
-      let stock       = map.stock     != null ? num(get('stock'))     : undefined;
-
-      // Skip rows that carry no numbers at all (sub-headings, notes)
-      const nums = [units, value, branch, warehouse, online, stock].filter(x => x != null && x !== undefined);
-      if (!nums.length) continue;
-
-      out.push({
-        name: name || code,
-        code: name ? code : '',
-        category: String(get('category') ?? '').trim(),
-        units, value,
-        prevUnits: num(get('prevUnits')),
-        prevValue: num(get('prevValue')),
-        branch, warehouse, online, stock,
-        onOrder: num(get('onOrder')),
-        price
-      });
-    }
-    return out;
-  }
-
-  /* ───────────────────────── File readers ───────────────────────── */
+  /* ───────────────────────── Readers → tables ───────────────────────── */
+  // Every reader returns [{ name, rows, text }] where `rows` holds values for
+  // maths and `text` holds the exact cell text for display.
 
   async function readSpreadsheet(file) {
     await loadScript(LIB.xlsx);
-    const buf = await file.arrayBuffer();
-    const wb = window.XLSX.read(buf, { type: 'array' });
-    // Pick the sheet that looks most like a sales table
-    let best = null, bestScore = -1;
-    for (const sn of wb.SheetNames) {
-      const rows = window.XLSX.utils.sheet_to_json(wb.Sheets[sn], { header: 1, raw: true, defval: '' });
-      const h = findHeaderRow(rows);
-      const score = h >= 0 ? rows.length + 1000 : rows.length;
-      if (score > bestScore) { best = { rows, sheet: sn }; bestScore = score; }
-    }
-    return { rows: best ? best.rows : [], note: wb.SheetNames.length > 1 ? 'Sheet “' + best.sheet + '”' : '' };
+    const wb = window.XLSX.read(await file.arrayBuffer(), { type: 'array' });
+    return wb.SheetNames.map(sn => {
+      const ws = wb.Sheets[sn];
+      const opts = { header: 1, defval: '', blankrows: true };
+      const rows = window.XLSX.utils.sheet_to_json(ws, { ...opts, raw: true });
+      const text = window.XLSX.utils.sheet_to_json(ws, { ...opts, raw: false });
+      // Merged header cells (e.g. "Retail" over several columns) only hold
+      // their text in the first cell; record the span so every column under
+      // it knows its group. The cells themselves are not modified.
+      const spans = [];
+      (ws['!merges'] || []).forEach(m => {
+        if (m.s.r === m.e.r && m.e.c > m.s.c) spans.push({ r: m.s.r, c0: m.s.c, c1: m.e.c });
+      });
+      // sheet_to_json starts at the sheet's first used row/col; offset spans to match
+      const ref = ws['!ref'] ? window.XLSX.utils.decode_range(ws['!ref']) : { s: { r: 0, c: 0 } };
+      spans.forEach(s => { s.r -= ref.s.r; s.c0 -= ref.s.c; s.c1 -= ref.s.c; });
+      return { name: (wb.SheetNames.length > 1 ? sn : file.name), rows, text, spans, firstRow: ref.s.r + 1 };
+    }).filter(t => t.rows.some(r => !isBlankRow(r)));
   }
 
-  // Positioned text (PDF items / OCR words) → grid, by snapping each
-  // piece of text to the nearest header column.
+  async function readCsv(file) {
+    await loadScript(LIB.xlsx);
+    const wb = window.XLSX.read(await file.text(), { type: 'string', raw: true });
+    const rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, rawNumbers: false, defval: '', blankrows: true });
+    return [{ name: file.name, rows, text: rows, spans: [], firstRow: 1 }];
+  }
+
+  // HTML tables (Google Sheets "Web page" export, Excel "Save as web page", etc.)
+  async function readHtml(file) {
+    const doc = new DOMParser().parseFromString(await file.text(), 'text/html');
+    const tables = [...doc.querySelectorAll('table')];
+    if (!tables.length) throw new Error('No table found in that web page file.');
+    return tables.map((tbl, ti) => {
+      const grid = [];
+      const spans = [];
+      const occupied = [];
+      let r = 0;
+      for (const tr of tbl.rows) {
+        const cells = [...tr.cells].filter(c =>
+          !/row-header|row-headers-background|freezebar/.test(c.className || ''));   // Google's row numbers
+        // Google's A, B, C… column-letter row
+        if (cells.length && cells.every(c => /column-headers-background/.test(c.className || ''))) continue;
+        grid[r] = grid[r] || [];
+        let c = 0;
+        for (const cell of cells) {
+          while (occupied[r] && occupied[r][c]) c++;
+          const txt = (cell.innerText != null ? cell.innerText : cell.textContent).replace(/ /g, ' ').trim();
+          const cs = Math.max(1, parseInt(cell.getAttribute('colspan') || '1', 10));
+          const rs = Math.max(1, parseInt(cell.getAttribute('rowspan') || '1', 10));
+          grid[r][c] = txt;
+          for (let k = 1; k < cs; k++) grid[r][c + k] = '';
+          if (cs > 1 && rs === 1) spans.push({ r, c0: c, c1: c + cs - 1 });
+          for (let y = 1; y < rs; y++) {
+            occupied[r + y] = occupied[r + y] || [];
+            for (let k = 0; k < cs; k++) occupied[r + y][c + k] = true;
+          }
+          c += cs;
+        }
+        r++;
+      }
+      const rows = grid.map(row => Array.from({ length: row ? row.length : 0 }, (_, i) => (row && row[i] != null ? row[i] : '')));
+      const name = tables.length > 1 ? file.name + ' (table ' + (ti + 1) + ')' : file.name.replace(/^[0-9a-f]{8}-/, '');
+      return { name, rows, text: rows, spans, firstRow: 1 };
+    }).filter(t => t.rows.some(r => !isBlankRow(r)));
+  }
+
+  // Positioned text (PDF items / OCR words) → grid, snapping text to header columns
   function gridFromPositioned(lines) {
-    // lines: [{ y, items:[{x0,x1,str}] }] sorted top→bottom
     const asCells = lines.map(l => {
       const cells = [];
       l.items.sort((a, b) => a.x0 - b.x0).forEach(it => {
@@ -350,14 +408,14 @@
     if (hi < 0) return asCells.map(c => c.map(x => x.str));
     const header = asCells[hi];
     const centres = header.map(c => (c.x0 + c.x1) / 2);
-    const grid = [header.map(c => c.str)];
+    const grid = asCells.slice(0, hi).map(c => c.map(x => x.str));
+    grid.push(header.map(c => c.str));
     for (let i = hi + 1; i < asCells.length; i++) {
       const row = new Array(header.length).fill('');
       asCells[i].forEach(c => {
         const cx = (c.x0 + c.x1) / 2;
         let k = 0, d = Infinity;
         centres.forEach((hc, j) => {
-          // prefer the header the cell overlaps, else nearest centre
           const overlap = c.x1 >= header[j].x0 - 6 && c.x0 <= header[j].x1 + 6;
           const dd = overlap ? Math.abs(cx - hc) * 0.25 : Math.abs(cx - hc);
           if (dd < d) { d = dd; k = j; }
@@ -368,7 +426,6 @@
     }
     return grid;
   }
-
   function groupIntoLines(items, tol) {
     items.sort((a, b) => a.y - b.y || a.x0 - b.x0);
     const lines = [];
@@ -385,7 +442,7 @@
     const pdfjs = window.pdfjsLib;
     pdfjs.GlobalWorkerOptions.workerSrc = LIB.pdfWorker;
     const doc = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
-    let all = [];
+    const all = [];
     let yOffset = 0;
     for (let p = 1; p <= doc.numPages; p++) {
       const page = await doc.getPage(p);
@@ -394,24 +451,20 @@
       tc.items.forEach(it => {
         if (!it.str || !it.str.trim()) return;
         const x = it.transform[4];
-        const y = vp.height - it.transform[5];
-        all.push({ x0: x, x1: x + (it.width || it.str.length * 5), y: y + yOffset, str: it.str.trim() });
+        all.push({ x0: x, x1: x + (it.width || it.str.length * 5), y: vp.height - it.transform[5] + yOffset, str: it.str.trim() });
       });
       yOffset += vp.height + 50;
     }
     if (!all.length) throw new Error('This PDF has no readable text (it may be a scan). Try uploading it as an image instead.');
-    const lines = groupIntoLines(all, 3);
-    // Repeated header rows on later pages are dropped by the "no numbers" filter in buildProducts
-    return { rows: gridFromPositioned(lines), note: doc.numPages + (doc.numPages > 1 ? ' pages' : ' page') };
+    const rows = gridFromPositioned(groupIntoLines(all, 3));
+    return [{ name: file.name, rows, text: rows, spans: [], firstRow: 1, autoRead: true }];
   }
 
   async function readImage(file) {
     setStatus('Loading text recognition… (first time can take a few seconds)', true);
     await loadScript(LIB.ocr);
     const worker = await window.Tesseract.createWorker('eng', 1, {
-      logger: m => {
-        if (m.status === 'recognizing text') setStatus('Reading your image… ' + Math.round(m.progress * 100) + '%', true);
-      }
+      logger: m => { if (m.status === 'recognizing text') setStatus('Reading your image… ' + Math.round(m.progress * 100) + '%', true); }
     });
     try {
       const { data } = await worker.recognize(file);
@@ -420,57 +473,125 @@
         if (!w.text || !w.text.trim() || w.confidence < 25) return;
         items.push({ x0: w.bbox.x0, x1: w.bbox.x1, y: (w.bbox.y0 + w.bbox.y1) / 2, str: w.text.trim(), h: w.bbox.y1 - w.bbox.y0 });
       });
-      if (!items.length) throw new Error('No text could be read from that image. Try a sharper screenshot or the original Excel file.');
+      if (!items.length) throw new Error('No text could be read from that image. Try a sharper screenshot or the original spreadsheet.');
       const tol = Math.max(6, median(items.map(i => i.h)) * 0.6);
-      const lines = groupIntoLines(items, tol);
-      // Lines that sit very close together under one product (e.g. "£3,626" over "301 units")
-      // are merged into the row above so value + units stay together.
-      return { rows: mergeStackedLines(gridFromPositioned(lines)), note: 'Read from image' };
+      const rows = gridFromPositioned(groupIntoLines(items, tol));
+      return [{ name: file.name, rows, text: rows, spans: [], firstRow: 1, autoRead: true }];
     } finally {
       worker.terminate();
     }
   }
 
-  // In screenshots like the reference design, a product spans two text lines
-  // (name over code, £ over units). Merge a line into the one above when it
-  // has no text in the first non-empty column of the line above.
-  function mergeStackedLines(grid) {
-    if (grid.length < 3) return grid;
-    const out = [grid[0]];
-    for (let i = 1; i < grid.length; i++) {
-      const row = grid[i];
-      const prev = out[out.length - 1];
-      const filled = row.filter(c => c && String(c).trim()).length;
-      const prevFilled = prev.filter(c => c && String(c).trim()).length;
-      const isSub = out.length > 1 && filled > 0 && filled <= Math.ceil(prevFilled / 2) &&
-                    row.every((c, k) => !c || (/^[A-Z]?\d{3,}|^\d+\s*units?$/i.test(String(c).trim())));
-      if (isSub) {
-        row.forEach((c, k) => { if (c) prev[k] = prev[k] ? prev[k] + ' ' + c : c; });
-      } else {
-        out.push(row.slice());
-      }
-    }
-    return out;
+  async function readFile(file) {
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    if (['xlsx', 'xls', 'xlsm', 'xlsb', 'ods'].includes(ext)) return readSpreadsheet(file);
+    if (['csv', 'tsv', 'txt'].includes(ext)) return readCsv(file);
+    if (['html', 'htm'].includes(ext) || file.type === 'text/html') return readHtml(file);
+    if (ext === 'pdf' || file.type === 'application/pdf') return readPdf(file);
+    if (/^image\//.test(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(ext)) return readImage(file);
+    throw new Error('“' + file.name + '” isn’t a supported file. Use Excel, CSV, a web-page (.html) export, PDF or an image.');
   }
 
-  async function readCsvText(file) {
-    await loadScript(LIB.xlsx);
-    const text = await file.text();
-    const wb = window.XLSX.read(text, { type: 'string' });
-    const rows = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
-    return { rows, note: '' };
+  /* ───────────────────────── Table preparation ───────────────────────── */
+
+  // Header row + merged group labels above it → one entry per column
+  function prepareTable(t) {
+    const rows = t.rows, text = t.text;
+    const hi = findHeaderRow(rows.map((r, i) => (text[i] || r).map(String)));
+    if (hi < 0) return null;
+    const width = Math.max(...rows.slice(Math.max(0, hi - 1)).map(r => (r || []).length));
+    const pad = r => Array.from({ length: width }, (_, i) => (r || [])[i] ?? '');
+    const heads = pad(text[hi]).map(h => String(h).trim());
+    const groups = new Array(width).fill('');
+    // Group labels from merged cells in the row above
+    (t.spans || []).filter(s => s.r === hi - 1).forEach(s => {
+      const label = String((text[hi - 1] || [])[s.c0] ?? '').trim();
+      for (let c = s.c0; c <= s.c1 && c < width; c++) groups[c] = label;
+    });
+    // …and plain single cells in that row sitting directly above a header
+    if (hi > 0) pad(text[hi - 1]).forEach((g, c) => {
+      g = String(g).trim();
+      if (g && !groups[c] && heads[c] && num(g) == null) groups[c] = g;
+    });
+    const labels = heads.map((h, i) => groups[i] && h ? groups[i] + ' · ' + h : (h || (groups[i] ? groups[i] : '')));
+    return {
+      name: t.name,
+      heads, groups, labels,
+      data: rows.slice(hi + 1).map(pad),
+      text: text.slice(hi + 1).map(r => pad(r).map(c => String(c ?? ''))),
+      rowOffset: (t.firstRow || 1) + hi + 1,
+      autoRead: !!t.autoRead
+    };
+  }
+
+  // A product table has a SKU column, or product names with sales/stock and no repeated header blocks.
+  function classify(pt) {
+    const map = detectColumns(pt.heads, pt.groups, pt.data);
+    const hasMeasure = ['units', 'value', 'retailUnits', 'onlineUnits', 'stock', 'branch', 'warehouse', 'online',
+      'branchCover', 'warehouseCover', 'onlineCover', 'totalCover', 'combined'].some(k => map[k] != null);
+    const firstHead = norm(pt.heads.find(h => h) || '');
+    const repeatedHeaders = pt.text.filter(r => headerScore(r) >= 2).length;
+    const looksAttribute = map.code == null && (RX.attrHead.test(firstHead) || repeatedHeaders > 0);
+    const kind = looksAttribute ? 'breakdown' : ((map.code != null || map.name != null) && hasMeasure ? 'products' : 'breakdown');
+    return { map, kind };
+  }
+
+  /* ───────────────────────── Products ───────────────────────── */
+
+  function buildProducts(pt, map) {
+    const out = [];
+    const skipped = { totals: 0, headers: 0, notes: 0 };
+    let totalRow = null;
+    const headerSig = pt.heads.map(norm).join('|');
+    pt.data.forEach((r, idx) => {
+      const tr = pt.text[idx];
+      const filled = tr.filter(c => c.trim() !== '').length;
+      if (!filled) return;
+      if (tr.map(norm).join('|') === headerSig) { skipped.headers++; return; }
+      const txt = k => map[k] != null ? tr[map[k]].trim() : undefined;
+      const name = txt('name') || '';
+      const code = txt('code') || '';
+      const firstText = (tr.find(c => c.trim() !== '') || '').trim();
+      if (RX.skipRow.test(name) || RX.skipRow.test(code) || RX.skipRow.test(firstText)) {
+        skipped.totals++;
+        if (!totalRow) totalRow = { idx, text: tr };
+        return;
+      }
+      if (!name && !code) { skipped.notes++; return; }
+      if (filled === 1) { skipped.notes++; return; }               // heading / note line
+
+      const src = {};
+      const val = {};
+      FIELDS.forEach(f => {
+        src[f.key] = txt(f.key);
+        if (NUMERIC.has(f.key)) val[f.key] = map[f.key] != null ? num(r[map[f.key]]) : undefined;
+      });
+      if (map.combined != null) {
+        const c = tr[map.combined];
+        const mv = c.match(/[£$€]\s?[\d,]+(?:\.\d+)?/);
+        const mu = c.match(/([\d,]+(?:\.\d+)?)\s*units?/i);
+        if (src.value === undefined) { src.value = mv ? mv[0].replace(/\s/g, '') : ''; val.value = mv ? num(mv[0]) : null; }
+        if (src.units === undefined) { src.units = mu ? mu[1] : ''; val.units = mu ? num(mu[1]) : null; }
+      }
+      out.push({ idx, cells: tr, src, ...val, name, code, category: src.category || '' });
+    });
+    return { products: out, skipped, totalRow };
   }
 
   /* ───────────────────────── Analysis ───────────────────────── */
 
   const STATUS = {
-    act:   { label: 'Act now: reorder', short: 'Act now',   colour: 'var(--red)',      pri: 'act' },
-    watch: { label: 'Watch',            short: 'Watch',     colour: '#f7b955',         pri: 'watch' },
-    ok:    { label: 'Healthy',          short: 'Healthy',   colour: '#5fd884',         pri: 'ok' },
-    over:  { label: 'Overstocked',      short: 'Overstock', colour: '#4c8dff',         pri: 'over' },
-    idle:  { label: 'No sales',         short: 'No sales',  colour: '#8a8a92',         pri: 'idle' }
+    act:    { label: 'Act now: reorder',            short: 'Act now',     colour: 'var(--red)', pri: 'act' },
+    watch:  { label: 'Watch',                       short: 'Watch',       colour: '#f7b955',    pri: 'watch' },
+    ok:     { label: 'Healthy',                     short: 'Healthy',     colour: '#5fd884',    pri: 'ok' },
+    over:   { label: 'Overstocked',                 short: 'Overstock',   colour: '#4c8dff',    pri: 'over' },
+    idle:   { label: 'No sales last week',          short: 'No sales',    colour: '#8a8a92',    pri: 'idle' },
+    nodata: { label: 'Sales figure blank in file',  short: 'Sales blank', colour: '#55555c',    pri: 'idle' },
+    check:  { label: 'Check the figures: negative values in file', short: 'Check data', colour: '#c58bff', pri: 'check' }
   };
-  const STATUS_ORDER = ['act', 'watch', 'ok', 'over', 'idle'];
+  const STATUS_ORDER = ['act', 'watch', 'check', 'ok', 'over', 'idle', 'nodata'];
+  const NEG_KEYS = ['units', 'retailUnits', 'onlineUnits', 'stock', 'branch', 'warehouse', 'online',
+                    'branchCover', 'warehouseCover', 'onlineCover', 'totalCover'];
 
   function thresholds() {
     const v = (el, d) => { const n = parseFloat(el.value); return isFinite(n) && n >= 0 ? n : d; };
@@ -480,20 +601,36 @@
       over:    v(els.th.overWks, 12),
       lowLoc:  v(els.th.lowLoc, 5),
       goodLoc: Math.max(v(els.th.goodLoc, 9), v(els.th.lowLoc, 5) + 1),
-      trend:   v(els.th.trendPct, 10)
+      trend:   v(els.th.trendPct, 10),
+      returns: v(els.th.returnsPct, 10)
     };
   }
 
-  function analyse(products, has) {
-    const T = thresholds();
-    const sellers = products.filter(p => (p.units || 0) > 0);
+  const sumKnown = (...xs) => { const k = xs.filter(x => x != null); return k.length ? k.reduce((a, b) => a + b, 0) : null; };
 
-    // Total stock per line
+  function analyse(products, has, map) {
+    const T = thresholds();
+    const locCoverMode = has.branchCover || has.warehouseCover || has.onlineCover;
+
     products.forEach(p => {
-      const parts = [p.branch, p.warehouse, p.online].filter(x => x != null);
-      p.total = p.stock != null ? p.stock : (parts.length ? parts.reduce((a, b) => a + b, 0) : null);
-      p.cover = (p.total != null && p.units > 0) ? p.total / p.units : null;
-      p.coverInclOrder = (p.cover != null && p.onOrder) ? (p.total + p.onOrder) / p.units : p.cover;
+      // Sales used for ranking only (never displayed as a new figure)
+      p.rankUnits = p.units != null ? p.units : sumKnown(p.retailUnits, p.onlineUnits);
+      p.rankValue = p.value != null ? p.value : sumKnown(p.retailValue, p.onlineValue);
+
+      // Cover: the file's own Total Cover when it has one, otherwise calculated
+      if (has.totalCover) {
+        p.cover = p.totalCover; p.coverCalc = false; p.stockExcludes = [];
+      } else {
+        const locs = [['branch', p.branch], ['warehouse', p.warehouse], ['online', p.online]].filter(([, v]) => v !== undefined);
+        const known = locs.filter(([, v]) => v != null);
+        p.stockExcludes = p.stock !== undefined ? [] : locs.filter(([, v]) => v == null).map(([k]) => k);
+        const total = p.stock !== undefined ? p.stock : (known.length ? known.reduce((a, [, v]) => a + v, 0) : null);
+        p.cover = (total != null && p.rankUnits > 0) ? total / p.rankUnits : null;
+        p.coverCalc = true;
+        p.totalStockCalc = total;
+      }
+      p.coverInclOrder = (p.coverCalc && p.cover != null && p.onOrder) ? (p.totalStockCalc + p.onOrder) / p.rankUnits : p.cover;
+
       if (p.prevUnits != null && p.units != null) {
         p.trend = p.prevUnits > 0 ? (p.units - p.prevUnits) / p.prevUnits * 100 : (p.units > 0 ? Infinity : 0);
       } else if (p.prevValue != null && p.value != null) {
@@ -501,211 +638,120 @@
       } else p.trend = null;
     });
 
-    // If almost every selling line is "under 2 weeks", the stock columns are
-    // probably per-store / average counts, not totals. Rank relatively instead.
-    const withCover = sellers.filter(p => p.cover != null);
-    const underReorder = withCover.filter(p => p.cover < T.reorder).length;
-    const relative = withCover.length >= 4 && underReorder / withCover.length > 0.8;
+    const sellers = products.filter(p => (p.rankUnits || 0) > 0 || (p.rankValue || 0) > 0);
+    // Per-store-count detection (only when we're calculating cover from stock units)
+    const withCover = sellers.filter(p => p.cover != null && p.coverCalc);
+    const relative = !locCoverMode && !has.totalCover && withCover.length >= 4 &&
+      withCover.filter(p => p.cover < T.reorder).length / withCover.length > 0.8;
 
-    // Sales rank (by £ if we have it, else units)
-    const salesKey = p => (p.value != null ? p.value : (p.units || 0));
+    const salesKey = p => (p.rankValue != null ? p.rankValue : (p.rankUnits || 0));
     const ranked = products.slice().sort((a, b) => salesKey(b) - salesKey(a));
     const n = ranked.length;
-    ranked.forEach((p, i) => { p.salesRank = i; p.salesPct = n > 1 ? i / (n - 1) : 0; });
-    const medianUnits = median(sellers.map(p => p.units));
-
-    // Pressure = how fast a line is eating its stock (relative mode)
-    let pressureRank = new Map();
+    ranked.forEach((p, i) => { p.salesPct = n > 1 ? i / (n - 1) : 0; });
+    const medianUnits = median(sellers.map(p => p.rankUnits || 0));
+    const pressureRank = new Map();
     if (relative) {
       const pr = withCover.slice().sort((a, b) => a.cover - b.cover);
       pr.forEach((p, i) => pressureRank.set(p, pr.length > 1 ? i / (pr.length - 1) : 0));
     }
 
     products.forEach(p => {
-      const locs = [['branch', p.branch], ['warehouse', p.warehouse], ['online', p.online]]
-        .filter(([, v]) => v !== undefined);
-      const selling = (p.units || 0) > 0;
-      const zeroLocs  = locs.filter(([, v]) => v === 0).map(([k]) => k);
-      const blankLocs = locs.filter(([, v]) => v === null).map(([k]) => k);
-      const lowLocs   = locs.filter(([, v]) => v != null && v <= T.lowLoc).map(([k]) => k);
+      const unitsBlank = p.rankUnits == null && p.rankValue == null;
+      const selling = (p.rankUnits || 0) > 0 || (p.rankUnits == null && (p.rankValue || 0) > 0);
+      const locKeys = locCoverMode ? ['branchCover', 'warehouseCover', 'onlineCover'] : ['branch', 'warehouse', 'online'];
+      const locs = locKeys.map(k => [k, p[k]]).filter(([, v]) => v !== undefined);
+      const zeroLocs = locs.filter(([, v]) => v === 0).map(([k]) => k.replace('Cover', ''));
+      const lowLocs = locs.filter(([, v]) => v != null && v <= T.lowLoc).map(([k]) => k.replace('Cover', ''));
 
       p.flags = new Set();
-      if (selling && (zeroLocs.length || (p.total === 0))) p.flags.add('outOfStock');
-      if (selling && p.online !== undefined && (p.online === 0 || p.online === null) &&
-          ((p.branch || 0) + (p.warehouse || 0) > 0 || p.online === 0)) p.flags.add('onlineGap');
+      if (selling && (zeroLocs.length || p.stock === 0 || p.totalCover === 0)) p.flags.add('outOfStock');
+      if (selling && (p.online === 0 || p.onlineCover === 0)) p.flags.add('onlineGap');
       if (p.trend != null && p.trend >= T.trend) p.flags.add('improving');
       if (p.trend != null && p.trend <= -T.trend) p.flags.add('declining');
       if (selling && p.salesPct <= 0.2) p.flags.add('highSales');
-      if (p.salesPct >= 0.8 || !selling) p.flags.add('lowSales');
+      if (!unitsBlank && (p.salesPct >= 0.8 || !selling)) p.flags.add('lowSales');
+      if (p.returns != null && p.returns >= T.returns) p.flags.add('highReturns');
 
-      // Status
       let status;
       const cover = p.coverInclOrder;
-      if (!selling) {
-        status = 'idle';
+      p.negatives = NEG_KEYS.filter(k => p[k] != null && p[k] < 0);
+      if (p.negatives.length) status = 'check';
+      else if (unitsBlank) status = 'nodata';
+      else if (!selling) status = 'idle';
+      else if (locCoverMode) {
+        const whLow = p.warehouseCover != null && p.warehouseCover <= T.lowLoc;
+        const sellLow = (p.branchCover != null && p.branchCover <= T.lowLoc) || (p.onlineCover != null && p.onlineCover <= T.lowLoc);
+        const strong = p.salesPct <= 0.5;
+        if ((whLow && sellLow && strong) || (cover != null && cover < T.reorder) || (zeroLocs.length && p.salesPct <= 0.25)) status = 'act';
+        else if (lowLocs.length || (cover != null && cover < T.watch)) status = 'watch';
+        else if (cover != null && cover > T.over) status = 'over';
+        else status = 'ok';
       } else if (relative) {
         const pr = pressureRank.get(p);
-        const pressured = pr != null && pr <= 0.3;
         const strong = p.salesPct <= 0.5;
-        const reds = lowLocs.length;
-        if ((pressured && strong) || (zeroLocs.length && strong) || reds >= 2 && strong) status = 'act';
-        else if (pressured || zeroLocs.length || reds >= 1 || (pr != null && pr <= 0.6)) status = 'watch';
+        if ((pr != null && pr <= 0.3 && strong) || (zeroLocs.length && strong) || (lowLocs.length >= 2 && strong)) status = 'act';
+        else if ((pr != null && pr <= 0.6) || zeroLocs.length || lowLocs.length) status = 'watch';
         else status = 'ok';
       } else if (cover == null) {
-        status = zeroLocs.length ? (p.units >= medianUnits ? 'act' : 'watch') : 'watch';
-      } else if (cover < T.reorder || p.total === 0) {
-        status = 'act';
-      } else if (zeroLocs.length && p.units >= medianUnits) {
-        status = 'act';
-      } else if (cover < T.watch || zeroLocs.length) {
-        status = 'watch';
-      } else if (cover > T.over) {
-        status = 'over';
-      } else status = 'ok';
-
-      // Running out = selling and stock won't last (or a location is already empty)
-      if (selling) {
-        const short = relative
-          ? (status === 'act' || (status === 'watch' && lowLocs.length > 0))
-          : (status === 'act' || (p.cover != null && p.cover < T.watch));
-        if (short || p.flags.has('outOfStock')) p.flags.add('runningOut');
-      }
-      if (status === 'over') p.flags.add('overstock');
+        status = zeroLocs.length ? ((p.rankUnits || 0) >= medianUnits ? 'act' : 'watch') : 'watch';
+      } else if (cover < T.reorder || p.totalStockCalc === 0) status = 'act';
+      else if (zeroLocs.length && (p.rankUnits || 0) >= medianUnits) status = 'act';
+      else if (cover < T.watch || zeroLocs.length) status = 'watch';
+      else if (cover > T.over) status = 'over';
+      else status = 'ok';
       p.status = status;
 
-      // Urgency score for ordering inside a group
-      const velocity = p.value != null ? p.value : (p.units || 0);
-      const coverForScore = relative ? (pressureRank.get(p) ?? 1) * 4 : (cover != null ? cover : 2);
-      p.score = velocity / Math.max(coverForScore, 0.15) + (zeroLocs.length * velocity * 0.25);
+      if (status !== 'check' && selling && (status === 'act' || (status === 'watch' && (lowLocs.length || (cover != null && cover < T.watch))) || p.flags.has('outOfStock'))) p.flags.add('runningOut');
+      if (status === 'over') p.flags.add('overstock');
 
-      // Action text
+      const velocity = salesKey(p) || 0;
+      const coverForScore = relative ? (pressureRank.get(p) ?? 1) * 4
+        : locCoverMode ? Math.min(...locs.map(([, v]) => v).filter(v => v != null), cover ?? 99, 99)
+        : (cover != null ? cover : 2);
+      p.score = velocity / Math.max(coverForScore, 0.15) + zeroLocs.length * velocity * 0.25;
+
       const actions = [];
       if (status === 'act') actions.push('Reorder');
       else if (status === 'watch') actions.push('Watch');
       else if (status === 'over') actions.push(p.trend != null && p.trend < 0 ? 'Markdown / promote' : 'Hold orders');
-      else if (status === 'idle') actions.push((p.total || 0) > 0 ? 'Review: no sales' : 'No sales, no stock');
+      else if (status === 'idle') actions.push('Review: no sales');
+      else if (status === 'nodata') actions.push('Check file: sales blank');
+      else if (status === 'check') actions.push('Check file: negative ' + p.negatives.map(k => (state.pt.labels[state.map[k]] || k)).join(', '));
       else actions.push('On track');
-      if (selling && p.online !== undefined && (p.online === 0 || p.online === null) &&
-          ((p.branch || 0) + (p.warehouse || 0) > 0)) actions.push('fill online');
-      else if (selling && p.warehouse === 0 && status !== 'act') actions.push('warehouse empty');
-      if (selling && p.branch === 0 && (p.warehouse || 0) > 0) actions.push('send to branch');
+      const onlineEmpty = p.onlineCover === 0 || p.online === 0;
+      const retailHas = (p.branchCover || 0) > 0 || (p.branch || 0) > 0 || (p.warehouse || 0) > 0 || (p.warehouseCover || 0) > 0 || (p.stock || 0) > 0;
+      if (status !== 'check' && selling && onlineEmpty && retailHas) actions.push('fill online');
+      if (selling && locCoverMode && p.branchCover != null && p.branchCover <= T.lowLoc && (p.warehouseCover || 0) >= T.goodLoc) actions.push('send to branch');
+      if (selling && !locCoverMode && p.branch === 0 && (p.warehouse || 0) > 0) actions.push('send to branch');
+      if (selling && (p.warehouse === 0 || p.warehouseCover === 0) && status !== 'act') actions.push('warehouse empty');
+      if (p.flags.has('highReturns')) actions.push('check returns');
       p.action = actions[0] + (actions.length > 1 ? ', ' + actions.slice(1).join(', ') : '');
-      p.zeroLocs = zeroLocs; p.blankLocs = blankLocs;
     });
 
-    return { products, relative, T, has };
+    return { products, relative, locCoverMode, T, has, map };
   }
 
-  /* ───────────────────────── Insights ───────────────────────── */
-
-  function buildInsights(A) {
-    const P = A.products;
-    const out = [];
-    const totalValue = P.reduce((s, p) => s + (p.value || 0), 0);
-    const totalUnits = P.reduce((s, p) => s + (p.units || 0), 0);
-    const byVal = P.slice().sort((a, b) => (b.value ?? b.units ?? 0) - (a.value ?? a.units ?? 0));
-    const metric = p => A.has.value ? fmtGBP(p.value) : fmtInt(p.units) + ' units';
-    const share = p => A.has.value && totalValue ? Math.round(p.value / totalValue * 100) : (totalUnits ? Math.round((p.units || 0) / totalUnits * 100) : 0);
-
-    const act = P.filter(p => p.status === 'act').sort((a, b) => b.score - a.score);
-    if (act.length) {
-      const atRisk = act.reduce((s, p) => s + (A.has.value ? (p.value || 0) : (p.units || 0)), 0);
-      out.push({ tone: 'red', icon: '!', html:
-        `<b>${act.length} line${act.length > 1 ? 's' : ''} need reordering now</b>, worth ${A.has.value ? fmtGBP(atRisk) : fmtInt(atRisk) + ' units'} of last week&rsquo;s sales. Start with <b>${esc(act[0].name)}</b>${act[1] ? ' and <b>' + esc(act[1].name) + '</b>' : ''}.` });
-    }
-
-    if (byVal[0] && (byVal[0].value || byVal[0].units)) {
-      const top = byVal[0];
-      const top5 = byVal.slice(0, 5).reduce((s, p) => s + (A.has.value ? (p.value || 0) : (p.units || 0)), 0);
-      const top5Share = Math.round(top5 / (A.has.value ? totalValue : totalUnits) * 100);
-      out.push({ tone: 'blue', icon: '★', html:
-        `Best seller: <b>${esc(top.name)}</b> at ${metric(top)} (${share(top)}% of the week).` +
-        (P.length > 6 ? ` Your top 5 lines made <b>${top5Share}%</b> of sales${top5Share >= 60 ? ', so availability on them matters most' : ''}.` : '') });
-    }
-
-    if (A.has.trend) {
-      const prevTotal = P.reduce((s, p) => s + (p.prevUnits != null ? p.prevUnits : 0), 0);
-      const currTotal = P.reduce((s, p) => s + (p.prevUnits != null ? (p.units || 0) : 0), 0);
-      if (prevTotal > 0) {
-        const d = (currTotal - prevTotal) / prevTotal * 100;
-        out.push({ tone: d >= 0 ? 'green' : 'red', icon: d >= 0 ? '▲' : '▼', html:
-          `Units are <b>${d >= 0 ? 'up' : 'down'} ${Math.abs(Math.round(d))}%</b> on the previous week (${fmtInt(currTotal)} vs ${fmtInt(prevTotal)}).` });
-      }
-      const movers = P.filter(p => p.trend != null && isFinite(p.trend) && (p.units || 0) + (p.prevUnits || 0) >= 5);
-      const riser = movers.slice().sort((a, b) => b.trend - a.trend)[0];
-      const faller = movers.slice().sort((a, b) => a.trend - b.trend)[0];
-      if (riser && riser.trend >= A.T.trend) out.push({ tone: 'green', icon: '↗', html:
-        `Biggest riser: <b>${esc(riser.name)}</b>, <b>${fmtPct(riser.trend)}</b> week on week (${fmtInt(riser.prevUnits)} → ${fmtInt(riser.units)} units)${riser.status === 'act' || riser.status === 'watch' ? '. Check stock can keep up.' : '.'}` });
-      if (faller && faller.trend <= -A.T.trend) out.push({ tone: 'amber', icon: '↘', html:
-        `Slowing down: <b>${esc(faller.name)}</b>, <b>${fmtPct(faller.trend)}</b> week on week${(faller.cover || 0) > A.T.watch ? ', with ' + Math.round(faller.cover) + ' weeks of stock behind it' : ''}.` });
-    }
-
-    const online = P.filter(p => p.flags.has('onlineGap'));
-    if (online.length) out.push({ tone: 'amber', icon: '⟳', html:
-      `<b>${online.length} selling line${online.length > 1 ? 's have' : ' has'} no online stock</b>${online.length <= 3 ? ' (' + online.map(p => esc(p.name)).join(', ') + ')' : ''}. Move stock across to protect web sales.` });
-
-    const oos = P.filter(p => p.flags.has('outOfStock') && !p.flags.has('onlineGap'));
-    if (oos.length) out.push({ tone: 'red', icon: '0', html:
-      `<b>${oos.length} line${oos.length > 1 ? 's are' : ' is'} sold out</b> in at least one location while still selling.` });
-
-    const over = P.filter(p => p.status === 'over');
-    if (over.length) {
-      const units = over.reduce((s, p) => s + (p.total || 0), 0);
-      out.push({ tone: 'blue', icon: '≡', html:
-        `<b>${over.length} overstocked line${over.length > 1 ? 's' : ''}</b> with ${A.T.over}+ weeks of cover (${fmtInt(units)} units). Hold further orders or plan a promotion.` });
-    }
-
-    const idle = P.filter(p => p.status === 'idle' && (p.total || 0) > 0);
-    if (idle.length) out.push({ tone: 'grey', icon: '–', html:
-      `<b>${idle.length} line${idle.length > 1 ? 's' : ''} sold nothing</b> but ${idle.length > 1 ? 'are' : 'is'} holding stock. Review placement or price.` });
-
-    if (A.has.category) {
-      const cats = {};
-      P.forEach(p => { if (p.category) cats[p.category] = (cats[p.category] || 0) + (A.has.value ? (p.value || 0) : (p.units || 0)); });
-      const list = Object.entries(cats).sort((a, b) => b[1] - a[1]);
-      if (list.length > 1) out.push({ tone: 'blue', icon: '◆', html:
-        `Strongest category: <b>${esc(list[0][0])}</b> (${A.has.value ? fmtGBP(list[0][1]) : fmtInt(list[0][1]) + ' units'}), ahead of ${esc(list[1][0])}.` });
-    }
-
-    if (A.relative) out.push({ tone: 'grey', icon: 'i', html:
-      'Your stock figures look like per-store or average counts rather than totals, so lines are ranked against each other instead of by weeks of cover.' });
-
-    if (!A.has.trend) out.push({ tone: 'grey', icon: 'i', html:
-      'Add a <b>previous week units</b> column to see which lines are improving or declining.' });
-
-    if (!out.length) out.push({ tone: 'green', icon: '✓', html: 'Nothing urgent this week: stock and sales look balanced.' });
-    return out;
-  }
-
-  /* ───────────────────────── State + rendering ───────────────────────── */
+  /* ───────────────────────── State ───────────────────────── */
 
   const state = {
-    rows: null,        // raw grid
-    headerIdx: -1,
-    headers: [],
-    data: [],
-    map: {},
-    analysis: null,
-    filter: 'all',
-    sort: 'priority',
-    query: '',
-    fileLabel: '',
-    note: ''
+    pt: null, map: {}, analysis: null, skipped: null, totalRow: null,
+    breakdowns: [], filter: 'all', sort: 'priority', query: '', open: new Set()
   };
 
   const PILLS = [
-    { key: 'all',        label: 'All products',     dot: null,       test: () => true },
-    { key: 'act',        label: 'Reorder now',      dot: 'var(--red)', test: p => p.status === 'act' },
-    { key: 'runningOut', label: 'Running out',      dot: '#ff6b84',  test: p => p.flags.has('runningOut') },
-    { key: 'outOfStock', label: 'Sold out somewhere', dot: '#ff6b84', test: p => p.flags.has('outOfStock') },
-    { key: 'highSales',  label: 'High sales',       dot: '#4c8dff',  test: p => p.flags.has('highSales') },
-    { key: 'lowSales',   label: 'Low sales',        dot: '#8a8a92',  test: p => p.flags.has('lowSales') },
-    { key: 'improving',  label: 'Improving',        dot: '#5fd884',  test: p => p.flags.has('improving'), needs: 'trend' },
-    { key: 'declining',  label: 'Declining',        dot: '#f7b955',  test: p => p.flags.has('declining'), needs: 'trend' },
-    { key: 'onlineGap',  label: 'Online gaps',      dot: '#f7b955',  test: p => p.flags.has('onlineGap'), needs: 'online' },
-    { key: 'overstock',  label: 'Overstocked',      dot: '#4c8dff',  test: p => p.flags.has('overstock') },
-    { key: 'watch',      label: 'Watch',            dot: '#f7b955',  test: p => p.status === 'watch' },
-    { key: 'ok',         label: 'Healthy',          dot: '#5fd884',  test: p => p.status === 'ok' }
+    { key: 'all',         label: 'All products',       dot: null,          test: () => true },
+    { key: 'act',         label: 'Reorder now',        dot: 'var(--red)',  test: p => p.status === 'act' },
+    { key: 'runningOut',  label: 'Running out',        dot: '#ff6b84',     test: p => p.flags.has('runningOut') },
+    { key: 'outOfStock',  label: 'Sold out somewhere', dot: '#ff6b84',     test: p => p.flags.has('outOfStock') },
+    { key: 'highSales',   label: 'High sales',         dot: '#4c8dff',     test: p => p.flags.has('highSales') },
+    { key: 'lowSales',    label: 'Low sales',          dot: '#8a8a92',     test: p => p.flags.has('lowSales') },
+    { key: 'improving',   label: 'Improving',          dot: '#5fd884',     test: p => p.flags.has('improving'), needs: 'trend' },
+    { key: 'declining',   label: 'Declining',          dot: '#f7b955',     test: p => p.flags.has('declining'), needs: 'trend' },
+    { key: 'onlineGap',   label: 'Online gaps',        dot: '#f7b955',     test: p => p.flags.has('onlineGap'), needs: 'onlineAny' },
+    { key: 'highReturns', label: 'High returns',       dot: '#c58bff',     test: p => p.flags.has('highReturns'), needs: 'returns' },
+    { key: 'overstock',   label: 'Overstocked',        dot: '#4c8dff',     test: p => p.flags.has('overstock') },
+    { key: 'watch',       label: 'Watch',              dot: '#f7b955',     test: p => p.status === 'watch' },
+    { key: 'ok',          label: 'Healthy',            dot: '#5fd884',     test: p => p.status === 'ok' }
   ];
 
   function setStatus(msg, busy, isError) {
@@ -716,23 +762,163 @@
   }
 
   function runAnalysis() {
-    const products = buildProducts(state.data, state.map);
-    if (!products.length) {
-      throw new Error('Couldn’t find any product rows. Check the “Columns & thresholds” panel and pick the right columns.');
-    }
-    const has = {
-      value:     products.some(p => p.value != null),
-      units:     products.some(p => p.units != null),
-      trend:     products.some(p => p.prevUnits != null || p.prevValue != null),
-      branch:    state.map.branch != null,
-      warehouse: state.map.warehouse != null,
-      online:    state.map.online != null,
-      total:     state.map.stock != null && state.map.branch == null && state.map.warehouse == null && state.map.online == null,
-      category:  products.some(p => p.category),
-      stock:     products.some(p => p.stock != null || p.branch != null || p.warehouse != null || p.online != null)
-    };
-    state.analysis = analyse(products, has);
+    const built = buildProducts(state.pt, state.map);
+    if (!built.products.length) throw new Error('Couldn’t find any product rows. Open “Columns & thresholds” and pick the product name and SKU columns.');
+    state.skipped = built.skipped;
+    state.totalRow = built.totalRow;
+    const m = state.map, P = built.products;
+    const has = {};
+    FIELDS.forEach(f => { has[f.key] = m[f.key] != null || ((f.key === 'units' || f.key === 'value') && m.combined != null); });
+    has.trend = P.some(p => p.prevUnits != null || p.prevValue != null);
+    has.onlineAny = has.online || has.onlineCover;
+    has.channels = has.retailUnits || has.onlineUnits || has.retailValue || has.onlineValue;
+    has.anyValue = has.value || has.retailValue || has.onlineValue;
+    has.ranks = (m.ranks || []).length > 0;
+    state.analysis = analyse(P, has, m);
   }
+
+  /* ───────────────────────── Rendering helpers ───────────────────────── */
+
+  const orig = (p, k) => { const t = p.src[k]; return t === undefined ? '' : t === '' ? BLANK : esc(t); };
+  const MONEY = new Set(['value', 'prevValue', 'retailValue', 'onlineValue']);
+  // Money cells: if the file's header marks the column as £ but the cell is a
+  // bare number, show a £ sign in front. The digits themselves are untouched.
+  const money = (p, k) => {
+    const t = p.src[k];
+    if (t === undefined) return '';
+    if (t === '') return BLANK;
+    return /[£$€]/.test(t) || num(t) == null ? esc(t) : '<span class="sa-cur">£</span>' + esc(t);
+  };
+  const label = k => state.map[k] != null ? (state.pt.labels[state.map[k]] || FIELDS.find(f => f.key === k).label) : FIELDS.find(f => f.key === k).label;
+
+  // Location chip: a cover figure (weeks) or stock units, shown exactly as written
+  function locChip(p, key, A) {
+    if (p[key] === undefined) return '';
+    const text = p.src[key];
+    if (text === '' || text == null) return '<span class="sa-chip sa-chip--blank">blank</span>';
+    const v = p[key];
+    if (v == null) return `<span class="sa-chip sa-chip--text">${esc(text)}</span>`;
+    const T = A.T;
+    let cls;
+    if (/Cover$/.test(key) || A.relative || !(p.rankUnits > 0)) {
+      cls = v <= T.lowLoc ? 'red' : v >= T.goodLoc ? 'green' : 'amber';
+    } else {
+      const wks = v / p.rankUnits;
+      cls = v === 0 || wks < 0.5 ? 'red' : wks < T.reorder ? 'amber' : 'green';
+    }
+    return `<span class="sa-chip sa-chip--${cls}">${esc(text)}</span>`;
+  }
+  function trendChip(p) {
+    if (p.trend == null) return '<span class="sa-trend sa-trend--flat">—</span>';
+    if (!isFinite(p.trend)) return '<span class="sa-trend sa-trend--new">New</span>';
+    const t = thresholds().trend;
+    const cls = p.trend >= t ? 'up' : p.trend <= -t ? 'down' : 'flat';
+    return `<span class="sa-trend sa-trend--${cls}">${cls === 'up' ? '▲' : cls === 'down' ? '▼' : '•'} ${fmtPct(p.trend)}</span>`;
+  }
+  function coverCell(p, A) {
+    const T = A.T;
+    if (!p.coverCalc) {                               // the file's own Total Cover
+      const text = p.src.totalCover;
+      if (text === '' || text == null) return `<span class="sa-cover">${BLANK}</span>`;
+      const c = p.totalCover;
+      const cls = c == null ? 'grey' : c < T.reorder ? 'red' : c < T.watch ? 'amber' : c > T.over ? 'blue' : 'green';
+      return `<span class="sa-cover sa-cover--${cls}"><span class="sa-cover__num">${esc(text)}</span><span class="sa-cover__unit">wks</span></span>`;
+    }
+    if (p.cover == null) return '<span class="sa-cover sa-cover--grey"><span class="sa-cover__num">—</span></span>';
+    const c = p.cover;
+    const cls = c < T.reorder ? 'red' : c < T.watch ? 'amber' : c > T.over ? 'blue' : 'green';
+    const txt = c < 1 ? (c * 7 < 1 ? '<1' : Math.round(c * 7)) : c < 10 ? c.toFixed(1) : Math.round(c);
+    const excl = p.stockExcludes.length ? `<span class="sa-cover__note">excl. ${p.stockExcludes.map(k => k + ' (' + (p.src[k] === '' ? 'blank' : esc(p.src[k])) + ')').join(', ')}</span>` : '';
+    return `<span class="sa-cover sa-cover--${A.relative ? 'grey' : cls}" title="Calculated: stock ÷ units sold"><span class="sa-cover__num">${txt}</span><span class="sa-cover__unit">${c < 1 ? 'days' : 'wks'}</span><span class="sa-cover__note">calculated</span>${excl}</span>`;
+  }
+  function soldCell(p, A, maxVal) {
+    const has = A.has;
+    const lines = [];
+    if (has.value) lines.push(`<div class="sa-sold__val">${money(p, 'value')}</div>`);
+    if (has.units) lines.push(`<div class="${has.value ? 'sa-sold__units' : 'sa-sold__val'}">${p.src.units === '' ? 'units ' + BLANK : esc(p.src.units) + ' units'}</div>`);
+    if (!has.value && !has.units && has.channels) {
+      const bits = [];
+      if (has.retailValue || has.retailUnits) bits.push(`<div class="sa-sold__val">${has.retailValue ? money(p, 'retailValue') : orig(p, 'retailUnits') + ' units'} <small>retail</small></div>`);
+      if (has.onlineValue || has.onlineUnits) bits.push(`<div class="sa-sold__units">${has.onlineValue ? money(p, 'onlineValue') : orig(p, 'onlineUnits') + ' units'} online</div>`);
+      lines.push(bits.join(''));
+    }
+    const v = p.rankValue ?? p.rankUnits ?? 0;
+    lines.push(`<div class="sa-sold__bar"><i style="width:${Math.max(2, v / maxVal * 100)}%"></i></div>`);
+    if (has.channels && (has.retailUnits || has.onlineUnits)) {
+      const r = p.retailUnits, o = p.onlineUnits;
+      const tot = (r || 0) + (o || 0);
+      const rp = tot ? (r || 0) / tot * 100 : 0;
+      lines.push(`<div class="sa-chan" title="Retail vs online units (from your file)">
+        <div class="sa-chan__bar"><i class="sa-chan__r" style="width:${rp}%"></i><i class="sa-chan__o" style="width:${tot ? 100 - rp : 0}%"></i></div>
+        <div class="sa-chan__txt"><span><b class="sa-dot sa-dot--r"></b>Retail ${orig(p, 'retailUnits') || '—'}</span><span><b class="sa-dot sa-dot--o"></b>Online ${orig(p, 'onlineUnits') || '—'}</span></div>
+      </div>`);
+    }
+    return lines.join('');
+  }
+  function productCell(p, A) {
+    const m = state.map;
+    const meta = [];
+    if (A.has.category && p.src.category !== undefined) meta.push(p.src.category === '' ? 'Group ' + BLANK : esc(p.src.category));
+    if (A.has.price) meta.push(p.src.price === '' ? 'Price ' + BLANK : esc(/[£$€]/.test(p.src.price) ? p.src.price : '£' + p.src.price) + ' each');
+    if (A.has.distribution) meta.push('Dist. ' + (p.src.distribution === '' ? BLANK : esc(p.src.distribution)));
+    const ranks = (m.ranks || []).map(i => {
+      const t = p.cells[i].trim();
+      return `<span class="sa-rank" title="${esc(state.pt.labels[i])}">${esc(state.pt.labels[i].replace(/\s*rank(ing)?\s*/i, '') || 'Rank')} #${t === '' ? '–' : esc(t)}</span>`;
+    }).join('');
+    return `<div class="sa-prod__name">${p.name ? esc(p.name) : BLANK}</div>
+      <div class="sa-prod__code">${m.code != null ? (p.code ? esc(p.code) : 'SKU ' + BLANK) : ''}</div>
+      ${meta.length ? `<div class="sa-prod__meta">${meta.join('<i>·</i>')}</div>` : ''}
+      ${ranks ? `<div class="sa-prod__ranks">${ranks}</div>` : ''}`;
+  }
+
+  // Table columns, built from whatever the file contains
+  function columns(A) {
+    const h = A.has, cov = A.locCoverMode;
+    const cols = [
+      { cls: 'sa-col-pri', th: 'Priority', td: p => `<span class="sa-pri sa-pri--${STATUS[p.status].pri}">${p.priority}</span>`, area: 'pri' },
+      { cls: 'sa-col-prod', th: 'Product', td: p => productCell(p, A), area: 'prod' },
+      { cls: 'sa-col-sold', th: h.value || h.units ? 'Last week sold' : 'Sold', td: (p, mx) => soldCell(p, A, mx), area: 'sold' }
+    ];
+    if (h.trend) cols.push({ cls: 'sa-col-trend', th: 'vs prev wk', td: p => trendChip(p), m: 'Trend' });
+    const locs = cov ? [['branchCover', 'Branch cover'], ['warehouseCover', 'Warehouse cover'], ['onlineCover', 'Online cover']]
+                     : [['branch', 'Branch'], ['warehouse', 'Warehouse'], ['online', 'Online']];
+    locs.forEach(([k, t]) => { if (h[k]) cols.push({ cls: 'sa-col-loc', th: t + (cov ? ' <small>wks</small>' : ''), td: p => locChip(p, k, A), m: t.replace(' cover', '') + (cov ? ' cov.' : '') }); });
+    if (h.stock || (cov && h.online)) {
+      cols.push({ cls: 'sa-col-stock', th: 'Stock <small>units</small>', m: 'Stock', td: p => {
+        const bits = [];
+        if (h.stock) bits.push(`<div><span class="sa-mini">${cov || h.online ? 'Retail' : 'Total'}</span> ${orig(p, 'stock')}</div>`);
+        if (cov && h.online) bits.push(`<div><span class="sa-mini">Online</span> ${orig(p, 'online')}</div>`);
+        if (!cov && !h.online && h.branch) return '';
+        return `<div class="sa-stock">${bits.join('')}</div>`;
+      } });
+    }
+    if (h.totalCover || h.stock || h.branch || h.warehouse || h.online) cols.push({ cls: 'sa-col-cover', th: h.totalCover ? 'Total cover' : 'Cover', td: p => coverCell(p, A), m: 'Cover' });
+    if (h.returns) cols.push({ cls: 'sa-col-ret', th: 'Returns', m: 'Returns', td: p => {
+      const t = p.src.returns;
+      if (t === '' || t == null) return BLANK;
+      return `<span class="sa-ret ${p.flags.has('highReturns') ? 'is-high' : ''}">${esc(t)}</span>`;
+    } });
+    if (h.onOrder) cols.push({ cls: 'sa-col-order', th: 'On order', td: p => orig(p, 'onOrder'), m: 'On order' });
+    cols.push({ cls: 'sa-col-action', th: 'Action', area: 'act', td: p => {
+      const tags = [];
+      if (p.flags.has('highSales')) tags.push('Top seller');
+      if (p.flags.has('improving')) tags.push('Rising');
+      if (p.flags.has('declining')) tags.push('Slowing');
+      return `<div class="sa-action">${esc(p.action)}</div>${tags.length ? `<div class="sa-action__tags">${tags.map(x => `<span class="sa-tag">${esc(x)}</span>`).join('')}</div>` : ''}`;
+    } });
+    return cols;
+  }
+
+  // Every column of the row, exactly as in the file
+  function detailRow(p, span) {
+    const items = state.pt.labels.map((l, i) => {
+      if (!l && !p.cells[i].trim()) return '';
+      return `<div class="sa-detail__item"><span>${l ? esc(l) : 'Column ' + (i + 1)}</span><b>${p.cells[i].trim() === '' ? BLANK : esc(p.cells[i])}</b></div>`;
+    }).join('');
+    return `<tr class="sa-detail"><td colspan="${span}"><div class="sa-detail__head">Every column for this product, exactly as in your file <span>(row ${p.idx + state.pt.rowOffset})</span></div><div class="sa-detail__grid">${items}</div></td></tr>`;
+  }
+
+  /* ───────────────────────── Render ───────────────────────── */
 
   function render() {
     const A = state.analysis;
@@ -742,208 +928,334 @@
     renderMix(A);
     renderPills(A);
     renderTable(A);
+    renderOriginal();
   }
+
+  // A figure from the file's own Total row, if it has one
+  const totalFromFile = k => {
+    const tr = state.totalRow, i = state.map[k];
+    if (!tr || i == null) return null;
+    const t = tr.text[i].trim();
+    return t === '' ? null : t;
+  };
 
   function renderKpis(A) {
-    const P = A.products;
-    const val = P.reduce((s, p) => s + (p.value || 0), 0);
-    const units = P.reduce((s, p) => s + (p.units || 0), 0);
-    const prevU = P.reduce((s, p) => s + (p.prevUnits || 0), 0);
-    const prevV = P.reduce((s, p) => s + (p.prevValue || 0), 0);
-    const act = P.filter(p => p.status === 'act').length;
-    const out = P.filter(p => p.flags.has('outOfStock')).length;
-    const covers = P.filter(p => p.cover != null && isFinite(p.cover));
-    const totU = covers.reduce((s, p) => s + p.units, 0);
-    const avgCover = totU ? covers.reduce((s, p) => s + p.total, 0) / totU : null;
-
-    const delta = (curr, prev) => prev > 0
-      ? `<div class="sa-kpi__delta ${curr >= prev ? 'sa-up' : 'sa-down'}">${curr >= prev ? '▲' : '▼'} ${Math.abs(Math.round((curr - prev) / prev * 100))}% vs prev wk</div>`
-      : '';
+    const P = A.products, h = A.has;
+    const tile = (lbl, val, sub, cls) => `<div class="sa-kpi ${cls || ''}"><div class="sa-kpi__label">${lbl}</div><div class="sa-kpi__value">${val}</div>${sub ? `<div class="sa-kpi__delta">${sub}</div>` : ''}</div>`;
+    const fromTotal = '<span class="sa-src">from your Total row</span>';
+    const calcSum = '<span class="sa-src">sum of product rows</span>';
     const tiles = [];
-    if (A.has.value) tiles.push(`<div class="sa-kpi"><div class="sa-kpi__label">Sales last week</div><div class="sa-kpi__value">${fmtGBP(val)}</div>${delta(val, prevV)}</div>`);
-    tiles.push(`<div class="sa-kpi"><div class="sa-kpi__label">Units sold</div><div class="sa-kpi__value">${fmtInt(units)}</div>${delta(units, prevU)}</div>`);
-    tiles.push(`<div class="sa-kpi"><div class="sa-kpi__label">Products</div><div class="sa-kpi__value">${P.length}</div><div class="sa-kpi__delta">${P.filter(p => p.units > 0).length} sold at least one</div></div>`);
-    tiles.push(`<div class="sa-kpi ${act ? 'sa-kpi--alert' : ''}"><div class="sa-kpi__label">Reorder now</div><div class="sa-kpi__value">${act}</div><div class="sa-kpi__delta">${P.filter(p => p.status === 'watch').length} more to watch</div></div>`);
-    tiles.push(`<div class="sa-kpi ${out ? 'sa-kpi--warn' : ''}"><div class="sa-kpi__label">Sold out somewhere</div><div class="sa-kpi__value">${out}</div><div class="sa-kpi__delta">${P.filter(p => p.flags.has('onlineGap')).length} with online gaps</div></div>`);
-    if (A.has.stock) tiles.push(`<div class="sa-kpi"><div class="sa-kpi__label">Avg weeks cover</div><div class="sa-kpi__value">${avgCover == null ? '—' : avgCover < 10 ? avgCover.toFixed(1) : Math.round(avgCover)}</div><div class="sa-kpi__delta">${A.relative ? 'stock looks per-store' : 'stock ÷ weekly units'}</div></div>`);
+    const sumOf = k => sumKnown(...P.map(p => p[k]));
+    const showTotal = (k, lbl, money) => {
+      const t = totalFromFile(k);
+      if (t != null) tiles.push(tile(lbl, esc(money && !/[£$€]/.test(t) ? '£' + t : t), fromTotal));
+      else if (h[k]) { const s = sumOf(k); if (s != null) tiles.push(tile(lbl, money ? fmtGBP(s) : fmtNum(s), calcSum)); }
+    };
+    if (h.value) showTotal('value', 'Sales last week', true);
+    else if (h.retailValue || h.onlineValue) { showTotal('retailValue', 'Retail sales', true); showTotal('onlineValue', 'Online sales', true); }
+    if (h.units) showTotal('units', 'Units sold', false);
+    if (h.retailUnits && h.onlineUnits) {
+      // Prefer the file's own Total row figures; otherwise sum the product rows
+      const rt = totalFromFile('retailUnits'), ot = totalFromFile('onlineUnits');
+      const fromFile = rt != null && ot != null && num(rt) != null && num(ot) != null;
+      const r = fromFile ? num(rt) : (sumOf('retailUnits') || 0), o = fromFile ? num(ot) : (sumOf('onlineUnits') || 0);
+      if (r + o > 0) tiles.push(tile('Online share of units', Math.round(o / (r + o) * 100) + '%',
+        fromFile ? `${esc(ot)} online · ${esc(rt)} retail <span class="sa-src">(Total row)</span>` : `${fmtNum(o)} online · ${fmtNum(r)} retail`));
+    }
+    tiles.push(tile('Products', P.length, `${P.filter(p => (p.rankUnits || 0) > 0).length} sold at least one`));
+    const act = P.filter(p => p.status === 'act').length;
+    tiles.push(tile('Reorder now', act, `${P.filter(p => p.status === 'watch').length} more to watch`, act ? 'sa-kpi--alert' : ''));
+    const out = P.filter(p => p.flags.has('outOfStock')).length;
+    tiles.push(tile('Sold out somewhere', out, `${P.filter(p => p.flags.has('onlineGap')).length} with online gaps`, out ? 'sa-kpi--warn' : ''));
+    if (h.totalCover) {
+      const t = totalFromFile('totalCover');
+      if (t != null) tiles.push(tile('Total cover', esc(t) + ' <small>wks</small>', fromTotal));
+    } else if (h.stock || h.branch || h.warehouse || h.online) {
+      const covers = P.filter(p => p.cover != null && isFinite(p.cover) && p.totalStockCalc != null);
+      const tu = covers.reduce((s, p) => s + p.rankUnits, 0);
+      const avg = tu ? covers.reduce((s, p) => s + p.totalStockCalc, 0) / tu : null;
+      tiles.push(tile('Avg weeks cover', avg == null ? '—' : avg < 10 ? avg.toFixed(1) : Math.round(avg), A.relative ? 'stock looks per-store' : 'calculated'));
+    }
+    if (h.returns) {
+      const t = totalFromFile('returns');
+      if (t != null) tiles.push(tile('Returns rate', esc(t), fromTotal));
+    }
     els.kpis.innerHTML = tiles.join('');
-    els.kpis.style.gridTemplateColumns = '';
-    els.kpis.dataset.count = tiles.length;
   }
+
+  function buildInsights(A) {
+    const P = A.products, h = A.has;
+    const out = [];
+    const valOf = p => (p.rankValue != null ? p.rankValue : (p.rankUnits || 0));
+    const shown = p => h.value ? money(p, 'value') : h.units ? esc(p.src.units) + ' units'
+      : h.retailValue ? money(p, 'retailValue') + ' retail' : esc(p.src.retailUnits || '') + ' units';
+    const byVal = P.slice().sort((a, b) => valOf(b) - valOf(a));
+    const total = P.reduce((s, p) => s + valOf(p), 0);
+
+    const act = P.filter(p => p.status === 'act').sort((a, b) => b.score - a.score);
+    if (act.length) {
+      const atRisk = act.reduce((s, p) => s + valOf(p), 0);
+      const money = h.anyValue;
+      out.push({ tone: 'red', icon: '!', html:
+        `<b>${act.length} line${act.length > 1 ? 's' : ''} need reordering now</b>, together ${money ? fmtGBP(atRisk) : fmtNum(atRisk) + ' units'} of last week&rsquo;s sales. Start with <b>${esc(act[0].name || act[0].code)}</b>${act[1] ? ' and <b>' + esc(act[1].name || act[1].code) + '</b>' : ''}.` });
+    }
+    if (byVal[0] && total > 0) {
+      const top = byVal[0];
+      const top5 = byVal.slice(0, 5).reduce((s, p) => s + valOf(p), 0);
+      out.push({ tone: 'blue', icon: '★', html:
+        `Best seller: <b>${esc(top.name || top.code)}</b>${top.code && top.name ? ' (' + esc(top.code) + ')' : ''} at ${shown(top)}, ${Math.round(valOf(top) / total * 100)}% of the week.` +
+        (P.length > 6 ? ` The top 5 lines made <b>${Math.round(top5 / total * 100)}%</b> of sales.` : '') });
+    }
+    if (h.retailUnits && h.onlineUnits) {
+      const r = P.reduce((s, p) => s + (p.retailUnits || 0), 0), o = P.reduce((s, p) => s + (p.onlineUnits || 0), 0);
+      if (r + o > 0) {
+        const onlineLed = P.filter(p => (p.onlineUnits || 0) > (p.retailUnits || 0) * 2 && (p.onlineUnits || 0) >= 10).sort((a, b) => b.onlineUnits - a.onlineUnits);
+        out.push({ tone: 'blue', icon: '⇄', html:
+          `Online took <b>${Math.round(o / (r + o) * 100)}%</b> of units (${fmtNum(o)} online vs ${fmtNum(r)} retail).` +
+          (onlineLed[0] ? ` Most online-led: <b>${esc(onlineLed[0].name)}</b> (${esc(onlineLed[0].src.onlineUnits)} online vs ${p0(onlineLed[0].src.retailUnits)} retail).` : '') });
+      }
+    }
+    if (h.trend) {
+      const prevTotal = P.reduce((s, p) => s + (p.prevUnits != null ? p.prevUnits : 0), 0);
+      const currTotal = P.reduce((s, p) => s + (p.prevUnits != null ? (p.units || 0) : 0), 0);
+      if (prevTotal > 0) {
+        const d = (currTotal - prevTotal) / prevTotal * 100;
+        out.push({ tone: d >= 0 ? 'green' : 'red', icon: d >= 0 ? '▲' : '▼', html:
+          `Units are <b>${d >= 0 ? 'up' : 'down'} ${Math.abs(Math.round(d))}%</b> on the week before (${fmtNum(currTotal)} vs ${fmtNum(prevTotal)}).` });
+      }
+      const movers = P.filter(p => p.trend != null && isFinite(p.trend) && (p.units || 0) + (p.prevUnits || 0) >= 5);
+      const riser = movers.slice().sort((a, b) => b.trend - a.trend)[0];
+      const faller = movers.slice().sort((a, b) => a.trend - b.trend)[0];
+      if (riser && riser.trend >= A.T.trend) out.push({ tone: 'green', icon: '↗', html:
+        `Biggest riser: <b>${esc(riser.name)}</b>, <b>${fmtPct(riser.trend)}</b> (${esc(riser.src.prevUnits)} → ${esc(riser.src.units)} units).` });
+      if (faller && faller.trend <= -A.T.trend) out.push({ tone: 'amber', icon: '↘', html:
+        `Slowing down: <b>${esc(faller.name)}</b>, <b>${fmtPct(faller.trend)}</b> week on week.` });
+    }
+    const online = P.filter(p => p.flags.has('onlineGap'));
+    if (online.length) out.push({ tone: 'amber', icon: '⟳', html:
+      `<b>${online.length} selling line${online.length > 1 ? 's have' : ' has'} zero online ${A.locCoverMode ? 'cover' : 'stock'}</b>${online.length <= 3 ? ' (' + online.map(p => esc(p.name)).join(', ') + ')' : ''}. Move stock across to protect web sales.` });
+    const wh = P.filter(p => (p.warehouse === 0 || p.warehouseCover === 0) && (p.rankUnits || 0) > 0);
+    if (wh.length) out.push({ tone: 'red', icon: '0', html:
+      `<b>${wh.length} selling line${wh.length > 1 ? 's have' : ' has'} nothing left in the warehouse</b>, so branches and online can&rsquo;t be topped up.` });
+    const ret = P.filter(p => p.flags.has('highReturns')).sort((a, b) => b.returns - a.returns);
+    if (ret.length) out.push({ tone: 'amber', icon: '↩', html:
+      `<b>${ret.length} line${ret.length > 1 ? 's' : ''} with returns at ${A.T.returns}%+</b>. Highest: <b>${esc(ret[0].name)}</b> at ${esc(ret[0].src.returns)}.` });
+    const over = P.filter(p => p.status === 'over');
+    if (over.length) out.push({ tone: 'blue', icon: '≡', html:
+      `<b>${over.length} overstocked line${over.length > 1 ? 's' : ''}</b> with more than ${A.T.over} weeks of cover. Hold orders or plan a promotion.` });
+    const idle = P.filter(p => p.status === 'idle');
+    if (idle.length) out.push({ tone: 'grey', icon: '–', html: `<b>${idle.length} line${idle.length > 1 ? 's' : ''} sold nothing</b> last week.` });
+    const neg = P.filter(p => p.status === 'check');
+    if (neg.length) out.push({ tone: 'grey', icon: '±', html: `<b>${neg.length} line${neg.length > 1 ? 's have' : ' has'} negative stock or cover</b> in your file (${neg.slice(0, 3).map(p => esc(p.name || p.code)).join(', ')}${neg.length > 3 ? '…' : ''}). Worth checking the figures before acting on ${neg.length > 1 ? 'them' : 'it'}.` });
+    const blanks = P.filter(p => p.status === 'nodata');
+    if (blanks.length) out.push({ tone: 'grey', icon: '?', html: `<b>${blanks.length} line${blanks.length > 1 ? 's have' : ' has'} a blank sales figure</b> in your file, so ${blanks.length > 1 ? 'they' : 'it'} can&rsquo;t be assessed.` });
+    if (A.relative) out.push({ tone: 'grey', icon: 'i', html: 'Your stock figures look like per-store or average counts, so lines are ranked against each other instead of by weeks of cover.' });
+    if (!h.trend) out.push({ tone: 'grey', icon: 'i', html: 'Your file has no week-before column, so <b>Improving</b> and <b>Declining</b> are switched off.' });
+    if (!out.length) out.push({ tone: 'green', icon: '✓', html: 'Nothing urgent this week: stock and sales look balanced.' });
+    return out;
+  }
+  const p0 = t => (t === '' || t == null) ? 'blank' : esc(t);
 
   function renderInsights(A) {
     els.insights.innerHTML = buildInsights(A).map(i =>
-      `<li class="sa-insight sa-insight--${i.tone}"><span class="sa-insight__icon" aria-hidden="true">${i.icon}</span><span>${i.html}</span></li>`
-    ).join('');
+      `<li class="sa-insight sa-insight--${i.tone}"><span class="sa-insight__icon" aria-hidden="true">${i.icon}</span><span>${i.html}</span></li>`).join('');
   }
 
   function renderMix(A) {
-    const P = A.products;
+    const P = A.products, h = A.has;
     const counts = STATUS_ORDER.map(k => [k, P.filter(p => p.status === k).length]).filter(([, c]) => c);
     els.mixBar.innerHTML = counts.map(([k, c]) => `<span style="flex-grow:${c};background:${STATUS[k].colour}" title="${STATUS[k].label}: ${c}"></span>`).join('');
-    els.mixLegend.innerHTML = counts.map(([k, c]) =>
-      `<li><i style="background:${STATUS[k].colour}"></i>${STATUS[k].short}<b>${c}</b></li>`).join('');
-    const top = P.slice().sort((a, b) => (b.value ?? b.units ?? 0) - (a.value ?? a.units ?? 0)).slice(0, 5);
-    const max = top.length ? (top[0].value ?? top[0].units ?? 1) : 1;
-    els.top.innerHTML = top.map(p => {
-      const v = p.value ?? p.units ?? 0;
-      return `<li><span class="sa-top__name">${esc(p.name)}</span><span class="sa-top__val">${A.has.value ? fmtGBP(p.value) : fmtInt(p.units)}</span><span class="sa-top__bar"><i style="width:${Math.max(4, v / max * 100)}%"></i></span></li>`;
-    }).join('');
+    els.mixLegend.innerHTML = counts.map(([k, c]) => `<li><i style="background:${STATUS[k].colour}"></i>${STATUS[k].short}<b>${c}</b></li>`).join('');
+    const valOf = p => (p.rankValue != null ? p.rankValue : (p.rankUnits || 0));
+    const top = P.slice().sort((a, b) => valOf(b) - valOf(a)).slice(0, 5);
+    const max = top.length ? valOf(top[0]) || 1 : 1;
+    const shownKey = h.value ? 'value' : h.units ? 'units' : h.retailValue ? 'retailValue' : 'retailUnits';
+    els.topTitle.textContent = 'Top sellers by ' + (h.value ? '£' : h.units ? 'units' : h.retailValue ? 'retail £' : 'retail units');
+    els.top.innerHTML = top.map(p => `<li><span class="sa-top__name">${esc(p.name || p.code)}</span><span class="sa-top__val">${MONEY.has(shownKey) ? money(p, shownKey) : orig(p, shownKey)}</span><span class="sa-top__bar"><i style="width:${Math.max(4, valOf(p) / max * 100)}%"></i></span></li>`).join('');
   }
 
   function renderPills(A) {
     const P = A.products;
     els.pills.innerHTML = PILLS.map(pl => {
-      const missing = pl.needs && !(pl.needs === 'trend' ? A.has.trend : A.has[pl.needs]);
+      const missing = pl.needs && !A.has[pl.needs];
+      if (missing && pl.needs !== 'trend') return '';
       const count = missing ? 0 : P.filter(pl.test).length;
       if (pl.key !== 'all' && !missing && count === 0 && !['act', 'runningOut'].includes(pl.key)) return '';
-      const title = missing ? (pl.needs === 'trend' ? 'Needs a previous-week column' : 'Needs an online stock column') : '';
+      const title = missing ? 'Your file has no week-before column' : '';
       return `<button type="button" class="sa-pill ${state.filter === pl.key ? 'is-active' : ''}" data-key="${pl.key}" role="tab" aria-selected="${state.filter === pl.key}" ${missing ? 'disabled' : ''} ${title ? `title="${title}"` : ''}>` +
-        (pl.dot ? `<i style="background:${pl.dot}"></i>` : '') + pl.label +
-        `<span class="sa-pill__count">${missing ? '–' : count}</span></button>`;
+        (pl.dot ? `<i style="background:${pl.dot}"></i>` : '') + pl.label + `<span class="sa-pill__count">${missing ? '–' : count}</span></button>`;
     }).join('');
   }
 
-  // Colour a location's stock. When stock figures are real totals, judge it
-  // by how long it lasts at the product's weekly sales rate; when they look
-  // like per-store counts (relative mode), use the fixed unit thresholds.
-  function stockChip(v, T, p, A) {
-    if (v === undefined) return '';
-    if (v === null) return '<span class="sa-chip sa-chip--blank">blank</span>';
-    let cls;
-    if (A && !A.relative && p && p.units > 0) {
-      const wks = v / p.units;
-      cls = v === 0 || wks < 0.5 ? 'red' : wks < T.reorder ? 'amber' : 'green';
-    } else {
-      cls = v <= T.lowLoc ? 'red' : v >= T.goodLoc ? 'green' : 'amber';
-    }
-    return `<span class="sa-chip sa-chip--${cls}">${fmtInt(v)}</span>`;
-  }
-  function totalChip(p, T) {
-    if (p.total == null) return '<span class="sa-chip sa-chip--blank">—</span>';
-    const c = p.cover;
-    const cls = p.total === 0 ? 'red' : c == null ? 'amber' : c < T.reorder ? 'red' : c < T.watch ? 'amber' : 'green';
-    return `<span class="sa-chip sa-chip--${cls}">${fmtInt(p.total)}</span>`;
-  }
-  function trendChip(p) {
-    if (p.trend == null) return '<span class="sa-trend sa-trend--flat">—</span>';
-    if (!isFinite(p.trend)) return '<span class="sa-trend sa-trend--new">New</span>';
-    const t = thresholds().trend;
-    const cls = p.trend >= t ? 'up' : p.trend <= -t ? 'down' : 'flat';
-    const arrow = cls === 'up' ? '▲' : cls === 'down' ? '▼' : '•';
-    return `<span class="sa-trend sa-trend--${cls}">${arrow} ${fmtPct(p.trend)}</span>`;
-  }
-  function coverCell(p, A) {
-    if (p.cover == null) return '<span class="sa-cover sa-cover--grey"><span class="sa-cover__num">—</span></span>';
-    const T = A.T;
-    const c = p.cover;
-    const cls = c < T.reorder ? 'red' : c < T.watch ? 'amber' : c > T.over ? 'blue' : 'green';
-    const txt = c < 1 ? (c * 7 < 1 ? '<1' : Math.round(c * 7)) : c < 10 ? c.toFixed(1) : Math.round(c);
-    const unit = c < 1 ? 'days' : 'wks';
-    return `<span class="sa-cover sa-cover--${A.relative ? 'grey' : cls}"><span class="sa-cover__num">${txt}</span><span class="sa-cover__unit">${unit}</span></span>`;
-  }
-
-  function sorted(list, A) {
-    const k = state.sort;
-    const val = p => p.value ?? p.units ?? 0;
+  function sorted(list) {
+    const valOf = p => p.rankValue ?? p.rankUnits ?? 0;
     const by = {
       priority:  (a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status) || b.score - a.score,
-      value:     (a, b) => val(b) - val(a),
-      units:     (a, b) => (b.units || 0) - (a.units || 0),
+      value:     (a, b) => valOf(b) - valOf(a),
+      units:     (a, b) => (b.rankUnits || 0) - (a.rankUnits || 0),
       cover:     (a, b) => (a.cover ?? Infinity) - (b.cover ?? Infinity),
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
       trendDown: (a, b) => (a.trend ?? Infinity) - (b.trend ?? Infinity),
-      stock:     (a, b) => (b.total ?? -1) - (a.total ?? -1)
-    }[k] || (() => 0);
+      returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
+      file:      (a, b) => a.idx - b.idx
+    }[state.sort] || (() => 0);
     return list.slice().sort(by);
   }
 
-  function renderTable(A) {
-    const T = A.T;
+  function currentList(A) {
     const pill = PILLS.find(p => p.key === state.filter) || PILLS[0];
     const q = state.query.trim().toLowerCase();
     let list = A.products.filter(pill.test);
-    if (q) list = list.filter(p => (p.name + ' ' + p.code + ' ' + p.category).toLowerCase().includes(q));
-    list = sorted(list, A);
+    if (q) list = list.filter(p => p.cells.join(' ').toLowerCase().includes(q));
+    return { list: sorted(list), pill };
+  }
 
-    // Priority numbers always follow the overall priority order, so a line keeps its number across filters
-    const priOrder = A.products.slice().sort((a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status) || b.score - a.score);
-    priOrder.forEach((p, i) => { p.priority = i + 1; });
-
-    const maxVal = Math.max(1, ...A.products.map(p => p.value ?? p.units ?? 0));
-    const t = els.table;
-    t.classList.toggle('no-branch', !A.has.branch);
-    t.classList.toggle('no-warehouse', !A.has.warehouse);
-    t.classList.toggle('no-online', !A.has.online);
-    t.classList.toggle('no-total', !A.has.total);
-    t.classList.toggle('no-trend', !A.has.trend);
-
+  function renderTable(A) {
+    const { list } = currentList(A);
+    A.products.slice().sort((a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status) || b.score - a.score)
+      .forEach((p, i) => { p.priority = i + 1; });
+    const cols = columns(A);
+    const span = cols.length;
+    els.head.innerHTML = '<tr>' + cols.map(c => `<th class="${c.cls}">${c.th}</th>`).join('') + '</tr>';
+    const maxVal = Math.max(1, ...A.products.map(p => p.rankValue ?? p.rankUnits ?? 0));
     const grouped = state.sort === 'priority';
-    let html = '';
-    let lastGroup = null;
     const groupCounts = {};
     list.forEach(p => { groupCounts[p.status] = (groupCounts[p.status] || 0) + 1; });
-
+    let html = '', last = null;
     list.forEach(p => {
-      if (grouped && p.status !== lastGroup) {
-        lastGroup = p.status;
-        html += `<tr class="sa-group"><td colspan="10"><span class="sa-group__dot" style="background:${STATUS[p.status].colour}"></span>${STATUS[p.status].label}<span class="sa-group__count">${groupCounts[p.status]}</span></td></tr>`;
+      if (grouped && p.status !== last) {
+        last = p.status;
+        html += `<tr class="sa-group"><td colspan="${span}"><span class="sa-group__dot" style="background:${STATUS[p.status].colour}"></span>${STATUS[p.status].label}<span class="sa-group__count">${groupCounts[p.status]}</span></td></tr>`;
       }
-      const v = p.value ?? p.units ?? 0;
-      const tags = [];
-      if (p.flags.has('highSales')) tags.push('Top seller');
-      if (p.flags.has('improving')) tags.push('Rising');
-      if (p.flags.has('declining')) tags.push('Slowing');
-      if (p.onOrder) tags.push(fmtInt(p.onOrder) + ' on order');
-      const mobileStrip = [
-        A.has.trend ? `<span class="sa-mstat">Trend ${trendChip(p)}</span>` : '',
-        A.has.branch ? `<span class="sa-mstat">Branch ${stockChip(p.branch, T, p, A)}</span>` : '',
-        A.has.warehouse ? `<span class="sa-mstat">W/H ${stockChip(p.warehouse, T, p, A)}</span>` : '',
-        A.has.online ? `<span class="sa-mstat">Online ${stockChip(p.online, T, p, A)}</span>` : '',
-        A.has.total ? `<span class="sa-mstat">Stock ${totalChip(p, T)}</span>` : '',
-        p.cover != null ? `<span class="sa-mstat">Cover ${coverCell(p, A)}</span>` : ''
-      ].join('');
-      html += `<tr class="sa-row">
-        <td class="sa-pri-cell"><span class="sa-pri sa-pri--${STATUS[p.status].pri}">${p.priority}</span></td>
-        <td class="sa-prod-cell"><div class="sa-prod__name">${esc(p.name)}</div><div class="sa-prod__code">${esc(p.code)}${p.category ? `<span class="sa-prod__cat">${p.code ? '· ' : ''}${esc(p.category)}</span>` : ''}</div></td>
-        <td class="sa-sold">
-          <div class="sa-sold__val">${A.has.value ? fmtGBP(p.value) : fmtInt(p.units) + ' units'}</div>
-          ${A.has.value && p.units != null ? `<div class="sa-sold__units">${fmtInt(p.units)} units</div>` : ''}
-          <div class="sa-sold__bar"><i style="width:${Math.max(2, v / maxVal * 100)}%"></i></div>
-        </td>
-        <td class="sa-trend-cell">${trendChip(p)}</td>
-        <td class="sa-loc" data-loc="branch">${stockChip(p.branch, T, p, A)}</td>
-        <td class="sa-loc" data-loc="warehouse">${stockChip(p.warehouse, T, p, A)}</td>
-        <td class="sa-loc" data-loc="online">${stockChip(p.online, T, p, A)}</td>
-        <td class="sa-loc" data-loc="total">${totalChip(p, T)}</td>
-        <td class="sa-cover-cell">${coverCell(p, A)}</td>
-        <td class="sa-mobile-strip">${mobileStrip}</td>
-        <td class="sa-action-cell"><div class="sa-action">${esc(p.action)}</div>${tags.length ? `<div class="sa-action__tags">${tags.map(x => `<span class="sa-tag">${esc(x)}</span>`).join('')}</div>` : ''}</td>
-      </tr>`;
+      const open = state.open.has(p.idx);
+      const strip = cols.filter(c => c.m).map(c => `<span class="sa-mstat">${c.m} ${c.td(p, maxVal)}</span>`).join('');
+      html += `<tr class="sa-row ${open ? 'is-open' : ''}" data-idx="${p.idx}" tabindex="0" aria-expanded="${open}">` +
+        cols.map(c => `<td class="${c.cls}${c.area ? ' sa-a-' + c.area : ' sa-m-hide'}">${c.td(p, maxVal)}</td>`).join('') +
+        `<td class="sa-mobile-strip">${strip}</td></tr>`;
+      if (open) html += detailRow(p, span);
     });
     els.body.innerHTML = html;
     els.empty.hidden = list.length > 0;
   }
 
+  function renderOriginal() {
+    const pt = state.pt;
+    const productRows = new Set(state.analysis.products.map(p => p.idx));
+    const LIMIT = 3000;
+    const head = '<thead>' +
+      (pt.groups.some(g => g) ? '<tr><th class="sa-rownum"></th>' + pt.groups.map(g => `<th class="sa-grouphead">${esc(g)}</th>`).join('') + '</tr>' : '') +
+      '<tr><th class="sa-rownum">Row</th>' + pt.heads.map(h => `<th>${h === '' ? '' : esc(h)}</th>`).join('') + '</tr></thead>';
+    const body = '<tbody>' + pt.text.slice(0, LIMIT).map((r, i) => {
+      if (isBlankRow(r)) return '';
+      return `<tr${productRows.has(i) ? '' : ' class="is-skipped"'}><td class="sa-rownum">${i + pt.rowOffset}</td>` + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>';
+    }).join('') + '</tbody>';
+    els.origTable.innerHTML = head + body;
+    els.origHint.textContent = `${state.analysis.products.length} product rows · every cell unchanged` + (pt.text.length > LIMIT ? ` (first ${LIMIT} rows shown)` : '');
+  }
+
+  /* ───────────────────────── Breakdown tables (e.g. by type / colour / size) ───────────────────────── */
+
+  function splitBlocks(t) {
+    const blocks = [];
+    let cur = null;
+    t.text.forEach((r, i) => {
+      if (isBlankRow(r)) { cur = null; return; }
+      if (!cur) { cur = { header: r, rows: [], start: i }; blocks.push(cur); }
+      else cur.rows.push(r);
+    });
+    return blocks.filter(b => b.rows.length);
+  }
+
+  function renderBreakdowns() {
+    if (!state.breakdowns.length) { els.breakdowns.hidden = true; return; }
+    els.breakdowns.hidden = false;
+    const cards = [];
+    state.breakdowns.forEach(t => {
+      splitBlocks(t).forEach(b => {
+        // Drop columns that are completely empty in this block (no data to show)
+        const width = Math.max(b.header.length, ...b.rows.map(r => r.length));
+        const keep = [];
+        for (let c = 0; c < width; c++) {
+          if (String(b.header[c] ?? '').trim() || b.rows.some(r => String(r[c] ?? '').trim())) keep.push(c);
+        }
+        const H = keep.map(c => String(b.header[c] ?? '').trim());
+        const labelCol = keep[0];
+        const title = H[0] || 'Breakdown';
+        const isTotal = r => RX.skipRow.test(String(r[labelCol] ?? '').trim());
+        // Main measure for the bars: first numeric column that isn't a % column
+        const numericCol = keep.slice(1).find(c => {
+          const vals = b.rows.filter(r => !isTotal(r)).map(r => String(r[c] ?? ''));
+          return vals.some(v => num(v) != null) && !vals.some(v => /%/.test(v));
+        });
+        const vals = b.rows.filter(r => !isTotal(r)).map(r => num(r[numericCol]) || 0);
+        const max = Math.max(1, ...vals);
+        const changeCol = keep.find(c => /(wow|w\/w|week on week|vs|var|change|growth)/i.test(String(b.header[c] ?? '')) && b.rows.some(r => /%/.test(String(r[c] ?? ''))));
+        // Headline: leader by main measure, biggest mover by first change column
+        const body = b.rows.filter(r => !isTotal(r));
+        const leader = numericCol != null ? body.slice().sort((x, y) => (num(y[numericCol]) || 0) - (num(x[numericCol]) || 0))[0] : null;
+        const movers = changeCol != null ? body.filter(r => num(r[changeCol]) != null) : [];
+        const up = movers.slice().sort((x, y) => num(y[changeCol]) - num(x[changeCol]))[0];
+        const down = movers.slice().sort((x, y) => num(x[changeCol]) - num(y[changeCol]))[0];
+        const lab = r => String(r[labelCol] ?? '').trim() || 'blank';
+        const head = [];
+        if (leader) head.push(`<b>${esc(lab(leader))}</b> leads on ${esc(String(b.header[numericCol]).trim())} (${esc(leader[numericCol])})`);
+        if (up && num(up[changeCol]) > 0) head.push(`biggest rise <b class="sa-up">${esc(lab(up))} ${esc(up[changeCol])}</b>`);
+        if (down && num(down[changeCol]) < 0) head.push(`biggest drop <b class="sa-down">${esc(lab(down))} ${esc(down[changeCol])}</b>`);
+
+        const rowsHtml = b.rows.map(r => {
+          const total = isTotal(r);
+          return `<tr class="${total ? 'is-total' : ''}">` + keep.map((c, k) => {
+            const t = String(r[c] ?? '');
+            if (k === 0) return `<td class="sa-bd__label">${t.trim() === '' ? BLANK : esc(t)}</td>`;
+            let inner = t.trim() === '' ? '' : esc(t);
+            let cls = '';
+            if (/%/.test(t) && /(wow|w\/w|vs|var|change|growth)/i.test(String(b.header[c] ?? ''))) {
+              const n = num(t); cls = n > 0 ? 'sa-up' : n < 0 ? 'sa-down' : '';
+            }
+            if (c === numericCol && !total && t.trim() !== '') {
+              inner = `<span class="sa-bd__bar"><i style="width:${Math.max(2, (num(t) || 0) / max * 100)}%"></i></span><span class="sa-bd__num">${inner}</span>`;
+              cls += ' sa-bd__measure';
+            }
+            return `<td class="${cls}">${inner}</td>`;
+          }).join('') + '</tr>';
+        }).join('');
+        cards.push(`<article class="sa-panel sa-bd">
+          <div class="sa-bd__top"><h3 class="sa-panel__title">By ${esc(title.replace(/^product\s+/i, '').toLowerCase())}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
+          ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
+          <div class="sa-bd__scroll"><table class="sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
+        </article>`);
+      });
+    });
+    els.bdGrid.innerHTML = cards.join('');
+  }
+
   /* ───────────────────────── Column mapping UI ───────────────────────── */
 
   function renderMap() {
+    const pt = state.pt;
     const opts = ['<option value="">— not in file —</option>']
-      .concat(state.headers.map((h, i) => `<option value="${i}">${esc(h || 'Column ' + (i + 1))}</option>`)).join('');
-    els.map.innerHTML = FIELDS.map(f =>
-      `<label>${f.label}<select data-field="${f.key}">${opts}</select></label>`).join('');
+      .concat(pt.labels.map((h, i) => `<option value="${i}">${esc(h || 'Column ' + (i + 1))}</option>`)).join('');
+    els.map.innerHTML = FIELDS.map(f => `<label>${f.label}<select data-field="${f.key}">${opts}</select></label>`).join('');
     els.map.querySelectorAll('select').forEach(sel => {
       const i = state.map[sel.dataset.field];
       sel.value = i != null ? String(i) : '';
     });
+    const used = new Set(Object.entries(state.map).filter(([k]) => k !== 'ranks').map(([, v]) => v).concat(state.map.ranks || []));
+    const other = pt.labels.map((l, i) => [l, i]).filter(([l, i]) => l && !used.has(i));
+    const ranks = (state.map.ranks || []).map(i => pt.labels[i]);
+    const notes = [];
+    if (ranks.length) notes.push('<b>Ranks</b> (shown under each product): ' + ranks.map(esc).join(', '));
+    if (other.length) notes.push('<b>Also in your file</b> (shown when you open a product): ' + other.map(([l]) => esc(l)).join(', '));
+    els.map.insertAdjacentHTML('beforeend', `<p class="sa-map__note">${notes.join('<br>') || 'Every column in your file is in use.'}</p>`);
+
     const missing = [];
-    if (state.map.name == null && state.map.code == null) missing.push('product');
-    if (state.map.units == null && state.map.value == null && state.map.combined == null) missing.push('sales');
-    if (state.map.stock == null && state.map.branch == null && state.map.warehouse == null && state.map.online == null) missing.push('stock');
+    if (state.map.name == null) missing.push('product name');
+    if (state.map.code == null) missing.push('SKU');
+    if (![ 'units', 'value', 'retailUnits', 'onlineUnits', 'retailValue', 'onlineValue', 'combined'].some(k => state.map[k] != null)) missing.push('sales');
     els.config.classList.toggle('has-warning', missing.length > 0);
     els.configHint.textContent = missing.length
-      ? 'Couldn’t find a ' + missing.join(' or ') + ' column. Pick it here'
-      : 'Check the tool read your columns correctly';
+      ? 'Couldn’t find a ' + missing.join(' / ') + ' column. Pick it here'
+      : `All ${pt.labels.filter(Boolean).length} columns accounted for. Check the matches`;
     if (missing.length) els.config.open = true;
   }
 
@@ -952,121 +1264,140 @@
     if (!sel) return;
     const f = sel.dataset.field;
     const v = sel.value === '' ? null : parseInt(sel.value, 10);
-    // A column can only be one thing
-    Object.keys(state.map).forEach(k => { if (k !== f && state.map[k] === v && v != null) delete state.map[k]; });
+    Object.keys(state.map).forEach(k => { if (k !== 'ranks' && k !== f && state.map[k] === v && v != null) delete state.map[k]; });
+    if (v != null) state.map.ranks = (state.map.ranks || []).filter(i => i !== v);
     if (v == null) delete state.map[f]; else state.map[f] = v;
     if (f === 'units' || f === 'value') delete state.map.combined;
     try { runAnalysis(); renderMap(); render(); setStatus(''); }
-    catch (err) { setStatus(err.message, false, true); }
+    catch (err) { setStatus(esc(err.message), false, true); }
   });
-
-  Object.values(els.th).forEach(inp => inp.addEventListener('input', () => {
-    if (!state.data.length) return;
+  Object.values(els.th).forEach(inp => inp && inp.addEventListener('input', () => {
+    if (!state.pt) return;
     try { runAnalysis(); render(); } catch (err) { /* keep last good view */ }
   }));
 
-  /* ───────────────────────── Loading a file ───────────────────────── */
+  /* ───────────────────────── Loading ───────────────────────── */
 
-  async function handleFile(file) {
-    if (!file) return;
-    const ext = (file.name.split('.').pop() || '').toLowerCase();
-    setStatus('Reading ' + esc(file.name) + '…', true);
+  function skippedNote() {
+    const k = state.skipped || {};
+    const bits = [];
+    if (k.totals)  bits.push(k.totals + ' total row' + (k.totals > 1 ? 's' : ''));
+    if (k.headers) bits.push(k.headers + ' repeated header' + (k.headers > 1 ? 's' : ''));
+    if (k.notes)   bits.push(k.notes + ' heading/note line' + (k.notes > 1 ? 's' : ''));
+    return bits.length ? 'not products: ' + bits.join(', ') : '';
+  }
+
+  function loadTables(tables, label, autoRead) {
+    const prepared = tables.map(t => ({ t, pt: prepareTable(t) })).filter(x => x.pt);
+    if (!prepared.length) throw new Error('Couldn’t find a header row (e.g. “Description”, “Item Number”, “Units”). Make sure your file has column titles.');
+    const classified = prepared.map(x => ({ ...x, ...classify(x.pt) }));
+    const productTables = classified.filter(x => x.kind === 'products')
+      .sort((a, b) => b.pt.data.length - a.pt.data.length);
+    const primary = productTables[0];
+    state.breakdowns = classified.filter(x => x !== primary).map(x => x.t);
+    state.filter = 'all';
+    state.query = '';
+    state.open = new Set();
+    els.search.value = '';
+
+    if (primary) {
+      state.pt = primary.pt;
+      state.map = primary.map;
+      runAnalysis();
+      els.fileMeta.textContent = [state.analysis.products.length + ' products', skippedNote(),
+        state.breakdowns.length ? splitCount() + ' breakdown table' + (splitCount() > 1 ? 's' : '') : '',
+        autoRead ? 'auto-read, check columns' : ''].filter(Boolean).join(' · ');
+    } else {
+      state.pt = null; state.analysis = null;
+      els.fileMeta.textContent = splitCount() + ' breakdown tables · no product-level sheet found (add the sheet with SKUs and descriptions for the full analysis)';
+    }
+    els.fileName.textContent = label;
+    els.results.classList.toggle('is-breakdown-only', !primary);
+    els.uploadWrap.classList.add('is-collapsed');
+    els.results.hidden = false;
+    setStatus('');
+    if (primary) { renderMap(); render(); }
+    renderBreakdowns();
+    els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  const splitCount = () => state.breakdowns.reduce((s, t) => s + splitBlocks(t).length, 0);
+
+  async function handleFiles(fileList) {
+    const files = [...fileList].filter(Boolean);
+    if (!files.length) return;
+    setStatus('Reading ' + esc(files.map(f => f.name).join(', ')) + '…', true);
     try {
-      let res;
-      if (['xlsx', 'xls', 'xlsm', 'ods'].includes(ext)) res = await readSpreadsheet(file);
-      else if (['csv', 'tsv', 'txt'].includes(ext)) res = await readCsvText(file);
-      else if (ext === 'pdf' || file.type === 'application/pdf') res = await readPdf(file);
-      else if (/^image\//.test(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(ext)) res = await readImage(file);
-      else throw new Error('That file type isn’t supported. Use Excel, CSV, PDF or an image.');
-      loadGrid(res.rows, file.name, [res.note, ext === 'pdf' || /^image\//.test(file.type) ? 'auto-read, check columns' : ''].filter(Boolean).join(' · '));
+      const tables = [];
+      let autoRead = false;
+      for (const f of files) {
+        const ts = await readFile(f);
+        ts.forEach(t => { if (t.autoRead) autoRead = true; tables.push(t); });
+      }
+      const label = files.length === 1 ? files[0].name.replace(/^[0-9a-f]{8}-/, '') : files.length + ' files';
+      loadTables(tables, label, autoRead);
     } catch (err) {
       console.error(err);
       setStatus(esc(err.message || 'Something went wrong reading that file.'), false, true);
     }
   }
 
-  function loadGrid(rows, label, note) {
-    rows = (rows || []).filter(r => Array.isArray(r) && r.some(c => c !== '' && c != null));
-    const hi = findHeaderRow(rows);
-    if (hi < 0) throw new Error('Couldn’t find a header row (e.g. “Product”, “Units”, “Stock”). Make sure the first rows of your file have column titles.');
-    const width = Math.max(...rows.slice(hi).map(r => r.length));
-    state.headers = Array.from({ length: width }, (_, i) => String(rows[hi][i] ?? '').trim());
-    state.data = rows.slice(hi + 1).map(r => Array.from({ length: width }, (_, i) => r[i] ?? ''));
-    state.map = detectColumns(state.headers, state.data);
-    state.filter = 'all';
-    state.query = '';
-    els.search.value = '';
-    runAnalysis();
-
-    els.fileName.textContent = label;
-    els.fileMeta.textContent = [state.analysis.products.length + ' products', note].filter(Boolean).join(' · ');
-    els.uploadWrap.classList.add('is-collapsed');
-    els.results.hidden = false;
-    setStatus('');
-    renderMap();
-    render();
-    els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
   /* ───────────────────────── Sample data ───────────────────────── */
 
-  function sampleRows() {
+  function sampleTables() {
+    const prod = [
+      ['', '', '', '', '', '', '', 'Brand', '', 'Retail', '', 'Online', '', 'Retail', '', '', '', '', 'Online', '', ''],
+      ['Brand Rank', 'Retail Rank', 'Online Rank', 'Item Number', 'Sub Group', 'Description', 'Sell Price', 'Last Week U', 'Last Week V(£)', 'Sold (u)', 'Sold (£)', 'Orders Taken (u)', 'Orders Taken (£)', 'Distribution', 'Total Stock', 'Branch Cover', 'Warehouse Cover', 'Total Cover', 'Returns Rate %', 'Total Stock', 'Cover'],
+      ['1', '3', '1', 'Y35088', 'QE12', 'CO DANGLY SO3 BISCUT', '15', '829', '12628', '191', '2867', '687', '10504', 'ABCDE', '3766', '3', '17', '19', '7%', '1373', '1'],
+      ['2', '2', '2', 'W66225', 'QE12', 'CO HARE ORNAMENT', '32', '241', '7885', '92', '2944', '158', '5250', 'ABC', '415', '3', '2', '4', '6%', '349', '1'],
+      ['3', '5', '3', 'Y33706', 'QE12', 'OCT STAG BUST', '48', '128', '6164', '45', '2166', '91', '4392', 'ABC', '503', '7', '4', '10', '9%', '320', '2'],
+      ['4', '15', '4', 'Y60913', 'QE12', 'NOV WHIPPET DOG', '12', '447', '5380', '114', '1372', '356', '4285', 'ABC', '570', '2', '3', '5', '6%', '468', '0'],
+      ['5', '4', '7', 'F32543', 'QE12', 'CO LEOPARD GOLD', '20', '267', '5377', '122', '2440', '156', '3162', 'ABCD', '1825', '4', '10', '14', '7%', '945', '8'],
+      ['6', '8', '5', 'AR6192', 'QE12', 'CO CHERRY GOLD LEOP', '16', '330', '5325', '107', '1714', '242', '3918', 'ABC', '1348', '2', '9', '12', '8%', '1748', '6'],
+      ['7', '1', '40', 'E94868', 'QE12', 'CO HAMISH BRNZ LARGE', '40', '106', '4314', '86', '3463', '22', '924', 'ABCDE', '2164', '12', '14', '25', '8%', '999', '45'],
+      ['8', '43', '6', 'Y33710', 'QE12', 'OCT BRNX CONNECT 4', '22', '189', '4177', '32', '704', '166', '3672', 'ABC', '414', '7', '6', '13', '5%', '252', '0'],
+      ['9', '7', '9', 'E25316', 'QE12', 'CO LOOP GOLD TWIST', '22', '182', '4103', '80', '1766', '113', '2582', 'ABCD', '1560', '9', '9', '19', '10%', '951', '7'],
+      ['10', '6', '11', 'G63832', 'QE12', 'NOV BOLD CHERRIES', '20', '201', '4064', '93', '1865', '117', '2390', 'ABCD', '647', '4', '3', '7', '8%', '471', '3'],
+      ['11', '30', '25', 'W58102', 'QE12', 'MAY BERTIE AND SON', '14', '7', '98', '7', '98', '', '', 'AB', '58', '7', '', '7', '4%', '0', ''],
+      ['12', '41', '36', 'A37503', 'QE12', 'CO GOLD FLOWER', '16', '1', '16', '', '', '1', '16', '', '5', '', '', '', '0%', '0', '0'],
+      ['Total', '', '', '', '', '', '', '2928', '59830', '969', '21399', '2109', '41095', '', '13275', '5', '8', '13', '7%', '7876', '3']
+    ];
+    const bd = [
+      ['', 'Product Type', 'LW TY £K', 'WoW %', 'LW LY £K', 'LW vs LY %'],
+      ['', 'Animal', '92063', '9%', '44365.28', '108%'],
+      ['', 'Novelty Object', '52362', '23%', '46549.91', '12%'],
+      ['', 'Art Sculpture', '19864', '23%', '13533.57', '47%'],
+      ['', 'Letters and Words', '2520', '-19%', '2498.85', '1%'],
+      ['', 'Total', '177190', '14%', '112325.8', '58%']
+    ];
+    const spans = [{ r: 0, c0: 7, c1: 8 }, { r: 0, c0: 9, c1: 10 }, { r: 0, c0: 11, c1: 12 }, { r: 0, c0: 13, c1: 17 }, { r: 0, c0: 18, c1: 20 }];
     return [
-      ['Product', 'Code', 'Category', 'Units LW', 'Units Prev Wk', 'Sales £', 'Branch', 'Warehouse', 'Online', 'On order'],
-      ['OCT Stag Bust',          'Y33706', 'Ornaments',   128, 96,  6164, 41, 18, 9,  0],
-      ['OCT Grumpy Cat',         'W16279', 'Ornaments',   301, 254, 3626, 120, 64, 30, 0],
-      ['JAUG Dangly Pump Lite',  'V29609', 'Lighting',     89, 71,  1076, 140, 0,  0, 0],
-      ['CO Bronx O And X',       'F32546', 'Decorations',  54, 58,  1218, 60, 6,  4,  0],
-      ['JAUG Marble Squash',     'V29610', 'Decorations',  49, 33,   783, 70, 0, null, 0],
-      ['CO Fem Ballet Figure',   'H59445', 'Figurines',    80, 92,  2575, 120, 60, 40, 0],
-      ['CO Hippo Dancing',       '751599', 'Figurines',    67, 61,  1911, 210, 48, 40, 120],
-      ['CO Swan Heart Orn',      'G00055', 'Ornaments',    67, 70,  1359, 150, 25, 30, 0],
-      ['SEPT Priscilla Cat',     'G16416', 'Figurines',    43, 30,  1064, 190, 0, 96, 0],
-      ['CO Hug Hedgehog Orn',    'V29611', 'Ornaments',    67, 75,   703, 160, 40, 22, 0],
-      ['NOV Velvet Robin',       'K22018', 'Ornaments',    38, 12,   494, 160, 210, 70, 0],
-      ['NOV Glass Bauble Set',   'K22041', 'Baubles',      22, 41,   418, 180, 520, 140, 0],
-      ['CO Mini Gonk Trio',      'B40221', 'Figurines',    15, 26,   224, 210, 380, 90, 200],
-      ['SEPT Pumpkin Spice Cand','P11090', 'Home Fragrance', 9, 22,  171, 260, 410, 150, 0],
-      ['JAUG Rattan Star',       'V29640', 'Decorations',   0, 4,      0, 85, 120, 40, 0],
-      ['OCT Ghost Garland',      'Y33719', 'Decorations',  31, 34,   465, 95, 60, 0, 0],
-      ['CO Copper Wire Tree',    'F32601', 'Lighting',     26, 25,   884, 120, 75, 35, 0],
-      ['NOV Frosted Pine Wreath','K22077', 'Decorations',  19, 9,    665, 30, 12, 6, 48]
+      { name: 'Sample: product sheet', rows: prod, text: prod, spans, firstRow: 2 },
+      { name: 'Sample: breakdowns', rows: bd, text: bd, spans: [], firstRow: 2 }
     ];
   }
 
   /* ───────────────────────── Events ───────────────────────── */
 
-  els.file.addEventListener('change', () => handleFile(els.file.files[0]));
-  ['dragenter', 'dragover'].forEach(ev => els.drop.addEventListener(ev, e => {
-    e.preventDefault(); els.drop.classList.add('is-over');
-  }));
-  ['dragleave', 'drop'].forEach(ev => els.drop.addEventListener(ev, e => {
-    e.preventDefault(); els.drop.classList.remove('is-over');
-  }));
-  els.drop.addEventListener('drop', e => {
-    const f = e.dataTransfer && e.dataTransfer.files[0];
-    if (f) handleFile(f);
-  });
-  // Paste a screenshot straight from the clipboard
+  els.file.addEventListener('change', () => handleFiles(els.file.files));
+  ['dragenter', 'dragover'].forEach(ev => els.drop.addEventListener(ev, e => { e.preventDefault(); els.drop.classList.add('is-over'); }));
+  ['dragleave', 'drop'].forEach(ev => els.drop.addEventListener(ev, e => { e.preventDefault(); els.drop.classList.remove('is-over'); }));
+  els.drop.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
   document.addEventListener('paste', e => {
     const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
-    if (item) handleFile(new File([item.getAsFile()], 'pasted-screenshot.png', { type: item.type }));
+    if (item) handleFiles([new File([item.getAsFile()], 'pasted-screenshot.png', { type: item.type })]);
   });
-
   els.sample.addEventListener('click', () => {
-    try { loadGrid(sampleRows(), 'Sample: Seasonal gifting, last week', 'demo data'); }
+    try { loadTables(sampleTables(), 'Sample: weekly trade report', false); }
     catch (err) { setStatus(esc(err.message), false, true); }
   });
-
   els.newBtn.addEventListener('click', () => {
     els.results.hidden = true;
     els.uploadWrap.classList.remove('is-collapsed');
     els.file.value = '';
-    state.analysis = null;
+    state.analysis = null; state.pt = null;
     setStatus('');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-
   els.pills.addEventListener('click', e => {
     const b = e.target.closest('.sa-pill');
     if (!b || b.disabled) return;
@@ -1076,27 +1407,38 @@
   });
   els.search.addEventListener('input', () => { state.query = els.search.value; renderTable(state.analysis); });
   els.sort.addEventListener('change', () => { state.sort = els.sort.value; renderTable(state.analysis); });
+  const toggleRow = row => {
+    const i = parseInt(row.dataset.idx, 10);
+    if (state.open.has(i)) state.open.delete(i); else state.open.add(i);
+    renderTable(state.analysis);
+  };
+  els.body.addEventListener('click', e => {
+    if (e.target.closest('a, button')) return;
+    const row = e.target.closest('tr.sa-row');
+    if (row) toggleRow(row);
+  });
+  els.body.addEventListener('keydown', e => {
+    const row = e.target.closest('tr.sa-row');
+    if (row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleRow(row); }
+  });
 
   els.exportBtn.addEventListener('click', () => {
     const A = state.analysis;
     if (!A) return;
-    const pill = PILLS.find(p => p.key === state.filter) || PILLS[0];
-    const q = state.query.trim().toLowerCase();
-    let list = A.products.filter(pill.test);
-    if (q) list = list.filter(p => (p.name + ' ' + p.code).toLowerCase().includes(q));
-    list = sorted(list, A);
-    const cols = ['Priority', 'Status', 'Product', 'Code', 'Category', 'Units', 'Sales £', 'Prev wk units', 'Trend %',
-                  'Branch', 'Warehouse', 'Online', 'Total stock', 'Weeks cover', 'On order', 'Action'];
+    const { list, pill } = currentList(A);
+    // Every column from the file, exactly as written, then the tool's own columns
+    const labels = state.pt.labels.map((l, i) => l || 'Column ' + (i + 1));
+    const cols = labels.concat(['Status (calculated)', 'Priority (calculated)', 'Trend % (calculated)', 'Cover (calculated)', 'Action (calculated)']);
     const cell = v => {
-      if (v == null || v === undefined || (typeof v === 'number' && !isFinite(v))) return '';
+      if (v == null || (typeof v === 'number' && !isFinite(v))) return '';
       const s = String(v);
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
     };
-    const lines = [cols.join(',')].concat(list.map(p => [
-      p.priority, STATUS[p.status].short, p.name, p.code, p.category, p.units, p.value, p.prevUnits,
-      p.trend != null && isFinite(p.trend) ? Math.round(p.trend) : '',
-      p.branch, p.warehouse, p.online, p.total, p.cover != null ? p.cover.toFixed(1) : '', p.onOrder, p.action
-    ].map(cell).join(',')));
+    const lines = [cols.map(cell).join(',')].concat(list.map(p => p.cells
+      .concat([STATUS[p.status].short, p.priority,
+               p.trend != null && isFinite(p.trend) ? Math.round(p.trend) : '',
+               p.coverCalc && p.cover != null ? p.cover.toFixed(1) : '', p.action])
+      .map(cell).join(',')));
     const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -1106,6 +1448,5 @@
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   });
 
-  // Expose for testing / power users
-  window.SalesAnalysis = { loadGrid, detectColumns, findHeaderRow, num };
+  window.SalesAnalysis = { handleFiles, loadTables, detectColumns, prepareTable, num };
 })();
