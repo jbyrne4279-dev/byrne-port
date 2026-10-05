@@ -1367,7 +1367,12 @@
             let inner = t.trim() === '' ? '' : esc(t);
             let cls = '';
             if (/%/.test(t) && /(wow|w\/w|vs|var|change|growth)/i.test(String(b.header[c] ?? ''))) {
-              const n = num(t); cls = n > 0 ? 'sa-up' : n < 0 ? 'sa-down' : '';
+              const n = num(t);
+              const k = n > 0 ? 'up' : n < 0 ? 'down' : 'flat';
+              inner = `<span class="sa-trend sa-trend--${k}">${k === 'up' ? '▲' : k === 'down' ? '▼' : '•'} ${esc(t)}</span>`;
+            } else if (/%/.test(t) && t.trim() !== '' && !total) {
+              inner = `<span class="sa-bd__share"><i style="width:${Math.min(100, Math.max(0, num(t) || 0))}%"></i></span><span>${esc(t)}</span>`;
+              cls = 'sa-bd__pct';
             }
             if (c === numericCol && !total && t.trim() !== '') {
               inner = `<span class="sa-bd__bar"><i style="width:${Math.max(2, (num(t) || 0) / max * 100)}%"></i></span><span class="sa-bd__num">${inner}</span>`;
@@ -1379,7 +1384,7 @@
         cards.push(`<article class="sa-panel sa-bd">
           <div class="sa-bd__top"><h3 class="sa-panel__title">${esc(title)}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
           ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
-          <div class="sa-bd__scroll"><table class="sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
+          <div class="sa-bd__scroll"><table class="sa-table sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
         </article>`);
       });
     });

@@ -1013,3 +1013,24 @@
 .sa-thumb__big { aspect-ratio: 1 / 1; width: 240px; }
 .sa-thumb__big img { object-fit: cover; }
 @media (max-width: 760px) { .sa-thumb { width: 72px; } }
+/* ── Breakdowns: full width, same look as the product table ── */
+.sa-bd-grid { grid-template-columns: 1fr; gap: 18px; }
+.sa-bd { padding: 0; overflow: hidden; }
+.sa-bd__top { padding: 20px 22px 0; }
+.sa-bd__head { padding: 0 22px; }
+.sa-bd__scroll { max-height: none; overflow-x: auto; border-top: 1px solid var(--sa-line); }
+.sa-bd__table { font-size: 14px; }
+.sa-bd__table th { position: static; padding: 13px 14px; font-size: 12px; font-weight: 500; text-align: right; background: transparent; }
+.sa-bd__table td { padding: 13px 14px; }
+.sa-bd__table tbody tr:hover { background: rgba(255,255,255,0.025); }
+.sa-bd__label { font-size: 14px; }
+.sa-bd__measure { min-width: 160px; }
+.sa-bd__bar { position: static; display: block; height: 4px; width: 100%; max-width: 140px; margin: 6px 0 0 auto; transform: none; border-radius: 4px; background: rgba(255,255,255,0.05); }
+.sa-bd__bar i { background: var(--st-blue); }
+.sa-bd__measure { display: table-cell; }
+.sa-bd__measure .sa-bd__num { display: block; font-weight: 600; }
+.sa-bd__measure .sa-bd__bar { order: 2; }
+.sa-bd__pct span:last-child { display: block; }
+.sa-bd__share { display: block; height: 4px; width: 60px; margin: 0 0 5px auto; border-radius: 4px; background: rgba(255,255,255,0.05); overflow: hidden; }
+.sa-bd__share i { display: block; height: 100%; background: #b28bff; }
+.sa-bd__table tr.is-total td { background: rgba(255,255,255,0.03); }
