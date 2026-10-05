@@ -1360,8 +1360,11 @@
     if (!state.breakdowns.length) { els.breakdowns.hidden = true; els.bdGrid.innerHTML = ''; return; }
     els.breakdowns.hidden = false;
     const cards = [];
+    state.bdSort = state.bdSort || {};
+    let cardNo = 0;
     state.breakdowns.forEach(t => {
       splitBlocks(t).forEach(b => {
+        const cid = cardNo++;
         // Drop columns that are completely empty in this block (no data to show)
         const width = Math.max(b.header.length, ...b.rows.map(r => r.length));
         const keep = [];
@@ -1393,7 +1396,32 @@
         if (up && num(up[changeCol]) > 0) head.push(`biggest rise <b class="sa-up">${esc(lab(up))} ${esc(up[changeCol])}</b>`);
         if (down && num(down[changeCol]) < 0) head.push(`biggest drop <b class="sa-down">${esc(lab(down))} ${esc(down[changeCol])}</b>`);
 
-        const rowsHtml = b.rows.map(r => {
+        // Sort options built from this table's own columns
+        const isChange = c => /(wow|w\/w|vs|var|change|growth)/i.test(String(b.header[c] ?? '')) && b.rows.some(r => /%/.test(String(r[c] ?? '')));
+        const isShare = c => !isChange(c) && /(pn|share|mix|% of|participation)/i.test(String(b.header[c] ?? '')) && b.rows.some(r => /%/.test(String(r[c] ?? '')));
+        const short = c => String(b.header[c] ?? '').trim();
+        const sorts = [{ id: 'file', label: 'File order' }];
+        if (numericCol != null) sorts.push({ id: 'm-hi', label: 'Highest ' + short(numericCol), col: numericCol, dir: -1 }, { id: 'm-lo', label: 'Lowest ' + short(numericCol), col: numericCol, dir: 1 });
+        keep.filter(isChange).forEach(c => sorts.push(
+          { id: 'c' + c + '-hi', label: 'Highest ' + short(c), col: c, dir: -1 },
+          { id: 'c' + c + '-lo', label: 'Lowest ' + short(c), col: c, dir: 1 }));
+        const sh = keep.find(isShare);
+        if (sh != null) sorts.push({ id: 's-hi', label: 'Biggest ' + short(sh), col: sh, dir: -1 });
+        sorts.push({ id: 'az', label: 'A–Z' });
+        const cur = sorts.find(x => x.id === state.bdSort[cid]) || sorts[0];
+        const ordered = cur.id === 'file' ? b.rows.slice() : (() => {
+          const tot = b.rows.filter(isTotal), rest = b.rows.filter(r => !isTotal(r));
+          if (cur.id === 'az') rest.sort((x, y) => lab(x).localeCompare(lab(y)));
+          else rest.sort((x, y) => {
+            const a = num(x[cur.col]), bb = num(y[cur.col]);
+            if (a == null && bb == null) return 0; if (a == null) return 1; if (bb == null) return -1;
+            return (a - bb) * cur.dir;
+          });
+          return rest.concat(tot);
+        })();
+        const pills = `<div class="sa-bd__pills">${sorts.map(x => `<button type="button" class="sa-pill sa-pill--sm ${x === cur ? 'is-active' : ''}" data-card="${cid}" data-sort="${x.id}">${esc(x.label)}</button>`).join('')}</div>`;
+
+        const rowsHtml = ordered.map(r => {
           const total = isTotal(r);
           return `<tr class="${total ? 'is-total' : ''}">` + keep.map((c, k) => {
             const t = String(r[c] ?? '');
@@ -1418,12 +1446,20 @@
         cards.push(`<article class="sa-panel sa-bd">
           <div class="sa-bd__top"><h3 class="sa-panel__title">${esc(title)}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
           ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
+          ${pills}
           <div class="sa-bd__scroll"><table class="sa-table sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
         </article>`);
       });
     });
     els.bdGrid.innerHTML = cards.join('');
   }
+
+  els.bdGrid.addEventListener('click', e => {
+    const b = e.target.closest('[data-card]');
+    if (!b) return;
+    state.bdSort[b.dataset.card] = b.dataset.sort;
+    renderBreakdowns();
+  });
 
   /* ───────────────────────── Column mapping UI ───────────────────────── */
 
