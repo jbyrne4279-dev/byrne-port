@@ -1204,6 +1204,7 @@
       valueAsc:  (a, b) => valOf(a) - valOf(b),
       units:     (a, b) => (b.rankUnits || 0) - (a.rankUnits || 0),
       cover:     (a, b) => (a.cover ?? Infinity) - (b.cover ?? Infinity),
+      coverDesc: (a, b) => (b.cover ?? -Infinity) - (a.cover ?? -Infinity),
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
       trendDown: (a, b) => (a.trend ?? Infinity) - (b.trend ?? Infinity),
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
@@ -1682,9 +1683,19 @@
     if (!b || b.disabled) return;
     state.filter = b.dataset.key;
     // Filters that are about a ranking show that ranking straight away
-    const autoSort = { highSales: 'value', lowSales: 'valueAsc', improving: 'trendUp', declining: 'trendDown', highReturns: 'returns' }[state.filter];
-    if (autoSort) { state.sort = autoSort; els.sort.value = autoSort; }
-    else if (['value', 'valueAsc', 'trendUp', 'trendDown', 'returns'].includes(state.sort)) { state.sort = 'priority'; els.sort.value = 'priority'; }
+    // Every filter shows its most relevant product first
+    const autoSort = {
+      all: 'priority', act: 'priority', watch: 'priority',
+      runningOut: 'cover',          // least cover left first
+      outOfStock: 'value',          // biggest sellers that are sold out first
+      highSales: 'value', lowSales: 'valueAsc',
+      improving: 'trendUp', declining: 'trendDown',
+      onlineGap: 'value',           // most sales at risk online first
+      highReturns: 'returns',
+      overstock: 'coverDesc',       // most weeks of cover first
+      ok: 'value'
+    }[state.filter] || 'priority';
+    state.sort = autoSort; els.sort.value = autoSort;
     renderPills(state.analysis);
     renderTable(state.analysis);
   });
