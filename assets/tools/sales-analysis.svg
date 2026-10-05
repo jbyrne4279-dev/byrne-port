@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#2a0008"/><stop offset="0.55" stop-color="#0c0003"/><stop offset="1" stop-color="#000"/></radialGradient>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="bg" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#16000a"/><stop offset="0.55" stop-color="#0c0003"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
-    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff1f48" stop-opacity="0.35"/><stop offset="1" stop-color="#ff1f48" stop-opacity="0"/></linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff1f48" stop-opacity="0.15"/><stop offset="1" stop-color="#ff1f48" stop-opacity="0"/></linearGradient>
     <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#ff2a4f" stroke-opacity="0.08" stroke-width="1"/></pattern>
   </defs>
   <rect width="1600" height="1000" fill="url(#bg)"/>
@@ -17,7 +17,7 @@
     <rect x="930" y="500" width="70" height="320" rx="8"/><rect x="1080" y="400" width="70" height="420" rx="8"/>
   </g>
   <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1300 270 L1300 820 L300 820Z" fill="url(#area)"/>
-  <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#ff1f48" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)" opacity="0.7"/>
+  <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#ff1f48" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)" opacity="0.25"/>
   <g filter="url(#glow)" fill="none" stroke="#ff2a4f" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
     <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280"/>
     <path d="M1150 270 L1300 268 L1298 418"/>
