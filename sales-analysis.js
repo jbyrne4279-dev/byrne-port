@@ -45,7 +45,8 @@
     empty:      $('saEmpty'),
     breakdowns: $('saBreakdowns'),
     bdGrid:     $('saBdGrid'),
-    origTable:  $('saOriginalTable'),
+    origWrap:   $('saOriginalWrap'),
+    sheets:     $('saSheets'),
     origHint:   $('saOriginalHint'),
     th: {
       reorderWks: $('saReorderWks'),
@@ -341,8 +342,27 @@
       // sheet_to_json starts at the sheet's first used row/col; offset spans to match
       const ref = ws['!ref'] ? window.XLSX.utils.decode_range(ws['!ref']) : { s: { r: 0, c: 0 } };
       spans.forEach(s => { s.r -= ref.s.r; s.c0 -= ref.s.c; s.c1 -= ref.s.c; });
-      return { name: (wb.SheetNames.length > 1 ? sn : file.name), rows, text, spans, firstRow: ref.s.r + 1 };
-    }).filter(t => t.rows.some(r => !isBlankRow(r)));
+      return { name: sn, file: file.name, rows, text, spans, firstRow: ref.s.r + 1,
+               empty: !rows.some(r => !isBlankRow(r)) };
+    });
+  }
+
+  // Google Sheets "Download → Web page" gives a .zip of one .html per sheet
+  async function readZip(file) {
+    await loadScript(LIB.xlsx);
+    const zip = window.XLSX.CFB.read(new Uint8Array(await file.arrayBuffer()), { type: 'array' });
+    const entries = zip.FileIndex.map((e, i) => ({ e, path: zip.FullPaths[i] }))
+      .filter(x => x.e.type === 2 && x.e.content && x.e.content.length)
+      .filter(x => /\.(html?|csv|tsv|xlsx|xls|xlsm|ods)$/i.test(x.path) && !/(^|\/)(resources|__macosx)\//i.test(x.path))
+      .sort((a, b) => a.path.localeCompare(b.path, undefined, { numeric: true }));
+    if (!entries.length) throw new Error('That zip has no spreadsheet or web-page files inside.');
+    const out = [];
+    for (const x of entries) {
+      const base = x.path.split('/').pop();
+      const inner = new File([new Uint8Array(x.e.content)], base, { type: /html?$/i.test(base) ? 'text/html' : '' });
+      (await readFile(inner)).forEach(t => { t.file = file.name; out.push(t); });
+    }
+    return out;
   }
 
   async function readCsv(file) {
@@ -386,9 +406,10 @@
         r++;
       }
       const rows = grid.map(row => Array.from({ length: row ? row.length : 0 }, (_, i) => (row && row[i] != null ? row[i] : '')));
-      const name = tables.length > 1 ? file.name + ' (table ' + (ti + 1) + ')' : file.name.replace(/^[0-9a-f]{8}-/, '');
-      return { name, rows, text: rows, spans, firstRow: 1 };
-    }).filter(t => t.rows.some(r => !isBlankRow(r)));
+      const base = file.name.replace(/^[0-9a-f]{8}-/, '').replace(/\.html?$/i, '');
+      const name = tables.length > 1 ? base + ' (table ' + (ti + 1) + ')' : base;
+      return { name, file: file.name, rows, text: rows, spans, firstRow: 1, empty: !rows.some(r => !isBlankRow(r)) };
+    });
   }
 
   // Positioned text (PDF items / OCR words) → grid, snapping text to header columns
@@ -485,11 +506,12 @@
   async function readFile(file) {
     const ext = (file.name.split('.').pop() || '').toLowerCase();
     if (['xlsx', 'xls', 'xlsm', 'xlsb', 'ods'].includes(ext)) return readSpreadsheet(file);
+    if (ext === 'zip' || /zip/.test(file.type)) return readZip(file);
     if (['csv', 'tsv', 'txt'].includes(ext)) return readCsv(file);
     if (['html', 'htm'].includes(ext) || file.type === 'text/html') return readHtml(file);
     if (ext === 'pdf' || file.type === 'application/pdf') return readPdf(file);
     if (/^image\//.test(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(ext)) return readImage(file);
-    throw new Error('“' + file.name + '” isn’t a supported file. Use Excel, CSV, a web-page (.html) export, PDF or an image.');
+    throw new Error('“' + file.name + '” isn’t a supported file. Use Excel, CSV, a web-page (.html or .zip) export, PDF or an image.');
   }
 
   /* ───────────────────────── Table preparation ───────────────────────── */
@@ -608,7 +630,7 @@
 
   const sumKnown = (...xs) => { const k = xs.filter(x => x != null); return k.length ? k.reduce((a, b) => a + b, 0) : null; };
 
-  function analyse(products, has, map) {
+  function analyse(products, has) {
     const T = thresholds();
     const locCoverMode = has.branchCover || has.warehouseCover || has.onlineCover;
 
@@ -716,7 +738,7 @@
       else if (status === 'over') actions.push(p.trend != null && p.trend < 0 ? 'Markdown / promote' : 'Hold orders');
       else if (status === 'idle') actions.push('Review: no sales');
       else if (status === 'nodata') actions.push('Check file: sales blank');
-      else if (status === 'check') actions.push('Check file: negative ' + p.negatives.map(k => (state.pt.labels[state.map[k]] || k)).join(', '));
+      else if (status === 'check') actions.push('Check file: negative ' + p.negatives.map(k => (p.sheet.pt.labels[p.sheet.map[k]] || k)).join(', '));
       else actions.push('On track');
       const onlineEmpty = p.onlineCover === 0 || p.online === 0;
       const retailHas = (p.branchCover || 0) > 0 || (p.branch || 0) > 0 || (p.warehouse || 0) > 0 || (p.warehouseCover || 0) > 0 || (p.stock || 0) > 0;
@@ -728,13 +750,13 @@
       p.action = actions[0] + (actions.length > 1 ? ', ' + actions.slice(1).join(', ') : '');
     });
 
-    return { products, relative, locCoverMode, T, has, map };
+    return { products, relative, locCoverMode, T, has };
   }
 
   /* ───────────────────────── State ───────────────────────── */
 
   const state = {
-    pt: null, map: {}, analysis: null, skipped: null, totalRow: null,
+    sheets: [], edit: 0, analysis: null, skipped: null,
     breakdowns: [], filter: 'all', sort: 'priority', query: '', open: new Set()
   };
 
@@ -762,19 +784,26 @@
   }
 
   function runAnalysis() {
-    const built = buildProducts(state.pt, state.map);
-    if (!built.products.length) throw new Error('Couldn’t find any product rows. Open “Columns & thresholds” and pick the product name and SKU columns.');
-    state.skipped = built.skipped;
-    state.totalRow = built.totalRow;
-    const m = state.map, P = built.products;
+    const P = [];
+    state.skipped = { totals: 0, headers: 0, notes: 0 };
+    state.sheets.forEach((sh, si) => {
+      const built = buildProducts(sh.pt, sh.map);
+      sh.totalRow = built.totalRow;
+      sh.count = built.products.length;
+      Object.keys(state.skipped).forEach(k => { state.skipped[k] += built.skipped[k]; });
+      built.products.forEach(p => { p.sheet = sh; p.uid = si * 1e6 + p.idx; P.push(p); });
+    });
+    if (!P.length) throw new Error('Couldn’t find any product rows. Open “Columns & thresholds” and pick the product name and SKU columns.');
     const has = {};
-    FIELDS.forEach(f => { has[f.key] = m[f.key] != null || ((f.key === 'units' || f.key === 'value') && m.combined != null); });
+    const any = k => state.sheets.some(sh => sh.map[k] != null);
+    FIELDS.forEach(f => { has[f.key] = any(f.key) || ((f.key === 'units' || f.key === 'value') && any('combined')); });
     has.trend = P.some(p => p.prevUnits != null || p.prevValue != null);
     has.onlineAny = has.online || has.onlineCover;
     has.channels = has.retailUnits || has.onlineUnits || has.retailValue || has.onlineValue;
     has.anyValue = has.value || has.retailValue || has.onlineValue;
-    has.ranks = (m.ranks || []).length > 0;
-    state.analysis = analyse(P, has, m);
+    has.ranks = state.sheets.some(sh => (sh.map.ranks || []).length);
+    has.multiSheet = state.sheets.length > 1;
+    state.analysis = analyse(P, has);
   }
 
   /* ───────────────────────── Rendering helpers ───────────────────────── */
@@ -789,7 +818,6 @@
     if (t === '') return BLANK;
     return /[£$€]/.test(t) || num(t) == null ? esc(t) : '<span class="sa-cur">£</span>' + esc(t);
   };
-  const label = k => state.map[k] != null ? (state.pt.labels[state.map[k]] || FIELDS.find(f => f.key === k).label) : FIELDS.find(f => f.key === k).label;
 
   // Location chip: a cover figure (weeks) or stock units, shown exactly as written
   function locChip(p, key, A) {
@@ -856,17 +884,17 @@
     return lines.join('');
   }
   function productCell(p, A) {
-    const m = state.map;
+    const m = p.sheet.map, labels = p.sheet.pt.labels;
     const meta = [];
     if (A.has.category && p.src.category !== undefined) meta.push(p.src.category === '' ? 'Group ' + BLANK : esc(p.src.category));
     if (A.has.price) meta.push(p.src.price === '' ? 'Price ' + BLANK : esc(/[£$€]/.test(p.src.price) ? p.src.price : '£' + p.src.price) + ' each');
     if (A.has.distribution) meta.push('Dist. ' + (p.src.distribution === '' ? BLANK : esc(p.src.distribution)));
     const ranks = (m.ranks || []).map(i => {
       const t = p.cells[i].trim();
-      return `<span class="sa-rank" title="${esc(state.pt.labels[i])}">${esc(state.pt.labels[i].replace(/\s*rank(ing)?\s*/i, '') || 'Rank')} #${t === '' ? '–' : esc(t)}</span>`;
+      return `<span class="sa-rank" title="${esc(labels[i])}">${esc(labels[i].replace(/\s*rank(ing)?\s*/i, '') || 'Rank')} #${t === '' ? '–' : esc(t)}</span>`;
     }).join('');
     return `<div class="sa-prod__name">${p.name ? esc(p.name) : BLANK}</div>
-      <div class="sa-prod__code">${m.code != null ? (p.code ? esc(p.code) : 'SKU ' + BLANK) : ''}</div>
+      <div class="sa-prod__code">${m.code != null ? (p.code ? esc(p.code) : 'SKU ' + BLANK) : ''}${A.has.multiSheet ? `<span class="sa-sheettag">${esc(p.sheet.name)}</span>` : ''}</div>
       ${meta.length ? `<div class="sa-prod__meta">${meta.join('<i>·</i>')}</div>` : ''}
       ${ranks ? `<div class="sa-prod__ranks">${ranks}</div>` : ''}`;
   }
@@ -911,11 +939,11 @@
 
   // Every column of the row, exactly as in the file
   function detailRow(p, span) {
-    const items = state.pt.labels.map((l, i) => {
+    const items = p.sheet.pt.labels.map((l, i) => {
       if (!l && !p.cells[i].trim()) return '';
       return `<div class="sa-detail__item"><span>${l ? esc(l) : 'Column ' + (i + 1)}</span><b>${p.cells[i].trim() === '' ? BLANK : esc(p.cells[i])}</b></div>`;
     }).join('');
-    return `<tr class="sa-detail"><td colspan="${span}"><div class="sa-detail__head">Every column for this product, exactly as in your file <span>(row ${p.idx + state.pt.rowOffset})</span></div><div class="sa-detail__grid">${items}</div></td></tr>`;
+    return `<tr class="sa-detail"><td colspan="${span}"><div class="sa-detail__head">Every column for this product, exactly as in your file <span>(${esc(p.sheet.name)}, row ${p.idx + p.sheet.pt.rowOffset})</span></div><div class="sa-detail__grid">${items}</div></td></tr>`;
   }
 
   /* ───────────────────────── Render ───────────────────────── */
@@ -932,22 +960,28 @@
   }
 
   // A figure from the file's own Total row, if it has one
-  const totalFromFile = k => {
-    const tr = state.totalRow, i = state.map[k];
-    if (!tr || i == null) return null;
-    const t = tr.text[i].trim();
-    return t === '' ? null : t;
+  const totalFromFile = (k, additive) => {
+    const vals = state.sheets.map(sh => {
+      const i = sh.map[k];
+      if (!sh.totalRow || i == null) return null;
+      const t = sh.totalRow.text[i].trim();
+      return t === '' ? null : t;
+    });
+    if (vals.some(v => v == null)) return null;
+    if (vals.length === 1) return vals[0];
+    if (!additive || vals.some(v => num(v) == null)) return null;   // can't add cover / % figures
+    return fmtNum(vals.reduce((a, v) => a + num(v), 0));
   };
 
   function renderKpis(A) {
     const P = A.products, h = A.has;
     const tile = (lbl, val, sub, cls) => `<div class="sa-kpi ${cls || ''}"><div class="sa-kpi__label">${lbl}</div><div class="sa-kpi__value">${val}</div>${sub ? `<div class="sa-kpi__delta">${sub}</div>` : ''}</div>`;
-    const fromTotal = '<span class="sa-src">from your Total row</span>';
+    const fromTotal = `<span class="sa-src">${state.sheets.length > 1 ? 'sum of your sheets’ Total rows' : 'from your Total row'}</span>`;
     const calcSum = '<span class="sa-src">sum of product rows</span>';
     const tiles = [];
     const sumOf = k => sumKnown(...P.map(p => p[k]));
     const showTotal = (k, lbl, money) => {
-      const t = totalFromFile(k);
+      const t = totalFromFile(k, true);
       if (t != null) tiles.push(tile(lbl, esc(money && !/[£$€]/.test(t) ? '£' + t : t), fromTotal));
       else if (h[k]) { const s = sumOf(k); if (s != null) tiles.push(tile(lbl, money ? fmtGBP(s) : fmtNum(s), calcSum)); }
     };
@@ -956,7 +990,7 @@
     if (h.units) showTotal('units', 'Units sold', false);
     if (h.retailUnits && h.onlineUnits) {
       // Prefer the file's own Total row figures; otherwise sum the product rows
-      const rt = totalFromFile('retailUnits'), ot = totalFromFile('onlineUnits');
+      const rt = totalFromFile('retailUnits', true), ot = totalFromFile('onlineUnits', true);
       const fromFile = rt != null && ot != null && num(rt) != null && num(ot) != null;
       const r = fromFile ? num(rt) : (sumOf('retailUnits') || 0), o = fromFile ? num(ot) : (sumOf('onlineUnits') || 0);
       if (r + o > 0) tiles.push(tile('Online share of units', Math.round(o / (r + o) * 100) + '%',
@@ -1097,7 +1131,7 @@
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
       trendDown: (a, b) => (a.trend ?? Infinity) - (b.trend ?? Infinity),
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
-      file:      (a, b) => a.idx - b.idx
+      file:      (a, b) => a.uid - b.uid
     }[state.sort] || (() => 0);
     return list.slice().sort(by);
   }
@@ -1127,9 +1161,9 @@
         last = p.status;
         html += `<tr class="sa-group"><td colspan="${span}"><span class="sa-group__dot" style="background:${STATUS[p.status].colour}"></span>${STATUS[p.status].label}<span class="sa-group__count">${groupCounts[p.status]}</span></td></tr>`;
       }
-      const open = state.open.has(p.idx);
+      const open = state.open.has(p.uid);
       const strip = cols.filter(c => c.m).map(c => `<span class="sa-mstat">${c.m} ${c.td(p, maxVal)}</span>`).join('');
-      html += `<tr class="sa-row ${open ? 'is-open' : ''}" data-idx="${p.idx}" tabindex="0" aria-expanded="${open}">` +
+      html += `<tr class="sa-row ${open ? 'is-open' : ''}" data-uid="${p.uid}" tabindex="0" aria-expanded="${open}">` +
         cols.map(c => `<td class="${c.cls}${c.area ? ' sa-a-' + c.area : ' sa-m-hide'}">${c.td(p, maxVal)}</td>`).join('') +
         `<td class="sa-mobile-strip">${strip}</td></tr>`;
       if (open) html += detailRow(p, span);
@@ -1139,18 +1173,21 @@
   }
 
   function renderOriginal() {
-    const pt = state.pt;
-    const productRows = new Set(state.analysis.products.map(p => p.idx));
     const LIMIT = 3000;
-    const head = '<thead>' +
-      (pt.groups.some(g => g) ? '<tr><th class="sa-rownum"></th>' + pt.groups.map(g => `<th class="sa-grouphead">${esc(g)}</th>`).join('') + '</tr>' : '') +
-      '<tr><th class="sa-rownum">Row</th>' + pt.heads.map(h => `<th>${h === '' ? '' : esc(h)}</th>`).join('') + '</tr></thead>';
-    const body = '<tbody>' + pt.text.slice(0, LIMIT).map((r, i) => {
-      if (isBlankRow(r)) return '';
-      return `<tr${productRows.has(i) ? '' : ' class="is-skipped"'}><td class="sa-rownum">${i + pt.rowOffset}</td>` + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>';
-    }).join('') + '</tbody>';
-    els.origTable.innerHTML = head + body;
-    els.origHint.textContent = `${state.analysis.products.length} product rows · every cell unchanged` + (pt.text.length > LIMIT ? ` (first ${LIMIT} rows shown)` : '');
+    const used = new Set(state.analysis.products.map(p => p.uid));
+    els.origWrap.innerHTML = state.sheets.map((sh, si) => {
+      const pt = sh.pt;
+      const head = '<thead>' +
+        (pt.groups.some(g => g) ? '<tr><th class="sa-rownum"></th>' + pt.groups.map(g => `<th class="sa-grouphead">${esc(g)}</th>`).join('') + '</tr>' : '') +
+        '<tr><th class="sa-rownum">Row</th>' + pt.heads.map(h => `<th>${esc(h)}</th>`).join('') + '</tr></thead>';
+      const body = '<tbody>' + pt.text.slice(0, LIMIT).map((r, i) => {
+        if (isBlankRow(r)) return '';
+        return `<tr${used.has(si * 1e6 + i) ? '' : ' class="is-skipped"'}><td class="sa-rownum">${i + pt.rowOffset}</td>` + r.map(c => `<td>${esc(c)}</td>`).join('') + '</tr>';
+      }).join('') + '</tbody>';
+      return `${state.sheets.length > 1 ? `<h4 class="sa-original__sheet">${esc(sh.name)} <span>${sh.count} products</span></h4>` : ''}
+        <div class="sa-original__scroll"><table class="sa-original__table">${head}${body}</table></div>`;
+    }).join('');
+    els.origHint.textContent = `${state.analysis.products.length} product rows from ${state.sheets.length} sheet${state.sheets.length > 1 ? 's' : ''} · every cell unchanged`;
   }
 
   /* ───────────────────────── Breakdown tables (e.g. by type / colour / size) ───────────────────────── */
@@ -1167,7 +1204,7 @@
   }
 
   function renderBreakdowns() {
-    if (!state.breakdowns.length) { els.breakdowns.hidden = true; return; }
+    if (!state.breakdowns.length) { els.breakdowns.hidden = true; els.bdGrid.innerHTML = ''; return; }
     els.breakdowns.hidden = false;
     const cards = [];
     state.breakdowns.forEach(t => {
@@ -1180,7 +1217,8 @@
         }
         const H = keep.map(c => String(b.header[c] ?? '').trim());
         const labelCol = keep[0];
-        const title = H[0] || 'Breakdown';
+        const attr = RX.attrHead.test(norm(H[0] || ''));
+        const title = attr ? 'By ' + H[0].replace(/^product\s+/i, '').toLowerCase() : (t.name || 'Sheet');
         const isTotal = r => RX.skipRow.test(String(r[labelCol] ?? '').trim());
         // Main measure for the bars: first numeric column that isn't a % column
         const numericCol = keep.slice(1).find(c => {
@@ -1220,7 +1258,7 @@
           }).join('') + '</tr>';
         }).join('');
         cards.push(`<article class="sa-panel sa-bd">
-          <div class="sa-bd__top"><h3 class="sa-panel__title">By ${esc(title.replace(/^product\s+/i, '').toLowerCase())}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
+          <div class="sa-bd__top"><h3 class="sa-panel__title">${esc(title)}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
           ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
           <div class="sa-bd__scroll"><table class="sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
         </article>`);
@@ -1232,47 +1270,56 @@
   /* ───────────────────────── Column mapping UI ───────────────────────── */
 
   function renderMap() {
-    const pt = state.pt;
+    const sh = state.sheets[state.edit] || state.sheets[0];
+    const pt = sh.pt, map = sh.map;
     const opts = ['<option value="">— not in file —</option>']
       .concat(pt.labels.map((h, i) => `<option value="${i}">${esc(h || 'Column ' + (i + 1))}</option>`)).join('');
-    els.map.innerHTML = FIELDS.map(f => `<label>${f.label}<select data-field="${f.key}">${opts}</select></label>`).join('');
-    els.map.querySelectorAll('select').forEach(sel => {
-      const i = state.map[sel.dataset.field];
+    const sheetPick = state.sheets.length > 1
+      ? `<label class="sa-map__sheet">Sheet<select data-sheet>${state.sheets.map((x, i) => `<option value="${i}" ${i === state.edit ? 'selected' : ''}>${esc(x.name)} (${x.count} products)</option>`).join('')}</select></label>` : '';
+    els.map.innerHTML = sheetPick + FIELDS.map(f => `<label>${f.label}<select data-field="${f.key}">${opts}</select></label>`).join('');
+    els.map.querySelectorAll('select[data-field]').forEach(sel => {
+      const i = map[sel.dataset.field];
       sel.value = i != null ? String(i) : '';
     });
-    const used = new Set(Object.entries(state.map).filter(([k]) => k !== 'ranks').map(([, v]) => v).concat(state.map.ranks || []));
+    const used = new Set(Object.entries(map).filter(([k]) => k !== 'ranks').map(([, v]) => v).concat(map.ranks || []));
     const other = pt.labels.map((l, i) => [l, i]).filter(([l, i]) => l && !used.has(i));
-    const ranks = (state.map.ranks || []).map(i => pt.labels[i]);
+    const ranks = (map.ranks || []).map(i => pt.labels[i]);
     const notes = [];
     if (ranks.length) notes.push('<b>Ranks</b> (shown under each product): ' + ranks.map(esc).join(', '));
-    if (other.length) notes.push('<b>Also in your file</b> (shown when you open a product): ' + other.map(([l]) => esc(l)).join(', '));
-    els.map.insertAdjacentHTML('beforeend', `<p class="sa-map__note">${notes.join('<br>') || 'Every column in your file is in use.'}</p>`);
+    if (other.length) notes.push('<b>Also in this sheet</b> (shown when you open a product): ' + other.map(([l]) => esc(l)).join(', '));
+    els.map.insertAdjacentHTML('beforeend', `<p class="sa-map__note">${notes.join('<br>') || 'Every column in this sheet is in use.'}</p>`);
 
-    const missing = [];
-    if (state.map.name == null) missing.push('product name');
-    if (state.map.code == null) missing.push('SKU');
-    if (![ 'units', 'value', 'retailUnits', 'onlineUnits', 'retailValue', 'onlineValue', 'combined'].some(k => state.map[k] != null)) missing.push('sales');
-    els.config.classList.toggle('has-warning', missing.length > 0);
-    els.configHint.textContent = missing.length
-      ? 'Couldn’t find a ' + missing.join(' / ') + ' column. Pick it here'
-      : `All ${pt.labels.filter(Boolean).length} columns accounted for. Check the matches`;
-    if (missing.length) els.config.open = true;
+    const problems = [];
+    state.sheets.forEach(x => {
+      const miss = [];
+      if (x.map.name == null) miss.push('product name');
+      if (x.map.code == null) miss.push('SKU');
+      if (!['units', 'value', 'retailUnits', 'onlineUnits', 'retailValue', 'onlineValue', 'combined'].some(k => x.map[k] != null)) miss.push('sales');
+      if (miss.length) problems.push((state.sheets.length > 1 ? x.name + ': ' : '') + 'no ' + miss.join(' / ') + ' column');
+    });
+    els.config.classList.toggle('has-warning', problems.length > 0);
+    const cols = state.sheets.reduce((n, x) => n + x.pt.labels.filter(Boolean).length, 0);
+    els.configHint.textContent = problems.length ? problems.join(' · ') + '. Pick it here'
+      : `All ${cols} columns${state.sheets.length > 1 ? ' across ' + state.sheets.length + ' sheets' : ''} accounted for. Check the matches`;
+    if (problems.length) els.config.open = true;
   }
 
   els.map.addEventListener('change', e => {
     const sel = e.target.closest('select');
     if (!sel) return;
+    if (sel.hasAttribute('data-sheet')) { state.edit = parseInt(sel.value, 10); renderMap(); return; }
+    const map = state.sheets[state.edit].map;
     const f = sel.dataset.field;
     const v = sel.value === '' ? null : parseInt(sel.value, 10);
-    Object.keys(state.map).forEach(k => { if (k !== 'ranks' && k !== f && state.map[k] === v && v != null) delete state.map[k]; });
-    if (v != null) state.map.ranks = (state.map.ranks || []).filter(i => i !== v);
-    if (v == null) delete state.map[f]; else state.map[f] = v;
-    if (f === 'units' || f === 'value') delete state.map.combined;
+    Object.keys(map).forEach(k => { if (k !== 'ranks' && k !== f && map[k] === v && v != null) delete map[k]; });
+    if (v != null) map.ranks = (map.ranks || []).filter(i => i !== v);
+    if (v == null) delete map[f]; else map[f] = v;
+    if (f === 'units' || f === 'value') delete map.combined;
     try { runAnalysis(); renderMap(); render(); setStatus(''); }
     catch (err) { setStatus(esc(err.message), false, true); }
   });
   Object.values(els.th).forEach(inp => inp && inp.addEventListener('input', () => {
-    if (!state.pt) return;
+    if (!state.sheets.length) return;
     try { runAnalysis(); render(); } catch (err) { /* keep last good view */ }
   }));
 
@@ -1288,35 +1335,46 @@
   }
 
   function loadTables(tables, label, autoRead) {
-    const prepared = tables.map(t => ({ t, pt: prepareTable(t) })).filter(x => x.pt);
-    if (!prepared.length) throw new Error('Couldn’t find a header row (e.g. “Description”, “Item Number”, “Units”). Make sure your file has column titles.');
-    const classified = prepared.map(x => ({ ...x, ...classify(x.pt) }));
-    const productTables = classified.filter(x => x.kind === 'products')
-      .sort((a, b) => b.pt.data.length - a.pt.data.length);
-    const primary = productTables[0];
-    state.breakdowns = classified.filter(x => x !== primary).map(x => x.t);
+    if (!tables.length) throw new Error('That file has no sheets with data in it.');
+    const read = tables.map(t => {
+      if (t.empty) return { t, role: 'empty' };
+      const pt = prepareTable(t);
+      if (!pt) return { t, role: 'other' };
+      const c = classify(pt);
+      return { t, pt, map: c.map, role: c.kind === 'products' ? 'products' : 'breakdown' };
+    });
+    // Every product sheet feeds one combined analysis; everything else is shown in full below
+    state.sheets = read.filter(x => x.role === 'products').map(x => ({ name: x.t.name, file: x.t.file, pt: x.pt, map: x.map }));
+    state.breakdowns = read.filter(x => x.role === 'breakdown' || x.role === 'other').map(x => x.t);
+    state.edit = 0;
     state.filter = 'all';
     state.query = '';
     state.open = new Set();
     els.search.value = '';
 
-    if (primary) {
-      state.pt = primary.pt;
-      state.map = primary.map;
-      runAnalysis();
-      els.fileMeta.textContent = [state.analysis.products.length + ' products', skippedNote(),
-        state.breakdowns.length ? splitCount() + ' breakdown table' + (splitCount() > 1 ? 's' : '') : '',
-        autoRead ? 'auto-read, check columns' : ''].filter(Boolean).join(' · ');
-    } else {
-      state.pt = null; state.analysis = null;
-      els.fileMeta.textContent = splitCount() + ' breakdown tables · no product-level sheet found (add the sheet with SKUs and descriptions for the full analysis)';
-    }
+    const hasProducts = state.sheets.length > 0;
+    if (hasProducts) runAnalysis();
+    else state.analysis = null;
+
+    // What happened to every sheet, so nothing is silently skipped
+    els.sheets.innerHTML = tables.length > 1 || read.some(x => x.role !== 'products') ? '<span class="sa-sheets__label">Sheets read</span>' + read.map(x => {
+      const n = x.role === 'products' ? (state.sheets.find(s => s.pt === x.pt) || {}).count + ' products'
+        : x.role === 'breakdown' ? 'shown as breakdown'
+        : x.role === 'other' ? 'no table headings, shown in full below' : 'empty';
+      return `<span class="sa-sheet sa-sheet--${x.role}" title="${esc(x.t.file || '')}">${esc(x.t.name)}<small>${n}</small></span>`;
+    }).join('') : '';
+
+    els.fileMeta.textContent = hasProducts
+      ? [state.analysis.products.length + ' products' + (state.sheets.length > 1 ? ' from ' + state.sheets.length + ' sheets' : ''), skippedNote(),
+         state.breakdowns.length ? splitCount() + ' other table' + (splitCount() > 1 ? 's' : '') : '',
+         autoRead ? 'auto-read, check columns' : ''].filter(Boolean).join(' · ')
+      : splitCount() + ' tables · no product-level sheet found (add the sheet with SKUs and descriptions for the full analysis)';
     els.fileName.textContent = label;
-    els.results.classList.toggle('is-breakdown-only', !primary);
+    els.results.classList.toggle('is-breakdown-only', !hasProducts);
     els.uploadWrap.classList.add('is-collapsed');
     els.results.hidden = false;
     setStatus('');
-    if (primary) { renderMap(); render(); }
+    if (hasProducts) { renderMap(); render(); }
     renderBreakdowns();
     els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -1394,7 +1452,7 @@
     els.results.hidden = true;
     els.uploadWrap.classList.remove('is-collapsed');
     els.file.value = '';
-    state.analysis = null; state.pt = null;
+    state.analysis = null; state.sheets = [];
     setStatus('');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -1408,7 +1466,7 @@
   els.search.addEventListener('input', () => { state.query = els.search.value; renderTable(state.analysis); });
   els.sort.addEventListener('change', () => { state.sort = els.sort.value; renderTable(state.analysis); });
   const toggleRow = row => {
-    const i = parseInt(row.dataset.idx, 10);
+    const i = parseInt(row.dataset.uid, 10);
     if (state.open.has(i)) state.open.delete(i); else state.open.add(i);
     renderTable(state.analysis);
   };
@@ -1426,19 +1484,26 @@
     const A = state.analysis;
     if (!A) return;
     const { list, pill } = currentList(A);
-    // Every column from the file, exactly as written, then the tool's own columns
-    const labels = state.pt.labels.map((l, i) => l || 'Column ' + (i + 1));
-    const cols = labels.concat(['Status (calculated)', 'Priority (calculated)', 'Trend % (calculated)', 'Cover (calculated)', 'Action (calculated)']);
+    // Every column from every product sheet, exactly as written (matched by
+    // column name across sheets), then the tool's own labelled columns.
+    const uniq = labels => { const seen = {}; return labels.map((l, i) => { l = l || 'Column ' + (i + 1); seen[l] = (seen[l] || 0) + 1; return seen[l] > 1 ? l + ' (' + seen[l] + ')' : l; }); };
+    const sheetLabels = new Map(state.sheets.map(sh => [sh, uniq(sh.pt.labels)]));
+    const all = [];
+    state.sheets.forEach(sh => sheetLabels.get(sh).forEach(l => { if (!all.includes(l)) all.push(l); }));
+    const multi = state.sheets.length > 1;
+    const cols = (multi ? ['Sheet'] : []).concat(all, ['Status (calculated)', 'Priority (calculated)', 'Trend % (calculated)', 'Cover (calculated)', 'Action (calculated)']);
     const cell = v => {
       if (v == null || (typeof v === 'number' && !isFinite(v))) return '';
       const s = String(v);
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
     };
-    const lines = [cols.map(cell).join(',')].concat(list.map(p => p.cells
-      .concat([STATUS[p.status].short, p.priority,
-               p.trend != null && isFinite(p.trend) ? Math.round(p.trend) : '',
-               p.coverCalc && p.cover != null ? p.cover.toFixed(1) : '', p.action])
-      .map(cell).join(',')));
+    const lines = [cols.map(cell).join(',')].concat(list.map(p => {
+      const labs = sheetLabels.get(p.sheet);
+      const byLabel = {}; labs.forEach((l, i) => { byLabel[l] = p.cells[i]; });
+      return (multi ? [p.sheet.name] : []).concat(all.map(l => l in byLabel ? byLabel[l] : ''),
+        [STATUS[p.status].short, p.priority, p.trend != null && isFinite(p.trend) ? Math.round(p.trend) : '',
+         p.coverCalc && p.cover != null ? p.cover.toFixed(1) : '', p.action]).map(cell).join(',');
+    }));
     const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

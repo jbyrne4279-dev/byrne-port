@@ -894,3 +894,24 @@
   .sa-prod__ranks { gap: 4px; }
   .sa-rank { font-size: 9.5px; }
 }
+
+/* Which sheets were read and what each was used for */
+.sa-sheets { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -6px 0 16px; }
+.sa-sheets:empty { display: none; }
+.sa-sheets__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sa-label-3); margin-right: 4px; }
+.sa-sheet {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 5px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  background: var(--sa-panel); border: 1px solid var(--sa-line-2); color: var(--sa-label);
+}
+.sa-sheet small { font-weight: 400; font-size: 11.5px; color: var(--sa-label-3); }
+.sa-sheet--products { border-color: rgba(95,216,132,0.35); }
+.sa-sheet--products small { color: var(--st-green); }
+.sa-sheet--empty { opacity: 0.6; }
+.sa-sheettag {
+  margin-left: 6px; padding: 1px 6px; border-radius: 4px; font-family: var(--font-body);
+  font-size: 10px; letter-spacing: 0; background: rgba(255,255,255,0.07); color: var(--sa-label-2);
+}
+.sa-original__sheet { margin: 4px 20px 8px; font-size: 13px; font-weight: 600; text-transform: none; font-family: var(--font-body); letter-spacing: 0; }
+.sa-original__sheet span { font-weight: 400; color: var(--sa-label-3); margin-left: 6px; }
+.sa-map__sheet { grid-column: 1 / -1; }

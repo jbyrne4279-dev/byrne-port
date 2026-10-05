@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=9">
+  <link rel="stylesheet" href="sales-analysis.css?v=10">
 </head>
 <body class="sa-body">
 
@@ -62,14 +62,14 @@
     <!-- UPLOAD -->
     <section class="sa-container sa-upload-wrap" id="saUploadWrap">
       <label class="sa-drop" id="saDrop" for="saFile">
-        <input type="file" id="saFile" accept=".xlsx,.xls,.xlsm,.ods,.csv,.tsv,.html,.htm,.pdf,.png,.jpg,.jpeg,.webp" multiple hidden>
+        <input type="file" id="saFile" accept=".xlsx,.xls,.xlsm,.xlsb,.ods,.csv,.tsv,.html,.htm,.zip,.pdf,.png,.jpg,.jpeg,.webp,text/html,application/zip" multiple hidden>
         <span class="sa-drop__icon" aria-hidden="true">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         </span>
         <span class="sa-drop__title">Drop your weekly sales report here</span>
-        <span class="sa-drop__hint">or <u>browse</u> &middot; Excel, Google Sheets export, CSV, PDF or a screenshot &middot; several sheets at once is fine</span>
+        <span class="sa-drop__hint">or <u>browse</u> &middot; Excel (every sheet is read), Google Sheets web-page export (.html or .zip), CSV, PDF or a screenshot</span>
         <span class="sa-drop__formats" aria-hidden="true">
-          <span>XLSX</span><span>CSV</span><span>HTML</span><span>PDF</span><span>PNG</span><span>JPG</span>
+          <span>XLSX</span><span>CSV</span><span>HTML</span><span>ZIP</span><span>PDF</span><span>PNG</span><span>JPG</span>
         </span>
       </label>
       <div class="sa-upload-foot">
@@ -117,6 +117,8 @@
             <button class="sa-btn" type="button" id="saNew">New file</button>
           </div>
         </div>
+
+        <div class="sa-sheets" id="saSheets"></div>
 
         <!-- KPI tiles -->
         <div class="sa-kpis" id="saKpis"></div>
@@ -198,18 +200,16 @@
 
         <!-- Breakdown tables (e.g. sales by product type / colour / size) -->
         <section class="sa-breakdowns" id="saBreakdowns" hidden>
-          <h2 class="sa-section-title">Breakdowns</h2>
+          <h2 class="sa-section-title">Other sheets &amp; breakdowns</h2>
           <div class="sa-bd-grid" id="saBdGrid"></div>
         </section>
 
         <details class="sa-panel sa-original" id="saOriginal">
           <summary>
-            <span>Your product sheet, exactly as read</span>
+            <span>Your product sheets, exactly as read</span>
             <span class="sa-config__hint" id="saOriginalHint">Every row and cell, unchanged, so you can check nothing was altered</span>
           </summary>
-          <div class="sa-original__scroll">
-            <table class="sa-original__table" id="saOriginalTable"></table>
-          </div>
+          <div id="saOriginalWrap"></div>
         </details>
 
         <p class="sa-method">
@@ -222,6 +222,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=6"></script>
+  <script src="sales-analysis.js?v=7"></script>
 </body>
 </html>
