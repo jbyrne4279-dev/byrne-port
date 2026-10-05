@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#2a0008"/><stop offset="0.55" stop-color="#0c0003"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#ff2a4f" stroke-opacity="0.08" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect x="490" y="230" width="620" height="590" rx="60" fill="#ff1f48" opacity="0.35" filter="url(#soft)"/>
+  <g filter="url(#glow)" fill="none" stroke="#ff2a4f" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="500" y="250" width="600" height="560" rx="50"/>
+    <line x1="500" y1="400" x2="1100" y2="400"/>
+    <line x1="640" y1="190" x2="640" y2="310"/>
+    <line x1="960" y1="190" x2="960" y2="310"/>
+  </g>
+  <rect x="500" y="250" width="600" height="150" rx="50" fill="#ff1f48" opacity="0.22"/>
+  <g fill="#ff2a4f" filter="url(#glow)">
+    <rect x="570" y="460" width="70" height="70" rx="14" opacity="0.55"/><rect x="700" y="460" width="70" height="70" rx="14" opacity="0.55"/>
+    <rect x="830" y="460" width="70" height="70" rx="14" opacity="0.55"/><rect x="960" y="460" width="70" height="70" rx="14" opacity="0.55"/>
+    <rect x="570" y="580" width="70" height="70" rx="14" opacity="0.55"/><rect x="700" y="580" width="70" height="70" rx="14" fill="#fff"/>
+    <rect x="830" y="580" width="70" height="70" rx="14" opacity="0.55"/><rect x="960" y="580" width="70" height="70" rx="14" opacity="0.55"/>
+    <rect x="570" y="700" width="70" height="70" rx="14" opacity="0.55"/><rect x="700" y="700" width="70" height="70" rx="14" opacity="0.55"/>
+    <rect x="830" y="700" width="70" height="70" rx="14" opacity="0.55"/>
+  </g>
+  <g fill="none" stroke="#ffd0d8" stroke-width="4" stroke-linecap="round">
+    <rect x="500" y="250" width="600" height="560" rx="50"/>
+    <line x1="640" y1="190" x2="640" y2="310"/><line x1="960" y1="190" x2="960" y2="310"/>
+  </g>
+</svg>
