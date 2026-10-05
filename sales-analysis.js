@@ -812,7 +812,15 @@
 
   /* ───────────────────────── Rendering helpers ───────────────────────── */
 
-  const orig = (p, k) => { const t = p.src[k]; return t === undefined ? '' : t === '' ? BLANK : esc(t); };
+  // Display only: thousands separators on plain numbers ("12628" -> "12,628",
+  // "856803.9" -> "856,803.9"). Digits and decimals are never changed; codes,
+  // ranks and text are left alone.
+  const addCommas = t => {
+    const m = String(t).match(/^(\s*[-–]?\s*[£$€]?\s*)(\d{4,})(\.\d+)?(\s*%?\s*)$/);
+    return m ? m[1] + m[2].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (m[3] || '') + m[4] : String(t);
+  };
+  const cx = t => esc(addCommas(t));
+  const orig = (p, k) => { const t = p.src[k]; return t === undefined ? '' : t === '' ? BLANK : cx(t); };
   const MONEY = new Set(['value', 'prevValue', 'retailValue', 'onlineValue']);
   // Money cells: if the file's header marks the column as £ but the cell is a
   // bare number, show a £ sign in front. The digits themselves are untouched.
@@ -820,7 +828,7 @@
     const t = p.src[k];
     if (t === undefined) return '';
     if (t === '') return BLANK;
-    return /[£$€]/.test(t) || num(t) == null ? esc(t) : '<span class="sa-cur">£</span>' + esc(t);
+    return /[£$€]/.test(t) || num(t) == null ? cx(t) : '<span class="sa-cur">£</span>' + cx(t);
   };
 
   // Location chip: a cover figure (weeks) or stock units, shown exactly as written
@@ -838,7 +846,7 @@
       const wks = v / p.rankUnits;
       cls = v === 0 || wks < 0.5 ? 'red' : wks < T.reorder ? 'amber' : 'green';
     }
-    return `<span class="sa-chip sa-chip--${cls}">${esc(text)}</span>`;
+    return `<span class="sa-chip sa-chip--${cls}">${cx(text)}</span>`;
   }
   function trendChip(p) {
     if (p.trend == null) return '<span class="sa-trend sa-trend--flat">—</span>';
@@ -854,7 +862,7 @@
       if (text === '' || text == null) return `<span class="sa-cover">${BLANK}</span>`;
       const c = p.totalCover;
       const cls = c == null ? 'grey' : c < T.reorder ? 'red' : c < T.watch ? 'amber' : c > T.over ? 'blue' : 'green';
-      return `<span class="sa-cover sa-cover--${cls}"><span class="sa-cover__num">${esc(text)}</span><span class="sa-cover__unit">wks</span></span>`;
+      return `<span class="sa-cover sa-cover--${cls}"><span class="sa-cover__num">${cx(text)}</span><span class="sa-cover__unit">wks</span></span>`;
     }
     if (p.cover == null) return '<span class="sa-cover sa-cover--grey"><span class="sa-cover__num">—</span></span>';
     const c = p.cover;
@@ -867,7 +875,7 @@
     const has = A.has;
     const lines = [];
     if (has.value) lines.push(`<div class="sa-sold__val">${money(p, 'value')}</div>`);
-    if (has.units) lines.push(`<div class="${has.value ? 'sa-sold__units' : 'sa-sold__val'}">${p.src.units === '' ? 'units ' + BLANK : esc(p.src.units) + ' units'}</div>`);
+    if (has.units) lines.push(`<div class="${has.value ? 'sa-sold__units' : 'sa-sold__val'}">${p.src.units === '' ? 'units ' + BLANK : cx(p.src.units) + ' units'}</div>`);
     if (!has.value && !has.units && has.channels) {
       const bits = [];
       if (has.retailValue || has.retailUnits) bits.push(`<div class="sa-sold__val">${has.retailValue ? money(p, 'retailValue') : orig(p, 'retailUnits') + ' units'} <small>retail</small></div>`);
@@ -1016,7 +1024,7 @@
   function detailRow(p, span) {
     const items = p.sheet.pt.labels.map((l, i) => {
       if (!l && !p.cells[i].trim()) return '';
-      return `<div class="sa-detail__item"><span>${l ? esc(l) : 'Column ' + (i + 1)}</span><b>${p.cells[i].trim() === '' ? BLANK : esc(p.cells[i])}</b></div>`;
+      return `<div class="sa-detail__item"><span>${l ? esc(l) : 'Column ' + (i + 1)}</span><b>${p.cells[i].trim() === '' ? BLANK : (i === p.sheet.map.code || (p.sheet.map.ranks || []).includes(i) ? esc(p.cells[i]) : cx(p.cells[i]))}</b></div>`;
     }).join('');
     return `<tr class="sa-detail"><td colspan="${span}"><div class="sa-detail__head">Every column for this product, exactly as in your file <span>(${esc(p.sheet.name)}, row ${p.idx + p.sheet.pt.rowOffset})</span></div><div class="sa-detail__grid">${items}</div></td></tr>`;
   }
@@ -1057,7 +1065,7 @@
     const sumOf = k => sumKnown(...P.map(p => p[k]));
     const showTotal = (k, lbl, money) => {
       const t = totalFromFile(k, true);
-      if (t != null) tiles.push(tile(lbl, esc(money && !/[£$€]/.test(t) ? '£' + t : t), fromTotal));
+      if (t != null) tiles.push(tile(lbl, cx(money && !/[£$€]/.test(t) ? '£' + t : t), fromTotal));
       else if (h[k]) { const s = sumOf(k); if (s != null) tiles.push(tile(lbl, money ? fmtGBP(s) : fmtNum(s), calcSum)); }
     };
     if (h.value) showTotal('value', 'Sales last week', true);
@@ -1069,7 +1077,7 @@
       const fromFile = rt != null && ot != null && num(rt) != null && num(ot) != null;
       const r = fromFile ? num(rt) : (sumOf('retailUnits') || 0), o = fromFile ? num(ot) : (sumOf('onlineUnits') || 0);
       if (r + o > 0) tiles.push(tile('Online share of units', Math.round(o / (r + o) * 100) + '%',
-        fromFile ? `${esc(ot)} online · ${esc(rt)} retail <span class="sa-src">(Total row)</span>` : `${fmtNum(o)} online · ${fmtNum(r)} retail`));
+        fromFile ? `${cx(ot)} online · ${cx(rt)} retail <span class="sa-src">(Total row)</span>` : `${fmtNum(o)} online · ${fmtNum(r)} retail`));
     }
     tiles.push(tile('Products', P.length, `${P.filter(p => (p.rankUnits || 0) > 0).length} sold at least one`));
     const act = P.filter(p => p.status === 'act').length;
@@ -1078,7 +1086,7 @@
     tiles.push(tile('Sold out somewhere', out, `${P.filter(p => p.flags.has('onlineGap')).length} with online gaps`, out ? 'sa-kpi--warn' : ''));
     if (h.totalCover) {
       const t = totalFromFile('totalCover');
-      if (t != null) tiles.push(tile('Total cover', esc(t) + ' <small>wks</small>', fromTotal));
+      if (t != null) tiles.push(tile('Total cover', cx(t) + ' <small>wks</small>', fromTotal));
     } else if (h.stock || h.branch || h.warehouse || h.online) {
       const covers = P.filter(p => p.cover != null && isFinite(p.cover) && p.totalStockCalc != null);
       const tu = covers.reduce((s, p) => s + p.rankUnits, 0);
@@ -1096,8 +1104,8 @@
     const P = A.products, h = A.has;
     const out = [];
     const valOf = p => (p.rankValue != null ? p.rankValue : (p.rankUnits || 0));
-    const shown = p => h.value ? money(p, 'value') : h.units ? esc(p.src.units) + ' units'
-      : h.retailValue ? money(p, 'retailValue') + ' retail' : esc(p.src.retailUnits || '') + ' units';
+    const shown = p => h.value ? money(p, 'value') : h.units ? cx(p.src.units) + ' units'
+      : h.retailValue ? money(p, 'retailValue') + ' retail' : cx(p.src.retailUnits || '') + ' units';
     const byVal = P.slice().sort((a, b) => valOf(b) - valOf(a));
     const total = P.reduce((s, p) => s + valOf(p), 0);
 
@@ -1121,7 +1129,7 @@
         const onlineLed = P.filter(p => (p.onlineUnits || 0) > (p.retailUnits || 0) * 2 && (p.onlineUnits || 0) >= 10).sort((a, b) => b.onlineUnits - a.onlineUnits);
         out.push({ tone: 'blue', icon: '⇄', html:
           `Online took <b>${Math.round(o / (r + o) * 100)}%</b> of units (${fmtNum(o)} online vs ${fmtNum(r)} retail).` +
-          (onlineLed[0] ? ` Most online-led: <b>${esc(onlineLed[0].name)}</b> (${esc(onlineLed[0].src.onlineUnits)} online vs ${p0(onlineLed[0].src.retailUnits)} retail).` : '') });
+          (onlineLed[0] ? ` Most online-led: <b>${esc(onlineLed[0].name)}</b> (${cx(onlineLed[0].src.onlineUnits)} online vs ${p0(onlineLed[0].src.retailUnits)} retail).` : '') });
       }
     }
     if (h.trend) {
@@ -1136,7 +1144,7 @@
       const riser = movers.slice().sort((a, b) => b.trend - a.trend)[0];
       const faller = movers.slice().sort((a, b) => a.trend - b.trend)[0];
       if (riser && riser.trend >= A.T.trend) out.push({ tone: 'green', icon: '↗', html:
-        `Biggest riser: <b>${esc(riser.name)}</b>, <b>${fmtPct(riser.trend)}</b> (${esc(riser.src.prevUnits)} → ${esc(riser.src.units)} units).` });
+        `Biggest riser: <b>${esc(riser.name)}</b>, <b>${fmtPct(riser.trend)}</b> (${cx(riser.src.prevUnits)} → ${cx(riser.src.units)} units).` });
       if (faller && faller.trend <= -A.T.trend) out.push({ tone: 'amber', icon: '↘', html:
         `Slowing down: <b>${esc(faller.name)}</b>, <b>${fmtPct(faller.trend)}</b> week on week.` });
     }
@@ -1163,7 +1171,7 @@
     if (!out.length) out.push({ tone: 'green', icon: '✓', html: 'Nothing urgent this week: stock and sales look balanced.' });
     return out;
   }
-  const p0 = t => (t === '' || t == null) ? 'blank' : esc(t);
+  const p0 = t => (t === '' || t == null) ? 'blank' : cx(t);
 
   function renderInsights(A) {
     els.insights.innerHTML = buildInsights(A).map(i =>
@@ -1394,7 +1402,7 @@
         const down = movers.slice().sort((x, y) => num(x[changeCol]) - num(y[changeCol]))[0];
         const lab = r => String(r[labelCol] ?? '').trim() || 'blank';
         const head = [];
-        if (leader) head.push(`<b>${esc(lab(leader))}</b> leads on ${esc(String(b.header[numericCol]).trim())} (${esc(leader[numericCol])})`);
+        if (leader) head.push(`<b>${esc(lab(leader))}</b> leads on ${esc(String(b.header[numericCol]).trim())} (${cx(leader[numericCol])})`);
         if (up && num(up[changeCol]) > 0) head.push(`biggest rise <b class="sa-up">${esc(lab(up))} ${esc(up[changeCol])}</b>`);
         if (down && num(down[changeCol]) < 0) head.push(`biggest drop <b class="sa-down">${esc(lab(down))} ${esc(down[changeCol])}</b>`);
 
@@ -1428,7 +1436,7 @@
           return `<tr class="${total ? 'is-total' : ''}">` + keep.map((c, k) => {
             const t = String(r[c] ?? '');
             if (k === 0) return `<td class="sa-bd__label">${total || t.trim() === '' ? '' : labelIcon(H[0], t)}${t.trim() === '' ? BLANK : esc(t)}</td>`;
-            let inner = t.trim() === '' ? '' : esc(t);
+            let inner = t.trim() === '' ? '' : cx(t);
             let cls = '';
             if (/%/.test(t) && /(wow|w\/w|vs|var|change|growth)/i.test(String(b.header[c] ?? ''))) {
               const n = num(t);
