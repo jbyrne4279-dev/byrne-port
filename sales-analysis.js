@@ -1174,7 +1174,51 @@
     });
     els.body.innerHTML = html;
     els.empty.hidden = list.length > 0;
+    stickyHead.rebuild();
   }
+
+  /* ───────────────────────── Pinned column headings ─────────────────────────
+     The table can scroll sideways, which stops CSS position:sticky working on
+     its header. Instead a copy of the header row is pinned just under the
+     filter bar while the table is on screen, with the same column widths,
+     following any sideways scroll. */
+  const stickyHead = (() => {
+    const wrap = els.table.parentElement;
+    const box = document.createElement('div');
+    box.className = 'sa-stickyhead';
+    box.setAttribute('aria-hidden', 'true');
+    box.innerHTML = '<table class="sa-table"><thead></thead></table>';
+    // Lives on the page itself: the results panel's entrance animation leaves
+    // a transform behind, which would break position:fixed inside it.
+    document.querySelector('.sa-page').appendChild(box);
+    const table = box.querySelector('table'), head = table.querySelector('thead');
+    const controls = document.querySelector('.sa-controls');
+    const mobile = window.matchMedia('(max-width: 760px)');
+    let queued = false;
+
+    function sync() {
+      queued = false;
+      if (mobile.matches || els.results.hidden || !els.head.firstElementChild) { box.classList.remove('is-on'); return; }
+      const top = Math.max(controls.getBoundingClientRect().bottom, 0);
+      const th = els.head.getBoundingClientRect();
+      const wr = wrap.getBoundingClientRect();
+      const on = th.top < top && wr.bottom > top + th.height + 24;
+      box.classList.toggle('is-on', on);
+      if (!on) return;
+      box.style.top = top + 'px';
+      box.style.left = wr.left + 'px';
+      box.style.width = wr.width + 'px';
+      table.style.width = els.table.offsetWidth + 'px';
+      const src = els.head.querySelectorAll('th'), dst = head.querySelectorAll('th');
+      src.forEach((c, i) => { if (dst[i]) dst[i].style.width = dst[i].style.minWidth = c.getBoundingClientRect().width + 'px'; });
+      table.style.transform = 'translateX(' + (-wrap.scrollLeft) + 'px)';
+    }
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(sync); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    wrap.addEventListener('scroll', queue, { passive: true });
+    return { rebuild() { head.innerHTML = els.head.innerHTML; queue(); } };
+  })();
 
   function renderOriginal() {
     const LIMIT = 3000;
