@@ -1322,6 +1322,40 @@
     return blocks.filter(b => b.rows.length);
   }
 
+  /* Icons beside breakdown labels: colour swatches for colours, size blocks
+     for sizes, a symbol for product types (keyword match), else an initial. */
+  const COLOURS = { gold: '#d4af37', natural: '#d8c3a5', white: '#f4f4f2', bronze: '#a26a37', brown: '#7b4a2a',
+    pink: '#f29bb8', black: '#151515', orange: '#f08a24', cream: '#f3e6c8', silver: '#c0c4c8', green: '#4caf50',
+    monochrome: 'linear-gradient(135deg,#111 50%,#eee 50%)', grey: '#8d8d92', gray: '#8d8d92', sage: '#9caf88',
+    rust: '#b5512b', red: '#d0303a', blue: '#3a7bd5', beige: '#dcc9a3', clear: 'rgba(255,255,255,0.15)',
+    navy: '#1f2f5c', purple: '#7d4fb5', yellow: '#f2c94c', multi: 'conic-gradient(#e74c3c,#f1c40f,#2ecc71,#3498db,#9b59b6,#e74c3c)',
+    teal: '#2a9d8f', copper: '#b87333', rose: '#e8a0a8', ivory: '#fffff0', khaki: '#c3b091', tan: '#d2b48c' };
+  const TYPE_ICONS = [[/animal|dog|cat|bird|hare/, '🐾'], [/novelty|gift/, '✨'], [/sculpt|art|statue|bust/, '🗿'],
+    [/game|puzzle/, '🎲'], [/letter|word|text|sign/, '🔤'], [/light|lamp|candle/, '💡'], [/flower|plant|floral/, '🌸'],
+    [/christmas|xmas|festive/, '🎄'], [/halloween|pumpkin/, '🎃'], [/heart|love/, '❤️'], [/fruit|cherr|food/, '🍒'],
+    [/vase|pot|jar/, '🏺'], [/frame|picture|photo/, '🖼️'], [/clock|time/, '🕰️'], [/book/, '📚'], [/shell|sea|beach/, '🐚']];
+  function labelIcon(head, label) {
+    const h = norm(head), l = norm(label);
+    if (/colou?r/.test(h)) {
+      const parts = l.split(/\s*[\/&+,]\s*|\s+and\s+/).map(w => {
+        const key = Object.keys(COLOURS).find(c => w.includes(c));
+        return key ? COLOURS[key] : null;
+      }).filter(Boolean);
+      if (parts.length) {
+        const bg = parts.length > 1 && !parts.some(x => /gradient/.test(x))
+          ? `linear-gradient(135deg, ${parts[0]} 50%, ${parts[1]} 50%)` : parts[0];
+        return `<span class="sa-ico sa-ico--swatch" style="background:${bg}"></span>`;
+      }
+    }
+    if (/size/.test(h)) {
+      const sz = /extra ?large|xl/.test(l) ? 18 : /large/.test(l) ? 15 : /medium/.test(l) ? 12 : /mini/.test(l) ? 6 : /small/.test(l) ? 9 : 0;
+      if (sz) return `<span class="sa-ico"><i class="sa-ico__size" style="width:${sz}px;height:${sz}px"></i></span>`;
+    }
+    const hit = TYPE_ICONS.find(([rx]) => rx.test(l));
+    if (hit) return `<span class="sa-ico">${hit[1]}</span>`;
+    return `<span class="sa-ico sa-ico--letter">${esc((label.trim()[0] || '?').toUpperCase())}</span>`;
+  }
+
   function renderBreakdowns() {
     if (!state.breakdowns.length) { els.breakdowns.hidden = true; els.bdGrid.innerHTML = ''; return; }
     els.breakdowns.hidden = false;
@@ -1363,7 +1397,7 @@
           const total = isTotal(r);
           return `<tr class="${total ? 'is-total' : ''}">` + keep.map((c, k) => {
             const t = String(r[c] ?? '');
-            if (k === 0) return `<td class="sa-bd__label">${t.trim() === '' ? BLANK : esc(t)}</td>`;
+            if (k === 0) return `<td class="sa-bd__label">${total || t.trim() === '' ? '' : labelIcon(H[0], t)}${t.trim() === '' ? BLANK : esc(t)}</td>`;
             let inner = t.trim() === '' ? '' : esc(t);
             let cls = '';
             if (/%/.test(t) && /(wow|w\/w|vs|var|change|growth)/i.test(String(b.header[c] ?? ''))) {
