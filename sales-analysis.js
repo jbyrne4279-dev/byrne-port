@@ -1201,6 +1201,7 @@
     const by = {
       priority:  (a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status) || b.score - a.score,
       value:     (a, b) => valOf(b) - valOf(a),
+      valueAsc:  (a, b) => valOf(a) - valOf(b),
       units:     (a, b) => (b.rankUnits || 0) - (a.rankUnits || 0),
       cover:     (a, b) => (a.cover ?? Infinity) - (b.cover ?? Infinity),
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
@@ -1680,6 +1681,10 @@
     const b = e.target.closest('.sa-pill');
     if (!b || b.disabled) return;
     state.filter = b.dataset.key;
+    // Filters that are about a ranking show that ranking straight away
+    const autoSort = { highSales: 'value', lowSales: 'valueAsc', improving: 'trendUp', declining: 'trendDown', highReturns: 'returns' }[state.filter];
+    if (autoSort) { state.sort = autoSort; els.sort.value = autoSort; }
+    else if (['value', 'valueAsc', 'trendUp', 'trendDown', 'returns'].includes(state.sort)) { state.sort = 'priority'; els.sort.value = 'priority'; }
     renderPills(state.analysis);
     renderTable(state.analysis);
   });
