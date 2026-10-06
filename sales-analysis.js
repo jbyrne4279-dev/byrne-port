@@ -1366,6 +1366,67 @@
     return `<span class="sa-ico sa-ico--letter">${esc((label.trim()[0] || '?').toUpperCase())}</span>`;
   }
 
+  const PIE_PAL = ['#e0143c', '#4c8dff', '#f7b955', '#5fd884', '#b28bff', '#2ec4b6', '#ff8fab'];
+  // Top 6 slices by the given column, rest grouped as "Other"; colours follow
+  // the actual colour for colour breakdowns, otherwise a fixed palette by rank
+  function pieSlices(rows, col, labelCol, head, refCol) {
+    const key = refCol != null ? refCol : col;
+    const ranked = rows.filter(r => (num(r[key]) || 0) > 0).sort((a, b) => num(b[key]) - num(a[key]));
+    const top = ranked.slice(0, 6);
+    const lab = r => String(r[labelCol] ?? '').trim() || 'blank';
+    const isColour = /colou?r/i.test(head || '');
+    const colourOf = (r, i) => {
+      if (isColour) {
+        const w = norm(lab(r));
+        const k = Object.keys(COLOURS).find(c => w.includes(c));
+        if (k && !/gradient/.test(COLOURS[k])) return COLOURS[k];
+      }
+      return PIE_PAL[i % PIE_PAL.length];
+    };
+    const slices = top.map((r, i) => ({ label: lab(r), v: Math.max(0, num(r[col]) || 0), c: colourOf(r, i) }));
+    const otherV = rows.filter(r => !top.includes(r)).reduce((a, r) => a + Math.max(0, num(r[col]) || 0), 0);
+    if (otherV > 0) slices.push({ label: 'Other', v: otherV, c: '#55555c' });
+    return slices;
+  }
+  function donut(rows, col, title, labelCol, head) {
+    const sl = pieSlices(rows, col, labelCol, head, null);
+    const tot = sl.reduce((a, x) => a + x.v, 0);
+    if (!tot) return '';
+    const R = 54, C = 2 * Math.PI * R;
+    let off = 0;
+    const arcs = sl.map(x => {
+      const len = x.v / tot * C;
+      const a = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${x.c}" stroke-width="22" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}"><title>${esc(x.label)}: ${Math.round(x.v / tot * 100)}%</title></circle>`;
+      off += len; return a;
+    }).join('');
+    const lead = sl[0];
+    return `<figure class="sa-pie"><svg viewBox="0 0 140 140" role="img" aria-label="${esc(title)}"><g transform="rotate(-90 70 70)">${arcs}</g>
+      <text x="70" y="66" text-anchor="middle" class="sa-pie__pct">${Math.round(lead.v / tot * 100)}%</text>
+      <text x="70" y="84" text-anchor="middle" class="sa-pie__lab">${esc(lead.label.length > 12 ? lead.label.slice(0, 11) + '…' : lead.label)}</text></svg>
+      <figcaption>${esc(title)}</figcaption></figure>`;
+  }
+  function pieLegend(rows, col, lyCol, changeCol, labelCol, head) {
+    const sl = pieSlices(rows, col, labelCol, head, null);
+    const tot = sl.reduce((a, x) => a + x.v, 0) || 1;
+    const lyTot = lyCol != null ? rows.reduce((a, r) => a + Math.max(0, num(r[lyCol]) || 0), 0) || 1 : 0;
+    const byLabel = new Map(rows.map(r => [String(r[labelCol] ?? '').trim() || 'blank', r]));
+    return `<ul class="sa-pie__legend">${sl.map(x => {
+      const r = byLabel.get(x.label);
+      const share = x.v / tot * 100;
+      let shift = '';
+      if (lyCol != null) {
+        const lyV = x.label === 'Other'
+          ? rows.filter(rr => !sl.some(s2 => s2.label === (String(rr[labelCol] ?? '').trim() || 'blank'))).reduce((a, rr) => a + Math.max(0, num(rr[lyCol]) || 0), 0)
+          : Math.max(0, num(r && r[lyCol]) || 0);
+        const d = share - lyV / lyTot * 100;
+        const k = d > 0.5 ? 'up' : d < -0.5 ? 'down' : 'flat';
+        shift = `<span class="sa-trend sa-trend--${k}" title="Change in share vs last year">${k === 'up' ? '▲' : k === 'down' ? '▼' : '•'} ${d > 0 ? '+' : ''}${d.toFixed(1)} pts</span>`;
+      }
+      const wow = r && changeCol != null && String(r[changeCol] ?? '').trim() ? `<span class="sa-pie__wow">${esc(r[changeCol])} WoW</span>` : '';
+      return `<li><i style="background:${x.c}"></i><span class="sa-pie__name">${esc(x.label)}</span><b>${share.toFixed(1)}%</b>${shift}${wow}</li>`;
+    }).join('')}</ul>`;
+  }
+
   function renderBreakdowns() {
     if (!state.breakdowns.length) { els.breakdowns.hidden = true; els.bdGrid.innerHTML = ''; return; }
     els.breakdowns.hidden = false;
@@ -1429,6 +1490,15 @@
           });
           return rest.concat(tot);
         })();
+        // Pie summaries: share of the main measure this year, and the matching
+        // last-year column if the sheet has one, so shifts in mix stand out.
+        const lyCol = numericCol != null ? keep.find(c => c !== numericCol && /\bly\b/i.test(short(c)) && !/vs|var|%/i.test(short(c)) &&
+          b.rows.some(r => num(r[c]) != null) && /lw/i.test(short(c)) === /lw/i.test(short(numericCol))) : null;
+        const pies = numericCol != null ? `<div class="sa-bd__pies">
+            ${donut(body, numericCol, short(numericCol) + ' share', labelCol, H[0])}
+            ${lyCol != null ? donut(body, lyCol, short(lyCol) + ' share', labelCol, H[0]) : ''}
+            ${pieLegend(body, numericCol, lyCol, changeCol, labelCol, H[0])}
+          </div>` : '';
         const pills = `<div class="sa-bd__pills">${sorts.map(x => `<button type="button" class="sa-pill sa-pill--sm ${x === cur ? 'is-active' : ''}" data-card="${cid}" data-sort="${x.id}">${esc(x.label)}</button>`).join('')}</div>`;
 
         const rowsHtml = ordered.map(r => {
@@ -1456,6 +1526,7 @@
         cards.push(`<article class="sa-panel sa-bd">
           <div class="sa-bd__top"><h3 class="sa-panel__title">${esc(title)}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
           ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
+          ${pies}
           ${pills}
           <div class="sa-bd__scroll"><table class="sa-table sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
         </article>`);

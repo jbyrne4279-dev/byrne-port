@@ -1068,3 +1068,20 @@
   .sa-bd__label { min-width: 90px; }
 }
 @media (max-width: 999px) { .sa-bd__scroll { overflow-x: auto; } }
+
+/* Breakdown pie summaries */
+.sa-bd__pies { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 34px; padding: 6px 22px 18px; }
+.sa-pie { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.sa-pie svg { width: 150px; height: 150px; }
+.sa-pie circle { transition: opacity .15s; }
+.sa-pie circle:hover { opacity: .75; }
+.sa-pie__pct { fill: #fff; font: 700 20px var(--font-body); }
+.sa-pie__lab { fill: var(--sa-label-3); font: 500 10px var(--font-body); }
+.sa-pie figcaption { font-size: 12px; color: var(--sa-label-2); }
+.sa-pie__legend { flex: 1; min-width: 260px; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px 22px; }
+.sa-pie__legend li { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.sa-pie__legend i { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.sa-pie__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--sa-label); }
+.sa-pie__legend b { font-variant-numeric: tabular-nums; }
+.sa-pie__legend .sa-trend { padding: 1px 6px; font-size: 10.5px; }
+.sa-pie__wow { font-size: 11px; color: var(--sa-label-3); white-space: nowrap; }
