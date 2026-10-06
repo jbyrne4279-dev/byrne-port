@@ -1086,3 +1086,6 @@
 .sa-pie__legend .sa-trend { padding: 1px 6px; font-size: 10.5px; }
 .sa-pie__wow { font-size: 11px; color: var(--sa-label-3); white-space: nowrap; }
 .sa-top--worst .sa-top__bar i { background: var(--st-red); }
+
+.sa-sort--then span { font-style: italic; }
+@media (min-width: 761px) { .sa-controls__row { flex-wrap: wrap; } .sa-search { min-width: 240px; } }

@@ -1233,8 +1233,12 @@
       trendDown: (a, b) => (a.trend ?? Infinity) - (b.trend ?? Infinity),
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
       file:      (a, b) => a.uid - b.uid
-    }[state.sort] || (() => 0);
-    return list.slice().sort(by);
+    };
+    // Multi-level: sort by the first choice, products that tie are then
+    // ordered by the second, then the third (e.g. weeks cover, then units)
+    const chain = [state.sort, state.sort2, state.sort3].filter((k, i, arr) => k && by[k] && arr.indexOf(k) === i).map(k => by[k]);
+    if (!chain.length) chain.push(by.priority);
+    return list.slice().sort((a, b) => { for (const f of chain) { const d = f(a, b); if (d) return d; } return 0; });
   }
 
   function currentList(A) {
@@ -1806,6 +1810,10 @@
     });
   }
   els.sort.addEventListener('change', () => { state.sort = els.sort.value; renderTable(state.analysis); });
+  ['saSort2', 'saSort3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => { state['sort' + (i + 2)] = el.value; if (state.analysis) renderTable(state.analysis); });
+  });
   const toggleRow = row => {
     const i = parseInt(row.dataset.uid, 10);
     if (state.open.has(i)) state.open.delete(i); else state.open.add(i);
