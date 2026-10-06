@@ -681,6 +681,10 @@
       pr.forEach((p, i) => pressureRank.set(p, pr.length > 1 ? i / (pr.length - 1) : 0));
     }
 
+    // Units rank (separate from £ rank) for the High / Low units filters
+    const byUnits = products.filter(p => p.rankUnits != null).sort((a, b) => b.rankUnits - a.rankUnits);
+    byUnits.forEach((p, i) => { p.unitsPct = byUnits.length > 1 ? i / (byUnits.length - 1) : 0; });
+
     products.forEach(p => {
       const unitsBlank = p.rankUnits == null && p.rankValue == null;
       const selling = (p.rankUnits || 0) > 0 || (p.rankUnits == null && (p.rankValue || 0) > 0);
@@ -697,6 +701,8 @@
       if (selling && p.salesPct <= 0.2) p.flags.add('highSales');
       if (!unitsBlank && (p.salesPct >= 0.8 || !selling)) p.flags.add('lowSales');
       if (p.returns != null && p.returns >= T.returns) p.flags.add('highReturns');
+      if (p.unitsPct != null && p.unitsPct <= 0.2 && p.rankUnits > 0) p.flags.add('highUnits');
+      if (p.unitsPct != null && p.unitsPct >= 0.8) p.flags.add('lowUnits');
 
       let status;
       const cover = p.coverInclOrder;
@@ -771,6 +777,8 @@
     { key: 'outOfStock',  label: 'Sold out somewhere', dot: '#ff6b84',     test: p => p.flags.has('outOfStock') },
     { key: 'highSales',   label: 'High sales',         dot: '#4c8dff',     test: p => p.flags.has('highSales') },
     { key: 'lowSales',    label: 'Low sales',          dot: '#8a8a92',     test: p => p.flags.has('lowSales') },
+    { key: 'highUnits',   label: 'Highest units sold', dot: '#4c8dff',     test: p => p.flags.has('highUnits'), needs: 'unitsAny' },
+    { key: 'lowUnits',    label: 'Lowest units sold',  dot: '#8a8a92',     test: p => p.flags.has('lowUnits'), needs: 'unitsAny' },
     { key: 'improving',   label: 'Improving',          dot: '#5fd884',     test: p => p.flags.has('improving'), needs: 'trend' },
     { key: 'declining',   label: 'Declining',          dot: '#f7b955',     test: p => p.flags.has('declining'), needs: 'trend' },
     { key: 'onlineGap',   label: 'Online gaps',        dot: '#f7b955',     test: p => p.flags.has('onlineGap'), needs: 'onlineAny' },
@@ -805,6 +813,7 @@
     has.onlineAny = has.online || has.onlineCover;
     has.channels = has.retailUnits || has.onlineUnits || has.retailValue || has.onlineValue;
     has.anyValue = has.value || has.retailValue || has.onlineValue;
+    has.unitsAny = has.units || has.retailUnits || has.onlineUnits;
     has.ranks = state.sheets.some(sh => (sh.map.ranks || []).length);
     has.multiSheet = state.sheets.length > 1;
     state.analysis = analyse(P, has);
@@ -1188,6 +1197,12 @@
     const max = top.length ? valOf(top[0]) || 1 : 1;
     const shownKey = h.value ? 'value' : h.units ? 'units' : h.retailValue ? 'retailValue' : 'retailUnits';
     els.topTitle.textContent = 'Top sellers by ' + (h.value ? '£' : h.units ? 'units' : h.retailValue ? 'retail £' : 'retail units');
+    // Worst 5: lowest by the same measure (blank sales figures left out)
+    const worst = P.filter(p => (shownKey === 'value' ? p.value : shownKey === 'units' ? p.units : p[shownKey]) != null)
+      .sort((a, b) => valOf(a) - valOf(b)).slice(0, 5);
+    const wt = document.getElementById('saWorstTitle'), wl = document.getElementById('saWorst');
+    if (wt) wt.textContent = els.topTitle.textContent.replace('Top sellers', 'Worst sellers');
+    if (wl) wl.innerHTML = worst.map(p => `<li><span class="sa-top__name">${esc(p.name || p.code)}</span><span class="sa-top__val">${MONEY.has(shownKey) ? money(p, shownKey) : orig(p, shownKey)}</span><span class="sa-top__bar"><i style="width:${Math.max(4, valOf(p) / max * 100)}%"></i></span></li>`).join('');
     els.top.innerHTML = top.map(p => `<li><span class="sa-top__name">${esc(p.name || p.code)}</span><span class="sa-top__val">${MONEY.has(shownKey) ? money(p, shownKey) : orig(p, shownKey)}</span><span class="sa-top__bar"><i style="width:${Math.max(4, valOf(p) / max * 100)}%"></i></span></li>`).join('');
   }
 
@@ -1211,6 +1226,7 @@
       value:     (a, b) => valOf(b) - valOf(a),
       valueAsc:  (a, b) => valOf(a) - valOf(b),
       units:     (a, b) => (b.rankUnits || 0) - (a.rankUnits || 0),
+      unitsAsc:  (a, b) => (a.rankUnits ?? Infinity) - (b.rankUnits ?? Infinity),
       cover:     (a, b) => (a.cover ?? Infinity) - (b.cover ?? Infinity),
       coverDesc: (a, b) => (b.cover ?? -Infinity) - (a.cover ?? -Infinity),
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
@@ -1768,6 +1784,7 @@
       runningOut: 'cover',          // least cover left first
       outOfStock: 'value',          // biggest sellers that are sold out first
       highSales: 'value', lowSales: 'valueAsc',
+      highUnits: 'units', lowUnits: 'unitsAsc',
       improving: 'trendUp', declining: 'trendDown',
       onlineGap: 'value',           // most sales at risk online first
       highReturns: 'returns',

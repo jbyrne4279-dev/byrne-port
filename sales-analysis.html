@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=22">
+  <link rel="stylesheet" href="sales-analysis.css?v=23">
 </head>
 <body class="sa-body">
 
@@ -135,6 +135,8 @@
             <ul class="sa-mix__legend" id="saMixLegend"></ul>
             <h3 class="sa-panel__sub" id="saTopTitle">Top sellers</h3>
             <ol class="sa-top" id="saTop"></ol>
+            <h3 class="sa-panel__sub" id="saWorstTitle">Worst sellers</h3>
+            <ol class="sa-top sa-top--worst" id="saWorst"></ol>
           </article>
         </div>
 
@@ -181,7 +183,8 @@
                 <option value="priority">Priority</option>
                 <option value="value">Sales &pound; (highest)</option>
                 <option value="valueAsc">Sales &pound; (lowest)</option>
-                <option value="units">Units sold</option>
+                <option value="units">Units sold (highest)</option>
+                <option value="unitsAsc">Units sold (lowest)</option>
                 <option value="cover">Weeks cover (lowest)</option>
                 <option value="coverDesc">Weeks cover (highest)</option>
                 <option value="trendUp">Biggest risers</option>
@@ -229,6 +232,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=20"></script>
+  <script src="sales-analysis.js?v=22"></script>
 </body>
 </html>
