@@ -773,7 +773,7 @@
 
   const state = {
     sheets: [], edit: 0, analysis: null, skipped: null,
-    breakdowns: [], filter: 'all', sort: 'priority', query: '', open: new Set()
+    breakdowns: [], filter: 'all', filters: [], sort: 'priority', query: '', open: new Set()
   };
 
   const PILLS = [
@@ -1217,13 +1217,17 @@
 
   function renderPills(A) {
     const P = A.products;
+    const isOn = k => k === 'all' ? !state.filters.length : state.filters.includes(k);
+    const active = state.filters.map(k => PILLS.find(p => p.key === k)).filter(Boolean).map(p => p.test);
     els.pills.innerHTML = PILLS.map(pl => {
       const missing = pl.needs && !A.has[pl.needs];
       if (missing && pl.needs !== 'trend') return '';
-      const count = missing ? 0 : P.filter(pl.test).length;
-      if (pl.key !== 'all' && !missing && count === 0 && !['act', 'runningOut'].includes(pl.key)) return '';
+      const total = missing ? 0 : P.filter(pl.test).length;
+      // With filters stacked, each count is what you'd see with that filter added
+      const count = missing ? 0 : pl.key === 'all' ? P.length : P.filter(p => pl.test(p) && active.every(t => t(p))).length;
+      if (pl.key !== 'all' && !missing && total === 0 && !['act', 'runningOut'].includes(pl.key)) return '';
       const title = missing ? 'Your file has no week-before column' : '';
-      return `<button type="button" class="sa-pill ${state.filter === pl.key ? 'is-active' : ''}" data-key="${pl.key}" role="tab" aria-selected="${state.filter === pl.key}" ${missing ? 'disabled' : ''} ${title ? `title="${title}"` : ''}>` +
+      return `<button type="button" class="sa-pill ${isOn(pl.key) ? 'is-active' : ''}" data-key="${pl.key}" aria-pressed="${isOn(pl.key)}" ${missing ? 'disabled' : ''} ${title ? `title="${title}"` : ''}>` +
         (pl.dot ? `<i style="background:${pl.dot}"></i>` : '') + pl.label + `<span class="sa-pill__count">${missing ? '–' : count}</span></button>`;
     }).join('');
   }
@@ -1245,19 +1249,21 @@
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
       file:      (a, b) => a.uid - b.uid
     };
-    // Multi-level: exact ties almost never happen with £, units or cover, so
-    // every level except the last groups products into bands (e.g. 12–20 wks
-    // cover) and the next choice orders products inside each band.
+    // Multi-level: the first choice is always followed exactly. A later
+    // choice only orders products that the earlier ones see as level, judged
+    // on the figure as shown (to 1 decimal place), so e.g. 63.0 wks cover then
+    // most units. Headings mark bands of the first choice without reordering.
     const keys = [state.sort, state.sort2, state.sort3].filter((k, i, arr) => k && by[k] && arr.indexOf(k) === i);
     if (!keys.length) keys.push('priority');
-    const banders = (keys.length === 1 && keys[0] === 'priority' ? keys : keys.slice(0, -1)).map(k => bandFn(k, list));
-    list.forEach(p => { p.band = banders.map(b => b(p)); });
-    const cmpBand = (a, b) => { for (let i = 0; i < banders.length; i++) { const d = a.band[i].o - b.band[i].o; if (d) return d; } return 0; };
+    const r1 = x => (x == null || !isFinite(x)) ? x : Math.round(x * 10) / 10;
+    const shown = p => ({ rankValue: r1(p.rankValue), rankUnits: r1(p.rankUnits), rankStock: r1(p.rankStock), cover: r1(p.cover),
+      trend: r1(p.trend), returns: r1(p.returns), status: p.status, score: p.score, uid: p.uid });
+    const band = bandFn(keys[0], state.analysis ? state.analysis.products : list);
+    list.forEach(p => { p.band = keys.length > 1 || keys[0] === 'priority' ? [band(p)] : []; p._shown = shown(p); });
     const chain = keys.map(k => by[k]);
     return list.slice().sort((a, b) => {
-      const d = cmpBand(a, b); if (d) return d;
-      for (let i = banders.length; i < chain.length; i++) { const x = chain[i](a, b); if (x) return x; }
-      for (let i = 0; i < banders.length; i++) { const x = chain[i](a, b); if (x) return x; }
+      for (const f of chain) { const x = f(a._shown, b._shown); if (x) return x; }
+      for (const f of chain) { const x = f(a, b); if (x) return x; }
       return 0;
     });
   }
@@ -1307,7 +1313,9 @@
   function currentList(A) {
     const pill = PILLS.find(p => p.key === state.filter) || PILLS[0];
     const q = state.query.trim().toLowerCase();
-    let list = A.products.filter(pill.test);
+    // Stacked filters: a product must match every selected filter
+    const tests = state.filters.map(k => PILLS.find(p => p.key === k)).filter(Boolean).map(p => p.test);
+    let list = A.products.filter(p => tests.every(t => t(p)));
     if (q) list = list.filter(p => p.cells.join(' ').toLowerCase().includes(q));
     return { list: sorted(list), pill };
   }
@@ -1734,7 +1742,7 @@
     state.sheets = read.filter(x => x.role === 'products').map(x => ({ name: x.t.name, file: x.t.file, pt: x.pt, map: x.map }));
     state.breakdowns = read.filter(x => x.role === 'breakdown' || x.role === 'other').map(x => x.t);
     state.edit = 0;
-    state.filter = 'all';
+    state.filter = 'all'; state.filters = [];
     state.query = '';
     state.open = new Set();
     els.search.value = '';
@@ -1846,10 +1854,14 @@
   els.pills.addEventListener('click', e => {
     const b = e.target.closest('.sa-pill');
     if (!b || b.disabled) return;
-    state.filter = b.dataset.key;
+    const key = b.dataset.key;
+    if (key === 'all') state.filters = [];
+    else if (state.filters.includes(key)) state.filters = state.filters.filter(k => k !== key);
+    else state.filters = state.filters.concat(key);
+    state.filter = state.filters[0] || 'all';
     // Filters that are about a ranking show that ranking straight away
     // Every filter shows its most relevant product first
-    const autoSort = {
+    const AUTO = {
       all: 'priority', act: 'priority', watch: 'priority',
       runningOut: 'cover',          // least cover left first
       outOfStock: 'value',          // biggest sellers that are sold out first
@@ -1861,8 +1873,13 @@
       highReturns: 'returns',
       overstock: 'coverDesc',       // most weeks of cover first
       ok: 'value'
-    }[state.filter] || 'priority';
-    state.sort = autoSort; els.sort.value = autoSort;
+    };
+    // Each stacked filter adds its own order after the ones before it
+    const order = [];
+    (state.filters.length ? state.filters : ['all']).forEach(k => { const o = AUTO[k] || 'priority'; if (!order.includes(o)) order.push(o); });
+    state.sort = order[0]; state.sort2 = order[1] || ''; state.sort3 = order[2] || '';
+    els.sort.value = state.sort;
+    ['saSort2', 'saSort3'].forEach((id, i) => { const el = document.getElementById(id); if (el) el.value = state['sort' + (i + 2)]; });
     renderPills(state.analysis);
     renderTable(state.analysis);
   });
