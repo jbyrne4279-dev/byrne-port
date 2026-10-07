@@ -1141,6 +1141,7 @@
         `Best seller: <b>${esc(top.name || top.code)}</b>${top.code && top.name ? ' (' + esc(top.code) + ')' : ''} at ${shown(top)}, ${Math.round(valOf(top) / total * 100)}% of the week.` +
         (P.length > 6 ? ` The top 5 lines made <b>${Math.round(top5 / total * 100)}%</b> of sales.` : '') });
     }
+    out.push(...breakdownInsights());
     if (h.retailUnits && h.onlineUnits) {
       const r = P.reduce((s, p) => s + (p.retailUnits || 0), 0), o = P.reduce((s, p) => s + (p.onlineUnits || 0), 0);
       if (r + o > 0) {
@@ -1187,6 +1188,122 @@
     if (A.relative) out.push({ tone: 'grey', icon: 'i', html: 'Your stock figures look like per-store or average counts, so lines are ranked against each other instead of by weeks of cover.' });
     if (!h.trend) out.push({ tone: 'grey', icon: 'i', html: 'Your file has no week-before column, so <b>Improving</b> and <b>Declining</b> are switched off.' });
     if (!out.length) out.push({ tone: 'green', icon: '✓', html: 'Nothing urgent this week: stock and sales look balanced.' });
+    return out;
+  }
+
+  /* ─────────────── Takeaways from the other sheets (type, colour, size…) ───────────────
+     Reads each breakdown table and turns it into plain-English trends: overall
+     direction, extreme moves (nothing over ±100% is ever left out), lines
+     turning around or fading, mix shifts and over/under-performers against
+     their share of options. Every figure quoted is the file's own cell text. */
+  function breakdownInsights() {
+    const out = [];
+    const extremes = [];
+    let overallDone = false;
+    state.breakdowns.forEach(t => splitBlocks(t).forEach(b => {
+      const H = b.header.map(x => String(x ?? '').trim());
+      const hn = H.map(x => x.toLowerCase());
+      if (!H[0]) return;
+      const dim = RX.attrHead.test(norm(H[0])) ? H[0].replace(/^product\s+/i, '').toLowerCase() : (t.name || 'group');
+      const isTotal = r => RX.skipRow.test(String(r[0] ?? '').trim());
+      const body = b.rows.filter(r => !isTotal(r) && String(r[0] ?? '').trim());
+      const total = b.rows.find(isTotal);
+      const pctCol = c => b.rows.some(r => /%/.test(String(r[c] ?? '')));
+      const find = test => hn.findIndex((h, c) => c > 0 && test(h, c));
+      const measure = find((h, c) => !pctCol(c) && b.rows.some(r => num(r[c]) != null));
+      const wow = find((h, c) => /(wow|w\/w|week on week)/.test(h) && pctCol(c));
+      const lwLy = find((h, c) => /vs|var|growth|change/.test(h) && /\bly\b|last year|yoy/.test(h) && !/cum|ytd|season/.test(h) && pctCol(c));
+      const cumLy = find((h, c) => /vs|var|growth|change/.test(h) && /cum|ytd|season/.test(h) && pctCol(c));
+      const lwPn = find((h, c) => /(pn|share|mix|participation)/.test(h) && !/cum|ytd|opt/.test(h) && pctCol(c));
+      const cumPn = find((h, c) => /(pn|share|mix|participation)/.test(h) && /cum|ytd/.test(h) && pctCol(c));
+      const optPn = find((h, c) => /(pn|share|mix)/.test(h) && /opt/.test(h) && pctCol(c));
+      if (measure < 0 || !body.length) return;
+      const lab = r => esc(String(r[0]).trim());
+      const v = (r, c) => c >= 0 ? num(r[c]) : null;
+      const txt = (r, c) => esc(String(r[c] ?? '').trim());
+      const hasTY = r => (num(r[measure]) || 0) !== 0;
+
+      // Overall direction, once, from the first table's total row
+      if (total && !overallDone) {
+        overallDone = true;
+        const w = v(total, wow), l = v(total, lwLy), cm = v(total, cumLy);
+        const bits = [];
+        if (w != null) bits.push(`<b>${txt(total, wow)}</b> week on week`);
+        if (l != null) bits.push(`<b>${txt(total, lwLy)}</b> vs last year`);
+        if (cm != null) bits.push(`<b>${txt(total, cumLy)}</b> season to date vs last year`);
+        let read = '';
+        if (l != null && cm != null) read = l > cm + 10 ? ' Last week is running well ahead of the season so far, so momentum is <b>accelerating</b>: recent ranges and options are landing.'
+          : l < cm - 10 ? ' Last week is behind the season-to-date rate, so momentum is <b>slowing</b>: worth checking stock depth and newness.'
+          : ' Last week is in line with the season so far: a <b>steady</b> trend.';
+        if (bits.length) out.push({ tone: (l ?? w ?? 0) >= 0 ? 'green' : 'red', icon: (l ?? w ?? 0) >= 0 ? '▲' : '▼', html:
+          `Total ${esc(H[measure])} <b>${cx(String(total[measure]).trim())}</b>: ${bits.join(', ')}.${read}` });
+      }
+
+      // Leader and concentration
+      const ranked = body.slice().sort((x, y) => (v(y, measure) || 0) - (v(x, measure) || 0));
+      const lead = ranked[0];
+      if (lead && lwPn >= 0 && v(lead, lwPn) != null) {
+        const sh = v(lead, lwPn);
+        out.push({ tone: 'blue', icon: '◔', html: `<b>${lab(lead)}</b> leads ${esc(dim)} with <b>${txt(lead, lwPn)}</b> of last week&rsquo;s sales` +
+          (sh >= 40 ? `, so the business leans heavily on it: <b>protect its stock depth</b> and watch for any slowdown.` : '.') });
+      }
+
+      // Extreme moves (±100%+): never left out
+      [[wow, 'week on week'], [lwLy, 'vs last year (LW)'], [cumLy, 'vs last year (season)']].forEach(([c, what]) => {
+        if (c < 0) return;
+        body.forEach(r => {
+          const n = v(r, c);
+          if (n == null || Math.abs(n) < 100) return;
+          if (n <= -100 && !hasTY(r)) return; // gone from range: reported below
+          const key = dim + '|' + String(r[0]).trim();
+          let e = extremes.find(x => x.key === key);
+          if (!e) extremes.push(e = { key, label: `<b>${lab(r)}</b> <span class="sa-muted">${esc(dim)}</span>`, max: 0, moves: [], share: lwPn >= 0 ? txt(r, lwPn) : '', small: lwPn >= 0 && (v(r, lwPn) || 0) < 2 });
+          e.max = Math.max(e.max, Math.abs(n));
+          e.moves.push(`<b class="${n > 0 ? 'sa-up' : 'sa-down'}">${n > 0 ? '▲' : '▼'} ${txt(r, c)}</b> ${what}`);
+        });
+      });
+
+      // Sold last year, nothing this year: dropped from range
+      const gone = body.filter(r => !hasTY(r) && [lwLy, cumLy].some(c => c >= 0 && v(r, c) != null && v(r, c) <= -100));
+      if (gone.length) out.push({ tone: 'grey', icon: '∅', html:
+        `<b>${gone.length} ${esc(dim)}${gone.length > 1 ? 's' : ''} sold last year but nothing this year</b> (${gone.map(lab).join(', ')}): dropped from the range or out of stock all season.` });
+
+      // Turning around / fading: short term vs season disagree
+      if (lwLy >= 0 && cumLy >= 0) {
+        const turn = body.filter(r => hasTY(r) && v(r, lwLy) != null && v(r, cumLy) != null && v(r, lwLy) >= 10 && v(r, cumLy) <= -10)
+          .sort((x, y) => (v(y, measure) || 0) - (v(x, measure) || 0));
+        const fade = body.filter(r => hasTY(r) && v(r, lwLy) != null && v(r, cumLy) != null && v(r, lwLy) <= -20 && v(r, cumLy) >= 0)
+          .sort((x, y) => (v(y, measure) || 0) - (v(x, measure) || 0));
+        if (turn.length) out.push({ tone: 'green', icon: '↻', html: `<b>Turning around</b> (${esc(dim)}): ${turn.slice(0, 4).map(r => `<b>${lab(r)}</b> ${txt(r, lwLy)} last week vs ${txt(r, cumLy)} season`).join('; ')}. Down on the season but growing now, an early sign of recovery worth backing.` });
+        if (fade.length) out.push({ tone: 'amber', icon: '↘', html: `<b>Fading</b> (${esc(dim)}): ${fade.slice(0, 4).map(r => `<b>${lab(r)}</b> ${txt(r, lwLy)} last week vs ${txt(r, cumLy)} season`).join('; ')}. Fine over the season but dropping now, so be careful with repeat orders.` });
+      }
+
+      // Mix shift: last week's share vs season share
+      if (lwPn >= 0 && cumPn >= 0) {
+        const sh = body.filter(r => v(r, lwPn) != null && v(r, cumPn) != null).map(r => ({ r, d: v(r, lwPn) - v(r, cumPn) }));
+        const gain = sh.slice().sort((x, y) => y.d - x.d)[0], lose = sh.slice().sort((x, y) => x.d - y.d)[0];
+        const parts = [];
+        if (gain && gain.d >= 3) parts.push(`<b>${lab(gain.r)}</b> is gaining share (${txt(gain.r, cumPn)} of the season → ${txt(gain.r, lwPn)} last week)`);
+        if (lose && lose.d <= -3) parts.push(`<b>${lab(lose.r)}</b> is losing share (${txt(lose.r, cumPn)} → ${txt(lose.r, lwPn)})`);
+        if (parts.length) out.push({ tone: 'blue', icon: '⇵', html: `Mix shift in ${esc(dim)}: ${parts.join('; ')}. ${gain && gain.d >= 3 ? 'Customer demand is moving, so weight new buys toward the gainers.' : 'Demand is moving away from it, so review depth before rebuying.'}` });
+      }
+
+      // Productivity: share of sales vs share of options
+      if (lwPn >= 0 && optPn >= 0) {
+        const pr = body.filter(r => v(r, lwPn) != null && v(r, optPn) != null && v(r, optPn) > 0).map(r => ({ r, ratio: v(r, lwPn) / v(r, optPn) }));
+        const over = pr.filter(x => x.ratio >= 1.4 && v(x.r, lwPn) >= 3).sort((a, b2) => b2.ratio - a.ratio);
+        const under = pr.filter(x => x.ratio <= 0.6 && v(x.r, optPn) >= 3).sort((a, b2) => a.ratio - b2.ratio);
+        const parts = [];
+        if (over.length) parts.push(`<b>punching above their weight</b>: ${over.slice(0, 3).map(x => `${lab(x.r)} (${txt(x.r, lwPn)} of sales from ${txt(x.r, optPn)} of options)`).join(', ')}`);
+        if (under.length) parts.push(`<b>underperforming</b>: ${under.slice(0, 3).map(x => `${lab(x.r)} (${txt(x.r, lwPn)} of sales from ${txt(x.r, optPn)} of options)`).join(', ')}`);
+        if (parts.length) out.push({ tone: over.length ? 'green' : 'amber', icon: '⚖', html: `By ${esc(dim)}, ${parts.join('; ')}. Add options where sales outpace the range; trim where they lag.` });
+      }
+    }));
+    const line = x => `${x.label} ${x.moves.join(', ')}${x.share ? ` <span class="sa-muted">(${x.share} of last week&rsquo;s sales)</span>` : ''}`;
+    const big = extremes.filter(x => !x.small).sort((a, b) => b.max - a.max);
+    const tiny = extremes.filter(x => x.small).sort((a, b) => b.max - a.max);
+    if (tiny.length) out.unshift({ tone: 'amber', icon: '⚡', html: `<b>Spikes from a small base</b>: ${tiny.map(line).join('; ')}. Huge percentages on a tiny share of sales usually mean a new option, a promotion or a one-off order. Check whether the stock is there to keep it going before treating it as a trend.` });
+    if (big.length) out.unshift({ tone: 'green', icon: '🚀', html: `<b>Big moves on real volume</b>: ${big.map(line).join('; ')}. These are doubling or more on a meaningful share of sales, a genuine demand shift: make sure stock and options keep up.` });
     return out;
   }
   const p0 = t => (t === '' || t == null) ? 'blank' : cx(t);

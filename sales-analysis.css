@@ -1091,3 +1091,4 @@
 @media (min-width: 761px) { .sa-controls__row { flex-wrap: wrap; } .sa-search { min-width: 240px; } }
 
 .sa-match{display:block;margin-top:4px;font-size:10px;letter-spacing:.02em;color:var(--sa-muted,#8a8a92);white-space:nowrap}
+.sa-insight .sa-muted{opacity:.65;font-weight:400}
