@@ -1003,7 +1003,7 @@
   function columns(A) {
     const h = A.has, cov = A.locCoverMode;
     const cols = [
-      { cls: 'sa-col-pri', th: 'Priority', td: p => `<span class="sa-pri sa-pri--${STATUS[p.status].pri}">${p.priority}</span>`, area: 'pri' },
+      { cls: 'sa-col-pri', th: 'Priority', td: p => `<span class="sa-pri sa-pri--${STATUS[p.status].pri}">${p.priority}</span>` + (p.match != null ? `<span class="sa-match" title="How well this product fits all chosen sorts together">${p.match}% match</span>` : ''), area: 'pri' },
       ...(imagesOn && h.code ? [{ cls: 'sa-col-img', th: 'Image', td: p => thumb(p), area: 'img' }] : []),
       { cls: 'sa-col-prod', th: 'Product', td: p => productCell(p, A), area: 'prod' },
       { cls: 'sa-col-sold', th: h.value || h.units ? 'Last week sold' : 'Sold', td: (p, mx) => soldCell(p, A, mx), area: 'sold' }
@@ -1218,13 +1218,12 @@
   function renderPills(A) {
     const P = A.products;
     const isOn = k => k === 'all' ? !state.filters.length : state.filters.includes(k);
-    const active = state.filters.map(k => PILLS.find(p => p.key === k)).filter(Boolean).map(p => p.test);
     els.pills.innerHTML = PILLS.map(pl => {
       const missing = pl.needs && !A.has[pl.needs];
       if (missing && pl.needs !== 'trend') return '';
       const total = missing ? 0 : P.filter(pl.test).length;
       // With filters stacked, each count is what you'd see with that filter added
-      const count = missing ? 0 : pl.key === 'all' ? P.length : P.filter(p => pl.test(p) && active.every(t => t(p))).length;
+      const count = total;
       if (pl.key !== 'all' && !missing && total === 0 && !['act', 'runningOut'].includes(pl.key)) return '';
       const title = missing ? 'Your file has no week-before column' : '';
       return `<button type="button" class="sa-pill ${isOn(pl.key) ? 'is-active' : ''}" data-key="${pl.key}" aria-pressed="${isOn(pl.key)}" ${missing ? 'disabled' : ''} ${title ? `title="${title}"` : ''}>` +
@@ -1249,23 +1248,30 @@
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
       file:      (a, b) => a.uid - b.uid
     };
-    // Multi-level: the first choice is always followed exactly. A later
-    // choice only orders products that the earlier ones see as level, judged
-    // on the figure as shown (to 1 decimal place), so e.g. 63.0 wks cover then
-    // most units. Headings mark bands of the first choice without reordering.
     const keys = [state.sort, state.sort2, state.sort3].filter((k, i, arr) => k && by[k] && arr.indexOf(k) === i);
     if (!keys.length) keys.push('priority');
-    const r1 = x => (x == null || !isFinite(x)) ? x : Math.round(x * 10) / 10;
-    const shown = p => ({ rankValue: r1(p.rankValue), rankUnits: r1(p.rankUnits), rankStock: r1(p.rankStock), cover: r1(p.cover),
-      trend: r1(p.trend), returns: r1(p.returns), status: p.status, score: p.score, uid: p.uid });
-    const band = bandFn(keys[0], state.analysis ? state.analysis.products : list);
-    list.forEach(p => { p.band = keys.length > 1 || keys[0] === 'priority' ? [band(p)] : []; p._shown = shown(p); });
-    const chain = keys.map(k => by[k]);
-    return list.slice().sort((a, b) => {
-      for (const f of chain) { const x = f(a._shown, b._shown); if (x) return x; }
-      for (const f of chain) { const x = f(a, b); if (x) return x; }
-      return 0;
+    if (keys.length === 1) {
+      const band = bandFn(keys[0], state.analysis ? state.analysis.products : list);
+      list.forEach(p => { p.band = keys[0] === 'priority' ? [band(p)] : []; p.match = null; });
+      return list.slice().sort(by[keys[0]]);
+    }
+    // Several choices: compare every product on each measure and give it a
+    // 0–100 fit score per measure (its position among all products, ties
+    // shared, blanks at the bottom). The average fit decides the order, so the
+    // top products are the ones that best match all choices at once.
+    const fit = new Map(list.map(p => [p, 0]));
+    keys.forEach(k => {
+      const cmp = by[k], ordered = list.slice().sort(cmp), n = ordered.length;
+      let i = 0;
+      while (i < n) {
+        let j = i; while (j + 1 < n && cmp(ordered[i], ordered[j + 1]) === 0) j++;
+        const sc = n > 1 ? 1 - ((i + j) / 2) / (n - 1) : 1;
+        for (let t = i; t <= j; t++) fit.set(ordered[t], fit.get(ordered[t]) + sc / keys.length);
+        i = j + 1;
+      }
     });
+    list.forEach(p => { p.match = Math.round(fit.get(p) * 100); p.band = []; });
+    return list.slice().sort((a, b) => fit.get(b) - fit.get(a) || by[keys[0]](a, b));
   }
 
   // Band for one sort level: { o: order, l: label }. Ranges follow the sort
@@ -1315,7 +1321,7 @@
     const q = state.query.trim().toLowerCase();
     // Stacked filters: a product must match every selected filter
     const tests = state.filters.map(k => PILLS.find(p => p.key === k)).filter(Boolean).map(p => p.test);
-    let list = A.products.filter(p => tests.every(t => t(p)));
+    let list = tests.length === 1 ? A.products.filter(tests[0]) : A.products.slice();
     if (q) list = list.filter(p => p.cells.join(' ').toLowerCase().includes(q));
     return { list: sorted(list), pill };
   }
@@ -1333,6 +1339,11 @@
     const groupCounts = {};
     list.forEach(p => { const k = bandLabel(p); groupCounts[k] = (groupCounts[k] || 0) + 1; });
     let html = '', last = null;
+    if (list.length && list[0].match != null) {
+      const names = ['saSort', 'saSort2', 'saSort3'].map(id => document.getElementById(id)).filter(el => el && el.value)
+        .map(el => el.options[el.selectedIndex].text);
+      html += `<tr class="sa-group"><td colspan="${span}">Best match for all of: ${esc([...new Set(names)].join(' + '))}<span class="sa-group__count">${list.length}</span></td></tr>`;
+    }
     list.forEach(p => {
       const g = bandLabel(p);
       if (grouped && g !== last) {
