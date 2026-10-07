@@ -1234,11 +1234,61 @@
       returns:   (a, b) => (b.returns ?? -1) - (a.returns ?? -1),
       file:      (a, b) => a.uid - b.uid
     };
-    // Multi-level: sort by the first choice, products that tie are then
-    // ordered by the second, then the third (e.g. weeks cover, then units)
-    const chain = [state.sort, state.sort2, state.sort3].filter((k, i, arr) => k && by[k] && arr.indexOf(k) === i).map(k => by[k]);
-    if (!chain.length) chain.push(by.priority);
-    return list.slice().sort((a, b) => { for (const f of chain) { const d = f(a, b); if (d) return d; } return 0; });
+    // Multi-level: exact ties almost never happen with £, units or cover, so
+    // every level except the last groups products into bands (e.g. 12–20 wks
+    // cover) and the next choice orders products inside each band.
+    const keys = [state.sort, state.sort2, state.sort3].filter((k, i, arr) => k && by[k] && arr.indexOf(k) === i);
+    if (!keys.length) keys.push('priority');
+    const banders = (keys.length === 1 && keys[0] === 'priority' ? keys : keys.slice(0, -1)).map(k => bandFn(k, list));
+    list.forEach(p => { p.band = banders.map(b => b(p)); });
+    const cmpBand = (a, b) => { for (let i = 0; i < banders.length; i++) { const d = a.band[i].o - b.band[i].o; if (d) return d; } return 0; };
+    const chain = keys.map(k => by[k]);
+    return list.slice().sort((a, b) => {
+      const d = cmpBand(a, b); if (d) return d;
+      for (let i = banders.length; i < chain.length; i++) { const x = chain[i](a, b); if (x) return x; }
+      for (let i = 0; i < banders.length; i++) { const x = chain[i](a, b); if (x) return x; }
+      return 0;
+    });
+  }
+
+  // Band for one sort level: { o: order, l: label }. Ranges follow the sort
+  // direction so the first band shown matches what the user asked for first.
+  function bandFn(key, list) {
+    const ranges = (val, cuts, unit, desc, blank) => p => {
+      const v = val(p);
+      if (v == null || !isFinite(v)) return { o: 999, l: blank || 'Blank' };
+      let i = cuts.findIndex(c => v < c); if (i < 0) i = cuts.length;
+      const lo = i ? cuts[i - 1] : null, hi = cuts[i];
+      const l = lo == null ? `Under ${hi}${unit}` : hi == null ? `${lo}+${unit}` : `${lo}–${hi}${unit}`;
+      return { o: desc ? cuts.length - i : i, l };
+    };
+    const tiers = (val, word, desc) => {
+      const vals = list.map(val).filter(v => v != null && isFinite(v)).sort((a, b) => b - a);
+      const n = vals.length;
+      return p => {
+        const v = val(p);
+        if (v == null || !isFinite(v) || !n) return { o: 999, l: 'Blank ' + word };
+        const r = vals.indexOf(v) / n; // share of products ahead of this one
+        const t = r < 0.1 ? 0 : r < 0.25 ? 1 : r < 0.5 ? 2 : 3;
+        const L = ['Top 10% by ' + word, 'Top 10–25% by ' + word, 'Top 25–50% by ' + word, 'Bottom 50% by ' + word];
+        return { o: desc ? t : 3 - t, l: L[t] };
+      };
+    };
+    const valOf = p => p.rankValue ?? p.rankUnits;
+    const trendCuts = [-20, 0, 20];
+    switch (key) {
+      case 'priority':  return p => ({ o: STATUS_ORDER.indexOf(p.status), l: STATUS[p.status].label });
+      case 'value':     return tiers(valOf, '£', true);
+      case 'valueAsc':  return tiers(valOf, '£', false);
+      case 'units':     return tiers(p => p.rankUnits, 'units', true);
+      case 'unitsAsc':  return tiers(p => p.rankUnits, 'units', false);
+      case 'cover':     return ranges(p => p.cover, [2, 4, 8, 12, 20, 52], ' wks cover', false, 'Blank cover');
+      case 'coverDesc': return ranges(p => p.cover, [2, 4, 8, 12, 20, 52], ' wks cover', true, 'Blank cover');
+      case 'trendUp':   return ranges(p => p.trend === Infinity ? 1e9 : p.trend, trendCuts, '% trend', true, 'No trend');
+      case 'trendDown': return ranges(p => p.trend === Infinity ? 1e9 : p.trend, trendCuts, '% trend', false, 'No trend');
+      case 'returns':   return ranges(p => p.returns, [5, 10, 20], '% returns', true, 'Blank returns');
+      default:          return () => ({ o: 0, l: 'All products' });
+    }
   }
 
   function currentList(A) {
@@ -1257,14 +1307,17 @@
     const span = cols.length;
     els.head.innerHTML = '<tr>' + cols.map(c => `<th class="${c.cls}">${c.th}</th>`).join('') + '</tr>';
     const maxVal = Math.max(1, ...A.products.map(p => p.rankValue ?? p.rankUnits ?? 0));
-    const grouped = state.sort === 'priority';
+    const bandLabel = p => (p.band || []).map(b => b.l).join(' · ');
+    const grouped = list.some(p => p.band && p.band.length);
     const groupCounts = {};
-    list.forEach(p => { groupCounts[p.status] = (groupCounts[p.status] || 0) + 1; });
+    list.forEach(p => { const k = bandLabel(p); groupCounts[k] = (groupCounts[k] || 0) + 1; });
     let html = '', last = null;
     list.forEach(p => {
-      if (grouped && p.status !== last) {
-        last = p.status;
-        html += `<tr class="sa-group"><td colspan="${span}"><span class="sa-group__dot" style="background:${STATUS[p.status].colour}"></span>${STATUS[p.status].label}<span class="sa-group__count">${groupCounts[p.status]}</span></td></tr>`;
+      const g = bandLabel(p);
+      if (grouped && g !== last) {
+        last = g;
+        const dot = p.band[0] && state.sort === 'priority' ? `<span class="sa-group__dot" style="background:${STATUS[p.status].colour}"></span>` : '';
+        html += `<tr class="sa-group"><td colspan="${span}">${dot}${g}<span class="sa-group__count">${groupCounts[g]}</span></td></tr>`;
       }
       const open = state.open.has(p.uid);
       const strip = cols.filter(c => c.m).map(c => `<span class="sa-mstat">${c.m} ${c.td(p, maxVal)}</span>`).join('');
