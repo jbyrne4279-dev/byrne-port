@@ -642,6 +642,8 @@
       // Sales used for ranking only (never displayed as a new figure)
       p.rankUnits = p.units != null ? p.units : sumKnown(p.retailUnits, p.onlineUnits);
       p.rankValue = p.value != null ? p.value : sumKnown(p.retailValue, p.onlineValue);
+      // Stock used for ranking only: the file's total, else its locations added up
+      p.rankStock = p.stock != null ? p.stock : sumKnown(p.branch, p.warehouse, p.online);
 
       // Cover: the file's own Total Cover when it has one, otherwise calculated
       if (has.totalCover) {
@@ -682,6 +684,8 @@
     }
 
     // Units rank (separate from £ rank) for the High / Low units filters
+    const byStock = products.filter(p => p.rankStock != null).sort((a, b) => b.rankStock - a.rankStock);
+    byStock.forEach((p, i) => { p.stockPct = byStock.length > 1 ? i / (byStock.length - 1) : 0; });
     const byUnits = products.filter(p => p.rankUnits != null).sort((a, b) => b.rankUnits - a.rankUnits);
     byUnits.forEach((p, i) => { p.unitsPct = byUnits.length > 1 ? i / (byUnits.length - 1) : 0; });
 
@@ -703,6 +707,8 @@
       if (p.returns != null && p.returns >= T.returns) p.flags.add('highReturns');
       if (p.unitsPct != null && p.unitsPct <= 0.2 && p.rankUnits > 0) p.flags.add('highUnits');
       if (p.unitsPct != null && p.unitsPct >= 0.8) p.flags.add('lowUnits');
+      if (p.stockPct != null && p.stockPct <= 0.2 && p.rankStock > 0) p.flags.add('highStock');
+      if (p.stockPct != null && p.stockPct >= 0.8) p.flags.add('lowStock');
 
       let status;
       const cover = p.coverInclOrder;
@@ -779,6 +785,8 @@
     { key: 'lowSales',    label: 'Low sales',          dot: '#8a8a92',     test: p => p.flags.has('lowSales') },
     { key: 'highUnits',   label: 'Highest units sold', dot: '#4c8dff',     test: p => p.flags.has('highUnits'), needs: 'unitsAny' },
     { key: 'lowUnits',    label: 'Lowest units sold',  dot: '#8a8a92',     test: p => p.flags.has('lowUnits'), needs: 'unitsAny' },
+    { key: 'highStock',   label: 'Highest stock',      dot: '#4c8dff',     test: p => p.flags.has('highStock'), needs: 'stockAny' },
+    { key: 'lowStock',    label: 'Lowest stock',       dot: '#8a8a92',     test: p => p.flags.has('lowStock'), needs: 'stockAny' },
     { key: 'improving',   label: 'Improving',          dot: '#5fd884',     test: p => p.flags.has('improving'), needs: 'trend' },
     { key: 'declining',   label: 'Declining',          dot: '#f7b955',     test: p => p.flags.has('declining'), needs: 'trend' },
     { key: 'onlineGap',   label: 'Online gaps',        dot: '#f7b955',     test: p => p.flags.has('onlineGap'), needs: 'onlineAny' },
@@ -814,6 +822,7 @@
     has.channels = has.retailUnits || has.onlineUnits || has.retailValue || has.onlineValue;
     has.anyValue = has.value || has.retailValue || has.onlineValue;
     has.unitsAny = has.units || has.retailUnits || has.onlineUnits;
+    has.stockAny = has.stock || has.branch || has.warehouse || has.online;
     has.ranks = state.sheets.some(sh => (sh.map.ranks || []).length);
     has.multiSheet = state.sheets.length > 1;
     state.analysis = analyse(P, has);
@@ -1227,6 +1236,8 @@
       valueAsc:  (a, b) => valOf(a) - valOf(b),
       units:     (a, b) => (b.rankUnits || 0) - (a.rankUnits || 0),
       unitsAsc:  (a, b) => (a.rankUnits ?? Infinity) - (b.rankUnits ?? Infinity),
+      stock:     (a, b) => (b.rankStock ?? -Infinity) - (a.rankStock ?? -Infinity),
+      stockAsc:  (a, b) => (a.rankStock ?? Infinity) - (b.rankStock ?? Infinity),
       cover:     (a, b) => (a.cover ?? Infinity) - (b.cover ?? Infinity),
       coverDesc: (a, b) => (b.cover ?? -Infinity) - (a.cover ?? -Infinity),
       trendUp:   (a, b) => (b.trend ?? -Infinity) - (a.trend ?? -Infinity),
@@ -1282,6 +1293,8 @@
       case 'valueAsc':  return tiers(valOf, '£', false);
       case 'units':     return tiers(p => p.rankUnits, 'units', true);
       case 'unitsAsc':  return tiers(p => p.rankUnits, 'units', false);
+      case 'stock':     return tiers(p => p.rankStock, 'stock', true);
+      case 'stockAsc':  return tiers(p => p.rankStock, 'stock', false);
       case 'cover':     return ranges(p => p.cover, [2, 4, 8, 12, 20, 52], ' wks cover', false, 'Blank cover');
       case 'coverDesc': return ranges(p => p.cover, [2, 4, 8, 12, 20, 52], ' wks cover', true, 'Blank cover');
       case 'trendUp':   return ranges(p => p.trend === Infinity ? 1e9 : p.trend, trendCuts, '% trend', true, 'No trend');
@@ -1842,6 +1855,7 @@
       outOfStock: 'value',          // biggest sellers that are sold out first
       highSales: 'value', lowSales: 'valueAsc',
       highUnits: 'units', lowUnits: 'unitsAsc',
+      highStock: 'stock', lowStock: 'stockAsc',
       improving: 'trendUp', declining: 'trendDown',
       onlineGap: 'value',           // most sales at risk online first
       highReturns: 'returns',
