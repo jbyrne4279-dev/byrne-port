@@ -1174,3 +1174,51 @@ html.sa-light .sa-thumb, html.sa-light .sa-thumb__img { box-shadow: inset 0 0 0 
 .sa-swarn--amber { color: var(--st-amber); }
 @keyframes saWarnPulse { 50% { opacity: .45; } }
 @media (prefers-reduced-motion: reduce) { .sa-swarn--red { animation: none; } }
+
+/* ── Breakdown trend overview ── */
+.sa-bd__trends { margin: 4px 22px 18px; padding: 16px 18px; border-radius: 14px; background: var(--sa-panel-2); border: 1px solid var(--sa-line); }
+.sa-bd__kicker { font: 700 10px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--sa-label-3); margin: 0 0 10px; }
+.sa-bd__trends ul { display: grid; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.sa-bd__trends .sa-insight { font-size: 13px; }
+
+/* ── Mix panel (replaces the twin pies) ── */
+.sa-mx { display: grid; grid-template-columns: 210px 1fr; gap: 26px; align-items: center; padding: 6px 22px 22px; }
+.sa-mx__chart { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.sa-mx__chart svg { width: 200px; height: 200px; overflow: visible; }
+.sa-mx__base { stroke: var(--sa-line); }
+.sa-mx__arc { transition: opacity .2s, stroke-width .2s; cursor: pointer; }
+.sa-mx.is-focus .sa-mx__arc { opacity: .25; }
+.sa-mx.is-focus .sa-mx__arc.is-on { opacity: 1; stroke-width: 26px; }
+.sa-mx__pct { fill: var(--sa-label); font: 700 30px var(--font-body); letter-spacing: -.02em; }
+.sa-mx__lab { fill: var(--sa-label-2); font: 500 11px var(--font-body); }
+.sa-mx__cap { margin: 0; font: 700 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sa-label-3); }
+.sa-mx__legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.sa-mx__row { display: grid; grid-template-columns: 12px minmax(90px, 1.2fr) 52px minmax(80px, 2fr) 92px 78px; align-items: center; gap: 12px;
+  padding: 7px 10px; border-radius: 10px; font-size: 13px; transition: background .15s, opacity .2s; cursor: default; }
+.sa-mx.is-focus .sa-mx__row { opacity: .45; }
+.sa-mx.is-focus .sa-mx__row.is-on { opacity: 1; background: var(--sa-panel-2); }
+.sa-mx__sw { width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.sa-mx__name { color: var(--sa-label); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sa-mx__val { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; color: var(--sa-label); }
+.sa-mx__track { position: relative; height: 8px; border-radius: 8px; background: var(--sa-line); }
+.sa-mx__track i { position: absolute; inset: 0 auto 0 0; border-radius: 8px; }
+.sa-mx__ly { position: absolute; top: -4px; width: 2px; height: 16px; margin-left: -1px; border-radius: 2px; background: var(--sa-label); opacity: .75; }
+.sa-mx__row .sa-trend { justify-self: start; padding: 2px 7px; font-size: 10.5px; white-space: nowrap; }
+.sa-mx__wow { font-size: 11px; color: var(--sa-label-3); white-space: nowrap; text-align: right; }
+.sa-mx__stacks { margin-top: 16px; display: grid; gap: 8px; padding: 0 10px; }
+.sa-mx__stack { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 12px; font-size: 11px; color: var(--sa-label-2); }
+.sa-mx__stack div { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; }
+.sa-mx__stack i { display: block; min-width: 2px; }
+.sa-mx__note { margin: 2px 0 0; font-size: 11px; color: var(--sa-label-3); }
+html.sa-light .sa-mx__sw { box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
+@media (max-width: 900px) {
+  .sa-mx { grid-template-columns: 1fr; }
+  .sa-mx__row { grid-template-columns: 12px 1fr 52px 84px; }
+  .sa-mx__track, .sa-mx__wow { display: none; }
+}
+.sa-bd .sa-mx { width: 100%; box-sizing: border-box; }
+.sa-bd .sa-mx .sa-mx__legend { display: grid; grid-template-columns: 1fr; }
+.sa-bd .sa-mx .sa-mx__row { display: grid; }
+.sa-bd .sa-bd__trends ul { gap: 4px; }
+.sa-bd .sa-bd__trends .sa-insight { padding: 8px 10px; background: transparent; gap: 10px; grid-template-columns: 24px 1fr; line-height: 1.5; }
+.sa-bd .sa-bd__trends .sa-insight__icon { width: 24px; height: 24px; font-size: 12px; }

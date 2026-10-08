@@ -1197,11 +1197,12 @@
      direction, extreme moves (nothing over ±100% is ever left out), lines
      turning around or fading, mix shifts and over/under-performers against
      their share of options. Every figure quoted is the file's own cell text. */
-  function breakdownInsights() {
+  function breakdownInsights(only) {
     const out = [];
     const extremes = [];
     let overallDone = false;
-    state.breakdowns.forEach(t => splitBlocks(t).forEach(b => {
+    const list = only ? [only] : state.breakdowns.flatMap(t => splitBlocks(t).map(b => ({ t, b })));
+    list.forEach(({ t, b }) => {
       const H = b.header.map(x => String(x ?? '').trim());
       const hn = H.map(x => x.toLowerCase());
       if (!H[0]) return;
@@ -1247,6 +1248,13 @@
         const sh = v(lead, lwPn);
         out.push({ tone: 'blue', icon: '◔', html: `<b>${lab(lead)}</b> leads ${esc(dim)} with <b>${txt(lead, lwPn)}</b> of last week&rsquo;s sales` +
           (sh >= 40 ? `, so the business leans heavily on it: <b>protect its stock depth</b> and watch for any slowdown.` : '.') });
+      }
+
+      // How concentrated sales are (card view only)
+      if (only && ranked.length >= 4 && lwPn >= 0) {
+        const top3 = ranked.slice(0, 3), sum = top3.reduce((a, r) => a + (v(r, lwPn) || 0), 0);
+        out.push({ tone: 'grey', icon: '∑', html: `The top 3 ${esc(dim)}s (${top3.map(lab).join(', ')}) make <b>${Math.round(sum)}%</b> of last week&rsquo;s sales` +
+          (sum >= 75 ? ', a <b>highly concentrated</b> mix: the rest of the range is a long tail.' : sum <= 45 ? ', a <b>broad</b> spread with no single dependency.' : '.') });
       }
 
       // Extreme moves (±100%+): never left out
@@ -1299,7 +1307,7 @@
         if (under.length) parts.push(`<b>underperforming</b>: ${under.slice(0, 3).map(x => `${lab(x.r)} (${txt(x.r, lwPn)} of sales from ${txt(x.r, optPn)} of options)`).join(', ')}`);
         if (parts.length) out.push({ tone: over.length ? 'green' : 'amber', icon: '⚖', html: `By ${esc(dim)}, ${parts.join('; ')}. Add options where sales outpace the range; trim where they lag.` });
       }
-    }));
+    });
     const line = x => `${x.label} ${x.moves.join(', ')}${x.share ? ` <span class="sa-muted">(${x.share} of last week&rsquo;s sales)</span>` : ''}`;
     const big = extremes.filter(x => !x.small).sort((a, b) => b.max - a.max);
     const tiny = extremes.filter(x => x.small).sort((a, b) => b.max - a.max);
@@ -1638,6 +1646,60 @@
       <text x="70" y="84" text-anchor="middle" class="sa-pie__lab">${esc(lead.label.length > 12 ? lead.label.slice(0, 11) + '…' : lead.label)}</text></svg>
       <figcaption>${esc(title)}</figcaption></figure>`;
   }
+  /* Mix panel: one interactive donut (hover a slice or a row to read it), a
+     legend with this year's share against last year's, and two 100% bars so
+     the shift in mix is visible at a glance. Shares are worked out from the
+     file's own figures and labelled as shares. */
+  function mixPanel(rows, col, lyCol, changeCol, labelCol, head, colName, lyName) {
+    const sl = pieSlices(rows, col, labelCol, head, null);
+    const tot = sl.reduce((a, x) => a + x.v, 0);
+    if (!tot) return '';
+    const inTop = r => sl.some(s2 => s2.label === (String(r[labelCol] ?? '').trim() || 'blank'));
+    const byLabel = new Map(rows.map(r => [String(r[labelCol] ?? '').trim() || 'blank', r]));
+    const lyTot = lyCol != null ? rows.reduce((a, r) => a + Math.max(0, num(r[lyCol]) || 0), 0) : 0;
+    const items = sl.map(x => {
+      const r = byLabel.get(x.label);
+      const ly = lyCol == null || !lyTot ? null : (x.label === 'Other'
+        ? rows.filter(rr => !inTop(rr)).reduce((a, rr) => a + Math.max(0, num(rr[lyCol]) || 0), 0)
+        : Math.max(0, num(r && r[lyCol]) || 0)) / lyTot * 100;
+      return { ...x, share: x.v / tot * 100, ly, wow: r && changeCol != null ? String(r[changeCol] ?? '').trim() : '' };
+    });
+    const R = 62, C = 2 * Math.PI * R, GAP = items.length > 1 ? 2.2 : 0;
+    let off = 0;
+    const arcs = items.map((x, i) => {
+      const len = Math.max(0.6, x.share / 100 * C - GAP);
+      const a = `<circle class="sa-mx__arc" data-i="${i}" r="${R}" cx="80" cy="80" fill="none" stroke="${x.c}" stroke-width="20" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}"></circle>`;
+      off += x.share / 100 * C; return a;
+    }).join('');
+    const lead = items[0];
+    const short = l => l.length > 14 ? l.slice(0, 13) + '…' : l;
+    const data = esc(JSON.stringify(items.map(x => [x.label, x.share.toFixed(1)])));
+    const legend = items.map((x, i) => {
+      const d = x.ly == null ? null : x.share - x.ly;
+      const k = d == null ? '' : d > 0.5 ? 'up' : d < -0.5 ? 'down' : 'flat';
+      return `<li class="sa-mx__row" data-i="${i}">
+        <span class="sa-mx__sw" style="background:${x.c}"></span>
+        <span class="sa-mx__name">${esc(x.label)}</span>
+        <span class="sa-mx__val">${x.share.toFixed(1)}%</span>
+        <span class="sa-mx__track"><i style="width:${Math.min(100, x.share / items[0].share * 100)}%;background:${x.c}"></i>${x.ly != null ? `<b class="sa-mx__ly" style="left:${Math.min(100, x.ly / items[0].share * 100)}%" title="Last year: ${x.ly.toFixed(1)}%"></b>` : ''}</span>
+        ${d != null ? `<span class="sa-trend sa-trend--${k}" title="Change in share vs last year">${k === 'up' ? '▲' : k === 'down' ? '▼' : '•'} ${d > 0 ? '+' : ''}${d.toFixed(1)} pts</span>` : '<span></span>'}
+        <span class="sa-mx__wow">${x.wow ? esc(x.wow) + ' WoW' : ''}</span>
+      </li>`;
+    }).join('');
+    const stack = (key, label) => `<div class="sa-mx__stack"><span>${esc(label)}</span><div>${items.map(x => x[key] ? `<i style="flex-grow:${x[key]};background:${x.c}" title="${esc(x.label)}: ${x[key].toFixed(1)}%"></i>` : '').join('')}</div></div>`;
+    return `<div class="sa-mx" data-mix="${data}">
+      <div class="sa-mx__chart">
+        <svg viewBox="0 0 160 160" role="img" aria-label="${esc(colName)} share by ${esc(head || 'group')}"><circle r="${R}" cx="80" cy="80" fill="none" class="sa-mx__base" stroke-width="20"></circle><g transform="rotate(-90 80 80)">${arcs}</g>
+          <text x="80" y="77" text-anchor="middle" class="sa-mx__pct">${lead.share.toFixed(0)}%</text>
+          <text x="80" y="96" text-anchor="middle" class="sa-mx__lab">${esc(short(lead.label))}</text></svg>
+        <p class="sa-mx__cap">Share of ${esc(colName)}</p>
+      </div>
+      <div class="sa-mx__side">
+        <ul class="sa-mx__legend">${legend}</ul>
+        ${lyCol != null && lyTot ? `<div class="sa-mx__stacks">${stack('share', 'This year')}${stack('ly', 'Last year')}<p class="sa-mx__note">Bars show each ${esc((head || 'group').replace(/^product\s+/i, '').toLowerCase())}&rsquo;s share; the thin mark is last year&rsquo;s share (${esc(lyName)}).</p></div>` : ''}
+      </div>
+    </div>`;
+  }
   function pieLegend(rows, col, lyCol, changeCol, labelCol, head) {
     const sl = pieSlices(rows, col, labelCol, head, null);
     const tot = sl.reduce((a, x) => a + x.v, 0) || 1;
@@ -1727,11 +1789,10 @@
         // last-year column if the sheet has one, so shifts in mix stand out.
         const lyCol = numericCol != null ? keep.find(c => c !== numericCol && /\bly\b/i.test(short(c)) && !/vs|var|%/i.test(short(c)) &&
           b.rows.some(r => num(r[c]) != null) && /lw/i.test(short(c)) === /lw/i.test(short(numericCol))) : null;
-        const pies = numericCol != null ? `<div class="sa-bd__pies">
-            ${donut(body, numericCol, short(numericCol) + ' share', labelCol, H[0])}
-            ${lyCol != null ? donut(body, lyCol, short(lyCol) + ' share', labelCol, H[0]) : ''}
-            ${pieLegend(body, numericCol, lyCol, changeCol, labelCol, H[0])}
-          </div>` : '';
+        const pies = numericCol != null ? mixPanel(body, numericCol, lyCol, changeCol, labelCol, H[0], short(numericCol), lyCol != null ? short(lyCol) : '') : '';
+        const trends = breakdownInsights({ t, b });
+        const overview = trends.length ? `<div class="sa-bd__trends"><p class="sa-bd__kicker">Trend overview</p><ul>${trends.map(i =>
+          `<li class="sa-insight sa-insight--${i.tone}"><span class="sa-insight__icon" aria-hidden="true">${i.icon}</span><span>${i.html}</span></li>`).join('')}</ul></div>` : '';
         const pills = `<div class="sa-bd__pills">${sorts.map(x => `<button type="button" class="sa-pill sa-pill--sm ${x === cur ? 'is-active' : ''}" data-card="${cid}" data-sort="${x.id}">${esc(x.label)}</button>`).join('')}</div>`;
 
         const rowsHtml = ordered.map(r => {
@@ -1759,6 +1820,7 @@
         cards.push(`<article class="sa-panel sa-bd">
           <div class="sa-bd__top"><h3 class="sa-panel__title">${esc(title)}</h3><span class="sa-bd__src">${esc(t.name)}</span></div>
           ${head.length ? `<p class="sa-bd__head">${head.join(' · ')}</p>` : ''}
+          ${overview}
           ${pies}
           ${pills}
           <div class="sa-bd__scroll"><table class="sa-table sa-bd__table"><thead><tr>${H.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody></table></div>
@@ -2023,6 +2085,21 @@
     renderTable(state.analysis);
   });
   els.search.addEventListener('input', () => { state.query = els.search.value; renderTable(state.analysis); });
+  // Mix panels: hovering a slice or legend row highlights it and shows it in the centre
+  const mixFocus = (mix, i) => {
+    const data = JSON.parse(mix.dataset.mix);
+    mix.classList.toggle('is-focus', i != null);
+    mix.querySelectorAll('[data-i]').forEach(el => el.classList.toggle('is-on', String(i) === el.dataset.i));
+    const [label, pct] = data[i != null ? i : 0];
+    mix.querySelector('.sa-mx__pct').textContent = Math.round(pct) + '%';
+    mix.querySelector('.sa-mx__lab').textContent = label.length > 14 ? label.slice(0, 13) + '…' : label;
+  };
+  els.bdGrid.addEventListener('mouseover', e => {
+    const t = e.target.closest('.sa-mx [data-i]'); if (t) mixFocus(t.closest('.sa-mx'), t.dataset.i);
+  });
+  els.bdGrid.addEventListener('mouseout', e => {
+    const mix = e.target.closest('.sa-mx'); if (mix && !mix.contains(e.relatedTarget)) mixFocus(mix, null);
+  });
   // Light / dark mode, remembered for next visit
   const themeBtn = document.getElementById('saTheme');
   if (themeBtn) {
