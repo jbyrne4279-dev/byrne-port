@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
+  <script>try{if(localStorage.getItem('saTheme')==='light')document.documentElement.classList.add('sa-light')}catch(e){}</script>
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Joseph Byrne">
 
@@ -27,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="sales-analysis.css?v=26">
+  <link rel="stylesheet" href="sales-analysis.css?v=27">
 </head>
 <body class="sa-body">
 
@@ -47,6 +48,12 @@
       <li><a href="/#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <button type="button" class="sa-theme" id="saTheme" aria-label="Switch to light mode" aria-pressed="false">
+    <svg class="sa-theme__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <svg class="sa-theme__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span class="sa-theme__text">Dark</span>
+  </button>
 
   <main class="sa-page">
 
@@ -272,6 +279,6 @@
   </main>
 
   <script src="script.js?v=36"></script>
-  <script src="sales-analysis.js?v=28"></script>
+  <script src="sales-analysis.js?v=29"></script>
 </body>
 </html>

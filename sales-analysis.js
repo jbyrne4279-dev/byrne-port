@@ -2012,6 +2012,24 @@
     renderTable(state.analysis);
   });
   els.search.addEventListener('input', () => { state.query = els.search.value; renderTable(state.analysis); });
+  // Light / dark mode, remembered for next visit
+  const themeBtn = document.getElementById('saTheme');
+  if (themeBtn) {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const paint = () => {
+      const light = document.documentElement.classList.contains('sa-light');
+      themeBtn.querySelector('.sa-theme__text').textContent = light ? 'Light' : 'Dark';
+      themeBtn.setAttribute('aria-pressed', String(light));
+      themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+      if (meta) meta.setAttribute('content', light ? '#f4f4f6' : '#000000');
+    };
+    paint();
+    themeBtn.addEventListener('click', () => {
+      const light = document.documentElement.classList.toggle('sa-light');
+      try { localStorage.setItem('saTheme', light ? 'light' : 'dark'); } catch (e) {}
+      paint();
+    });
+  }
   const imgToggle = document.getElementById('saImgToggle');
   if (imgToggle) {
     imgToggle.checked = imagesOn;
