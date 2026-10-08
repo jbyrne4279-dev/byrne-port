@@ -943,7 +943,7 @@
 .sa-stickyhead .sa-table th { border-bottom: 0; background: var(--sa-panel); }
 .sa-controls { background: #000; }
 
-/* ── Product images (next.co.uk) ── */
+/* ── Product images ── */
 .sa-table td.sa-col-img { width: 72px; padding-right: 4px; }
 .sa-thumb {
   position: relative;

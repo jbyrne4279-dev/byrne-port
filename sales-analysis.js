@@ -20,7 +20,6 @@
     uploadWrap: $('saUploadWrap'),
     drop:       $('saDrop'),
     file:       $('saFile'),
-    sample:     $('saSample'),
     status:     $('saStatus'),
     results:    $('saResults'),
     fileName:   $('saFileName'),
@@ -929,9 +928,9 @@
       ${ranks ? `<div class="sa-prod__ranks">${ranks}</div>` : ''}`;
   }
 
-  /* ───────────────────────── Product images from next.co.uk ─────────────────────────
-     Images load straight into the visitor's browser from Next's image server,
-     addressed by the item number (no scraping, no server). Next's URL scheme
+  /* ───────────────────────── Product images ─────────────────────────
+     Images load straight into the visitor's browser from the retailer's image server,
+     addressed by the item number (no scraping, no server). The URL scheme
      isn't published, so several known patterns are tried in turn; whichever
      works is remembered and tried first for the next product. Only the item
      number is sent; nothing else from the file leaves the browser. */
@@ -957,8 +956,8 @@
     const label = esc(p.name || p.code || '');
     if (!code || !/^[A-Z0-9]{4,10}$/.test(code)) return `<span class="sa-thumb sa-thumb--none" title="No item number to look up">—</span>`;
     const st = imgState.get(code);
-    const link = inner => `<a class="sa-thumb" href="${nextUrl(code)}" target="_blank" rel="noopener noreferrer" title="Open ${esc(code)} on next.co.uk">${inner}</a>`;
-    if (st && st.failed) return link(`<span class="sa-thumb__ph">No image<br><small>View on Next</small></span>`);
+    const link = inner => `<a class="sa-thumb" href="${nextUrl(code)}" target="_blank" rel="noopener noreferrer" title="Open product page for ${esc(code)}">${inner}</a>`;
+    if (st && st.failed) return link(`<span class="sa-thumb__ph">No image<br><small>View product</small></span>`);
     const first = imgOrder()[0];
     const src = st && st.url ? st.url : IMG_TEMPLATES[first](code);
     return link(`<img class="sa-thumb__img" src="${esc(src)}" alt="${label}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-code="${esc(code)}" data-tpl="${st && st.url ? -1 : first}" data-tried="${st && st.url ? '' : first}">` +
@@ -984,7 +983,7 @@
     } else {
       imgState.set(code, { failed: true });
       const a = img.closest('.sa-thumb');
-      if (a) a.innerHTML = '<span class="sa-thumb__ph">No image<br><small>View on Next</small></span>';
+      if (a) a.innerHTML = '<span class="sa-thumb__ph">No image<br><small>View product</small></span>';
     }
   }, true);
   document.addEventListener('load', e => {
@@ -1995,41 +1994,6 @@
     }
   }
 
-  /* ───────────────────────── Sample data ───────────────────────── */
-
-  function sampleTables() {
-    const prod = [
-      ['', '', '', '', '', '', '', 'Brand', '', 'Retail', '', 'Online', '', 'Retail', '', '', '', '', 'Online', '', ''],
-      ['Brand Rank', 'Retail Rank', 'Online Rank', 'Item Number', 'Sub Group', 'Description', 'Sell Price', 'Last Week U', 'Last Week V(£)', 'Sold (u)', 'Sold (£)', 'Orders Taken (u)', 'Orders Taken (£)', 'Distribution', 'Total Stock', 'Branch Cover', 'Warehouse Cover', 'Total Cover', 'Returns Rate %', 'Total Stock', 'Cover'],
-      ['1', '3', '1', 'Y35088', 'QE12', 'CO DANGLY SO3 BISCUT', '15', '829', '12628', '191', '2867', '687', '10504', 'ABCDE', '3766', '3', '17', '19', '7%', '1373', '1'],
-      ['2', '2', '2', 'W66225', 'QE12', 'CO HARE ORNAMENT', '32', '241', '7885', '92', '2944', '158', '5250', 'ABC', '415', '3', '2', '4', '6%', '349', '1'],
-      ['3', '5', '3', 'Y33706', 'QE12', 'OCT STAG BUST', '48', '128', '6164', '45', '2166', '91', '4392', 'ABC', '503', '7', '4', '10', '9%', '320', '2'],
-      ['4', '15', '4', 'Y60913', 'QE12', 'NOV WHIPPET DOG', '12', '447', '5380', '114', '1372', '356', '4285', 'ABC', '570', '2', '3', '5', '6%', '468', '0'],
-      ['5', '4', '7', 'F32543', 'QE12', 'CO LEOPARD GOLD', '20', '267', '5377', '122', '2440', '156', '3162', 'ABCD', '1825', '4', '10', '14', '7%', '945', '8'],
-      ['6', '8', '5', 'AR6192', 'QE12', 'CO CHERRY GOLD LEOP', '16', '330', '5325', '107', '1714', '242', '3918', 'ABC', '1348', '2', '9', '12', '8%', '1748', '6'],
-      ['7', '1', '40', 'E94868', 'QE12', 'CO HAMISH BRNZ LARGE', '40', '106', '4314', '86', '3463', '22', '924', 'ABCDE', '2164', '12', '14', '25', '8%', '999', '45'],
-      ['8', '43', '6', 'Y33710', 'QE12', 'OCT BRNX CONNECT 4', '22', '189', '4177', '32', '704', '166', '3672', 'ABC', '414', '7', '6', '13', '5%', '252', '0'],
-      ['9', '7', '9', 'E25316', 'QE12', 'CO LOOP GOLD TWIST', '22', '182', '4103', '80', '1766', '113', '2582', 'ABCD', '1560', '9', '9', '19', '10%', '951', '7'],
-      ['10', '6', '11', 'G63832', 'QE12', 'NOV BOLD CHERRIES', '20', '201', '4064', '93', '1865', '117', '2390', 'ABCD', '647', '4', '3', '7', '8%', '471', '3'],
-      ['11', '30', '25', 'W58102', 'QE12', 'MAY BERTIE AND SON', '14', '7', '98', '7', '98', '', '', 'AB', '58', '7', '', '7', '4%', '0', ''],
-      ['12', '41', '36', 'A37503', 'QE12', 'CO GOLD FLOWER', '16', '1', '16', '', '', '1', '16', '', '5', '', '', '', '0%', '0', '0'],
-      ['Total', '', '', '', '', '', '', '2928', '59830', '969', '21399', '2109', '41095', '', '13275', '5', '8', '13', '7%', '7876', '3']
-    ];
-    const bd = [
-      ['', 'Product Type', 'LW TY £K', 'WoW %', 'LW LY £K', 'LW vs LY %'],
-      ['', 'Animal', '92063', '9%', '44365.28', '108%'],
-      ['', 'Novelty Object', '52362', '23%', '46549.91', '12%'],
-      ['', 'Art Sculpture', '19864', '23%', '13533.57', '47%'],
-      ['', 'Letters and Words', '2520', '-19%', '2498.85', '1%'],
-      ['', 'Total', '177190', '14%', '112325.8', '58%']
-    ];
-    const spans = [{ r: 0, c0: 7, c1: 8 }, { r: 0, c0: 9, c1: 10 }, { r: 0, c0: 11, c1: 12 }, { r: 0, c0: 13, c1: 17 }, { r: 0, c0: 18, c1: 20 }];
-    return [
-      { name: 'Sample: product sheet', rows: prod, text: prod, spans, firstRow: 2 },
-      { name: 'Sample: breakdowns', rows: bd, text: bd, spans: [], firstRow: 2 }
-    ];
-  }
-
   /* ───────────────────────── Events ───────────────────────── */
 
   els.file.addEventListener('change', () => handleFiles(els.file.files));
@@ -2039,10 +2003,6 @@
   document.addEventListener('paste', e => {
     const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
     if (item) handleFiles([new File([item.getAsFile()], 'pasted-screenshot.png', { type: item.type })]);
-  });
-  els.sample.addEventListener('click', () => {
-    try { loadTables(sampleTables(), 'Sample: weekly trade report', false); }
-    catch (err) { setStatus(esc(err.message), false, true); }
   });
   els.newBtn.addEventListener('click', () => {
     els.results.hidden = true;
