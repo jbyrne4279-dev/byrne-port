@@ -1015,8 +1015,9 @@
     if (h.stock || (cov && h.online)) {
       cols.push({ cls: 'sa-col-stock', th: 'Stock <small>units</small>', m: 'Stock', td: p => {
         const bits = [];
-        if (h.stock) bits.push(`<div><span class="sa-mini">${cov || h.online ? 'Retail' : 'Total'}</span> ${orig(p, 'stock')}</div>`);
-        if (cov && h.online) bits.push(`<div><span class="sa-mini">Online</span> ${orig(p, 'online')}</div>`);
+        const split = cov || h.online;
+        if (h.stock) bits.push(`<div><span class="sa-mini">${split ? 'Retail' : 'Total'}</span> ${orig(p, 'stock')}${stockWarn(p.stock, split ? p.retailUnits : p.rankUnits, split ? 'retail' : '')}</div>`);
+        if (cov && h.online) bits.push(`<div><span class="sa-mini">Online</span> ${orig(p, 'online')}${stockWarn(p.online, p.onlineUnits, 'online')}</div>`);
         if (!cov && !h.online && h.branch) return '';
         return `<div class="sa-stock">${bits.join('')}</div>`;
       } });
@@ -1307,6 +1308,16 @@
     return out;
   }
   const p0 = t => (t === '' || t == null) ? 'blank' : cx(t);
+
+  // Warning triangle beside a stock figure that won't last another week at
+  // last week's rate of sale (red: less stock than units sold; amber: within 1.5x).
+  function stockWarn(stock, sold, where) {
+    if (stock == null || sold == null || !(sold > 0)) return '';
+    const ch = where ? where + ' ' : '';
+    if (stock < sold) return `<span class="sa-swarn sa-swarn--red" title="${stock <= 0 ? 'No ' + ch + 'stock left' : 'Only ' + fmtNum(stock) + ' in ' + ch + 'stock'} but ${fmtNum(sold)} sold ${ch}last week: likely to run out within a week" aria-label="Risk of running out">▲</span>`;
+    if (stock <= sold * 1.5) return `<span class="sa-swarn sa-swarn--amber" title="${fmtNum(stock)} in ${ch}stock is close to the ${fmtNum(sold)} sold ${ch}last week: about a week of cover left" aria-label="Low stock for rate of sale">▲</span>`;
+    return '';
+  }
 
   function renderInsights(A) {
     els.insights.innerHTML = buildInsights(A).map(i =>
