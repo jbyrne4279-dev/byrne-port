@@ -62,10 +62,18 @@ async function route(request, env) {
     if (!name || !(size > 0)) fail(400, 'Missing file name or size');
     if (size > MAX_FILE) fail(413, 'Videos must be under 1 GB');
     if (!type.startsWith('video/') && !VIDEO_EXT.test(name)) fail(415, 'Only video files can be uploaded');
+    const title = String(body.title || '').trim().slice(0, 200);
+    const uploader = String(body.uploader || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+    const tags = (Array.isArray(body.tags) ? body.tags : []).map(t => String(t).trim().replace(/[|]/g, ' ').slice(0, 30)).filter(Boolean).slice(0, 10);
+    if (!title) fail(400, 'A title is required');
+    if (!tags.length) fail(400, 'At least one tag is required');
+    if (!uploader) fail(400, 'Your name is required');
     const id = Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
     const objKey = `videos/${id}-${safeName(name)}`;
     const meta = {
-      title: String(body.title || name).slice(0, 200),
+      title,
+      uploader,
+      tags: tags.join('|'),
       originalName: name,
       uploadedAt: new Date().toISOString(),
       size: String(size)
@@ -164,6 +172,8 @@ function describe(o) {
     name: c.originalName || o.key.replace(/^videos\/[^-]+-[^-]+-/, ''),
     size: o.size,
     type: (o.httpMetadata && o.httpMetadata.contentType) || 'video/mp4',
+    uploader: c.uploader || '',
+    tags: c.tags ? c.tags.split('|').filter(Boolean) : [],
     uploadedAt: c.uploadedAt || (o.uploaded && o.uploaded.toISOString()) || '',
     duration: c.duration ? Number(c.duration) : null,
     dims: c.dims || ''

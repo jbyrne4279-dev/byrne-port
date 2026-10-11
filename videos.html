@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=97">
-  <link rel="stylesheet" href="videos.css?v=1">
+  <link rel="stylesheet" href="videos.css?v=2">
 </head>
 <body class="vl-body">
 
@@ -48,6 +48,16 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
           <input type="search" id="vlSearch" placeholder="Search videos&hellip;" autocomplete="off" aria-label="Search videos">
         </label>
+        <select id="vlUser" aria-label="Filter by uploader">
+          <option value="">Everyone</option>
+        </select>
+        <select id="vlWhen" aria-label="Filter by upload date">
+          <option value="">Any time</option>
+          <option value="1">Last 24 hours</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 3 months</option>
+        </select>
         <select id="vlSort" aria-label="Sort videos">
           <option value="new">Newest first</option>
           <option value="old">Oldest first</option>
@@ -60,7 +70,9 @@
           Upload
         </button>
       </div>
+      <div class="vl-tagbar" id="vlTagBar" hidden aria-label="Filter by tag"></div>
       <p class="vl-count" id="vlCount" aria-live="polite"></p>
+      <datalist id="vlTagList"></datalist>
 
       <!-- Upload panel -->
       <section class="vl-upload" id="vlUpload" hidden aria-label="Upload videos">
@@ -76,6 +88,7 @@
           <input type="file" id="vlFile" accept="video/*,.mp4,.m4v,.mov,.webm,.mkv" multiple hidden>
           <span class="vl-drop__title">Drop videos here</span>
           <span class="vl-drop__hint">or <u>browse</u> &middot; up to 1 GB each &middot; uploaded untouched, no compression</span>
+          <span class="vl-drop__hint">Each video needs a title, tags and your name before it uploads.</span>
         </label>
         <ul class="vl-queue" id="vlQueue"></ul>
       </section>
@@ -96,6 +109,7 @@
         <div>
           <h2 id="vlPlayerTitle"></h2>
           <p id="vlPlayerInfo"></p>
+          <div class="vl-player__tags" id="vlPlayerTags"></div>
         </div>
         <div class="vl-player__actions">
           <a class="vl-btn" id="vlDownload">
@@ -110,6 +124,6 @@
   </div>
 
   <script src="script.js?v=36"></script>
-  <script src="videos.js?v=1"></script>
+  <script src="videos.js?v=2"></script>
 </body>
 </html>

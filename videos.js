@@ -10,12 +10,12 @@
   const API = (document.querySelector('meta[name="video-api"]')?.content || '').trim().replace(/\/+$/, '');
   const $ = id => document.getElementById(id);
   const els = {
-    setup: $('vlSetup'), search: $('vlSearch'), sort: $('vlSort'), count: $('vlCount'),
+    setup: $('vlSetup'), search: $('vlSearch'), sort: $('vlSort'), user: $('vlUser'), when: $('vlWhen'), count: $('vlCount'),
     uploadBtn: $('vlUploadBtn'), upload: $('vlUpload'), lock: $('vlLock'), pass: $('vlPass'), passBtn: $('vlPassBtn'),
     passMsg: $('vlPassMsg'), drop: $('vlDrop'), file: $('vlFile'), queue: $('vlQueue'),
     grid: $('vlGrid'), empty: $('vlEmpty'),
     player: $('vlPlayer'), video: $('vlVideo'), warn: $('vlWarn'), close: $('vlClose'),
-    pTitle: $('vlPlayerTitle'), pInfo: $('vlPlayerInfo'), download: $('vlDownload'), copy: $('vlCopy'), del: $('vlDelete')
+    pTitle: $('vlPlayerTitle'), pTags: $('vlPlayerTags'), tagBar: $('vlTagBar'), tagList: $('vlTagList'), pInfo: $('vlPlayerInfo'), download: $('vlDownload'), copy: $('vlCopy'), del: $('vlDelete')
   };
   const MAX_FILE = 1024 * 1024 * 1024;
   const CHUNK = 50 * 1024 * 1024;
@@ -25,6 +25,18 @@
   let passcode = '';
   try { passcode = sessionStorage.getItem('vlPass') || ''; } catch (e) {}
   let current = null;
+  let activeTag = '';
+  let lastName = '';
+  try { lastName = localStorage.getItem('vlName') || ''; } catch (e) {}
+  const MAX_TAGS = 10;
+  // "Training, U12 , match day" -> ['Training', 'U12', 'match day'] (duplicates ignored, any case)
+  const parseTags = s => {
+    const seen = new Set(), out = [];
+    String(s || '').split(/[,#\n]+/).map(t => t.trim().replace(/\s+/g, ' ').slice(0, 30)).filter(Boolean).forEach(t => {
+      const k = t.toLowerCase(); if (!seen.has(k) && out.length < MAX_TAGS) { seen.add(k); out.push(t); }
+    });
+    return out;
+  };
 
   /* ── Formatting ── */
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -67,7 +79,10 @@
     const q = els.search.value.trim().toLowerCase();
     const words = q.split(/\s+/).filter(Boolean);
     let list = videos.filter(v => {
-      const hay = (v.title + ' ' + v.name + ' ' + fmtDate(v.uploadedAt)).toLowerCase();
+      if (els.user.value && (v.uploader || '').toLowerCase() !== els.user.value) return false;
+      if (els.when.value && !(Date.now() - new Date(v.uploadedAt).getTime() <= Number(els.when.value) * 86400000)) return false;
+      if (activeTag && !(v.tags || []).some(t => t.toLowerCase() === activeTag)) return false;
+      const hay = (v.title + ' ' + v.name + ' ' + (v.uploader || '') + ' ' + (v.tags || []).join(' ') + ' ' + fmtDate(v.uploadedAt)).toLowerCase();
       return words.every(w => hay.includes(w));
     });
     const by = {
@@ -94,15 +109,48 @@
           ${v.duration ? `<span class="vl-card__dur">${fmtDur(v.duration)}</span>` : ''}
         </span>
         <span class="vl-card__title">${esc(v.title)}</span>
-        <span class="vl-card__meta">${fmtSize(v.size)} · ${fmtDate(v.uploadedAt)}${v.dims ? ' · ' + esc(v.dims.split('x')[1]) + 'p' : ''}</span>
+        <span class="vl-card__meta">${v.uploader ? esc(v.uploader) + ' · ' : ''}${fmtDate(v.uploadedAt)} · ${fmtSize(v.size)}${v.dims ? ' · ' + esc(v.dims.split('x')[1]) + 'p' : ''}</span>
+        ${(v.tags || []).length ? `<span class="vl-tags">${v.tags.map(t => `<span class="vl-tag${t.toLowerCase() === activeTag ? ' is-on' : ''}" data-tag="${esc(t)}">#${esc(t)}</span>`).join('')}</span>` : ''}
       </button>`).join('');
+    renderTagBar();
+    renderUsers();
     els.empty.hidden = list.length > 0 || !API;
-    els.empty.textContent = videos.length ? 'No videos match your search.' : 'No videos yet. Upload the first one.';
+    els.empty.textContent = videos.length ? 'No videos match these filters.' : 'No videos yet. Upload the first one.';
   }
+
+  function allTags() {
+    const count = new Map();
+    videos.forEach(v => (v.tags || []).forEach(t => {
+      const k = t.toLowerCase(); const c = count.get(k) || { label: t, n: 0 }; c.n++; count.set(k, c);
+    }));
+    return [...count.entries()].sort((a, b) => b[1].n - a[1].n || a[0].localeCompare(b[0]));
+  }
+  function renderUsers() {
+    const people = new Map();
+    videos.forEach(v => { if (!v.uploader) return; const k = v.uploader.toLowerCase(); const p = people.get(k) || { label: v.uploader, n: 0 }; p.n++; people.set(k, p); });
+    const keep = els.user.value;
+    els.user.innerHTML = '<option value="">Everyone</option>' + [...people.entries()].sort((a, b) => a[1].label.localeCompare(b[1].label))
+      .map(([k, p]) => `<option value="${esc(k)}">${esc(p.label)} (${p.n})</option>`).join('');
+    els.user.value = people.has(keep) ? keep : '';
+    els.user.hidden = !people.size;
+  }
+  function renderTagBar() {
+    const tags = allTags();
+    els.tagBar.hidden = !tags.length;
+    els.tagBar.innerHTML = tags.length ? `<button type="button" class="vl-chip${activeTag ? '' : ' is-on'}" data-tag="">All</button>` +
+      tags.map(([k, c]) => `<button type="button" class="vl-chip${k === activeTag ? ' is-on' : ''}" data-tag="${esc(k)}">#${esc(c.label)} <span>${c.n}</span></button>`).join('') : '';
+    els.tagList.innerHTML = tags.map(([, c]) => `<option value="${esc(c.label)}">`).join('');
+  }
+  const setTag = t => { activeTag = (t || '').toLowerCase() === activeTag ? '' : (t || '').toLowerCase(); render(); };
+  els.tagBar.addEventListener('click', e => { const b = e.target.closest('[data-tag]'); if (b) setTag(b.dataset.tag); });
 
   els.search.addEventListener('input', render);
   els.sort.addEventListener('change', render);
+  els.user.addEventListener('change', render);
+  els.when.addEventListener('change', render);
   els.grid.addEventListener('click', e => {
+    const tag = e.target.closest('.vl-tag');
+    if (tag) { e.stopPropagation(); setTag(tag.dataset.tag); return; }
     const card = e.target.closest('.vl-card');
     if (card) openPlayer(videos.find(v => v.key === card.dataset.key));
   });
@@ -114,7 +162,8 @@
     els.warn.hidden = true;
     els.video.src = vUrl(v.key);
     els.pTitle.textContent = v.title;
-    els.pInfo.textContent = [v.name, fmtSize(v.size), fmtDur(v.duration), v.dims, 'uploaded ' + fmtDate(v.uploadedAt)].filter(Boolean).join(' · ');
+    els.pInfo.textContent = [v.uploader ? 'Uploaded by ' + v.uploader + ' on ' + fmtDate(v.uploadedAt) : 'Uploaded ' + fmtDate(v.uploadedAt), v.name, fmtSize(v.size), fmtDur(v.duration), v.dims].filter(Boolean).join(' · ');
+    els.pTags.innerHTML = (v.tags || []).map(t => `<button type="button" class="vl-tag" data-tag="${esc(t)}">#${esc(t)}</button>`).join('');
     els.download.href = vUrl(v.key, true);
     els.download.setAttribute('download', v.name);
     els.player.hidden = false;
@@ -133,6 +182,7 @@
   }
   els.video.addEventListener('error', () => { if (current) els.warn.hidden = false; });
   els.close.addEventListener('click', closePlayer);
+  els.pTags.addEventListener('click', e => { const t = e.target.closest('[data-tag]'); if (t) { closePlayer(); activeTag = ''; setTag(t.dataset.tag); } });
   els.player.addEventListener('click', e => { if (e.target === els.player) closePlayer(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.player.hidden) closePlayer(); });
   els.copy.addEventListener('click', async () => {
@@ -191,19 +241,63 @@
   const isVideo = f => /^video\//.test(f.type) || /\.(mp4|m4v|mov|webm|mkv|avi|wmv|mpg|mpeg|3gp|ogv)$/i.test(f.name);
   let running = Promise.resolve();
 
+  // Each video gets a form: title, tags and the uploader's name are required before it uploads
   function queueFiles(fileList) {
     [...fileList].forEach(file => {
       const li = document.createElement('li');
       li.className = 'vl-job';
-      const base = file.name.replace(/\.[^.]+$/, '');
-      li.innerHTML = `<div class="vl-job__top"><input class="vl-job__title" value="${esc(base)}" aria-label="Title for ${esc(file.name)}"><span class="vl-job__size">${fmtSize(file.size)}</span></div>
-        <div class="vl-job__bar"><i></i></div><p class="vl-job__msg">Waiting…</p>`;
+      const base = file.name.replace(/\.[^.]+$/, '').replace(/[_]+/g, ' ');
+      const id = 'j' + Math.random().toString(36).slice(2, 8);
+      li.innerHTML = `
+        <div class="vl-job__head"><span class="vl-job__file">${esc(file.name)}</span><span class="vl-job__size">${fmtSize(file.size)}</span></div>
+        <div class="vl-job__form">
+          <label class="vl-field vl-field--title"><span>Title <i>*</i></span><input class="vl-job__title" id="${id}t" value="${esc(base)}" maxlength="200" placeholder="What is this video?"></label>
+          <label class="vl-field"><span>Tags <i>*</i></span><input class="vl-job__tags" id="${id}g" list="vlTagList" placeholder="e.g. training, U12, match day" autocomplete="off"><em class="vl-job__chips"></em></label>
+          <label class="vl-field"><span>Your name <i>*</i></span><input class="vl-job__name" id="${id}n" value="${esc(lastName)}" maxlength="60" autocomplete="name" placeholder="Who is uploading?"></label>
+          <div class="vl-job__go"><button type="button" class="vl-btn vl-job__send">Upload</button><button type="button" class="vl-btn vl-btn--ghost vl-job__remove">Remove</button></div>
+        </div>
+        <div class="vl-job__bar"><i></i></div><p class="vl-job__msg">Add a title, at least one tag and your name, then upload.</p>`;
       els.queue.prepend(li);
       const msg = li.querySelector('.vl-job__msg');
-      if (!isVideo(file)) { li.classList.add('is-error'); msg.textContent = 'Not a video file, skipped.'; return; }
-      if (file.size > MAX_FILE) { li.classList.add('is-error'); msg.textContent = 'Over 1 GB, skipped.'; return; }
-      running = running.then(() => uploadOne(file, li)).catch(() => {});
+      if (!isVideo(file)) { li.classList.add('is-error', 'is-locked'); msg.textContent = 'Not a video file, skipped.'; return; }
+      if (file.size > MAX_FILE) { li.classList.add('is-error', 'is-locked'); msg.textContent = 'Over 1 GB, skipped.'; return; }
+      const tagsIn = li.querySelector('.vl-job__tags'), chips = li.querySelector('.vl-job__chips');
+      const showChips = () => { chips.innerHTML = parseTags(tagsIn.value).map(t => `<b>#${esc(t)}</b>`).join(''); };
+      tagsIn.addEventListener('input', showChips);
+      li.addEventListener('input', e => { if (e.target.classList.contains('is-invalid') && e.target.value.trim()) { e.target.classList.remove('is-invalid'); e.target.removeAttribute('aria-invalid'); } });
+      li.querySelector('.vl-job__remove').addEventListener('click', () => li.remove());
+      li.querySelector('.vl-job__send').addEventListener('click', () => {
+        const meta = readForm(li);
+        if (!meta) return;
+        lastName = meta.uploader;
+        try { localStorage.setItem('vlName', lastName); } catch (e) {}
+        els.queue.querySelectorAll('.vl-job__name').forEach(n => { if (!n.value.trim()) n.value = lastName; });
+        li.classList.add('is-locked');
+        li.querySelectorAll('input, button').forEach(x => { x.disabled = true; });
+        msg.textContent = 'Waiting…';
+        running = running.then(() => uploadOne(file, li, meta)).catch(() => {});
+      });
+      li.querySelector('.vl-job__title').focus();
     });
+  }
+
+  function readForm(li) {
+    const title = li.querySelector('.vl-job__title'), tags = li.querySelector('.vl-job__tags'), name = li.querySelector('.vl-job__name');
+    const meta = { title: title.value.trim(), tags: parseTags(tags.value), uploader: name.value.trim().replace(/\s+/g, ' ') };
+    const missing = [];
+    [[title, !meta.title, 'a title'], [tags, !meta.tags.length, 'at least one tag'], [name, !meta.uploader, 'your name']].forEach(([el, bad, what]) => {
+      el.classList.toggle('is-invalid', bad); el.setAttribute('aria-invalid', String(bad));
+      if (bad) missing.push(what);
+    });
+    const msg = li.querySelector('.vl-job__msg');
+    if (missing.length) {
+      li.classList.add('is-error');
+      msg.textContent = 'Please add ' + missing.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.';
+      li.querySelector('.is-invalid').focus();
+      return null;
+    }
+    li.classList.remove('is-error');
+    return meta;
   }
 
   // Reads duration, size and a thumbnail frame from the local file (nothing is altered)
@@ -232,20 +326,23 @@
     });
   }
 
-  async function uploadOne(file, li) {
-    const bar = li.querySelector('.vl-job__bar i'), msg = li.querySelector('.vl-job__msg'), title = li.querySelector('.vl-job__title');
+  async function uploadOne(file, li, meta) {
+    const bar = li.querySelector('.vl-job__bar i'), msg = li.querySelector('.vl-job__msg');
     li.classList.add('is-active');
     msg.textContent = 'Preparing…';
     const info = await probe(file);
     let start;
     try {
       start = await api('/api/uploads', { method: 'POST', auth: true, json: {
-        name: file.name, size: file.size, type: file.type, title: title.value.trim() || file.name,
+        name: file.name, size: file.size, type: file.type, title: meta.title, tags: meta.tags, uploader: meta.uploader,
         duration: info.duration && isFinite(info.duration) ? Math.round(info.duration * 10) / 10 : null,
         width: info.width || null, height: info.height || null
       } });
-    } catch (e) { li.classList.add('is-error'); msg.textContent = 'Couldn’t start: ' + e.message; return; }
-    title.disabled = true;
+    } catch (e) {
+      li.classList.remove('is-active', 'is-locked'); li.classList.add('is-error'); msg.textContent = 'Couldn’t start: ' + e.message;
+      li.querySelectorAll('input, button').forEach(x => { x.disabled = false; });
+      return;
+    }
 
     const partSize = Math.min(CHUNK, start.partSize || CHUNK);
     const total = Math.ceil(file.size / partSize);
