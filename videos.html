@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Address of the video library API (Cloudflare Worker), no trailing slash -->
+  <meta name="video-api" content="">
+
+  <title>Video Library | Joseph Byrne</title>
+  <meta name="description" content="Upload, watch, search and download videos in their original quality.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=97">
+  <link rel="stylesheet" href="videos.css?v=1">
+</head>
+<body class="vl-body">
+
+  <nav class="nav is-scrolled" id="nav">
+    <a href="/" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Home
+    </a>
+  </nav>
+
+  <main class="vl-page">
+    <header class="vl-hero vl-container">
+      <p class="vl-eyebrow">Shared library &middot; Original quality</p>
+      <h1 class="vl-title" data-flicker-manual>Video <span>Library</span></h1>
+      <p class="vl-sub">Upload, watch, search and download videos. Files are stored exactly as uploaded, so every download is the original file with no loss in quality.</p>
+    </header>
+
+    <div class="vl-container">
+      <div class="vl-setup" id="vlSetup" hidden>
+        <b>Not connected yet.</b> This page needs its storage address before videos can be uploaded or shown.
+      </div>
+
+      <!-- Toolbar -->
+      <div class="vl-bar">
+        <label class="vl-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" id="vlSearch" placeholder="Search videos&hellip;" autocomplete="off" aria-label="Search videos">
+        </label>
+        <select id="vlSort" aria-label="Sort videos">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="az">A&ndash;Z</option>
+          <option value="big">Largest first</option>
+          <option value="long">Longest first</option>
+        </select>
+        <button type="button" class="vl-btn" id="vlUploadBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          Upload
+        </button>
+      </div>
+      <p class="vl-count" id="vlCount" aria-live="polite"></p>
+
+      <!-- Upload panel -->
+      <section class="vl-upload" id="vlUpload" hidden aria-label="Upload videos">
+        <div class="vl-upload__lock" id="vlLock">
+          <label for="vlPass">Upload passcode</label>
+          <div class="vl-row">
+            <input type="password" id="vlPass" autocomplete="current-password" placeholder="Enter the passcode">
+            <button type="button" class="vl-btn" id="vlPassBtn">Unlock</button>
+          </div>
+          <p class="vl-hint" id="vlPassMsg">Anyone with this link can watch and download. Uploading needs the shared passcode.</p>
+        </div>
+        <label class="vl-drop" id="vlDrop" for="vlFile" hidden>
+          <input type="file" id="vlFile" accept="video/*,.mp4,.m4v,.mov,.webm,.mkv" multiple hidden>
+          <span class="vl-drop__title">Drop videos here</span>
+          <span class="vl-drop__hint">or <u>browse</u> &middot; up to 1 GB each &middot; uploaded untouched, no compression</span>
+        </label>
+        <ul class="vl-queue" id="vlQueue"></ul>
+      </section>
+
+      <!-- Library -->
+      <section class="vl-grid" id="vlGrid" aria-label="Videos"></section>
+      <p class="vl-empty" id="vlEmpty" hidden></p>
+    </div>
+  </main>
+
+  <!-- Player -->
+  <div class="vl-player" id="vlPlayer" hidden role="dialog" aria-modal="true" aria-labelledby="vlPlayerTitle">
+    <div class="vl-player__box">
+      <button type="button" class="vl-player__close" id="vlClose" aria-label="Close">&times;</button>
+      <video id="vlVideo" controls playsinline preload="metadata"></video>
+      <p class="vl-player__warn" id="vlWarn" hidden>This video&rsquo;s format can&rsquo;t play in this browser, but the download is the full original file.</p>
+      <div class="vl-player__meta">
+        <div>
+          <h2 id="vlPlayerTitle"></h2>
+          <p id="vlPlayerInfo"></p>
+        </div>
+        <div class="vl-player__actions">
+          <a class="vl-btn" id="vlDownload">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+            Download original
+          </a>
+          <button type="button" class="vl-btn vl-btn--ghost" id="vlCopy">Copy link</button>
+          <button type="button" class="vl-btn vl-btn--danger" id="vlDelete">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=36"></script>
+  <script src="videos.js?v=1"></script>
+</body>
+</html>

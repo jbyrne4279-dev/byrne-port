@@ -1,0 +1,13 @@
+name = "video-library"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[[r2_buckets]]
+binding = "VIDEOS"
+bucket_name = "video-library"
+
+[vars]
+ALLOWED_ORIGINS = "https://josephbyrne.org,https://www.josephbyrne.org"
+
+# The upload passcode is a secret, set with:
+#   npx wrangler secret put UPLOAD_PASSCODE
