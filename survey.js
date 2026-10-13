@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v2';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '10 (readable answers)';
+  const SURVEY_VERSION = '11';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -49,7 +49,7 @@
     { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
       q: 'What does your team use GenAI for?',
       help: 'Select all that apply.',
-      options: ['Copywriting & product descriptions', 'Social media content', 'Campaign ideas & concepts', 'Images & visuals', 'Video', 'Trend & customer insight', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
+      options: ['Copywriting & product descriptions', 'Social media content', 'Campaign ideas & concepts', 'Images & visuals', 'Video', 'Trend & consumer research', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
       other: 'Other' },
 
     /* ── O3 TOE factors ── */
