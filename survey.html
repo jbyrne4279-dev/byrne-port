@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Where responses are sent (Formspree form endpoint). Swap for a dedicated
+       survey form so responses don't land in the contact-form inbox. -->
+  <meta name="survey-endpoint" content="https://formspree.io/f/xbdbnvye">
+
+  <title>GenAI in Fashion Marketing Survey | Joseph Byrne</title>
+  <meta name="description" content="A short, anonymous survey for fashion marketing professionals on how GenAI is being adopted and used.">
+  <meta property="og:title" content="GenAI in Fashion Marketing: 4-minute survey">
+  <meta property="og:description" content="Anonymous research survey for fashion marketing professionals. Help map how GenAI is really being used.">
+  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=97">
+  <link rel="stylesheet" href="survey.css?v=1">
+</head>
+<body class="sv-body">
+
+  <nav class="nav is-scrolled sv-nav" id="nav">
+    <a href="/" class="sv-back-home">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Home
+    </a>
+    <span class="sv-count" id="svCount" aria-live="polite"></span>
+    <div class="sv-progress" aria-hidden="true"><i id="svBar"></i></div>
+  </nav>
+
+  <main class="sv-page">
+    <form class="sv-form" id="svForm" novalidate autocomplete="off">
+      <!-- Honeypot for bots: real people never see or fill this -->
+      <input type="text" name="_gotcha" id="svTrap" tabindex="-1" autocomplete="off" class="sv-trap" aria-hidden="true">
+      <section class="sv-step" id="svStep" aria-live="polite"></section>
+    </form>
+  </main>
+
+  <footer class="sv-actions" id="svActions" hidden>
+    <button type="button" class="sv-btn sv-btn--ghost" id="svPrev" aria-label="Previous question">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <button type="button" class="sv-btn" id="svNext">Continue</button>
+  </footer>
+
+  <script src="survey.js?v=1"></script>
+</body>
+</html>
