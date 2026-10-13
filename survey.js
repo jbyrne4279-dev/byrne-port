@@ -439,6 +439,10 @@
   function showEnd(kind) {
     const end = { type: 'end', kind };
     stage.innerHTML = renderEnd(kind);
+    if (kind === 'done') {
+      // Big celebration once the response is in
+      [0.2, 0.5, 0.8].forEach((f, i) => setTimeout(() => confetti.burst(innerWidth * f, innerHeight * 0.35, 60, 11), i * 180));
+    }
     bind(end);
     updateChrome(end);
     const q = document.getElementById('svQ');
@@ -553,6 +557,69 @@
       msg.textContent = url;
     }
   }
+
+  /* ── Confetti on every button tap ── */
+  const confetti = (function () {
+    if (reduceMotion) return { burst() {} };
+    const COLORS = ['#e0143c', '#ff4d6a', '#ff8fa3', '#ffffff', '#b00020'];
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:300';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let parts = [], raf = null, dpr = 1;
+
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * dpr;
+      canvas.height = innerHeight * dpr;
+    }
+    size();
+    window.addEventListener('resize', size);
+
+    function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      parts = parts.filter(p => p.life > 0 && p.y < innerHeight + 20);
+      parts.forEach(p => {
+        p.vy += 0.25; p.vx *= 0.985; p.vy *= 0.985;
+        p.x += p.vx; p.y += p.vy; p.rot += p.spin; p.life--;
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, p.life / 25);
+        ctx.translate(p.x * dpr, p.y * dpr);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w * dpr / 2, -p.h * dpr / 2, p.w * dpr, p.h * dpr * Math.abs(Math.cos(p.rot * 2)));
+        ctx.restore();
+      });
+      raf = parts.length ? requestAnimationFrame(tick) : null;
+    }
+
+    function burst(x, y, count = 28, power = 7) {
+      for (let i = 0; i < count; i++) {
+        const a = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.3;
+        const v = power * (0.5 + Math.random());
+        parts.push({
+          x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v,
+          w: 5 + Math.random() * 5, h: 8 + Math.random() * 6,
+          rot: Math.random() * Math.PI, spin: (Math.random() - 0.5) * 0.3,
+          color: COLORS[(Math.random() * COLORS.length) | 0], life: 70 + Math.random() * 40
+        });
+      }
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+
+    // Capture phase, so it fires before the step re-renders and the button disappears
+    document.addEventListener('click', e => {
+      const t = e.target.closest('.sv-btn, .sv-opt input, .sv-scale input, .sv-agree input');
+      if (!t || t.disabled) return;
+      if (t.type === 'checkbox' && t.checked) return; // about to be unticked
+      let x = e.clientX, y = e.clientY;
+      if (!e.detail) { const r = t.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+      burst(x, y);
+    }, true);
+
+    return { burst };
+  })();
 
   /* ── Go ── */
   // A returning visitor sees the intro with a "pick up where I left off" button
