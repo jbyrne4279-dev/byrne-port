@@ -38,14 +38,14 @@
 
     /* ── O1 Evolution + O2 Application ── */
     { id: 'frequency', type: 'single', section: 'How you use GenAI',
-      q: 'How often does your marketing team use generative AI?',
+      q: 'How often does your marketing team use GenAI?',
       help: 'Think ChatGPT, Midjourney, Firefly, Copilot and similar.',
       options: ['Every day', 'A few times a week', 'About weekly', 'Monthly or less', 'Never'] },
     { id: 'started', type: 'single', section: 'How you use GenAI', columns: 2, when: notNever,
-      q: 'When did your team start using it?',
+      q: 'When did your team start using GenAI?',
       options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
     { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
-      q: 'What does your team use it for?',
+      q: 'What does your team use GenAI for?',
       help: 'Select all that apply.',
       options: ['Copywriting & product descriptions', 'Social media content', 'Campaign ideas & concepts', 'Images & visuals', 'Video', 'Trend & customer insight', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
       other: 'Other' },
@@ -54,9 +54,9 @@
     { id: 'drivers', type: 'multi', section: 'What shapes adoption', max: 3, when: notNever,
       q: 'What has driven your company to use GenAI?',
       help: 'Pick up to 3.',
-      options: ['Better, easier AI tools', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs or save time', 'Staff skills & enthusiasm', 'Competitors are using it', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing it', 'Other'],
+      options: ['Better, easier GenAI tools', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs or save time', 'Staff skills & enthusiasm', 'Competitors are using GenAI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing GenAI', 'Other'],
       other: 'Other',
-      toe: { 'Better, easier AI tools': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs or save time': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using it': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing it': 'E' } },
+      toe: { 'Better, easier GenAI tools': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs or save time': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using GenAI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing GenAI': 'E' } },
     { id: 'barriers', type: 'multi', section: 'What shapes adoption', max: 3, none: 'Nothing really',
       q: 'What holds GenAI back most at your company?',
       help: 'Pick up to 3.',
@@ -66,7 +66,7 @@
     { id: 'readiness', type: 'multi', section: 'What shapes adoption', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
-      options: ['A written GenAI policy', 'GenAI training for staff', 'A budget for AI tools', 'An AI lead or team', 'None of these', 'Not sure'] },
+      options: ['A written GenAI policy', 'GenAI training for staff', 'A budget for GenAI tools', 'A GenAI lead or team', 'None of these', 'Not sure'] },
 
     /* ── O4 Impact ── */
     { id: 'impact', type: 'likert', section: 'Impact', ends: AGREE_ENDS,
