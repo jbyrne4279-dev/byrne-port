@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v2';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '11';
+  const SURVEY_VERSION = '12';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -56,9 +56,9 @@
     { id: 'drivers', type: 'multi', section: 'What shapes adoption', max: 3, when: notNever,
       q: 'What has driven your company to use GenAI?',
       help: 'Pick up to 3.',
-      options: ['Better, easier GenAI tools', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs or save time', 'Staff skills & enthusiasm', 'Competitors are using GenAI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing GenAI', 'Other'],
+      options: ['Better, easier GenAI tools', 'Speed & efficiency gains', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs', 'Staff skills & enthusiasm', 'Competitors are using GenAI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing GenAI', 'Other'],
       other: 'Other',
-      toe: { 'Better, easier GenAI tools': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs or save time': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using GenAI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing GenAI': 'E' } },
+      toe: { 'Better, easier GenAI tools': 'T', 'Speed & efficiency gains': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using GenAI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing GenAI': 'E' } },
     { id: 'barriers', type: 'multi', section: 'What shapes adoption', max: 3, none: 'Nothing really',
       q: 'What holds GenAI back most at your company?',
       help: 'Pick up to 3.',
