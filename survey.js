@@ -480,32 +480,39 @@
   });
 
   /* ── Submit ── */
+  // Formspree shows each key as the field title, so use the question itself
+  // as the title and the answer in words as the value.
+  const AGREE_LABELS = ['', 'Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree'];
+  const TOE_NAMES = { T: 'Technological', O: 'Organisational', E: 'Environmental' };
+
   function payload() {
     const a = A();
     const out = {
       _subject: 'GenAI survey response',
-      consent: a.consent ? 'yes' : 'no',
-      submitted_at: new Date().toISOString(),
-      minutes_taken: state.started ? Math.round((Date.now() - state.started) / 6000) / 10 : '',
-      device: window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'mobile/tablet' : 'desktop'
+      'Consent given': a.consent ? 'Yes' : 'No',
+      'Submitted at': new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
+      'Time taken': state.started ? `${Math.max(1, Math.round((Date.now() - state.started) / 1000))} seconds` : '',
+      'Device': window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'Mobile or tablet' : 'Desktop'
     };
     STEPS.forEach(s => {
       if (s.type === 'intro') return;
-      if (!isShown(s)) { out[s.id] = '(not asked)'; return; }
       const v = a[s.id];
       if (s.type === 'likert') {
-        s.statements.forEach(([k]) => { out[`${s.id}_${k}`] = (v && v[k]) || ''; });
+        s.statements.forEach(([k, text]) => {
+          out[`Agree? ${text}`] = !isShown(s) ? '(not asked)' : (v && v[k]) ? `${AGREE_LABELS[v[k]]} (${v[k]}/5)` : '';
+        });
         return;
       }
-      if (s.type === 'email') { if (v && v.trim()) out.email = v.trim(); return; }
-      out[s.id] = Array.isArray(v) ? v.join('; ') : (v || '');
-      if (s.other && a[s.id + '_other']) out[s.id + '_other'] = a[s.id + '_other'].trim();
+      if (s.type === 'email') { if (v && v.trim()) out['Email for follow-up'] = v.trim(); return; }
+      if (!isShown(s)) { out[s.q] = '(not asked)'; return; }
+      out[s.q] = Array.isArray(v) ? v.join('; ') : (v || '');
+      if (s.other && a[s.id + '_other']) out[`${s.q} (their own answer)`] = a[s.id + '_other'].trim();
       if (s.toe) {
-        const n = { T: 0, O: 0, E: 0 };
-        (v || []).forEach(o => { if (s.toe[o]) n[s.toe[o]]++; });
-        out[`${s.id}_technological`] = n.T;
-        out[`${s.id}_organisational`] = n.O;
-        out[`${s.id}_environmental`] = n.E;
+        // Group the picked options under the TOE framework heading they belong to
+        ['T', 'O', 'E'].forEach(f => {
+          const picked = (v || []).filter(o => s.toe[o] === f);
+          out[`${s.q} [${TOE_NAMES[f]} factors]`] = picked.length ? picked.join('; ') : 'None';
+        });
       }
     });
     return out;
