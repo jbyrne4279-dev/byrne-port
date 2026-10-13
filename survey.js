@@ -224,8 +224,10 @@
         <p class="sv-eyebrow">${kind === 'screenout' ? 'All done' : 'Response received'}</p>
         <h1 class="sv-q" id="svQ" tabindex="-1">${copy[0]}</h1>
         <p class="sv-lede">${copy[1]}</p>
-        <button type="button" class="sv-btn sv-btn--ghost" id="svShare">Share the survey</button>
-        <p class="sv-hint" id="svShareMsg" aria-live="polite"></p>
+        <div class="sv-end__actions">
+          <button type="button" class="sv-btn sv-btn--ghost" id="svShare">Share the survey</button>
+          <a class="sv-btn" href="/">Back to portfolio</a>
+        </div>
       </div>`;
   }
 
@@ -554,18 +556,42 @@
   }
 
   /* ── Share (end screen) ── */
+  // Copies the survey link and confirms with a small pop-up
   async function share() {
     const url = location.origin + location.pathname;
-    const data = { title: 'GenAI in fashion marketing survey', text: 'A 60-second anonymous survey for fashion marketers on how GenAI is really being used.', url };
-    const msg = document.getElementById('svShareMsg');
+    let ok = false;
     try {
-      if (navigator.share) { await navigator.share(data); return; }
       await navigator.clipboard.writeText(url);
-      msg.textContent = 'Link copied.';
+      ok = true;
     } catch (e) {
-      if (e && e.name === 'AbortError') return;
-      msg.textContent = url;
+      // Older browsers / non-secure pages: fall back to a hidden text box
+      const box = document.createElement('textarea');
+      box.value = url;
+      box.setAttribute('readonly', '');
+      box.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(box);
+      box.select();
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      box.remove();
     }
+    toast(ok ? 'Copied to clipboard' : url);
+  }
+
+  let toastTimer = null;
+  function toast(text) {
+    let el = document.getElementById('svToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'svToast';
+      el.className = 'sv-toast';
+      el.setAttribute('role', 'status');
+      el.setAttribute('aria-live', 'polite');
+      document.body.appendChild(el);
+    }
+    el.textContent = text;
+    el.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('is-on'), 2200);
   }
 
   /* ── Confetti on every button tap ── */
