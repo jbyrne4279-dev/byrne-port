@@ -198,6 +198,12 @@
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is Generative AI (GenAI) being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
         <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
+        <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
+          <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
+          <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="sv-agree__text"><b>Tick to agree</b>I’m 18 or over and happy for my anonymous answers to be used in this research.</span>
+        </label>
+        <button type="button" class="sv-btn" id="svStart"${A().consent ? '' : ' disabled'}>${state.history.length ? 'Pick up where I left off' : 'Start the survey'}</button>
         <details class="sv-consent">
           <summary>How your answers are used</summary>
           <ul>
@@ -206,12 +212,6 @@
             <li>Questions? <a href="mailto:jbyrne4279@gmail.com">jbyrne4279@gmail.com</a></li>
           </ul>
         </details>
-        <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
-          <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
-          <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="sv-agree__text"><b>Tick to agree</b>I’m 18 or over and happy for my anonymous answers to be used in this research.</span>
-        </label>
-        <button type="button" class="sv-btn" id="svStart"${A().consent ? '' : ' disabled'}>${state.history.length ? 'Pick up where I left off' : 'Start the survey'}</button>
       </div>`;
   }
 

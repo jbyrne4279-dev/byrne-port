@@ -229,3 +229,4 @@
 
 /* Intro heading sits centred above the left-aligned content */
 .sv-hero .sv-eyebrow, .sv-hero .sv-title { text-align: center; }
+.sv-consent a { color: var(--sv-label); text-decoration: underline; text-underline-offset: 3px; }
