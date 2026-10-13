@@ -85,8 +85,8 @@
       help: 'This may be quoted anonymously in the dissertation.',
       placeholder: 'Type as much or as little as you like…' },
     { id: 'contact', type: 'email', section: 'Last one', optional: true,
-      q: 'Happy to chat more, or want a copy of the findings?',
-      help: 'Leave your email and I’ll be in touch. It’s kept separate from your answers and never shared.',
+      q: 'Want to be part of my interview research?',
+      help: 'I’m running quick interviews on Microsoft Teams to discuss your ideas and views on GenAI in digital marketing in more depth. Leave your email and I’ll be in touch. Your email is kept separate from your survey answers and never shared.',
       placeholder: 'you@example.com' }
   ];
 
@@ -503,7 +503,7 @@
         });
         return;
       }
-      if (s.type === 'email') { if (v && v.trim()) out['Email for follow-up'] = v.trim(); return; }
+      if (s.type === 'email') { if (v && v.trim()) out['Email for Teams interview'] = v.trim(); return; }
       if (!isShown(s)) { out[s.q] = '(not asked)'; return; }
       out[s.q] = Array.isArray(v) ? v.join('; ') : (v || '');
       if (s.other && a[s.id + '_other']) out[`${s.q} (their own answer)`] = a[s.id + '_other'].trim();
