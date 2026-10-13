@@ -182,7 +182,8 @@
     if (step.type === 'email') {
       return `${head(step)}
         <input class="sv-input" type="email" id="svText" inputmode="email" autocomplete="email" maxlength="200" placeholder="${esc(step.placeholder)}" value="${v}" aria-labelledby="svQ">
-        <p class="sv-error" id="svErr" role="alert"></p>`;
+        <p class="sv-error" id="svErr" role="alert"></p>
+        <button type="button" class="sv-btn sv-btn--ghost sv-skip" id="svSkip">Skip and submit</button>`;
     }
     return `${head(step)}
       <textarea class="sv-textarea" id="svText" maxlength="3000" placeholder="${esc(step.placeholder)}" aria-labelledby="svQ">${v}</textarea>`;
@@ -194,7 +195,7 @@
         <h1 class="sv-title" id="svQ" tabindex="-1">GenAI in<br>fashion <span>marketing</span></h1>
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is Generative AI (GenAI) being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
-        <ul class="sv-facts"><li>About 3 minutes</li><li>Anonymous</li></ul>
+        <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
         <details class="sv-consent">
           <summary>How your answers are used</summary>
           <ul>
@@ -380,6 +381,16 @@
     }
 
     const field = document.getElementById('svText');
+    const skip = document.getElementById('svSkip');
+    if (skip) {
+      // Leave the email out entirely and send the response
+      skip.addEventListener('click', () => {
+        field.value = '';
+        delete state.answers[step.id];
+        save();
+        next();
+      });
+    }
     field.addEventListener('input', () => {
       state.answers[step.id] = field.value;
       field.classList.remove('is-invalid');
@@ -531,7 +542,7 @@
   /* ── Share (end screen) ── */
   async function share() {
     const url = location.origin + location.pathname;
-    const data = { title: 'GenAI in fashion marketing survey', text: 'A 3-minute anonymous survey for fashion marketers on how GenAI is really being used.', url };
+    const data = { title: 'GenAI in fashion marketing survey', text: 'A 60-second anonymous survey for fashion marketers on how GenAI is really being used.', url };
     const msg = document.getElementById('svShareMsg');
     try {
       if (navigator.share) { await navigator.share(data); return; }
