@@ -8,104 +8,85 @@
 
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
-  const STORE_KEY = 'jb-genai-survey-v1';
+  const STORE_KEY = 'jb-genai-survey-v2';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
+
+  // Each question maps to a dissertation objective (O1–O4). Drivers and
+  // barriers carry a TOE tag (Technological / Organisational / Environmental)
+  // which is tallied into the response for analysis; respondents never see it.
+  const notNever = a => a.frequency !== 'Never';
 
   const STEPS = [
     { id: 'intro', type: 'intro' },
 
-    /* ── Section 1: About you ── */
+    /* ── About you (screening + profile) ── */
     { id: 'works_in_fashion', type: 'single', section: 'About you',
       q: 'Do you work in fashion marketing, or a closely related role?',
-      help: 'Brand, social, content, e-commerce, CRM, PR, creative, buying or agency work for fashion brands all count.',
+      help: 'Brand, social, content, e-commerce, CRM, PR, creative or agency work for fashion brands all count.',
       options: ['Yes, currently', 'Yes, within the last 2 years', 'No'] },
+    { id: 'company_size', type: 'single', section: 'About you', columns: 2,
+      q: 'Roughly how many people work at your company?',
+      options: ['Under 250', '250–999', '1,000–4,999', '5,000+', 'Not sure'] },
     { id: 'age', type: 'single', section: 'About you', columns: 2,
       q: 'How old are you?',
-      options: ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'] },
+      options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
     { id: 'location', type: 'single', section: 'About you', columns: 2,
       q: 'Where in the UK are you based?',
       help: 'Roughly is fine.',
       options: ['North of England', 'Midlands', 'East of England', 'West of England', 'South of England', 'London', 'Scotland', 'Wales', 'Northern Ireland', 'Outside the UK'] },
-    { id: 'gender', type: 'single', section: 'About you', optional: true, columns: 2,
-      q: 'How do you describe your gender?',
-      options: ['Woman', 'Man', 'Non-binary', 'Prefer to self-describe', 'Prefer not to say'],
-      other: 'Prefer to self-describe' },
 
-    /* ── Section 2: Your work ── */
-    { id: 'role', type: 'single', section: 'Your work',
-      q: 'Which best describes your main area?',
-      options: ['Brand & marketing', 'Social media & content', 'E-commerce & digital', 'CRM & email', 'PR & communications', 'Creative, design & imagery', 'Buying & merchandising', 'Other'],
-      other: 'Other' },
-    { id: 'seniority', type: 'single', section: 'Your work',
-      q: 'What level are you at?',
-      options: ['Intern, placement or graduate', 'Junior or executive', 'Manager', 'Senior manager', 'Head of or director', 'Founder or owner', 'Freelance or consultant'] },
-    { id: 'experience', type: 'single', section: 'Your work', columns: 2,
-      q: 'How long have you worked in fashion?',
-      options: ['Under 1 year', '1–3 years', '4–7 years', '8–15 years', '15+ years'] },
-    { id: 'segment', type: 'single', section: 'Your work',
-      q: 'What kind of business do you work for?',
-      help: 'If you work across several, pick the main one.',
-      options: ['Luxury or designer', 'Premium', 'High street', 'Fast fashion or online pure-play', 'Independent or DTC brand', 'Agency working for fashion clients', 'Other'],
-      other: 'Other' },
-    { id: 'company_size', type: 'single', section: 'Your work', columns: 2,
-      q: 'Roughly how many people work there?',
-      options: ['1–10', '11–50', '51–250', '251–1,000', '1,000+', 'Not sure'] },
-
-    /* ── Section 3: GenAI at work ── */
-    { id: 'frequency', type: 'single', section: 'GenAI at work',
-      q: 'How often do you use generative AI tools for work?',
+    /* ── O1 Evolution + O2 Application ── */
+    { id: 'frequency', type: 'single', section: 'How you use GenAI',
+      q: 'How often does your marketing team use generative AI?',
       help: 'Think ChatGPT, Midjourney, Firefly, Copilot and similar.',
       options: ['Every day', 'A few times a week', 'About weekly', 'Monthly or less', 'Never'] },
-    { id: 'tools', type: 'multi', section: 'GenAI at work', columns: 2,
-      when: a => a.frequency !== 'Never',
-      q: 'Which tools do you use?',
+    { id: 'started', type: 'single', section: 'How you use GenAI', columns: 2, when: notNever,
+      q: 'When did your team start using it?',
+      options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
+    { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
+      q: 'What does your team use it for?',
       help: 'Select all that apply.',
-      options: ['ChatGPT', 'Claude', 'Google Gemini', 'Microsoft Copilot', 'Midjourney', 'Adobe Firefly / Photoshop AI', 'Canva AI', 'Runway or other video AI', 'AI built into our e-com or CRM platform', 'Other'],
+      options: ['Copywriting & product descriptions', 'Social media content', 'Campaign ideas & concepts', 'Images & visuals', 'Video', 'Trend & customer insight', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
       other: 'Other' },
-    { id: 'tasks', type: 'multi', section: 'GenAI at work',
-      when: a => a.frequency !== 'Never',
-      q: 'What do you use it for?',
-      help: 'Select all that apply.',
-      options: ['Product descriptions & copywriting', 'Social captions & posts', 'Campaign ideas & brainstorming', 'Generating images or visuals', 'Video or motion content', 'Trend & competitor research', 'Data analysis & reporting', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
-      other: 'Other' },
-    { id: 'policy', type: 'single', section: 'GenAI at work',
-      q: 'Does your organisation have rules on using GenAI?',
-      options: ['Yes, a formal written policy', 'Informal guidance only', 'No rules at all', 'GenAI is banned or restricted', 'Not sure'] },
-    { id: 'training', type: 'single', section: 'GenAI at work',
-      q: 'Have you had any training on GenAI?',
-      options: ['Yes, formal training from work', 'Yes, a course I found myself', 'No, self-taught', 'No training and I don’t use it'] },
-    { id: 'disclosure', type: 'single', section: 'GenAI at work',
-      q: 'When AI helps make customer-facing content, is that disclosed?',
-      options: ['Always', 'Sometimes', 'Never', 'We don’t use AI for customer-facing content', 'Not sure'] },
 
-    /* ── Section 4: Your view ── */
-    { id: 'attitudes', type: 'likert', section: 'Your view', ends: AGREE_ENDS,
+    /* ── O3 TOE factors ── */
+    { id: 'drivers', type: 'multi', section: 'What shapes adoption', max: 3, when: notNever,
+      q: 'What has driven your company to use GenAI?',
+      help: 'Pick up to 3.',
+      options: ['Better, easier AI tools', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs or save time', 'Staff skills & enthusiasm', 'Competitors are using it', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing it', 'Other'],
+      other: 'Other',
+      toe: { 'Better, easier AI tools': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs or save time': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using it': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing it': 'E' } },
+    { id: 'barriers', type: 'multi', section: 'What shapes adoption', max: 3, none: 'Nothing really',
+      q: 'What holds GenAI back most at your company?',
+      help: 'Pick up to 3.',
+      options: ['Off-brand or low-quality output', 'Inaccurate results', 'Data privacy & security', 'Lack of skills or training', 'No clear strategy or policy', 'Cost', 'Copyright & regulation', 'Customer trust & ethics', 'Environmental impact', 'Nothing really', 'Other'],
+      other: 'Other',
+      toe: { 'Off-brand or low-quality output': 'T', 'Inaccurate results': 'T', 'Data privacy & security': 'T', 'Lack of skills or training': 'O', 'No clear strategy or policy': 'O', 'Cost': 'O', 'Copyright & regulation': 'E', 'Customer trust & ethics': 'E', 'Environmental impact': 'E' } },
+    { id: 'readiness', type: 'multi', section: 'What shapes adoption', none: 'None of these',
+      q: 'Which of these does your company have?',
+      help: 'Select all that apply.',
+      options: ['A written GenAI policy', 'GenAI training for staff', 'A budget for AI tools', 'An AI lead or team', 'None of these', 'Not sure'] },
+
+    /* ── O4 Impact ── */
+    { id: 'impact', type: 'likert', section: 'Impact', ends: AGREE_ENDS,
       q: 'How much do you agree?',
       help: '1 is strongly disagree, 5 is strongly agree.',
       statements: [
-        ['productivity', 'GenAI has made me more productive.'],
-        ['quality', 'GenAI output is usually good enough to use with light edits.'],
-        ['confidence', 'I feel confident using GenAI tools.'],
-        ['authenticity', 'GenAI risks weakening brand authenticity.'],
-        ['consumer_trust', 'Customers trust content less when they know AI made it.'],
-        ['jobs', 'GenAI is a threat to creative jobs in fashion marketing.']
+        ['productivity', 'GenAI has made our marketing team more productive.'],
+        ['content_quality', 'GenAI has improved the quality of our marketing.'],
+        ['personalisation', 'GenAI lets us create more personalised marketing.'],
+        ['authenticity_risk', 'GenAI risks weakening brand authenticity.'],
+        ['skills_change', 'GenAI is changing the skills marketers need.'],
+        ['fewer_roles', 'GenAI will lead to fewer marketing jobs.']
       ] },
-    { id: 'barriers', type: 'multi', section: 'Your view', max: 3,
-      q: 'What holds GenAI back most where you work?',
-      help: 'Pick up to 3.',
-      options: ['Off-brand or low-quality output', 'Copyright & IP worries', 'Data privacy & security', 'Lack of skills or training', 'Cost of tools', 'Leadership not on board', 'Ethics & customer trust', 'Inaccurate or made-up results', 'Environmental impact', 'Nothing really', 'Other'],
-      other: 'Other' },
-    { id: 'future', type: 'single', section: 'Your view',
-      q: 'Over the next 2 years, how will your use of GenAI change?',
-      options: ['Increase a lot', 'Increase a little', 'Stay about the same', 'Decrease', 'Not sure'] },
-    { id: 'gap', type: 'text', section: 'Your view', optional: true,
-      q: 'Is there anything about GenAI in fashion marketing that people aren’t talking about enough?',
-      help: 'Opportunities, worries, things you’ve seen go right or wrong. This is the most useful bit for the research.',
+    { id: 'quote', type: 'text', section: 'In your words', optional: true,
+      q: 'In a sentence or two, how has GenAI changed marketing where you work?',
+      help: 'This may be quoted anonymously in the dissertation.',
       placeholder: 'Type as much or as little as you like…' },
     { id: 'contact', type: 'email', section: 'Last one', optional: true,
       q: 'Happy to chat more, or want a copy of the findings?',
-      help: 'Leave your email and I’ll be in touch. It’s kept separate from your answers in the write-up and never shared.',
+      help: 'Leave your email and I’ll be in touch. It’s kept separate from your answers and never shared.',
       placeholder: 'you@example.com' }
   ];
 
@@ -213,7 +194,7 @@
         <h1 class="sv-title" id="svQ" tabindex="-1">GenAI in<br>fashion <span>marketing</span></h1>
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is Generative AI (GenAI) being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
-        <ul class="sv-facts"><li>About 4 minutes</li><li>Anonymous</li></ul>
+        <ul class="sv-facts"><li>About 3 minutes</li><li>Anonymous</li></ul>
         <details class="sv-consent">
           <summary>How your answers are used</summary>
           <ul>
@@ -335,10 +316,10 @@
       const sync = e => {
         if (step.type === 'multi') {
           let vals = inputs.filter(i => i.checked).map(i => i.value);
-          // "Nothing really" can't sit alongside real barriers
-          if (vals.includes('Nothing really') && vals.length > 1) {
+          // A "none" answer can't sit alongside real ones
+          if (step.none && vals.includes(step.none) && vals.length > 1) {
             const last = e && e.target && e.target.value;
-            vals = last === 'Nothing really' ? ['Nothing really'] : vals.filter(v => v !== 'Nothing really');
+            vals = last === step.none ? [step.none] : vals.filter(v => v !== step.none);
             inputs.forEach(i => { i.checked = vals.includes(i.value); });
           }
           state.answers[step.id] = vals;
@@ -504,6 +485,13 @@
       if (s.type === 'email') { if (v && v.trim()) out.email = v.trim(); return; }
       out[s.id] = Array.isArray(v) ? v.join('; ') : (v || '');
       if (s.other && a[s.id + '_other']) out[s.id + '_other'] = a[s.id + '_other'].trim();
+      if (s.toe) {
+        const n = { T: 0, O: 0, E: 0 };
+        (v || []).forEach(o => { if (s.toe[o]) n[s.toe[o]]++; });
+        out[`${s.id}_technological`] = n.T;
+        out[`${s.id}_organisational`] = n.O;
+        out[`${s.id}_environmental`] = n.E;
+      }
     });
     return out;
   }
@@ -543,7 +531,7 @@
   /* ── Share (end screen) ── */
   async function share() {
     const url = location.origin + location.pathname;
-    const data = { title: 'GenAI in fashion marketing survey', text: 'A 4-minute anonymous survey for fashion marketers on how GenAI is really being used.', url };
+    const data = { title: 'GenAI in fashion marketing survey', text: 'A 3-minute anonymous survey for fashion marketers on how GenAI is really being used.', url };
     const msg = document.getElementById('svShareMsg');
     try {
       if (navigator.share) { await navigator.share(data); return; }
