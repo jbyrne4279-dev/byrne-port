@@ -146,6 +146,10 @@
   margin: 14px 0 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--sv-accent);
   font: 500 clamp(17px, 2.6vw, 20px)/1.45 var(--font-serif); color: var(--sv-label);
 }
+/* Research question gently fades in and out */
+.sv-rq { animation: sv-breathe 4.5s ease-in-out infinite; }
+@keyframes sv-breathe { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .sv-rq { animation: none; } }
 
 /* Consent: a big, obvious tap target that must be ticked to start */
 .sv-agree {
