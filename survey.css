@@ -226,3 +226,6 @@
 /* The site's global styles centre text; forms scan faster left-aligned */
 .sv-form, .sv-opt__box, .sv-stmt legend { text-align: left; }
 .sv-end { text-align: center; }
+
+/* Intro heading sits centred above the left-aligned content */
+.sv-hero .sv-eyebrow, .sv-hero .sv-title { text-align: center; }
