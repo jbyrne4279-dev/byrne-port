@@ -209,23 +209,23 @@
 
   function renderIntro() {
     return `<div class="sv-hero">
-        <p class="sv-eyebrow">Research survey &middot; BA Fashion Business &amp; Marketing</p>
+        <p class="sv-eyebrow">University dissertation survey</p>
         <h1 class="sv-title" id="svQ" tabindex="-1">GenAI in<br>fashion <span>marketing</span></h1>
-        <p class="sv-lede">I’m researching how fashion marketers are actually using generative AI: what’s working, what isn’t, and what nobody’s talking about yet. If you work in fashion marketing, your answers fill the gaps that published research misses.</p>
-        <ul class="sv-facts"><li>About 4 minutes</li><li>Anonymous</li><li>One question at a time</li></ul>
+        <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
+        <blockquote class="sv-rq">How is Generative AI (GenAI) being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
+        <ul class="sv-facts"><li>About 4 minutes</li><li>Anonymous</li></ul>
         <details class="sv-consent">
           <summary>How your answers are used</summary>
           <ul>
-            <li>This is part of my final-year research project at university.</li>
-            <li>Taking part is voluntary and you can stop at any point. Nothing is sent until you finish.</li>
-            <li>No names are collected. Answers are only reported in grouped, anonymous form.</li>
-            <li>The optional email at the end is kept separate from your answers and deleted once the project is marked.</li>
-            <li>Questions? Email <a href="mailto:jbyrne4279@gmail.com">jbyrne4279@gmail.com</a>.</li>
+            <li>Taking part is voluntary. Nothing is sent until you finish.</li>
+            <li>No names are collected. Answers are only reported anonymously.</li>
+            <li>Questions? <a href="mailto:jbyrne4279@gmail.com">jbyrne4279@gmail.com</a></li>
           </ul>
         </details>
-        <label class="sv-agree">
+        <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
           <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
-          <span>I’m 18 or over and I’m happy for my anonymous answers to be used in this research.</span>
+          <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="sv-agree__text"><b>Tick to agree</b>I’m 18 or over and happy for my anonymous answers to be used in this research.</span>
         </label>
         <button type="button" class="sv-btn" id="svStart"${A().consent ? '' : ' disabled'}>${state.history.length ? 'Pick up where I left off' : 'Start the survey'}</button>
       </div>`;
@@ -306,7 +306,12 @@
     if (step.type === 'intro') {
       const consent = document.getElementById('svConsent');
       const start = document.getElementById('svStart');
-      consent.addEventListener('change', () => { state.answers.consent = consent.checked; start.disabled = !consent.checked; save(); });
+      consent.addEventListener('change', () => {
+        state.answers.consent = consent.checked;
+        start.disabled = !consent.checked;
+        document.getElementById('svAgree').classList.toggle('is-on', consent.checked);
+        save();
+      });
       start.addEventListener('click', () => {
         if (!state.started) state.started = Date.now();
         // Resume at the furthest step reached, otherwise begin

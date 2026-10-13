@@ -138,9 +138,33 @@
 .sv-consent summary { cursor: pointer; font-weight: 600; color: var(--sv-label); }
 .sv-consent ul { margin: 10px 0 0; padding-left: 18px; list-style: disc; }
 .sv-consent li + li { margin-top: 4px; }
-.sv-agree { display: flex; align-items: flex-start; gap: 12px; margin-top: 16px; cursor: pointer; font-size: 15px; line-height: 1.5; color: var(--sv-label); }
-.sv-agree input { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; accent-color: var(--sv-accent); cursor: pointer; }
-.sv-hero .sv-btn { margin-top: 26px; width: 100%; }
+.sv-rq {
+  margin: 14px 0 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--sv-accent);
+  font: 500 clamp(17px, 2.6vw, 20px)/1.45 var(--font-serif); color: var(--sv-label);
+}
+
+/* Consent: a big, obvious tap target that must be ticked to start */
+.sv-agree {
+  position: relative; display: flex; align-items: center; gap: 16px; margin-top: 22px; padding: 18px;
+  border-radius: 16px; border: 2px dashed var(--sv-accent); background: var(--sv-accent-soft);
+  cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color .2s, background .2s;
+}
+.sv-agree input { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.sv-agree__box {
+  flex-shrink: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px;
+  border: 2px solid var(--sv-accent); background: #000; color: #fff;
+  animation: sv-nudge 1.8s ease-in-out infinite;
+}
+.sv-agree__box svg { width: 24px; height: 24px; opacity: 0; transform: scale(.5); transition: opacity .15s, transform .2s var(--ease-out); }
+.sv-agree__text { font-size: 15px; line-height: 1.45; color: var(--sv-label-2); }
+.sv-agree__text b { display: block; margin-bottom: 2px; font-size: 16px; color: var(--sv-label); }
+.sv-agree input:focus-visible ~ .sv-agree__box { outline: 2px solid #fff; outline-offset: 3px; }
+.sv-agree.is-on { border-style: solid; }
+.sv-agree.is-on .sv-agree__box { background: var(--sv-accent); animation: none; }
+.sv-agree.is-on .sv-agree__box svg { opacity: 1; transform: none; }
+@keyframes sv-nudge { 50% { box-shadow: 0 0 0 6px rgba(224,20,60,.25); } }
+@media (prefers-reduced-motion: reduce) { .sv-agree__box { animation: none; } }
+.sv-hero .sv-btn { margin-top: 18px; width: 100%; }
 
 .sv-end { text-align: center; padding-top: 6vh; }
 .sv-end__mark {
