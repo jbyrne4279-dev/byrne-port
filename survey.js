@@ -9,6 +9,8 @@
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v2';
+  // Bump with each change so responses show which version of the page sent them
+  const SURVEY_VERSION = '10 (readable answers)';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -489,6 +491,7 @@
     const a = A();
     const out = {
       _subject: 'GenAI survey response',
+      'Survey version': SURVEY_VERSION,
       'Consent given': a.consent ? 'Yes' : 'No',
       'Submitted at': new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
       'Time taken': state.started ? `${Math.max(1, Math.round((Date.now() - state.started) / 1000))} seconds` : '',
