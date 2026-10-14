@@ -16,7 +16,7 @@
   <meta name="description" content="Joe's weekly timetable.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="schedule.css?v=2">
+  <link rel="stylesheet" href="schedule.css?v=3">
 </head>
 <body class="is-locked">
   <!-- Passcode screen -->
@@ -58,7 +58,8 @@
       </button>
     </header>
 
-    <section class="sc-now" id="scNow" aria-live="polite" aria-label="Now and next"></section>
+    <section class="sc-now" id="scNow" aria-label="Now and next"></section>
+    <p class="sc-sr" id="scStatus" role="status" aria-live="polite"></p>
 
     <div class="sc-seg" role="group" aria-label="View">
       <button type="button" id="scViewDay" aria-pressed="true">Day</button>
@@ -67,7 +68,7 @@
 
     <div id="scDayPane">
       <nav class="sc-strip" id="scStrip" role="tablist" aria-label="Choose a day"></nav>
-      <section class="sc-agenda" id="scAgenda" role="tabpanel" aria-live="polite"></section>
+      <section class="sc-agenda" id="scAgenda" role="tabpanel"></section>
       <p class="sc-hint">Swipe left or right to change day</p>
     </div>
 
@@ -82,6 +83,6 @@
   </main>
 
   <script src="schedule-vault.js?v=1"></script>
-  <script src="schedule.js?v=2"></script>
+  <script src="schedule.js?v=3"></script>
 </body>
 </html>

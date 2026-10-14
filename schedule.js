@@ -140,7 +140,7 @@ function initSchedule(data) {
   const els = {
     date: $('scDate'), now: $('scNow'), strip: $('scStrip'), agenda: $('scAgenda'),
     week: $('scWeek'), totals: $('scTotals'), dayPane: $('scDayPane'), weekPane: $('scWeekPane'),
-    viewDay: $('scViewDay'), viewWeek: $('scViewWeek')
+    viewDay: $('scViewDay'), viewWeek: $('scViewWeek'), status: $('scStatus')
   };
   if (!els.agenda) return;
 
@@ -176,6 +176,14 @@ function initSchedule(data) {
                              .sort((a, b) => a.s - b.s || b.e - a.e);
   const isRest = d => REST_DAYS.includes(d);
 
+  // Real minutes from `t` until a wall-clock time today (stays right on the
+  // nights the clocks change, when minutes-since-midnight would be an hour out)
+  function minsUntil(t, min) {
+    const at = new Date(t);
+    at.setHours(Math.floor(min / 60), min % 60, 0, 0);
+    return Math.ceil((at - t) / 60000);
+  }
+
   // Calendar dates for this Monday–Sunday
   function weekDates(today) {
     const monday = new Date(today);
@@ -186,10 +194,20 @@ function initSchedule(data) {
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+  // Only touch the DOM when the markup actually changes, so screen readers and
+  // keyboard focus aren't disturbed by the background refresh
+  function setHTML(el, html) {
+    if (el.dataset.html === html) return false;
+    el.dataset.html = html;
+    el.innerHTML = html;
+    return true;
+  }
+
   /* ── State ── */
   let today = new Date();
   let selected = dayIndex(today);
   let view = 'day';
+  let lastAnnounce = '';
   try { if (localStorage.getItem(VIEW_KEY) === 'week') view = 'week'; } catch (e) {}
 
   /* ── Now / next card ── */
@@ -199,49 +217,73 @@ function initSchedule(data) {
     const todays = events(di);
     // If two things overlap (lunch during uni), show the one that started last
     const current = todays.filter(e => n >= e.s && n < e.e).sort((a, b) => b.s - a.s)[0];
+    let html, kind, announce;
 
     if (current) {
-      const pct = Math.round(((n - current.s) / (current.e - current.s)) * 100);
-      els.now.style.setProperty('--kind', current.k.color);
-      els.now.innerHTML = `
+      const left = minsUntil(t, current.e);
+      const total = minsUntil(t, current.e) - minsUntil(t, current.s);
+      const pct = Math.min(100, Math.max(0, Math.round(((total - left) / total) * 100)));
+      kind = current.k.color;
+      announce = `Happening now: ${current.k.label}, until ${clock(current.e)}`;
+      html = `
         <p class="sc-now__label"><span class="sc-live" aria-hidden="true"></span>Happening now</p>
         <p class="sc-now__title">${esc(current.k.label)}</p>
-        <p class="sc-now__meta">${range(current.s, current.e)} · ${countdown(current.e - n)} left</p>
-        <div class="sc-now__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="${esc(current.k.label)} progress"><i style="width:${pct}%"></i></div>`;
-      return;
+        <p class="sc-now__meta">${range(current.s, current.e)} · ${countdown(left)} left</p>
+        <div class="sc-now__bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
+    } else {
+      // Next thing today, otherwise the first thing on the next busy day
+      let next = todays.find(e => e.s > n), when = 'today', offset = 0;
+      for (let i = 1; !next && i <= 7; i++) {
+        const list = events((di + i) % 7);
+        if (list.length) { next = list[0]; offset = i; when = i === 1 ? 'tomorrow' : DAY_LONG[(di + i) % 7]; }
+      }
+      if (!next) {
+        html = '<p class="sc-now__title">Nothing planned</p>';
+        announce = 'Nothing planned';
+      } else {
+        kind = next.k.color;
+        const free = isRest(di) && todays.every(e => e.k.routine) ? 'Rest day. ' : todays.length && todays.every(e => e.e <= n) ? 'All done for today. ' : '';
+        const whenText = offset === 0 ? clock(next.s) : `${when[0].toUpperCase() + when.slice(1)} · ${clock(next.s)}`;
+        announce = `Up next: ${next.k.label}, ${offset === 0 ? 'today' : when} at ${clock(next.s)}`;
+        html = `
+          <p class="sc-now__label">${free}Up next</p>
+          <p class="sc-now__title">${esc(next.k.label)}</p>
+          <p class="sc-now__meta">${offset === 0 ? `${whenText} · in ${countdown(minsUntil(t, next.s))}` : whenText}</p>`;
+      }
     }
 
-    // Next thing today, otherwise the first thing on the next busy day
-    let next = todays.find(e => e.s > n), when = 'today', offset = 0;
-    for (let i = 1; !next && i <= 7; i++) {
-      const list = events((di + i) % 7);
-      if (list.length) { next = list[0]; offset = i; when = i === 1 ? 'tomorrow' : DAY_LONG[(di + i) % 7]; }
+    if (kind) els.now.style.setProperty('--kind', kind);
+    setHTML(els.now, html);
+    // Announce only when the activity itself changes, not every countdown tick
+    if (announce !== lastAnnounce) {
+      if (lastAnnounce) els.status.textContent = announce;
+      lastAnnounce = announce;
     }
-    if (!next) { els.now.innerHTML = '<p class="sc-now__title">Nothing planned</p>'; return; }
-
-    els.now.style.setProperty('--kind', next.k.color);
-    const free = isRest(di) && todays.every(e => e.k.routine) ? 'Rest day. ' : todays.length && todays.every(e => e.e <= n) ? 'All done for today. ' : '';
-    const inMins = offset === 0 ? next.s - n : null;
-    els.now.innerHTML = `
-      <p class="sc-now__label">${free}Up next</p>
-      <p class="sc-now__title">${esc(next.k.label)}</p>
-      <p class="sc-now__meta">${offset === 0 ? `${clock(next.s)} · in ${countdown(inMins)}` : `${when[0].toUpperCase() + when.slice(1)} · ${clock(next.s)}`}</p>`;
   }
 
-  /* ── Day strip ── */
-  function renderStrip() {
+  /* ── Day strip (built once a day, then updated in place to keep focus) ── */
+  function buildStrip() {
     const dates = weekDates(today), ti = dayIndex(today);
     els.strip.innerHTML = dates.map((d, i) => {
       const dots = [...new Set(events(i).filter(e => !e.k.routine).map(e => e.k.color))]
         .map(c => `<i style="background:${c}"></i>`).join('');
-      return `<button type="button" role="tab" class="sc-day${i === selected ? ' is-on' : ''}${i === ti ? ' is-today' : ''}"
-          aria-selected="${i === selected}" aria-controls="scAgenda" data-day="${i}"
+      return `<button type="button" role="tab" class="sc-day${i === ti ? ' is-today' : ''}"
+          aria-controls="scAgenda" data-day="${i}"
           aria-label="${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${i === ti ? ', today' : ''}">
-          <span class="sc-day__name">${DAY_SHORT[i][0]}</span>
-          <span class="sc-day__num">${d.getDate()}</span>
+          <span class="sc-day__name" aria-hidden="true">${DAY_SHORT[i][0]}</span>
+          <span class="sc-day__num" aria-hidden="true">${d.getDate()}</span>
           <span class="sc-day__dots" aria-hidden="true">${dots}</span>
         </button>`;
     }).join('');
+    updateStrip();
+  }
+  function updateStrip() {
+    els.strip.querySelectorAll('[data-day]').forEach(b => {
+      const on = Number(b.dataset.day) === selected;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-selected', on);
+      b.tabIndex = on ? 0 : -1;               // roving tabindex: arrows move between days
+    });
   }
 
   /* ── Day agenda ── */
@@ -260,21 +302,23 @@ function initSchedule(data) {
           <p class="sc-empty__sub">No training, no uni. Recover and recharge.</p>
         </div>`
       : '';
+    let html;
     if (!list.length) {
-      els.agenda.innerHTML = head + (rest || '<div class="sc-empty"><p class="sc-empty__title">Nothing planned</p></div>');
+      html = head + (rest || '<div class="sc-empty"><p class="sc-empty__title">Nothing planned</p></div>');
     } else {
-      els.agenda.innerHTML = head + rest + '<ol class="sc-list">' + list.map(e => {
+      html = head + rest + '<ol class="sc-list">' + list.map(e => {
         const state = isToday ? (n >= e.e ? ' is-past' : n >= e.s ? ' is-now' : '') : '';
         return `<li class="sc-item${state}${e.k.routine ? ' is-routine' : ''}" style="--kind:${e.k.color}">
             <div class="sc-item__time"><b>${clock(e.s)}</b><span>${clock(e.e)}</span></div>
             <div class="sc-item__card">
-              <p class="sc-item__title">${esc(e.k.label)}${state === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}</p>
+              <p class="sc-item__title">${esc(e.k.label)}${state === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${state === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
               <p class="sc-item__meta">${range(e.s, e.e)} · ${duration(e.e - e.s)}${e.flex ? ' · flexible' : ''}</p>
             </div>
           </li>`;
       }).join('') + '</ol>';
     }
-    if (dir) {
+    const changed = setHTML(els.agenda, html);
+    if (dir && changed) {
       els.agenda.classList.remove('slide-l', 'slide-r');
       void els.agenda.offsetWidth;
       els.agenda.classList.add(dir === 1 ? 'slide-l' : 'slide-r');
@@ -284,25 +328,30 @@ function initSchedule(data) {
   /* ── Week view ── */
   function renderWeek() {
     const dates = weekDates(today), ti = dayIndex(today), n = nowMin(new Date());
-    els.week.innerHTML = dates.map((d, i) => {
+    const html = dates.map((d, i) => {
       const list = events(i);
-      const rows = list.length
-        ? list.map(e => {
-            const past = i < ti || (i === ti && n >= e.e);
-            return `<li class="sc-row${past ? ' is-past' : ''}${e.k.routine ? ' is-routine' : ''}" style="--kind:${e.k.color}">
-                <span class="sc-row__time">${range(e.s, e.e)}</span>
-                <span class="sc-row__title">${esc(e.k.label)}</span>
-              </li>`;
-          }).join('')
-        : '';
+      const rows = list.map(e => {
+        // Only today's finished items are "done"; earlier days repeat next week
+        const past = i === ti && n >= e.e;
+        return `<li class="sc-row${past ? ' is-past' : ''}${e.k.routine ? ' is-routine' : ''}${e.flex ? ' is-flex' : ''}" style="--kind:${e.k.color}">
+            <span class="sc-row__time">${range(e.s, e.e)}</span>
+            <span class="sc-row__title">${esc(e.k.label)}${e.flex ? '<span class="sc-row__flex">flexible</span>' : ''}</span>
+          </li>`;
+      }).join('');
       const restRow = isRest(i) ? '<li class="sc-row sc-row--rest"><span class="sc-row__title">Rest day</span></li>' : '';
       return `<section class="sc-wday${i === ti ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
-          <button type="button" class="sc-wday__head" data-day="${i}">
+          <button type="button" class="sc-wday__head" data-day="${i}" aria-label="Open ${DAY_LONG[i]}">
             <span>${DAY_LONG[i]}</span><span class="sc-wday__date">${i === ti ? 'Today · ' : ''}${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</span>
           </button>
           <ul class="sc-rows">${restRow}${rows || (restRow ? '' : '<li class="sc-row sc-row--rest"><span class="sc-row__title">Free</span></li>')}</ul>
         </section>`;
     }).join('');
+    // Keep keyboard focus on the same day header if the list is redrawn
+    const focused = els.week.contains(document.activeElement) && document.activeElement.dataset.day;
+    if (setHTML(els.week, html) && focused) {
+      const again = els.week.querySelector(`[data-day="${focused}"]`);
+      if (again) again.focus({ preventScroll: true });
+    }
   }
 
   /* ── Weekly totals ── */
@@ -310,9 +359,9 @@ function initSchedule(data) {
     const mins = {};
     WEEK.forEach((day, i) => events(i).filter(e => !e.k.routine).forEach(e => { mins[e.kind] = (mins[e.kind] || 0) + (e.e - e.s); }));
     const fmt = m => (m % 60 ? (m / 60).toFixed(1) : m / 60) + 'h';
-    els.totals.innerHTML = Object.keys(KINDS).filter(k => mins[k]).map(k =>
+    setHTML(els.totals, Object.keys(KINDS).filter(k => mins[k]).map(k =>
       `<li style="--kind:${KINDS[k].color}"><span class="sc-total__label">${KINDS[k].label}</span><b>${fmt(mins[k])}</b></li>`
-    ).join('');
+    ).join(''));
   }
 
   /* ── View switching ── */
@@ -325,12 +374,13 @@ function initSchedule(data) {
     els.viewDay.setAttribute('aria-pressed', day);
     els.viewWeek.setAttribute('aria-pressed', !day);
     document.body.dataset.view = v;
+    if (day) renderAgenda(); else renderWeek();
   }
 
   function selectDay(i, dir) {
-    if (i < 0 || i > 6) return;
+    if (i < 0 || i > 6 || i === selected) return;
     selected = i;
-    renderStrip();
+    updateStrip();
     renderAgenda(dir);
   }
 
@@ -338,25 +388,23 @@ function initSchedule(data) {
     const b = e.target.closest('[data-day]');
     if (!b) return;
     const i = Number(b.dataset.day);
-    if (i !== selected) selectDay(i, i > selected ? 1 : -1);
+    selectDay(i, i > selected ? 1 : -1);
   });
-  // Arrow keys move between days in the strip
+  // Arrow keys (and Home/End) move between days in the strip
   els.strip.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const moves = { ArrowRight: selected + 1, ArrowLeft: selected - 1, Home: 0, End: 6 };
+    if (!(e.key in moves)) return;
     e.preventDefault();
-    const dir = e.key === 'ArrowRight' ? 1 : -1;
-    const i = Math.min(6, Math.max(0, selected + dir));
-    if (i === selected) return;
-    selectDay(i, dir);
+    const i = Math.min(6, Math.max(0, moves[e.key]));
+    selectDay(i, i > selected ? 1 : -1);
     els.strip.querySelector(`[data-day="${i}"]`).focus();
   });
   els.week.addEventListener('click', e => {
     const b = e.target.closest('[data-day]');
     if (!b) return;
     selected = Number(b.dataset.day);
+    updateStrip();
     setView('day');
-    renderStrip();
-    renderAgenda();
     window.scrollTo({ top: 0 });
   });
   els.viewDay.addEventListener('click', () => setView('day'));
@@ -377,16 +425,14 @@ function initSchedule(data) {
     const d = today;
     els.date.textContent = `${DAY_LONG[dayIndex(d)]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
     renderNow();
-    renderStrip();
-    renderAgenda();
-    renderWeek();
+    buildStrip();
     renderTotals();
+    setView(view);
   }
 
-  setView(view);
   renderAll();
 
-  // Tick every 30s; if the day has rolled over, jump to the new day
+  // Refresh on each minute boundary; if the day has rolled over, jump to it
   function tick() {
     const t = new Date();
     if (t.toDateString() !== today.toDateString()) {
@@ -396,9 +442,9 @@ function initSchedule(data) {
       return;
     }
     renderNow();
-    if (selected === dayIndex(today)) renderAgenda();
-    renderWeek();
+    if (view === 'day') { if (selected === dayIndex(today)) renderAgenda(); }
+    else renderWeek();
   }
-  setInterval(tick, 30000);
+  setTimeout(() => { tick(); setInterval(tick, 60000); }, 60000 - (Date.now() % 60000) + 50);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
 }
