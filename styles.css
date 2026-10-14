@@ -2787,6 +2787,16 @@ h1, h2, h3, h4 {
   animation: blink 2s step-start infinite;
 }
 
+/* Private, passcode-protected timetable link */
+.footer__private {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: max-content; min-height: 40px; margin: 22px auto 0; padding: 0 18px;
+  border: 1px solid var(--border-2); border-radius: 999px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-2); transition: color 0.2s, border-color 0.2s;
+}
+.footer__private:hover { color: var(--red); border-color: var(--border-r); }
+
 /* ── KEYFRAMES ── */
 @keyframes fadeUp {
   to { opacity: 1; transform: translateY(0); }
