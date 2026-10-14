@@ -43,6 +43,10 @@ async function keyFor(p, salt, iterations) {
 function validate(data) {
   const ok = data && data.kinds && Array.isArray(data.week) && data.week.length === 7 && Array.isArray(data.rest);
   if (!ok) throw new Error('week.json needs kinds, rest and a 7-day week array');
+  Object.entries(data.kinds).forEach(([id, k]) => {
+    if (typeof k.label !== 'string' || !k.label.trim()) throw new Error(`Kind "${id}": label must be text`);
+    if (!/^#[0-9a-f]{6}$/i.test(k.color)) throw new Error(`Kind "${id}": colour must be #rrggbb`);
+  });
   data.week.forEach((day, d) => day.forEach(e => {
     if (!data.kinds[e.kind]) throw new Error(`Day ${d}: unknown kind "${e.kind}"`);
     if (!/^\d\d:\d\d$/.test(e.start) || !/^\d\d:\d\d$/.test(e.end) || e.end <= e.start) throw new Error(`Day ${d}: bad time ${e.start}–${e.end}`);

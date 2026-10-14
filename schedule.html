@@ -16,7 +16,7 @@
   <meta name="description" content="Joe's weekly timetable.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="schedule.css?v=3">
+  <link rel="stylesheet" href="schedule.css?v=4">
 </head>
 <body class="is-locked">
   <!-- Passcode screen -->
@@ -26,6 +26,7 @@
       <h1 class="sc-lock__title" id="scLockTitle">Enter passcode</h1>
       <div class="sc-dots" id="scDots" aria-hidden="true"></div>
       <p class="sc-lock__msg" id="scLockMsg" role="status" aria-live="assertive"></p>
+      <p class="sc-sr" id="scLockSR" aria-live="polite"></p>
       <div class="sc-pad" id="scPad" aria-label="Number pad">
         <button type="button" data-k="1">1</button>
         <button type="button" data-k="2">2</button>
@@ -50,7 +51,7 @@
     <header class="sc-head">
       <div>
         <p class="sc-head__date" id="scDate"></p>
-        <h1 class="sc-head__title">My week</h1>
+        <h1 class="sc-head__title" tabindex="-1">My week</h1>
       </div>
       <button type="button" class="sc-head__lock" id="scLockBtn" aria-label="Lock timetable on this device">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
@@ -83,6 +84,6 @@
   </main>
 
   <script src="schedule-vault.js?v=1"></script>
-  <script src="schedule.js?v=3"></script>
+  <script src="schedule.js?v=4"></script>
 </body>
 </html>

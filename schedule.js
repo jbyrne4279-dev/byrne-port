@@ -11,6 +11,11 @@
    The passcode is never stored in the code: it derives the key that
    decrypts the vault, so a wrong code simply fails to decrypt. */
 (function initLock() {
+  // The browser only unlocks over https, so move plain-http visits across
+  if (location.protocol === 'http:' && !/^(localhost|127\.|\[::1\])/.test(location.hostname)) {
+    location.replace('https:' + location.href.slice(5));
+    return;
+  }
   const vault = window.SCHEDULE_VAULT;
   const KEY_STORE = 'jb-schedule-key';
   const lock = document.getElementById('scLock');
@@ -18,7 +23,17 @@
   const dotsEl = document.getElementById('scDots');
   const msg = document.getElementById('scLockMsg');
   const pad = document.getElementById('scPad');
-  if (!vault || !lock || !app) return;
+  const sr = document.getElementById('scLockSR');
+  if (!lock || !app) return;
+
+  // Show the lock screen with a message instead of the keypad
+  function fail(text) {
+    lock.hidden = false;
+    pad.hidden = true;
+    dotsEl.hidden = true;
+    msg.textContent = text;
+  }
+  if (!vault) { fail('Couldn’t load the timetable. Check your connection and reload.'); return; }
 
   const { subtle } = window.crypto || {};
   const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -41,36 +56,43 @@
       base, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
   }
 
-  function open(data) {
+  function open(data, focus) {
     lock.hidden = true;
     app.hidden = false;
     document.body.classList.remove('is-locked');
     initSchedule(data);
+    // Keyboard / screen-reader focus lands on the page title, not <body>
+    if (focus) app.querySelector('.sc-head__title').focus({ preventScroll: true });
   }
 
-  function paint() {
+  function paint(announce) {
     dots.forEach((d, i) => d.classList.toggle('is-on', i < entry.length));
+    if (announce && sr) sr.textContent = `${entry.length} of ${LEN} digits entered`;
   }
 
   async function submit() {
     busy = true;
     msg.textContent = 'Unlocking…';
+    let data, key;
     try {
-      const key = await keyFromPin(entry);
-      const data = await decryptWith(key);
+      key = await keyFromPin(entry);
+      data = await decryptWith(key);
+    } catch (e) { data = null; }
+    if (data) {
       // Remember this device so the code isn't needed every visit
       try { localStorage.setItem(KEY_STORE, b64(await subtle.exportKey('raw', key))); } catch (e) {}
       msg.textContent = '';
-      open(data);
-    } catch (e) {
-      msg.textContent = 'Wrong passcode';
-      dotsEl.classList.remove('is-wrong');
-      void dotsEl.offsetWidth;
-      dotsEl.classList.add('is-wrong');
-      if (navigator.vibrate) navigator.vibrate(120);
-      entry = '';
-      paint();
+      busy = false;
+      open(data, true);
+      return;
     }
+    msg.textContent = 'Wrong passcode';
+    dotsEl.classList.remove('is-wrong');
+    void dotsEl.offsetWidth;
+    dotsEl.classList.add('is-wrong');
+    if (navigator.vibrate) navigator.vibrate(120);
+    entry = '';
+    paint();
     busy = false;
   }
 
@@ -79,7 +101,7 @@
     if (k === 'del') entry = entry.slice(0, -1);
     else if (/^\d$/.test(k) && entry.length < LEN) entry += k;
     if (entry.length && msg.textContent === 'Wrong passcode') msg.textContent = '';
-    paint();
+    paint(true);
     if (entry.length === LEN) submit();
   }
 
@@ -99,7 +121,7 @@
   });
 
   if (!subtle) {
-    msg.textContent = 'This browser can’t unlock the timetable. Try Safari or Chrome.';
+    fail('This page needs a secure (https) connection to unlock. Open it from josephbyrne.org/schedule.');
     return;
   }
 
@@ -108,14 +130,15 @@
     let saved = null;
     try { saved = localStorage.getItem(KEY_STORE); } catch (e) {}
     if (saved) {
+      let data = null;
       try {
         const key = await subtle.importKey('raw', unb64(saved), 'AES-GCM', false, ['decrypt']);
-        open(await decryptWith(key));
-        return;
+        data = await decryptWith(key);
       } catch (e) {
         // Timetable re-encrypted or passcode changed: ask again
         try { localStorage.removeItem(KEY_STORE); } catch (err) {}
       }
+      if (data) { open(data); return; }
     }
     lock.hidden = false;
   })();
@@ -224,11 +247,11 @@ function initSchedule(data) {
       const total = minsUntil(t, current.e) - minsUntil(t, current.s);
       const pct = Math.min(100, Math.max(0, Math.round(((total - left) / total) * 100)));
       kind = current.k.color;
-      announce = `Happening now: ${current.k.label}, until ${clock(current.e)}`;
+      announce = `Happening now: ${current.k.label}${current.flex ? ' (flexible)' : ''}, until ${clock(current.e)}`;
       html = `
         <p class="sc-now__label"><span class="sc-live" aria-hidden="true"></span>Happening now</p>
         <p class="sc-now__title">${esc(current.k.label)}</p>
-        <p class="sc-now__meta">${range(current.s, current.e)} · ${countdown(left)} left</p>
+        <p class="sc-now__meta">${range(current.s, current.e)}${current.flex ? ' · flexible' : ''} · ${countdown(left)} left</p>
         <div class="sc-now__bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
     } else {
       // Next thing today, otherwise the first thing on the next busy day
@@ -243,8 +266,9 @@ function initSchedule(data) {
       } else {
         kind = next.k.color;
         const free = isRest(di) && todays.every(e => e.k.routine) ? 'Rest day. ' : todays.length && todays.every(e => e.e <= n) ? 'All done for today. ' : '';
-        const whenText = offset === 0 ? clock(next.s) : `${when[0].toUpperCase() + when.slice(1)} · ${clock(next.s)}`;
-        announce = `Up next: ${next.k.label}, ${offset === 0 ? 'today' : when} at ${clock(next.s)}`;
+        const flex = next.flex ? ' · flexible' : '';
+        const whenText = (offset === 0 ? clock(next.s) : `${when[0].toUpperCase() + when.slice(1)} · ${clock(next.s)}`) + flex;
+        announce = `Up next: ${next.k.label}${next.flex ? ' (flexible)' : ''}, ${offset === 0 ? 'today' : when} at ${clock(next.s)}`;
         html = `
           <p class="sc-now__label">${free}Up next</p>
           <p class="sc-now__title">${esc(next.k.label)}</p>
@@ -264,6 +288,7 @@ function initSchedule(data) {
   /* ── Day strip (built once a day, then updated in place to keep focus) ── */
   function buildStrip() {
     const dates = weekDates(today), ti = dayIndex(today);
+    const hadFocus = els.strip.contains(document.activeElement);
     els.strip.innerHTML = dates.map((d, i) => {
       const dots = [...new Set(events(i).filter(e => !e.k.routine).map(e => e.k.color))]
         .map(c => `<i style="background:${c}"></i>`).join('');
@@ -276,6 +301,7 @@ function initSchedule(data) {
         </button>`;
     }).join('');
     updateStrip();
+    if (hadFocus) els.strip.querySelector(`[data-day="${selected}"]`).focus({ preventScroll: true });
   }
   function updateStrip() {
     els.strip.querySelectorAll('[data-day]').forEach(b => {
@@ -335,12 +361,12 @@ function initSchedule(data) {
         const past = i === ti && n >= e.e;
         return `<li class="sc-row${past ? ' is-past' : ''}${e.k.routine ? ' is-routine' : ''}${e.flex ? ' is-flex' : ''}" style="--kind:${e.k.color}">
             <span class="sc-row__time">${range(e.s, e.e)}</span>
-            <span class="sc-row__title">${esc(e.k.label)}${e.flex ? '<span class="sc-row__flex">flexible</span>' : ''}</span>
+            <span class="sc-row__title">${esc(e.k.label)}${e.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${past ? '<span class="sc-sr">, done</span>' : ''}</span>
           </li>`;
       }).join('');
       const restRow = isRest(i) ? '<li class="sc-row sc-row--rest"><span class="sc-row__title">Rest day</span></li>' : '';
       return `<section class="sc-wday${i === ti ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
-          <button type="button" class="sc-wday__head" data-day="${i}" aria-label="Open ${DAY_LONG[i]}">
+          <button type="button" class="sc-wday__head" data-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${i === ti ? ', today' : ''}">
             <span>${DAY_LONG[i]}</span><span class="sc-wday__date">${i === ti ? 'Today · ' : ''}${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</span>
           </button>
           <ul class="sc-rows">${restRow}${rows || (restRow ? '' : '<li class="sc-row sc-row--rest"><span class="sc-row__title">Free</span></li>')}</ul>
@@ -360,7 +386,7 @@ function initSchedule(data) {
     WEEK.forEach((day, i) => events(i).filter(e => !e.k.routine).forEach(e => { mins[e.kind] = (mins[e.kind] || 0) + (e.e - e.s); }));
     const fmt = m => (m % 60 ? (m / 60).toFixed(1) : m / 60) + 'h';
     setHTML(els.totals, Object.keys(KINDS).filter(k => mins[k]).map(k =>
-      `<li style="--kind:${KINDS[k].color}"><span class="sc-total__label">${KINDS[k].label}</span><b>${fmt(mins[k])}</b></li>`
+      `<li style="--kind:${KINDS[k].color}"><span class="sc-total__label">${esc(KINDS[k].label)}</span><b>${fmt(mins[k])}</b></li>`
     ).join(''));
   }
 
@@ -406,6 +432,7 @@ function initSchedule(data) {
     updateStrip();
     setView('day');
     window.scrollTo({ top: 0 });
+    els.strip.querySelector(`[data-day="${selected}"]`).focus({ preventScroll: true });
   });
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
@@ -414,6 +441,7 @@ function initSchedule(data) {
   let sx = 0, sy = 0;
   els.dayPane.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
   els.dayPane.addEventListener('touchend', e => {
+    if (sx < 24 || sx > window.innerWidth - 24) return;   // leave screen-edge swipes to the browser
     const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
     if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
     const dir = dx < 0 ? 1 : -1;
@@ -445,6 +473,13 @@ function initSchedule(data) {
     if (view === 'day') { if (selected === dayIndex(today)) renderAgenda(); }
     else renderWeek();
   }
-  setTimeout(() => { tick(); setInterval(tick, 60000); }, 60000 - (Date.now() % 60000) + 50);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
+  let timer = null;
+  function schedule() {
+    clearTimeout(timer);
+    timer = setTimeout(() => { tick(); schedule(); }, 60000 - (Date.now() % 60000) + 50);
+  }
+  schedule();
+  function wake() { if (!document.hidden) { tick(); schedule(); } }
+  document.addEventListener('visibilitychange', wake);
+  window.addEventListener('pageshow', wake);
 }
