@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '17';
+  const SURVEY_VERSION = '18';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -58,9 +58,9 @@
     { id: 'barriers', type: 'multi', section: 'What shapes adoption', max: 3, none: 'Nothing really',
       q: 'What holds GenAI back most at your company?',
       help: 'Pick up to 3.',
-      options: ['Off-brand or low-quality output', 'Inaccurate results', 'Data privacy & security', 'Lack of skills or training', 'No clear strategy or policy', 'Cost', 'Copyright & regulation', 'Customer trust & ethics', 'Environmental impact', 'Nothing really', 'Other'],
+      options: ['Off-brand output', 'Inaccurate results', 'Data privacy', 'Lack of skills', 'No clear policy', 'Cost', 'Copyright', 'Customer trust', 'Environmental impact', 'Nothing really', 'Other'],
       other: 'Other',
-      toe: { 'Off-brand or low-quality output': 'T', 'Inaccurate results': 'T', 'Data privacy & security': 'T', 'Lack of skills or training': 'O', 'No clear strategy or policy': 'O', 'Cost': 'O', 'Copyright & regulation': 'E', 'Customer trust & ethics': 'E', 'Environmental impact': 'E' } },
+      toe: { 'Off-brand output': 'T', 'Inaccurate results': 'T', 'Data privacy': 'T', 'Lack of skills': 'O', 'No clear policy': 'O', 'Cost': 'O', 'Copyright': 'E', 'Customer trust': 'E', 'Environmental impact': 'E' } },
     { id: 'readiness', type: 'multi', section: 'What shapes adoption', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
