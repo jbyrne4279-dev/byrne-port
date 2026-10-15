@@ -678,6 +678,39 @@ h1, h2, h3, h4 {
   animation: fadeUp 0.8s var(--ease-out) 0.98s forwards;
 }
 
+/* Survey call-out under the hero buttons: fades in, then gently breathes */
+.hero__pill {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: 26px; padding: 8px 16px 8px 8px;
+  border: 1px solid var(--border-r); border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text);
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out) 1.3s forwards, pillBreathe 3.2s ease-in-out 2.1s infinite;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.hero__pill-new {
+  padding: 4px 9px; border-radius: 999px; background: var(--red); color: #fff;
+  box-shadow: 0 0 12px var(--red-glow);
+}
+.hero__pill-sub { color: var(--text-2); }
+.hero__pill svg { color: var(--red); transition: transform 0.2s var(--ease-out); }
+.hero__pill:hover {
+  border-color: var(--red); background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 22px var(--red-dim); animation: none; opacity: 1;
+}
+.hero__pill:hover svg { transform: translateX(3px); }
+.hero__pill:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+@keyframes pillBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+@media (max-width: 560px) {
+  .hero__pill { font-size: 9px; letter-spacing: 0.1em; gap: 9px; }
+  .hero__pill-sub { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__pill { animation: none; opacity: 1; }
+}
+
 .hero__scroll {
   position: absolute;
   bottom: 36px;
