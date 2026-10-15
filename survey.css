@@ -133,7 +133,7 @@
 .sv-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; }
 .sv-facts li {
   padding: 7px 12px; border-radius: 999px; border: 1px solid var(--sv-line-2);
-  font: 700 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sv-label-2);
+  font: 600 14px var(--sv-font-apple); letter-spacing: 0; text-transform: none; color: var(--sv-label-2);
 }
 .sv-consent {
   margin-top: 28px; padding: 18px; border-radius: 16px; border: 1px solid var(--sv-line); background: var(--sv-panel);
