@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '18';
+  const SURVEY_VERSION = '19';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -64,7 +64,7 @@
     { id: 'readiness', type: 'multi', section: 'What shapes adoption', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
-      options: ['A written GenAI policy', 'GenAI training for staff', 'A budget for GenAI tools', 'A GenAI lead or team', 'None of these', 'Not sure'] },
+      options: ['GenAI policy', 'Staff training', 'Tool budget', 'GenAI lead or team', 'None of these', 'Not sure'] },
 
     /* ── O4 Impact ── */
     { id: 'impact', type: 'likert', section: 'Impact', ends: AGREE_ENDS,
