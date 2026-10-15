@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '21';
+  const SURVEY_VERSION = '22';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -38,7 +38,7 @@
     { id: 'frequency', type: 'single', section: 'Your use of AI',
       q: 'How often do you use AI in your marketing workflow?',
       help: 'Think ChatGPT, Claude, Perplexity, Midjourney, Firefly, Copilot and similar.',
-      options: ['Every day', 'A few times a week', 'About weekly', 'Monthly or less', 'Never'] },
+      options: ['Every day', 'Sometimes', 'Never'] },
     { id: 'started', type: 'single', section: 'Your use of AI', columns: 2, when: notNever,
       q: 'When did you start using AI?',
       options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
