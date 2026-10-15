@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '19';
+  const SURVEY_VERSION = '20';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -35,28 +35,28 @@
       options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
 
     /* ── O1 Evolution + O2 Application ── */
-    { id: 'frequency', type: 'single', section: 'How you use GenAI',
-      q: 'How often do you use GenAI in your marketing workflow?',
+    { id: 'frequency', type: 'single', section: 'How you use AI',
+      q: 'How often do you use AI in your marketing workflow?',
       help: 'Think ChatGPT, Claude, Perplexity, Midjourney, Firefly, Copilot and similar.',
       options: ['Every day', 'A few times a week', 'About weekly', 'Monthly or less', 'Never'] },
-    { id: 'started', type: 'single', section: 'How you use GenAI', columns: 2, when: notNever,
-      q: 'When did you start using GenAI?',
+    { id: 'started', type: 'single', section: 'How you use AI', columns: 2, when: notNever,
+      q: 'When did you start using AI?',
       options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
-    { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
-      q: 'What do you use GenAI for?',
+    { id: 'tasks', type: 'multi', section: 'How you use AI', when: notNever,
+      q: 'What do you use AI for?',
       help: 'Select all that apply.',
       options: ['Copywriting', 'Social media posts', 'Email marketing', 'Ad creative', 'Images', 'Video', 'SEO', 'Campaign ideas', 'Research & insights', 'Data & reporting', 'Other'],
       other: 'Other' },
 
     /* ── O3 TOE factors ── */
     { id: 'drivers', type: 'multi', section: 'What shapes adoption', max: 3, when: notNever,
-      q: 'What has driven your company to use GenAI?',
+      q: 'What has driven your company to use AI?',
       help: 'Pick up to 3.',
-      options: ['Better, easier GenAI tools', 'Speed & efficiency gains', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs', 'Staff skills & enthusiasm', 'Competitors are using GenAI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing GenAI', 'Other'],
+      options: ['Better, easier AI tools', 'Speed & efficiency gains', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs', 'Staff skills & enthusiasm', 'Competitors are using AI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing AI', 'Other'],
       other: 'Other',
-      toe: { 'Better, easier GenAI tools': 'T', 'Speed & efficiency gains': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using GenAI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing GenAI': 'E' } },
+      toe: { 'Better, easier AI tools': 'T', 'Speed & efficiency gains': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using AI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing AI': 'E' } },
     { id: 'barriers', type: 'multi', section: 'What shapes adoption', max: 3, none: 'Nothing really',
-      q: 'What holds GenAI back most at your company?',
+      q: 'What holds AI back most at your company?',
       help: 'Pick up to 3.',
       options: ['Off-brand output', 'Inaccurate results', 'Data privacy', 'Lack of skills', 'No clear policy', 'Cost', 'Copyright', 'Customer trust', 'Environmental impact', 'Nothing really', 'Other'],
       other: 'Other',
@@ -64,27 +64,27 @@
     { id: 'readiness', type: 'multi', section: 'What shapes adoption', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
-      options: ['GenAI policy', 'Staff training', 'Tool budget', 'GenAI lead or team', 'None of these', 'Not sure'] },
+      options: ['AI policy', 'Staff training', 'Tool budget', 'AI lead or team', 'None of these', 'Not sure'] },
 
     /* ── O4 Impact ── */
     { id: 'impact', type: 'likert', section: 'Impact', ends: AGREE_ENDS,
       q: 'How much do you agree?',
       help: '1 is strongly disagree, 5 is strongly agree.',
       statements: [
-        ['productivity', 'GenAI has made our marketing team more productive.'],
-        ['content_quality', 'GenAI has improved the quality of our marketing.'],
-        ['personalisation', 'GenAI lets us create more personalised marketing.'],
-        ['authenticity_risk', 'GenAI risks weakening brand authenticity.'],
-        ['skills_change', 'GenAI is changing the skills marketers need.'],
-        ['fewer_roles', 'GenAI will lead to fewer marketing jobs.']
+        ['productivity', 'AI has made our marketing team more productive.'],
+        ['content_quality', 'AI has improved the quality of our marketing.'],
+        ['personalisation', 'AI lets us create more personalised marketing.'],
+        ['authenticity_risk', 'AI risks weakening brand authenticity.'],
+        ['skills_change', 'AI is changing the skills marketers need.'],
+        ['fewer_roles', 'AI will lead to fewer marketing jobs.']
       ] },
     { id: 'quote', type: 'text', section: 'In your words', optional: true,
-      q: 'In a sentence or two, how has GenAI changed marketing where you work?',
+      q: 'In a sentence or two, how has AI changed marketing where you work?',
       help: 'This may be quoted anonymously in the dissertation.',
       placeholder: 'Type as much or as little as you like…' },
     { id: 'contact', type: 'email', section: 'Last one', optional: true,
       q: 'Want to be part of my interview research?',
-      help: 'I’m running quick interviews on Microsoft Teams to discuss your ideas and views on GenAI in digital marketing in more depth. Leave your email and I’ll be in touch. Your email is kept separate from your survey answers and never shared.',
+      help: 'I’m running quick interviews on Microsoft Teams to discuss your ideas and views on AI in digital marketing in more depth. Leave your email and I’ll be in touch. Your email is kept separate from your survey answers and never shared.',
       placeholder: 'you@example.com' }
   ];
 
@@ -190,7 +190,7 @@
   function renderIntro() {
     return `<div class="sv-hero">
         <p class="sv-eyebrow">University dissertation survey</p>
-        <h1 class="sv-title" id="svQ" tabindex="-1">GenAI in<br>Fashion <span>Marketing</span></h1>
+        <h1 class="sv-title" id="svQ" tabindex="-1">AI in<br>Fashion <span>Marketing</span></h1>
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is Generative AI (GenAI) being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
         <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
@@ -488,7 +488,7 @@
   function payload() {
     const a = A();
     const out = {
-      _subject: 'GenAI survey response',
+      _subject: 'AI survey response',
       'Survey version': SURVEY_VERSION,
       'Consent given': a.consent ? 'Yes' : 'No',
       'Submitted at': new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
