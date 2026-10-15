@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '14';
+  const SURVEY_VERSION = '15';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -40,7 +40,7 @@
       help: 'Think ChatGPT, Claude, Perplexity, Midjourney, Firefly, Copilot and similar.',
       options: ['Every day', 'A few times a week', 'About weekly', 'Monthly or less', 'Never'] },
     { id: 'started', type: 'single', section: 'How you use GenAI', columns: 2, when: notNever,
-      q: 'When did your team start using GenAI?',
+      q: 'When did you start using GenAI?',
       options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
     { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
       q: 'What does your team use GenAI for?',
