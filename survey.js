@@ -8,9 +8,9 @@
 
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
-  const STORE_KEY = 'jb-genai-survey-v2';
+  const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '12';
+  const SURVEY_VERSION = '13';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -33,10 +33,6 @@
     { id: 'age', type: 'single', section: 'About you', columns: 2,
       q: 'How old are you?',
       options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
-    { id: 'location', type: 'single', section: 'About you', columns: 2,
-      q: 'Where in the UK are you based?',
-      help: 'Roughly is fine.',
-      options: ['North of England', 'Midlands', 'East of England', 'West of England', 'South of England', 'London', 'Scotland', 'Wales', 'Northern Ireland', 'Outside the UK'] },
 
     /* ── O1 Evolution + O2 Application ── */
     { id: 'frequency', type: 'single', section: 'How you use GenAI',
