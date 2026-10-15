@@ -191,7 +191,7 @@
   function renderIntro() {
     return `<div class="sv-hero">
         <p class="sv-eyebrow">University dissertation survey</p>
-        <h1 class="sv-title" id="svQ" tabindex="-1">AI in<br><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
+        <h1 class="sv-title" id="svQ" tabindex="-1"><span class="sv-title__ai">AI in</span><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is AI being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
         <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
@@ -657,4 +657,52 @@
   /* ── Go ── */
   // A returning visitor sees the intro with a "pick up where I left off" button
   show(0);
+})();
+
+/* ── Red mist rising from the bottom (same effect as the homepage hero) ── */
+(function initMist() {
+  const canvas = document.getElementById('svMist');
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  const PALETTE = ['216,20,40', '140,10,24'];
+  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const COUNT = Math.round(Math.max(18, canvas.height / 22));
+  function Particle(initial) {
+    this.reset = function (init) {
+      this.x = Math.random() * canvas.width;
+      this.y = init ? Math.random() * canvas.height : canvas.height + 60;
+      this.radius = 80 + Math.random() * 180;
+      this.opacity = 0;
+      this.maxOpacity = 0.14 + Math.random() * 0.16;
+      this.vy = -(0.15 + Math.random() * 0.4);
+      this.vx = (Math.random() - 0.5) * 0.25;
+      this.phase = Math.random() * Math.PI * 2;
+      this.growing = true;
+      this.color = Math.random() > 0.35 ? PALETTE[0] : PALETTE[1];
+    };
+    this.reset(initial);
+  }
+  const particles = Array.from({ length: COUNT }, () => new Particle(true));
+  ctx.globalCompositeOperation = 'lighter';
+
+  (function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.y += p.vy;
+      p.x += p.vx + Math.sin(p.phase) * 0.18;
+      p.phase += 0.004;
+      if (p.growing) { p.opacity = Math.min(p.opacity + 0.003, p.maxOpacity); if (p.opacity >= p.maxOpacity) p.growing = false; }
+      else p.opacity -= 0.0008;
+      if (p.opacity <= 0 || p.y < -p.radius * 2) p.reset(false);
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+      g.addColorStop(0, `rgba(${p.color},${p.opacity})`);
+      g.addColorStop(0.45, `rgba(${p.color},${p.opacity * 0.55})`);
+      g.addColorStop(1, `rgba(${p.color},0)`);
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  })();
 })();
