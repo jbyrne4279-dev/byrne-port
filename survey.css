@@ -132,7 +132,7 @@
 .sv-hero .sv-title .sv-title__line { display: block; color: inherit; white-space: nowrap; }
 .sv-hero .sv-title .sv-title__ai {
   display: block; margin-bottom: 6px; color: var(--sv-label);
-  font-size: 0.42em; font-weight: 600; letter-spacing: 0.02em;
+  font-size: 0.62em; font-weight: 700; letter-spacing: -0.01em;
 }
 .sv-hero .sv-title .sv-title__line span { color: var(--sv-accent); }
 .sv-lede { margin: 22px 0 0; font-size: clamp(16px, 2.4vw, 18px); line-height: 1.6; color: var(--sv-label-2); }
