@@ -191,7 +191,7 @@
   function renderIntro() {
     return `<div class="sv-hero">
         <p class="sv-eyebrow">University dissertation survey</p>
-        <h1 class="sv-title" id="svQ" tabindex="-1"><span class="sv-title__ai">AI in</span><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
+        <h1 class="sv-title" id="svQ" tabindex="-1"><span class="sv-title__ai">AI in<span class="sv-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
         <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
         <blockquote class="sv-rq">How is AI being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
         <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
