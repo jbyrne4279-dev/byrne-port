@@ -246,7 +246,7 @@
 .sv-end { text-align: center; }
 
 /* Intro heading sits centred above the left-aligned content */
-.sv-hero .sv-eyebrow, .sv-hero .sv-title { text-align: center; }
+.sv-hero .sv-eyebrow, .sv-hero .sv-title { text-align: left; }
 .sv-consent a { color: var(--sv-label); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Red mist rising from the bottom of the page */
