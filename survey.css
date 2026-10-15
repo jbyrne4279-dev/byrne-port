@@ -125,10 +125,12 @@
   margin-bottom: 10px; font: 600 15px/1.3 var(--sv-font-apple); letter-spacing: -0.01em; text-transform: none;
 }
 .sv-hero .sv-title {
-  margin: 0; font-family: var(--sv-font-apple); font-size: clamp(44px, 12.5vw, 84px); font-weight: 700;
+  margin: 0; font-family: var(--sv-font-apple); font-size: clamp(30px, 9vw, 76px); font-weight: 700;
   line-height: 1.03; letter-spacing: -0.035em; text-transform: none;
 }
 .sv-hero .sv-title span { color: var(--sv-accent); }
+.sv-hero .sv-title .sv-title__line { color: inherit; white-space: nowrap; }
+.sv-hero .sv-title .sv-title__line span { color: var(--sv-accent); }
 .sv-lede { margin: 22px 0 0; font-size: clamp(16px, 2.4vw, 18px); line-height: 1.6; color: var(--sv-label-2); }
 .sv-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; }
 .sv-facts li {
