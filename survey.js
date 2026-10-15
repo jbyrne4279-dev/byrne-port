@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '15';
+  const SURVEY_VERSION = '16';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -43,7 +43,7 @@
       q: 'When did you start using GenAI?',
       options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
     { id: 'tasks', type: 'multi', section: 'How you use GenAI', when: notNever,
-      q: 'What does your team use GenAI for?',
+      q: 'What do you use GenAI for?',
       help: 'Select all that apply.',
       options: ['Copywriting & product descriptions', 'Social media content', 'Campaign ideas & concepts', 'Images & visuals', 'Video', 'Trend & consumer research', 'Personalisation, CRM & email', 'SEO', 'Customer service & chatbots', 'Other'],
       other: 'Other' },
