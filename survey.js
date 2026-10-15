@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '22';
+  const SURVEY_VERSION = '23';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -58,9 +58,9 @@
     { id: 'barriers', type: 'multi', section: 'AI at your company', max: 3, none: 'Nothing really',
       q: 'What holds AI back most at your company?',
       help: 'Pick up to 3.',
-      options: ['Off-brand output', 'Inaccurate results', 'Data privacy', 'Lack of skills', 'No clear policy', 'Cost', 'Copyright', 'Customer trust', 'Environmental impact', 'Nothing really', 'Other'],
+      options: ['Poor quality', 'Privacy & security', 'Skills gap', 'Cost', 'Legal & ethics', 'Nothing really', 'Other'],
       other: 'Other',
-      toe: { 'Off-brand output': 'T', 'Inaccurate results': 'T', 'Data privacy': 'T', 'Lack of skills': 'O', 'No clear policy': 'O', 'Cost': 'O', 'Copyright': 'E', 'Customer trust': 'E', 'Environmental impact': 'E' } },
+      toe: { 'Poor quality': 'T', 'Privacy & security': 'T', 'Skills gap': 'O', 'Cost': 'O', 'Legal & ethics': 'E' } },
     { id: 'readiness', type: 'multi', section: 'AI at your company', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
