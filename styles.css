@@ -3050,3 +3050,8 @@ body { text-align: center; }
 .hero__pill { letter-spacing: 0.04em; font-size: 11px; font-weight: 600; text-transform: none; }
 .hero__pill-new { text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; }
 @media (max-width: 560px) { .hero__pill { font-size: 11px; letter-spacing: 0.02em; } }
+
+/* Tagline: each word steps a shade darker, white → soft grey */
+.hero__tagline-tags { color: rgba(255, 255, 255, 0.28); }
+.hero__w { color: hsl(0 0% calc(100% - var(--w) * 9%)); transition: color 0.3s; }
+.hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.01em; }
