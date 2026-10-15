@@ -10,7 +10,7 @@
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
   const STORE_KEY = 'jb-genai-survey-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '23';
+  const SURVEY_VERSION = '24';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -64,7 +64,8 @@
     { id: 'readiness', type: 'multi', section: 'AI at your company', none: 'None of these',
       q: 'Which of these does your company have?',
       help: 'Select all that apply.',
-      options: ['AI policy', 'Staff training', 'Tool budget', 'AI lead or team', 'None of these', 'Not sure'] },
+      options: ['AI policy', 'AI training', 'AI budget', 'AI lead or team', 'None of these', 'Other'],
+      other: 'Other' },
 
     /* ── O4 Impact ── */
     { id: 'impact', type: 'likert', section: 'The impact of AI', ends: AGREE_ENDS,
