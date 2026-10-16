@@ -93,6 +93,8 @@ begin
   delete from cw_tasks where id = p_id;
 end $$;
 
+-- (Task times and notes: also run update-1-task-time-notes.sql after this file.)
+
 -- ── People on the calendar ──
 insert into cw_members (name, color, sort) values
   ('Joe',  '#ff375f', 1),

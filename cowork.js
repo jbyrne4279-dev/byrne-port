@@ -25,7 +25,9 @@
     app: $('cwApp'), range: $('cwRange'), prev: $('cwPrev'), next: $('cwNext'), today: $('cwToday'),
     members: $('cwMembers'), strip: $('cwStrip'), day: $('cwDay'), signOut: $('cwSignOut'),
     sheet: $('cwSheet'), sheetForm: $('cwSheetForm'), sheetTitle: $('cwSheetTitle'), sheetDelete: $('cwSheetDelete'),
-    sheetCancel: $('cwSheetCancel'), sheetMsg: $('cwSheetMsg'), toast: $('cwToast')
+    sheetCancel: $('cwSheetCancel'), sheetMsg: $('cwSheetMsg'), toast: $('cwToast'),
+    tSheet: $('cwTaskSheet'), tForm: $('cwTaskSheetForm'), tTitle: $('cwTaskSheetTitle'), tDelete: $('cwTaskDelete'),
+    tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg')
   };
 
   const DAY_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -161,7 +163,7 @@
     els.app.hidden = false;
     renderMembers();
     render();
-    setInterval(() => { if (!document.hidden && els.sheet.hidden) loadWeek(); }, POLL_MS);
+    setInterval(() => { if (!document.hidden && els.sheet.hidden && els.tSheet.hidden) loadWeek(); }, POLL_MS);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) loadWeek(); });
   }
 
@@ -234,11 +236,16 @@
 
     const taskGroups = state.members.map(m => {
       const mine = tasks.filter(t => t.assignee === m.name);
-      const items = mine.map(t => `
+      const items = mine
+        .slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
+        .map(t => `
         <li class="cw-task${t.done ? ' is-done' : ''}">
-          <label><input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''}><span>${esc(t.title)}</span></label>
-          <small>${t.created_by && t.created_by !== m.name ? `from ${esc(t.created_by)}` : ''}</small>
-          <button type="button" class="cw-x" data-del-task="${esc(t.id)}" aria-label="Delete task ${esc(t.title)}">×</button>
+          <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
+          <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
+            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}</span>
+            ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
+            ${t.created_by && t.created_by !== m.name ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
+          </button>
         </li>`).join('');
       return `<section class="cw-group" style="--who:${esc(m.color)}">
           <h3><i aria-hidden="true"></i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}<em>${mine.filter(t => t.done).length}/${mine.length}</em></h3>
@@ -261,19 +268,12 @@
         </details>`;
     }
 
-    const assigneeOpts = state.members.map(m => `<option value="${esc(m.name)}"${m.name === state.me ? ' selected' : ''}>${esc(m.name)}${m.name === state.me ? ' (me)' : ''}</option>`).join('');
-
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
       <div class="cw-section-head"><h3 class="sc-section-title">Shared schedule</h3><button type="button" class="cw-add" id="cwAddEvent">+ Add session</button></div>
       ${eventsHtml}
       ${personalHtml}
-      <div class="cw-section-head"><h3 class="sc-section-title">Tasks</h3></div>
-      <form class="cw-taskform" id="cwTaskForm">
-        <input type="text" id="cwTaskTitle" maxlength="140" placeholder="Add a task…" aria-label="New task" required>
-        <select id="cwTaskFor" aria-label="Task for">${assigneeOpts}</select>
-        <button type="submit" class="cw-add">Add</button>
-      </form>
+      <div class="cw-section-head"><h3 class="sc-section-title">Tasks</h3><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
       <div class="cw-groups">${taskGroups}</div>`;
     bindDay();
   }
@@ -290,24 +290,68 @@
       const { error } = await call('cowork_set_task', { p_id: cb.dataset.task, p_done: cb.checked });
       if (error) { toast('Couldn’t save. Check your signal.'); loadWeek(); }
     }));
-    els.day.querySelectorAll('[data-del-task]').forEach(b => b.addEventListener('click', async () => {
-      state.tasks = state.tasks.filter(t => t.id !== b.dataset.delTask);
-      renderDay();
-      const { error } = await call('cowork_delete_task', { p_id: b.dataset.delTask });
-      if (error) { toast('Couldn’t delete. Check your signal.'); loadWeek(); }
-    }));
-    $('cwTaskForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const title = $('cwTaskTitle').value.trim();
-      if (!title) return;
-      const assignee = $('cwTaskFor').value;
-      $('cwTaskTitle').value = '';
-      const { error } = await call('cowork_add_task', { p_day: selectedDate(), p_title: title, p_assignee: assignee, p_by: state.me });
-      if (error) { toast('Couldn’t add the task.'); return; }
-      toast(assignee === state.me ? 'Task added' : `Task added for ${assignee}`);
-      loadWeek();
-    });
+    $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
+    els.day.querySelectorAll('[data-edit-task]').forEach(b => b.addEventListener('click', () => openTaskSheet(state.tasks.find(t => t.id === b.dataset.editTask))));
   }
+
+  /* ── Add / edit task sheet ── */
+  let editingTask = null;
+  function openTaskSheet(t) {
+    editingTask = t;
+    const f = els.tForm;
+    els.tTitle.textContent = t ? 'Edit task' : 'New task';
+    els.tDelete.hidden = !t;
+    els.tMsg.textContent = '';
+    f.title.value = t ? t.title : '';
+    f.who.innerHTML = state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}${m.name === state.me ? ' (me)' : ''}</option>`).join('');
+    f.who.value = t ? t.assignee : state.me;
+    f.day.value = t ? t.day : selectedDate();
+    f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
+    f.notes.value = t && t.notes ? t.notes : '';
+    els.tSheet.hidden = false;
+    requestAnimationFrame(() => els.tSheet.classList.add('is-open'));
+    setTimeout(() => f.title.focus(), 50);
+  }
+  function closeTaskSheet() {
+    els.tSheet.classList.remove('is-open');
+    setTimeout(() => { els.tSheet.hidden = true; }, 220);
+  }
+  els.tCancel.addEventListener('click', closeTaskSheet);
+  els.tSheet.addEventListener('click', e => { if (e.target === els.tSheet) closeTaskSheet(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.tSheet.hidden) closeTaskSheet(); });
+
+  els.tForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const f = els.tForm;
+    const title = f.title.value.trim();
+    if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
+    els.tMsg.textContent = 'Saving…';
+    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null };
+    const { error } = editingTask
+      ? await call('cowork_update_task', { p_id: editingTask.id, ...args })
+      : await call('cowork_add_task', { ...args, p_by: state.me });
+    if (error) {
+      els.tMsg.textContent = /function|schema cache/i.test(error.message || '')
+        ? 'The database needs updating first (see cowork/update-1-task-time-notes.sql).'
+        : 'Couldn’t save. Check your signal.';
+      return;
+    }
+    const wasEdit = !!editingTask, who = args.p_assignee;
+    closeTaskSheet();
+    toast(wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Task added for ${who}`);
+    const d = new Date(args.p_day + 'T00:00:00');
+    state.weekStart = mondayOf(d);
+    state.selected = dayIndex(d);
+    loadWeek();
+  });
+  els.tDelete.addEventListener('click', async () => {
+    if (!editingTask || !confirm(`Delete “${editingTask.title}”?`)) return;
+    const { error } = await call('cowork_delete_task', { p_id: editingTask.id });
+    if (error) { els.tMsg.textContent = 'Couldn’t delete.'; return; }
+    closeTaskSheet();
+    toast('Task deleted');
+    loadWeek();
+  });
 
   /* ── Add / edit session sheet ── */
   let editing = null;
