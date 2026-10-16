@@ -27,7 +27,9 @@
     sheet: $('cwSheet'), sheetForm: $('cwSheetForm'), sheetTitle: $('cwSheetTitle'), sheetDelete: $('cwSheetDelete'),
     sheetCancel: $('cwSheetCancel'), sheetMsg: $('cwSheetMsg'), toast: $('cwToast'),
     tSheet: $('cwTaskSheet'), tForm: $('cwTaskSheetForm'), tTitle: $('cwTaskSheetTitle'), tDelete: $('cwTaskDelete'),
-    tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg')
+    tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg'),
+    viewDay: $('cwViewDay'), viewWeek: $('cwViewWeek'), dayPane: $('cwDayPane'), weekPane: $('cwWeekPane'),
+    grid: $('cwGrid'), showMine: $('cwShowMine')
   };
 
   const DAY_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -163,6 +165,7 @@
     els.app.hidden = false;
     renderMembers();
     render();
+    setView(view);
     setInterval(() => { if (!document.hidden && els.sheet.hidden && els.tSheet.hidden) loadWeek(); }, POLL_MS);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) loadWeek(); });
   }
@@ -212,7 +215,140 @@
         </button>`;
     }).join('');
     renderDay();
+    renderGrid();
   }
+
+  /* ── Week grid (Outlook-style): days across, time down ── */
+  const HOUR_PX = 52;
+  const VIEW_STORE = 'jb-cowork-view', MINE_STORE = 'jb-cowork-showmine';
+  let view = store.get(VIEW_STORE) === 'week' ? 'week' : 'day';
+  let showMine = store.get(MINE_STORE) !== '0';
+
+  // Place overlapping blocks side by side within a day column
+  function lanes(items) {
+    items.sort((a, b) => a.s - b.s || b.e - a.e);
+    const out = []; let group = [], groupEnd = -1;
+    const flush = () => {
+      const cols = [];
+      group.forEach(it => {
+        let c = cols.findIndex(end => end <= it.s);
+        if (c === -1) { c = cols.length; cols.push(0); }
+        cols[c] = it.e; it.col = c;
+      });
+      group.forEach(it => { it.cols = cols.length; out.push(it); });
+      group = []; groupEnd = -1;
+    };
+    items.forEach(it => { if (group.length && it.s >= groupEnd) flush(); group.push(it); groupEnd = Math.max(groupEnd, it.e); });
+    if (group.length) flush();
+    return out;
+  }
+
+  function renderGrid() {
+    if (!els.grid) return;
+    const ws = state.weekStart, todayIso = iso(new Date());
+    const p = state.personal;
+    const perDay = Array.from({ length: 7 }, (_, i) => {
+      const di = iso(addDays(ws, i));
+      const items = [];
+      state.events.filter(e => e.day === di).forEach(e => items.push({
+        kind: 'event', id: e.id, s: toMin(e.start_time), e: toMin(e.end_time), title: e.title,
+        sub: e.who || 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
+      }));
+      state.tasks.filter(t => t.day === di && t.at_time).forEach(t => {
+        const s0 = toMin(t.at_time);
+        items.push({ kind: 'task', id: t.id, s: s0, e: Math.min(s0 + 30, 24 * 60), title: t.title, sub: t.assignee, color: colorOf(t.assignee), done: t.done });
+      });
+      const mine = [];
+      if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
+        const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
+        mine.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, sub: 'Joe', color: k.color, col: 0, cols: 1 });
+      });
+      return { di, items: lanes(items), mine };
+    });
+
+    // Show 8am–10pm, stretched to fit anything earlier or later
+    let from = 8 * 60, to = 22 * 60;
+    perDay.forEach(d => d.items.concat(d.mine).forEach(it => { from = Math.min(from, Math.floor(it.s / 60) * 60); to = Math.max(to, Math.ceil(it.e / 60) * 60); }));
+    const hours = []; for (let m = from; m < to; m += 60) hours.push(m);
+    const H = (to - from) / 60 * HOUR_PX;
+    const y = m => (m - from) / 60 * HOUR_PX;
+
+    const now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
+    const head = perDay.map((d, i) => {
+      const dt = addDays(ws, i);
+      return `<button type="button" class="cw-gh${d.di === todayIso ? ' is-today' : ''}" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${dt.getDate()} ${MONTHS[dt.getMonth()]}">
+          <span>${DAY_LONG[i].slice(0, 3)}</span><b>${dt.getDate()}</b></button>`;
+    }).join('');
+    const gutter = hours.map(m => `<span style="top:${y(m)}px">${clock(m)}</span>`).join('');
+    const cols = perDay.map((d, i) => {
+      const blocks = d.mine.concat(d.items).map(it => {
+        const top = y(it.s), h = Math.max(y(it.e) - top, 22);
+        const w = 100 / it.cols, left = it.col * w;
+        if (it.kind === 'mine') {
+          return `<div class="cw-b cw-b--mine" aria-hidden="true" style="--c:${esc(it.color)};top:${top}px;height:${h}px"><strong>${esc(it.title)}</strong></div>`;
+        }
+        const attr = it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}"` : '';
+        const tag = it.kind === 'mine' ? 'div' : 'button type="button"';
+        const end = it.kind === 'mine' ? 'div' : 'button';
+        return `<${tag} class="cw-b cw-b--${it.kind}${it.done ? ' is-done' : ''}" ${attr}
+            style="--c:${esc(it.color)};top:${top}px;height:${h}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px)"
+            ${it.kind === 'mine' ? 'aria-hidden="true"' : `aria-label="${esc(it.title)}, ${clock(it.s)} to ${clock(it.e)}, ${esc(it.sub)}"`}>
+            <strong>${it.kind === 'task' ? (it.done ? '✓ ' : '◦ ') : ''}${esc(it.title)}</strong>
+            ${h >= 34 ? `<small>${clock(it.s)}${it.kind === 'task' ? '' : '–' + clock(it.e)} · ${esc(it.sub)}</small>` : ''}
+          </${end}>`;
+      }).join('');
+      const nowLine = d.di === todayIso && nowMin >= from && nowMin <= to ? `<i class="cw-now" style="top:${y(nowMin)}px"></i>` : '';
+      return `<div class="cw-col${d.di === todayIso ? ' is-today' : ''}" data-col="${i}" style="height:${H}px">${blocks}${nowLine}</div>`;
+    }).join('');
+
+    els.grid.innerHTML = `
+      <div class="cw-grid__head"><span></span>${head}</div>
+      <div class="cw-grid__body" style="--hour:${HOUR_PX}px">
+        <div class="cw-gutter" style="height:${H}px">${gutter}</div>${cols}
+      </div>`;
+    els.grid.dataset.from = from;
+  }
+
+  function setView(v) {
+    view = v;
+    store.set(VIEW_STORE, v);
+    const week = v === 'week';
+    document.body.classList.toggle('cw-wide', week);
+    els.dayPane.hidden = week;
+    els.weekPane.hidden = !week;
+    els.viewDay.setAttribute('aria-pressed', !week);
+    els.viewWeek.setAttribute('aria-pressed', week);
+    if (week) {
+      // Scroll so today's column (and around 8am) is in view
+      const col = els.grid.querySelector('.cw-col.is-today') || els.grid.querySelector('.cw-col');
+      const sc = els.grid;
+      if (col) sc.scrollLeft = Math.max(0, col.offsetLeft - 48);
+      // …and vertically to an hour before now (or the start of the day)
+      const from = Number(sc.dataset.from) || 480, n = new Date();
+      sc.scrollTop = Math.max(0, ((n.getHours() - 1) * 60 - from) / 60 * HOUR_PX);
+    }
+  }
+  els.viewDay.addEventListener('click', () => setView('day'));
+  els.viewWeek.addEventListener('click', () => setView('week'));
+  els.showMine.checked = showMine;
+  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE, showMine ? '1' : '0'); renderGrid(); });
+
+  els.grid.addEventListener('click', e => {
+    const ev = e.target.closest('[data-event]');
+    if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
+    const tk = e.target.closest('[data-edit-task]');
+    if (tk) { openTaskSheet(state.tasks.find(x => x.id === tk.dataset.editTask)); return; }
+    const hd = e.target.closest('[data-open-day]');
+    if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); return; }
+    // Tap an empty slot: new session starting at that half hour
+    const col = e.target.closest('.cw-col');
+    if (col && !e.target.closest('.cw-b')) {
+      const r = col.getBoundingClientRect();
+      const mins = Number(els.grid.dataset.from) + Math.floor((e.clientY - r.top) / HOUR_PX * 2) * 30;
+      state.selected = Number(col.dataset.col);
+      openSheet(null, { day: iso(addDays(state.weekStart, state.selected)), start: Math.max(0, Math.min(mins, 23 * 60)) });
+    }
+  });
 
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
@@ -355,16 +491,18 @@
 
   /* ── Add / edit session sheet ── */
   let editing = null;
-  function openSheet(ev) {
+  function openSheet(ev, preset) {
     editing = ev;
     const f = els.sheetForm;
     els.sheetTitle.textContent = ev ? 'Edit session' : 'New session';
     els.sheetDelete.hidden = !ev;
     els.sheetMsg.textContent = '';
     f.title.value = ev ? ev.title : '';
-    f.day.value = ev ? ev.day : selectedDate();
-    f.start.value = ev ? String(ev.start_time).slice(0, 5) : '10:00';
-    f.end.value = ev ? String(ev.end_time).slice(0, 5) : '12:00';
+    f.day.value = ev ? ev.day : (preset && preset.day) || selectedDate();
+    const startMin = preset && preset.start != null ? preset.start : 600;
+    const hhmm = m => `${pad2(Math.floor(m / 60) % 24)}:${pad2(m % 60)}`;
+    f.start.value = ev ? String(ev.start_time).slice(0, 5) : hhmm(startMin);
+    f.end.value = ev ? String(ev.end_time).slice(0, 5) : hhmm(Math.min(startMin + 120, 23 * 60 + 45));
     f.who.innerHTML = '<option value="">Everyone</option>' + state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('');
     f.who.value = ev && ev.who ? ev.who : '';
     els.sheet.hidden = false;

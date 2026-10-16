@@ -103,3 +103,60 @@
 .cw-sheet textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cw-opt { font-weight: 400; color: var(--label-3); }
 .cw-sheet__panel { max-height: 92vh; overflow-y: auto; }
+
+/* ── Week grid: days across, time down (Outlook-style) ── */
+.cw-toggle { display: flex; align-items: center; gap: 8px; margin: 4px 2px 10px; font-size: 14px; color: var(--label-2); cursor: pointer; }
+.cw-toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+.cw-grid {
+  --gut: 44px; --colw: minmax(96px, 1fr);
+  overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+  border: .5px solid var(--sep); border-radius: 12px;
+}
+.cw-grid__head, .cw-grid__body { display: grid; grid-template-columns: var(--gut) repeat(7, var(--colw)); min-width: calc(var(--gut) + 7 * 96px); }
+.cw-grid__head { position: sticky; top: 0; z-index: 3; background: rgba(0,0,0,.9); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: .5px solid var(--sep); }
+.cw-gh { display: grid; justify-items: center; gap: 2px; padding: 8px 0; scroll-snap-align: start; }
+.cw-gh span { font-size: 12px; font-weight: 600; color: var(--label-3); }
+.cw-gh b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 600 17px var(--font-display); }
+.cw-gh.is-today span { color: var(--accent); }
+.cw-gh.is-today b { background: var(--accent); color: #fff; }
+.cw-gutter { position: relative; }
+.cw-gutter span { position: absolute; right: 6px; transform: translateY(-50%); font-size: 11px; color: var(--label-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cw-gutter span:first-child { transform: none; }
+.cw-col {
+  position: relative; border-left: .5px solid var(--sep);
+  background-image: linear-gradient(to bottom, var(--sep) .5px, transparent .5px);
+  background-size: 100% var(--hour);
+}
+.cw-col.is-today { background-color: rgba(255, 55, 95, .05); }
+.cw-b {
+  position: absolute; z-index: 1; overflow: hidden; display: block;
+  padding: 4px 6px; border-radius: 7px; text-align: left;
+  background: var(--card-2); border-left: 3px solid var(--c); color: var(--label);
+}
+.cw-b strong { display: block; font-size: 12px; font-weight: 600; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; }
+.cw-b small { display: block; margin-top: 1px; font-size: 11px; color: var(--label-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cw-b--event { background: var(--card-2); }
+.cw-b--task { border-left-style: dashed; background: var(--card); }
+.cw-b--task.is-done strong { color: var(--label-3); text-decoration: line-through; }
+.cw-b--mine {
+  z-index: 0; left: 0; right: 0; border-radius: 0; padding: 3px 5px; pointer-events: none;
+  background: repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 6px, transparent 6px 12px);
+  border-left: 2px solid var(--c); opacity: .9;
+}
+.cw-b--mine strong { font-size: 10.5px; font-weight: 500; color: var(--label-3); }
+.cw-b:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cw-now { position: absolute; left: 0; right: 0; z-index: 2; height: 2px; background: var(--accent); pointer-events: none; }
+.cw-now::before { content: ''; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.cw-hint { margin-top: 12px; text-align: center; font-size: 13px; color: var(--label-3); }
+@supports (color: color-mix(in srgb, red 50%, blue)) {
+  .cw-b--event { background: color-mix(in srgb, var(--c) 22%, var(--card)); }
+  .cw-b--task { background: color-mix(in srgb, var(--c) 10%, var(--card)); }
+}
+@media (min-width: 760px) { .cw-grid { --colw: 1fr; } }
+/* Scroll inside the grid so day headers and times stay pinned */
+.cw-grid { max-height: calc(100dvh - 150px); max-height: calc(100vh - 150px); overflow: auto; border-radius: 0; }
+.cw-grid__head > span:first-child, .cw-gutter { position: sticky; left: 0; z-index: 2; background: #000; }
+.cw-grid__head > span:first-child { z-index: 4; }
+
+/* Week view gets the full width on bigger screens */
+body.cw-wide .sc { max-width: 1180px; }
