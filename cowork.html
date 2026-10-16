@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Co-work">
+  <!-- Supabase project (see cowork/SETUP.md). The public key is safe to publish:
+       the tables are locked and every action checks the passcode. -->
+  <meta name="supabase-url" content="">
+  <meta name="supabase-anon-key" content="">
+
+  <title>Co-working Week | Joseph Byrne</title>
+  <meta name="description" content="Shared co-working schedule and tasks.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="schedule.css?v=5">
+  <link rel="stylesheet" href="cowork.css?v=1">
+</head>
+<body>
+  <!-- Not configured yet -->
+  <section class="sc-lock" id="cwSetup" hidden>
+    <div class="sc-lock__inner">
+      <h1 class="sc-lock__title">Not connected yet</h1>
+      <p class="cw-note">This page needs its Supabase project details before it can load. See <b>cowork/SETUP.md</b>.</p>
+      <a class="sc-lock__back" href="/schedule">Back to my week</a>
+    </div>
+  </section>
+
+  <!-- Passcode (same as /schedule) -->
+  <section class="sc-lock" id="cwLock" hidden aria-labelledby="cwLockTitle">
+    <div class="sc-lock__inner">
+      <svg class="sc-lock__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.5c.9-.5 1.9-.8 3-.8 2.8 0 5 2.2 5 5"/></svg>
+      <h1 class="sc-lock__title" id="cwLockTitle">Co-working · Enter passcode</h1>
+      <div class="sc-dots" id="cwDots" aria-hidden="true"></div>
+      <p class="sc-lock__msg" id="cwLockMsg" role="status" aria-live="assertive"></p>
+      <div class="sc-pad" id="cwPad" aria-label="Number pad">
+        <button type="button" data-k="1">1</button>
+        <button type="button" data-k="2">2</button>
+        <button type="button" data-k="3">3</button>
+        <button type="button" data-k="4">4</button>
+        <button type="button" data-k="5">5</button>
+        <button type="button" data-k="6">6</button>
+        <button type="button" data-k="7">7</button>
+        <button type="button" data-k="8">8</button>
+        <button type="button" data-k="9">9</button>
+        <span aria-hidden="true"></span>
+        <button type="button" data-k="0">0</button>
+        <button type="button" data-k="del" class="sc-pad__del" aria-label="Delete">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9l-6 6M11 9l6 6"/></svg>
+        </button>
+      </div>
+      <a class="sc-lock__back" href="/">Back to portfolio</a>
+    </div>
+  </section>
+
+  <!-- Who are you? (asked once per phone) -->
+  <section class="sc-lock" id="cwWho" hidden aria-labelledby="cwWhoTitle">
+    <div class="sc-lock__inner">
+      <h1 class="sc-lock__title" id="cwWhoTitle">Who are you?</h1>
+      <p class="cw-note">So tasks and sessions show who added them. You won’t be asked again on this phone.</p>
+      <div class="cw-wholist" id="cwWhoList"></div>
+    </div>
+  </section>
+
+  <main class="sc" id="cwApp" hidden>
+    <header class="sc-head">
+      <div>
+        <p class="sc-head__date" id="cwRange"></p>
+        <h1 class="sc-head__title">Co-working</h1>
+      </div>
+      <button type="button" class="sc-head__lock" id="cwSignOut">Lock</button>
+    </header>
+
+    <ul class="cw-members" id="cwMembers" aria-label="Who’s on this calendar"></ul>
+
+    <div class="cw-weeknav">
+      <button type="button" id="cwPrev" aria-label="Previous week">‹ Prev</button>
+      <button type="button" id="cwToday" hidden>This week</button>
+      <button type="button" id="cwNext" aria-label="Next week">Next ›</button>
+    </div>
+
+    <nav class="sc-strip" id="cwStrip" role="tablist" aria-label="Choose a day"></nav>
+    <section class="sc-agenda" id="cwDay" role="tabpanel"></section>
+
+    <p class="cw-foot"><a href="/schedule">My week</a></p>
+  </main>
+
+  <!-- Add / edit session -->
+  <div class="cw-sheet" id="cwSheet" hidden role="dialog" aria-modal="true" aria-labelledby="cwSheetTitle">
+    <form class="cw-sheet__panel" id="cwSheetForm">
+      <h2 id="cwSheetTitle">New session</h2>
+      <label>What<input name="title" type="text" maxlength="80" placeholder="e.g. Library, dissertation sprint" required></label>
+      <label>Day<input name="day" type="date" required></label>
+      <div class="cw-row">
+        <label>Start<input name="start" type="time" step="900" required></label>
+        <label>End<input name="end" type="time" step="900" required></label>
+      </div>
+      <label>Who<select name="who"></select></label>
+      <p class="cw-sheet__msg" id="cwSheetMsg" role="status" aria-live="polite"></p>
+      <div class="cw-sheet__actions">
+        <button type="button" class="cw-btn cw-btn--danger" id="cwSheetDelete" hidden>Delete</button>
+        <button type="button" class="cw-btn cw-btn--ghost" id="cwSheetCancel">Cancel</button>
+        <button type="submit" class="cw-btn">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="cw-toast" id="cwToast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="schedule-vault.js?v=1"></script>
+  <script src="cowork.js?v=1"></script>
+</body>
+</html>

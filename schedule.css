@@ -268,3 +268,7 @@ ul, ol { list-style: none; }
   .sc-live, .sc-agenda.slide-l, .sc-agenda.slide-r, .sc-dots.is-wrong { animation: none; }
   .sc-now__bar i { transition: none; }
 }
+
+/* Link to the shared co-working calendar */
+.sc-cowork { display: flex; justify-content: space-between; align-items: center; min-height: 52px; margin-top: 22px; padding: 0 16px; border-radius: 14px; background: var(--card); color: var(--label); font-size: 16px; font-weight: 600; text-decoration: none; }
+.sc-cowork span { color: var(--label-3); font-size: 22px; }
