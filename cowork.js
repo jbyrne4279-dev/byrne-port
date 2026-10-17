@@ -473,11 +473,13 @@
     f.querySelectorAll('[name=rday]').forEach(c => { c.checked = days.includes(+c.value); });
     f.every.value = String(t && t.repeat_every || 1);
     els.tSheet.hidden = false;
+    document.documentElement.classList.add('cw-noscroll');
     requestAnimationFrame(() => els.tSheet.classList.add('is-open'));
-    setTimeout(() => f.title.focus(), 50);
+    if (!t) setTimeout(() => f.title.focus(), 50);   // don't pop the keyboard when just opening to edit
   }
   function closeTaskSheet() {
     els.tSheet.classList.remove('is-open');
+    document.documentElement.classList.remove('cw-noscroll');
     setTimeout(() => { els.tSheet.hidden = true; }, 220);
   }
   els.tCancel.addEventListener('click', closeTaskSheet);
@@ -539,11 +541,13 @@
     f.who.innerHTML = '<option value="">Everyone</option>' + state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('');
     f.who.value = ev ? (ev.who || '') : state.me;
     els.sheet.hidden = false;
+    document.documentElement.classList.add('cw-noscroll');
     requestAnimationFrame(() => els.sheet.classList.add('is-open'));
-    setTimeout(() => f.title.focus(), 50);
+    if (!ev) setTimeout(() => f.title.focus(), 50);
   }
   function closeSheet() {
     els.sheet.classList.remove('is-open');
+    document.documentElement.classList.remove('cw-noscroll');
     setTimeout(() => { els.sheet.hidden = true; }, 220);
   }
   els.sheetCancel.addEventListener('click', closeSheet);

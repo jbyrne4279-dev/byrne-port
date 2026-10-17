@@ -216,3 +216,46 @@ body.cw-pasting .sc-wday__head { outline: 2px dashed var(--accent); outline-offs
 .cw-weeknav { align-items: center; }
 .cw-tasks ul { padding: 0 16px 6px; }
 .cw-row[hidden] { display: none; }
+
+/* ── iPhone Safari polish ── */
+button, [role="button"], input, select, label { touch-action: manipulation; }   /* no double-tap zoom delay */
+/* Comfortable 44px tap targets */
+.cw-weeknav button, .cw-add, .cw-headbtns .sc-head__lock { min-height: 44px; }
+.cw-headbtns .sc-head__lock#cwSwitch { min-width: 44px; justify-content: center; }
+.cw-toggle { min-height: 44px; margin: 0 2px 6px; font-size: 15px; }
+.cw-toggle input { width: 22px; height: 22px; }
+.cw-days span { height: 44px; }
+.sc-rows .cw-rowlink { min-height: 44px; }
+.cw-rowlink:active, .cw-card:active { opacity: .7; }
+/* Bigger task tick boxes */
+.cw-task { gap: 12px; }
+.cw-task > input { width: 26px; height: 26px; margin-top: 0; accent-color: var(--accent); }
+.cw-task__body { min-height: 26px; align-content: center; }
+/* Date and time pickers: same height and left-aligned like other fields */
+.cw-sheet input[type="date"], .cw-sheet input[type="time"] {
+  -webkit-appearance: none; appearance: none; display: flex; align-items: center; text-align: left; min-width: 0;
+}
+.cw-sheet input::-webkit-date-and-time-value { text-align: left; }
+.cw-sheet select { -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+/* Sheet fits the visible screen (Safari toolbars, keyboard) with Save always reachable */
+.cw-sheet__panel { max-height: 92vh; max-height: 92dvh; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
+.cw-sheet__panel::before { content: ''; justify-self: center; width: 36px; height: 5px; margin: -8px 0 2px; border-radius: 3px; background: rgba(235,235,245,.3); }
+.cw-sheet__actions {
+  position: sticky; bottom: 0; z-index: 1; margin: 0 -16px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: #1c1c1e; border-top: .5px solid var(--sep);
+}
+.cw-sheet__actions .cw-btn { flex: 1; }
+.cw-sheet__actions .cw-btn--danger { flex: 0 0 auto; }
+html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
+/* Toast clears the home bar and sits above the sheet */
+.cw-toast { max-width: calc(100vw - 32px); text-align: center; }
+@media (max-width: 360px) {
+  .cw-sheet__actions { flex-wrap: wrap; }
+  .cw-row { grid-template-columns: 1fr; }
+}
+#cwApp .sc-seg button { height: 40px; }
+.cw-task__body { min-height: 44px; }
+@media (max-width: 380px) { #cwApp .sc-head__title { font-size: 30px; } .cw-headbtns { gap: 6px; } }
+#cwRange { white-space: nowrap; }
