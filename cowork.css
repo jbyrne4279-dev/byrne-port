@@ -201,3 +201,17 @@ body.cw-pasting .cw-gh:hover b { box-shadow: 0 0 0 2px var(--accent); }
 .cw-days span { flex: 1; display: grid; place-items: center; height: 40px; border-radius: 50%; background: rgba(118,118,128,.24); font-size: 14px; font-weight: 600; color: var(--label-2); }
 .cw-days input:checked + span { background: var(--accent); color: #fff; }
 .cw-days input:focus-visible + span { outline: 2px solid var(--label); outline-offset: 2px; }
+
+/* Same look as /schedule */
+.sc-head__title { white-space: nowrap; }
+.cw-weeklbl { flex: 1; text-align: center; font-size: 15px; font-weight: 600; color: var(--label-2); }
+.cw-weeknav #cwToday { flex: 1; }
+.cw-addrow { display: flex; gap: 8px; margin: 0 0 14px; }
+.cw-addrow .cw-add { flex: 1; }
+.cw-rowlink { cursor: pointer; }
+.cw-rowlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.cw-tasks { margin-top: 18px; }
+.cw-tasks ul { list-style: none; margin: 0; padding: 0; }
+body.cw-pasting .sc-wday__head { outline: 2px dashed var(--accent); outline-offset: -2px; border-radius: 10px; }
+.cw-weeknav { align-items: center; }
+.cw-tasks ul { padding: 0 16px 6px; }

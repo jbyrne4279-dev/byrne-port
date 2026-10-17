@@ -19,7 +19,7 @@
   <meta name="description" content="Shared co-working schedule and tasks.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="schedule.css?v=5">
-  <link rel="stylesheet" href="cowork.css?v=7">
+  <link rel="stylesheet" href="cowork.css?v=8">
 </head>
 <body>
   <!-- Not configured yet -->
@@ -76,7 +76,6 @@
       <div class="cw-headbtns">
         <button type="button" class="sc-head__lock" id="cwSwitch" aria-label="Change user">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
-          Switch
         </button>
         <button type="button" class="sc-head__lock" id="cwSignOut">Lock</button>
       </div>
@@ -86,9 +85,12 @@
 
     <div class="cw-weeknav">
       <button type="button" id="cwPrev" aria-label="Previous week">‹ Prev</button>
-      <button type="button" id="cwToday" hidden>This week</button>
+      <span class="cw-weeklbl" id="cwWeekLbl"></span>
+      <button type="button" id="cwToday" hidden>Back to this week</button>
       <button type="button" id="cwNext" aria-label="Next week">Next ›</button>
     </div>
+
+    <label class="cw-toggle"><input type="checkbox" id="cwShowMine"> Show Joe’s timetable</label>
 
     <div class="sc-seg" role="group" aria-label="View">
       <button type="button" id="cwViewDay" aria-pressed="true">Day</button>
@@ -101,16 +103,14 @@
     </div>
 
     <div id="cwWeekPane" hidden>
-      <label class="cw-toggle"><input type="checkbox" id="cwShowMine"> Show Joe’s timetable</label>
       <div class="cw-paste" id="cwPaste" hidden role="status">
-        <span>Pasting <b></b>. Tap a time slot, or a day to keep the same time.</span>
+        <span>Pasting <b></b>. Tap a day to paste it there.</span>
         <button type="button" class="cw-btn" id="cwPasteDone">Done</button>
       </div>
-      <div class="cw-grid" id="cwGrid"></div>
-      <p class="cw-hint">Tap an empty slot to add a session. Tap a day to open it.</p>
+      <div class="sc-week" id="cwGrid"></div>
     </div>
 
-    <p class="cw-foot"><a href="/schedule">My week</a></p>
+    <a class="sc-cowork" href="/schedule">My week <span aria-hidden="true">›</span></a>
   </main>
 
   <!-- Add / edit session -->
@@ -184,6 +184,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
   <script src="schedule-vault.js?v=1"></script>
-  <script src="cowork.js?v=10"></script>
+  <script src="cowork.js?v=11"></script>
 </body>
 </html>

@@ -30,12 +30,12 @@
     tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg'),
     sheetCopy: $('cwSheetCopy'), tCopy: $('cwTaskCopy'),
     viewDay: $('cwViewDay'), viewWeek: $('cwViewWeek'), dayPane: $('cwDayPane'), weekPane: $('cwWeekPane'),
-    grid: $('cwGrid'), showMine: $('cwShowMine')
+    grid: $('cwGrid'), showMine: $('cwShowMine'), weekLbl: $('cwWeekLbl')
   };
 
   const DAY_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const DAY_SHORT = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   if (!SB_URL || !SB_KEY || !window.supabase) { els.setup.hidden = false; return; }
   const sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: false } });
@@ -214,9 +214,12 @@
 
   function render() {
     const ws = state.weekStart, we = addDays(ws, 6);
-    els.range.textContent = `${ws.getDate()} ${MONTHS[ws.getMonth()]} – ${we.getDate()} ${MONTHS[we.getMonth()]}`;
+    const now = new Date();
+    els.range.textContent = `${DAY_LONG[dayIndex(now)]} ${now.getDate()} ${MONTHS[now.getMonth()]}`;
+    els.weekLbl.textContent = `${ws.getDate()} ${MONTHS[ws.getMonth()].slice(0, 3)} – ${we.getDate()} ${MONTHS[we.getMonth()].slice(0, 3)}`;
     const todayIso = iso(new Date());
     els.today.hidden = iso(ws) === iso(mondayOf(new Date()));
+    els.weekLbl.hidden = !els.today.hidden;
 
     els.strip.innerHTML = Array.from({ length: 7 }, (_, i) => {
       const d = addDays(ws, i), di = iso(d);
@@ -238,7 +241,6 @@
   }
 
   /* ── Week grid (Outlook-style): days across, time down ── */
-  const HOUR_PX = 52;
   const VIEW_STORE = 'jb-cowork-view', MINE_STORE = 'jb-cowork-showmine';
   let view = store.get(VIEW_STORE) === 'week' ? 'week' : 'day';
   let showMine = true;
@@ -248,113 +250,78 @@
     els.showMine.checked = showMine;
   }
 
-  // Place overlapping blocks side by side within a day column
-  function lanes(items) {
-    items.sort((a, b) => a.s - b.s || b.e - a.e);
-    const out = []; let group = [], groupEnd = -1;
-    const flush = () => {
-      const cols = [];
-      group.forEach(it => {
-        let c = cols.findIndex(end => end <= it.s);
-        if (c === -1) { c = cols.length; cols.push(0); }
-        cols[c] = it.e; it.col = c;
-      });
-      group.forEach(it => { it.cols = cols.length; out.push(it); });
-      group = []; groupEnd = -1;
-    };
-    items.forEach(it => { if (group.length && it.s >= groupEnd) flush(); group.push(it); groupEnd = Math.max(groupEnd, it.e); });
-    if (group.length) flush();
-    return out;
-  }
-
-  function renderGrid() {
-    if (!els.grid) return;
-    const ws = state.weekStart, todayIso = iso(new Date());
-    const p = state.personal;
-    const perDay = Array.from({ length: 7 }, (_, i) => {
-      const di = iso(addDays(ws, i));
-      const items = [];
-      myEvents().filter(e => e.day === di).forEach(e => items.push({
-        kind: 'event', id: e.id, s: toMin(e.start_time), e: toMin(e.end_time), title: e.title,
-        sub: e.who || 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
-      }));
-      myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
-        const s0 = toMin(t.at_time);
-        items.push({ kind: 'task', id: t.id, s: s0, e: Math.min(s0 + 30, 24 * 60), title: t.title, sub: t.assignee, color: colorOf(t.assignee), done: t.done, rep: t.repeat_weekly });
-      });
-      const mine = [];
-      if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
-        const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
-        mine.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, sub: 'Joe', color: k.color, col: 0, cols: 1 });
-      });
-      return { di, items: lanes(items), mine };
+  // Everything on one day for the current person, in time order
+  function dayItems(i) {
+    const di = iso(addDays(state.weekStart, i)), p = state.personal, out = [];
+    myEvents().filter(e => e.day === di).forEach(e => out.push({
+      kind: 'event', id: e.id, s: toMin(e.start_time), e: toMin(e.end_time), title: e.title,
+      meta: e.who || 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
+    }));
+    myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
+      const s0 = toMin(t.at_time);
+      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: 'Task', color: colorOf(t.assignee), done: t.done, rep: t.repeat_weekly });
     });
+    if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
+      const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
+      out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
+    });
+    return out.sort((a, b) => a.s - b.s || a.e - b.e);
+  }
+  // Same time and length formats as /schedule
+  function range(a, b) {
+    const st = clock(a), en = clock(b);
+    const sameHalf = (Math.floor(a / 60) < 12) === (Math.floor(b / 60) % 24 < 12);
+    return sameHalf ? `${st.replace(/am|pm/, '')}–${en}` : `${st}–${en}`;
+  }
+  function duration(mins) {
+    const h = Math.floor(mins / 60), m = mins % 60;
+    if (!h) return `${m} min`;
+    return m ? `${h} hr ${m} min` : `${h} hr${h > 1 ? 's' : ''}`;
+  }
+  const itemRange = it => it.kind === 'task' ? clock(it.s) : range(it.s, it.e);
+  const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}"` : '';
 
-    // Show 8am–10pm, stretched to fit anything earlier or later
-    let from = 8 * 60, to = 22 * 60;
-    perDay.forEach(d => d.items.concat(d.mine).forEach(it => { from = Math.min(from, Math.floor(it.s / 60) * 60); to = Math.max(to, Math.ceil(it.e / 60) * 60); }));
-    const hours = []; for (let m = from; m < to; m += 60) hours.push(m);
-    const H = (to - from) / 60 * HOUR_PX;
-    const y = m => (m - from) / 60 * HOUR_PX;
-
-    const now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
-    const head = perDay.map((d, i) => {
-      const dt = addDays(ws, i);
-      return `<button type="button" class="cw-gh${d.di === todayIso ? ' is-today' : ''}" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${dt.getDate()} ${MONTHS[dt.getMonth()]}">
-          <span>${DAY_LONG[i].slice(0, 3)}</span><b>${dt.getDate()}</b></button>`;
-    }).join('');
-    const gutter = hours.map(m => `<span style="top:${y(m)}px">${clock(m)}</span>`).join('');
-    const cols = perDay.map((d, i) => {
-      const blocks = d.mine.concat(d.items).map(it => {
-        const top = y(it.s), h = Math.max(y(it.e) - top, 22);
-        const w = 100 / it.cols, left = it.col * w;
-        if (it.kind === 'mine') {
-          return `<div class="cw-b cw-b--mine" aria-hidden="true" style="--c:${esc(it.color)};top:${top}px;height:${h}px"><strong>${esc(it.title)}</strong></div>`;
-        }
-        const attr = it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}"` : '';
-        const tag = it.kind === 'mine' ? 'div' : 'button type="button"';
-        const end = it.kind === 'mine' ? 'div' : 'button';
-        return `<${tag} class="cw-b cw-b--${it.kind}${it.done ? ' is-done' : ''}" ${attr}
-            style="--c:${esc(it.color)};top:${top}px;height:${h}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px)"
-            ${it.kind === 'mine' ? 'aria-hidden="true"' : `aria-label="${esc(it.title)}, ${clock(it.s)} to ${clock(it.e)}, ${esc(it.sub)}"`}>
-            <strong>${it.kind === 'task' ? (it.done ? '✓ ' : '◦ ') : ''}${esc(it.title)}${it.rep ? ' ↻' : ''}</strong>
-            ${h >= 34 ? `<small>${clock(it.s)}${it.kind === 'task' ? '' : '–' + clock(it.e)} · ${esc(it.sub)}</small>` : ''}
-          </${end}>`;
+  // Week view: the same stacked day cards as /schedule
+  function renderGrid() {
+    const ws = state.weekStart, todayIso = iso(new Date());
+    const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
+    els.grid.innerHTML = Array.from({ length: 7 }, (_, i) => {
+      const d = addDays(ws, i), di = iso(d), isToday = di === todayIso;
+      const rows = dayItems(i).map(it => {
+        const past = it.kind === 'task' ? it.done : isToday && nowM >= it.e;
+        const tap = it.kind !== 'mine';
+        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}" style="--kind:${esc(it.color)}"
+            ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="Edit ${esc(it.title)}"` : ''}>
+            <span class="sc-row__time">${itemRange(it)}</span>
+            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}</span>
+          </li>`;
       }).join('');
-      const nowLine = d.di === todayIso && nowMin >= from && nowMin <= to ? `<i class="cw-now" style="top:${y(nowMin)}px"></i>` : '';
-      return `<div class="cw-col${d.di === todayIso ? ' is-today' : ''}" data-col="${i}" style="height:${H}px">${blocks}${nowLine}</div>`;
+      const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>
+        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}" style="--kind:${esc(colorOf(t.assignee))}" data-edit-task="${esc(t.id)}" role="button" tabindex="0" aria-label="Edit ${esc(t.title)}">
+            <span class="sc-row__time">Anytime</span>
+            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${t.repeat_weekly ? ' <span class="cw-rep">↻</span>' : ''}</span>
+          </li>`).join('');
+      return `<section class="sc-wday${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
+          <button type="button" class="sc-wday__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
+            <span>${DAY_LONG[i]}</span><span class="sc-wday__date">${isToday ? 'Today · ' : ''}${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</span>
+          </button>
+          <ul class="sc-rows">${rows + anytime || '<li class="sc-row sc-row--rest"><span class="sc-row__title">Free</span></li>'}</ul>
+        </section>`;
     }).join('');
-
-    els.grid.innerHTML = `
-      <div class="cw-grid__head"><span></span>${head}</div>
-      <div class="cw-grid__body" style="--hour:${HOUR_PX}px">
-        <div class="cw-gutter" style="height:${H}px">${gutter}</div>${cols}
-      </div>`;
-    els.grid.dataset.from = from;
   }
 
   function setView(v) {
     view = v;
     store.set(VIEW_STORE, v);
     const week = v === 'week';
-    document.body.classList.toggle('cw-wide', week);
     els.dayPane.hidden = week;
     els.weekPane.hidden = !week;
     els.viewDay.setAttribute('aria-pressed', !week);
     els.viewWeek.setAttribute('aria-pressed', week);
-    if (week) {
-      // Scroll so today's column (and around 8am) is in view
-      const col = els.grid.querySelector('.cw-col.is-today') || els.grid.querySelector('.cw-col');
-      const sc = els.grid;
-      if (col) sc.scrollLeft = Math.max(0, col.offsetLeft - 48);
-      // …and vertically to an hour before now (or the start of the day)
-      const from = Number(sc.dataset.from) || 480, n = new Date();
-      sc.scrollTop = Math.max(0, ((n.getHours() - 1) * 60 - from) / 60 * HOUR_PX);
-    }
   }
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
-  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE + ':' + state.me, showMine ? '1' : '0'); renderGrid(); });
+  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE + ':' + state.me, showMine ? '1' : '0'); render(); });
 
   /* ── Copy & paste in the week grid ── */
   let clip = null;   // { type: 'event' | 'task', item }
@@ -365,7 +332,7 @@
     pasteBar.hidden = false;
     document.body.classList.add('cw-pasting');
     setView('week');
-    toast('Copied. Tap a time slot or a day to paste');
+    toast('Copied. Tap a day to paste it there');
   }
   function stopPaste() {
     clip = null;
@@ -395,95 +362,59 @@
     loadWeek();
   }
 
-  els.grid.addEventListener('click', e => {
-    if (clip) {
-      const hd = e.target.closest('[data-open-day]');
-      if (hd) { pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null); return; }
-      const col = e.target.closest('.cw-col');
-      if (col) {
-        const r = col.getBoundingClientRect();
-        const mins = Number(els.grid.dataset.from) + Math.floor((e.clientY - r.top) / HOUR_PX * 2) * 30;
-        pasteTo(iso(addDays(state.weekStart, Number(col.dataset.col))), Math.max(0, Math.min(mins, 23 * 60)));
-      }
-      return;
-    }
+  function weekClick(e) {
+    const hd = e.target.closest('[data-open-day]');
+    if (clip) { if (hd) pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null); return; }
     const ev = e.target.closest('[data-event]');
     if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
     const tk = e.target.closest('[data-edit-task]');
     if (tk) { openTaskSheet(state.tasks.find(x => x.id === tk.dataset.editTask)); return; }
-    const hd = e.target.closest('[data-open-day]');
-    if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); return; }
-    // Tap an empty slot: new session starting at that half hour
-    const col = e.target.closest('.cw-col');
-    if (col && !e.target.closest('.cw-b')) {
-      const r = col.getBoundingClientRect();
-      const mins = Number(els.grid.dataset.from) + Math.floor((e.clientY - r.top) / HOUR_PX * 2) * 30;
-      state.selected = Number(col.dataset.col);
-      openSheet(null, { day: iso(addDays(state.weekStart, state.selected)), start: Math.max(0, Math.min(mins, 23 * 60)) });
-    }
-  });
+    if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); }
+  }
+  els.grid.addEventListener('click', weekClick);
+  els.grid.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.cw-rowlink')) { e.preventDefault(); weekClick(e); } });
 
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
     const isToday = di === iso(new Date());
-    const events = myEvents().filter(e => e.day === di).sort((a, b) => toMin(a.start_time) - toMin(b.start_time));
     const tasks = myTasks().filter(t => t.day === di);
+    const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
+    const items = dayItems(state.selected);
 
-    const eventsHtml = events.length
-      ? '<ol class="sc-list">' + events.map(e => {
-          const who = e.who || 'Everyone';
-          const color = e.who ? colorOf(e.who) : '#ffffff';
-          return `<li class="sc-item" style="--kind:${esc(color)}">
-              <div class="sc-item__time"><b>${clock(e.start_time)}</b><span>${clock(e.end_time)}</span></div>
-              <button type="button" class="sc-item__card cw-card" data-event="${esc(e.id)}" aria-label="Edit ${esc(e.title)}">
-                <p class="sc-item__title">${esc(e.title)}</p>
-                <p class="sc-item__meta">${clock(e.start_time)}–${clock(e.end_time)} · ${esc(who)}</p>
-              </button>
+    const timeline = items.length
+      ? '<ol class="sc-list">' + items.map(it => {
+          const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
+          const tag = it.kind === 'mine' ? 'div' : 'button';
+          return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}" style="--kind:${esc(it.color)}">
+              <div class="sc-item__time"><b>${clock(it.s)}</b>${it.kind === 'task' ? '' : `<span>${clock(it.e)}</span>`}</div>
+              <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="Edit ${esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
+                <p class="sc-item__title">${esc(it.title)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
+                <p class="sc-item__meta">${itemRange(it)}${it.kind === 'task' ? '' : ' · ' + duration(it.e - it.s)} · ${esc(it.meta)}${it.flex ? ' · flexible' : ''}</p>
+              </${tag}>
             </li>`;
         }).join('') + '</ol>'
-      : '<p class="cw-empty">No shared sessions yet.</p>';
+      : '<div class="sc-empty"><p class="sc-empty__title">Nothing planned</p></div>';
 
-    const taskGroups = state.members.filter(m => m.name === state.me).map(m => {
-      const mine = tasks.filter(t => t.assignee === m.name);
-      const items = mine
-        .slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
-        .map(t => `
+    const list = tasks.slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
+      .map(t => `
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
             <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${t.repeat_weekly ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
-            ${t.created_by && t.created_by !== m.name ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
+            ${t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
         </li>`).join('');
-      return `<section class="cw-group" style="--who:${esc(m.color)}">
-          <h3><i aria-hidden="true"></i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}<em>${mine.filter(t => t.done).length}/${mine.length}</em></h3>
-          ${items ? `<ul>${items}</ul>` : ''}
-        </section>`;
-    }).join('');
-
-    // Joe's personal timetable for this weekday, read-only
-    let personalHtml = '';
-    const p = state.personal;
-    if (p && p.week && p.week[state.selected]) {
-      const rows = p.week[state.selected]
-        .map(e => ({ ...e, k: (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' } }))
-        .sort((a, b) => toMin(a.start) - toMin(b.start))
-        .map(e => `<li class="sc-row" style="--kind:${esc(e.k.color)}"><span class="sc-row__time">${clock(e.start)}–${clock(e.end)}</span><span class="sc-row__title">${esc(e.k.label)}${e.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}</span></li>`)
-        .join('');
-      personalHtml = `<details class="cw-personal">
-          <summary>Joe’s timetable</summary>
-          <ul class="sc-rows">${rows || '<li class="sc-row sc-row--rest"><span class="sc-row__title">Nothing on</span></li>'}</ul>
-        </details>`;
-    }
+    const taskCard = `<section class="sc-wday cw-tasks">
+        <div class="sc-wday__head"><span>Tasks</span><span class="sc-wday__date">${tasks.filter(t => t.done).length}/${tasks.length} done</span></div>
+        ${list ? `<ul>${list}</ul>` : '<p class="cw-empty">No tasks for this day.</p>'}
+      </section>`;
 
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
-      <div class="cw-section-head"><h3 class="sc-section-title">Shared schedule</h3><button type="button" class="cw-add" id="cwAddEvent">+ Add session</button></div>
-      ${eventsHtml}
-      ${personalHtml}
-      <div class="cw-section-head"><h3 class="sc-section-title">Tasks</h3><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
-      <div class="cw-groups">${taskGroups}</div>`;
+      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddEvent">+ Session</button><button type="button" class="cw-add" id="cwAddTask">+ Task</button></div>
+      ${timeline}
+      ${taskCard}`;
     bindDay();
   }
 
