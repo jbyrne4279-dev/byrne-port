@@ -11,7 +11,7 @@ Supabase project. Only you do this setup; Ilya and Owen just open the link and t
 ## 2. Create the tables
 1. In the left sidebar open **SQL Editor** → **New query**.
 2. Open `cowork/schema.sql` from this repo, copy **all** of it and paste it in.
-3. On the last line, replace `YOUR-PASSCODE` with your 4-digit passcode (the same one as /schedule).
+3. On the last line, replace `YOUR-PASSCODE` with your 4-digit passcode.
 4. Click **Run**. It should say "Success".
 
 ## 3. Connect the page
@@ -28,6 +28,6 @@ Supabase project. Only you do this setup; Ilya and Owen just open the link and t
 - Share **josephbyrne.org/cowork** with Ilya and Owen. They type the passcode, tap their name once, and they're in.
 - **Lock** (top right) forgets the passcode and name on that phone.
 - Change the passcode: SQL Editor → `select cowork_set_pin('1234');`
-  (your personal timetable on /schedule uses the same code, so ask Claude to re-lock that too).
+  (Joe’s timetable in schedule-vault.js is locked with the same code, so ask Claude to re-lock that too).
 - Add or rename people: SQL Editor →
   `insert into cw_members (name, color, sort) values ('Sam', '#ff9f0a', 4);`

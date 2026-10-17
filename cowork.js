@@ -1,7 +1,7 @@
 /* ============================================================
    CO-WORKING WEEK | cowork.js
    Shared calendar for Joe, Ilya and Owen. Everyone gets in with the
-   same passcode as /schedule, picks who they are once per device,
+   shared passcode, picks who they are once per device,
    and can add, edit and delete sessions and tasks for each other.
    Storage: Supabase functions that check the passcode on every call
    (see cowork/SETUP.md). Joe's timetable is decrypted from
@@ -275,7 +275,7 @@
     });
     return out.sort((a, b) => a.s - b.s || a.e - b.e);
   }
-  // Same time and length formats as /schedule
+  // Time and length formats
   function range(a, b) {
     const st = clock(a), en = clock(b);
     const sameHalf = (Math.floor(a / 60) < 12) === (Math.floor(b / 60) % 24 < 12);
@@ -289,7 +289,7 @@
   const itemRange = it => it.e > it.s ? range(it.s, it.e) : clock(it.s);
   const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}"` : '';
 
-  // Week view: the same stacked day cards as /schedule
+  // Week view: stacked day cards
   function renderGrid() {
     const ws = state.weekStart, todayIso = iso(new Date());
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();

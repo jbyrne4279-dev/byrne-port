@@ -202,7 +202,7 @@ body.cw-pasting .cw-gh:hover b { box-shadow: 0 0 0 2px var(--accent); }
 .cw-days input:checked + span { background: var(--accent); color: #fff; }
 .cw-days input:focus-visible + span { outline: 2px solid var(--label); outline-offset: 2px; }
 
-/* Same look as /schedule */
+/* Layout tweaks */
 .sc-head__title { white-space: nowrap; }
 .cw-weeklbl { flex: 1; text-align: center; font-size: 15px; font-weight: 600; color: var(--label-2); }
 .cw-weeknav #cwToday { flex: 1; }
