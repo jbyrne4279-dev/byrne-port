@@ -351,30 +351,38 @@
   const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}"` : '';
 
   // Week view: stacked day cards
+  // One timeline card, used by both the day and week views
+  function itemCard(it, isToday, nowM) {
+    const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
+    const tag = it.kind === 'mine' ? 'div' : 'button';
+    const when = it.anytime ? 'Anytime' : itemRange(it) + (it.e > it.s ? ' · ' + duration(it.e - it.s) : '');
+    return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
+        <div class="sc-item__time">${it.anytime ? '<b>Any</b><span>time</span>' : `<b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}`}</div>
+        <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
+          <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
+          <p class="sc-item__meta">${when}${it.meta ? ' · ' + esc(it.meta) : ''}${it.flex ? ' · flexible' : ''}</p>
+          ${it.during ? `<p class="cw-during__note">↳ ${esc(it.during)}</p>` : ''}
+          ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
+        </${tag}>
+      </li>`;
+  }
+
+  // Week view: each day laid out like the day view
   function renderGrid() {
     const ws = state.weekStart, todayIso = iso(new Date());
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
     els.grid.innerHTML = Array.from({ length: 7 }, (_, i) => {
       const d = addDays(ws, i), di = iso(d), isToday = di === todayIso;
-      const rows = dayItems(i).map(it => {
-        const past = it.kind === 'task' ? it.done : isToday && nowM >= it.e;
-        const tap = it.kind !== 'mine';
-        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}${it.during ? ' cw-during' : ''}" style="--kind:${esc(it.color)}"
-            ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''}>
-            <span class="sc-row__time">${itemRange(it)}</span>
-            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}${it.during ? `<span class="cw-during__note">${esc(it.during)}</span>` : ''}</span>
-          </li>`;
-      }).join('');
-      const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>
-        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}${t.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(taskColor(t))}" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" role="button" tabindex="0" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
-            <span class="sc-row__time">Anytime</span>
-            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ' <span class="cw-rep">↻</span>' : ''}</span>
-          </li>`).join('');
-      return `<section class="sc-wday${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
-          <button type="button" class="sc-wday__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
-            <span>${DAY_LONG[i]}</span><span class="sc-wday__date">${isToday ? 'Today · ' : ''}${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</span>
+      const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t => ({
+        kind: 'task', anytime: true, id: t.id, day: t.day, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
+        meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
+      }));
+      const items = dayItems(i).concat(anytime);
+      return `<section class="cw-wk${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
+          <button type="button" class="sc-agenda__day cw-wk__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
+            ${isToday ? 'Today' : DAY_LONG[i]} <span>${isToday ? DAY_LONG[i] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span>
           </button>
-          <ul class="sc-rows">${rows + anytime || '<li class="sc-row sc-row--rest"><span class="sc-row__title">Free</span></li>'}</ul>
+          ${items.length ? '<ol class="sc-list">' + items.map(it => itemCard(it, isToday, nowM)).join('') + '</ol>' : '<p class="cw-wk__free">Free</p>'}
         </section>`;
     }).join('');
   }
@@ -468,10 +476,9 @@
   }
   els.grid.addEventListener('click', weekClick);
   els.grid.addEventListener('keydown', e => {
-    if (!e.target.matches('.cw-rowlink')) return;
     // Keyboard: Enter edits a task, Space ticks it
-    if (e.key === 'Enter' && e.target.dataset.editTask) { e.preventDefault(); const t = taskAt(e.target); if (t) openTaskSheet(t); }
-    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); weekClick(e); }
+    const tk = e.target.closest('[data-edit-task]');
+    if (tk && e.key === 'Enter') { e.preventDefault(); const t = taskAt(tk); if (t) openTaskSheet(t); }
   });
 
   // Press and hold a task (week or day view) to edit it; a quick tap ticks it
@@ -520,18 +527,7 @@
     const items = dayItems(state.selected);
 
     const timeline = items.length
-      ? '<ol class="sc-list">' + items.map(it => {
-          const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
-          const tag = it.kind === 'mine' ? 'div' : 'button';
-          return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
-              <div class="sc-item__time"><b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}</div>
-              <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
-                <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
-                <p class="sc-item__meta">${itemRange(it)}${it.e > it.s ? ' · ' + duration(it.e - it.s) : ''}${it.meta ? ' · ' + esc(it.meta) : ''}${it.flex ? ' · flexible' : ''}</p>
-                ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
-              </${tag}>
-            </li>`;
-        }).join('') + '</ol>'
+      ? '<ol class="sc-list">' + items.map(it => itemCard(it, isToday, nowM)).join('') + '</ol>'
       : '<div class="sc-empty"><p class="sc-empty__title">Nothing planned</p></div>';
 
     const list = tasks.slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))

@@ -312,3 +312,13 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 /* Day view: same tap-to-tick / hold-to-edit feel as the week */
 #cwDay [data-edit-task] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; transition: transform .45s var(--ease), opacity .2s; }
 #cwDay [data-edit-task].is-holding { transform: scale(.97); opacity: .75; }
+
+/* Week view: day-view cards under each day heading */
+.cw-week { display: grid; gap: 26px; }
+.cw-wk__head { display: flex; width: 100%; align-items: baseline; justify-content: space-between; text-align: left; margin-bottom: 12px; }
+.cw-wk.is-today .cw-wk__head { color: var(--accent); }
+.cw-wk__free { padding: 14px 16px; border-radius: 14px; background: var(--card); color: var(--label-3); font-size: 15px; }
+.cw-week [data-edit-task] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; transition: transform .45s var(--ease), opacity .2s; }
+.cw-week [data-edit-task].is-holding { transform: scale(.97); opacity: .75; }
+.sc-item__card .cw-during__note { margin-top: 3px; }
+body.cw-pasting .cw-wk__head { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 10px; }
