@@ -78,7 +78,7 @@
   // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
   // Tags make important tasks stand out; meetings are gold
   const TAGS = { Meeting: '#ffd60a', Important: '#ff453a', Deadline: '#ff9f0a' };
-  const taskColor = t => TAGS[t.tag] || colorOf(t.assignee);
+  const taskColor = t => TAGS[t.tag] || (t.assignee ? colorOf(t.assignee) : '#ffffff');   // no assignee = Everyone
   const tagPill = tag => TAGS[tag] ? ` <span class="cw-tagpill" style="--tag:${TAGS[tag]}">${esc(tag)}</span>` : '';
 
   // Each person picks whose calendars they see (their own by default)
@@ -86,7 +86,7 @@
   let visible = new Set(), weekPerson = null;
   const shown = () => view === 'week' ? new Set([weekPerson || state.me]) : visible;
   const myEvents = () => { const v = shown(); return state.events.filter(e => !e.who || v.has(e.who)); };
-  const myTasks = () => { const v = shown(); return state.tasks.filter(t => v.has(t.assignee)); };
+  const myTasks = () => { const v = shown(); return state.tasks.filter(t => !t.assignee || v.has(t.assignee)); };
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -203,7 +203,7 @@
   /* ── Data ── */
   function apply(data) {
     state.members = data.members || [];
-    state.events = data.events || [];
+    state.events = [];   // old sessions now live in tasks (copied over); everything is a task
     state.tasks = data.tasks || [];
   }
   async function loadWeek() {
@@ -317,7 +317,7 @@
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time), e0 = t.end_time ? toMin(t.end_time) : s0;
-      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
+      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
     });
     if (shown().has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
@@ -525,7 +525,7 @@
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
             <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${t.end_time ? range(toMin(t.at_time), toMin(t.end_time)) : clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
-            ${t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
+            ${!t.assignee ? '<span class="cw-task__from">Everyone</span>' : t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
         </li>`).join('');
     const taskCard = `<section class="sc-wday cw-tasks">
@@ -581,8 +581,8 @@
     els.tCopy.hidden = !t;
     els.tMsg.textContent = '';
     f.title.value = t ? t.title : '';
-    f.who.innerHTML = state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}${m.name === state.me ? ' (me)' : ''}</option>`).join('');
-    f.who.value = t ? t.assignee : state.me;
+    f.who.innerHTML = state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}${m.name === state.me ? ' (me)' : ''}</option>`).join('') + '<option value="">Everyone</option>';
+    f.who.value = t ? (t.assignee || '') : state.me;
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.end.value = t && t.end_time ? String(t.end_time).slice(0, 5) : '';
@@ -631,7 +631,7 @@
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + ' · ' + repeatText(args.p_days, args.p_every));
+    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : !who ? 'Added for everyone' : `Added to ${who}’s calendar`) + ' · ' + repeatText(args.p_days, args.p_every));
     const d = new Date(args.p_day + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
