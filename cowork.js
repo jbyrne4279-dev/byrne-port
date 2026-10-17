@@ -82,9 +82,11 @@
   const tagPill = tag => TAGS[tag] ? ` <span class="cw-tagpill" style="--tag:${TAGS[tag]}">${esc(tag)}</span>` : '';
 
   // Each person picks whose calendars they see (their own by default)
-  let visible = new Set();
-  const myEvents = () => state.events.filter(e => !e.who || visible.has(e.who));
-  const myTasks = () => state.tasks.filter(t => visible.has(t.assignee));
+  // Day view can show several people; week view shows one person's week at a time
+  let visible = new Set(), weekPerson = null;
+  const shown = () => view === 'week' ? new Set([weekPerson || state.me]) : visible;
+  const myEvents = () => { const v = shown(); return state.events.filter(e => !e.who || v.has(e.who)); };
+  const myTasks = () => { const v = shown(); return state.tasks.filter(t => v.has(t.assignee)); };
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -259,10 +261,12 @@
   setInterval(() => { if (appOpen && !document.hidden) renderNow(); }, 30000);
 
   function renderMembers() {
+    const week = view === 'week', v = shown();
+    $('cwSeeHint').textContent = week ? 'Whose week to show' : 'Tap names to show or hide their calendars';
     els.members.innerHTML = state.members.map(m => {
-      const on = visible.has(m.name);
+      const on = v.has(m.name);
       return `<li><button type="button" class="cw-see${on ? ' is-on' : ''}" data-see="${esc(m.name)}" aria-pressed="${on}" style="--who:${esc(m.color)}"
-          aria-label="${on ? 'Hide' : 'Show'} ${esc(m.name)}’s calendar"><i aria-hidden="true">${on ? '✓' : esc(m.name[0])}</i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}</button></li>`;
+          aria-label="${week ? `Show ${esc(m.name)}’s week` : `${on ? 'Hide' : 'Show'} ${esc(m.name)}’s calendar`}"><i aria-hidden="true">${on ? '✓' : esc(m.name[0])}</i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}</button></li>`;
     }).join('');
   }
 
@@ -301,6 +305,7 @@
     let v = null;
     try { v = JSON.parse(store.get(SEE_STORE + ':' + state.me)); } catch (e) {}
     visible = new Set(Array.isArray(v) ? v : [state.me]);
+    weekPerson = store.get(SEE_STORE + ':week:' + state.me) || state.me;
   }
 
   // Everything on one day for the current person, in time order
@@ -314,7 +319,7 @@
       const s0 = toMin(t.at_time), e0 = t.end_time ? toMin(t.end_time) : s0;
       out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
     });
-    if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
+    if (shown().has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
       out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: state.me === 'Joe' ? '' : 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
     });
@@ -382,6 +387,7 @@
     els.weekPane.hidden = !week;
     els.viewDay.setAttribute('aria-pressed', !week);
     els.viewWeek.setAttribute('aria-pressed', week);
+    if (appOpen) { renderMembers(); render(); }
   }
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
@@ -389,8 +395,13 @@
     const b = e.target.closest('[data-see]');
     if (!b) return;
     const n = b.dataset.see;
-    visible.has(n) ? visible.delete(n) : visible.add(n);
-    store.set(SEE_STORE + ':' + state.me, JSON.stringify([...visible]));
+    if (view === 'week') {
+      weekPerson = n;
+      store.set(SEE_STORE + ':week:' + state.me, n);
+    } else {
+      visible.has(n) ? visible.delete(n) : visible.add(n);
+      store.set(SEE_STORE + ':' + state.me, JSON.stringify([...visible]));
+    }
     renderMembers();
     render();
   });
