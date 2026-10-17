@@ -166,3 +166,19 @@ body.cw-wide .sc { max-width: 1180px; }
 .cw-headbtns .sc-head__lock { padding: 0 12px; white-space: nowrap; }
 .cw-whobtn.is-me { border-color: var(--who); }
 .cw-whobtn span { margin-left: auto; font-size: 13px; font-weight: 500; color: var(--label-3); }
+
+/* Paste mode */
+.cw-paste {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 8px); z-index: 6;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 10px 10px 10px 14px;
+  border-radius: 14px; background: var(--accent); color: #fff; font-size: 14px; line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(0,0,0,.45);
+}
+.cw-paste[hidden] { display: none; }
+.cw-paste span { flex: 1; }
+.cw-paste .cw-btn { min-height: 38px; padding: 0 14px; background: #fff; color: #000; font-size: 15px; }
+body.cw-pasting .cw-col { cursor: copy; }
+body.cw-pasting .cw-col:hover { background-color: rgba(255, 55, 95, .08); }
+body.cw-pasting .cw-gh { cursor: copy; }
+body.cw-pasting .cw-gh:hover b { box-shadow: 0 0 0 2px var(--accent); }
+.cw-sheet__actions { flex-wrap: wrap; }

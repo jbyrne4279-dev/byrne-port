@@ -28,6 +28,7 @@
     sheetCancel: $('cwSheetCancel'), sheetMsg: $('cwSheetMsg'), toast: $('cwToast'),
     tSheet: $('cwTaskSheet'), tForm: $('cwTaskSheetForm'), tTitle: $('cwTaskSheetTitle'), tDelete: $('cwTaskDelete'),
     tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg'),
+    sheetCopy: $('cwSheetCopy'), tCopy: $('cwTaskCopy'),
     viewDay: $('cwViewDay'), viewWeek: $('cwViewWeek'), dayPane: $('cwDayPane'), weekPane: $('cwWeekPane'),
     grid: $('cwGrid'), showMine: $('cwShowMine')
   };
@@ -345,7 +346,57 @@
   els.showMine.checked = showMine;
   els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE, showMine ? '1' : '0'); renderGrid(); });
 
+  /* ── Copy & paste in the week grid ── */
+  let clip = null;   // { type: 'event' | 'task', item }
+  const pasteBar = $('cwPaste');
+  function startPaste(type, item) {
+    clip = { type, item };
+    pasteBar.querySelector('b').textContent = item.title;
+    pasteBar.hidden = false;
+    document.body.classList.add('cw-pasting');
+    setView('week');
+    toast('Copied. Tap a time slot or a day to paste');
+  }
+  function stopPaste() {
+    clip = null;
+    pasteBar.hidden = true;
+    document.body.classList.remove('cw-pasting');
+  }
+  $('cwPasteDone').addEventListener('click', stopPaste);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && clip && els.sheet.hidden && els.tSheet.hidden) stopPaste(); });
+
+  // startMin: where to paste; null keeps the original time
+  async function pasteTo(dayIso, startMin) {
+    const it = clip.item;
+    const hhmm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
+    let error;
+    if (clip.type === 'event') {
+      const s0 = toMin(it.start_time), len = toMin(it.end_time) - s0;
+      const st = startMin == null ? s0 : startMin;
+      const en = Math.min(st + len, 23 * 60 + 59);
+      ({ error } = await call('cowork_save_event', { p_id: null, p_day: dayIso, p_start: hhmm(st), p_end: hhmm(en), p_title: it.title, p_who: it.who || '', p_by: state.me }));
+    } else {
+      const st = startMin == null ? (it.at_time ? toMin(it.at_time) : null) : startMin;
+      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null }));
+    }
+    if (error) { toast('Couldn’t paste. Check your signal.'); return; }
+    const d = new Date(dayIso + 'T00:00:00');
+    toast(`Pasted to ${DAY_LONG[dayIndex(d)]}${startMin == null ? '' : ' ' + clock(startMin)}`);
+    loadWeek();
+  }
+
   els.grid.addEventListener('click', e => {
+    if (clip) {
+      const hd = e.target.closest('[data-open-day]');
+      if (hd) { pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null); return; }
+      const col = e.target.closest('.cw-col');
+      if (col) {
+        const r = col.getBoundingClientRect();
+        const mins = Number(els.grid.dataset.from) + Math.floor((e.clientY - r.top) / HOUR_PX * 2) * 30;
+        pasteTo(iso(addDays(state.weekStart, Number(col.dataset.col))), Math.max(0, Math.min(mins, 23 * 60)));
+      }
+      return;
+    }
     const ev = e.target.closest('[data-event]');
     if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
     const tk = e.target.closest('[data-edit-task]');
@@ -449,6 +500,7 @@
     const f = els.tForm;
     els.tTitle.textContent = t ? 'Edit task' : 'New task';
     els.tDelete.hidden = !t;
+    els.tCopy.hidden = !t;
     els.tMsg.textContent = '';
     f.title.value = t ? t.title : '';
     f.who.innerHTML = state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}${m.name === state.me ? ' (me)' : ''}</option>`).join('');
@@ -465,6 +517,7 @@
     setTimeout(() => { els.tSheet.hidden = true; }, 220);
   }
   els.tCancel.addEventListener('click', closeTaskSheet);
+  els.tCopy.addEventListener('click', () => { const t = editingTask; closeTaskSheet(); if (t) startPaste('task', t); });
   els.tSheet.addEventListener('click', e => { if (e.target === els.tSheet) closeTaskSheet(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.tSheet.hidden) closeTaskSheet(); });
 
@@ -508,6 +561,7 @@
     const f = els.sheetForm;
     els.sheetTitle.textContent = ev ? 'Edit session' : 'New session';
     els.sheetDelete.hidden = !ev;
+    els.sheetCopy.hidden = !ev;
     els.sheetMsg.textContent = '';
     f.title.value = ev ? ev.title : '';
     f.day.value = ev ? ev.day : (preset && preset.day) || selectedDate();
@@ -526,6 +580,7 @@
     setTimeout(() => { els.sheet.hidden = true; }, 220);
   }
   els.sheetCancel.addEventListener('click', closeSheet);
+  els.sheetCopy.addEventListener('click', () => { const ev = editing; closeSheet(); if (ev) startPaste('event', ev); });
   els.sheet.addEventListener('click', e => { if (e.target === els.sheet) closeSheet(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.sheet.hidden) closeSheet(); });
 
