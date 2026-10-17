@@ -270,3 +270,8 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .cw-see.is-on { color: var(--label); border-color: var(--who); }
 .cw-see.is-on i { background: var(--who); color: #000; }
 .cw-see:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Week view: tap a task to tick, hold to edit */
+.sc-week .cw-rowlink { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; transition: transform .45s var(--ease), opacity .2s; }
+.sc-week .cw-rowlink.is-holding { transform: scale(.97); opacity: .75; }
+.sc-week [data-edit-task].is-past .sc-row__title { text-decoration: line-through; }

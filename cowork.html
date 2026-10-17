@@ -19,7 +19,7 @@
   <meta name="description" content="Shared co-working schedule and tasks.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="schedule.css?v=5">
-  <link rel="stylesheet" href="cowork.css?v=11">
+  <link rel="stylesheet" href="cowork.css?v=12">
 </head>
 <body>
   <!-- Not configured yet -->
@@ -108,6 +108,7 @@
         <button type="button" class="cw-btn" id="cwPasteDone">Done</button>
       </div>
       <div class="sc-week" id="cwGrid"></div>
+      <p class="cw-hint">Tap a task to tick it · hold to edit</p>
     </div>
 
     <a class="sc-cowork" href="/schedule">My week <span aria-hidden="true">›</span></a>
@@ -177,6 +178,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
   <script src="schedule-vault.js?v=1"></script>
-  <script src="cowork.js?v=15"></script>
+  <script src="cowork.js?v=16"></script>
 </body>
 </html>

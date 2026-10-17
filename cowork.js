@@ -262,7 +262,7 @@
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time);
-      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
+      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
     });
     if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
@@ -282,7 +282,7 @@
     return m ? `${h} hr ${m} min` : `${h} hr${h > 1 ? 's' : ''}`;
   }
   const itemRange = it => it.kind === 'task' ? clock(it.s) : range(it.s, it.e);
-  const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}"` : '';
+  const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}"` : '';
 
   // Week view: the same stacked day cards as /schedule
   function renderGrid() {
@@ -294,13 +294,13 @@
         const past = it.kind === 'task' ? it.done : isToday && nowM >= it.e;
         const tap = it.kind !== 'mine';
         return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}" style="--kind:${esc(it.color)}"
-            ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="Edit ${esc(it.title)}"` : ''}>
+            ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''}>
             <span class="sc-row__time">${itemRange(it)}</span>
             <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}</span>
           </li>`;
       }).join('');
       const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>
-        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}" style="--kind:${esc(colorOf(t.assignee))}" data-edit-task="${esc(t.id)}" role="button" tabindex="0" aria-label="Edit ${esc(t.title)}">
+        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}" style="--kind:${esc(colorOf(t.assignee))}" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" role="button" tabindex="0" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
             <span class="sc-row__time">Anytime</span>
             <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${repeats(t) ? ' <span class="cw-rep">↻</span>' : ''}</span>
           </li>`).join('');
@@ -373,17 +373,56 @@
     loadWeek();
   }
 
+  // Repeating tasks share an id across days, so find the one on this row's day
+  const taskAt = el => state.tasks.find(x => x.id === el.dataset.editTask && (!el.dataset.tday || x.day === el.dataset.tday));
+  async function saveDone(t, done) {
+    const { error } = t.repeat_weekly
+      ? await call('cowork_set_task_day', { p_id: t.id, p_day: t.day, p_done: done })
+      : await call('cowork_set_task', { p_id: t.id, p_done: done });
+    if (error) { toast('Couldn’t save. Check your signal.'); loadWeek(); }
+  }
   function weekClick(e) {
     const hd = e.target.closest('[data-open-day]');
     if (clip) { if (hd) pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null); return; }
     const ev = e.target.closest('[data-event]');
     if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
     const tk = e.target.closest('[data-edit-task]');
-    if (tk) { openTaskSheet(state.tasks.find(x => x.id === tk.dataset.editTask)); return; }
+    if (tk) {
+      // Tap ticks the task; press and hold edits it (see below)
+      if (held) { held = false; return; }
+      const t = taskAt(tk);
+      if (t) { t.done = !t.done; render(); saveDone(t, t.done); toast(t.done ? 'Done ✓' : 'Not done'); }
+      return;
+    }
     if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); }
   }
   els.grid.addEventListener('click', weekClick);
-  els.grid.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.cw-rowlink')) { e.preventDefault(); weekClick(e); } });
+  els.grid.addEventListener('keydown', e => {
+    if (!e.target.matches('.cw-rowlink')) return;
+    // Keyboard: Enter edits a task, Space ticks it
+    if (e.key === 'Enter' && e.target.dataset.editTask) { e.preventDefault(); const t = taskAt(e.target); if (t) openTaskSheet(t); }
+    else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); weekClick(e); }
+  });
+
+  // Press and hold a task in the week view to edit it
+  let holdTimer = null, held = false, holdStart = null;
+  const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; els.grid.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding')); };
+  els.grid.addEventListener('pointerdown', e => {
+    const tk = e.target.closest('[data-edit-task]');
+    if (!tk || clip) return;
+    held = false; holdStart = { x: e.clientX, y: e.clientY };
+    tk.classList.add('is-holding');
+    holdTimer = setTimeout(() => {
+      held = true; cancelHold();
+      if (navigator.vibrate) navigator.vibrate(10);
+      const t = taskAt(tk); if (t) openTaskSheet(t);
+    }, 450);
+  });
+  els.grid.addEventListener('pointermove', e => {
+    if (holdTimer && holdStart && Math.hypot(e.clientX - holdStart.x, e.clientY - holdStart.y) > 10) cancelHold();   // scrolling, not holding
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => els.grid.addEventListener(t, cancelHold));
+  els.grid.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
 
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
@@ -438,10 +477,7 @@
       renderDay();                        // updates the done/total count
       const again = els.day.querySelector(`[data-task="${cb.dataset.task}"]`);
       if (again) again.focus({ preventScroll: true });
-      const { error } = t && t.repeat_weekly
-        ? await call('cowork_set_task_day', { p_id: t.id, p_day: t.day, p_done: cb.checked })
-        : await call('cowork_set_task', { p_id: cb.dataset.task, p_done: cb.checked });
-      if (error) { toast('Couldn’t save. Check your signal.'); loadWeek(); }
+      if (t) saveDone(t, cb.checked);
     }));
     $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
     els.day.querySelectorAll('[data-edit-task]').forEach(b => b.addEventListener('click', () => openTaskSheet(state.tasks.find(t => t.id === b.dataset.editTask))));
