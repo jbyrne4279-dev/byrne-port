@@ -308,3 +308,7 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .sc-row.cw-during .sc-row__time { font-size: 14px; }
 .cw-during__note { display: block; margin-top: 1px; font-size: 12px; font-weight: 500; color: var(--label-3); }
 @media (max-width: 380px) { .sc-row.cw-during { grid-template-columns: 10px auto minmax(0, 1fr); } }
+
+/* Day view: same tap-to-tick / hold-to-edit feel as the week */
+#cwDay [data-edit-task] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; transition: transform .45s var(--ease), opacity .2s; }
+#cwDay [data-edit-task].is-holding { transform: scale(.97); opacity: .75; }

@@ -461,9 +461,7 @@
     const tk = e.target.closest('[data-edit-task]');
     if (tk) {
       // Tap ticks the task; press and hold edits it (see below)
-      if (held) { held = false; return; }
-      const t = taskAt(tk);
-      if (t) { t.done = !t.done; render(); saveDone(t, t.done); toast(t.done ? 'Done ✓' : 'Not done'); }
+      tapTick(tk);
       return;
     }
     if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); }
@@ -476,25 +474,43 @@
     else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); weekClick(e); }
   });
 
-  // Press and hold a task in the week view to edit it
+  // Press and hold a task (week or day view) to edit it; a quick tap ticks it
   let holdTimer = null, held = false, holdStart = null;
-  const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; els.grid.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding')); };
-  els.grid.addEventListener('pointerdown', e => {
+  const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; document.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding')); };
+  function attachHold(root) {
+    root.addEventListener('pointerdown', e => {
+      const tk = e.target.closest('[data-edit-task]');
+      if (!tk || clip) return;
+      held = false; holdStart = { x: e.clientX, y: e.clientY };
+      tk.classList.add('is-holding');
+      holdTimer = setTimeout(() => {
+        held = true; cancelHold();
+        if (navigator.vibrate) navigator.vibrate(10);
+        const t = taskAt(tk); if (t) openTaskSheet(t);
+      }, 450);
+    });
+    root.addEventListener('pointermove', e => {
+      if (holdTimer && holdStart && Math.hypot(e.clientX - holdStart.x, e.clientY - holdStart.y) > 10) cancelHold();   // scrolling, not holding
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => root.addEventListener(t, cancelHold));
+    root.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
+  }
+  attachHold(els.grid);
+  attachHold(els.day);
+  function tapTick(tk) {
+    if (held) { held = false; return; }
+    const t = taskAt(tk);
+    if (t) { t.done = !t.done; render(); saveDone(t, t.done); toast(t.done ? 'Done ✓' : 'Not done'); }
+  }
+  els.day.addEventListener('click', e => {
     const tk = e.target.closest('[data-edit-task]');
-    if (!tk || clip) return;
-    held = false; holdStart = { x: e.clientX, y: e.clientY };
-    tk.classList.add('is-holding');
-    holdTimer = setTimeout(() => {
-      held = true; cancelHold();
-      if (navigator.vibrate) navigator.vibrate(10);
-      const t = taskAt(tk); if (t) openTaskSheet(t);
-    }, 450);
+    if (tk) tapTick(tk);
   });
-  els.grid.addEventListener('pointermove', e => {
-    if (holdTimer && holdStart && Math.hypot(e.clientX - holdStart.x, e.clientY - holdStart.y) > 10) cancelHold();   // scrolling, not holding
+  els.day.addEventListener('keydown', e => {
+    const tk = e.target.closest('[data-edit-task]');
+    if (!tk || e.key !== 'Enter') return;
+    e.preventDefault(); const t = taskAt(tk); if (t) openTaskSheet(t);   // keyboard: Enter edits, Space ticks
   });
-  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => els.grid.addEventListener(t, cancelHold));
-  els.grid.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
 
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
@@ -509,7 +525,7 @@
           const tag = it.kind === 'mine' ? 'div' : 'button';
           return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
               <div class="sc-item__time"><b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}</div>
-              <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="Edit ${esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
+              <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
                 <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
                 <p class="sc-item__meta">${itemRange(it)}${it.e > it.s ? ' · ' + duration(it.e - it.s) : ''}${it.meta ? ' · ' + esc(it.meta) : ''}${it.flex ? ' · flexible' : ''}</p>
                 ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
@@ -522,7 +538,7 @@
       .map(t => `
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
-          <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
+          <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
             <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${t.end_time ? range(toMin(t.at_time), toMin(t.end_time)) : clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${!t.assignee ? '<span class="cw-task__from">Everyone</span>' : t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
@@ -552,7 +568,6 @@
       if (t) saveDone(t, cb.checked);
     }));
     $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
-    els.day.querySelectorAll('[data-edit-task]').forEach(b => b.addEventListener('click', () => openTaskSheet(state.tasks.find(t => t.id === b.dataset.editTask))));
   }
 
   /* ── Add / edit task sheet ── */
