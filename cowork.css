@@ -160,3 +160,9 @@
 
 /* Week view gets the full width on bigger screens */
 body.cw-wide .sc { max-width: 1180px; }
+
+/* Header: Change user + Lock */
+.cw-headbtns { display: flex; gap: 6px; flex-wrap: nowrap; }
+.cw-headbtns .sc-head__lock { padding: 0 12px; white-space: nowrap; }
+.cw-whobtn.is-me { border-color: var(--who); }
+.cw-whobtn span { margin-left: auto; font-size: 13px; font-weight: 500; color: var(--label-3); }

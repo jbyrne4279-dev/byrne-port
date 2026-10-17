@@ -143,11 +143,12 @@
   });
 
   /* ── Who are you? (once per device) ── */
-  function chooseWho() {
+  let appOpen = false;
+  function chooseWho(force) {
     const saved = store.get(ME_STORE);
-    if (saved && member(saved)) { state.me = saved; openApp(); return; }
+    if (!force && saved && member(saved)) { state.me = saved; openApp(); return; }
     els.whoList.innerHTML = state.members.map(m =>
-      `<button type="button" class="cw-whobtn" data-me="${esc(m.name)}" style="--who:${esc(m.color)}"><i aria-hidden="true">${esc(m.name[0])}</i>${esc(m.name)}</button>`
+      `<button type="button" class="cw-whobtn${m.name === state.me ? ' is-me' : ''}" data-me="${esc(m.name)}" style="--who:${esc(m.color)}"><i aria-hidden="true">${esc(m.name[0])}</i>${esc(m.name)}${m.name === state.me ? '<span>current</span>' : ''}</button>`
     ).join('');
     els.who.hidden = false;
     els.whoList.querySelector('button').focus();
@@ -158,10 +159,21 @@
     state.me = b.dataset.me;
     store.set(ME_STORE, state.me);
     els.who.hidden = true;
-    openApp();
+    if (appOpen) {
+      // Switched user: same data, just redraw with the new "you"
+      els.app.hidden = false;
+      renderMembers();
+      render();
+      toast(`You’re now ${state.me}`);
+    } else openApp();
+  });
+  $('cwSwitch').addEventListener('click', () => {
+    els.app.hidden = true;
+    chooseWho(true);
   });
 
   function openApp() {
+    appOpen = true;
     els.app.hidden = false;
     renderMembers();
     render();
