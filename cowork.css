@@ -275,3 +275,19 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .sc-week .cw-rowlink { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; transition: transform .45s var(--ease), opacity .2s; }
 .sc-week .cw-rowlink.is-holding { transform: scale(.97); opacity: .75; }
 .sc-week [data-edit-task].is-past .sc-row__title { text-decoration: line-through; }
+
+/* Task tags */
+.cw-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.cw-tags label { position: relative; display: flex; margin: 0; --tag: var(--label-2); }
+.cw-tags input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.cw-tags span { display: grid; place-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(118,118,128,.24);
+  font-size: 15px; font-weight: 600; color: var(--label-2); border: 1.5px solid transparent; }
+.cw-tags input:checked + span { color: var(--tag); border-color: var(--tag); background: rgba(118,118,128,.12); }
+.cw-tags label:first-child input:checked + span { color: var(--label); border-color: var(--label-3); }
+.cw-tags input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cw-tagpill { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 6px; vertical-align: 2px;
+  font: 700 11px var(--font); letter-spacing: .02em; text-transform: uppercase; color: #000; background: var(--tag); text-decoration: none; }
+/* Meetings glow gold in the day timeline */
+.sc-item.cw-meeting .sc-item__card { box-shadow: inset 0 0 0 1.5px var(--kind), 0 0 18px rgba(255, 214, 10, .18); }
+.sc-item.cw-meeting .sc-item__title { color: var(--kind); }
+.sc-row.cw-meeting .sc-row__title { color: #ffd60a; }

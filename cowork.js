@@ -76,6 +76,11 @@
   const colorOf = name => (member(name) || {}).color || '#8e8e93';
   const selectedDate = () => iso(addDays(state.weekStart, state.selected));
   // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
+  // Tags make important tasks stand out; meetings are gold
+  const TAGS = { Meeting: '#ffd60a', Important: '#ff453a', Deadline: '#ff9f0a' };
+  const taskColor = t => TAGS[t.tag] || colorOf(t.assignee);
+  const tagPill = tag => TAGS[tag] ? ` <span class="cw-tagpill" style="--tag:${TAGS[tag]}">${esc(tag)}</span>` : '';
+
   // Each person picks whose calendars they see (their own by default)
   let visible = new Set();
   const myEvents = () => state.events.filter(e => !e.who || visible.has(e.who));
@@ -262,7 +267,7 @@
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time);
-      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
+      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
     });
     if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
@@ -293,16 +298,16 @@
       const rows = dayItems(i).map(it => {
         const past = it.kind === 'task' ? it.done : isToday && nowM >= it.e;
         const tap = it.kind !== 'mine';
-        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}" style="--kind:${esc(it.color)}"
+        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}"
             ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''}>
             <span class="sc-row__time">${itemRange(it)}</span>
-            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}</span>
+            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}</span>
           </li>`;
       }).join('');
       const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>
-        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}" style="--kind:${esc(colorOf(t.assignee))}" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" role="button" tabindex="0" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
+        `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}${t.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(taskColor(t))}" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" role="button" tabindex="0" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
             <span class="sc-row__time">Anytime</span>
-            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${repeats(t) ? ' <span class="cw-rep">↻</span>' : ''}</span>
+            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ' <span class="cw-rep">↻</span>' : ''}</span>
           </li>`).join('');
       return `<section class="sc-wday${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
           <button type="button" class="sc-wday__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
@@ -365,7 +370,7 @@
       ({ error } = await call('cowork_save_event', { p_id: null, p_day: dayIso, p_start: hhmm(st), p_end: hhmm(en), p_title: it.title, p_who: it.who || '', p_by: state.me }));
     } else {
       const st = startMin == null ? (it.at_time ? toMin(it.at_time) : null) : startMin;
-      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
+      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null, p_tag: it.tag || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
     }
     if (error) { toast('Couldn’t paste. Check your signal.'); return; }
     const d = new Date(dayIso + 'T00:00:00');
@@ -435,10 +440,10 @@
       ? '<ol class="sc-list">' + items.map(it => {
           const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
           const tag = it.kind === 'mine' ? 'div' : 'button';
-          return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}" style="--kind:${esc(it.color)}">
+          return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
               <div class="sc-item__time"><b>${clock(it.s)}</b>${it.kind === 'task' ? '' : `<span>${clock(it.e)}</span>`}</div>
               <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="Edit ${esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
-                <p class="sc-item__title">${esc(it.title)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
+                <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
                 <p class="sc-item__meta">${itemRange(it)}${it.kind === 'task' ? '' : ' · ' + duration(it.e - it.s)} · ${esc(it.meta)}${it.flex ? ' · flexible' : ''}</p>
               </${tag}>
             </li>`;
@@ -450,7 +455,7 @@
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
-            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
+            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
@@ -514,6 +519,7 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
+    f.tag.value = t && TAGS[t.tag] ? t.tag : 'none';
     // Every task repeats until someone edits or deletes it
     if (t) f.day.value = t.start_day || t.day;
     const days = t && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
@@ -540,7 +546,7 @@
     const title = f.title.value.trim();
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
     els.tMsg.textContent = 'Saving…';
-    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null };
+    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null, p_tag: TAGS[f.tag.value] ? f.tag.value : null };
     const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
     if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
     Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: null });
