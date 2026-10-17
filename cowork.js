@@ -266,8 +266,8 @@
       meta: e.who ? (e.who === state.me ? 'You' : e.who) : 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
-      const s0 = toMin(t.at_time);
-      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
+      const s0 = toMin(t.at_time), e0 = t.end_time ? toMin(t.end_time) : s0;
+      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
     });
     if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
@@ -286,7 +286,7 @@
     if (!h) return `${m} min`;
     return m ? `${h} hr ${m} min` : `${h} hr${h > 1 ? 's' : ''}`;
   }
-  const itemRange = it => it.kind === 'task' ? clock(it.s) : range(it.s, it.e);
+  const itemRange = it => it.e > it.s ? range(it.s, it.e) : clock(it.s);
   const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}"` : '';
 
   // Week view: the same stacked day cards as /schedule
@@ -370,7 +370,7 @@
       ({ error } = await call('cowork_save_event', { p_id: null, p_day: dayIso, p_start: hhmm(st), p_end: hhmm(en), p_title: it.title, p_who: it.who || '', p_by: state.me }));
     } else {
       const st = startMin == null ? (it.at_time ? toMin(it.at_time) : null) : startMin;
-      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null, p_tag: it.tag || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
+      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_end: st != null && it.at_time && it.end_time ? hhmm(Math.min(st + toMin(it.end_time) - toMin(it.at_time), 23 * 60 + 59)) : null, p_notes: it.notes || null, p_tag: it.tag || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
     }
     if (error) { toast('Couldn’t paste. Check your signal.'); return; }
     const d = new Date(dayIso + 'T00:00:00');
@@ -441,10 +441,11 @@
           const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
           const tag = it.kind === 'mine' ? 'div' : 'button';
           return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
-              <div class="sc-item__time"><b>${clock(it.s)}</b>${it.kind === 'task' ? '' : `<span>${clock(it.e)}</span>`}</div>
+              <div class="sc-item__time"><b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}</div>
               <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="Edit ${esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
                 <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
-                <p class="sc-item__meta">${itemRange(it)}${it.kind === 'task' ? '' : ' · ' + duration(it.e - it.s)} · ${esc(it.meta)}${it.flex ? ' · flexible' : ''}</p>
+                <p class="sc-item__meta">${itemRange(it)}${it.e > it.s ? ' · ' + duration(it.e - it.s) : ''} · ${esc(it.meta)}${it.flex ? ' · flexible' : ''}</p>
+                ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
               </${tag}>
             </li>`;
         }).join('') + '</ol>'
@@ -455,7 +456,7 @@
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
-            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
+            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${t.end_time ? range(toMin(t.at_time), toMin(t.end_time)) : clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
@@ -467,14 +468,13 @@
 
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
-      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddEvent">+ Session</button><button type="button" class="cw-add" id="cwAddTask">+ Task</button></div>
+      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
       ${timeline}
       ${taskCard}`;
     bindDay();
   }
 
   function bindDay() {
-    $('cwAddEvent').addEventListener('click', () => openSheet(null));
     els.day.querySelectorAll('[data-event]').forEach(b => b.addEventListener('click', () => openSheet(state.events.find(e => e.id === b.dataset.event))));
     els.day.querySelectorAll('[data-task]').forEach(cb => cb.addEventListener('change', async () => {
       const t = state.tasks.find(x => x.id === cb.dataset.task);
@@ -518,6 +518,7 @@
     f.who.value = t ? t.assignee : state.me;
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
+    f.end.value = t && t.end_time ? String(t.end_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
     f.tag.value = t && TAGS[t.tag] ? t.tag : 'none';
     // Every task repeats until someone edits or deletes it
@@ -546,9 +547,11 @@
     const title = f.title.value.trim();
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
     els.tMsg.textContent = 'Saving…';
-    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null, p_tag: TAGS[f.tag.value] ? f.tag.value : null };
+    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_end: f.time.value && f.end.value ? f.end.value : null, p_notes: f.notes.value.trim() || null, p_tag: TAGS[f.tag.value] ? f.tag.value : null };
     const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
     if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
+    if (args.p_end && args.p_end <= args.p_time) { els.tMsg.textContent = 'Finish needs to be after the start.'; return; }
+    if (f.end.value && !f.time.value) { els.tMsg.textContent = 'Add a start time too.'; return; }
     Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: null });
     const { error } = editingTask
       ? await call('cowork_update_task', { p_id: editingTask.id, ...args })

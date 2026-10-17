@@ -291,3 +291,8 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .sc-item.cw-meeting .sc-item__card { box-shadow: inset 0 0 0 1.5px var(--kind), 0 0 18px rgba(255, 214, 10, .18); }
 .sc-item.cw-meeting .sc-item__title { color: var(--kind); }
 .sc-row.cw-meeting .sc-row__title { color: #ffd60a; }
+
+/* Notes on timeline cards */
+.cw-item__notes { margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--label-2); white-space: pre-wrap; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.cw-addrow .cw-add { min-height: 48px; font-size: 16px; }

@@ -6,3 +6,6 @@
 alter table cw_tasks add column if not exists tag text;
 alter table cw_tasks add constraint cw_tasks_tag_len check (tag is null or char_length(tag) <= 30);
 -- Function bodies: see the live definitions of cowork_week, cowork_add_task(…, p_tag) and cowork_update_task(…, p_tag).
+
+-- Update 6: tasks have a finish time (also applied live). add/update take p_end; cowork_week returns t.end_time.
+alter table cw_tasks add column if not exists end_time time;
