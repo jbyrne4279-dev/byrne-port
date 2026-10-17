@@ -447,24 +447,12 @@
   // A "just once" task on several days is stored as a series limited to one week
   const oneWeek = t => !!(t && t.repeat_weekly && t.repeat_until && (new Date(t.repeat_until + 'T00:00:00') - new Date((t.start_day || t.day) + 'T00:00:00')) <= 6 * 864e5);
   const repeats = t => !!(t && t.repeat_weekly && !oneWeek(t));
-  function syncRepeat() {
-    const on = els.tForm.repeat.value === 'weekly';
-    $('cwRepWeeks').hidden = !on;
-    $('cwTaskDayLbl').textContent = on ? 'Starts' : 'Week of';
-  }
   // On a new task, moving the start day moves the ticked day with it
   els.tForm.day.addEventListener('change', () => {
     if (editingTask) return;
     const ticked = els.tForm.querySelectorAll('[name=rday]:checked');
     if (ticked.length <= 1) els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
   });
-  els.tForm.querySelectorAll('[name=repeat]').forEach(r => r.addEventListener('change', () => {
-    // Turning repeats on starts with the chosen day ticked
-    if (!els.tForm.querySelector('[name=rday]:checked')) {
-      const c = els.tForm.querySelector(`[name=rday][value="${isoDow(els.tForm.day.value)}"]`); if (c) c.checked = true;
-    }
-    syncRepeat();
-  }));
   let editingTask = null;
   function openTaskSheet(t) {
     editingTask = t;
@@ -479,14 +467,11 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
-    const series = !!(t && t.repeat_weekly), rep = t ? repeats(t) : true;   // new tasks repeat every week by default
-    if (series) f.day.value = t.start_day || t.day;   // a series is edited from its first day
-    f.repeat.value = rep ? 'weekly' : 'once';
-    const days = series && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
+    // Every task repeats until someone edits or deletes it
+    if (t) f.day.value = t.start_day || t.day;
+    const days = t && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
     f.querySelectorAll('[name=rday]').forEach(c => { c.checked = days.includes(+c.value); });
-    f.every.value = String(t && rep && t.repeat_every || 1);
-    f.until.value = t && rep && t.repeat_until ? t.repeat_until : '';
-    syncRepeat();
+    f.every.value = String(t && t.repeat_every || 1);
     els.tSheet.hidden = false;
     requestAnimationFrame(() => els.tSheet.classList.add('is-open'));
     setTimeout(() => f.title.focus(), 50);
@@ -509,19 +494,7 @@
     const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null };
     const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
     if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
-    if (f.repeat.value === 'once') {
-      // Just this week: one day is a plain task, several days a one-week series
-      const mon = mondayOf(new Date(f.day.value + 'T00:00:00'));
-      if (days.length === 1) {
-        args.p_day = iso(addDays(mon, days[0] - 1));
-        if (editingTask && editingTask.repeat_weekly) args.p_repeat = false;
-      } else {
-        Object.assign(args, { p_day: iso(mon), p_repeat: true, p_days: days, p_every: 1, p_until: iso(addDays(mon, 6)) });
-      }
-    } else {
-      if (f.until.value && f.until.value < f.day.value) { els.tMsg.textContent = '“Until” is before the start day.'; return; }
-      Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: f.until.value || null });
-    }
+    Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: null });
     const { error } = editingTask
       ? await call('cowork_update_task', { p_id: editingTask.id, ...args })
       : await call('cowork_add_task', { ...args, p_by: state.me });
@@ -533,7 +506,7 @@
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + (args.p_repeat ? ' · ' + (f.repeat.value === 'once' ? `${days.length} days this week` : repeatText(args.p_days, args.p_every)) : ''));
+    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + ' · ' + repeatText(args.p_days, args.p_every));
     const d = new Date(args.p_day + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);

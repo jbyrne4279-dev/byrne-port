@@ -141,11 +141,7 @@
       <label>Task<input name="title" type="text" maxlength="140" placeholder="e.g. Write methodology section" required></label>
       <div class="cw-row">
         <label>For<select name="who"></select></label>
-        <label><span id="cwTaskDayLbl">Day</span><input name="day" type="date" required></label>
-      </div>
-      <div class="sc-seg cw-repeat" role="radiogroup" aria-label="Repeats">
-        <label><input type="radio" name="repeat" value="once" checked><span>Just once</span></label>
-        <label><input type="radio" name="repeat" value="weekly"><span>Repeats</span></label>
+        <label><span id="cwTaskDayLbl">Starts</span><input name="day" type="date" required></label>
       </div>
       <fieldset class="cw-repopts" id="cwRepOpts">
         <legend>What days</legend>
@@ -158,15 +154,12 @@
           <label><input type="checkbox" name="rday" value="6"><span>S</span></label>
           <label><input type="checkbox" name="rday" value="7"><span>S</span></label>
         </div>
-        <div class="cw-row" id="cwRepWeeks">
-          <label>What weeks<select name="every">
-            <option value="1">Every week</option>
-            <option value="2">Every 2 weeks</option>
-            <option value="3">Every 3 weeks</option>
-            <option value="4">Every 4 weeks</option>
-          </select></label>
-          <label><span>Until <span class="cw-opt">optional</span></span><input name="until" type="date"></label>
-        </div>
+        <label>What weeks<select name="every">
+          <option value="1">Every week</option>
+          <option value="2">Every 2 weeks</option>
+          <option value="3">Every 3 weeks</option>
+          <option value="4">Every 4 weeks</option>
+        </select></label>
       </fieldset>
       <label><span>Planned time <span class="cw-opt">optional</span></span><input name="time" type="time" step="900"></label>
       <label><span>Notes <span class="cw-opt">optional</span></span><textarea name="notes" rows="3" maxlength="500" placeholder="Links, details, anything useful…"></textarea></label>
@@ -184,6 +177,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
   <script src="schedule-vault.js?v=1"></script>
-  <script src="cowork.js?v=12"></script>
+  <script src="cowork.js?v=13"></script>
 </body>
 </html>
