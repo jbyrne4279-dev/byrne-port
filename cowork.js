@@ -318,7 +318,18 @@
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
       out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: state.me === 'Joe' ? '' : 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
     });
-    return out.sort((a, b) => a.s - b.s || a.e - b.e);
+    // Start time order; when two start together the longer one comes first
+    out.sort((a, b) => a.s - b.s || b.e - a.e);
+    // Mark items that happen during a longer one still running (e.g. lunch during uni)
+    let host = null;
+    out.forEach(it => {
+      if (host && it.s < host.e && it.s >= host.s) {
+        const end = Math.max(it.e, it.s);
+        it.during = (it.s === host.s && end === host.e ? 'same time as ' : end <= host.e ? 'during ' : 'overlaps ') + host.title;
+      }
+      if (!host || Math.max(it.e, it.s) > host.e) host = it.e > it.s ? it : host;
+    });
+    return out;
   }
   // Time and length formats
   function range(a, b) {
@@ -343,10 +354,10 @@
       const rows = dayItems(i).map(it => {
         const past = it.kind === 'task' ? it.done : isToday && nowM >= it.e;
         const tap = it.kind !== 'mine';
-        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}"
+        return `<li class="sc-row${past ? ' is-past' : ''}${it.routine ? ' is-routine' : ''}${it.flex ? ' is-flex' : ''}${tap ? ' cw-rowlink' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}${it.during ? ' cw-during' : ''}" style="--kind:${esc(it.color)}"
             ${tap ? `${itemAttr(it)} role="button" tabindex="0" aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''}>
             <span class="sc-row__time">${itemRange(it)}</span>
-            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}</span>
+            <span class="sc-row__title">${it.kind === 'task' ? (it.done ? '✓ ' : '') : ''}${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${it.flex ? ' <span class="sc-row__flex">flexible</span>' : ''}${it.kind === 'event' ? ` <span class="sc-row__flex">${esc(it.meta)}</span>` : ''}${it.during ? `<span class="cw-during__note">${esc(it.during)}</span>` : ''}</span>
           </li>`;
       }).join('');
       const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>

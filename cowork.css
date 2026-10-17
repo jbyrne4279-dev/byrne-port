@@ -301,3 +301,10 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 #cwNow { margin-bottom: 18px; }
 #cwNow[hidden] { display: none; }
 .cw-addrow { margin: 14px 0 0; }
+
+/* Items that happen during a longer one are indented under it */
+.sc-row.cw-during { grid-template-columns: 10px 112px minmax(0, 1fr); padding-left: 16px; position: relative; }
+.sc-row.cw-during::after { content: '↳'; position: absolute; left: 0; top: 50%; transform: translateY(-55%); font-size: 13px; color: var(--label-3); }
+.sc-row.cw-during .sc-row__time { font-size: 14px; }
+.cw-during__note { display: block; margin-top: 1px; font-size: 12px; font-weight: 500; color: var(--label-3); }
+@media (max-width: 380px) { .sc-row.cw-during { grid-template-columns: 10px auto minmax(0, 1fr); } }
