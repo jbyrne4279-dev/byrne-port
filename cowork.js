@@ -387,7 +387,7 @@
       ({ error } = await call('cowork_save_event', { p_id: null, p_day: dayIso, p_start: hhmm(st), p_end: hhmm(en), p_title: it.title, p_who: it.who || '', p_by: state.me }));
     } else {
       const st = startMin == null ? (it.at_time ? toMin(it.at_time) : null) : startMin;
-      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null }));
+      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_notes: it.notes || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
     }
     if (error) { toast('Couldn’t paste. Check your signal.'); return; }
     const d = new Date(dayIso + 'T00:00:00');
@@ -518,6 +518,11 @@
     $('cwRepOpts').hidden = !on;
     $('cwTaskDayLbl').textContent = on ? 'Starts' : 'Day';
   }
+  // On a new task, moving the start day moves the ticked day with it
+  els.tForm.day.addEventListener('change', () => {
+    if (editingTask) return;
+    els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
+  });
   els.tForm.querySelectorAll('[name=repeat]').forEach(r => r.addEventListener('change', () => {
     // Turning repeats on starts with the chosen day ticked
     if (els.tForm.repeat.value === 'weekly' && !els.tForm.querySelector('[name=rday]:checked')) {
@@ -539,13 +544,13 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
-    const rep = !!(t && t.repeat_weekly);
-    if (rep) f.day.value = t.start_day || t.day;   // a repeating task is edited from its first day
+    const rep = t ? !!t.repeat_weekly : true;   // new tasks repeat every week by default
+    if (t && rep) f.day.value = t.start_day || t.day;   // a repeating task is edited from its first day
     f.repeat.value = rep ? 'weekly' : 'once';
-    const days = rep && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
+    const days = t && rep && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
     f.querySelectorAll('[name=rday]').forEach(c => { c.checked = days.includes(+c.value); });
-    f.every.value = String(rep && t.repeat_every || 1);
-    f.until.value = rep && t.repeat_until ? t.repeat_until : '';
+    f.every.value = String(t && rep && t.repeat_every || 1);
+    f.until.value = t && rep && t.repeat_until ? t.repeat_until : '';
     syncRepeat();
     els.tSheet.hidden = false;
     requestAnimationFrame(() => els.tSheet.classList.add('is-open'));
