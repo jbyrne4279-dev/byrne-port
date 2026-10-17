@@ -30,7 +30,7 @@
     tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg'),
     sheetCopy: $('cwSheetCopy'), tCopy: $('cwTaskCopy'),
     viewDay: $('cwViewDay'), viewWeek: $('cwViewWeek'), dayPane: $('cwDayPane'), weekPane: $('cwWeekPane'),
-    grid: $('cwGrid'), weekLbl: $('cwWeekLbl')
+    grid: $('cwGrid'), weekLbl: $('cwWeekLbl'), now: $('cwNow')
   };
 
   const DAY_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -213,6 +213,51 @@
   }
 
   /* ── Rendering ── */
+  /* Now / next card (only while looking at this week) */
+  function countdown(mins) {
+    if (mins < 1) return 'now';
+    const h = Math.floor(mins / 60), m = mins % 60;
+    return h ? `${h}h ${m ? m + 'm' : ''}`.trim() : `${m} min`;
+  }
+  function renderNow() {
+    const t = new Date(), n = t.getHours() * 60 + t.getMinutes();
+    const thisWeek = iso(state.weekStart) === iso(mondayOf(t));
+    els.now.hidden = !thisWeek;
+    if (!thisWeek) return;
+    const di = dayIndex(t), todays = dayItems(di);
+    // Timed tasks have no length unless they have a finish; treat them as 30 min for "now"
+    const end = it => it.e > it.s ? it.e : it.s + 30;
+    const current = todays.filter(it => !it.done && n >= it.s && n < end(it)).sort((a, b) => b.s - a.s)[0];
+    let html, kind;
+    if (current) {
+      const total = end(current) - current.s, left = end(current) - n;
+      const pct = Math.min(100, Math.max(0, Math.round((total - left) / total * 100)));
+      kind = current.color;
+      html = `<p class="sc-now__label"><span class="sc-live" aria-hidden="true"></span>Happening now</p>
+        <p class="sc-now__title">${esc(current.title)}</p>
+        <p class="sc-now__meta">${itemRange(current)} · ${countdown(left)} left</p>
+        <div class="sc-now__bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
+    } else {
+      let next = todays.find(it => it.s > n && !it.done), offset = 0;
+      for (let i = 1; !next && di + i < 7; i++) {
+        const list = dayItems(di + i).filter(it => !it.done);
+        if (list.length) { next = list[0]; offset = i; }
+      }
+      if (!next) html = '<p class="sc-now__title">Nothing else this week</p>';
+      else {
+        kind = next.color;
+        const free = todays.length && todays.every(it => end(it) <= n || it.done) ? 'All done for today. ' : '';
+        const when = offset === 0 ? `${clock(next.s)} · in ${countdown(next.s - n)}` : `${offset === 1 ? 'Tomorrow' : DAY_LONG[di + offset]} · ${clock(next.s)}`;
+        html = `<p class="sc-now__label">${free}Up next</p>
+          <p class="sc-now__title">${esc(next.title)}</p>
+          <p class="sc-now__meta">${when}</p>`;
+      }
+    }
+    if (kind) els.now.style.setProperty('--kind', kind);
+    els.now.innerHTML = html;
+  }
+  setInterval(() => { if (appOpen && !document.hidden) renderNow(); }, 30000);
+
   function renderMembers() {
     els.members.innerHTML = state.members.map(m => {
       const on = visible.has(m.name);
@@ -232,11 +277,10 @@
 
     els.strip.innerHTML = Array.from({ length: 7 }, (_, i) => {
       const d = addDays(ws, i), di = iso(d);
-      const people = [...new Set([
-        ...myEvents().filter(e => e.day === di).map(e => e.who || '*'),
-        ...myTasks().filter(t => t.day === di && !t.done).map(t => t.assignee)
-      ])].slice(0, 4);
-      const dots = people.map(p => `<i style="background:${p === '*' ? '#fff' : esc(colorOf(p))}"></i>`).join('');
+      // One dot per colour of what's on that day (routine things like lunch left out)
+      const untimed = myTasks().filter(t => t.day === di && !t.at_time).map(taskColor);
+      const colors = [...new Set(dayItems(i).filter(it => !it.routine).map(it => it.color).concat(untimed))].slice(0, 4);
+      const dots = colors.map(c => `<i style="background:${esc(c)}"></i>`).join('');
       return `<button type="button" role="tab" class="sc-day${i === state.selected ? ' is-on' : ''}${di === todayIso ? ' is-today' : ''}"
           data-day="${i}" aria-selected="${i === state.selected}" tabindex="${i === state.selected ? 0 : -1}"
           aria-label="${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${di === todayIso ? ', today' : ''}">
@@ -245,6 +289,7 @@
           <span class="sc-day__dots" aria-hidden="true">${dots}</span>
         </button>`;
     }).join('');
+    renderNow();
     renderDay();
     renderGrid();
   }
@@ -271,7 +316,7 @@
     });
     if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
-      out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
+      out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: state.me === 'Joe' ? '' : 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
     });
     return out.sort((a, b) => a.s - b.s || a.e - b.e);
   }
@@ -444,7 +489,7 @@
               <div class="sc-item__time"><b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}</div>
               <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="Edit ${esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
                 <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
-                <p class="sc-item__meta">${itemRange(it)}${it.e > it.s ? ' · ' + duration(it.e - it.s) : ''} · ${esc(it.meta)}${it.flex ? ' · flexible' : ''}</p>
+                <p class="sc-item__meta">${itemRange(it)}${it.e > it.s ? ' · ' + duration(it.e - it.s) : ''}${it.meta ? ' · ' + esc(it.meta) : ''}${it.flex ? ' · flexible' : ''}</p>
                 ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
               </${tag}>
             </li>`;
@@ -468,8 +513,8 @@
 
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
-      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
       ${timeline}
+      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
       ${taskCard}`;
     bindDay();
   }

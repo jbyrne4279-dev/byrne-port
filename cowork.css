@@ -296,3 +296,8 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .cw-item__notes { margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--label-2); white-space: pre-wrap; overflow-wrap: anywhere;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .cw-addrow .cw-add { min-height: 48px; font-size: 16px; }
+
+/* Now / next card, as on the old My week page */
+#cwNow { margin-bottom: 18px; }
+#cwNow[hidden] { display: none; }
+.cw-addrow { margin: 14px 0 0; }
