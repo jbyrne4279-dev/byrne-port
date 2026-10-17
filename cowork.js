@@ -259,7 +259,7 @@
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time);
-      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: 'Task', color: colorOf(t.assignee), done: t.done, rep: t.repeat_weekly });
+      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: 'Task', color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
     });
     if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
@@ -299,7 +299,7 @@
       const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t =>
         `<li class="sc-row cw-rowlink${t.done ? ' is-past' : ''}" style="--kind:${esc(colorOf(t.assignee))}" data-edit-task="${esc(t.id)}" role="button" tabindex="0" aria-label="Edit ${esc(t.title)}">
             <span class="sc-row__time">Anytime</span>
-            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${t.repeat_weekly ? ' <span class="cw-rep">↻</span>' : ''}</span>
+            <span class="sc-row__title">${t.done ? '✓ ' : ''}${esc(t.title)}${repeats(t) ? ' <span class="cw-rep">↻</span>' : ''}</span>
           </li>`).join('');
       return `<section class="sc-wday${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
           <button type="button" class="sc-wday__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
@@ -400,7 +400,7 @@
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
-            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${t.repeat_weekly ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
+            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
@@ -444,19 +444,23 @@
     const which = ds.length === 7 ? 'every day' : ds.join() === '1,2,3,4,5' ? 'weekdays' : ds.map(d => n[d - 1]).join(', ');
     return (+every > 1 ? `every ${every} weeks · ` : 'weekly · ') + which;
   }
+  // A "just once" task on several days is stored as a series limited to one week
+  const oneWeek = t => !!(t && t.repeat_weekly && t.repeat_until && (new Date(t.repeat_until + 'T00:00:00') - new Date((t.start_day || t.day) + 'T00:00:00')) <= 6 * 864e5);
+  const repeats = t => !!(t && t.repeat_weekly && !oneWeek(t));
   function syncRepeat() {
     const on = els.tForm.repeat.value === 'weekly';
-    $('cwRepOpts').hidden = !on;
-    $('cwTaskDayLbl').textContent = on ? 'Starts' : 'Day';
+    $('cwRepWeeks').hidden = !on;
+    $('cwTaskDayLbl').textContent = on ? 'Starts' : 'Week of';
   }
   // On a new task, moving the start day moves the ticked day with it
   els.tForm.day.addEventListener('change', () => {
     if (editingTask) return;
-    els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
+    const ticked = els.tForm.querySelectorAll('[name=rday]:checked');
+    if (ticked.length <= 1) els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
   });
   els.tForm.querySelectorAll('[name=repeat]').forEach(r => r.addEventListener('change', () => {
     // Turning repeats on starts with the chosen day ticked
-    if (els.tForm.repeat.value === 'weekly' && !els.tForm.querySelector('[name=rday]:checked')) {
+    if (!els.tForm.querySelector('[name=rday]:checked')) {
       const c = els.tForm.querySelector(`[name=rday][value="${isoDow(els.tForm.day.value)}"]`); if (c) c.checked = true;
     }
     syncRepeat();
@@ -475,10 +479,10 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
-    const rep = t ? !!t.repeat_weekly : true;   // new tasks repeat every week by default
-    if (t && rep) f.day.value = t.start_day || t.day;   // a repeating task is edited from its first day
+    const series = !!(t && t.repeat_weekly), rep = t ? repeats(t) : true;   // new tasks repeat every week by default
+    if (series) f.day.value = t.start_day || t.day;   // a series is edited from its first day
     f.repeat.value = rep ? 'weekly' : 'once';
-    const days = t && rep && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
+    const days = series && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
     f.querySelectorAll('[name=rday]').forEach(c => { c.checked = days.includes(+c.value); });
     f.every.value = String(t && rep && t.repeat_every || 1);
     f.until.value = t && rep && t.repeat_until ? t.repeat_until : '';
@@ -503,12 +507,21 @@
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
     els.tMsg.textContent = 'Saving…';
     const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null };
-    if (f.repeat.value === 'weekly') {
-      const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
-      if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
+    const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
+    if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
+    if (f.repeat.value === 'once') {
+      // Just this week: one day is a plain task, several days a one-week series
+      const mon = mondayOf(new Date(f.day.value + 'T00:00:00'));
+      if (days.length === 1) {
+        args.p_day = iso(addDays(mon, days[0] - 1));
+        if (editingTask && editingTask.repeat_weekly) args.p_repeat = false;
+      } else {
+        Object.assign(args, { p_day: iso(mon), p_repeat: true, p_days: days, p_every: 1, p_until: iso(addDays(mon, 6)) });
+      }
+    } else {
       if (f.until.value && f.until.value < f.day.value) { els.tMsg.textContent = '“Until” is before the start day.'; return; }
       Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: f.until.value || null });
-    } else if (editingTask && editingTask.repeat_weekly) args.p_repeat = false;
+    }
     const { error } = editingTask
       ? await call('cowork_update_task', { p_id: editingTask.id, ...args })
       : await call('cowork_add_task', { ...args, p_by: state.me });
@@ -520,14 +533,14 @@
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + (args.p_repeat ? ' · ' + repeatText(args.p_days, args.p_every) : ''));
+    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + (args.p_repeat ? ' · ' + (f.repeat.value === 'once' ? `${days.length} days this week` : repeatText(args.p_days, args.p_every)) : ''));
     const d = new Date(args.p_day + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
     loadWeek();
   });
   els.tDelete.addEventListener('click', async () => {
-    if (!editingTask || !confirm(editingTask.repeat_weekly ? `Delete “${editingTask.title}” from every day it repeats?` : `Delete “${editingTask.title}”?`)) return;
+    if (!editingTask || !confirm(editingTask.repeat_weekly ? `Delete “${editingTask.title}” from every day it’s on?` : `Delete “${editingTask.title}”?`)) return;
     const { error } = await call('cowork_delete_task', { p_id: editingTask.id });
     if (error) { els.tMsg.textContent = 'Couldn’t delete.'; return; }
     closeTaskSheet();
