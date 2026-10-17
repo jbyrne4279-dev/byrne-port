@@ -30,7 +30,7 @@
     tCancel: $('cwTaskCancel'), tMsg: $('cwTaskMsg'),
     sheetCopy: $('cwSheetCopy'), tCopy: $('cwTaskCopy'),
     viewDay: $('cwViewDay'), viewWeek: $('cwViewWeek'), dayPane: $('cwDayPane'), weekPane: $('cwWeekPane'),
-    grid: $('cwGrid'), showMine: $('cwShowMine'), weekLbl: $('cwWeekLbl')
+    grid: $('cwGrid'), weekLbl: $('cwWeekLbl')
   };
 
   const DAY_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -76,8 +76,10 @@
   const colorOf = name => (member(name) || {}).color || '#8e8e93';
   const selectedDate = () => iso(addDays(state.weekStart, state.selected));
   // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
-  const myEvents = () => state.events.filter(e => !e.who || e.who === state.me);
-  const myTasks = () => state.tasks.filter(t => t.assignee === state.me);
+  // Each person picks whose calendars they see (their own by default)
+  let visible = new Set();
+  const myEvents = () => state.events.filter(e => !e.who || visible.has(e.who));
+  const myTasks = () => state.tasks.filter(t => visible.has(t.assignee));
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -167,7 +169,7 @@
       // Switched user: same data, just redraw with the new "you"
       els.app.hidden = false;
       stopPaste();
-      loadShowMine();
+      loadVisible();
       renderMembers();
       render();
       toast(`You’re now ${state.me}`);
@@ -180,7 +182,7 @@
 
   function openApp() {
     appOpen = true;
-    loadShowMine();
+    loadVisible();
     els.app.hidden = false;
     renderMembers();
     render();
@@ -207,9 +209,11 @@
 
   /* ── Rendering ── */
   function renderMembers() {
-    els.members.innerHTML = state.members.map(m =>
-      `<li style="--who:${esc(m.color)}"><i aria-hidden="true">${esc(m.name[0])}</i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}</li>`
-    ).join('');
+    els.members.innerHTML = state.members.map(m => {
+      const on = visible.has(m.name);
+      return `<li><button type="button" class="cw-see${on ? ' is-on' : ''}" data-see="${esc(m.name)}" aria-pressed="${on}" style="--who:${esc(m.color)}"
+          aria-label="${on ? 'Hide' : 'Show'} ${esc(m.name)}’s calendar"><i aria-hidden="true">${on ? '✓' : esc(m.name[0])}</i>${esc(m.name)}${m.name === state.me ? ' <span>(you)</span>' : ''}</button></li>`;
+    }).join('');
   }
 
   function render() {
@@ -241,13 +245,12 @@
   }
 
   /* ── Week grid (Outlook-style): days across, time down ── */
-  const VIEW_STORE = 'jb-cowork-view', MINE_STORE = 'jb-cowork-showmine';
+  const VIEW_STORE = 'jb-cowork-view', SEE_STORE = 'jb-cowork-see';
   let view = store.get(VIEW_STORE) === 'week' ? 'week' : 'day';
-  let showMine = true;
-  function loadShowMine() {
-    const v = store.get(MINE_STORE + ':' + state.me);
-    showMine = v == null ? state.me === 'Joe' : v === '1';
-    els.showMine.checked = showMine;
+  function loadVisible() {
+    let v = null;
+    try { v = JSON.parse(store.get(SEE_STORE + ':' + state.me)); } catch (e) {}
+    visible = new Set(Array.isArray(v) ? v : [state.me]);
   }
 
   // Everything on one day for the current person, in time order
@@ -255,13 +258,13 @@
     const di = iso(addDays(state.weekStart, i)), p = state.personal, out = [];
     myEvents().filter(e => e.day === di).forEach(e => out.push({
       kind: 'event', id: e.id, s: toMin(e.start_time), e: toMin(e.end_time), title: e.title,
-      meta: e.who || 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
+      meta: e.who ? (e.who === state.me ? 'You' : e.who) : 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time);
-      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: 'Task', color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
+      out.push({ kind: 'task', id: t.id, s: s0, e: s0, title: t.title, meta: t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: colorOf(t.assignee), done: t.done, rep: repeats(t) });
     });
-    if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
+    if (visible.has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
       const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
       out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
     });
@@ -321,7 +324,15 @@
   }
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
-  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE + ':' + state.me, showMine ? '1' : '0'); render(); });
+  els.members.addEventListener('click', e => {
+    const b = e.target.closest('[data-see]');
+    if (!b) return;
+    const n = b.dataset.see;
+    visible.has(n) ? visible.delete(n) : visible.add(n);
+    store.set(SEE_STORE + ':' + state.me, JSON.stringify([...visible]));
+    renderMembers();
+    render();
+  });
 
   /* ── Copy & paste in the week grid ── */
   let clip = null;   // { type: 'event' | 'task', item }
@@ -402,7 +413,7 @@
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
             <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
-            ${t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
+            ${t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
         </li>`).join('');
     const taskCard = `<section class="sc-wday cw-tasks">

@@ -259,3 +259,14 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .cw-task__body { min-height: 44px; }
 @media (max-width: 380px) { #cwApp .sc-head__title { font-size: 30px; } .cw-headbtns { gap: 6px; } }
 #cwRange { white-space: nowrap; }
+
+/* Name chips toggle whose calendars are shown */
+.cw-seehint { margin: 0 2px 8px; font-size: 13px; color: var(--label-3); }
+.cw-members li { padding: 0; background: none; }
+.cw-see { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px 0 8px; border-radius: 999px;
+  background: var(--card); border: 1.5px solid transparent; font-size: 15px; font-weight: 600; color: var(--label-3); }
+.cw-see i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(118,118,128,.3); color: var(--label-2); font: 700 13px var(--font); font-style: normal; }
+.cw-see span { font-weight: 400; color: var(--label-3); }
+.cw-see.is-on { color: var(--label); border-color: var(--who); }
+.cw-see.is-on i { background: var(--who); color: #000; }
+.cw-see:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
