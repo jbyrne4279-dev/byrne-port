@@ -75,6 +75,9 @@
   const member = name => state.members.find(m => m.name === name);
   const colorOf = name => (member(name) || {}).color || '#8e8e93';
   const selectedDate = () => iso(addDays(state.weekStart, state.selected));
+  // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
+  const myEvents = () => state.events.filter(e => !e.who || e.who === state.me);
+  const myTasks = () => state.tasks.filter(t => t.assignee === state.me);
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -163,6 +166,8 @@
     if (appOpen) {
       // Switched user: same data, just redraw with the new "you"
       els.app.hidden = false;
+      stopPaste();
+      loadShowMine();
       renderMembers();
       render();
       toast(`You’re now ${state.me}`);
@@ -175,6 +180,7 @@
 
   function openApp() {
     appOpen = true;
+    loadShowMine();
     els.app.hidden = false;
     renderMembers();
     render();
@@ -215,8 +221,8 @@
     els.strip.innerHTML = Array.from({ length: 7 }, (_, i) => {
       const d = addDays(ws, i), di = iso(d);
       const people = [...new Set([
-        ...state.events.filter(e => e.day === di).map(e => e.who || '*'),
-        ...state.tasks.filter(t => t.day === di && !t.done).map(t => t.assignee)
+        ...myEvents().filter(e => e.day === di).map(e => e.who || '*'),
+        ...myTasks().filter(t => t.day === di && !t.done).map(t => t.assignee)
       ])].slice(0, 4);
       const dots = people.map(p => `<i style="background:${p === '*' ? '#fff' : esc(colorOf(p))}"></i>`).join('');
       return `<button type="button" role="tab" class="sc-day${i === state.selected ? ' is-on' : ''}${di === todayIso ? ' is-today' : ''}"
@@ -235,7 +241,12 @@
   const HOUR_PX = 52;
   const VIEW_STORE = 'jb-cowork-view', MINE_STORE = 'jb-cowork-showmine';
   let view = store.get(VIEW_STORE) === 'week' ? 'week' : 'day';
-  let showMine = store.get(MINE_STORE) !== '0';
+  let showMine = true;
+  function loadShowMine() {
+    const v = store.get(MINE_STORE + ':' + state.me);
+    showMine = v == null ? state.me === 'Joe' : v === '1';
+    els.showMine.checked = showMine;
+  }
 
   // Place overlapping blocks side by side within a day column
   function lanes(items) {
@@ -263,11 +274,11 @@
     const perDay = Array.from({ length: 7 }, (_, i) => {
       const di = iso(addDays(ws, i));
       const items = [];
-      state.events.filter(e => e.day === di).forEach(e => items.push({
+      myEvents().filter(e => e.day === di).forEach(e => items.push({
         kind: 'event', id: e.id, s: toMin(e.start_time), e: toMin(e.end_time), title: e.title,
         sub: e.who || 'Everyone', color: e.who ? colorOf(e.who) : '#ffffff'
       }));
-      state.tasks.filter(t => t.day === di && t.at_time).forEach(t => {
+      myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
         const s0 = toMin(t.at_time);
         items.push({ kind: 'task', id: t.id, s: s0, e: Math.min(s0 + 30, 24 * 60), title: t.title, sub: t.assignee, color: colorOf(t.assignee), done: t.done });
       });
@@ -343,8 +354,7 @@
   }
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
-  els.showMine.checked = showMine;
-  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE, showMine ? '1' : '0'); renderGrid(); });
+  els.showMine.addEventListener('change', () => { showMine = els.showMine.checked; store.set(MINE_STORE + ':' + state.me, showMine ? '1' : '0'); renderGrid(); });
 
   /* ── Copy & paste in the week grid ── */
   let clip = null;   // { type: 'event' | 'task', item }
@@ -416,8 +426,8 @@
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
     const isToday = di === iso(new Date());
-    const events = state.events.filter(e => e.day === di).sort((a, b) => toMin(a.start_time) - toMin(b.start_time));
-    const tasks = state.tasks.filter(t => t.day === di);
+    const events = myEvents().filter(e => e.day === di).sort((a, b) => toMin(a.start_time) - toMin(b.start_time));
+    const tasks = myTasks().filter(t => t.day === di);
 
     const eventsHtml = events.length
       ? '<ol class="sc-list">' + events.map(e => {
@@ -433,7 +443,7 @@
         }).join('') + '</ol>'
       : '<p class="cw-empty">No shared sessions yet.</p>';
 
-    const taskGroups = state.members.map(m => {
+    const taskGroups = state.members.filter(m => m.name === state.me).map(m => {
       const mine = tasks.filter(t => t.assignee === m.name);
       const items = mine
         .slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
@@ -539,7 +549,7 @@
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast(wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Task added for ${who}`);
+    toast(wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`);
     const d = new Date(args.p_day + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
@@ -570,7 +580,7 @@
     f.start.value = ev ? String(ev.start_time).slice(0, 5) : hhmm(startMin);
     f.end.value = ev ? String(ev.end_time).slice(0, 5) : hhmm(Math.min(startMin + 120, 23 * 60 + 45));
     f.who.innerHTML = '<option value="">Everyone</option>' + state.members.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('');
-    f.who.value = ev && ev.who ? ev.who : '';
+    f.who.value = ev ? (ev.who || '') : state.me;
     els.sheet.hidden = false;
     requestAnimationFrame(() => els.sheet.classList.add('is-open'));
     setTimeout(() => f.title.focus(), 50);
@@ -598,7 +608,8 @@
     if (error) { els.sheetMsg.textContent = 'Couldn’t save. Check your signal.'; return; }
     const wasEdit = !!editing;
     closeSheet();
-    toast(wasEdit ? 'Session updated' : 'Session added');
+    const whoFor = f.who.value;
+    toast(wasEdit ? 'Session updated' : whoFor && whoFor !== state.me ? `Added to ${whoFor}’s calendar` : 'Session added');
     const d = new Date(f.day.value + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
