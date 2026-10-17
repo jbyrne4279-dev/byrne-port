@@ -280,7 +280,7 @@
       }));
       myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
         const s0 = toMin(t.at_time);
-        items.push({ kind: 'task', id: t.id, s: s0, e: Math.min(s0 + 30, 24 * 60), title: t.title, sub: t.assignee, color: colorOf(t.assignee), done: t.done });
+        items.push({ kind: 'task', id: t.id, s: s0, e: Math.min(s0 + 30, 24 * 60), title: t.title, sub: t.assignee, color: colorOf(t.assignee), done: t.done, rep: t.repeat_weekly });
       });
       const mine = [];
       if (showMine && p && p.week && p.week[i]) p.week[i].forEach(e => {
@@ -317,7 +317,7 @@
         return `<${tag} class="cw-b cw-b--${it.kind}${it.done ? ' is-done' : ''}" ${attr}
             style="--c:${esc(it.color)};top:${top}px;height:${h}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px)"
             ${it.kind === 'mine' ? 'aria-hidden="true"' : `aria-label="${esc(it.title)}, ${clock(it.s)} to ${clock(it.e)}, ${esc(it.sub)}"`}>
-            <strong>${it.kind === 'task' ? (it.done ? '✓ ' : '◦ ') : ''}${esc(it.title)}</strong>
+            <strong>${it.kind === 'task' ? (it.done ? '✓ ' : '◦ ') : ''}${esc(it.title)}${it.rep ? ' ↻' : ''}</strong>
             ${h >= 34 ? `<small>${clock(it.s)}${it.kind === 'task' ? '' : '–' + clock(it.e)} · ${esc(it.sub)}</small>` : ''}
           </${end}>`;
       }).join('');
@@ -451,7 +451,7 @@
         <li class="cw-task${t.done ? ' is-done' : ''}">
           <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
           <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" aria-label="Edit task ${esc(t.title)}">
-            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}</span>
+            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${clock(t.at_time)}</b>` : ''}${esc(t.title)}${t.repeat_weekly ? ' <span class="cw-rep" title="Every week" aria-label="repeats every week">↻</span>' : ''}</span>
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${t.created_by && t.created_by !== m.name ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
@@ -496,7 +496,9 @@
       renderDay();                        // updates the done/total count
       const again = els.day.querySelector(`[data-task="${cb.dataset.task}"]`);
       if (again) again.focus({ preventScroll: true });
-      const { error } = await call('cowork_set_task', { p_id: cb.dataset.task, p_done: cb.checked });
+      const { error } = t && t.repeat_weekly
+        ? await call('cowork_set_task_day', { p_id: t.id, p_day: t.day, p_done: cb.checked })
+        : await call('cowork_set_task', { p_id: cb.dataset.task, p_done: cb.checked });
       if (error) { toast('Couldn’t save. Check your signal.'); loadWeek(); }
     }));
     $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
@@ -518,6 +520,7 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.notes.value = t && t.notes ? t.notes : '';
+    f.repeat.value = t && t.repeat_weekly ? 'weekly' : 'once';
     els.tSheet.hidden = false;
     requestAnimationFrame(() => els.tSheet.classList.add('is-open'));
     setTimeout(() => f.title.focus(), 50);
@@ -538,25 +541,27 @@
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
     els.tMsg.textContent = 'Saving…';
     const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_notes: f.notes.value.trim() || null };
+    if (f.repeat.value === 'weekly') args.p_repeat = true;
+    else if (editingTask && editingTask.repeat_weekly) args.p_repeat = false;
     const { error } = editingTask
       ? await call('cowork_update_task', { p_id: editingTask.id, ...args })
       : await call('cowork_add_task', { ...args, p_by: state.me });
     if (error) {
       els.tMsg.textContent = /function|schema cache/i.test(error.message || '')
-        ? 'The database needs updating first (see cowork/update-1-task-time-notes.sql).'
+        ? 'The database needs updating first (see cowork/update-2-recurring-tasks.sql).'
         : 'Couldn’t save. Check your signal.';
       return;
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast(wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`);
+    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : `Added to ${who}’s calendar`) + (args.p_repeat ? ' · every week' : ''));
     const d = new Date(args.p_day + 'T00:00:00');
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
     loadWeek();
   });
   els.tDelete.addEventListener('click', async () => {
-    if (!editingTask || !confirm(`Delete “${editingTask.title}”?`)) return;
+    if (!editingTask || !confirm(editingTask.repeat_weekly ? `Delete “${editingTask.title}” from every week?` : `Delete “${editingTask.title}”?`)) return;
     const { error } = await call('cowork_delete_task', { p_id: editingTask.id });
     if (error) { els.tMsg.textContent = 'Couldn’t delete.'; return; }
     closeTaskSheet();

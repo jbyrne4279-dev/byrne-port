@@ -182,3 +182,12 @@ body.cw-pasting .cw-col:hover { background-color: rgba(255, 55, 95, .08); }
 body.cw-pasting .cw-gh { cursor: copy; }
 body.cw-pasting .cw-gh:hover b { box-shadow: 0 0 0 2px var(--accent); }
 .cw-sheet__actions { flex-wrap: wrap; }
+
+/* Task repeat choice */
+.cw-repeat { margin: 0; }
+.cw-repeat label { display: flex; flex-direction: row; margin: 0; gap: 0; position: relative; }
+.cw-repeat input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.cw-repeat span { flex: 1; text-align: center; padding: 8px 6px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--label-2); }
+.cw-repeat input:checked + span { background: #636366; color: var(--label); }
+.cw-repeat input:focus-visible + span { outline: 2px solid var(--accent); }
+.cw-rep { color: var(--label-3); font-weight: 400; }
