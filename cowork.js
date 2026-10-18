@@ -78,7 +78,7 @@
   // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
   // Tags make important tasks stand out; meetings are gold
   const TAGS = { Meeting: '#ffd60a', Important: '#ff453a', Deadline: '#ff9f0a' };
-  const taskColor = t => TAGS[t.tag] || t.color || (t.assignee ? colorOf(t.assignee) : '#ffffff');   // no assignee = Everyone
+  const taskColor = t => t.color || TAGS[t.tag] || (t.assignee ? colorOf(t.assignee) : '#ffffff');   // no assignee = Everyone
   const tagPill = tag => TAGS[tag] ? ` <span class="cw-tagpill" style="--tag:${TAGS[tag]}">${esc(tag)}</span>` : '';
 
   // Each person picks whose calendars they see (their own by default)
@@ -386,6 +386,12 @@
       </li>`;
   }
 
+  // Tasks with no time, shown as "Anytime" cards at the end of the day
+  const anytimeItems = di => myTasks().filter(t => t.day === di && !t.at_time).map(t => ({
+    kind: 'task', anytime: true, id: t.id, day: t.day, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
+    meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
+  }));
+
   // Week view: each day laid out like the day view
   function renderGrid() {
     const ws = state.weekStart, todayIso = iso(new Date());
@@ -396,11 +402,7 @@
     els.grid.innerHTML = order.map((i, k) => {
       const d = addDays(ws, i), di = iso(d), isToday = di === todayIso;
       const earlier = ti > 0 && i < ti && k === 7 - ti ? '<p class="cw-wk__earlier">Earlier this week</p>' : '';
-      const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t => ({
-        kind: 'task', anytime: true, id: t.id, day: t.day, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
-        meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
-      }));
-      const items = dayItems(i).concat(anytime);
+      const items = dayItems(i).concat(anytimeItems(di));
       return `${earlier}<section class="cw-wk${isToday ? ' is-today' : ''}${ti > 0 && i < ti ? ' is-earlier' : ''}" aria-label="${DAY_LONG[i]}">
           <button type="button" class="sc-agenda__day cw-wk__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
             ${isToday ? 'Today' : DAY_LONG[i]} <span>${isToday ? DAY_LONG[i] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span>
@@ -468,7 +470,7 @@
       ({ error } = await call('cowork_save_event', { p_id: null, p_day: dayIso, p_start: hhmm(st), p_end: hhmm(en), p_title: it.title, p_who: it.who || '', p_by: state.me }));
     } else {
       const st = startMin == null ? (it.at_time ? toMin(it.at_time) : null) : startMin;
-      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_end: st != null && it.at_time && it.end_time ? hhmm(Math.min(st + toMin(it.end_time) - toMin(it.at_time), 23 * 60 + 59)) : null, p_notes: it.notes || null, p_tag: it.tag || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
+      ({ error } = await call('cowork_add_task', { p_day: dayIso, p_title: it.title, p_assignee: it.assignee, p_by: state.me, p_time: st == null ? null : hhmm(st), p_end: st != null && it.at_time && it.end_time ? hhmm(Math.min(st + toMin(it.end_time) - toMin(it.at_time), 23 * 60 + 59)) : null, p_notes: it.notes || null, p_tag: it.tag || null, p_color: it.color || null, p_repeat: true, p_days: [dayIndex(new Date(dayIso + 'T00:00:00')) + 1], p_every: 1 }));
     }
     if (error) { toast('Couldn’t paste. Check your signal.'); return; }
     const d = new Date(dayIso + 'T00:00:00');
@@ -563,46 +565,20 @@
   function renderDay() {
     const d = addDays(state.weekStart, state.selected), di = iso(d);
     const isToday = di === iso(new Date());
-    const tasks = myTasks().filter(t => t.day === di);
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
-    const items = dayItems(state.selected);
+    const items = dayItems(state.selected).concat(anytimeItems(di));
 
     const timeline = '<ol class="sc-list">' + timelineHtml(items, di, isToday, nowM) + '</ol>';
-
-    const list = tasks.slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
-      .map(t => `
-        <li class="cw-task${t.done ? ' is-done' : ''}">
-          <input type="checkbox" data-task="${esc(t.id)}"${t.done ? ' checked' : ''} aria-label="Done: ${esc(t.title)}">
-          <button type="button" class="cw-task__body" data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" aria-label="${esc(t.title)}${t.done ? ', done' : ''}. Tap to tick, hold to edit">
-            <span class="cw-task__title">${t.at_time ? `<b class="cw-task__time">${t.end_time ? range(toMin(t.at_time), toMin(t.end_time)) : clock(t.at_time)}</b>` : ''}${esc(t.title)}${tagPill(t.tag)}${repeats(t) ? ` <span class="cw-rep" title="${esc(repeatText(t.repeat_days, t.repeat_every))}" aria-label="repeats ${esc(repeatText(t.repeat_days, t.repeat_every))}">↻</span>` : ''}</span>
-            ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
-            ${!t.assignee ? '<span class="cw-task__from">Everyone</span>' : t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
-          </button>
-          <button type="button" class="cw-editbtn cw-editbtn--row" data-edit-btn data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" aria-label="Edit ${esc(t.title)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
-        </li>`).join('');
-    const taskCard = `<section class="sc-wday cw-tasks">
-        <div class="sc-wday__head"><span>Tasks</span><span class="sc-wday__date">${tasks.filter(t => t.done).length}/${tasks.length} done</span></div>
-        ${list ? `<ul>${list}</ul>` : '<p class="cw-empty">No tasks for this day.</p>'}
-      </section>`;
 
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
       ${timeline}
-      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>
-      ${taskCard}`;
+      <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>`;
     bindDay();
   }
 
   function bindDay() {
     els.day.querySelectorAll('[data-event]').forEach(b => b.addEventListener('click', () => openSheet(state.events.find(e => e.id === b.dataset.event))));
-    els.day.querySelectorAll('[data-task]').forEach(cb => cb.addEventListener('change', async () => {
-      const t = state.tasks.find(x => x.id === cb.dataset.task);
-      if (t) t.done = cb.checked;
-      renderDay();                        // updates the done/total count
-      const again = els.day.querySelector(`[data-task="${cb.dataset.task}"]`);
-      if (again) again.focus({ preventScroll: true });
-      if (t) saveDone(t, cb.checked);
-    }));
     $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
   }
 
@@ -623,6 +599,24 @@
     const ticked = els.tForm.querySelectorAll('[name=rday]:checked');
     if (ticked.length <= 1) els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
   });
+  // Colour: "Auto" (tag / person colour), a swatch, or any custom colour
+  const swatchEls = () => [...els.tForm.querySelectorAll('[name=colour]')];
+  function setColour(c) {
+    const custom = els.tForm.querySelector('#cwColourCustom');
+    const match = swatchEls().find(r => r.value !== 'custom' && r.value === (c || 'auto'));
+    if (match) match.checked = true;
+    else { els.tForm.querySelector('[name=colour][value=custom]').checked = true; custom.value = c; }
+    custom.closest('label').style.setProperty('--sw', c && !match ? c : 'conic-gradient(#ff453a, #ffd60a, #30d158, #0a84ff, #bf5af2, #ff453a)');
+  }
+  function pickedColour() {
+    const v = (swatchEls().find(r => r.checked) || {}).value;
+    return v === 'custom' ? els.tForm.querySelector('#cwColourCustom').value : v === 'auto' || !v ? null : v;
+  }
+  els.tForm.querySelector('#cwColourCustom').addEventListener('input', e => {
+    els.tForm.querySelector('[name=colour][value=custom]').checked = true;
+    e.target.closest('label').style.setProperty('--sw', e.target.value);
+  });
+
   let editingTask = null, saving = false;
   function openTaskSheet(t, preset) {
     editingTask = t;
@@ -644,6 +638,7 @@
     }
     f.notes.value = t && t.notes ? t.notes : '';
     f.tag.value = t && TAGS[t.tag] ? t.tag : 'none';
+    setColour(t && t.color ? t.color : '');
     // Every task repeats until someone edits or deletes it
     if (t) f.day.value = t.start_day || t.day;
     const days = t && t.repeat_days ? t.repeat_days.map(Number) : [isoDow(f.day.value)];
@@ -681,7 +676,7 @@
     const title = f.title.value.trim();
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
     els.tMsg.textContent = 'Saving…';
-    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_end: f.time.value && f.end.value ? f.end.value : null, p_notes: f.notes.value.trim() || null, p_tag: TAGS[f.tag.value] ? f.tag.value : null };
+    const args = { p_day: f.day.value, p_title: title, p_assignee: f.who.value, p_time: f.time.value || null, p_end: f.time.value && f.end.value ? f.end.value : null, p_notes: f.notes.value.trim() || null, p_tag: TAGS[f.tag.value] ? f.tag.value : null, p_color: pickedColour() };
     const days = [...f.querySelectorAll('[name=rday]:checked')].map(c => +c.value);
     if (!days.length) { els.tMsg.textContent = 'Pick at least one day.'; return; }
     if (args.p_end && args.p_end <= args.p_time) { els.tMsg.textContent = 'Finish needs to be after the start.'; return; }

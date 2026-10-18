@@ -20,3 +20,5 @@ alter table cw_tasks alter column assignee drop not null;
 -- Update 8 (applied live): tasks may carry their own colour; cowork_week returns t.color.
 -- Joe's timetable was copied into cw_tasks as weekly tasks (rows not stored in this public repo).
 alter table cw_tasks add column if not exists color text;
+
+-- Update 9 (applied live): cowork_add_task / cowork_update_task take p_color (a #rrggbb colour, or null for automatic).
