@@ -623,9 +623,11 @@
     const ticked = els.tForm.querySelectorAll('[name=rday]:checked');
     if (ticked.length <= 1) els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
   });
-  let editingTask = null;
+  let editingTask = null, saving = false;
   function openTaskSheet(t, preset) {
     editingTask = t;
+    saving = false;   // the sheet stays locked after a save until it's opened again
+    els.tForm.querySelector('button[type=submit]').disabled = false;
     const f = els.tForm;
     els.tTitle.textContent = t ? 'Edit task' : 'New task';
     els.tDelete.hidden = !t;
@@ -662,8 +664,19 @@
   els.tSheet.addEventListener('click', e => { if (e.target === els.tSheet) closeTaskSheet(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.tSheet.hidden) closeTaskSheet(); });
 
+  // The first day on/after today this task happens (respects its days and "every N weeks")
+  function nextOccurrence(startIso, days, every) {
+    const start = new Date(startIso + 'T00:00:00'), today = new Date(); today.setHours(0, 0, 0, 0);
+    const d = new Date(Math.max(start, today));
+    for (let k = 0; k < 7 * 9; k++, d.setDate(d.getDate() + 1)) {
+      const weeks = Math.round((mondayOf(d) - mondayOf(start)) / 6048e5);
+      if (days.includes(dayIndex(d) + 1) && weeks % (every || 1) === 0) return new Date(d);
+    }
+    return start;
+  }
   els.tForm.addEventListener('submit', async e => {
     e.preventDefault();
+    if (saving) return;   // no double saves from a double tap
     const f = els.tForm;
     const title = f.title.value.trim();
     if (!title) { els.tMsg.textContent = 'What’s the task?'; return; }
@@ -674,10 +687,17 @@
     if (args.p_end && args.p_end <= args.p_time) { els.tMsg.textContent = 'Finish needs to be after the start.'; return; }
     if (f.end.value && !f.time.value) { els.tMsg.textContent = 'Add a start time too.'; return; }
     Object.assign(args, { p_repeat: true, p_days: days, p_every: +f.every.value, p_until: null });
+    // A new task never starts in the past: e.g. picking Monday on a Sunday means tomorrow
+    if (!editingTask && args.p_day < iso(new Date())) args.p_day = iso(nextOccurrence(args.p_day, days, 1));
+    saving = true;
+    const submitBtn = f.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
     const { error } = editingTask
       ? await call('cowork_update_task', { p_id: editingTask.id, ...args })
       : await call('cowork_add_task', { ...args, p_by: state.me });
     if (error) {
+      saving = false;
+      submitBtn.disabled = false;
       els.tMsg.textContent = /function|schema cache/i.test(error.message || '')
         ? 'The database needs updating first (see cowork/update-3-task-days-weeks.sql).'
         : 'Couldn’t save. Check your signal.';
@@ -685,8 +705,15 @@
     }
     const wasEdit = !!editingTask, who = args.p_assignee;
     closeTaskSheet();
-    toast((wasEdit ? 'Task updated' : who === state.me ? 'Task added' : !who ? 'Added for everyone' : `Added to ${who}’s calendar`) + ' · ' + repeatText(args.p_days, args.p_every));
-    const d = new Date(args.p_day + 'T00:00:00');
+    // Make sure the person it's for is showing, so a saved task never looks lost
+    if (who) {
+      if (view === 'week') { weekPerson = who; store.set(SEE_STORE + ':week:' + state.me, who); }
+      else if (!visible.has(who)) { visible.add(who); store.set(SEE_STORE + ':' + state.me, JSON.stringify([...visible])); }
+      renderMembers();
+    }
+    // Jump to where the task actually is next, and say so
+    const d = nextOccurrence(args.p_day, days, args.p_every);
+    toast(`${wasEdit ? 'Saved' : who === state.me || !who ? 'Saved' : `Saved to ${who}’s calendar`} · next on ${DAY_LONG[dayIndex(d)]} ${d.getDate()} ${MONTHS[d.getMonth()]}`);
     state.weekStart = mondayOf(d);
     state.selected = dayIndex(d);
     loadWeek();
