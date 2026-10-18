@@ -387,7 +387,7 @@
   // Bring the current time into view (today only)
   function scrollToNow() {
     const pane = view === 'week' ? els.grid : els.day;
-    const el = pane.querySelector('.cw-wk.is-today .is-now, .cw-wk.is-today .cw-nowline') || (view === 'day' ? pane.querySelector('.is-now, .cw-nowline') : null);
+    const el = pane.querySelector('.cw-dnow, .cw-wk.is-today .is-now, .cw-wk.is-today .cw-nowline') || (view === 'day' ? pane.querySelector('.is-now, .cw-nowline') : null);
     if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
   function openGap(el) {
@@ -462,8 +462,70 @@
     meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
   }));
 
+  /* ── Desktop: the week as a real calendar grid (days across, hours down) ── */
+  const DESK = window.matchMedia('(min-width: 1024px)');
+  const isDesk = () => DESK.matches;
+  DESK.addEventListener && DESK.addEventListener('change', () => { if (appOpen) render(); });
+  const DESK_HOUR = 64;   // px per hour
+  // Side-by-side lanes for overlapping blocks
+  function lanes(items) {
+    items.sort((a, b) => a.s - b.s || itemEnd(b) - itemEnd(a));
+    let group = [], end = -1;
+    const flush = () => {
+      const cols = [];
+      group.forEach(it => { let c = cols.findIndex(e => e <= it.s); if (c === -1) { c = cols.length; cols.push(0); } cols[c] = itemEnd(it); it.col = c; });
+      group.forEach(it => { it.cols = cols.length; });
+      group = []; end = -1;
+    };
+    items.forEach(it => { if (group.length && it.s >= end) flush(); group.push(it); end = Math.max(end, itemEnd(it)); });
+    if (group.length) flush();
+    return items;
+  }
+  function renderDeskWeek() {
+    const ws = state.weekStart, todayIso = iso(new Date());
+    const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
+    const days = Array.from({ length: 7 }, (_, i) => {
+      const d = addDays(ws, i), di = iso(d);
+      return { i, d, di, isToday: di === todayIso, timed: lanes(dayItems(i).filter(it => !it.anytime)), anytime: anytimeItems(di) };
+    });
+    let from = DAY_FROM, to = DAY_TO;
+    days.forEach(x => x.timed.forEach(it => { from = Math.min(from, Math.floor(it.s / 60) * 60); to = Math.max(to, Math.ceil(itemEnd(it) / 60) * 60); }));
+    const y = m => (m - from) / 60 * DESK_HOUR, H = y(to);
+    const hours = []; for (let m = from; m < to; m += 60) hours.push(m);
+    const PEN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+    const block = (it, isToday) => {
+      const top = y(it.s), h = Math.max(y(itemEnd(it)) - top, 24), w = 100 / (it.cols || 1), left = (it.col || 0) * w;
+      const gone = isToday && nowM >= itemEnd(it), now = isToday && !it.done && nowM >= it.s && nowM < itemEnd(it);
+      const going = it.tag === 'Meeting' ? state.members.filter(m => rsvpOf(it, m.name) === 'yes').length : 0;
+      return `<div class="cw-blk-wrap${it.done ? ' is-done' : ''}${gone ? ' is-gone' : ''}${now ? ' is-now' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}"
+          style="top:${top}px;height:${h}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px);--kind:${esc(it.color)}">
+          <button type="button" class="cw-blk" data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" title="${esc(it.title)} · ${itemRange(it)}${it.notes ? '\n' + esc(it.notes) : ''}"
+            aria-label="${esc(it.title)}, ${itemRange(it)}${it.done ? ', done' : ''}. Click to tick, drag to move">
+            <b>${it.done ? '✓ ' : ''}${esc(it.title)}</b>
+            ${h >= 40 ? `<small>${itemRange(it)}${it.tag === 'Meeting' ? ` · ${going} going` : it.meta && it.meta !== 'Task' ? ' · ' + esc(it.meta) : ''}</small>` : ''}
+            ${h >= 76 && it.notes ? `<small class="cw-blk__notes">${esc(it.notes)}</small>` : ''}
+          </button>
+          <button type="button" class="cw-blk__edit" data-edit-btn data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" aria-label="Edit ${esc(it.title)}">${PEN}</button>
+        </div>`;
+    };
+    const head = days.map(x => `<button type="button" class="cw-dhead${x.isToday ? ' is-today' : ''}" data-open-day="${x.i}" aria-label="Open ${DAY_LONG[x.i]} ${x.d.getDate()} ${MONTHS[x.d.getMonth()]}">
+        <span>${DAY_LONG[x.i].slice(0, 3)}</span><b>${x.d.getDate()}</b></button>`).join('');
+    const anyRow = days.some(x => x.anytime.length) ? `<div class="cw-dany"><span class="cw-dgut">Anytime</span>${days.map(x => `<div>${x.anytime.map(it =>
+        `<button type="button" class="cw-dchip${it.done ? ' is-done' : ''}" style="--kind:${esc(it.color)}" data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}">${it.done ? '✓ ' : ''}${esc(it.title)}</button>`).join('')}</div>`).join('')}</div>` : '';
+    const cols = days.map(x => `<div class="cw-dcol${x.isToday ? ' is-today' : ''}" data-dcol="${x.di}" data-from="${from}" style="height:${H}px">
+        ${x.timed.map(it => block(it, x.isToday)).join('')}
+        ${x.isToday && nowM >= from && nowM <= to ? `<i class="cw-dnow" style="top:${y(nowM)}px"></i>` : ''}
+      </div>`).join('');
+    els.grid.innerHTML = `<div class="cw-dweek" style="--hour:${DESK_HOUR}px;--slot:${DESK_HOUR * grid / 60}px">
+        <div class="cw-dhead-row"><span class="cw-dgut"></span>${head}</div>
+        ${anyRow}
+        <div class="cw-dbody"><div class="cw-dgut cw-dhours" style="height:${H}px">${hours.map(m => `<span style="top:${y(m)}px">${clock(m)}</span>`).join('')}</div>${cols}</div>
+      </div>`;
+  }
+
   // Week view: each day laid out like the day view
   function renderGrid() {
+    if (isDesk()) return renderDeskWeek();
     const ws = state.weekStart, todayIso = iso(new Date());
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
     // This week: today first, then the rest of the week, then days already gone
@@ -584,6 +646,13 @@
       tapTick(tk);
       return;
     }
+    const col = e.target.closest('[data-dcol]');
+    if (col && !e.target.closest('.cw-blk-wrap')) {
+      const r = col.getBoundingClientRect();
+      const m = Math.floor((Number(col.dataset.from) + (e.clientY - r.top) / DESK_HOUR * 60) / grid) * grid;
+      openTaskSheet(null, { day: col.dataset.dcol, s: m, e: m + 60 });
+      return;
+    }
     if (hd) { state.selected = Number(hd.dataset.openDay); render(); setView('day'); window.scrollTo({ top: 0 }); }
   }
   els.grid.addEventListener('click', weekClick);
@@ -605,9 +674,15 @@
     drag = null; armed = null;
   };
   // Where would a drop at (x, y) land? A free slot, another task's start, or a day heading (keeps the time)
-  function dropAt(x, y) {
+  function dropAt(x, y, yTop) {
     const el = document.elementFromPoint(x, y);
     if (!el) return null;
+    const col = el.closest('[data-dcol]');
+    if (col) {
+      const r = col.getBoundingClientRect();
+      const m = Number(col.dataset.from) + ((yTop == null ? y : yTop) - r.top) / DESK_HOUR * 60;
+      return { el: col, day: col.dataset.dcol, s: Math.max(0, Math.min(Math.round(m / grid) * grid, 24 * 60 - grid)) };
+    }
     const gap = el.closest('[data-gap]');
     if (gap) return { el: gap, day: gap.dataset.gap, s: Number(gap.dataset.s) };
     const li = el.closest('[data-drop-day]');
@@ -645,7 +720,7 @@
         const r = armed.tk.getBoundingClientRect();
         const ghost = armed.tk.cloneNode(true);
         ghost.className += ' cw-ghost';
-        ghost.style.cssText += `;width:${r.width}px;left:${r.left}px;top:${r.top}px;--kind:${armed.tk.closest('.sc-item').style.getPropertyValue('--kind')}`;
+        ghost.style.cssText += `;width:${r.width}px;left:${r.left}px;top:${r.top}px;--kind:${armed.tk.closest('.sc-item, .cw-blk-wrap').style.getPropertyValue('--kind')}`;
         document.body.appendChild(ghost);
         drag = { ghost, card: armed.tk, dx: x - r.left, dy: y - r.top, t: armed.t };
         document.body.classList.add('cw-dragging');
@@ -654,7 +729,7 @@
       drag.ghost.style.top = (y - drag.dy) + 'px';
       document.querySelectorAll('.is-drop').forEach(el => el.classList.remove('is-drop'));
       drag.ghost.style.visibility = 'hidden';
-      const tgt = dropAt(x, y);
+      const tgt = dropAt(x, y, y - drag.dy);
       drag.ghost.style.visibility = '';
       if (tgt) tgt.el.classList.add('is-drop');
       drag.last = tgt;
