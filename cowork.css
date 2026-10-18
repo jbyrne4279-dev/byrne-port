@@ -358,3 +358,18 @@ body.cw-pasting .cw-wk__head { outline: 2px dashed var(--accent); outline-offset
 #cwNow::after { content: ''; position: absolute; inset: 0; z-index: -2; border-radius: 18px; background: var(--card); }
 @keyframes cw-spin { to { --cw-spin: 360deg; } }
 @media (prefers-reduced-motion: reduce) { #cwNow::before { animation: none; } }
+
+/* Free time between tasks */
+.cw-gap .sc-item__time b, .cw-gap .sc-item__time span { color: var(--label-3); font-weight: 500; }
+.cw-gap__card {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 44px; padding: 0 14px 0 16px;
+  border-radius: 14px; border: 1.5px dashed rgba(235,235,245,.18); background: transparent; color: var(--label-3);
+  font-size: 14px; text-align: left; font-variant-numeric: tabular-nums;
+}
+.cw-gap__card b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(118,118,128,.24); color: var(--label-2); font: 600 18px var(--font); }
+.cw-gap__card:active { background: rgba(118,118,128,.12); }
+.cw-gap.is-past { opacity: .45; }
+body.cw-pasting .cw-gap__card { border-color: var(--accent); color: var(--accent); }
+.cw-gap { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: stretch; }
+.cw-gap .sc-item__time { padding-top: 12px; }
+.cw-gap__card { min-height: 48px; }

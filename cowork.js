@@ -351,6 +351,33 @@
   const itemAttr = it => it.kind === 'event' ? `data-event="${esc(it.id)}"` : it.kind === 'task' ? `data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}"` : '';
 
   // Week view: stacked day cards
+  // Timeline with the free time between things shown as tappable slots (8am–10pm)
+  const DAY_FROM = 8 * 60, DAY_TO = 22 * 60, MIN_GAP = 30;
+  const hhmm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
+  function gapHtml(di, a, b, isToday, nowM) {
+    const past = isToday && nowM >= b;
+    return `<li class="cw-gap${past ? ' is-past' : ''}">
+        <div class="sc-item__time"><b>${clock(a)}</b><span>${clock(b)}</span></div>
+        <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${a}" data-e="${b}" aria-label="Free ${range(a, b)}. Add a task">
+          <span>Free · ${range(a, b)} · ${duration(b - a)}</span><b aria-hidden="true">+</b>
+        </button>
+      </li>`;
+  }
+  function timelineHtml(items, di, isToday, nowM) {
+    const timed = items.filter(it => !it.anytime), rest = items.filter(it => it.anytime);
+    let cur = timed.length ? Math.min(DAY_FROM, timed[0].s) : DAY_FROM, html = '';
+    timed.forEach(it => {
+      if (it.s - cur >= MIN_GAP) html += gapHtml(di, cur, it.s, isToday, nowM);
+      html += itemCard(it, isToday, nowM);
+      cur = Math.max(cur, it.e > it.s ? it.e : it.s + 30);
+    });
+    if (DAY_TO - cur >= MIN_GAP) html += gapHtml(di, cur, DAY_TO, isToday, nowM);
+    return html + rest.map(it => itemCard(it, isToday, nowM)).join('');
+  }
+  function openGap(el) {
+    openTaskSheet(null, { day: el.dataset.gap, s: Number(el.dataset.s), e: Number(el.dataset.e) });
+  }
+
   // One timeline card, used by both the day and week views
   function itemCard(it, isToday, nowM) {
     const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
@@ -386,7 +413,7 @@
           <button type="button" class="sc-agenda__day cw-wk__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
             ${isToday ? 'Today' : DAY_LONG[i]} <span>${isToday ? DAY_LONG[i] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span>
           </button>
-          ${items.length ? '<ol class="sc-list">' + items.map(it => itemCard(it, isToday, nowM)).join('') + '</ol>' : '<p class="cw-wk__free">Free</p>'}
+          <ol class="sc-list">${timelineHtml(items, di, isToday, nowM)}</ol>
         </section>`;
     }).join('');
   }
@@ -467,7 +494,13 @@
   }
   function weekClick(e) {
     const hd = e.target.closest('[data-open-day]');
-    if (clip) { if (hd) pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null); return; }
+    const gap = e.target.closest('[data-gap]');
+    if (clip) {
+      if (gap) pasteTo(gap.dataset.gap, Number(gap.dataset.s));
+      else if (hd) pasteTo(iso(addDays(state.weekStart, Number(hd.dataset.openDay))), null);
+      return;
+    }
+    if (gap) { openGap(gap); return; }
     const ev = e.target.closest('[data-event]');
     if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
     const tk = e.target.closest('[data-edit-task]');
@@ -563,6 +596,8 @@
     if (t) { t.done = !t.done; render(); saveDone(t, t.done); toast(t.done ? 'Done ✓' : 'Not done'); }
   }
   els.day.addEventListener('click', e => {
+    const gap = e.target.closest('[data-gap]');
+    if (gap) { openGap(gap); return; }
     const tk = e.target.closest('[data-edit-task]');
     if (tk) tapTick(tk);
   });
@@ -579,9 +614,7 @@
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
     const items = dayItems(state.selected);
 
-    const timeline = items.length
-      ? '<ol class="sc-list">' + items.map(it => itemCard(it, isToday, nowM)).join('') + '</ol>'
-      : '<div class="sc-empty"><p class="sc-empty__title">Nothing planned</p></div>';
+    const timeline = '<ol class="sc-list">' + timelineHtml(items, di, isToday, nowM) + '</ol>';
 
     const list = tasks.slice().sort((a, b) => (a.at_time ? toMin(a.at_time) : 1e4) - (b.at_time ? toMin(b.at_time) : 1e4))
       .map(t => `
@@ -637,7 +670,7 @@
     if (ticked.length <= 1) els.tForm.querySelectorAll('[name=rday]').forEach(c => { c.checked = +c.value === isoDow(els.tForm.day.value); });
   });
   let editingTask = null;
-  function openTaskSheet(t) {
+  function openTaskSheet(t, preset) {
     editingTask = t;
     const f = els.tForm;
     els.tTitle.textContent = t ? 'Edit task' : 'New task';
@@ -650,6 +683,9 @@
     f.day.value = t ? t.day : selectedDate();
     f.time.value = t && t.at_time ? String(t.at_time).slice(0, 5) : '';
     f.end.value = t && t.end_time ? String(t.end_time).slice(0, 5) : '';
+    if (!t && preset) {   // from a free slot: that day and time
+      f.day.value = preset.day; f.time.value = hhmm(preset.s); f.end.value = hhmm(Math.min(preset.s + 60, preset.e));
+    }
     f.notes.value = t && t.notes ? t.notes : '';
     f.tag.value = t && TAGS[t.tag] ? t.tag : 'none';
     // Every task repeats until someone edits or deletes it
