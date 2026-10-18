@@ -86,7 +86,10 @@
   let visible = new Set(), weekPerson = null;
   const shown = () => view === 'week' ? new Set([weekPerson || state.me]) : visible;
   const myEvents = () => { const v = shown(); return state.events.filter(e => !e.who || v.has(e.who)); };
-  const myTasks = () => { const v = shown(); return state.tasks.filter(t => !t.assignee || t.tag === 'Meeting' || v.has(t.assignee)); };
+  // A meeting someone declined drops off their own schedule (that date only)
+  const declined = (t, name) => t.tag === 'Meeting' && (state.rsvps || []).some(r => r.task_id === t.id && r.day === t.day && r.member === name && r.status === 'no');
+  const scheduleOwner = () => view === 'week' ? (weekPerson || state.me) : state.me;
+  const myTasks = () => { const v = shown(), me = scheduleOwner(); return state.tasks.filter(t => (!t.assignee || t.tag === 'Meeting' || v.has(t.assignee)) && !declined(t, me)); };
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -394,6 +397,13 @@
         </div>
       </div>`;
   }
+  // Meetings you declined on this day, with a way back in
+  function declinedHtml(di) {
+    const list = state.tasks.filter(t => t.day === di && declined(t, state.me));
+    if (!list.length) return '';
+    return `<div class="cw-declined"><span>Declined</span>${list.map(t =>
+      `<button type="button" data-rsvp="yes" data-rsvp-task="${esc(t.id)}" data-tday="${esc(t.day)}" aria-label="Rejoin ${esc(t.title)}">${esc(t.title)}${t.at_time ? ' ' + clock(t.at_time) : ''} · <b>Rejoin</b></button>`).join('')}</div>`;
+  }
   async function rsvp(btn) {
     const id = btn.dataset.rsvpTask, day = btn.dataset.tday, want = btn.dataset.rsvp;
     const t = state.tasks.find(x => x.id === id && x.day === day);
@@ -404,7 +414,7 @@
     render();
     const { error } = await call('cowork_rsvp', { p_id: id, p_day: day, p_who: state.me, p_status: status });
     if (error) { toast('Couldn’t save your reply. Check your signal.'); loadWeek(); return; }
-    toast(status === 'yes' ? 'You’re going ✓' : status === 'no' ? 'Declined' : 'Reply cleared');
+    toast(status === 'yes' ? 'You’re going ✓' : status === 'no' ? 'Declined · removed from your day' : 'Reply cleared');
   }
 
   // One timeline card, used by both the day and week views
@@ -701,6 +711,7 @@
     els.day.innerHTML = `
       <h2 class="sc-agenda__day">${isToday ? 'Today' : DAY_LONG[state.selected]} <span>${isToday ? DAY_LONG[state.selected] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span></h2>
       ${timeline}
+      ${declinedHtml(di)}
       <div class="cw-addrow"><button type="button" class="cw-add" id="cwAddTask">+ Add task</button></div>`;
     bindDay();
   }
