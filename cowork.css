@@ -362,3 +362,14 @@ body.cw-pasting .cw-gap__card { border-color: var(--accent); color: var(--accent
 .cw-gap__card { min-height: 44px; padding: 0 10px 0 14px; border-width: 1px; border-radius: 12px; }
 .cw-gap__card b { width: 24px; height: 24px; font-size: 16px; }
 .cw-gap { margin: -4px 0; }
+
+/* Edit (pencil) button on every task */
+.sc-item { position: relative; }
+.cw-editbtn {
+  position: absolute; top: 6px; right: 6px; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 50%; background: rgba(0,0,0,.28); color: var(--label-2);
+}
+.cw-editbtn:active { background: rgba(0,0,0,.5); color: var(--label); }
+.cw-editbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sc-item .sc-item__card .sc-item__title { padding-right: 40px; }
+.cw-editbtn--row { position: static; flex-shrink: 0; width: 40px; height: 40px; background: rgba(118,118,128,.18); align-self: center; }

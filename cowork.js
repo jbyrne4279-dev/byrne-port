@@ -400,6 +400,7 @@
           ${it.during ? `<p class="cw-during__note">↳ ${esc(it.during)}</p>` : ''}
           ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
         </${tag}>
+        ${it.kind === 'task' ? `<button type="button" class="cw-editbtn" data-edit-btn data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" aria-label="Edit ${esc(it.title)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
       </li>`;
   }
 
@@ -510,6 +511,8 @@
       return;
     }
     if (gap) { openGap(gap); return; }
+    const eb = e.target.closest('[data-edit-btn]');
+    if (eb) { const t = taskAt(eb); if (t) openTaskSheet(t); return; }
     const ev = e.target.closest('[data-event]');
     if (ev) { openSheet(state.events.find(x => x.id === ev.dataset.event)); return; }
     const tk = e.target.closest('[data-edit-task]');
@@ -531,10 +534,11 @@
   let holdTimer = null, held = false, holdStart = null;
   const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; document.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding')); };
   function attachHold(root) {
-    root.addEventListener('pointerdown', e => {
-      const tk = e.target.closest('[data-edit-task]');
-      if (!tk || clip) return;
-      held = false; holdStart = { x: e.clientX, y: e.clientY };
+    // iPhone Safari cancels pointer events during a long press, so phones use touch events
+    const begin = (target, x, y) => {
+      const tk = target.closest('[data-edit-task]');
+      if (!tk || clip || target.closest('[data-edit-btn]')) return;
+      held = false; holdStart = { x, y };
       tk.classList.add('is-holding');
       holdTimer = setTimeout(() => {
         held = true; cancelHold();
@@ -542,11 +546,15 @@
         const t = taskAt(tk); if (!t) return;
         openTaskSheet(t);
       }, 450);
-    });
-    root.addEventListener('pointermove', e => {
-      if (holdTimer && holdStart && Math.hypot(e.clientX - holdStart.x, e.clientY - holdStart.y) > 10) cancelHold();   // scrolling, not holding
-    });
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => root.addEventListener(t, cancelHold));
+    };
+    const move = (x, y) => { if (holdTimer && holdStart && Math.hypot(x - holdStart.x, y - holdStart.y) > 10) cancelHold(); };   // scrolling, not holding
+    root.addEventListener('touchstart', e => { if (e.touches.length === 1) begin(e.target, e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    root.addEventListener('touchmove', e => move(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    root.addEventListener('touchend', cancelHold);
+    root.addEventListener('touchcancel', cancelHold);
+    root.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') begin(e.target, e.clientX, e.clientY); });
+    root.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') move(e.clientX, e.clientY); });
+    ['pointerup', 'pointerleave'].forEach(t => root.addEventListener(t, e => { if (e.pointerType === 'mouse') cancelHold(); }));
     root.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
   }
   attachHold(els.grid);
@@ -559,6 +567,8 @@
   els.day.addEventListener('click', e => {
     const gap = e.target.closest('[data-gap]');
     if (gap) { openGap(gap); return; }
+    const eb = e.target.closest('[data-edit-btn]');
+    if (eb) { const t = taskAt(eb); if (t) openTaskSheet(t); return; }
     const tk = e.target.closest('[data-edit-task]');
     if (tk) tapTick(tk);
   });
@@ -586,6 +596,7 @@
             ${t.notes ? `<span class="cw-task__notes">${esc(t.notes)}</span>` : ''}
             ${!t.assignee ? '<span class="cw-task__from">Everyone</span>' : t.assignee !== state.me ? `<span class="cw-task__from" style="color:${esc(colorOf(t.assignee))}">${esc(t.assignee)}’s task</span>` : t.created_by && t.created_by !== state.me ? `<span class="cw-task__from">from ${esc(t.created_by)}</span>` : ''}
           </button>
+          <button type="button" class="cw-editbtn cw-editbtn--row" data-edit-btn data-edit-task="${esc(t.id)}" data-tday="${esc(t.day)}" aria-label="Edit ${esc(t.title)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
         </li>`).join('');
     const taskCard = `<section class="sc-wday cw-tasks">
         <div class="sc-wday__head"><span>Tasks</span><span class="sc-wday__date">${tasks.filter(t => t.done).length}/${tasks.length} done</span></div>
