@@ -440,3 +440,15 @@ body.cw-dragging .cw-gap__card, body.cw-dragging .cw-wk__head { border-color: rg
 .cw-declined span { font-weight: 600; margin-right: 2px; }
 .cw-declined button { min-height: 36px; padding: 0 12px; border-radius: 999px; background: var(--card); color: var(--label-2); font-size: 13px; text-decoration: line-through; text-decoration-color: rgba(235,235,245,.3); }
 .cw-declined button b { color: #ffd60a; text-decoration: none; display: inline-block; }
+
+/* Drag handle on task cards */
+.cw-grip {
+  position: absolute; right: 6px; bottom: 6px; z-index: 1; display: grid; grid-template-columns: repeat(2, 4px); gap: 4px;
+  place-content: center; width: 40px; height: 40px; border-radius: 50%; cursor: grab; touch-action: none;
+  -webkit-touch-callout: none; -webkit-user-select: none; user-select: none;
+}
+.cw-grip i { width: 4px; height: 4px; border-radius: 50%; background: var(--label-3); }
+.cw-grip:active { cursor: grabbing; background: rgba(0,0,0,.3); }
+.sc-item:has(.cw-grip) .sc-item__card { padding-bottom: 14px; min-height: 92px; }
+.sc-item:has(.cw-rsvp) .cw-grip { bottom: auto; top: 50px; }
+@media (hover: hover) and (pointer: fine) { .sc-item__card[data-edit-task] { cursor: grab; } }

@@ -431,6 +431,7 @@
           ${it.during ? `<p class="cw-during__note">↳ ${esc(it.during)}</p>` : ''}
           ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
         </${tag}>
+        ${it.kind === 'task' && !it.anytime ? `<span class="cw-grip" data-grip data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>` : ''}
         ${it.tag === 'Meeting' ? rsvpHtml(it) : ''}
         ${it.kind === 'task' ? `<button type="button" class="cw-editbtn" data-edit-btn data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" aria-label="Edit ${esc(it.title)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
       </li>`;
@@ -598,10 +599,13 @@
   }
   function attachHold(root) {
     // iPhone Safari cancels pointer events during a long press, so phones use touch events
-    const begin = (target, x, y) => {
-      const tk = target.closest('[data-edit-task]');
+    const begin = (target, x, y, mouse) => {
+      const grip = target.closest('[data-grip]');
+      const tk = grip ? grip.closest('.sc-item').querySelector('.sc-item__card[data-edit-task]') : target.closest('[data-edit-task]');
       if (!tk || clip || target.closest('[data-edit-btn]')) return;
       held = false; holdStart = { x, y };
+      // The grip (phones) and the mouse drag straight away, no hold needed
+      if (grip || mouse) { const t = taskAt(tk); if (t) armed = { tk, t, instant: true }; if (grip) { held = true; tk.classList.add('is-lifted'); } return; }
       tk.classList.add('is-holding');
       holdTimer = setTimeout(() => {
         held = true; cancelHold();
@@ -614,6 +618,8 @@
     const move = (x, y, e) => {
       if (holdTimer && holdStart && Math.hypot(x - holdStart.x, y - holdStart.y) > 10) { cancelHold(); return; }   // scrolling, not holding
       if (!armed) return;
+      if (armed.instant && !drag && Math.hypot(x - holdStart.x, y - holdStart.y) < 6) return;
+      if (armed.instant) held = true;   // a drag, so the click that follows mustn't tick the task
       if (e && e.cancelable) e.preventDefault();   // dragging, so don't scroll the page
       if (!drag) {
         if (Math.hypot(x - holdStart.x, y - holdStart.y) < 8) return;
@@ -639,13 +645,16 @@
     const finish = () => {
       cancelHold();
       if (drag) { const { t, last } = drag; endDrag(); if (last) moveTask(t, last.day, last.s); return; }
-      if (armed) { const t = armed.t; armed.tk.classList.remove('is-lifted'); armed = null; openTaskSheet(t); }   // held and let go: edit
+      if (armed) {
+        const { t, tk, instant } = armed; tk.classList.remove('is-lifted'); armed = null;
+        if (!instant) openTaskSheet(t);   // held and let go: edit (a plain click or grip tap does nothing extra)
+      }
     };
     root.addEventListener('touchstart', e => { if (e.touches.length === 1) begin(e.target, e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
     root.addEventListener('touchmove', e => move(e.touches[0].clientX, e.touches[0].clientY, e), { passive: false });
     root.addEventListener('touchend', finish);
     root.addEventListener('touchcancel', () => { cancelHold(); endDrag(); });
-    root.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') begin(e.target, e.clientX, e.clientY); });
+    root.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.button === 0) begin(e.target, e.clientX, e.clientY, true); });
     window.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') move(e.clientX, e.clientY, e); });
     window.addEventListener('pointerup', e => { if (e.pointerType === 'mouse' && (holdTimer || armed || drag)) finish(); });
     root.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
