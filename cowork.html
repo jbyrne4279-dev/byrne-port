@@ -19,7 +19,7 @@
   <meta name="description" content="Shared co-working schedule and tasks.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="schedule.css?v=5">
-  <link rel="stylesheet" href="cowork.css?v=26">
+  <link rel="stylesheet" href="cowork.css?v=27">
 </head>
 <body>
   <!-- Not configured yet -->
@@ -114,6 +114,7 @@
       <p class="cw-hint">Tap a task to tick it · ✎ or hold to edit</p>
     </div>
 
+    <button type="button" class="sc-cowork cw-alarmbtn" id="cwAlarmsOpen">⏰ Set phone alarms for my day <span aria-hidden="true">›</span></button>
     <a class="sc-cowork" href="/">Back to portfolio <span aria-hidden="true">›</span></a>
   </main>
 
@@ -207,9 +208,48 @@
     </form>
   </div>
 
+  <!-- Phone alarms (Apple Shortcuts) -->
+  <div class="cw-sheet" id="cwAlarmSheet" hidden role="dialog" aria-modal="true" aria-labelledby="cwAlarmTitle">
+    <div class="cw-sheet__panel cw-alarms">
+      <h2 id="cwAlarmTitle">Phone alarms</h2>
+      <p class="cw-alarms__lead">A Shortcut on your iPhone reads today’s tasks and sets a Clock alarm at the <b>start</b> and <b>end</b> of each one. Set it up once (about 3 minutes), then it runs by itself every morning.</p>
+      <div class="cw-alarms__today">
+        <div class="cw-alarms__head"><b>Your alarms today</b><button type="button" class="cw-btn cw-btn--ghost" id="cwAlarmRefresh">Refresh</button></div>
+        <ul id="cwAlarmList"><li>Loading…</li></ul>
+      </div>
+      <h3>1 · Build the Shortcut</h3>
+      <ol class="cw-alarms__steps">
+        <li>Open the <b>Shortcuts</b> app → <b>+</b> → name it <b>Co-work alarms</b>.</li>
+        <li>Add <b>Get Contents of URL</b>. Paste this URL:
+          <div class="cw-copy"><code id="cwAlarmUrl"></code><button type="button" data-copy="cwAlarmUrl">Copy</button></div></li>
+        <li>Tap <b>Show More</b>. Set <b>Method</b> to <b>POST</b>.</li>
+        <li>Under <b>Headers</b> add two:
+          <div class="cw-copy"><span>Key</span><code>apikey</code></div>
+          <div class="cw-copy"><span>Value</span><code id="cwAlarmKey"></code><button type="button" data-copy="cwAlarmKey">Copy</button></div>
+          <div class="cw-copy"><span>Key</span><code>Content-Type</code></div>
+          <div class="cw-copy"><span>Value</span><code>application/json</code></div></li>
+        <li>Set <b>Request Body</b> to <b>JSON</b> and add two <b>Text</b> fields:
+          <div class="cw-copy"><span>p_pin</span><code>your passcode</code></div>
+          <div class="cw-copy"><span>p_who</span><code id="cwAlarmWho"></code></div></li>
+        <li>Add <b>Repeat with Each</b> (it uses <i>Contents of URL</i>).</li>
+        <li>Inside the repeat, add <b>Get Dictionary Value</b> → Value for <code>time</code> in <i>Repeat Item</i>.</li>
+        <li>Add another <b>Get Dictionary Value</b> → Value for <code>label</code> in <i>Repeat Item</i>.</li>
+        <li>Add <b>Create Alarm</b> (Clock): time = the first <i>Dictionary Value</i>, label = the second. Turn <b>off</b> “Show When Run”.</li>
+        <li>Tap ▶︎ to test. Your alarms appear in the Clock app.</li>
+      </ol>
+      <h3>2 · Run it every morning</h3>
+      <ol class="cw-alarms__steps">
+        <li>Shortcuts → <b>Automation</b> → <b>+</b> → <b>Time of Day</b>, e.g. 7:00, <b>Daily</b>.</li>
+        <li>Choose <b>Run Immediately</b>, then pick <b>Co-work alarms</b>.</li>
+      </ol>
+      <p class="cw-alarms__note">Alarms are for the day the Shortcut runs. Tasks you’ve declined (meetings) are skipped. Clock keeps old one-off alarms in its list switched off; swipe to delete them now and then.</p>
+      <div class="cw-sheet__actions"><button type="button" class="cw-btn" id="cwAlarmClose">Done</button></div>
+    </div>
+  </div>
+
   <div class="cw-toast" id="cwToast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-  <script src="cowork.js?v=35"></script>
+  <script src="cowork.js?v=36"></script>
 </body>
 </html>

@@ -622,6 +622,42 @@
     $('cwAddTask').addEventListener('click', () => openTaskSheet(null));
   }
 
+  /* ── Phone alarms: set-up guide for an Apple Shortcut that reads today's alarms ── */
+  const alarmSheet = $('cwAlarmSheet');
+  async function loadAlarms() {
+    const list = $('cwAlarmList');
+    list.innerHTML = '<li>Loading…</li>';
+    const { data, error } = await call('cowork_alarms', { p_who: state.me });
+    if (error) { list.innerHTML = '<li>Couldn’t load. Check your signal.</li>'; return; }
+    list.innerHTML = (data || []).length
+      ? data.map(a => `<li><b>${esc(clock(toMin(a.time)))}</b><span>${esc(a.label)}</span></li>`).join('')
+      : '<li>No timed tasks today.</li>';
+  }
+  $('cwAlarmsOpen').addEventListener('click', () => {
+    $('cwAlarmUrl').textContent = `${SB_URL}/rest/v1/rpc/cowork_alarms`;
+    $('cwAlarmKey').textContent = SB_KEY;
+    $('cwAlarmWho').textContent = state.me;
+    alarmSheet.hidden = false;
+    document.documentElement.classList.add('cw-noscroll');
+    requestAnimationFrame(() => alarmSheet.classList.add('is-open'));
+    loadAlarms();
+  });
+  const closeAlarms = () => {
+    alarmSheet.classList.remove('is-open');
+    document.documentElement.classList.remove('cw-noscroll');
+    setTimeout(() => { alarmSheet.hidden = true; }, 220);
+  };
+  $('cwAlarmClose').addEventListener('click', closeAlarms);
+  $('cwAlarmRefresh').addEventListener('click', loadAlarms);
+  alarmSheet.addEventListener('click', async e => {
+    if (e.target === alarmSheet) return closeAlarms();
+    const b = e.target.closest('[data-copy]');
+    if (!b) return;
+    const text = $(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(text); toast('Copied'); }
+    catch (err) { const r = document.createRange(); r.selectNodeContents($(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); toast('Selected – tap Copy'); }
+  });
+
   /* ── Add / edit task sheet ── */
   const isoDow = s => { const d = new Date(s + 'T00:00:00'); return isNaN(d) ? 1 : dayIndex(d) + 1; };
   function repeatText(days, every) {

@@ -32,3 +32,6 @@ alter table cw_tasks add column if not exists color text;
 -- * Remaining one-off tasks (the converted sessions) set to repeat weekly on their original weekday.
 update cw_tasks set repeat_weekly = true, repeat_days = array[extract(isodow from day)::smallint], repeat_every = 1, repeat_until = null
 where not repeat_weekly;
+
+-- Update 12 (applied live): cowork_alarms(p_pin, p_who, p_day default today in UK time) returns
+-- [{time:'HH:MM', label:'End: X · Start: Y'}] for an Apple Shortcut to create Clock alarms.
