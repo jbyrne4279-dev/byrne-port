@@ -22,3 +22,6 @@ alter table cw_tasks alter column assignee drop not null;
 alter table cw_tasks add column if not exists color text;
 
 -- Update 9 (applied live): cowork_add_task / cowork_update_task take p_color (a #rrggbb colour, or null for automatic).
+
+-- Update 10 (applied live): meeting replies. Table cw_rsvp(task_id, day, member, status yes|no),
+-- function cowork_rsvp(p_pin, p_id, p_day, p_who, p_status), and cowork_week also returns 'rsvps'.

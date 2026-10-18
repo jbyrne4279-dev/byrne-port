@@ -86,7 +86,7 @@
   let visible = new Set(), weekPerson = null;
   const shown = () => view === 'week' ? new Set([weekPerson || state.me]) : visible;
   const myEvents = () => { const v = shown(); return state.events.filter(e => !e.who || v.has(e.who)); };
-  const myTasks = () => { const v = shown(); return state.tasks.filter(t => !t.assignee || v.has(t.assignee)); };
+  const myTasks = () => { const v = shown(); return state.tasks.filter(t => !t.assignee || t.tag === 'Meeting' || v.has(t.assignee)); };
 
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
@@ -191,6 +191,7 @@
     state.members = data.members || [];
     state.events = [];   // old sessions now live in tasks (copied over); everything is a task
     state.tasks = data.tasks || [];
+    state.rsvps = data.rsvps || [];
   }
   async function loadWeek() {
     const from = iso(state.weekStart), to = iso(addDays(state.weekStart, 6));
@@ -303,7 +304,7 @@
     }));
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time), e0 = t.end_time ? toMin(t.end_time) : s0;
-      out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
+      out.push({ kind: 'task', id: t.id, day: t.day, by: t.created_by || t.assignee, s: s0, e: e0, notes: t.notes, title: t.title, meta: t.tag === 'Meeting' ? `Set up by ${(t.created_by || t.assignee) === state.me ? 'you' : (t.created_by || t.assignee || 'someone')}` : !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
     });
     // Start time order; when two start together the longer one comes first
     out.sort((a, b) => a.s - b.s || b.e - a.e);
@@ -369,6 +370,40 @@
     openTaskSheet(null, { day: el.dataset.gap, s: Number(el.dataset.s), e: Number(el.dataset.e) });
   }
 
+  /* Meetings: everyone can accept or decline each date, and sees who's coming */
+  function rsvpOf(it, name) {
+    const r = (state.rsvps || []).find(x => x.task_id === it.id && x.day === it.day && x.member === name);
+    return r ? r.status : name === it.by ? 'yes' : null;   // whoever set it up is going unless they decline
+  }
+  function rsvpHtml(it) {
+    const mine = rsvpOf(it, state.me);
+    const chips = state.members.map(m => {
+      const st = rsvpOf(it, m.name);
+      return `<span class="cw-rsvp__who is-${st || 'wait'}" style="--who:${esc(m.color)}" title="${esc(m.name)}: ${st === 'yes' ? 'going' : st === 'no' ? 'not going' : 'no reply yet'}">${st === 'yes' ? '✓' : st === 'no' ? '✕' : '?'} ${esc(m.name)}</span>`;
+    }).join('');
+    const going = state.members.filter(m => rsvpOf(it, m.name) === 'yes').length;
+    const attr = `data-rsvp-task="${esc(it.id)}" data-tday="${esc(it.day)}"`;
+    return `<div class="cw-rsvp">
+        <div class="cw-rsvp__people" aria-label="${going} of ${state.members.length} going">${chips}</div>
+        <div class="cw-rsvp__btns" role="group" aria-label="Can you make it?">
+          <button type="button" class="cw-rsvp__btn${mine === 'yes' ? ' is-on' : ''}" data-rsvp="yes" ${attr} aria-pressed="${mine === 'yes'}">✓ Accept</button>
+          <button type="button" class="cw-rsvp__btn cw-rsvp__btn--no${mine === 'no' ? ' is-on' : ''}" data-rsvp="no" ${attr} aria-pressed="${mine === 'no'}">✕ Decline</button>
+        </div>
+      </div>`;
+  }
+  async function rsvp(btn) {
+    const id = btn.dataset.rsvpTask, day = btn.dataset.tday, want = btn.dataset.rsvp;
+    const t = state.tasks.find(x => x.id === id && x.day === day);
+    const current = rsvpOf({ id, day, by: t && (t.created_by || t.assignee) }, state.me);
+    const status = current === want ? null : want;   // tap your answer again to clear it
+    state.rsvps = (state.rsvps || []).filter(r => !(r.task_id === id && r.day === day && r.member === state.me));
+    if (status) state.rsvps.push({ task_id: id, day, member: state.me, status });
+    render();
+    const { error } = await call('cowork_rsvp', { p_id: id, p_day: day, p_who: state.me, p_status: status });
+    if (error) { toast('Couldn’t save your reply. Check your signal.'); loadWeek(); return; }
+    toast(status === 'yes' ? 'You’re going ✓' : status === 'no' ? 'Declined' : 'Reply cleared');
+  }
+
   // One timeline card, used by both the day and week views
   function itemCard(it, isToday, nowM) {
     const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
@@ -382,13 +417,14 @@
           ${it.during ? `<p class="cw-during__note">↳ ${esc(it.during)}</p>` : ''}
           ${it.notes ? `<p class="cw-item__notes">${esc(it.notes)}</p>` : ''}
         </${tag}>
+        ${it.tag === 'Meeting' ? rsvpHtml(it) : ''}
         ${it.kind === 'task' ? `<button type="button" class="cw-editbtn" data-edit-btn data-edit-task="${esc(it.id)}" data-tday="${esc(it.day)}" aria-label="Edit ${esc(it.title)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>` : ''}
       </li>`;
   }
 
   // Tasks with no time, shown as "Anytime" cards at the end of the day
   const anytimeItems = di => myTasks().filter(t => t.day === di && !t.at_time).map(t => ({
-    kind: 'task', anytime: true, id: t.id, day: t.day, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
+    kind: 'task', anytime: true, id: t.id, day: t.day, by: t.created_by || t.assignee, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
     meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
   }));
 
@@ -487,6 +523,8 @@
     if (error) { toast('Couldn’t save. Check your signal.'); loadWeek(); }
   }
   function weekClick(e) {
+    const rv = e.target.closest('[data-rsvp]');
+    if (rv && !clip) { rsvp(rv); return; }
     const hd = e.target.closest('[data-open-day]');
     const gap = e.target.closest('[data-gap]');
     if (clip) {
@@ -549,6 +587,8 @@
     if (t) { t.done = !t.done; render(); saveDone(t, t.done); toast(t.done ? 'Done ✓' : 'Not done'); }
   }
   els.day.addEventListener('click', e => {
+    const rv = e.target.closest('[data-rsvp]');
+    if (rv) { rsvp(rv); return; }
     const gap = e.target.closest('[data-gap]');
     if (gap) { openGap(gap); return; }
     const eb = e.target.closest('[data-edit-btn]');

@@ -384,3 +384,17 @@ body.cw-pasting .cw-gap__card { border-color: var(--accent); color: var(--accent
 .cw-colours__auto span { width: auto; padding: 0 12px; display: grid; place-items: center; border-radius: 18px; background: rgba(118,118,128,.24); font-size: 13px; font-weight: 600; color: var(--label-2); }
 .cw-colours__custom { --sw: conic-gradient(#ff453a, #ffd60a, #30d158, #0a84ff, #bf5af2, #ff453a); }
 .cw-colours__custom input[type=color] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; z-index: 2; cursor: pointer; border: 0; padding: 0; }
+
+/* Meeting replies */
+.cw-rsvp { grid-column: 2; display: grid; gap: 8px; margin-top: -2px; padding: 10px 12px; border-radius: 12px;
+  background: rgba(255, 214, 10, .07); border: 1px solid rgba(255, 214, 10, .22); }
+.cw-rsvp__people { display: flex; flex-wrap: wrap; gap: 6px; }
+.cw-rsvp__who { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  background: rgba(118,118,128,.2); color: var(--label-3); }
+.cw-rsvp__who.is-yes { background: rgba(48, 209, 88, .18); color: #30d158; }
+.cw-rsvp__who.is-no { background: rgba(255, 69, 58, .16); color: #ff6961; text-decoration: line-through; }
+.cw-rsvp__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cw-rsvp__btn { min-height: 40px; border-radius: 10px; font-size: 15px; font-weight: 600; background: rgba(118,118,128,.22); color: var(--label); }
+.cw-rsvp__btn.is-on { background: #30d158; color: #000; }
+.cw-rsvp__btn--no.is-on { background: #ff453a; color: #fff; }
+.cw-rsvp__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
