@@ -16,3 +16,7 @@ alter table cw_tasks alter column assignee drop not null;
 -- insert into cw_tasks (day, title, assignee, done, created_by, created_at, at_time, end_time, repeat_weekly)
 -- select day, left(title, 140), who, false, created_by, created_at, start_time,
 --        case when end_time > start_time then end_time end, false from cw_events;
+
+-- Update 8 (applied live): tasks may carry their own colour; cowork_week returns t.color.
+-- Joe's timetable was copied into cw_tasks as weekly tasks (rows not stored in this public repo).
+alter table cw_tasks add column if not exists color text;

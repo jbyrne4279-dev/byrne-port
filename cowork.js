@@ -78,7 +78,7 @@
   // Each person sees only their own calendar: sessions for them or everyone, tasks assigned to them
   // Tags make important tasks stand out; meetings are gold
   const TAGS = { Meeting: '#ffd60a', Important: '#ff453a', Deadline: '#ff9f0a' };
-  const taskColor = t => TAGS[t.tag] || (t.assignee ? colorOf(t.assignee) : '#ffffff');   // no assignee = Everyone
+  const taskColor = t => TAGS[t.tag] || t.color || (t.assignee ? colorOf(t.assignee) : '#ffffff');   // no assignee = Everyone
   const tagPill = tag => TAGS[tag] ? ` <span class="cw-tagpill" style="--tag:${TAGS[tag]}">${esc(tag)}</span>` : '';
 
   // Each person picks whose calendars they see (their own by default)
@@ -93,20 +93,6 @@
     const { data, error } = await sb.rpc(fn, { p_pin: state.pin, ...args });
     if (error && /passcode/i.test(error.message || '')) { store.del(PIN_STORE); location.reload(); }
     return { data, error };
-  }
-
-  /* ── Joe's timetable, decrypted with the same passcode ── */
-  async function decryptPersonal(pin) {
-    const v = window.SCHEDULE_VAULT, subtle = window.crypto && window.crypto.subtle;
-    if (!v || !subtle) return null;
-    const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-    try {
-      const base = await subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
-      const key = await subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: unb64(v.salt), iterations: v.iter },
-        base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-      const pt = await subtle.decrypt({ name: 'AES-GCM', iv: unb64(v.iv) }, key, unb64(v.data));
-      return JSON.parse(new TextDecoder().decode(pt));
-    } catch (e) { return null; }
   }
 
   /* ── Passcode keypad ── */
@@ -136,7 +122,7 @@
     els.lockMsg.textContent = '';
     els.lock.hidden = true;
     apply(data);
-    state.personal = await decryptPersonal(pin);
+    state.personal = null;   // Joe's timetable now lives in tasks
     chooseWho();
   }
 
@@ -318,10 +304,6 @@
     myTasks().filter(t => t.day === di && t.at_time).forEach(t => {
       const s0 = toMin(t.at_time), e0 = t.end_time ? toMin(t.end_time) : s0;
       out.push({ kind: 'task', id: t.id, day: t.day, s: s0, e: e0, notes: t.notes, title: t.title, meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t), tag: t.tag, done: t.done, rep: repeats(t) });
-    });
-    if (shown().has('Joe') && p && p.week && p.week[i]) p.week[i].forEach(e => {
-      const k = (p.kinds || {})[e.kind] || { label: e.kind, color: '#8e8e93' };
-      out.push({ kind: 'mine', s: toMin(e.start), e: toMin(e.end), title: k.label, meta: state.me === 'Joe' ? '' : 'Joe’s timetable', color: k.color, routine: k.routine, flex: e.flex });
     });
     // Start time order; when two start together the longer one comes first
     out.sort((a, b) => a.s - b.s || b.e - a.e);
