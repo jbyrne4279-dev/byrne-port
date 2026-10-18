@@ -480,3 +480,14 @@ body.cw-dragging .cw-gap__card, body.cw-dragging .cw-wk__head { border-color: rg
 .cw-nowline b { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
 .cw-nowline i { position: relative; height: 2px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 10px rgba(255,55,95,.6); }
 .cw-nowline i::before { content: ''; position: absolute; left: -5px; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+
+/* Computers: the arrows get their own space either side of the dates */
+@media (hover: hover) and (pointer: fine) {
+  .cw-stripwrap {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; gap: 10px;
+    margin: 0 calc(var(--gutter) * -1); padding: 8px var(--gutter) 10px;
+    background: rgba(0,0,0,.82); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    border-bottom: .5px solid var(--sep);
+  }
+  .cw-stripwrap .sc-strip { position: static; margin: 0; padding: 0; background: none; border-bottom: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
