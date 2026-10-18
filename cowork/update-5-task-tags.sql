@@ -35,3 +35,7 @@ where not repeat_weekly;
 
 -- Update 12 (applied live): cowork_alarms(p_pin, p_who, p_day default today in UK time) returns
 -- [{time:'HH:MM', label:'End: X · Start: Y'}] for an Apple Shortcut to create Clock alarms.
+
+-- Update 13 (applied live): delete one date of a repeating task.
+-- Table cw_task_skip(task_id, day); function cowork_skip_task(p_pin, p_id, p_day);
+-- cowork_week and cowork_alarms leave skipped dates out.

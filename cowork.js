@@ -168,6 +168,7 @@
       loadVisible();
       renderMembers();
       render();
+      notifyFetched = 0; paintNotify();
       toast(`You’re now ${state.me}`);
     } else openApp();
   });
@@ -178,6 +179,7 @@
 
   function openApp() {
     appOpen = true;
+    setTimeout(paintNotify, 0);
     loadVisible();
     els.app.hidden = false;
     renderMembers();
@@ -766,6 +768,42 @@
     catch (err) { const r = document.createRange(); r.selectNodeContents($(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); toast('Selected – tap Copy'); }
   });
 
+  /* ── Desktop notifications: start and end of each of today's tasks, while this page is open ── */
+  const NOTIFY_STORE = 'jb-cowork-notify';
+  let notifyList = [], notifyFetched = 0;
+  const fired = new Set();
+  const notifyOn = () => 'Notification' in window && Notification.permission === 'granted' && store.get(NOTIFY_STORE + ':' + state.me) === '1';
+  function paintNotify() {
+    const st = $('cwNotifyState');
+    st.textContent = !('Notification' in window) ? 'Not supported here' : Notification.permission === 'denied' ? 'Blocked in browser settings' : notifyOn() ? 'On' : 'Off';
+  }
+  async function notifyTick() {
+    if (!appOpen || !notifyOn()) return;
+    const now = new Date();
+    if (Date.now() - notifyFetched > 5 * 60 * 1000 || (notifyList.day && notifyList.day !== iso(now))) {
+      const { data } = await call('cowork_alarms', { p_who: state.me });
+      if (data) { notifyList = data; notifyList.day = iso(now); notifyFetched = Date.now(); }
+    }
+    const hm = `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+    notifyList.filter(a => a.time === hm).forEach(a => {
+      const key = iso(now) + ' ' + a.time;
+      if (fired.has(key)) return;
+      fired.add(key);
+      const n = new Notification(`Co-working · ${clock(toMin(a.time))}`, { body: a.label.replace(/ · /g, '\n'), tag: key });
+      n.onclick = () => { window.focus(); n.close(); };
+    });
+  }
+  setInterval(notifyTick, 20000);
+  $('cwNotifyBtn').addEventListener('click', async () => {
+    if (!('Notification' in window)) { toast('This browser can’t show notifications'); return; }
+    if (notifyOn()) { store.set(NOTIFY_STORE + ':' + state.me, '0'); paintNotify(); toast('Desktop notifications off'); return; }
+    const perm = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
+    if (perm !== 'granted') { paintNotify(); toast('Allow notifications for this site in your browser settings'); return; }
+    store.set(NOTIFY_STORE + ':' + state.me, '1'); notifyFetched = 0; paintNotify();
+    new Notification('Co-working notifications on', { body: 'You’ll get a notification at the start and end of each task while this page is open.' });
+    notifyTick();
+  });
+
   /* ── Add / edit task sheet ── */
   const isoDow = s => { const d = new Date(s + 'T00:00:00'); return isNaN(d) ? 1 : dayIndex(d) + 1; };
   function repeatText(days, every) {
@@ -897,13 +935,37 @@
     state.selected = dayIndex(d);
     loadWeek();
   });
-  els.tDelete.addEventListener('click', async () => {
-    if (!editingTask || !confirm(editingTask.repeat_weekly ? `Delete “${editingTask.title}” from every day it’s on?` : `Delete “${editingTask.title}”?`)) return;
-    const { error } = await call('cowork_delete_task', { p_id: editingTask.id });
-    if (error) { els.tMsg.textContent = 'Couldn’t delete.'; return; }
+  // Deleting: a repeating task asks "just this day" or "every week"
+  async function deleteTask(mode) {
+    const t = editingTask;
+    const { error } = mode === 'day'
+      ? await call('cowork_skip_task', { p_id: t.id, p_day: t.day })
+      : await call('cowork_delete_task', { p_id: t.id });
+    if (error) { els.tMsg.textContent = 'Couldn’t delete. Check your signal.'; return; }
     closeTaskSheet();
-    toast('Task deleted');
+    const d = new Date(t.day + 'T00:00:00');
+    toast(mode === 'day' ? `Removed from ${DAY_LONG[dayIndex(d)]} ${d.getDate()} ${MONTHS[d.getMonth()]} only` : 'Task deleted');
     loadWeek();
+  }
+  els.tDelete.addEventListener('click', () => {
+    const t = editingTask;
+    if (!t) return;
+    const repeating = t.repeat_weekly && repeats(t);
+    if (!repeating) { if (confirm(`Delete “${t.title}”?`)) deleteTask('all'); return; }
+    const d = new Date(t.day + 'T00:00:00');
+    els.tMsg.innerHTML = `<span class="cw-delask">
+        <span>Delete “${esc(t.title)}”…</span>
+        <button type="button" class="cw-btn cw-btn--ghost" data-del="day">Just ${DAY_LONG[dayIndex(d)]} ${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</button>
+        <button type="button" class="cw-btn cw-btn--danger-fill" data-del="all">Every week</button>
+        <button type="button" class="cw-btn cw-btn--ghost" data-del="cancel">Keep it</button>
+      </span>`;
+    els.tMsg.querySelector('[data-del="day"]').focus();
+  });
+  els.tMsg.addEventListener('click', e => {
+    const b = e.target.closest('[data-del]');
+    if (!b) return;
+    if (b.dataset.del === 'cancel') { els.tMsg.textContent = ''; return; }
+    deleteTask(b.dataset.del);
   });
 
   /* ── Add / edit session sheet ── */
@@ -971,10 +1033,34 @@
   /* ── Navigation ── */
   els.strip.addEventListener('click', e => {
     const b = e.target.closest('[data-day]');
-    if (!b) return;
+    if (!b || Date.now() - stripSwiped < 400) return;
     state.selected = Number(b.dataset.day);
     render();
   });
+  // Day strip: swipe it (phones) or use the arrows (computers) to go to the previous/next week
+  function stepWeek(dir) {
+    state.weekStart = addDays(state.weekStart, dir * 7);
+    loadWeek().then(() => {
+      els.strip.classList.remove('slide-l', 'slide-r');
+      void els.strip.offsetWidth;
+      els.strip.classList.add(dir > 0 ? 'slide-l' : 'slide-r');
+    });
+  }
+  $('cwStripPrev').addEventListener('click', () => stepWeek(-1));
+  $('cwStripNext').addEventListener('click', () => stepWeek(1));
+  let stripSwipe = null;
+  els.strip.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) stripSwipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() };
+  }, { passive: true });
+  els.strip.addEventListener('touchend', e => {
+    if (!stripSwipe) return;
+    const dx = e.changedTouches[0].clientX - stripSwipe.x, dy = e.changedTouches[0].clientY - stripSwipe.y;
+    const quick = Date.now() - stripSwipe.t < 700;
+    stripSwipe = null;
+    if (quick && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { stripSwiped = Date.now(); stepWeek(dx < 0 ? 1 : -1); }
+  }, { passive: true });
+  let stripSwiped = 0;
+
   // Day view: swipe left/right to change day (crosses into the next/previous week)
   function stepDay(dir) {
     let i = state.selected + dir;

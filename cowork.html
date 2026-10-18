@@ -19,7 +19,7 @@
   <meta name="description" content="Shared co-working schedule and tasks.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="schedule.css?v=5">
-  <link rel="stylesheet" href="cowork.css?v=30">
+  <link rel="stylesheet" href="cowork.css?v=31">
 </head>
 <body>
   <!-- Not configured yet -->
@@ -107,7 +107,11 @@
     </div>
 
     <div id="cwDayPane">
-      <nav class="sc-strip" id="cwStrip" role="tablist" aria-label="Choose a day"></nav>
+      <div class="cw-stripwrap">
+        <button type="button" class="cw-striparrow" id="cwStripPrev" aria-label="Previous week">‹</button>
+        <nav class="sc-strip" id="cwStrip" role="tablist" aria-label="Choose a day · swipe for another week"></nav>
+        <button type="button" class="cw-striparrow" id="cwStripNext" aria-label="Next week">›</button>
+      </div>
       <section class="sc-agenda" id="cwDay" role="tabpanel"></section>
       <p class="cw-hint">Swipe to change day · tap to tick · hold to edit · drag ⋮⋮ to move</p>
     </div>
@@ -121,6 +125,7 @@
       <p class="cw-hint">Tap to tick · hold to edit · drag ⋮⋮ to move</p>
     </div>
 
+    <button type="button" class="sc-cowork cw-alarmbtn" id="cwNotifyBtn">🔔 Desktop notifications <span id="cwNotifyState">Off</span></button>
     <button type="button" class="sc-cowork cw-alarmbtn" id="cwAlarmsOpen">⏰ Set phone alarms for my day <span aria-hidden="true">›</span></button>
     <a class="sc-cowork" href="/">Back to portfolio <span aria-hidden="true">›</span></a>
   </main>
@@ -257,6 +262,6 @@
   <div class="cw-toast" id="cwToast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-  <script src="cowork.js?v=39"></script>
+  <script src="cowork.js?v=41"></script>
 </body>
 </html>

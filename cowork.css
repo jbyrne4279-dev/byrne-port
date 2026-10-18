@@ -452,3 +452,20 @@ body.cw-dragging .cw-gap__card, body.cw-dragging .cw-wk__head { border-color: rg
 .sc-item:has(.cw-grip) .sc-item__card { padding-bottom: 14px; min-height: 92px; }
 .sc-item:has(.cw-rsvp) .cw-grip { bottom: auto; top: 50px; }
 @media (hover: hover) and (pointer: fine) { .sc-item__card[data-edit-task] { cursor: grab; } }
+
+/* Day strip: swipe for another week; arrows on computers */
+.cw-stripwrap { position: relative; display: flex; align-items: center; }
+.cw-stripwrap .sc-strip { flex: 1; min-width: 0; touch-action: pan-y; }
+.sc-strip.slide-l { animation: sc-in-l .35s var(--ease); }
+.sc-strip.slide-r { animation: sc-in-r .35s var(--ease); }
+.cw-striparrow { display: none; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--card); color: var(--label-2); font-size: 24px; line-height: 1; }
+.cw-striparrow:hover { background: var(--card-2); color: var(--label); }
+@media (hover: hover) and (pointer: fine) { .cw-striparrow { display: grid; place-items: center; } }
+
+/* Delete choice for repeating tasks */
+.cw-delask { display: grid; gap: 8px; width: 100%; }
+.cw-delask > span { font-size: 14px; color: var(--label-2); }
+.cw-btn--danger-fill { background: #ff453a; color: #fff; }
+.cw-sheet__msg:has(.cw-delask) { min-height: 0; color: inherit; }
+#cwNotifyState { margin-left: auto; margin-right: 6px; font-size: 14px; font-weight: 500; color: var(--label-3); }
+.cw-alarmbtn { display: flex; align-items: center; }
