@@ -371,14 +371,18 @@
   function renderGrid() {
     const ws = state.weekStart, todayIso = iso(new Date());
     const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
-    els.grid.innerHTML = Array.from({ length: 7 }, (_, i) => {
+    // This week: today first, then the rest of the week, then days already gone
+    const ti = iso(ws) === iso(mondayOf(n)) ? dayIndex(n) : 0;
+    const order = [0, 1, 2, 3, 4, 5, 6].map(k => (ti + k) % 7);
+    els.grid.innerHTML = order.map((i, k) => {
       const d = addDays(ws, i), di = iso(d), isToday = di === todayIso;
+      const earlier = ti > 0 && i < ti && k === 7 - ti ? '<p class="cw-wk__earlier">Earlier this week</p>' : '';
       const anytime = myTasks().filter(t => t.day === di && !t.at_time).map(t => ({
         kind: 'task', anytime: true, id: t.id, day: t.day, s: 0, e: 0, title: t.title, notes: t.notes, tag: t.tag, done: t.done, rep: repeats(t),
         meta: !t.assignee ? 'Everyone' : t.assignee === state.me ? 'Task' : `${t.assignee}’s task`, color: taskColor(t)
       }));
       const items = dayItems(i).concat(anytime);
-      return `<section class="cw-wk${isToday ? ' is-today' : ''}" aria-label="${DAY_LONG[i]}">
+      return `${earlier}<section class="cw-wk${isToday ? ' is-today' : ''}${ti > 0 && i < ti ? ' is-earlier' : ''}" aria-label="${DAY_LONG[i]}">
           <button type="button" class="sc-agenda__day cw-wk__head" data-open-day="${i}" aria-label="Open ${DAY_LONG[i]} ${d.getDate()} ${MONTHS[d.getMonth()]}${isToday ? ', today' : ''}">
             ${isToday ? 'Today' : DAY_LONG[i]} <span>${isToday ? DAY_LONG[i] + ' ' : ''}${d.getDate()} ${MONTHS[d.getMonth()]}</span>
           </button>
