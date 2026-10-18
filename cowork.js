@@ -335,19 +335,22 @@
 
   // Week view: stacked day cards
   // Timeline with the free time between things shown as tappable slots (8am–10pm)
-  const DAY_FROM = 8 * 60, DAY_TO = 22 * 60, MIN_GAP = 15;
+  const DAY_FROM = 8 * 60, DAY_TO = 22 * 60;
+  const GRID_STORE = 'jb-cowork-grid';
+  let grid = [15, 30, 60].includes(Number(store.get(GRID_STORE))) ? Number(store.get(GRID_STORE)) : 60;   // free-time slot size
+  const MIN_GAP = () => Math.min(15, grid);
   const hhmm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
   function gapHtml(di, a, b, isToday, nowM) {
-    // Free time in hour segments: 8am, 9am… (part-hours get their own short slot)
+    // Free time split into the chosen grid (15 min, 30 min or 1 hour); part-slots get their own row
     let html = '';
     for (let x = a; x < b;) {
-      const y = Math.min(b, Math.floor(x / 60) * 60 + 60);
-      if (y - x >= 15) {
+      const y = Math.min(b, Math.floor(x / grid) * grid + grid);
+      if (y - x >= Math.min(10, grid)) {
         const past = isToday && nowM >= y;
         html += `<li class="cw-gap${past ? ' is-past' : ''}">
           <div class="sc-item__time"><b>${clock(x)}</b></div>
           <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${x}" data-e="${y}" aria-label="Free ${range(x, y)}. Add a task">
-            <span>Free${y - x < 60 ? ' · ' + range(x, y) : ''}</span><b aria-hidden="true">+</b>
+            <span>Free${y - x < grid ? ' · ' + range(x, y) : grid < 60 ? ' · ' + duration(y - x) : ''}</span><b aria-hidden="true">+</b>
           </button>
         </li>`;
       }
@@ -359,11 +362,11 @@
     const timed = items.filter(it => !it.anytime), rest = items.filter(it => it.anytime);
     let cur = timed.length ? Math.min(DAY_FROM, timed[0].s) : DAY_FROM, html = '';
     timed.forEach(it => {
-      if (it.s - cur >= MIN_GAP) html += gapHtml(di, cur, it.s, isToday, nowM);
+      if (it.s - cur >= MIN_GAP()) html += gapHtml(di, cur, it.s, isToday, nowM);
       html += itemCard(it, isToday, nowM);
       cur = Math.max(cur, it.e > it.s ? it.e : it.s + 30);
     });
-    if (DAY_TO - cur >= MIN_GAP) html += gapHtml(di, cur, DAY_TO, isToday, nowM);
+    if (DAY_TO - cur >= MIN_GAP()) html += gapHtml(di, cur, DAY_TO, isToday, nowM);
     return html + rest.map(it => itemCard(it, isToday, nowM)).join('');
   }
   function openGap(el) {
@@ -409,7 +412,8 @@
     const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
     const tag = it.kind === 'mine' ? 'div' : 'button';
     const when = it.anytime ? 'Anytime' : itemRange(it) + (it.e > it.s ? ' · ' + duration(it.e - it.s) : '');
-    return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}" style="--kind:${esc(it.color)}">
+    const drop = it.anytime || !it.day ? '' : ` data-drop-day="${esc(it.day)}" data-drop-s="${it.s}"`;
+    return `<li class="sc-item${st}${it.routine ? ' is-routine' : ''}${it.tag === 'Meeting' ? ' cw-meeting' : ''}"${drop} style="--kind:${esc(it.color)}">
         <div class="sc-item__time">${it.anytime ? '<b>Any</b><span>time</span>' : `<b>${clock(it.s)}</b>${it.e > it.s ? `<span>${clock(it.e)}</span>` : ''}`}</div>
         <${tag} ${tag === 'button' ? `type="button" ${itemAttr(it)} aria-label="${it.kind === 'task' ? `${esc(it.title)}${it.done ? ', done' : ''}. Tap to tick, hold to edit` : 'Edit ' + esc(it.title)}"` : ''} class="sc-item__card${tag === 'button' ? ' cw-card' : ''}">
           <p class="sc-item__title">${esc(it.title)}${tagPill(it.tag)}${it.rep ? ' <span class="cw-rep">↻</span>' : ''}${st === ' is-now' ? '<span class="sc-pill">Now</span>' : ''}${st === ' is-past' ? '<span class="sc-done">Done</span>' : ''}</p>
@@ -458,6 +462,13 @@
     els.viewWeek.setAttribute('aria-pressed', week);
     if (appOpen) { renderMembers(); render(); }
   }
+  function setGrid(g) {
+    grid = g; store.set(GRID_STORE, String(g));
+    document.querySelectorAll('[data-grid]').forEach(b => b.setAttribute('aria-pressed', Number(b.dataset.grid) === g));
+    if (appOpen) render();
+  }
+  document.querySelectorAll('[data-grid]').forEach(b => b.addEventListener('click', () => setGrid(Number(b.dataset.grid))));
+  setGrid(grid);
   els.viewDay.addEventListener('click', () => setView('day'));
   els.viewWeek.addEventListener('click', () => setView('week'));
   els.members.addEventListener('click', e => {
@@ -552,9 +563,29 @@
     if (tk && e.key === 'Enter') { e.preventDefault(); const t = taskAt(tk); if (t) openTaskSheet(t); }
   });
 
-  // Press and hold a task (week or day view) to edit it; a quick tap ticks it
-  let holdTimer = null, held = false, holdStart = null;
-  const cancelHold = () => { clearTimeout(holdTimer); holdTimer = null; document.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding')); };
+  // Press and hold a task: let go to edit it, or drag it to a new time (or day) to move it. A quick tap ticks it.
+  let holdTimer = null, held = false, holdStart = null, armed = null, drag = null;
+  const cancelHold = () => {
+    clearTimeout(holdTimer); holdTimer = null;
+    document.querySelectorAll('.is-holding').forEach(r => r.classList.remove('is-holding'));
+  };
+  const endDrag = () => {
+    if (drag) { drag.ghost.remove(); drag.card.classList.remove('is-lifted'); document.body.classList.remove('cw-dragging'); }
+    document.querySelectorAll('.is-drop').forEach(el => el.classList.remove('is-drop'));
+    drag = null; armed = null;
+  };
+  // Where would a drop at (x, y) land? A free slot, another task's start, or a day heading (keeps the time)
+  function dropAt(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return null;
+    const gap = el.closest('[data-gap]');
+    if (gap) return { el: gap, day: gap.dataset.gap, s: Number(gap.dataset.s) };
+    const li = el.closest('[data-drop-day]');
+    if (li) return { el: li.querySelector('.sc-item__card') || li, day: li.dataset.dropDay, s: Number(li.dataset.dropS) };
+    const hd = el.closest('[data-open-day]');
+    if (hd) return { el: hd, day: iso(addDays(state.weekStart, Number(hd.dataset.openDay))), s: null };
+    return null;
+  }
   function attachHold(root) {
     // iPhone Safari cancels pointer events during a long press, so phones use touch events
     const begin = (target, x, y) => {
@@ -564,23 +595,80 @@
       tk.classList.add('is-holding');
       holdTimer = setTimeout(() => {
         held = true; cancelHold();
-        if (navigator.vibrate) navigator.vibrate(10);
         const t = taskAt(tk); if (!t) return;
-        openTaskSheet(t);
+        if (navigator.vibrate) navigator.vibrate(12);
+        armed = { tk, t };
+        tk.classList.add('is-lifted');
       }, 450);
     };
-    const move = (x, y) => { if (holdTimer && holdStart && Math.hypot(x - holdStart.x, y - holdStart.y) > 10) cancelHold(); };   // scrolling, not holding
+    const move = (x, y, e) => {
+      if (holdTimer && holdStart && Math.hypot(x - holdStart.x, y - holdStart.y) > 10) { cancelHold(); return; }   // scrolling, not holding
+      if (!armed) return;
+      if (e && e.cancelable) e.preventDefault();   // dragging, so don't scroll the page
+      if (!drag) {
+        if (Math.hypot(x - holdStart.x, y - holdStart.y) < 8) return;
+        const r = armed.tk.getBoundingClientRect();
+        const ghost = armed.tk.cloneNode(true);
+        ghost.className += ' cw-ghost';
+        ghost.style.cssText += `;width:${r.width}px;left:${r.left}px;top:${r.top}px;--kind:${armed.tk.closest('.sc-item').style.getPropertyValue('--kind')}`;
+        document.body.appendChild(ghost);
+        drag = { ghost, card: armed.tk, dx: x - r.left, dy: y - r.top, t: armed.t };
+        document.body.classList.add('cw-dragging');
+      }
+      drag.ghost.style.left = (x - drag.dx) + 'px';
+      drag.ghost.style.top = (y - drag.dy) + 'px';
+      document.querySelectorAll('.is-drop').forEach(el => el.classList.remove('is-drop'));
+      drag.ghost.style.visibility = 'hidden';
+      const tgt = dropAt(x, y);
+      drag.ghost.style.visibility = '';
+      if (tgt) tgt.el.classList.add('is-drop');
+      drag.last = tgt;
+      // Scroll the page when dragging near the top or bottom edge
+      if (y < 70) window.scrollBy(0, -14); else if (y > innerHeight - 70) window.scrollBy(0, 14);
+    };
+    const finish = () => {
+      cancelHold();
+      if (drag) { const { t, last } = drag; endDrag(); if (last) moveTask(t, last.day, last.s); return; }
+      if (armed) { const t = armed.t; armed.tk.classList.remove('is-lifted'); armed = null; openTaskSheet(t); }   // held and let go: edit
+    };
     root.addEventListener('touchstart', e => { if (e.touches.length === 1) begin(e.target, e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-    root.addEventListener('touchmove', e => move(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-    root.addEventListener('touchend', cancelHold);
-    root.addEventListener('touchcancel', cancelHold);
+    root.addEventListener('touchmove', e => move(e.touches[0].clientX, e.touches[0].clientY, e), { passive: false });
+    root.addEventListener('touchend', finish);
+    root.addEventListener('touchcancel', () => { cancelHold(); endDrag(); });
     root.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') begin(e.target, e.clientX, e.clientY); });
-    root.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') move(e.clientX, e.clientY); });
-    ['pointerup', 'pointerleave'].forEach(t => root.addEventListener(t, e => { if (e.pointerType === 'mouse') cancelHold(); }));
+    window.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') move(e.clientX, e.clientY, e); });
+    window.addEventListener('pointerup', e => { if (e.pointerType === 'mouse' && (holdTimer || armed || drag)) finish(); });
     root.addEventListener('contextmenu', e => { if (e.target.closest('[data-edit-task]')) e.preventDefault(); });
   }
   attachHold(els.grid);
   attachHold(els.day);
+
+  // Save a drag-and-drop move: new start time (kept to the grid), same length; a new weekday replaces this one
+  async function moveTask(t, day, s) {
+    const oldS = t.at_time ? toMin(t.at_time) : null;
+    const newS = s == null ? oldS : Math.round(s / grid) * grid;
+    if (newS == null) { toast('Give the task a time first'); return; }
+    const len = t.at_time && t.end_time ? toMin(t.end_time) - toMin(t.at_time) : 0;
+    const oldDow = isoDow(t.day), newDow = isoDow(day);
+    let days = (t.repeat_days ? t.repeat_days.map(Number) : [isoDow(t.start_day || t.day)]);
+    if (newDow !== oldDow) days = [...new Set(days.filter(d => d !== oldDow).concat(newDow))];
+    if (newS === oldS && newDow === oldDow) return;
+    const start = t.start_day || t.day;
+    const args = {
+      p_id: t.id, p_day: day < start ? day : start, p_title: t.title, p_assignee: t.assignee || '',
+      p_time: hhmm(newS), p_end: len ? hhmm(Math.min(newS + len, 23 * 60 + 59)) : null,
+      p_notes: t.notes || null, p_tag: t.tag || null, p_color: t.color || null,
+      p_repeat: true, p_days: days, p_every: t.repeat_every || 1, p_until: null
+    };
+    // Show it moved straight away, then save
+    state.tasks.filter(x => x.id === t.id).forEach(x => { x.at_time = args.p_time + ':00'; x.end_time = args.p_end ? args.p_end + ':00' : null; });
+    render();
+    const { error } = await call('cowork_update_task', args);
+    if (error) { toast('Couldn’t move it. Check your signal.'); loadWeek(); return; }
+    toast(`Moved to ${DAY_LONG[newDow - 1]} ${clock(newS)}${len ? '–' + clock(newS + len) : ''} · every week`);
+    loadWeek();
+  }
+
   function tapTick(tk) {
     if (held) { held = false; return; }
     const t = taskAt(tk);
@@ -892,6 +980,7 @@
   }, { passive: true });
   els.dayPane.addEventListener('touchend', e => {
     if (!swipe) return;
+    if (held) { swipe = null; return; }   // that was a hold or a drag, not a swipe
     const dx = e.changedTouches[0].clientX - swipe.x, dy = e.changedTouches[0].clientY - swipe.y;
     const quick = Date.now() - swipe.t < 700;
     swipe = null;
