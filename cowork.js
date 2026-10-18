@@ -194,8 +194,8 @@
     renderMembers();
     render();
     setView(view);
-    setInterval(() => { if (!document.hidden && els.sheet.hidden && els.tSheet.hidden) loadWeek(); }, POLL_MS);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) loadWeek(); });
+    setInterval(() => { if (!document.hidden && els.sheet.hidden && els.tSheet.hidden && !inlineOpen) loadWeek(); }, POLL_MS);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && !inlineOpen) loadWeek(); });
   }
 
   els.signOut.addEventListener('click', () => { store.del(PIN_STORE); store.del(ME_STORE); location.reload(); });
@@ -493,7 +493,8 @@
       holdTimer = setTimeout(() => {
         held = true; cancelHold();
         if (navigator.vibrate) navigator.vibrate(10);
-        const t = taskAt(tk); if (t) openTaskSheet(t);
+        const t = taskAt(tk); if (!t) return;
+        root === els.grid ? inlineEdit(tk, t) : openTaskSheet(t);   // week: edit right on the calendar
       }, 450);
     });
     root.addEventListener('pointermove', e => {
@@ -504,6 +505,54 @@
   }
   attachHold(els.grid);
   attachHold(els.day);
+  /* Week view: hold a task to edit it in place on the calendar */
+  let inlineOpen = false;
+  function inlineEdit(card, t) {
+    if (inlineOpen) return;
+    inlineOpen = true;
+    const hh = v => v ? String(v).slice(0, 5) : '';
+    const form = document.createElement('form');
+    form.className = 'sc-item__card cw-inline';
+    form.innerHTML = `
+      <input name="title" type="text" maxlength="140" required aria-label="Task" value="${esc(t.title)}">
+      <div class="cw-row">
+        <label>Start<input name="time" type="time" step="900" value="${hh(t.at_time)}"></label>
+        <label>Finish<input name="end" type="time" step="900" value="${hh(t.end_time)}"></label>
+      </div>
+      <textarea name="notes" rows="2" maxlength="500" placeholder="Notes" aria-label="Notes">${esc(t.notes || '')}</textarea>
+      <p class="cw-inline__msg" role="status" aria-live="polite"></p>
+      <div class="cw-inline__actions">
+        <button type="button" class="cw-btn cw-btn--ghost" data-more>More</button>
+        <button type="button" class="cw-btn cw-btn--ghost" data-cancel>Cancel</button>
+        <button type="submit" class="cw-btn">Save</button>
+      </div>`;
+    card.replaceWith(form);
+    form.closest('.sc-item').classList.add('is-editing');
+    const close = () => { inlineOpen = false; render(); };
+    form.querySelector('[data-cancel]').addEventListener('click', close);
+    form.querySelector('[data-more]').addEventListener('click', () => { close(); openTaskSheet(t); });
+    form.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const f = form, msg = f.querySelector('.cw-inline__msg');
+      const title = f.title.value.trim(), time = f.time.value || null, end = time && f.end.value ? f.end.value : null;
+      if (!title) { msg.textContent = 'What’s the task?'; return; }
+      if (end && end <= time) { msg.textContent = 'Finish needs to be after the start.'; return; }
+      msg.textContent = 'Saving…';
+      const start = t.start_day || t.day;
+      const { error } = await call('cowork_update_task', {
+        p_id: t.id, p_day: start, p_title: title, p_assignee: t.assignee || '', p_time: time, p_end: end,
+        p_notes: f.notes.value.trim() || null, p_tag: t.tag || null, p_repeat: true,
+        p_days: t.repeat_days ? t.repeat_days.map(Number) : [isoDow(start)], p_every: t.repeat_every || 1, p_until: null
+      });
+      if (error) { msg.textContent = 'Couldn’t save. Check your signal.'; return; }
+      inlineOpen = false;
+      toast('Task updated');
+      loadWeek();
+    });
+    setTimeout(() => form.title.focus(), 30);
+  }
+
   function tapTick(tk) {
     if (held) { held = false; return; }
     const t = taskAt(tk);
