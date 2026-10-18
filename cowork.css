@@ -323,23 +323,6 @@ html.cw-noscroll, html.cw-noscroll body { overflow: hidden; }
 .sc-item__card .cw-during__note { margin-top: 3px; }
 body.cw-pasting .cw-wk__head { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 10px; }
 
-/* Inline edit on the week calendar */
-.cw-inline { display: grid; gap: 10px; cursor: default; }
-.cw-inline input, .cw-inline textarea {
-  width: 100%; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--sep);
-  background: rgba(0,0,0,.35); color: var(--label); font: 400 16px var(--font);
-}
-.cw-inline input[name="title"] { font-weight: 600; }
-.cw-inline textarea { padding: 10px 12px; line-height: 1.4; resize: vertical; }
-.cw-inline input:focus, .cw-inline textarea:focus { outline: 2px solid var(--kind); outline-offset: 1px; }
-.cw-inline input[type="time"] { -webkit-appearance: none; appearance: none; display: flex; align-items: center; min-width: 0; }
-.cw-inline label { display: grid; gap: 4px; font-size: 12px; font-weight: 600; color: var(--label-2); }
-.cw-inline__msg { min-height: 0; font-size: 13px; color: var(--accent); }
-.cw-inline__msg:empty { display: none; }
-.cw-inline__actions { display: flex; gap: 8px; }
-.cw-inline__actions .cw-btn { flex: 1; min-height: 44px; padding: 0 10px; font-size: 15px; }
-.sc-item.is-editing .sc-item__card { box-shadow: inset 0 0 0 1.5px var(--kind); }
-
 /* Week: days already gone sit at the bottom */
 .cw-wk__earlier { margin: 8px 2px -12px; padding-top: 16px; border-top: .5px solid var(--sep); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--label-3); }
 .cw-wk.is-earlier { opacity: .6; }
