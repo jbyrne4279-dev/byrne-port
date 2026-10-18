@@ -185,7 +185,10 @@
     renderMembers();
     render();
     setView(view);
+    setTimeout(scrollToNow, 150);
     setInterval(() => { if (!document.hidden && els.sheet.hidden && els.tSheet.hidden) loadWeek(); }, POLL_MS);
+    // Keep "where you are in the day" current: redraw once a minute (not mid-drag or while editing)
+    setInterval(() => { if (!document.hidden && els.tSheet.hidden && !armed && !drag) render(); }, 60000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) loadWeek(); });
   }
 
@@ -345,34 +348,48 @@
   let grid = [15, 30, 60].includes(Number(store.get(GRID_STORE))) ? Number(store.get(GRID_STORE)) : 60;   // free-time slot size
   const MIN_GAP = () => Math.min(15, grid);
   const hhmm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
-  function gapHtml(di, a, b, isToday, nowM) {
-    // Free time split into the chosen grid (15 min, 30 min or 1 hour); part-slots get their own row
-    let html = '';
+  // Free time split into the chosen grid (15 min, 30 min or 1 hour); part-slots get their own row
+  function gapParts(di, a, b, isToday, nowM) {
+    const parts = [];
     for (let x = a; x < b;) {
       const y = Math.min(b, Math.floor(x / grid) * grid + grid);
       if (y - x >= Math.min(10, grid)) {
-        const past = isToday && nowM >= y;
-        html += `<li class="cw-gap${past ? ' is-past' : ''}">
+        const now = isToday && nowM >= x && nowM < y, past = isToday && nowM >= y;
+        parts.push({ s: x, now, html: `<li class="cw-gap${past ? ' is-past' : ''}${now ? ' is-now' : ''}">
           <div class="sc-item__time"><b>${clock(x)}</b></div>
-          <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${x}" data-e="${y}" aria-label="Free ${range(x, y)}. Add a task">
-            <span>Free${y - x < grid ? ' · ' + range(x, y) : grid < 60 ? ' · ' + duration(y - x) : ''}</span><b aria-hidden="true">+</b>
+          <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${x}" data-e="${y}" aria-label="${now ? 'Now, free' : 'Free'} ${range(x, y)}. Add a task">
+            <span>${now ? '<em>Now</em> · ' : ''}Free${y - x < grid ? ' · ' + range(x, y) : grid < 60 ? ' · ' + duration(y - x) : ''}</span><b aria-hidden="true">+</b>
           </button>
-        </li>`;
+        </li>` });
       }
       x = y;
     }
-    return html;
+    return parts;
   }
+  const itemEnd = it => it.e > it.s ? it.e : it.s + 30;
   function timelineHtml(items, di, isToday, nowM) {
     const timed = items.filter(it => !it.anytime), rest = items.filter(it => it.anytime);
-    let cur = timed.length ? Math.min(DAY_FROM, timed[0].s) : DAY_FROM, html = '';
+    let cur = timed.length ? Math.min(DAY_FROM, timed[0].s) : DAY_FROM;
+    const parts = [];
     timed.forEach(it => {
-      if (it.s - cur >= MIN_GAP()) html += gapHtml(di, cur, it.s, isToday, nowM);
-      html += itemCard(it, isToday, nowM);
-      cur = Math.max(cur, it.e > it.s ? it.e : it.s + 30);
+      if (it.s - cur >= MIN_GAP()) parts.push(...gapParts(di, cur, it.s, isToday, nowM));
+      parts.push({ s: it.s, now: isToday && !it.done && nowM >= it.s && nowM < itemEnd(it), html: itemCard(it, isToday, nowM) });
+      cur = Math.max(cur, itemEnd(it));
     });
-    if (DAY_TO - cur >= MIN_GAP()) html += gapHtml(di, cur, DAY_TO, isToday, nowM);
-    return html + rest.map(it => itemCard(it, isToday, nowM)).join('');
+    if (DAY_TO - cur >= MIN_GAP()) parts.push(...gapParts(di, cur, DAY_TO, isToday, nowM));
+    // Nothing on right now: a red line marks the current time between cards
+    if (isToday && !parts.some(p => p.now)) {
+      const at = parts.findIndex(p => p.s > nowM);
+      const line = { html: `<li class="cw-nowline" aria-label="Now, ${clock(nowM)}"><b>${clock(nowM)}</b><i></i></li>` };
+      if (at === -1) parts.push(line); else parts.splice(at, 0, line);
+    }
+    return parts.map(p => p.html).join('') + rest.map(it => itemCard(it, isToday, nowM)).join('');
+  }
+  // Bring the current time into view (today only)
+  function scrollToNow() {
+    const pane = view === 'week' ? els.grid : els.day;
+    const el = pane.querySelector('.cw-wk.is-today .is-now, .cw-wk.is-today .cw-nowline') || (view === 'day' ? pane.querySelector('.is-now, .cw-nowline') : null);
+    if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
   function openGap(el) {
     openTaskSheet(null, { day: el.dataset.gap, s: Number(el.dataset.s), e: Number(el.dataset.e) });
@@ -421,7 +438,8 @@
 
   // One timeline card, used by both the day and week views
   function itemCard(it, isToday, nowM) {
-    const st = it.kind === 'task' ? (it.done ? ' is-past' : '') : isToday ? (nowM >= it.e ? ' is-past' : nowM >= it.s ? ' is-now' : '') : '';
+    // Done (ticked) → "Done"; today: happening now → "Now"; already over → faded
+    const st = it.done ? ' is-past' : isToday && !it.anytime ? (nowM >= itemEnd(it) ? ' is-gone' : nowM >= it.s ? ' is-now' : '') : '';
     const tag = it.kind === 'mine' ? 'div' : 'button';
     const when = it.anytime ? 'Anytime' : itemRange(it) + (it.e > it.s ? ' · ' + duration(it.e - it.s) : '');
     const drop = it.anytime || !it.day ? '' : ` data-drop-day="${esc(it.day)}" data-drop-s="${it.s}"`;
@@ -1104,7 +1122,7 @@
   });
   els.prev.addEventListener('click', () => { state.weekStart = addDays(state.weekStart, -7); loadWeek(); });
   els.next.addEventListener('click', () => { state.weekStart = addDays(state.weekStart, 7); loadWeek(); });
-  els.today.addEventListener('click', () => { state.weekStart = mondayOf(new Date()); state.selected = dayIndex(new Date()); loadWeek(); });
+  els.today.addEventListener('click', () => { state.weekStart = mondayOf(new Date()); state.selected = dayIndex(new Date()); loadWeek().then(scrollToNow); });
 
   /* ── Go: reuse a remembered passcode, otherwise show the keypad ── */
   const savedPin = store.get(PIN_STORE);

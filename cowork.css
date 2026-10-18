@@ -469,3 +469,14 @@ body.cw-dragging .cw-gap__card, body.cw-dragging .cw-wk__head { border-color: rg
 .cw-sheet__msg:has(.cw-delask) { min-height: 0; color: inherit; }
 #cwNotifyState { margin-left: auto; margin-right: 6px; font-size: 14px; font-weight: 500; color: var(--label-3); }
 .cw-alarmbtn { display: flex; align-items: center; }
+
+/* Where you are in the day */
+.sc-item.is-gone .sc-item__card { opacity: .5; }
+.sc-item.is-gone .sc-item__time { opacity: .5; }
+.cw-gap.is-now .cw-gap__card { border: 1.5px solid var(--accent); background: rgba(255,55,95,.1); color: var(--label); }
+.cw-gap.is-now .sc-item__time b { color: var(--accent); }
+.cw-gap__card em { font-style: normal; font-weight: 700; color: var(--accent); text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
+.cw-nowline { position: relative; display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: center; margin: -2px 0; }
+.cw-nowline b { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.cw-nowline i { position: relative; height: 2px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 10px rgba(255,55,95,.6); }
+.cw-nowline i::before { content: ''; position: absolute; left: -5px; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
