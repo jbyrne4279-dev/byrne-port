@@ -373,3 +373,9 @@ body.cw-pasting .cw-gap__card { border-color: var(--accent); color: var(--accent
 .cw-gap { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: stretch; }
 .cw-gap .sc-item__time { padding-top: 12px; }
 .cw-gap__card { min-height: 48px; }
+
+/* Hour segments: compact, evenly spaced rows */
+.cw-gap .sc-item__time { padding-top: 0; justify-content: center; }
+.cw-gap__card { min-height: 44px; padding: 0 10px 0 14px; border-width: 1px; border-radius: 12px; }
+.cw-gap__card b { width: 24px; height: 24px; font-size: 16px; }
+.cw-gap { margin: -4px 0; }

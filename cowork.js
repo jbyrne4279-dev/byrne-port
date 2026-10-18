@@ -352,16 +352,25 @@
 
   // Week view: stacked day cards
   // Timeline with the free time between things shown as tappable slots (8am–10pm)
-  const DAY_FROM = 8 * 60, DAY_TO = 22 * 60, MIN_GAP = 30;
+  const DAY_FROM = 8 * 60, DAY_TO = 22 * 60, MIN_GAP = 15;
   const hhmm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
   function gapHtml(di, a, b, isToday, nowM) {
-    const past = isToday && nowM >= b;
-    return `<li class="cw-gap${past ? ' is-past' : ''}">
-        <div class="sc-item__time"><b>${clock(a)}</b><span>${clock(b)}</span></div>
-        <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${a}" data-e="${b}" aria-label="Free ${range(a, b)}. Add a task">
-          <span>Free · ${range(a, b)} · ${duration(b - a)}</span><b aria-hidden="true">+</b>
-        </button>
-      </li>`;
+    // Free time in hour segments: 8am, 9am… (part-hours get their own short slot)
+    let html = '';
+    for (let x = a; x < b;) {
+      const y = Math.min(b, Math.floor(x / 60) * 60 + 60);
+      if (y - x >= 15) {
+        const past = isToday && nowM >= y;
+        html += `<li class="cw-gap${past ? ' is-past' : ''}">
+          <div class="sc-item__time"><b>${clock(x)}</b></div>
+          <button type="button" class="cw-gap__card" data-gap="${di}" data-s="${x}" data-e="${y}" aria-label="Free ${range(x, y)}. Add a task">
+            <span>Free${y - x < 60 ? ' · ' + range(x, y) : ''}</span><b aria-hidden="true">+</b>
+          </button>
+        </li>`;
+      }
+      x = y;
+    }
+    return html;
   }
   function timelineHtml(items, di, isToday, nowM) {
     const timed = items.filter(it => !it.anytime), rest = items.filter(it => it.anytime);
