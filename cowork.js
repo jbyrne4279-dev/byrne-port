@@ -824,6 +824,38 @@
     state.selected = Number(b.dataset.day);
     render();
   });
+  // Day view: swipe left/right to change day (crosses into the next/previous week)
+  function stepDay(dir) {
+    let i = state.selected + dir;
+    const slide = () => {
+      els.day.classList.remove('slide-l', 'slide-r');
+      void els.day.offsetWidth;
+      els.day.classList.add(dir > 0 ? 'slide-l' : 'slide-r');
+    };
+    if (i < 0 || i > 6) {
+      state.weekStart = addDays(state.weekStart, dir * 7);
+      state.selected = i < 0 ? 6 : 0;
+      loadWeek().then(slide);
+    } else {
+      state.selected = i;
+      render();
+      slide();
+    }
+  }
+  let swipe = null;
+  els.dayPane.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1 || e.target.closest('input, textarea, select, .sc-strip')) { swipe = null; return; }
+    swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() };
+  }, { passive: true });
+  els.dayPane.addEventListener('touchend', e => {
+    if (!swipe) return;
+    const dx = e.changedTouches[0].clientX - swipe.x, dy = e.changedTouches[0].clientY - swipe.y;
+    const quick = Date.now() - swipe.t < 700;
+    swipe = null;
+    // A clear sideways flick, not a scroll or a hold
+    if (quick && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { cancelHold(); held = true; stepDay(dx < 0 ? 1 : -1); setTimeout(() => { held = false; }, 350); }
+  }, { passive: true });
+
   els.strip.addEventListener('keydown', e => {
     const moves = { ArrowRight: 1, ArrowLeft: -1 };
     if (!(e.key in moves)) return;
