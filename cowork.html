@@ -9,13 +9,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Co-work">
+  <meta name="apple-mobile-web-app-title" content="CoWork">
   <!-- Supabase project (see cowork/SETUP.md). The public key is safe to publish:
        the tables are locked and every action checks the passcode. -->
   <meta name="supabase-url" content="https://bpofuziqesqjvewvygyh.supabase.co">
   <meta name="supabase-anon-key" content="sb_publishable_XTwKa_2HftF7o6o0h3FuVQ_H9NtfI3h">
 
-  <title>Co-working Week | Joseph Byrne</title>
+  <title>CoWork | Joseph Byrne</title>
   <meta name="description" content="Shared co-working schedule and tasks.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="schedule.css?v=5">
@@ -35,7 +35,7 @@
   <section class="sc-lock" id="cwLock" hidden aria-labelledby="cwLockTitle">
     <div class="sc-lock__inner">
       <svg class="sc-lock__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.5c.9-.5 1.9-.8 3-.8 2.8 0 5 2.2 5 5"/></svg>
-      <h1 class="sc-lock__title" id="cwLockTitle">Co-working · Enter passcode</h1>
+      <h1 class="sc-lock__title" id="cwLockTitle">CoWork · Enter passcode</h1>
       <div class="sc-dots" id="cwDots" aria-hidden="true"></div>
       <p class="sc-lock__msg" id="cwLockMsg" role="status" aria-live="assertive"></p>
       <div class="sc-pad" id="cwPad" aria-label="Number pad">
@@ -68,16 +68,16 @@
   </section>
 
   <main class="sc" id="cwApp" hidden>
+    <div class="cw-side">
     <header class="sc-head">
       <div>
         <p class="sc-head__date" id="cwRange"></p>
-        <h1 class="sc-head__title">Co-working</h1>
+        <h1 class="sc-head__title">CoWork</h1>
       </div>
       <div class="cw-headbtns">
-        <button type="button" class="sc-head__lock" id="cwSwitch" aria-label="Change user">
+        <button type="button" class="sc-head__lock" id="cwSwitch" aria-label="Change user" title="Change user">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
         </button>
-        <button type="button" class="sc-head__lock" id="cwSignOut">Lock</button>
       </div>
     </header>
 
@@ -105,6 +105,9 @@
       <button type="button" data-grid="30" aria-pressed="false">30m</button>
       <button type="button" data-grid="60" aria-pressed="true">1h</button>
     </div>
+    </div>
+
+    <div class="cw-main">
 
     <div id="cwDayPane">
       <div class="cw-stripwrap">
@@ -124,10 +127,14 @@
       <div class="cw-week" id="cwGrid"></div>
       <p class="cw-hint">Tap to tick · hold to edit · drag ⋮⋮ to move</p>
     </div>
+    </div>
+
+    <div class="cw-foot2">
 
     <button type="button" class="sc-cowork cw-alarmbtn" id="cwNotifyBtn">🔔 Desktop notifications <span id="cwNotifyState">Off</span></button>
     <button type="button" class="sc-cowork cw-alarmbtn" id="cwAlarmsOpen">⏰ Set phone alarms for my day <span aria-hidden="true">›</span></button>
     <a class="sc-cowork" href="/">Back to portfolio <span aria-hidden="true">›</span></a>
+    </div>
   </main>
 
   <!-- Add / edit session -->
@@ -231,7 +238,7 @@
       </div>
       <h3>1 · Build the Shortcut</h3>
       <ol class="cw-alarms__steps">
-        <li>Open the <b>Shortcuts</b> app → <b>+</b> → name it <b>Co-work alarms</b>.</li>
+        <li>Open the <b>Shortcuts</b> app → <b>+</b> → name it <b>CoWork alarms</b>.</li>
         <li>Add <b>Get Contents of URL</b>. Paste this URL:
           <div class="cw-copy"><code id="cwAlarmUrl"></code><button type="button" data-copy="cwAlarmUrl">Copy</button></div></li>
         <li>Tap <b>Show More</b>. Set <b>Method</b> to <b>POST</b>.</li>
@@ -241,7 +248,7 @@
           <div class="cw-copy"><span>Key</span><code>Content-Type</code></div>
           <div class="cw-copy"><span>Value</span><code>application/json</code></div></li>
         <li>Set <b>Request Body</b> to <b>JSON</b> and add two <b>Text</b> fields:
-          <div class="cw-copy"><span>p_pin</span><code>your passcode</code></div>
+          <div class="cw-copy"><span>p_pin</span><code>open</code></div>
           <div class="cw-copy"><span>p_who</span><code id="cwAlarmWho"></code></div></li>
         <li>Add <b>Repeat with Each</b> (it uses <i>Contents of URL</i>).</li>
         <li>Inside the repeat, add <b>Get Dictionary Value</b> → Value for <code>time</code> in <i>Repeat Item</i>.</li>
@@ -252,7 +259,7 @@
       <h3>2 · Run it every morning</h3>
       <ol class="cw-alarms__steps">
         <li>Shortcuts → <b>Automation</b> → <b>+</b> → <b>Time of Day</b>, e.g. 7:00, <b>Daily</b>.</li>
-        <li>Choose <b>Run Immediately</b>, then pick <b>Co-work alarms</b>.</li>
+        <li>Choose <b>Run Immediately</b>, then pick <b>CoWork alarms</b>.</li>
       </ol>
       <p class="cw-alarms__note">Alarms are for the day the Shortcut runs. Tasks you’ve declined (meetings) are skipped. Clock keeps old one-off alarms in its list switched off; swipe to delete them now and then.</p>
       <div class="cw-sheet__actions"><button type="button" class="cw-btn" id="cwAlarmClose">Done</button></div>
@@ -262,6 +269,6 @@
   <div class="cw-toast" id="cwToast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-  <script src="cowork.js?v=42"></script>
+  <script src="cowork.js?v=43"></script>
 </body>
 </html>

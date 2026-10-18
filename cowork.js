@@ -15,6 +15,7 @@
   const SB_URL = meta('supabase-url');
   const SB_KEY = meta('supabase-anon-key');
   const PIN_STORE = 'jb-cowork-pin';
+  const OPEN_KEY = 'open';   // CoWork has no passcode screen; the database accepts this key
   const ME_STORE = 'jb-cowork-me';
   const POLL_MS = 30000;
 
@@ -23,7 +24,7 @@
     setup: $('cwSetup'), lock: $('cwLock'), dots: $('cwDots'), pad: $('cwPad'), lockMsg: $('cwLockMsg'),
     who: $('cwWho'), whoList: $('cwWhoList'),
     app: $('cwApp'), range: $('cwRange'), prev: $('cwPrev'), next: $('cwNext'), today: $('cwToday'),
-    members: $('cwMembers'), strip: $('cwStrip'), day: $('cwDay'), signOut: $('cwSignOut'),
+    members: $('cwMembers'), strip: $('cwStrip'), day: $('cwDay'), 
     sheet: $('cwSheet'), sheetForm: $('cwSheetForm'), sheetTitle: $('cwSheetTitle'), sheetDelete: $('cwSheetDelete'),
     sheetCancel: $('cwSheetCancel'), sheetMsg: $('cwSheetMsg'), toast: $('cwToast'),
     tSheet: $('cwTaskSheet'), tForm: $('cwTaskSheetForm'), tTitle: $('cwTaskSheetTitle'), tDelete: $('cwTaskDelete'),
@@ -94,7 +95,7 @@
   // Every server call carries the passcode; a wrong one sends you back to the keypad
   async function call(fn, args) {
     const { data, error } = await sb.rpc(fn, { p_pin: state.pin, ...args });
-    if (error && /passcode/i.test(error.message || '')) { store.del(PIN_STORE); location.reload(); }
+    if (error && /passcode/i.test(error.message || '')) toast('Couldn’t connect to the calendar. Try refreshing.');
     return { data, error };
   }
 
@@ -115,13 +116,12 @@
     if (error) {
       state.pin = null;
       store.del(PIN_STORE);
-      if (silent) { els.lock.hidden = false; return; }
+      if (silent) { toast('Couldn’t connect. Retrying…'); setTimeout(() => tryPin(pin, true), 5000); return; }
       els.lockMsg.textContent = /passcode/i.test(error.message || '') ? 'Wrong passcode' : 'Couldn’t connect. Check your signal.';
       els.dots.classList.remove('is-wrong'); void els.dots.offsetWidth; els.dots.classList.add('is-wrong');
       entry = ''; paint();
       return;
     }
-    store.set(PIN_STORE, pin);
     els.lockMsg.textContent = '';
     els.lock.hidden = true;
     apply(data);
@@ -192,7 +192,6 @@
     document.addEventListener('visibilitychange', () => { if (!document.hidden) loadWeek(); });
   }
 
-  els.signOut.addEventListener('click', () => { store.del(PIN_STORE); store.del(ME_STORE); location.reload(); });
 
   /* ── Data ── */
   function apply(data) {
@@ -807,7 +806,7 @@
       const key = iso(now) + ' ' + a.time;
       if (fired.has(key)) return;
       fired.add(key);
-      const n = new Notification(`Co-working · ${clock(toMin(a.time))}`, { body: a.label.replace(/ · /g, '\n'), tag: key });
+      const n = new Notification(`CoWork · ${clock(toMin(a.time))}`, { body: a.label.replace(/ · /g, '\n'), tag: key });
       n.onclick = () => { window.focus(); n.close(); };
     });
   }
@@ -818,7 +817,7 @@
     const perm = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
     if (perm !== 'granted') { paintNotify(); toast('Allow notifications for this site in your browser settings'); return; }
     store.set(NOTIFY_STORE + ':' + state.me, '1'); notifyFetched = 0; paintNotify();
-    new Notification('Co-working notifications on', { body: 'You’ll get a notification at the start and end of each task while this page is open.' });
+    new Notification('CoWork notifications on', { body: 'You’ll get a notification at the start and end of each task while this page is open.' });
     notifyTick();
   });
 
@@ -1124,8 +1123,7 @@
   els.next.addEventListener('click', () => { state.weekStart = addDays(state.weekStart, 7); loadWeek(); });
   els.today.addEventListener('click', () => { state.weekStart = mondayOf(new Date()); state.selected = dayIndex(new Date()); loadWeek().then(scrollToNow); });
 
-  /* ── Go: reuse a remembered passcode, otherwise show the keypad ── */
-  const savedPin = store.get(PIN_STORE);
-  if (savedPin) tryPin(savedPin, true);
-  else els.lock.hidden = false;
+  /* ── Go: no passcode any more — open straight away ── */
+  store.del(PIN_STORE);
+  tryPin(OPEN_KEY, true);
 })();
