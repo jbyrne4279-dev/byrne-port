@@ -25,3 +25,10 @@ alter table cw_tasks add column if not exists color text;
 
 -- Update 10 (applied live): meeting replies. Table cw_rsvp(task_id, day, member, status yes|no),
 -- function cowork_rsvp(p_pin, p_id, p_day, p_who, p_status), and cowork_week also returns 'rsvps'.
+
+-- Update 11 (applied live):
+-- * Old copies of cowork_add_task / cowork_update_task renamed to zz_old_* so only the newest
+--   version answers (several versions made saves fail with "300 ambiguous").
+-- * Remaining one-off tasks (the converted sessions) set to repeat weekly on their original weekday.
+update cw_tasks set repeat_weekly = true, repeat_days = array[extract(isodow from day)::smallint], repeat_every = 1, repeat_until = null
+where not repeat_weekly;
