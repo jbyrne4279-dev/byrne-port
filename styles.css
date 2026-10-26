@@ -3055,9 +3055,6 @@ body { text-align: center; }
 /* Name: back in Space Mono (its original font), kept in title case */
 .hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.12em; }
 
-/* Name: 3× size. Words stack when they can't share a line; on phones each word fills the width */
-.hero__name { flex-wrap: wrap; row-gap: 0.12em; margin-bottom: 36px; }
-.hero__name-line {
-  font-size: min(168px, calc((100vw - 40px) / 4.4));
-  line-height: 0.95;
-}
+/* Name: bigger, always on one line; scales down to fit the screen width */
+.hero__name { flex-wrap: nowrap; white-space: nowrap; gap: 0.6em; margin-bottom: 34px; }
+.hero__name-line { font-size: min(112px, calc((100vw - 40px) / 8.8)); line-height: 1; }
