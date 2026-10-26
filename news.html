@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Joseph Byrne">
+
+  <title>The Brief | Daily News Briefing — AI, Fashion, Markets</title>
+  <meta name="description" content="A visual daily news briefing: breaking headlines plus AI, fashion and markets &amp; geopolitics, pulled from reputable sources and refreshed every day.">
+
+  <link rel="canonical" href="https://josephbyrne.org/news">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Joseph Byrne">
+  <meta property="og:title" content="The Brief | Daily News Briefing">
+  <meta property="og:description" content="Breaking, AI, fashion and markets headlines from reputable sources — visual and refreshed daily.">
+  <meta property="og:url" content="https://josephbyrne.org/news">
+  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
+  <meta property="og:locale" content="en_GB">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=101">
+  <link rel="stylesheet" href="news.css?v=4">
+</head>
+<body class="nw-body">
+
+  <!-- ── NAV ── -->
+  <nav class="nav is-scrolled" id="nav">
+    <a href="/#tools" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M15 8H1M7 2L1 8l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Tools
+    </a>
+    <ul class="nav__links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#portfolio">Work</a></li>
+      <li><a href="/#academic">Academic</a></li>
+      <li><a href="/#tools">Tools</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="nw">
+
+    <!-- HERO -->
+    <header class="nw-hero">
+      <p class="nw-eyebrow">The Daily Briefing</p>
+      <h1 class="nw-title">The&nbsp;<span>Brief</span></h1>
+      <p class="nw-sub">The day&rsquo;s headlines from reputable sources, at a glance &mdash; breaking news, AI, fashion and the markets &amp; geopolitics moving stocks.</p>
+      <div class="nw-status">
+        <span class="nw-live" aria-hidden="true"></span>
+        <span id="nwUpdated">Loading the latest&hellip;</span>
+        <button type="button" class="nw-refresh" id="nwRefresh" aria-label="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- BREAKING TICKER -->
+    <div class="nw-ticker" id="nwTicker" hidden>
+      <span class="nw-ticker__tag">Breaking</span>
+      <div class="nw-ticker__viewport"><div class="nw-ticker__track" id="nwTickerTrack"></div></div>
+    </div>
+
+    <!-- LOADING / EMPTY -->
+    <div class="nw-state" id="nwState">
+      <div class="nw-spinner" aria-hidden="true"></div>
+      <p id="nwStateText">Compiling today&rsquo;s briefing&hellip;</p>
+    </div>
+
+    <!-- BREAKING FEATURE -->
+    <section class="nw-section nw-section--breaking" data-topic="breaking" hidden>
+      <div class="nw-sechead"><span class="nw-sechead__kicker">Right now</span><h2 class="nw-sechead__title">Breaking</h2></div>
+      <div class="nw-feature" id="nwBreaking"></div>
+    </section>
+
+    <!-- AI -->
+    <section class="nw-section" data-topic="ai" hidden>
+      <div class="nw-sechead"><span class="nw-sechead__kicker">Technology</span><h2 class="nw-sechead__title">AI&nbsp;Development</h2></div>
+      <div class="nw-feature" id="nwAi"></div>
+    </section>
+
+    <!-- FASHION -->
+    <section class="nw-section" data-topic="fashion" hidden>
+      <div class="nw-sechead"><span class="nw-sechead__kicker">Industry</span><h2 class="nw-sechead__title">Fashion</h2></div>
+      <div class="nw-feature" id="nwFashion"></div>
+    </section>
+
+    <!-- MARKETS -->
+    <section class="nw-section" data-topic="markets" hidden>
+      <div class="nw-sechead"><span class="nw-sechead__kicker">Money &amp; Power</span><h2 class="nw-sechead__title">Markets &amp; Geopolitics</h2></div>
+      <div class="nw-feature" id="nwMarkets"></div>
+    </section>
+
+    <p class="nw-foot">Headlines aggregated from reputable publishers&rsquo; public feeds and refreshed automatically each day. Each card links to the original article. Built by Joseph Byrne.</p>
+
+  </main>
+
+  <script src="news.js?v=3"></script>
+</body>
+</html>
