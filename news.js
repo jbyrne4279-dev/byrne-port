@@ -130,10 +130,23 @@
     }
   }
 
+  // Always read the latest committed data straight from GitHub (updated
+  // daily by the Action), so the page stays current with no redeploy.
+  // Falls back to the locally deployed copy if GitHub can't be reached.
+  var RAW = 'https://raw.githubusercontent.com/jbyrne4279-dev/byrne-port/main/news-data.json';
+
+  function fetchData() {
+    return fetch(RAW + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('raw ' + r.status); return r.json(); })
+      .catch(function () {
+        return fetch('news-data.json?t=' + Date.now(), { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error('local ' + r.status); return r.json(); });
+      });
+  }
+
   function load() {
     elRefresh.classList.add('is-spin');
-    fetch('news-data.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    fetchData()
       .then(render)
       .catch(function (e) {
         elState.hidden = false;
