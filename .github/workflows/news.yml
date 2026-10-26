@@ -1,0 +1,39 @@
+name: Daily News Briefing
+
+on:
+  schedule:
+    - cron: '25 6 * * *'   # 06:25 UTC daily
+    - cron: '25 12 * * *'  # 12:25 UTC refresh
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-briefing
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build news-data.json
+        run: node tools/build-news.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "news-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if ! git diff --quiet -- news-data.json; then
+            git add news-data.json
+            git commit -m "chore(news): daily briefing refresh"
+            git push
+          else
+            echo "No changes to news-data.json"
+          fi

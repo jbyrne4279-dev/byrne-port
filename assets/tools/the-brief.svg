@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="bbg" cx="50%" cy="48%" r="75%">
+      <stop offset="0" stop-color="#16000a"/><stop offset="0.55" stop-color="#0b0003"/><stop offset="1" stop-color="#000"/>
+    </radialGradient>
+    <filter id="bglow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.06"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bbg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <path d="M0 250H1600M0 500H1600M0 750H1600"/>
+    <path d="M400 0V1000M800 0V1000M1200 0V1000"/>
+  </g>
+
+  <!-- BREAKING ticker bar -->
+  <g transform="translate(240,250)">
+    <rect width="1120" height="92" rx="16" fill="#0e0e13" stroke="#ffffff" stroke-opacity="0.08"/>
+    <rect width="250" height="92" rx="16" fill="#ff002e"/>
+    <rect x="130" width="120" height="92" fill="#ff002e"/>
+    <circle cx="48" cy="46" r="11" fill="#fff"/>
+    <text x="80" y="58" font-family="'Space Mono',monospace" font-size="34" font-weight="700" fill="#fff" letter-spacing="3">LIVE</text>
+    <rect x="300" y="34" width="430" height="12" rx="6" fill="#ffffff" fill-opacity="0.26"/>
+    <rect x="300" y="58" width="300" height="12" rx="6" fill="#ffffff" fill-opacity="0.14"/>
+    <text x="1040" y="58" font-family="'Space Mono',monospace" font-size="30" fill="#8a8a98">›</text>
+  </g>
+
+  <!-- three topic cards -->
+  <g transform="translate(240,398)">
+    <!-- AI -->
+    <g>
+      <rect width="352" height="310" rx="20" fill="#0e0e13" stroke="#ffffff" stroke-opacity="0.08"/>
+      <rect width="352" height="150" rx="20" fill="#0c1428"/>
+      <rect y="120" width="352" height="30" fill="#0c1428"/>
+      <circle cx="176" cy="78" r="46" fill="none" stroke="#3b82f6" stroke-width="7" filter="url(#bglow)"/>
+      <circle cx="176" cy="78" r="12" fill="#3b82f6"/>
+      <rect x="26" y="182" width="150" height="16" rx="8" fill="#3b82f6"/>
+      <rect x="26" y="214" width="300" height="13" rx="6" fill="#ffffff" fill-opacity="0.22"/>
+      <rect x="26" y="240" width="250" height="13" rx="6" fill="#ffffff" fill-opacity="0.12"/>
+      <text x="26" y="290" font-family="'Space Mono',monospace" font-size="20" fill="#3b82f6" letter-spacing="2">AI</text>
+    </g>
+    <!-- FASHION -->
+    <g transform="translate(384,0)">
+      <rect width="352" height="310" rx="20" fill="#0e0e13" stroke="#ffffff" stroke-opacity="0.08"/>
+      <rect width="352" height="150" rx="20" fill="#2a0c1c"/>
+      <rect y="120" width="352" height="30" fill="#2a0c1c"/>
+      <path d="M176 44l20 26h-10v34h-20V70h-10z" fill="#ff3d8b" filter="url(#bglow)"/>
+      <rect x="26" y="182" width="170" height="16" rx="8" fill="#ff3d8b"/>
+      <rect x="26" y="214" width="300" height="13" rx="6" fill="#ffffff" fill-opacity="0.22"/>
+      <rect x="26" y="240" width="230" height="13" rx="6" fill="#ffffff" fill-opacity="0.12"/>
+      <text x="26" y="290" font-family="'Space Mono',monospace" font-size="20" fill="#ff3d8b" letter-spacing="2">FASHION</text>
+    </g>
+    <!-- MARKETS -->
+    <g transform="translate(768,0)">
+      <rect width="352" height="310" rx="20" fill="#0e0e13" stroke="#ffffff" stroke-opacity="0.08"/>
+      <rect width="352" height="150" rx="20" fill="#06231a"/>
+      <rect y="120" width="352" height="30" fill="#06231a"/>
+      <polyline points="40,118 110,78 160,100 240,46 312,66" fill="none" stroke="#27d07f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#bglow)"/>
+      <path d="M296 46h18v18" fill="none" stroke="#27d07f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="26" y="182" width="180" height="16" rx="8" fill="#27d07f"/>
+      <rect x="26" y="214" width="300" height="13" rx="6" fill="#ffffff" fill-opacity="0.22"/>
+      <rect x="26" y="240" width="210" height="13" rx="6" fill="#ffffff" fill-opacity="0.12"/>
+      <text x="26" y="290" font-family="'Space Mono',monospace" font-size="20" fill="#27d07f" letter-spacing="2">MARKETS</text>
+    </g>
+  </g>
+
+  <!-- wordmark -->
+  <text x="240" y="170" font-family="'Bebas Neue','Arial Narrow',sans-serif" font-size="150" font-weight="700" fill="#fff" letter-spacing="2">THE <tspan fill="none" stroke="#ff002e" stroke-width="3">BRIEF</tspan></text>
+  <text x="248" y="212" font-family="'Space Mono',monospace" font-size="26" fill="#8a8a98" letter-spacing="8">DAILY&#160;&#160;NEWS&#160;&#160;BRIEFING</text>
+
+  <rect width="1600" height="1000" fill="url(#sheen)"/>
+</svg>
