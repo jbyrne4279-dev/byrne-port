@@ -108,7 +108,7 @@
 .nw-sechead { display: flex; align-items: baseline; gap: 16px; padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--line); position: relative; }
 .nw-sechead::after { content:""; position:absolute; left:0; bottom:-1px; width:72px; height:3px; background: var(--accent, var(--red)); }
 .nw-sechead__kicker { font-family:'Space Mono', monospace; text-transform: uppercase; letter-spacing:.22em; font-size:.66rem; color: var(--accent, var(--red)); }
-.nw-sechead__title { font-family:'Bebas Neue', sans-serif; font-size: clamp(2.1rem, 5vw, 3.4rem); line-height:1; margin:0; color:#fff; letter-spacing:.015em; }
+.nw-sechead__title { font-family:'DM Sans', system-ui, sans-serif; text-transform:none; font-weight:800; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height:1.1; margin:0; color:#fff; letter-spacing:-0.015em; }
 .nw-section[data-topic="breaking"] { --accent: var(--breaking); }
 .nw-section[data-topic="ai"] { --accent: var(--ai); }
 .nw-section[data-topic="fashion"] { --accent: var(--fashion); }
