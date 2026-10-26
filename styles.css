@@ -3038,13 +3038,11 @@ body { text-align: center; }
 }
 
 /* ── Hero in the Apple system font (SF Pro on Apple devices) ── */
-.hero__name-line,
 .hero__tagline,
 .hero__cta .btn,
 .hero__pill {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Inter', system-ui, sans-serif;
 }
-.hero__name-line { letter-spacing: 0.06em; font-weight: 800; }
 .hero__tagline { letter-spacing: 0.08em; font-size: clamp(11px, 1.1vw, 13px); }
 .hero__cta .btn { letter-spacing: 0.08em; font-size: 12px; font-weight: 600; }
 .hero__pill { letter-spacing: 0.04em; font-size: 11px; font-weight: 600; text-transform: none; }
@@ -3054,4 +3052,5 @@ body { text-align: center; }
 /* Tagline: each word steps a shade darker, white → soft grey */
 .hero__tagline-tags { color: rgba(255, 255, 255, 0.28); }
 .hero__w { color: hsl(0 0% calc(100% - var(--w) * 9%)); transition: color 0.3s; }
-.hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.01em; }
+/* Name: back in Space Mono (its original font), kept in title case */
+.hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.12em; }
