@@ -36,6 +36,8 @@ const FEEDS = {
   ],
   fashion: [
     { name: 'The Guardian', url: 'https://www.theguardian.com/fashion/rss' },
+    { name: 'Hypebeast', url: 'https://hypebeast.com/feed' },
+    { name: "Harper's Bazaar", url: 'https://www.harpersbazaar.com/rss/all.xml/' },
     { name: 'WWD', url: 'https://wwd.com/feed/' },
     { name: 'Vogue', url: 'https://www.vogue.com/feed/rss' },
     { name: 'Business of Fashion', url: 'https://www.businessoffashion.com/feed/' },
