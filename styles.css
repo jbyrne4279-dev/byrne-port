@@ -3054,3 +3054,10 @@ body { text-align: center; }
 .hero__w { color: hsl(0 0% calc(100% - var(--w) * 9%)); transition: color 0.3s; }
 /* Name: back in Space Mono (its original font), kept in title case */
 .hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.12em; }
+
+/* Name: 3× size. Words stack when they can't share a line; on phones each word fills the width */
+.hero__name { flex-wrap: wrap; row-gap: 0.12em; margin-bottom: 36px; }
+.hero__name-line {
+  font-size: min(168px, calc((100vw - 40px) / 4.4));
+  line-height: 0.95;
+}
