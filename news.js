@@ -41,9 +41,16 @@
 
   function initial(src) { return (src || '?').trim().charAt(0).toUpperCase(); }
 
+  // Feeds often store image URLs with encoded ampersands (&amp;); decode so
+  // the link isn't double-encoded when we re-escape it into the src attribute.
+  function cleanUrl(u) {
+    return String(u == null ? '' : u)
+      .replace(/&amp;/gi, '&').replace(/&#0*38;/g, '&').replace(/&#x0*26;/gi, '&');
+  }
+
   function mediaHTML(item, phClass) {
     if (item.image) {
-      return '<img src="' + esc(item.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer" ' +
+      return '<img src="' + esc(cleanUrl(item.image)) + '" alt="" loading="lazy" referrerpolicy="no-referrer" ' +
         'onerror="this.parentNode.innerHTML=&quot;<div class=\\&quot;' + phClass + '\\&quot;>' + esc(initial(item.source)) + '</div>&quot;">';
     }
     return '<div class="' + phClass + '">' + esc(initial(item.source)) + '</div>';
@@ -67,20 +74,23 @@
       (item.published ? ' · ' + esc(timeAgo(item.published)) : '') + '</div></div></a>';
   }
 
-  function renderBreaking(items) {
-    var host = $('nwBreaking');
-    if (!items.length) { return false; }
-    var lead = items[0];
-    var rest = items.slice(1, 6);
-    var html = '<a class="nw-card nw-lead" href="' + esc(lead.url) + '" target="_blank" rel="noopener noreferrer">' +
-      '<div class="nw-card__media"><span class="nw-card__badge">' + esc(lead.source || hostOf(lead.url)) + '</span>' +
-      mediaHTML(lead, 'nw-card__ph') + '</div>' +
-      '<div class="nw-card__body"><h3 class="nw-card__title">' + esc(lead.title) + '</h3>' +
-      '<div class="nw-card__meta"><span>' + esc(lead.source || hostOf(lead.url)) + '</span>' +
-      (lead.published ? '<span class="nw-time">' + esc(timeAgo(lead.published)) + '</span>' : '') +
-      '</div></div></a>' +
-      '<div class="nw-breaking__list">' + rest.map(miniHTML).join('') + '</div>';
-    host.innerHTML = html;
+  function leadHTML(item) {
+    return '<a class="nw-card nw-lead" href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer">' +
+      '<div class="nw-card__media"><span class="nw-card__badge">' + esc(item.source || hostOf(item.url)) + '</span>' +
+      mediaHTML(item, 'nw-card__ph') + '</div>' +
+      '<div class="nw-card__body"><h3 class="nw-card__title">' + esc(item.title) + '</h3>' +
+      '<div class="nw-card__meta"><span>' + esc(item.source || hostOf(item.url)) + '</span>' +
+      (item.published ? '<span class="nw-time">' + esc(timeAgo(item.published)) + '</span>' : '') +
+      '</div></div></a>';
+  }
+
+  // Every section: one big lead story + a side list of smaller ones.
+  function renderFeature(hostId, items) {
+    var host = $(hostId);
+    if (!host || !items.length) return false;
+    var rest = items.slice(1, 9);
+    host.innerHTML = leadHTML(items[0]) +
+      '<div class="nw-feature__list">' + rest.map(miniHTML).join('') + '</div>';
     return true;
   }
 
@@ -104,16 +114,11 @@
     var buckets = (data && data.buckets) || {};
     var any = 0;
 
-    if (renderBreaking(buckets.breaking || [])) { showSection('breaking'); any += (buckets.breaking || []).length; }
-    renderTicker(buckets.breaking || []);
-
-    [['ai', 'nwAi'], ['fashion', 'nwFashion'], ['markets', 'nwMarkets']].forEach(function (pair) {
+    [['breaking', 'nwBreaking'], ['ai', 'nwAi'], ['fashion', 'nwFashion'], ['markets', 'nwMarkets']].forEach(function (pair) {
       var items = buckets[pair[0]] || [];
-      if (!items.length) return;
-      $(pair[1]).innerHTML = items.map(cardHTML).join('');
-      showSection(pair[0]);
-      any += items.length;
+      if (renderFeature(pair[1], items)) { showSection(pair[0]); any += Math.min(items.length, 9); }
     });
+    renderTicker(buckets.breaking || []);
 
     if (data && data.generatedAt) {
       elUpdated.textContent = 'Updated ' + timeAgo(data.generatedAt);

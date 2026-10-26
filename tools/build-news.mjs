@@ -90,13 +90,15 @@ function attr(block, re) { const m = block.match(re); return m ? m[1] : '' }
 
 function extractImage(block) {
   // media:content / media:thumbnail / enclosure / first <img> in description
-  return (
+  const raw =
     attr(block, /<media:content[^>]*\burl=["']([^"']+)["'][^>]*>/i) ||
     attr(block, /<media:thumbnail[^>]*\burl=["']([^"']+)["'][^>]*>/i) ||
     attr(block, /<enclosure[^>]*\burl=["']([^"']+)["'][^>]*type=["']image/i) ||
     attr(block, /<img[^>]*\bsrc=["']([^"']+)["']/i) ||
     ''
-  )
+  // Decode entities (feeds often double-encode & as &amp; in the URL) so the
+  // stored URL is clean and renders correctly once re-escaped in the attribute.
+  return decodeEntities(raw).trim()
 }
 
 function parseFeed(xml, sourceName) {
