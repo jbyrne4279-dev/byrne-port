@@ -8,9 +8,9 @@
 
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
-  const STORE_KEY = 'jb-aifashion-public-v1';
+  const STORE_KEY = 'jb-aifashion-public-v2';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = 'public-1';
+  const SURVEY_VERSION = 'public-2';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
@@ -20,25 +20,21 @@
     { id: 'intro', type: 'intro' },
 
     /* ── About you ── */
-    { id: 'uk_resident', type: 'single', section: 'About you',
-      q: 'Do you live in the UK?',
-      help: 'This study looks at how the UK public sees AI in fashion.',
-      options: ['Yes', 'No'] },
     { id: 'age', type: 'single', section: 'About you', columns: 2,
       q: 'How old are you?',
       options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
-    { id: 'gender', type: 'single', section: 'About you', columns: 2, optional: true,
+    { id: 'gender', type: 'single', section: 'About you', optional: true,
       q: 'How do you describe your gender?',
-      options: ['Female', 'Male', 'Non-binary', 'Prefer not to say'] },
+      options: ['Male', 'Female', 'Other'] },
     { id: 'shops', type: 'single', section: 'About you', columns: 2,
-      q: 'How often do you buy clothes, shoes or accessories?',
+      q: 'How often do you buy clothes online?',
       options: ['Weekly', 'Monthly', 'Every few months', 'Rarely'] },
 
     /* ── Awareness ── */
-    { id: 'aware', type: 'single', section: 'AI in fashion',
-      q: 'Before today, did you know fashion brands use AI in their marketing?',
+    { id: 'aware', type: 'single', section: 'AI in fashion', columns: 2,
+      q: 'What percentage of fashion brands do you think use AI in their marketing?',
       help: 'Think AI-generated models and images, ad campaigns, product photos, chatbots and personalised emails.',
-      options: ['Yes, I knew', 'I had a vague idea', 'No, I had no idea'] },
+      options: ['Under 10%', '10–25%', '25–50%', '50–75%', 'More than 75%'] },
     { id: 'seen', type: 'single', section: 'AI in fashion',
       q: 'Do you think you’ve seen AI-generated fashion images without being told?',
       options: ['Yes, definitely', 'Probably', 'Not sure', 'Probably not'] },
@@ -473,12 +469,6 @@
         field.focus();
         return;
       }
-    }
-
-    if (step.id === 'uk_resident' && A().uk_resident === 'No') {
-      clearSaved();
-      showEnd('screenout');
-      return;
     }
 
     const n = nextIndex(state.idx);
