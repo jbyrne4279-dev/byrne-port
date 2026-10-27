@@ -2,8 +2,9 @@ name: Daily News Briefing
 
 on:
   schedule:
-    - cron: '25 6 * * *'   # 06:25 UTC daily
-    - cron: '25 12 * * *'  # 12:25 UTC refresh
+    # Every 3 hours. GitHub can delay or skip scheduled runs, so frequent
+    # runs keep the briefing fresh even when one is missed.
+    - cron: '17 */3 * * *'
   workflow_dispatch: {}
 
 permissions:
