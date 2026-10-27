@@ -63,7 +63,7 @@
     /* ── How you feel ── */
     { id: 'care', type: 'single', section: 'How you feel',
       q: 'Do you care whether a fashion brand’s images are made by AI?',
-      options: ['I care a lot', 'I care a little', 'I don’t really mind', 'I don’t care at all'] },
+      options: ['Yes', 'No'] },
     { id: 'confidence', type: 'single', section: 'How you feel',
       q: 'How good do you think you are at spotting AI fashion images?',
       options: ['Very good', 'Fairly good', 'Not very good', 'No idea'] },
