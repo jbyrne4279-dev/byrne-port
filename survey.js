@@ -68,7 +68,7 @@
       q: 'How often do you notice AI being used in fashion?',
       options: ['All the time', 'Often', 'Sometimes', 'Rarely', 'Never'] },
     { id: 'trust', type: 'single', section: 'How you feel',
-      q: 'If you learned a brand’s ads were AI-generated, how would it change your trust in them?',
+      q: 'Does a brand using AI change how much you trust it?',
       options: ['Trust a lot less', 'Trust a little less', 'No change', 'Trust a little more', 'Trust a lot more'] },
     { id: 'buy', type: 'single', section: 'How you feel',
       q: 'Would you be less likely to buy from a brand that uses AI models instead of real people?',
