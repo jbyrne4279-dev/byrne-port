@@ -8,84 +8,99 @@
 
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
-  const STORE_KEY = 'jb-genai-survey-v3';
+  const STORE_KEY = 'jb-aifashion-public-v1';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = '24';
+  const SURVEY_VERSION = 'public-1';
 
   const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
 
-  // Each question maps to a dissertation objective (O1–O4). Drivers and
-  // barriers carry a TOE tag (Technological / Organisational / Environmental)
-  // which is tallied into the response for analysis; respondents never see it.
-  const notNever = a => a.frequency !== 'Never';
-
+  // "Spot the AI" rounds. Each shows two fashion images side by side; exactly
+  // one has ai:true. Swap the src files for real pairs and set which is AI.
   const STEPS = [
     { id: 'intro', type: 'intro' },
 
-    /* ── About you (screening + profile) ── */
-    { id: 'works_in_fashion', type: 'single', section: 'About you',
-      q: 'Do you work in fashion marketing, or a closely related role?',
-      help: 'Brand, social, content, e-commerce, CRM, PR, creative or agency work for fashion brands all count.',
-      options: ['Yes, currently', 'Yes, within the last 2 years', 'No'] },
-    { id: 'company_size', type: 'single', section: 'About you', columns: 2,
-      q: 'Roughly how many people work at your company?',
-      options: ['Under 250', '250–999', '1,000–4,999', '5,000+', 'Not sure'] },
+    /* ── About you ── */
+    { id: 'uk_resident', type: 'single', section: 'About you',
+      q: 'Do you live in the UK?',
+      help: 'This study looks at how the UK public sees AI in fashion.',
+      options: ['Yes', 'No'] },
     { id: 'age', type: 'single', section: 'About you', columns: 2,
       q: 'How old are you?',
       options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
+    { id: 'gender', type: 'single', section: 'About you', columns: 2, optional: true,
+      q: 'How do you describe your gender?',
+      options: ['Female', 'Male', 'Non-binary', 'Prefer not to say'] },
+    { id: 'shops', type: 'single', section: 'About you', columns: 2,
+      q: 'How often do you buy clothes, shoes or accessories?',
+      options: ['Weekly', 'Monthly', 'Every few months', 'Rarely'] },
 
-    /* ── O1 Evolution + O2 Application ── */
-    { id: 'frequency', type: 'single', section: 'Your use of AI',
-      q: 'How often do you use AI in your marketing workflow?',
-      help: 'Think ChatGPT, Claude, Perplexity, Midjourney, Firefly, Copilot and similar.',
-      options: ['Every day', 'Sometimes', 'Never'] },
-    { id: 'started', type: 'single', section: 'Your use of AI', columns: 2, when: notNever,
-      q: 'When did you start using AI?',
-      options: ['Before 2023', '2023', '2024', '2025', '2026', 'Not sure'] },
-    { id: 'tasks', type: 'multi', section: 'Your use of AI', when: notNever,
-      q: 'What do you use AI for?',
-      help: 'Select all that apply.',
-      options: ['Copywriting', 'Social media posts', 'Email marketing', 'Ad creative', 'Images', 'Video', 'SEO', 'Campaign ideas', 'Research', 'Data & reporting', 'Other'],
-      other: 'Other' },
+    /* ── Awareness ── */
+    { id: 'aware', type: 'single', section: 'AI in fashion',
+      q: 'Before today, did you know fashion brands use AI in their marketing?',
+      help: 'Think AI-generated models and images, ad campaigns, product photos, chatbots and personalised emails.',
+      options: ['Yes, I knew', 'I had a vague idea', 'No, I had no idea'] },
+    { id: 'seen', type: 'single', section: 'AI in fashion',
+      q: 'Do you think you’ve seen AI-generated fashion images without being told?',
+      options: ['Yes, definitely', 'Probably', 'Not sure', 'Probably not'] },
 
-    /* ── O3 TOE factors ── */
-    { id: 'drivers', type: 'multi', section: 'AI at your company', max: 3, when: notNever,
-      q: 'What has driven your company to use AI?',
-      help: 'Pick up to 3.',
-      options: ['Better, easier AI tools', 'Speed & efficiency gains', 'Works with our existing systems', 'Support from leadership', 'Pressure to cut costs', 'Staff skills & enthusiasm', 'Competitors are using AI', 'Customers expect faster, more personal content', 'Agencies & tech partners pushing AI', 'Other'],
-      other: 'Other',
-      toe: { 'Better, easier AI tools': 'T', 'Speed & efficiency gains': 'T', 'Works with our existing systems': 'T', 'Support from leadership': 'O', 'Pressure to cut costs': 'O', 'Staff skills & enthusiasm': 'O', 'Competitors are using AI': 'E', 'Customers expect faster, more personal content': 'E', 'Agencies & tech partners pushing AI': 'E' } },
-    { id: 'barriers', type: 'multi', section: 'AI at your company', max: 3, none: 'Nothing really',
-      q: 'What holds AI back most at your company?',
-      help: 'Pick up to 3.',
-      options: ['Poor quality', 'Privacy & security', 'Skills gap', 'Cost', 'Legal & ethics', 'Nothing really', 'Other'],
-      other: 'Other',
-      toe: { 'Poor quality': 'T', 'Privacy & security': 'T', 'Skills gap': 'O', 'Cost': 'O', 'Legal & ethics': 'E' } },
-    { id: 'readiness', type: 'multi', section: 'AI at your company', none: 'None of these',
-      q: 'Which of these does your company have?',
-      help: 'Select all that apply.',
-      options: ['AI policy', 'AI training', 'AI budget', 'AI lead or team', 'None of these', 'Other'],
-      other: 'Other' },
+    /* ── Spot the AI (image test) ── */
+    { id: 'spot1', type: 'imagepick', section: 'Spot the AI',
+      q: 'Which one do you think was made with AI?',
+      help: 'Go with your gut — tap the image you think is AI-generated.',
+      images: [
+        { src: 'assets/survey/spot1-a.svg', alt: 'Fashion image, option A', ai: false },
+        { src: 'assets/survey/spot1-b.svg', alt: 'Fashion image, option B', ai: true }
+      ], allowUnsure: true },
+    { id: 'spot2', type: 'imagepick', section: 'Spot the AI',
+      q: 'And this pair — which is the AI one?',
+      images: [
+        { src: 'assets/survey/spot2-a.svg', alt: 'Fashion image, option A', ai: true },
+        { src: 'assets/survey/spot2-b.svg', alt: 'Fashion image, option B', ai: false }
+      ], allowUnsure: true },
+    { id: 'spot3', type: 'imagepick', section: 'Spot the AI',
+      q: 'Last one — which do you think is AI?',
+      images: [
+        { src: 'assets/survey/spot3-a.svg', alt: 'Fashion image, option A', ai: false },
+        { src: 'assets/survey/spot3-b.svg', alt: 'Fashion image, option B', ai: true }
+      ], allowUnsure: true },
 
-    /* ── O4 Impact ── */
-    { id: 'impact', type: 'likert', section: 'The impact of AI', ends: AGREE_ENDS,
+    /* ── How you feel ── */
+    { id: 'care', type: 'single', section: 'How you feel',
+      q: 'Do you care whether a fashion brand’s images are made by AI?',
+      options: ['I care a lot', 'I care a little', 'I don’t really mind', 'I don’t care at all'] },
+    { id: 'confidence', type: 'single', section: 'How you feel',
+      q: 'How good do you think you are at spotting AI fashion images?',
+      options: ['Very good', 'Fairly good', 'Not very good', 'No idea'] },
+    { id: 'trust', type: 'single', section: 'How you feel',
+      q: 'If you learned a brand’s ads were AI-generated, how would it change your trust in them?',
+      options: ['Trust a lot less', 'Trust a little less', 'No change', 'Trust a little more', 'Trust a lot more'] },
+    { id: 'buy', type: 'single', section: 'How you feel',
+      q: 'Would you be less likely to buy from a brand that uses AI models instead of real people?',
+      options: ['Yes, much less likely', 'A bit less likely', 'No difference', 'Actually more likely'] },
+    { id: 'label', type: 'single', section: 'How you feel', columns: 2,
+      q: 'Should brands have to label AI-generated marketing images?',
+      options: ['Yes, always', 'Only sometimes', 'No', 'Not sure'] },
+
+    { id: 'views', type: 'likert', section: 'Your views', ends: AGREE_ENDS,
       q: 'How much do you agree?',
       help: '1 is strongly disagree, 5 is strongly agree.',
       statements: [
-        ['productivity', 'AI has made our marketing team more productive.'],
-        ['content_quality', 'AI has improved the quality of our marketing.'],
-        ['personalisation', 'AI lets us create more personalised marketing.'],
-        ['authenticity_risk', 'AI risks weakening brand authenticity.'],
-        ['skills_change', 'AI is changing the skills marketers need.'],
-        ['fewer_roles', 'AI will lead to fewer marketing jobs.']
+        ['looks_good', 'AI-generated fashion images can look just as good as real photos.'],
+        ['dishonest', 'Using AI to make ads without saying so feels dishonest.'],
+        ['real_models', 'Brands should keep using real human models, not AI ones.'],
+        ['modern', 'A brand using AI feels more modern and innovative.'],
+        ['jobs', 'I worry AI will take work from photographers, models and designers.'],
+        ['ok_if_labelled', 'I’m fine with AI images as long as they’re clearly labelled.']
       ] },
-    { id: 'quote', type: 'text', section: 'In your words', optional: true,
-      q: 'In a sentence or two, how has AI changed marketing where you work?',
-      help: 'This may be quoted anonymously in the dissertation.',
+
+    { id: 'words', type: 'text', section: 'In your words', optional: true,
+      q: 'How do you feel about fashion brands using AI?',
+      help: 'A sentence is plenty. This may be quoted anonymously.',
       placeholder: 'Type as much or as little as you like…' },
+
     { id: 'contact', type: 'email', section: 'Last one', optional: true,
-      q: 'Want to be part of my interview research?',
-      help: 'I’m running quick interviews on Microsoft Teams to discuss your ideas and views on AI in digital marketing in more depth. Leave your email and I’ll be in touch. Your email is kept separate from your survey answers and never shared.',
+      q: 'Happy to chat about this in a short interview?',
+      help: 'I run quick, friendly chats on Microsoft Teams about how people see AI in fashion. Leave your email and I’ll be in touch. It’s kept separate from your answers and never shared.',
       placeholder: 'you@example.com' }
   ];
 
@@ -176,6 +191,24 @@
     return `${head(step)}<div class="sv-likert">${rows}</div>`;
   }
 
+  function renderImagePick(step) {
+    const current = A()[step.id];
+    const cards = step.images.map((im, i) => {
+      const k = keyFor(i);
+      const on = current === k ? ' is-selected' : '';
+      return `<button type="button" class="sv-img${on}" data-pick="${k}" aria-pressed="${current === k}">
+          <span class="sv-img__frame"><img src="${esc(im.src)}" alt="${esc(im.alt || ('Option ' + k))}" loading="lazy" draggable="false"></span>
+          <span class="sv-img__tag"><span class="sv-img__key">${k}</span>${TICK}</span>
+        </button>`;
+    }).join('');
+    const unsure = step.allowUnsure
+      ? `<button type="button" class="sv-img-unsure${current === 'Not sure' ? ' is-selected' : ''}" data-pick="Not sure" aria-pressed="${current === 'Not sure'}">I honestly can’t tell</button>`
+      : '';
+    return `${head(step)}
+      <div class="sv-imggrid" role="group" aria-labelledby="svQ">${cards}</div>
+      ${unsure}`;
+  }
+
   function renderText(step) {
     const v = esc(A()[step.id] || '');
     if (step.type === 'email') {
@@ -192,9 +225,9 @@
     return `<div class="sv-hero">
         <p class="sv-eyebrow">University dissertation survey</p>
         <h1 class="sv-title" id="svQ" tabindex="-1"><span class="sv-title__ai">AI in<span class="sv-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
-        <p class="sv-lede">This short survey is for my dissertation, which asks:</p>
-        <blockquote class="sv-rq">How is AI being applied to digital marketing operations within the UK fashion industry’s large enterprises?</blockquote>
-        <ul class="sv-facts"><li>About 60s</li><li>Anonymous</li></ul>
+        <p class="sv-lede">A short, anonymous survey for my dissertation on how the UK public sees AI in fashion. It asks:</p>
+        <blockquote class="sv-rq">Can people tell when fashion marketing is made by AI — and do they even care?</blockquote>
+        <ul class="sv-facts"><li>About 90s</li><li>Anonymous</li><li>Spot-the-AI game</li></ul>
         <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
           <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
           <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -212,15 +245,19 @@
       </div>`;
   }
 
-  function renderEnd(kind) {
+  function renderEnd(kind, data) {
     const copy = kind === 'screenout'
-      ? ['Thanks for stopping by', 'This survey is just for people working in or around fashion marketing, so there’s nothing more to fill in. If you know someone who is, I’d really appreciate you sending it their way.']
-      : ['Thank you', 'That’s really helpful. Your answers are in and will help shape the findings. If you know other fashion marketers, sharing the link would mean a lot.'];
+      ? ['Thanks for stopping by', 'This study focuses on the UK public, so there’s nothing more to fill in here. Thanks for your interest all the same.']
+      : ['Thank you', 'That’s really helpful — your answers are in and will help shape the findings. Sharing the link with a few friends would mean a lot.'];
+    const score = (kind === 'done' && data && data.total)
+      ? `<div class="sv-end__score"><span class="sv-end__score-num">${data.correct} / ${data.total}</span><span class="sv-end__score-label">AI images spotted correctly${data.skipped ? ` · ${data.skipped} you couldn’t call` : ''}</span></div>`
+      : '';
     return `<div class="sv-end">
         <div class="sv-end__mark"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <p class="sv-eyebrow">${kind === 'screenout' ? 'All done' : 'Response received'}</p>
         <h1 class="sv-q" id="svQ" tabindex="-1">${copy[0]}</h1>
         <p class="sv-lede">${copy[1]}</p>
+        ${score}
         <div class="sv-end__actions">
           <button type="button" class="sv-btn sv-btn--ghost" id="svShare">Share the survey</button>
           <a class="sv-btn" href="/">Back to portfolio</a>
@@ -271,6 +308,7 @@
     if (step.type === 'intro') html = renderIntro();
     else if (step.type === 'end') html = renderEnd(step.kind);
     else if (step.type === 'likert') html = renderLikert(step);
+    else if (step.type === 'imagepick') html = renderImagePick(step);
     else if (step.type === 'text' || step.type === 'email') html = renderText(step);
     else html = renderChoice(step);
 
@@ -381,6 +419,25 @@
       return;
     }
 
+    if (step.type === 'imagepick') {
+      const btns = [...stage.querySelectorAll('[data-pick]')];
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pick = btn.getAttribute('data-pick');
+          state.answers[step.id] = pick;
+          btns.forEach(b => {
+            const on = b === btn;
+            b.classList.toggle('is-selected', on);
+            b.setAttribute('aria-pressed', on);
+          });
+          save();
+          updateChrome(step);
+          setTimeout(() => { if (isAnswered(step)) next(); }, reduceMotion ? 120 : 320);
+        });
+      });
+      return;
+    }
+
     const field = document.getElementById('svText');
     const skip = document.getElementById('svSkip');
     if (skip) {
@@ -418,7 +475,7 @@
       }
     }
 
-    if (step.id === 'works_in_fashion' && A().works_in_fashion === 'No') {
+    if (step.id === 'uk_resident' && A().uk_resident === 'No') {
       clearSaved();
       showEnd('screenout');
       return;
@@ -437,9 +494,9 @@
     show(p, 'back');
   }
 
-  function showEnd(kind) {
+  function showEnd(kind, data) {
     const end = { type: 'end', kind };
-    stage.innerHTML = renderEnd(kind);
+    stage.innerHTML = renderEnd(kind, data);
     if (kind === 'done') {
       // Big celebration once the response is in
       [0.2, 0.5, 0.8].forEach((f, i) => setTimeout(() => confetti.burst(innerWidth * f, innerHeight * 0.35, 60, 11), i * 180));
@@ -486,15 +543,31 @@
   const AGREE_LABELS = ['', 'Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree'];
   const TOE_NAMES = { T: 'Technological', O: 'Organisational', E: 'Environmental' };
 
+  // Tally correct guesses across the "Spot the AI" rounds.
+  function spotScore() {
+    let correct = 0, total = 0, skipped = 0;
+    STEPS.forEach(s => {
+      if (s.type !== 'imagepick' || !isShown(s)) return;
+      total++;
+      const v = A()[s.id];
+      if (!v || v === 'Not sure') { skipped++; return; }
+      const idx = v.charCodeAt(0) - 65;
+      if (s.images[idx] && s.images[idx].ai) correct++;
+    });
+    return { correct, total, skipped };
+  }
+
   function payload() {
     const a = A();
+    const sc = spotScore();
     const out = {
-      _subject: 'AI survey response',
+      _subject: 'AI-in-fashion survey response',
       'Survey version': SURVEY_VERSION,
       'Consent given': a.consent ? 'Yes' : 'No',
       'Submitted at': new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
       'Time taken': state.started ? `${Math.max(1, Math.round((Date.now() - state.started) / 1000))} seconds` : '',
-      'Device': window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'Mobile or tablet' : 'Desktop'
+      'Device': window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'Mobile or tablet' : 'Desktop',
+      'Spot-the-AI score': `${sc.correct}/${sc.total}` + (sc.skipped ? ` (${sc.skipped} skipped)` : '')
     };
     STEPS.forEach(s => {
       if (s.type === 'intro') return;
@@ -506,6 +579,17 @@
         return;
       }
       if (s.type === 'email') { if (v && v.trim()) out['Email for Teams interview'] = v.trim(); return; }
+      if (s.type === 'imagepick') {
+        if (!isShown(s)) { out[s.q] = '(not asked)'; return; }
+        const aiIdx = s.images.findIndex(im => im.ai);
+        if (!v) { out[s.q] = '(skipped)'; return; }
+        if (v === 'Not sure') { out[s.q] = 'Couldn’t tell'; out[`${s.q} [result]`] = 'No guess'; out[`${s.q} [AI was]`] = keyFor(aiIdx); return; }
+        const idx = v.charCodeAt(0) - 65;
+        out[s.q] = `Picked ${v}`;
+        out[`${s.q} [result]`] = idx === aiIdx ? 'Correct' : 'Wrong';
+        out[`${s.q} [AI was]`] = keyFor(aiIdx);
+        return;
+      }
       if (!isShown(s)) { out[s.q] = '(not asked)'; return; }
       out[s.q] = Array.isArray(v) ? v.join('; ') : (v || '');
       if (s.other && a[s.id + '_other']) out[`${s.q} (their own answer)`] = a[s.id + '_other'].trim();
@@ -534,9 +618,10 @@
         body: JSON.stringify(payload())
       });
       if (!res.ok) throw new Error('Bad response ' + res.status);
+      const sc = spotScore();
       clearSaved();
       state = { answers: {}, history: [], idx: 0, started: null };
-      showEnd('done');
+      showEnd('done', sc);
     } catch (err) {
       nextBtn.disabled = false;
       nextBtn.textContent = 'Try again';
