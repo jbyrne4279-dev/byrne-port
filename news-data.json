@@ -1,106 +1,122 @@
 {
-  "generatedAt": "2026-10-27T22:14:34.162Z",
+  "generatedAt": "2026-10-28T05:42:19.261Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Ceasefire extended across Ukraine's Kherson region, officials say",
-        "url": "https://www.bbc.co.uk/news/articles/c6lye1w9p2l8o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-10-27T22:11:08.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/97b7/live/fc424bf0-d23c-11f1-904a-5b90e72e87ff.jpg",
-        "summary": "The truce was originally planned for the stranded residents of Oleshky, and Russia and Ukraine say no breaches have been reported."
-      },
-      {
-        "title": "Politics live: Australia Post chief paid ‘mind-blowing’ bonus; Labor says One Nation should justify Bluey ‘satire’",
+        "title": "Australian politics live: Coalition MP ejected from question time after swearing at PM; Payman apologises to Haines for comments after alleged attack",
         "url": "https://www.theguardian.com/australia-news/live/2026/oct/28/inflation-abs-labor-anthony-albanese-parliament-greens-david-shoebridge-one-nation-ntwnfb",
         "source": "The Guardian",
-        "published": "2026-10-27T21:53:17.000Z",
-        "image": "https://i.guim.co.uk/img/media/deabf15655294f18e7f6c22a6e1a7643744119d2/479_0_4785_3828/master/4785.jpg?width=140&quality=85&auto=format&fit=max&s=3546de0dbbfce2e9940fec03fbac23da",
+        "published": "2026-10-28T05:19:26.000Z",
+        "image": "https://i.guim.co.uk/img/media/61bee9f3389f0747d84071aeaf42e7e17ab85fdd/498_0_4959_3969/master/4959.jpg?width=140&quality=85&auto=format&fit=max&s=2b9414b5e823522f0b913cc0a24c9ebc",
         "summary": "Get our breaking news email , free app or daily news podcast Online hate is spilling into the real world, AFP warns AFP Commissioner Krissy Barrett began her late-night appearance "
       },
       {
-        "title": "Israel election live: exit polls project no clear winner, as anti-Netanyahu bloc leads but Likud remains biggest party",
+        "title": "Israel election results live: exit polls point to tie between Netanyahu and Eisenkot blocs",
+        "url": "https://www.theguardian.com/world/live/2026/oct/28/israel-election-results-live-updates-exit-polls-netanyahu-likud-eisenkot-latest-news",
+        "source": "The Guardian",
+        "published": "2026-10-28T05:12:57.000Z",
+        "image": "https://i.guim.co.uk/img/media/b327b608d8b9c67d152fa006b1df8f13666c0a21/0_0_5160_4128/master/5160.jpg?width=140&quality=85&auto=format&fit=max&s=5d9cdbcf4938f3d8f701d31e374b8099",
+        "summary": "Both blocs would fall short of the 61 seats needed to form a government as support for Palestinian parties surges Full report: Israel election too close to call as exit polls give "
+      },
+      {
+        "title": "Two key unions turn on Labor, running attack ads and pulling campaign funds a month out from Victorian election",
+        "url": "https://www.theguardian.com/australia-news/2026/oct/28/unions-turn-on-labor-attack-ads-campaign-funds-victorian-election-exclusive",
+        "source": "The Guardian",
+        "published": "2026-10-28T05:10:54.000Z",
+        "image": "https://i.guim.co.uk/img/media/f36cfdb01cbff4d9ce4153015dd6242cbca5b6e2/678_0_5040_4032/master/5040.jpg?width=140&quality=85&auto=format&fit=max&s=521a49864eefdc14440732d325904069",
+        "summary": "Exclusive: ASU launches ‘Ben Lied. Labor lies’ ads while ETU diverts money to defending members at royal commission Follow our Australia politics live blog for latest updates Get o"
+      },
+      {
+        "title": "Gulf states working on multipart peace deal to avert renewal of US-Iran war",
+        "url": "https://www.theguardian.com/world/2026/oct/28/gulf-states-multipart-peace-deal-avert-renewal-us-iran-war",
+        "source": "The Guardian",
+        "published": "2026-10-28T05:00:55.000Z",
+        "image": "https://i.guim.co.uk/img/media/7696200dce7254abdadd923a886adbbcc098804a/11_17_4694_3755/master/4694.jpg?width=140&quality=85&auto=format&fit=max&s=cfebc41dd9a7f62e6ae7dcf0d812e508",
+        "summary": "Talks are aimed at reopening strait of Hormuz and lifting sanctions on Iran, and for Houthis to withdraw in Yemen A multipronged peace deal to reopen the strait of Hormuz within fo"
+      },
+      {
+        "title": "Beau Lamarre-Condon’s friend tells court she drank champagne while he scrubbed van used to move bodies",
+        "url": "https://www.theguardian.com/australia-news/2026/oct/28/beau-lamarre-condon-friend-tells-court-she-drank-champagne-while-he-cleaned-van-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-10-28T04:55:48.000Z",
+        "image": "https://i.guim.co.uk/img/media/9121e130e1a0424273a784f6febc21cfcb53dd1d/444_120_2573_2058/master/2573.jpg?width=140&quality=85&auto=format&fit=max&s=b5e433c438ad8fb701bd8fae71fff843",
+        "summary": "Lamarre-Condon, who has pleaded not guilty to murders of Jesse Baird and Luke Davies, allegedly told friend he had ‘come to say goodbye’ Follow our Australia politics live blog for"
+      },
+      {
+        "title": "Erin Patterson to learn fate in appeal against mushroom murders convictions",
+        "url": "https://www.theguardian.com/australia-news/2026/oct/28/erin-patterson-to-learn-fate-appeal-mushroom-murders-convictions-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-10-28T04:30:33.000Z",
+        "image": "https://i.guim.co.uk/img/media/712dc31c4d482c5820cce6e3e0a764cd69898138/454_194_1035_828/master/1035.jpg?width=140&quality=85&auto=format&fit=max&s=84fef62ca6f97d9c73214d9a4aea3893",
+        "summary": "Victorian court of appeal to hand down judgment on triple-murderer’s conviction and sentence after her lawyers argued she was denied fair trial Follow our Australia politics live b"
+      },
+      {
+        "title": "Mbappe faces backlash in China for meme fiasco",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/mbappe-faces-backlash-in-china-for-meme-fiasco?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-28T04:28:22.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793161589.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Three major Chinese brands have ended partnerships with French football star Kylian Mbappe"
+      },
+      {
+        "title": "Watch: What happens now after close vote in Israeli election?",
+        "url": "https://www.bbc.co.uk/news/videos/cm79p5pxqey2o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-10-28T04:22:59.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c34b/live/eebe6880-d262-11f1-b441-2b33b063138f.jpg",
+        "summary": "Polls have closed in the Israeli election, but there is no clear winner."
+      },
+      {
+        "title": "Mahmoud Khalil credits Palestinian activism for reshaping US politics",
+        "url": "https://www.aljazeera.com/news/2026/10/28/mahmoud-khalil-credits-palestinian-activism-for-reshaping-us-politics?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-28T04:13:28.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26195615149837-1793157796.jpg?resize=1920%2C1440",
+        "summary": "Khalil returned to Columbia University to discuss his memoir detailing his arrest and detention by US immigration agents"
+      },
+      {
+        "title": "Major Israeli TV networks revise polling projections – as it happened",
         "url": "https://www.theguardian.com/world/live/2026/oct/27/israel-elections-knesset-netanyahu-likud-eisenkot-gaza-latest-updates",
         "source": "The Guardian",
-        "published": "2026-10-27T21:52:46.000Z",
-        "image": "https://i.guim.co.uk/img/media/68b4a81839c637283757b2b096050bf05db5d083/460_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=86ba8e8adb4b5ef23032b998db06fcc4",
-        "summary": "Israel’s major TV stations project majority of Israelis have voted against Netanyahu’s coalition, but his Likud party has emerged as largest party Israel election too close to call"
+        "published": "2026-10-28T04:08:29.000Z",
+        "image": "https://i.guim.co.uk/img/media/d9d9e368239771778a4246a6eb4f8bcd2ca49136/602_0_4585_3668/master/4585.jpg?width=140&quality=85&auto=format&fit=max&s=4258d9779600489da5b7448c75f645c6",
+        "summary": "This blog had now closed – our live Israel election results coverage continues here Israel election results live updates Across Israel , voting is now under way. Here are some of t"
       },
       {
-        "title": "Flavio Bolsonaro flees Brazil after election loss, US says will grant visa",
-        "url": "https://www.aljazeera.com/news/2026/10/27/flavio-bolsonaro-flees-brazil-after-election-loss-us-says-will-grant-visa?traffic_source=rss",
+        "title": "Bolsonaro ally denies knowledge of senator’s plan to flee Brazil",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/bolsonaro-ally-denies-knowledge-of-senators-plan-to-flee-brazil?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-27T21:47:34.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae0e3db30a1-1793123291.jpg?resize=1920%2C1440",
-        "summary": "News comes one day after Brazil's Supreme Court ordered Bolsonaro to hand over his passports in money-laundering probe."
+        "published": "2026-10-28T03:49:40.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793159360.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Flavio Bolsonaro’s former campaign manager says the senator did not inform him that he planned to flee Brazil."
       },
       {
-        "title": "Trump, campaigning in Texas for Republicans, touts Iran war and ‘51st state’ Venezuela: ‘I knew that oil would go up’ – live",
-        "url": "https://www.theguardian.com/us-news/live/2026/oct/27/comey-trump-rubio-texas-vance-israel-midterms-politics-latest-news-updates",
+        "title": "‘Backdrop for countless local love stories’: Geelong gingko named Victorian tree of the year",
+        "url": "https://www.theguardian.com/australia-news/2026/oct/28/backdrop-for-countless-local-love-stories-geelong-gingko-named-victorian-tree-of-the-year",
         "source": "The Guardian",
-        "published": "2026-10-27T21:42:46.000Z",
-        "image": "https://i.guim.co.uk/img/media/7af4a979c79a0459d1ccbc4ab1591b401c84420a/3265_2700_3503_2802/master/3503.jpg?width=140&quality=85&auto=format&fit=max&s=505cf7ad15c015d4cad49c2f76149383",
-        "summary": "Trump says ‘I actually thought [oil] would go up two or three time higher, and I was still willing to [go to war with Iran]’ Sign up for the Breaking News US email US voters: tell "
-      },
-      {
-        "title": "Rare Nanotyrannus skeleton sells for $47.3m at New York auction",
-        "url": "https://www.theguardian.com/us-news/2026/oct/27/nanotyrannus-dinosaur-fossil-sothebys-auction",
-        "source": "The Guardian",
-        "published": "2026-10-27T21:40:13.000Z",
-        "image": "https://i.guim.co.uk/img/media/61dbb9d2b8ab5bda777e2a4688cedc688bc41123/191_0_7123_5699/master/7123.jpg?width=140&quality=85&auto=format&fit=max&s=1e9285abfd911c3254c081fec3c391ca",
-        "summary": "Sale makes ‘Jodi’, a smaller relative of T rex, the ‘second most valuable dinosaur ever sold at auction’, Sotheby’s says A rare skeleton of a Nanotyrannus, a smaller relative of th"
-      },
-      {
-        "title": "Trump’s cuts have exposed US to ‘cascade’ of El Niño dangers, experts warn",
-        "url": "https://www.theguardian.com/environment/2026/oct/27/trump-cuts-el-nino-noaa",
-        "source": "The Guardian",
-        "published": "2026-10-27T21:34:54.000Z",
-        "image": "https://i.guim.co.uk/img/media/177f777c410c1e1edbc2c7e8e9fd013495de2a9e/346_0_4867_3895/master/4867.jpg?width=140&quality=85&auto=format&fit=max&s=ffa1f1919e6c6d781f1902e29839f328",
-        "summary": "President has taken an axe to National Oceanic and Atmospheric Administration, stalling climate research on and response to extreme weather events Sweeping cuts to the premier US c"
-      },
-      {
-        "title": "JD Vance steps up extreme attacks on Democratic Senate candidate Abdul El-Sayed",
-        "url": "https://www.theguardian.com/us-news/2026/oct/27/jd-vance-el-sayed-attacks",
-        "source": "The Guardian",
-        "published": "2026-10-27T21:30:59.000Z",
-        "image": "https://i.guim.co.uk/img/media/d5a4cfed356c92b371c78ef1728bf958635c01e1/591_0_5858_4688/master/5858.jpg?width=140&quality=85&auto=format&fit=max&s=c452ec8e03167ff637f3f1f8d3ad8af3",
-        "summary": "Vice-president tries to link El-Sayed to Paris protests and claims he would lead rioters in ‘burning down’ Detroit JD Vance has escalated his inflammatory attacks on Abdul El-Sayed"
-      },
-      {
-        "title": "Trump showcases Venezuelan oil as he seeks to rally voters in Texas",
-        "url": "https://www.aljazeera.com/news/2026/10/27/trump-showcases-venezuelan-oil-as-he-seeks-to-rally-voters-in-texas?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-27T21:28:33.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae1051d2aec-1793131805.jpg?resize=1920%2C1440",
-        "summary": "US president seeks to highlight Venezuela operation as Iran war makes affordability a key midterm issue."
-      },
-      {
-        "title": "Forever Wars: Why can’t America stop?",
-        "url": "https://www.aljazeera.com/video/lets-focus/2026/10/27/forever-wars-why-cant-america-stop?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-27T21:21:08.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/%E2%88%86LF-TX07-WIDE-THUMB-A-1793136015.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Iran, Iraq, Afghanistan. Why does the US keep going to war, and can voters stop it?"
-      },
-      {
-        "title": "Will players in the Gulf establish a new security framework?",
-        "url": "https://www.aljazeera.com/video/inside-story/2026/10/27/will-players-in-the-gulf-establish-a-new-security-framework?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-27T21:14:12.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793130665.jpg?resize=1920%2C1061&quality=80",
-        "summary": "Officials from Riyadh, Islamabad, Ankara and Tehran met in Iran."
-      },
-      {
-        "title": "Alexander brothers each sentenced to 30 years in prison for sex trafficking case",
-        "url": "https://www.bbc.co.uk/news/articles/cqn498mng08ro?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-10-27T21:12:39.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c228/live/e6371090-d249-11f1-8ba3-9fd3e261415f.jpg",
-        "summary": "The three brothers were found guilty of drugging and raping several women over the course of decades."
+        "published": "2026-10-28T03:23:35.000Z",
+        "image": "https://i.guim.co.uk/img/media/56fd5972da71e25bc7784d0abc49977c8d4576df/125_0_3750_3000/master/3750.jpg?width=140&quality=85&auto=format&fit=max&s=415bb9b024f59cf8c18380c16396fb9c",
+        "summary": "National trust of Victoria award celebrates much-loved arboreal icons while calling for protection of green spaces Follow our Australia politics live blog for latest updates Get ou"
       }
     ],
     "ai": [
+      {
+        "title": "‘Emotional intimacy’ from AI chatbots would be banned under Australia’s digital duty of care laws",
+        "url": "https://www.theguardian.com/australia-news/2026/oct/28/emotional-intimacy-ai-chatbots-ban-digital-duty-of-care-laws-australian-politics",
+        "source": "The Guardian",
+        "published": "2026-10-28T05:31:55.000Z",
+        "image": "https://i.guim.co.uk/img/media/b3e44fb72cc705d89a54b8eb9719b50630ca675c/549_0_5485_4388/master/5485.jpg?width=140&quality=85&auto=format&fit=max&s=0bfc40ec0228d608101e4331782d6dce",
+        "summary": "Labor government under pressure to create social media watchdog as new online safety standards bill passes lower house The federal government wants to ban AI chatbots which seek to"
+      },
+      {
+        "title": "AI bots flooded 2023 UK government consultation on disposable vapes ban",
+        "url": "https://www.theguardian.com/society/2026/oct/27/ai-bots-flooded-2023-uk-government-consultation-disposable-vapes-ban",
+        "source": "The Guardian",
+        "published": "2026-10-27T22:30:45.000Z",
+        "image": "https://i.guim.co.uk/img/media/aaba9471514c493b64cda0d52e0de7fe61c3d279/124_0_3703_2963/master/3703.jpg?width=140&quality=85&auto=format&fit=max&s=b4e0c075e2d017cf15e14d343f08548c",
+        "summary": "Three-quarters of all responses were machine-generated in failed attempt to stop bill from passing into law, research finds AI bots flooded a government consultation with tens of t"
+      },
       {
         "title": "Researchers are getting tired of OpenAI gatekeeping its breakthroughs",
         "url": "https://www.theverge.com/ai-artificial-intelligence/1019921/openai-breakthrough-math-computer-science-physics",
@@ -156,22 +172,6 @@
         "published": "2026-10-27T14:08:41.000Z",
         "image": "https://i.guim.co.uk/img/media/f5bb844cbf76398948b5d3efa0fb0e79205a0c23/408_0_1983_1586/master/1983.jpg?width=140&quality=85&auto=format&fit=max&s=36c9f5dfa8f5fbfd22bbacb9882bab09",
         "summary": "Tesla tycoon launched Grok project after criticising Christoper Nolan’s diverse casting for his Homeric blockbuster Elon Musk has released an AI-generated rival to Christopher Nola"
-      },
-      {
-        "title": "Apple is adding an AI chatbot to Pages, Keynote, and Numbers",
-        "url": "https://www.theverge.com/tech/1019373/apple-pages-keynote-numbers-ai-chatbot-update",
-        "source": "The Verge",
-        "published": "2026-10-27T13:50:51.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/Apple-Creator-Studio-intelligent-assistant-in-Keynote-on-iPad-Pro-261027_big.jpg.large_2x.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Apple is bringing an AI assistant to its suite of productivity apps, including Keynote, Pages, and Numbers. The assistant, which is built on AI models from Apple and OpenAI, can un"
-      },
-      {
-        "title": "Elon Musk’s AI Odyssey review – the dullest, most pointless riposte possible to Christopher Nolan’s brilliant epic",
-        "url": "https://www.theguardian.com/film/2026/oct/27/elon-musk-ai-odyssey-movie-grok-christopher-nolan",
-        "source": "The Guardian",
-        "published": "2026-10-27T13:01:46.000Z",
-        "image": "https://i.guim.co.uk/img/media/92774383fe7ce51c65f27cb958af0171dee508c7/561_20_1550_1241/master/1550.jpg?width=140&quality=85&auto=format&fit=max&s=d74c6615872aba00f461c1cf7db72eac",
-        "summary": "It is hardly a shock that Grok AI’s interpretation of Homer is as meaningless as a laptop screensaver. The only surprise would be if Musk accepted defeat graciously. Which he won’t"
       }
     ],
     "fashion": [
@@ -179,147 +179,147 @@
         "title": "Vivienne Westwood Spring 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/spring-2027-ready-to-wear/vivienne-westwood",
         "source": "Vogue",
-        "published": "2026-10-27T22:13:14.000Z",
+        "published": "2026-10-28T05:37:16.000Z",
         "image": "https://assets.vogue.com/photos/6adf671c5176862795ee628b/master/pass/00001-vivienne-westwood-spring-2027-ready-to-wear-credit-brand.jpg",
         "summary": ""
       },
       {
-        "title": "Kith Spring 2027 Menswear",
-        "url": "https://www.vogue.com/fashion-shows/spring-2027-menswear/kith",
+        "title": "At Celine, CEO Séverine Merle Is Taking Things One Triomphe at a Time",
+        "url": "https://www.vogue.com/article/at-celine-ceo-severine-merle-is-taking-things-one-triomphe-at-a-time",
         "source": "Vogue",
-        "published": "2026-10-27T22:13:14.000Z",
-        "image": "https://assets.vogue.com/photos/6adf8318757b7ed0b62b2d3d/master/pass/00001-kith-spring-2027-menswear-credit-brand.jpg",
-        "summary": ""
+        "published": "2026-10-28T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6ae0cf8cdb26470407738a71/master/pass/-story%20(9).jpg",
+        "summary": "The Celine CEO shares her strategy for growing desirability at a difficult time for luxury."
       },
       {
-        "title": "Aitor Throup Throws Down the Gauntlet with His New Exhibition “Ultra Veil”",
-        "url": "https://www.vogue.com/article/aitor-throup-throws-down-the-gauntlet-with-his-new-exhibition-ultra-veil",
-        "source": "Vogue",
-        "published": "2026-10-27T21:57:48.000Z",
-        "image": "https://assets.vogue.com/photos/6ae108fe8ebac1dc4e633c86/master/pass/20261008_AitorThroup_SHOT10_1442_V2.jpg",
-        "summary": "While not exactly a fashion Garbo, Aitor Throup is difficult to pin down. After resurfacing with Umbro and Maharishi collabs earlier this year, and with a Fred Perry link-up to com"
-      },
-      {
-        "title": "Dollar General Targeted by the FTC, 20 States for Deceptive Pricing Scheme",
-        "url": "https://wwd.com/sourcing-journal/industry-news/dollar-general-lawsuit-ftc-20-states-deceptive-pricing-advertising-scheme-1239388392/",
+        "title": "EXCLUSIVE: Versace Confirms a Couture Debut for Pieter Mulier",
+        "url": "https://wwd.com/fashion-news/fashion-scoops/atelier-versace-couture-return-pieter-mulier-1239384891/",
         "source": "WWD",
-        "published": "2026-10-27T21:52:22.000Z",
+        "published": "2026-10-28T05:01:00.000Z",
         "image": "",
-        "summary": "Dollar General hasn’t lived up to its name, and has in fact bamboozled consumers out of many of their hard-earned dollars, according to a new complaint from the Federal Trade Commi"
+        "summary": "His Atelier Versace collection will hit the runway during Paris Couture Week in January."
       },
       {
-        "title": "Artist Jane Benson Has Some Strong Ideas About ‘Frankenstein’",
-        "url": "https://www.vogue.com/article/jane-benson-her-her-sargents-daughters",
-        "source": "Vogue",
-        "published": "2026-10-27T21:35:03.000Z",
-        "image": "https://assets.vogue.com/photos/6adec0593e726841bc2d16b2/master/pass/Portrait%20by%20Natasha%20Peterson.jpeg",
-        "summary": "“Is a monster the person in society that nobody understands, and that’s why we’re afraid of it?” the artist wondered while reading Mary Shelley’s “Frankenstein.” “I’m like, That’s "
-      },
-      {
-        "title": "The Best of Inez and Vinoodh—This Year’s CFDA Lifetime Achievement Honorees—in Vogue",
-        "url": "https://www.vogue.com/slideshow/the-best-of-inez-and-vinoodh-in-vogue-2026-cfda-lifetime-achievement-honorees",
-        "source": "Vogue",
-        "published": "2026-10-27T21:19:43.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0d6767272e55e33175b3b/master/pass/0915-VO-WELL01-01%20Large.jpeg",
-        "summary": "The 2026 CFDA Awards will honor the pair with the Geoffrey Beene Lifetime Achievement Award for their deep impact and contribution to the visual language of the industry."
-      },
-      {
-        "title": "HigherDose Advertising Claims Referred to Regulators After Noncompliance With NAD Inquiries",
-        "url": "https://wwd.com/beauty-industry-news/wellness/higherdose-advertising-claims-referred-to-regulators-1239388176/",
+        "title": "How Jordan Roth Is Fashioning His Life Into Art",
+        "url": "https://wwd.com/eye/people/jordan-roth-theater-producer-artist-actor-the-shards-1239387973/",
         "source": "WWD",
-        "published": "2026-10-27T21:00:00.000Z",
+        "published": "2026-10-28T05:00:00.000Z",
         "image": "",
-        "summary": "The wellness brand declined to participate in two NAD inquiries into performance claims about its Red Light Hat and Red Light Face Mask, prompting a referral to regulatory authorit"
+        "summary": "With a new book, an installation in Paris and a burgeoning acting career, the Tony Award-winning theater producer is revealing fresh layers of creative depth."
       },
       {
-        "title": "We Can’t Get Enough of All of the Art on the Spring 2027 Runways",
-        "url": "https://www.vogue.com/article/we-cant-get-enough-of-all-of-the-art-on-the-spring-2027-runways",
+        "title": "More Pieces, More Possibilities: How to Merchandise Maximalism",
+        "url": "https://www.vogue.com/article/more-pieces-more-possibilities-how-to-merchandise-maximalism",
         "source": "Vogue",
-        "published": "2026-10-27T20:48:33.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0fc9bd6e11e193ae615e7/master/pass/Alex_16x9.jpg",
-        "summary": "Whether it's investing in a museum or inviting cultural commentators to the show, designers are embracing art more publicly than ever, and they're sharing with their audiences, too"
+        "published": "2026-10-28T04:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6ae0b2d487fadb191e729373/master/pass/-story%20copy.jpg",
+        "summary": "The brands that offer uniform-building wardrobes that go beyond the minimalist days of yore — in line with this season’s ‘messy girl’ trend — will win."
       },
       {
-        "title": "Denée Benton, Dua Lipa, Dakota Johnson and More Put the Minimalist Mules Trend to Rest With Jeweled Alternatives",
-        "url": "https://wwd.com/footwear-news/shoe-trends/jeweled-mules-trend-dua-lipa-dakota-johnson-1239387957/",
+        "title": "EXCLUSIVE: Ugg Opens First Store in Five Years With New Brooklyn Location",
+        "url": "https://wwd.com/footwear-news/shoe-industry-news/ugg-williamsburg-brooklyn-store-details-interview-1239388341/",
         "source": "WWD",
-        "published": "2026-10-27T20:40:11.000Z",
+        "published": "2026-10-28T04:01:00.000Z",
         "image": "",
-        "summary": "They wore styles from Paul Andrew, Ferragamo and more."
+        "summary": "The 3,001-square-foot store is located at 129 North 6th Street."
+      },
+      {
+        "title": "EXCLUSIVE: Offe Market Raises $3 Million to Shake Up Off-Price Retail",
+        "url": "https://wwd.com/fashion-news/fashion-features/offe-market-3-million-seed-funding-off-price-retail-1239388003/",
+        "source": "WWD",
+        "published": "2026-10-28T04:01:00.000Z",
+        "image": "",
+        "summary": "The Los Angeles-based marketplace, founded by Rachel Gannon, is investing in AI-powered inventory management and personalized shopping as it expands its roster of more than 200 bra"
+      },
+      {
+        "title": "Amanda Seyfried Makes Her Tiffany & Co. Debut in a Holiday Film About Love and Family",
+        "url": "https://wwd.com/accessories-news/jewelry/amanda-seyfried-makes-tiffany-debut-holiday-film-about-love-1239387542/",
+        "source": "WWD",
+        "published": "2026-10-28T04:01:00.000Z",
+        "image": "",
+        "summary": "Directed by Derek Cianfrance, the jeweler’s latest campaign explores the memories and traditions that make a gift meaningful across generations."
+      },
+      {
+        "title": "How Fashion Should Think About AI",
+        "url": "https://wwd.com/business-news/technology/ai-impact-fashion-industry-future-1239386483/",
+        "source": "WWD",
+        "published": "2026-10-28T04:01:00.000Z",
+        "image": "",
+        "summary": "Navigating the promise and peril of an AI future in the fashion industry."
       }
     ],
     "markets": [
       {
-        "title": "Trump administration may let more Russian diesel onto market, energy secretary tells CNBC",
-        "url": "https://www.cnbc.com/2026/10/27/trump-putin-zelenskyy-russia-ukraine-diesel.html",
+        "title": "Meta- and Google-backed Jio Platforms’ shares soar over 21% on trading debut after record IPO",
+        "url": "https://www.cnbc.com/2026/10/28/jio-ipo-india-listing-.html",
         "source": "CNBC World",
-        "published": "2026-10-27T21:42:29.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108447261-1792683071904-gettyimages-2300877130-AFP_D44B7V6.jpeg?v=1792683181&w=1920&h=1080",
-        "summary": "The diesel volumes in the Trump-Putin deal won't materially lower prices because the shipments are small compared to total demand, analysts say."
+        "published": "2026-10-28T05:16:41.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108472576-1793163135126-gettyimages-2301839789-INDIA_JIO_IPO.jpeg?v=1793163164&w=1920&h=1080",
+        "summary": "Jio had offered 270 million shares in the IPO priced at 1,119 rupees apiece, raising 302 billion rupees ($3.2 billion) in the country's largest-ever IPO."
       },
       {
-        "title": "CoreWeave and other AI stocks rise as Anthropic restores the market’s faith in sustained spending",
-        "url": "https://www.marketwatch.com/story/coreweave-and-other-ai-stocks-rise-as-anthropic-restores-the-markets-faith-in-sustained-spending-c71d7186?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-27T21:41:00.000Z",
-        "image": "https://images.mktw.net/im-31372691",
-        "summary": "Now that investors have been able to dive further into Anthropic’s IPO filing, they’re seeing the same sorts of trends that helped buoy AI stocks for much of this year."
-      },
-      {
-        "title": "As Trump touts energy companies’ fortunes, U.S. consumers face the most expensive year for gas prices ever",
-        "url": "https://www.marketwatch.com/story/as-trump-touts-energy-companies-fortunes-u-s-consumers-face-the-most-expensive-year-for-gas-prices-ever-c467268c?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-27T21:29:00.000Z",
-        "image": "https://images.mktw.net/im-76497917",
-        "summary": "President Donald Trump can’t stop touting the fortunes U.S. energy companies have made during the Iran war, while canvassing the country to support Republican candidates ahead of n"
-      },
-      {
-        "title": "The rest of the market is leaving Big Tech behind after a historic comeback",
-        "url": "https://www.marketwatch.com/story/the-rest-of-the-market-is-leaving-big-tech-behind-after-a-historic-comeback-324e9fb2?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-27T21:28:00.000Z",
-        "image": "https://images.mktw.net/im-67253857",
-        "summary": "The artificial-intelligence trade carried the U.S. stock market in September. But in October, it is being carried out on a stretcher."
-      },
-      {
-        "title": "Polymarket faces renewed CFTC probe over U.S. access to offshore platform",
-        "url": "https://www.cnbc.com/2026/10/27/cftc-probes-polymarket-over-2022-settlement.html",
+        "title": "Trump jokes $5,000 would buy 'a hamburger and maybe a small dessert' at Mar-a-Lago as cost of living looms over midterms",
+        "url": "https://www.cnbc.com/2026/10/28/trump-jokes-5000-cash-would-buy-hamburger-and-dessert-at-mar-a-lago.html",
         "source": "CNBC World",
-        "published": "2026-10-27T21:24:06.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108225666-1763062879612-gettyimages-2245946454-NYSE_GOV_FUNDING.jpeg?v=1763063045&w=1920&h=1080",
-        "summary": "The federal agency had previously investigated whether Polymarket allowed U.S. users on to its offshore platform in 2024, but dropped the measures in July 2025."
+        "published": "2026-10-28T04:29:20.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108443181-1792612088462-gettyimages-2300763942-AFP_D3ZP8NR.jpeg?v=1792698410&w=1920&h=1080",
+        "summary": "Trump joked that the $5,000 payments for U.S. adults would buy little more than \"a hamburger and maybe a small dessert\" as cost of living looms over midterms."
       },
       {
-        "title": "Chart: Anthropic's cash pile towers over nearly every U.S. company",
-        "url": "https://www.cnbc.com/2026/10/27/anthropic-cash-investments-ipo.html",
+        "title": "Kylian Mbappé faces China backlash as sponsors cut ties over viral meme",
+        "url": "https://www.cnbc.com/2026/10/28/china-mbappe-football-sponsor-meme-controversy.html",
         "source": "CNBC World",
-        "published": "2026-10-27T21:22:03.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108470598-17931333942026-10-26t203636z_273947229_rc28boae0ddl_rtrmadp_0_anthropic-ipo.jpeg?v=1793133420&w=1920&h=1080",
-        "summary": "Anthropic's cash pile $131.7 billion is more than every non-bank U.S. company except for Berkshire Hathaway and Alphabet."
+        "published": "2026-10-28T03:33:53.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108471995-1793153124158-gettyimages-2301742439-AFP_D4J68CQ.jpeg?v=1793154769&w=1920&h=1080",
+        "summary": "Chinese state media has warned Kylian Mbappé that his apology over remarks referring to Mao Zedong as a dictator will be judged against his actions."
       },
       {
-        "title": "Retail traders buy the dip on chip stocks — but Robinhood gets burned by the crypto market",
-        "url": "https://www.marketwatch.com/story/retail-traders-buy-the-dip-on-chip-stocks-but-robinhood-gets-burned-by-the-crypto-market-33cea913?mod=mw_rss_topstories",
+        "title": "Trump says Iran war will end 'when I want it to' as costs reportedly balloon to $47 billion",
+        "url": "https://www.cnbc.com/2026/10/28/us-iran-war-trump-hormuz-costs-centcom.html",
+        "source": "CNBC World",
+        "published": "2026-10-28T03:02:44.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108469575-1793116126073-gettyimages-2301782444-AFP_D4L24FR.jpeg?v=1793116206&w=1920&h=1080",
+        "summary": "Trump's statement comes as a report from The Hill revealed that the costs of the Iran conflict has ballooned to $47 billion."
+      },
+      {
+        "title": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
+        "url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
+        "source": "CNBC World",
+        "published": "2026-10-28T02:57:36.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108472094-1793155944826-gettyimages-2234550101-jr_11473_jn99mcqi.jpeg?v=1793155965&w=1920&h=1080",
+        "summary": "The company reported a 45% to 50% year-on-year drop in third-quarter revenue."
+      },
+      {
+        "title": "Israel election appears to have no clear winner with Netanyahu, opponent Eisenkot far short of majorities",
+        "url": "https://www.cnbc.com/2026/10/28/israel-election-netanyahu-trump-gaza-.html",
+        "source": "CNBC World",
+        "published": "2026-10-28T02:15:55.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108471491-1793144780727-gettyimages-2301467717-AA_25102026_3009268.jpeg?v=1793144798&w=1920&h=1080",
+        "summary": "Exit polls show Prime Minister Benjamin Netanyahu's alliance and Gadi Eisenkot's opposition bloc both well off the numbers needed to form a governing majority."
+      },
+      {
+        "title": "A leading Silicon Valley cheerleader just showed all the reasons to be worried about the AI bubble",
+        "url": "https://www.marketwatch.com/story/a-leading-silicon-valley-cheerleader-just-showed-all-the-reasons-to-be-worried-about-the-ai-bubble-e3b32fe1?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-27T21:20:00.000Z",
-        "image": "https://images.mktw.net/im-325645",
-        "summary": "Robinhood CFO says market volatility didn’t scare traders away from buying chip stocks “that they had really done research on.”"
+        "published": "2026-10-28T02:15:00.000Z",
+        "image": "https://images.mktw.net/im-38942746",
+        "summary": "If you needed any further reasons to be worried about the bubble that has inflated the stock market, look no further."
+      },
+      {
+        "title": "SK Hynix shares soar over 8% as profit beats, chipmaker to return $25 billion to investors",
+        "url": "https://www.cnbc.com/2026/10/28/sk-hynix-third-quarter-profit.html",
+        "source": "CNBC World",
+        "published": "2026-10-28T01:56:59.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108333293-1783682220679-gettyimages-2283571654-SKOREA_SK_HYNIX.jpeg?v=1783682246&w=1920&h=1080",
+        "summary": "Shares of South Korean chipmaker SK Hynix soared over 8% on Wednesday as third-quarter profit sharply beats estimates."
       },
       {
         "title": "Anthropic's IPO is risky business",
         "url": "https://www.cnbc.com/2026/10/27/anthropic-five-surprising-risks-s1.html",
         "source": "CNBC World",
-        "published": "2026-10-27T21:17:27.000Z",
+        "published": "2026-10-28T00:43:59.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108368277-1790360556847-108368277-17903603812026-09-25t180005z_1304128046_rc29lnaagwzx_rtrmadp_0_usa-pentagon-anthropic-lawsuit.jpg?v=1790360568&w=1920&h=1080",
         "summary": "Anthropic's much-anticipated IPO is giving potential investors some perspective on the risky business of artificial intelligence."
-      },
-      {
-        "title": "Walmart says AI training is boosting confidence with the technology among its 2.1 million associates",
-        "url": "https://www.cnbc.com/2026/10/27/walmart-ai-training-workers.html",
-        "source": "CNBC World",
-        "published": "2026-10-27T21:15:35.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108470362-1793130525362-CNBC_WEC_SMMT_BB_102726_0840.jpg?v=1793130632&w=1920&h=1080",
-        "summary": "Walmart says training from OpenAI and Google is helping its 2.1 million associates feel more confident using AI and digital tools."
       }
     ]
   }
