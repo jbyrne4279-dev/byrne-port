@@ -254,10 +254,12 @@ const PROJECTS = [
     title:    'NEXT A/W 25/26 Collection',
     subtitle: 'Fashion Buying & Range Report',
     year:     '2024',
-    context:  'University,Buying & Merchandising,82% First Class (Top Score)',
+    context:  'University + Internship,Buying & Merchandising,82% First Class (Top Score)',
     description: [
       'A detailed A/W 25/26 buying report for NEXT. I took trend research and turned it into an actual product range, covering catwalk analysis, consumer insight, competitive research and proper range recommendations with pricing.',
-      'Got 82%, the top score in the module. NEXT\'s buying team liked it enough to send through a formal work experience offer, which was a proper result.'
+      'Got 82%, the top score in the module. NEXT\'s buying team liked it enough to send through a formal work experience offer, which was a proper result.',
+      'That offer turned into a Buying & Merchandising internship at NEXT in October 2026. I did competitor shopping, product benchmarking, moodboards and consumer trend analysis, helped analyse weekly sales and supported reforecasting and range decisions.',
+      'I also designed an AW26 outerwear collection through trend research, consumer profiles and CAD design, and it ended up winning an award.'
     ],
     skills: [
       'Fashion Buying', 'Range Planning', 'Market Research',
@@ -695,15 +697,15 @@ const PROJECTS = [
     title:    'North Hertfordshire Council',
     subtitle: 'Digital Compliance Platform & Supervisor Dashboard',
     year:     '2026',
-    context:  'Summer Role — Supervisor — Self-Initiated',
+    context:  'Summer Role · Supervisor · Self-Initiated',
     description: [
       'After being promoted to Supervisor at North Hertfordshire Council in Summer 2026, to help manage and run a Museum Cafe, Howard Park Kiosk and Bancroft Park Kiosk, I took some independent initiative to look into the systems and forms in which they presented themselves to the public, as they were struggling to keep these sites from shutting down due to unsustainable revenue.',
       'The first red flag that was apparent was their use of outdated and unengaging menus and a lack of physical advertising for key cash cow products.',
-      'So without being asked, I designed six new menus for these cash cow products — and just like that, sales went up.',
+      'So without being asked, I designed six new menus for these cash cow products, and sales went up straight away.',
       'Whilst designing these menus using ChatGPT\'s image model, I made sure to incorporate strong visual elements and eye-catching product images to create a better visual display of their product offerings and help better inform the consumer.',
-      'And let\'s just say it worked — here are the revenue figures from 2025 and 2026, with still the busiest month to come.',
+      'And let\'s just say it worked. Overall the new menus and operational changes drove 76% year-on-year revenue growth. Here are the monthly figures from 2025 and 2026, with the busiest month still to come when I pulled them.',
       '<div class="proj-table-wrap"><table class="proj-table"><thead><tr><th>Month</th><th>2025</th><th>2026 to 27 Jul</th><th>Uplift</th></tr></thead><tbody><tr><td>May</td><td>£9,113.72</td><td>£15,609.46</td><td class="proj-table__up">+71.27%</td></tr><tr><td>June</td><td>£9,784.83</td><td>£10,841.86</td><td class="proj-table__up">+10.80%</td></tr><tr><td>July</td><td>£7,700.27</td><td>£14,900.98</td><td class="proj-table__up">+93.51%</td></tr><tr><td>August</td><td>£16,038.29</td><td>£0.00</td><td class="proj-table__down">−100.00%</td></tr><tr><td>September</td><td>£1,117.57</td><td>£0.00</td><td class="proj-table__down">−100.00%</td></tr></tbody><tfoot><tr><td>Total</td><td>£43,754.68</td><td>£41,352.30</td><td></td></tr></tfoot></table></div>',
-      'Additionally, whilst working this role for a couple of months, I realised the inefficiency of our site log books that hold temperature readings, daily summaries and checklists — staff would often forget to fill them in, pages would get lost, and each book was bound to a single site, resulting in poor maintenance and a risk of low ratings when inspectors came around.',
+      'Additionally, whilst working this role for a couple of months, I realised the inefficiency of our site log books that hold temperature readings, daily summaries and checklists. Staff would often forget to fill them in, pages would get lost, and each book was bound to a single site, resulting in poor maintenance and a risk of low ratings when inspectors came around.',
       'So I decided to create a fully digital logging system which staff could access using the web and easily submit data to.',
       'Additionally, I also added a dashboard and tracking system that notified managers when days were missed and pinpointed the staff and task missed, allowing for hasty correction.',
       'Although none of these tasks were in my job description, I thought I would take advantage of this opportunity and provide value to my team and business.'
@@ -814,11 +816,12 @@ const PROJECTS = [
     title:    'Surveying Firm',
     subtitle: 'Web Development & Performance Marketing',
     year:     '2026',
-    context:  'Freelance — Web Development & Go-to-Market',
+    context:  'Freelance · Web Development & Go-to-Market',
     description: [
       'I led the digital development and go-to-market strategy for two Reinstatement Cost Assessment businesses, taking them from initial market research and competitor analysis through to website development, digital marketing and launch.',
       'I identified gaps in the existing market and built bespoke websites using AI-assisted development workflows with Claude Code, incorporating technical SEO, local SEO, lead-generation forms and cloud-based hosting infrastructure. After launch, I planned and optimised Google Search campaigns focused on high-intent queries, and implemented GA4, Google Tag Manager, conversion tracking and event tracking to create a measurable acquisition funnel and monitor performance.',
-      'Within the first month the campaigns generated 18 qualified enquiries and 10 new clients from just £80 in advertising spend, showing the commercial impact of combining web development, performance marketing and data-driven optimisation.'
+      'Within the first month the campaigns generated 18 qualified enquiries and 10 new clients from just £80 in advertising spend.',
+      'I\'ve kept tuning the Google Ads campaign since, using keyword research and Google Keyword Planner to sharpen the landing pages. Cost per acquisition has dropped by 87.1% and the campaign now returns 3.60x its ad spend.'
     ],
     skills: [
       'Web Development', 'AI-Assisted Development', 'Technical SEO',
