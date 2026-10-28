@@ -660,9 +660,7 @@
   }
 
   /* ── Prize wheel (end screen) ── */
-  // One spin per device. The odds are decided here, before the wheel moves:
-  // 1 in 1,000 wins. The £50 slice is drawn small so the wheel doesn't
-  // suggest better odds than that.
+  // One spin per device. The result is decided here, before the wheel moves.
   const SPIN_KEY = 'jb-survey-spin-v1';
   const WIN_ODDS = 0.001;
   const WIN_SLICE = 12;                       // degrees, centred on the top of the wheel
