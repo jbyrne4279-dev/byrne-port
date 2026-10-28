@@ -354,3 +354,32 @@
   background: rgba(242,193,78,.07); font-size: 14px; line-height: 1.55; color: var(--sv-label-2);
 }
 .sv-incentive b { display: block; margin-bottom: 2px; font: 700 10px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: #f2c14e; }
+
+/* ── Intro fits on one phone screen ── */
+@media (max-width: 600px) {
+  .sv-page:has(.sv-hero) { padding-top: calc(var(--nav-h) + 14px); padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+  .sv-hero .sv-eyebrow { margin-bottom: 6px; font-size: 13px; }
+  .sv-hero .sv-title { font-size: clamp(28px, 8.4vw, 40px); }
+  .sv-hero .sv-title .sv-title__ai { margin-bottom: 2px; }
+  .sv-hero .sv-lede { margin-top: 10px; font-size: 14.5px; line-height: 1.45; }
+  .sv-hero .sv-rq { margin-top: 8px; padding: 2px 0 2px 12px; font-size: 15.5px; line-height: 1.35; }
+  .sv-facts { flex-wrap: nowrap; gap: 6px; margin-top: 12px; }
+  .sv-facts li { padding: 5px 10px; font-size: 12.5px; white-space: nowrap; }
+  .sv-incentive { margin-top: 10px; padding: 9px 12px; font-size: 13px; line-height: 1.4; border-radius: 12px; }
+  .sv-incentive b { margin-bottom: 1px; font-size: 9px; }
+  .sv-agree { gap: 12px; margin-top: 10px; padding: 10px 12px; border-radius: 12px; }
+  .sv-agree__box { width: 30px; height: 30px; border-radius: 8px; }
+  .sv-agree__box svg { width: 18px; height: 18px; }
+  .sv-agree__text { font-size: 13.5px; line-height: 1.35; }
+  .sv-agree__text b { margin-bottom: 0; font-size: 14.5px; }
+  .sv-hero .sv-btn { margin-top: 10px; }
+  .sv-consent { margin-top: 12px; padding: 10px 14px; font-size: 13px; border-radius: 12px; }
+}
+@media (max-width: 600px) and (max-height: 620px) {
+  .sv-page:has(.sv-hero) { padding-top: calc(var(--nav-h) + 6px); }
+  .sv-hero .sv-title { font-size: 28px; }
+  .sv-hero .sv-lede, .sv-hero .sv-rq { font-size: 14px; }
+  .sv-incentive { font-size: 12.5px; padding: 8px 11px; }
+  .sv-agree { padding: 8px 11px; }
+  .sv-hero .sv-btn { height: 48px; min-height: 0; }
+}

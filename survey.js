@@ -123,6 +123,12 @@
   const keyFor = i => String.fromCharCode(65 + i);
   const TICK = '<svg class="sv-opt__tick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  // Arrow keys also "click" radios. Those shouldn't jump ahead, but a tap
+  // should, even when iOS reports the tap through the label with detail 0.
+  let lastArrow = 0;
+  document.addEventListener('keydown', e => { if (e.key.startsWith('Arrow') || e.key === ' ') lastArrow = Date.now(); }, true);
+  const fromArrowKey = e => e.detail === 0 && Date.now() - lastArrow < 500;
+
   /* ── Rendering ── */
   function head(step) {
     const opt = step.optional ? '<span class="sv-optional">Optional</span>' : '';
@@ -380,7 +386,7 @@
         // Single choice: a tap/click moves on by itself (not arrow keys, which also "change")
         if (step.type === 'single') {
           input.addEventListener('click', e => {
-            if (e.detail === 0) return;
+            if (fromArrowKey(e)) return;
             if (step.other && input.value === step.other) { setTimeout(() => otherText.focus(), 30); return; }
             setTimeout(() => { if (isAnswered(step)) next(); }, reduceMotion ? 120 : 280);
           });
@@ -424,7 +430,7 @@
           updateChrome(step);
         });
         input.addEventListener('click', e => {
-          if (e.detail === 0) return;
+          if (fromArrowKey(e)) return;
           setTimeout(() => { if (isAnswered(step)) next(); }, reduceMotion ? 120 : 280);
         });
       });
@@ -626,38 +632,42 @@
     return out;
   }
 
+  // The thank-you screen shows straight away and the answers send in the
+  // background. Until Formspree confirms, they wait in an outbox on this
+  // device and are retried on the next visit or when the connection returns.
+  const OUTBOX_KEY = 'jb-survey-outbox';
   let sending = false;
-  async function submit() {
-    if (sending) return;
-    if (trap.value) { clearSaved(); showEnd('done'); return; }   // bot: pretend it worked
+
+  function flushOutbox() {
+    let body;
+    try { body = localStorage.getItem(OUTBOX_KEY); } catch (e) { return; }
+    if (!body || sending || !ENDPOINT) return;
     sending = true;
-    nextBtn.disabled = true;
-    nextBtn.textContent = 'Sending…';
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload())
-      });
-      if (!res.ok) throw new Error('Bad response ' + res.status);
-      const sc = spotScore();
-      clearSaved();
-      state = { answers: {}, history: [], idx: 0, started: null };
-      showEnd('done', sc);
-    } catch (err) {
-      nextBtn.disabled = false;
-      nextBtn.textContent = 'Try again';
-      let msg = document.getElementById('svErr');
-      if (!msg) {
-        msg = document.createElement('p');
-        msg.className = 'sv-error'; msg.id = 'svErr'; msg.setAttribute('role', 'alert');
-        stage.appendChild(msg);
-      }
-      msg.textContent = 'Couldn’t send just now. Your answers are saved on this device, so check your connection and try again.';
-    } finally {
-      sending = false;
-    }
+    fetch(ENDPOINT, {
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body
+    }).then(res => {
+      if (res.ok) { try { localStorage.removeItem(OUTBOX_KEY); } catch (e) {} }
+    }).catch(() => {}).finally(() => { sending = false; });
   }
+
+  function submit() {
+    if (trap.value) { clearSaved(); showEnd('done'); return; }   // bot: pretend it worked
+    const body = JSON.stringify(payload());
+    let queued = false;
+    try { localStorage.setItem(OUTBOX_KEY, body); queued = true; } catch (e) {}
+    if (queued) flushOutbox();
+    else fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body }).catch(() => {});
+    const sc = spotScore();
+    clearSaved();
+    state = { answers: {}, history: [], idx: 0, started: null };
+    showEnd('done', sc);
+  }
+
+  flushOutbox();
+  window.addEventListener('online', flushOutbox);
 
   /* ── Prize wheel (end screen) ── */
   // One spin per device. The result is decided here, before the wheel moves.
