@@ -218,6 +218,7 @@
         <p class="sv-lede">A short, anonymous survey for my dissertation on GenAI and fashion marketing. It asks:</p>
         <blockquote class="sv-rq">How do people start using GenAI, and how do they feel when fashion brands use it?</blockquote>
         <ul class="sv-facts"><li>About 3 mins</li><li>Anonymous</li><li>Spin to win £50</li></ul>
+        <p class="sv-incentive"><b>Prize incentive</b>Everyone who finishes gets one spin of a prize wheel with a 1 in 1,000 chance of winning £50. Your answers make no difference to your chance of winning.</p>
         <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
           <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
           <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -229,7 +230,9 @@
           <ul>
             <li>Taking part is voluntary. Nothing is sent until you finish.</li>
             <li>No names are collected. Answers are only reported anonymously.</li>
-            <li>Finish the survey to get one spin of the prize wheel, with a 1 in 1,000 chance of winning £50.</li>
+            <li>Prize incentive: finishing the survey gives you one spin of a prize wheel, with a 1 in 1,000 chance of winning £50. The prize is paid by the researcher.</li>
+            <li>Your answers have no effect on the result, and a winning code is not linked to your answers.</li>
+            <li>The draw is free, one spin per person, open to UK residents aged 18 and over. Winners claim by email within 30 days and are paid by bank transfer.</li>
             <li>Questions? <a href="mailto:jbyrne4279@gmail.com">jbyrne4279@gmail.com</a></li>
           </ul>
         </details>
