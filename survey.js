@@ -8,14 +8,14 @@
 
 (function initSurvey() {
   const ENDPOINT = (document.querySelector('meta[name="survey-endpoint"]') || {}).content || '';
-  const STORE_KEY = 'jb-aifashion-public-v2';
+  const STORE_KEY = 'jb-aifashion-public-v3';
   // Bump with each change so responses show which version of the page sent them
-  const SURVEY_VERSION = 'public-2';
+  const SURVEY_VERSION = 'public-3';
 
-  const AGREE_ENDS = ['Strongly disagree', 'Strongly agree'];
+  const AGREE = ['Strongly disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly agree'];
 
-  // "Spot the AI" rounds. Each shows two fashion images side by side; exactly
-  // one has ai:true. Swap the src files for real pairs and set which is AI.
+  // "scale" steps are one-line Likert questions: labels run from the low end
+  // to the high end and the answer is stored as 1..labels.length.
   const STEPS = [
     { id: 'intro', type: 'intro' },
 
@@ -23,81 +23,64 @@
     { id: 'age', type: 'single', section: 'About you', columns: 2,
       q: 'How old are you?',
       options: ['18–24', '25–34', '35–44', '45–54', '55+'] },
-    { id: 'gender', type: 'single', section: 'About you', optional: true,
-      q: 'How do you describe your gender?',
-      options: ['Male', 'Female', 'Other'] },
-    { id: 'shops', type: 'single', section: 'About you', columns: 2,
-      q: 'How often do you buy clothes online?',
-      options: ['Weekly', 'Monthly', 'Every few months', 'Rarely'] },
 
-    /* ── Awareness ── */
-    { id: 'aware', type: 'single', section: 'AI in fashion', columns: 2,
-      q: 'What percentage of fashion brands do you think use AI in their marketing?',
-      help: 'Think AI-generated models and images, ad campaigns, product photos, chatbots and personalised emails.',
-      options: ['Under 10%', '10–25%', '25–50%', '50–75%', 'More than 75%'] },
-    { id: 'seen', type: 'single', section: 'AI in fashion',
-      q: 'Do you think you’ve seen AI-generated fashion images without being told?',
-      options: ['Yes, definitely', 'Probably', 'Not sure', 'Probably not'] },
+    /* ── Using GenAI ── */
+    { id: 'first_use', type: 'single', section: 'Using GenAI', columns: 2,
+      q: 'When did you first use a GenAI tool (e.g. ChatGPT)?',
+      options: ['Before 2022', '2022', '2023', '2024', '2025 or later', 'Never'] },
+    { id: 'why_try', type: 'multi', section: 'Using GenAI',
+      q: 'What first made you try GenAI?',
+      help: 'Select all that apply.',
+      options: ['Easy to use', 'Free', 'Recommended by someone', 'Needed it for uni or work', 'Curiosity', 'Saw it online or in the news'] },
+    { id: 'ease', type: 'scale', section: 'Using GenAI',
+      q: 'How easy is GenAI to use?',
+      labels: ['Very difficult', 'Difficult', 'Neutral', 'Easy', 'Very easy'] },
+    { id: 'overhyped', type: 'scale', section: 'Using GenAI',
+      q: '“GenAI is overhyped.”', help: 'How much do you agree?',
+      labels: AGREE },
+    { id: 'how_often', type: 'single', section: 'Using GenAI', columns: 2,
+      q: 'How often do you use GenAI now?',
+      options: ['Daily', 'Weekly', 'Monthly', 'Rarely', 'Never'] },
 
-    /* ── Spot the AI (image test) ── */
-    { id: 'spot1', type: 'imagepick', section: 'Spot the AI',
-      q: 'Which one do you think was made with AI?',
-      help: 'Go with your gut — tap the image you think is AI-generated.',
-      images: [
-        { src: 'assets/survey/spot1-a.svg', alt: 'Fashion image, option A', ai: false },
-        { src: 'assets/survey/spot1-b.svg', alt: 'Fashion image, option B', ai: true }
-      ], allowUnsure: true },
-    { id: 'spot2', type: 'imagepick', section: 'Spot the AI',
-      q: 'And this pair — which is the AI one?',
-      images: [
-        { src: 'assets/survey/spot2-a.svg', alt: 'Fashion image, option A', ai: true },
-        { src: 'assets/survey/spot2-b.svg', alt: 'Fashion image, option B', ai: false }
-      ], allowUnsure: true },
-    { id: 'spot3', type: 'imagepick', section: 'Spot the AI',
-      q: 'Last one — which do you think is AI?',
-      images: [
-        { src: 'assets/survey/spot3-a.svg', alt: 'Fashion image, option A', ai: false },
-        { src: 'assets/survey/spot3-b.svg', alt: 'Fashion image, option B', ai: true }
-      ], allowUnsure: true },
+    /* ── AI in fashion ── */
+    { id: 'noticed', type: 'single', section: 'AI in fashion', columns: 2,
+      q: 'Have you noticed fashion brands using AI-generated images or content?',
+      options: ['Yes, often', 'Yes, sometimes', 'No', 'Not sure'] },
+    { id: 'feel', type: 'scale', section: 'AI in fashion',
+      q: 'How do you feel about fashion brands using AI-generated models or images?',
+      labels: ['Very negative', 'Negative', 'Neutral', 'Positive', 'Very positive'] },
+    { id: 'trust', type: 'scale', section: 'AI in fashion',
+      q: 'If you found out a fashion ad was AI-generated, how would you trust the brand?',
+      labels: ['Much less', 'A little less', 'No change', 'A little more', 'Much more'] },
+    { id: 'matters', type: 'single', section: 'AI in fashion', columns: 2,
+      q: 'What matters more to you in fashion images?',
+      options: ['Whether it’s real or AI', 'How good it looks', 'Both equally', 'Neither'] },
+    { id: 'less_likely', type: 'scale', section: 'AI in fashion',
+      q: '“I would be less likely to buy from a brand that uses AI-generated models.”', help: 'How much do you agree?',
+      labels: AGREE },
+    { id: 'disclose', type: 'single', section: 'AI in fashion',
+      q: 'Should fashion brands have to say when content is AI-generated?',
+      options: ['Yes', 'No', 'Not sure'] },
 
-    /* ── How you feel ── */
-    { id: 'care', type: 'single', section: 'How you feel',
-      q: 'Do you care whether a fashion brand’s images are made by AI?',
-      options: ['Yes', 'No'] },
-    { id: 'notice', type: 'single', section: 'How you feel', columns: 2,
-      q: 'How often do you notice AI being used in fashion?',
-      options: ['All the time', 'Often', 'Sometimes', 'Rarely', 'Never'] },
-    { id: 'trust', type: 'single', section: 'How you feel',
-      q: 'Does a brand using AI change how much you trust it?',
-      options: ['Trust a lot less', 'Trust a little less', 'No change', 'Trust a little more', 'Trust a lot more'] },
-    { id: 'buy', type: 'single', section: 'How you feel',
-      q: 'Would you be less likely to buy from a brand that uses AI models instead of real people?',
-      options: ['Yes, much less likely', 'A bit less likely', 'No difference', 'Actually more likely'] },
-    { id: 'label', type: 'single', section: 'How you feel', columns: 2,
-      q: 'Should brands have to label AI-generated marketing images?',
-      options: ['Yes, always', 'Only sometimes', 'No', 'Not sure'] },
+    /* ── Skills and careers ── */
+    { id: 'training', type: 'single', section: 'Skills and careers',
+      q: 'Have you had any training in using GenAI?',
+      options: ['Yes, a lot', 'Yes, a little', 'No'] },
+    { id: 'confidence', type: 'scale', section: 'Skills and careers',
+      q: 'How confident are you using GenAI for marketing tasks?',
+      labels: ['Not confident', 'Slightly confident', 'Fairly confident', 'Very confident'] },
+    { id: 'career', type: 'single', section: 'Skills and careers',
+      q: 'Do you expect to use GenAI in your future career?',
+      options: ['Yes', 'Maybe', 'No'] },
+    { id: 'jobs_worry', type: 'scale', section: 'Skills and careers',
+      q: 'How worried are you that GenAI could reduce jobs in fashion marketing?',
+      labels: ['Not worried', 'Slightly worried', 'Quite worried', 'Very worried'] },
 
-    { id: 'views', type: 'likert', section: 'Your views', ends: AGREE_ENDS,
-      q: 'How much do you agree?',
-      help: '1 is strongly disagree, 5 is strongly agree.',
-      statements: [
-        ['looks_good', 'AI-generated fashion images can look just as good as real photos.'],
-        ['dishonest', 'Using AI to make ads without saying so feels dishonest.'],
-        ['real_models', 'Brands should keep using real human models, not AI ones.'],
-        ['modern', 'A brand using AI feels more modern and innovative.'],
-        ['jobs', 'I worry AI will take work from photographers, models and designers.'],
-        ['ok_if_labelled', 'I’m fine with AI images as long as they’re clearly labelled.']
-      ] },
-
-    { id: 'words', type: 'text', section: 'In your words', optional: true,
-      q: 'How do you feel about fashion brands using AI?',
+    /* ── In your words ── */
+    { id: 'thoughts', type: 'text', section: 'In your words', optional: true,
+      q: 'Any other thoughts on AI in fashion marketing?',
       help: 'A sentence is plenty. This may be quoted anonymously.',
-      placeholder: 'Type as much or as little as you like…' },
-
-    { id: 'contact', type: 'email', section: 'Last one', optional: true,
-      q: 'Happy to chat about this in a short interview?',
-      help: 'I run quick, friendly chats on Microsoft Teams about how people see AI in fashion. Leave your email and I’ll be in touch. It’s kept separate from your answers and never shared.',
-      placeholder: 'you@example.com' }
+      placeholder: 'Type as much or as little as you like…' }
   ];
 
   /* ── Elements ── */
@@ -187,6 +170,17 @@
     return `${head(step)}<div class="sv-likert">${rows}</div>`;
   }
 
+  function renderScale(step) {
+    const v = A()[step.id];
+    const n = step.labels.length;
+    const pts = step.labels.map((label, i) =>
+      `<label><input type="radio" name="${step.id}" value="${i + 1}"${v === i + 1 ? ' checked' : ''} aria-label="${esc(label)}"><span>${i + 1}</span><em>${esc(label)}</em></label>`
+    ).join('');
+    return `${head(step)}
+      <div class="sv-scale sv-scale--words" style="--n:${n}" role="radiogroup" aria-labelledby="svQ">${pts}</div>
+      <p class="sv-hint">Tip: press <kbd>1</kbd>–<kbd>${n}</kbd> to choose.</p>`;
+  }
+
   function renderImagePick(step) {
     const current = A()[step.id];
     const cards = step.images.map((im, i) => {
@@ -221,9 +215,9 @@
     return `<div class="sv-hero">
         <p class="sv-eyebrow">University dissertation survey</p>
         <h1 class="sv-title" id="svQ" tabindex="-1"><span class="sv-title__ai">AI in<span class="sv-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span><span class="sv-title__line">Fashion <span>Marketing</span></span></h1>
-        <p class="sv-lede">A short, anonymous survey for my dissertation on how the UK public sees AI in fashion. It asks:</p>
-        <blockquote class="sv-rq">Can people tell when fashion marketing is made by AI — and do they even care?</blockquote>
-        <ul class="sv-facts"><li>About 90s</li><li>Anonymous</li><li>Spot-the-AI game</li></ul>
+        <p class="sv-lede">A short, anonymous survey for my dissertation on GenAI and fashion marketing. It asks:</p>
+        <blockquote class="sv-rq">How do people start using GenAI, and how do they feel when fashion brands use it?</blockquote>
+        <ul class="sv-facts"><li>About 3 mins</li><li>Anonymous</li><li>Spin to win £50</li></ul>
         <label class="sv-agree${A().consent ? ' is-on' : ''}" id="svAgree">
           <input type="checkbox" id="svConsent"${A().consent ? ' checked' : ''}>
           <span class="sv-agree__box" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -235,6 +229,7 @@
           <ul>
             <li>Taking part is voluntary. Nothing is sent until you finish.</li>
             <li>No names are collected. Answers are only reported anonymously.</li>
+            <li>Finish the survey to get one spin of the prize wheel, with a 1 in 1,000 chance of winning £50.</li>
             <li>Questions? <a href="mailto:jbyrne4279@gmail.com">jbyrne4279@gmail.com</a></li>
           </ul>
         </details>
@@ -244,7 +239,7 @@
   function renderEnd(kind, data) {
     const copy = kind === 'screenout'
       ? ['Thanks for stopping by', 'This study focuses on the UK public, so there’s nothing more to fill in here. Thanks for your interest all the same.']
-      : ['Thank you', 'That’s really helpful — your answers are in and will help shape the findings. Sharing the link with a few friends would mean a lot.'];
+      : ['Thank you', 'Your answers are in and will help shape the findings. Sharing the link with a few friends would mean a lot.'];
     const score = (kind === 'done' && data && data.total)
       ? `<div class="sv-end__score"><span class="sv-end__score-num">${data.correct} / ${data.total}</span><span class="sv-end__score-label">AI images spotted correctly${data.skipped ? ` · ${data.skipped} you couldn’t call` : ''}</span></div>`
       : '';
@@ -254,6 +249,7 @@
         <h1 class="sv-q" id="svQ" tabindex="-1">${copy[0]}</h1>
         <p class="sv-lede">${copy[1]}</p>
         ${score}
+        ${kind === 'done' ? renderWheel() : ''}
         <div class="sv-end__actions">
           <button type="button" class="sv-btn sv-btn--ghost" id="svShare">Share the survey</button>
           <a class="sv-btn" href="/">Back to portfolio</a>
@@ -304,6 +300,7 @@
     if (step.type === 'intro') html = renderIntro();
     else if (step.type === 'end') html = renderEnd(step.kind);
     else if (step.type === 'likert') html = renderLikert(step);
+    else if (step.type === 'scale') html = renderScale(step);
     else if (step.type === 'imagepick') html = renderImagePick(step);
     else if (step.type === 'text' || step.type === 'email') html = renderText(step);
     else html = renderChoice(step);
@@ -341,6 +338,7 @@
 
     if (step.type === 'end') {
       document.getElementById('svShare').addEventListener('click', share);
+      bindWheel();
       return;
     }
 
@@ -410,6 +408,21 @@
               nextRow.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
             }
           }
+        });
+      });
+      return;
+    }
+
+    if (step.type === 'scale') {
+      stage.querySelectorAll(`input[name="${step.id}"]`).forEach(input => {
+        input.addEventListener('change', () => {
+          state.answers[step.id] = Number(input.value);
+          save();
+          updateChrome(step);
+        });
+        input.addEventListener('click', e => {
+          if (e.detail === 0) return;
+          setTimeout(() => { if (isAnswered(step)) next(); }, reduceMotion ? 120 : 280);
         });
       });
       return;
@@ -514,7 +527,17 @@
       next();
       return;
     }
-    if (typing || (step.type !== 'single' && step.type !== 'multi')) return;
+    if (typing) return;
+    if (step.type === 'scale') {
+      const box = stage.querySelectorAll(`input[name="${step.id}"]`)[Number(e.key) - 1];
+      if (!box) return;
+      e.preventDefault();
+      box.checked = true;
+      box.dispatchEvent(new Event('change'));
+      setTimeout(() => { if (isAnswered(step)) next(); }, reduceMotion ? 120 : 280);
+      return;
+    }
+    if (step.type !== 'single' && step.type !== 'multi') return;
     const i = e.key.length === 1 ? e.key.toUpperCase().charCodeAt(0) - 65 : -1;
     const input = stage.querySelectorAll(`input[name="${step.id}"]`)[i];
     if (!input || input.disabled) return;
@@ -556,12 +579,17 @@
       'Consent given': a.consent ? 'Yes' : 'No',
       'Submitted at': new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
       'Time taken': state.started ? `${Math.max(1, Math.round((Date.now() - state.started) / 1000))} seconds` : '',
-      'Device': window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'Mobile or tablet' : 'Desktop',
-      'Spot-the-AI score': `${sc.correct}/${sc.total}` + (sc.skipped ? ` (${sc.skipped} skipped)` : '')
+      'Device': window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700 ? 'Mobile or tablet' : 'Desktop'
     };
+    if (sc.total) out['Spot-the-AI score'] = `${sc.correct}/${sc.total}` + (sc.skipped ? ` (${sc.skipped} skipped)` : '');
+    let num = 0;
     STEPS.forEach(s => {
       if (s.type === 'intro') return;
       const v = a[s.id];
+      if (s.type === 'scale') {
+        out[`${++num}. ${s.q}`] = v ? `${s.labels[v - 1]} (${v}/${s.labels.length})` : '';
+        return;
+      }
       if (s.type === 'likert') {
         s.statements.forEach(([k, text]) => {
           out[`Agree? ${text}`] = !isShown(s) ? '(not asked)' : (v && v[k]) ? `${AGREE_LABELS[v[k]]} (${v[k]}/5)` : '';
@@ -581,8 +609,9 @@
         return;
       }
       if (!isShown(s)) { out[s.q] = '(not asked)'; return; }
-      out[s.q] = Array.isArray(v) ? v.join('; ') : (v || '');
-      if (s.other && a[s.id + '_other']) out[`${s.q} (their own answer)`] = a[s.id + '_other'].trim();
+      const title = `${++num}. ${s.q}`;
+      out[title] = Array.isArray(v) ? v.join('; ') : (v || '');
+      if (s.other && a[s.id + '_other']) out[`${title} (their own answer)`] = a[s.id + '_other'].trim();
       if (s.toe) {
         // Group the picked options under the TOE framework heading they belong to
         ['T', 'O', 'E'].forEach(f => {
@@ -625,6 +654,112 @@
     } finally {
       sending = false;
     }
+  }
+
+  /* ── Prize wheel (end screen) ── */
+  // One spin per device. The odds are decided here, before the wheel moves:
+  // 1 in 1,000 wins. The £50 slice is drawn small so the wheel doesn't
+  // suggest better odds than that.
+  const SPIN_KEY = 'jb-survey-spin-v1';
+  const WIN_ODDS = 0.001;
+  const WIN_SLICE = 12;                       // degrees, centred on the top of the wheel
+  const LOSE_SLICES = 6;
+
+  function spinRecord() {
+    try { return JSON.parse(localStorage.getItem(SPIN_KEY) || 'null'); } catch (e) { return null; }
+  }
+
+  function wheelSvg() {
+    const pt = (deg, r) => {
+      const a = deg * Math.PI / 180;
+      return `${(Math.sin(a) * r).toFixed(2)} ${(-Math.cos(a) * r).toFixed(2)}`;
+    };
+    const slice = (a1, a2, cls) =>
+      `<path class="${cls}" d="M0 0 L${pt(a1, 96)} A96 96 0 ${a2 - a1 > 180 ? 1 : 0} 1 ${pt(a2, 96)} Z"/>`;
+    const label = (mid, text, cls) =>
+      `<text class="${cls}" transform="rotate(${mid}) translate(0 -62) rotate(90)" text-anchor="middle" dominant-baseline="central">${text}</text>`;
+    const half = WIN_SLICE / 2;
+    const step = (360 - WIN_SLICE) / LOSE_SLICES;
+    let paths = slice(-half, half, 'sv-wheel__win');
+    let labels = label(0, '£50', 'sv-wheel__win-text');
+    for (let i = 0; i < LOSE_SLICES; i++) {
+      const a1 = half + i * step;
+      paths += slice(a1, a1 + step, i % 2 ? 'sv-wheel__b' : 'sv-wheel__a');
+      labels += label(a1 + step / 2, 'No prize', 'sv-wheel__text');
+    }
+    return `<svg class="sv-wheel__disc" id="svDisc" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="99" class="sv-wheel__rim"/>${paths}${labels}<circle r="14" class="sv-wheel__hub"/></svg>`;
+  }
+
+  function wheelResult(rec) {
+    if (!rec) return '';
+    if (!rec.won) return `<p class="sv-wheel__msg">Not this time. Thanks so much for taking part.</p>`;
+    const mail = `mailto:jbyrne4279@gmail.com?subject=${encodeURIComponent('Survey prize claim ' + rec.code)}&body=${encodeURIComponent('Hi Joe, I won the £50 on the survey wheel. My code is ' + rec.code + '.')}`;
+    return `<div class="sv-wheel__won">
+        <p class="sv-wheel__msg"><b>You won £50!</b> Screenshot this code and email it to claim.</p>
+        <p class="sv-wheel__code">${esc(rec.code)}</p>
+        <a class="sv-btn" href="${mail}">Email my code to claim</a>
+      </div>`;
+  }
+
+  function renderWheel() {
+    const rec = spinRecord();
+    return `<div class="sv-wheel" id="svWheel">
+        <p class="sv-eyebrow">Prize wheel</p>
+        <h2 class="sv-wheel__title">Spin for a chance to win £50</h2>
+        <div class="sv-wheel__frame${rec ? ' is-done' : ''}">
+          <span class="sv-wheel__pointer" aria-hidden="true"></span>
+          ${wheelSvg()}
+        </div>
+        <div id="svWheelOut" aria-live="polite">${rec ? wheelResult(rec) : '<button type="button" class="sv-btn" id="svSpin">Spin the wheel</button>'}</div>
+        <p class="sv-wheel__terms">Free prize draw, no purchase needed. One spin per person. Each spin has a 1 in 1,000 chance of winning £50. Winners claim by emailing their code within 30 days and are paid by bank transfer. UK residents aged 18 and over.</p>
+      </div>`;
+  }
+
+  function claimCode() {
+    const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const bytes = new Uint8Array(6);
+    (window.crypto || {}).getRandomValues ? crypto.getRandomValues(bytes) : bytes.forEach((_, i) => { bytes[i] = Math.random() * 256; });
+    return 'JB-' + [...bytes].map(b => abc[b % abc.length]).join('');
+  }
+
+  function bindWheel() {
+    const btn = document.getElementById('svSpin');
+    const disc = document.getElementById('svDisc');
+    if (!btn || !disc) return;
+    btn.addEventListener('click', () => {
+      if (spinRecord()) return;
+      btn.disabled = true;
+      btn.textContent = 'Spinning…';
+      const won = Math.random() < WIN_ODDS;
+      const rec = { won, at: Date.now() };
+      if (won) rec.code = claimCode();
+      try { localStorage.setItem(SPIN_KEY, JSON.stringify(rec)); } catch (e) {}
+      if (won && ENDPOINT) {
+        // Log the code so a claim can be checked against it
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ _subject: 'Survey prize wheel: WINNER', 'Winning code': rec.code, 'Won at': new Date().toLocaleString('en-GB') })
+        }).catch(() => {});
+      }
+
+      // Where the pointer lands, in degrees clockwise from the top of the wheel
+      const half = WIN_SLICE / 2;
+      const land = won
+        ? (Math.random() - 0.5) * (WIN_SLICE - 4)
+        : half + 4 + Math.random() * (360 - WIN_SLICE - 8);
+      const turns = reduceMotion ? 0 : 6;
+      const deg = turns * 360 + (360 - land);
+      const ms = reduceMotion ? 0 : 5200;
+      disc.style.transition = `transform ${ms}ms cubic-bezier(.12,.7,.15,1)`;
+      disc.style.transform = `rotate(${deg}deg)`;
+
+      setTimeout(() => {
+        document.getElementById('svWheelOut').innerHTML = wheelResult(rec);
+        disc.closest('.sv-wheel__frame').classList.add('is-done');
+        if (won) [0.2, 0.5, 0.8].forEach((f, i) => setTimeout(() => confetti.burst(innerWidth * f, innerHeight * 0.4, 80, 12), i * 200));
+      }, ms + 150);
+    });
   }
 
   /* ── Share (end screen) ── */
