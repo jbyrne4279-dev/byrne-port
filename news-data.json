@@ -1,113 +1,161 @@
 {
-  "generatedAt": "2026-10-28T05:42:19.261Z",
+  "generatedAt": "2026-10-28T12:54:32.225Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Australian politics live: Coalition MP ejected from question time after swearing at PM; Payman apologises to Haines for comments after alleged attack",
-        "url": "https://www.theguardian.com/australia-news/live/2026/oct/28/inflation-abs-labor-anthony-albanese-parliament-greens-david-shoebridge-one-nation-ntwnfb",
+        "title": "Budget 2026 live: Healey delivers first budget of Burnham’s government",
+        "url": "https://www.theguardian.com/uk-news/live/2026/oct/28/budget-2026-latest-updates-john-healey-andy-burnham-labour-uk-politics",
         "source": "The Guardian",
-        "published": "2026-10-28T05:19:26.000Z",
-        "image": "https://i.guim.co.uk/img/media/61bee9f3389f0747d84071aeaf42e7e17ab85fdd/498_0_4959_3969/master/4959.jpg?width=140&quality=85&auto=format&fit=max&s=2b9414b5e823522f0b913cc0a24c9ebc",
-        "summary": "Get our breaking news email , free app or daily news podcast Online hate is spilling into the real world, AFP warns AFP Commissioner Krissy Barrett began her late-night appearance "
+        "published": "2026-10-28T12:39:54.000Z",
+        "image": "https://i.guim.co.uk/img/media/c8ace73fe915efcec82bcb23c8525e5de902f5b2/283_0_2969_2375/master/2969.jpg?width=140&quality=85&auto=format&fit=max&s=11de98e273e0b484feb6cae4117efc75",
+        "summary": "Chancellor warns of ‘global economic storms’ threatening UK economy Martin Lewis said that, when he met John Healey this morning, the chancellor said that, having removed standing "
       },
       {
-        "title": "Israel election results live: exit polls point to tie between Netanyahu and Eisenkot blocs",
+        "title": "Judge rules Trump-appointed US prosecutor in Los Angeles is not serving legally – US politics live",
+        "url": "https://www.theguardian.com/us-news/live/2026/oct/28/trump-administration-bill-essayli-republicans-flavio-bolsonaro-us-news-latest",
+        "source": "The Guardian",
+        "published": "2026-10-28T12:39:40.000Z",
+        "image": "https://i.guim.co.uk/img/media/8ca33ff1eaef02b85c3b44fa03ec7c85dd45d60d/798_266_5084_4069/master/5084.jpg?width=140&quality=85&auto=format&fit=max&s=8cf5695b6ff7ec0461cf19e5e8218632",
+        "summary": "Department of Justice says it intends to appeal as administration tries to keep president’s ally Bill Essayli in office Sign up for the Breaking News US email Flávio Bolsonaro, the"
+      },
+      {
+        "title": "Russell Brand says he couldn’t find anyone to give evidence on his behalf in rape and sexual assault trial – latest updates",
+        "url": "https://www.theguardian.com/uk-news/live/2026/oct/28/russell-brand-evidence-trial-latest-news-updates",
+        "source": "The Guardian",
+        "published": "2026-10-28T12:35:56.000Z",
+        "image": "https://i.guim.co.uk/img/media/0b5bcc3d161665856c66ad1f77cfd15fad0b5ee1/178_0_5355_4284/master/5355.jpg?width=140&quality=85&auto=format&fit=max&s=ebabc38fa7ede126a881b41c6e9e7496",
+        "summary": "Brand, 51, has been charged with three counts of rape, three counts of sexual assault and one count of attempted indecent assault Winter moved on to count 5, in which a woman alleg"
+      },
+      {
+        "title": "At least 31 dead and 80 injured after two trains collide in Spain – latest updates",
+        "url": "https://www.theguardian.com/world/live/2026/oct/28/spain-train-crash-toledo-europe-latest-news-updates",
+        "source": "The Guardian",
+        "published": "2026-10-28T12:24:29.000Z",
+        "image": "https://i.guim.co.uk/img/media/1a1d19adddc76b9da28e47e1fd9f01e30de354f2/309_0_2284_1827/master/2284.jpg?width=140&quality=85&auto=format&fit=max&s=5b8043d93cf7ff9335e536036fc9366d",
+        "summary": "President of Castilla-La Mancha region says numbers likely to rise after crash in Toledo Full report from Spain At least 30 people are believed to have died after two high-speed tr"
+      },
+      {
+        "title": "Israel’s election: The battle between change and anti-Palestinian sentiment",
+        "url": "https://www.aljazeera.com/news/2026/10/28/israels-election-the-battle-between-change-and-anti-palestinian-sentiment?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-28T12:22:20.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261027__D4M49VL__v2__HighRes__IsraelVote-1793170728.jpg?resize=1920%2C1440",
+        "summary": "With both blocs short of a majority, parties face a choice: to break the taboo on Arab allies or return to the polls."
+      },
+      {
+        "title": "What we know so far about deadly Spain train crash",
+        "url": "https://www.bbc.co.uk/news/articles/cm8xz7pkd0jjo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-10-28T12:14:44.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/cc1d/live/c4d7e6f0-d2c5-11f1-a701-fddedf244c16.jpg",
+        "summary": "More than 500 passengers were on board the trains when the incident occurred in the province of Toledo, south of Madrid."
+      },
+      {
+        "title": "Israel election results live: Netanyahu bloc and main opposition set to fall short of majority as 84% of ballots counted",
         "url": "https://www.theguardian.com/world/live/2026/oct/28/israel-election-results-live-updates-exit-polls-netanyahu-likud-eisenkot-latest-news",
         "source": "The Guardian",
-        "published": "2026-10-28T05:12:57.000Z",
+        "published": "2026-10-28T12:06:09.000Z",
         "image": "https://i.guim.co.uk/img/media/b327b608d8b9c67d152fa006b1df8f13666c0a21/0_0_5160_4128/master/5160.jpg?width=140&quality=85&auto=format&fit=max&s=5d9cdbcf4938f3d8f701d31e374b8099",
-        "summary": "Both blocs would fall short of the 61 seats needed to form a government as support for Palestinian parties surges Full report: Israel election too close to call as exit polls give "
+        "summary": "Opposition bloc and Netanyahu’s coalition predicted to fall short of 61 seats needed to form a government, while Palestinian parties set for big gains Full report: Coalition talks "
       },
       {
-        "title": "Two key unions turn on Labor, running attack ads and pulling campaign funds a month out from Victorian election",
-        "url": "https://www.theguardian.com/australia-news/2026/oct/28/unions-turn-on-labor-attack-ads-campaign-funds-victorian-election-exclusive",
+        "title": "Ukraine gets $404.5M from Japan, World Bank - Breakingthenews.net",
+        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUmNWMWN5MURSSkI0WjgwN3RNZjRxQWJVN1ZPdTFOb1FvQ0lIY3hsS2UyRWNObkNWV2paS2xmVjBHOWhjNzZMemhqTVFaX1hTS1l4dmZ6WURvTWpId0ItV0V0ZExDZHctdlRqNnpFMGFqUGZhakQ5eE40OHVsMDZna3h5d1lGNkhtMG9LckY2czVTN25fdGlR?oc=5",
+        "source": "Breakingthenews.net",
+        "published": "2026-10-28T12:05:00.000Z",
+        "image": "",
+        "summary": "Ukraine gets $404.5M from Japan, World Bank Breakingthenews.net"
+      },
+      {
+        "title": "Dementia cases in US projected to rise dramatically by 2050, study finds",
+        "url": "https://www.theguardian.com/us-news/2026/oct/28/dementia-cases-increase",
         "source": "The Guardian",
-        "published": "2026-10-28T05:10:54.000Z",
-        "image": "https://i.guim.co.uk/img/media/f36cfdb01cbff4d9ce4153015dd6242cbca5b6e2/678_0_5040_4032/master/5040.jpg?width=140&quality=85&auto=format&fit=max&s=521a49864eefdc14440732d325904069",
-        "summary": "Exclusive: ASU launches ‘Ben Lied. Labor lies’ ads while ETU diverts money to defending members at royal commission Follow our Australia politics live blog for latest updates Get o"
+        "published": "2026-10-28T12:00:03.000Z",
+        "image": "https://i.guim.co.uk/img/media/25a2174b2b23c1bd602157d0642ff8328dbfa4ad/334_0_3332_2666/master/3332.jpg?width=140&quality=85&auto=format&fit=max&s=9916f943c2c9849ff9fcc4ca852f8853",
+        "summary": "Increase will add strain on healthcare system already struggling amid cuts by Trump administration, experts say The number of people with dementia in the United States is projected"
       },
       {
-        "title": "Gulf states working on multipart peace deal to avert renewal of US-Iran war",
-        "url": "https://www.theguardian.com/world/2026/oct/28/gulf-states-multipart-peace-deal-avert-renewal-us-iran-war",
-        "source": "The Guardian",
-        "published": "2026-10-28T05:00:55.000Z",
-        "image": "https://i.guim.co.uk/img/media/7696200dce7254abdadd923a886adbbcc098804a/11_17_4694_3755/master/4694.jpg?width=140&quality=85&auto=format&fit=max&s=cfebc41dd9a7f62e6ae7dcf0d812e508",
-        "summary": "Talks are aimed at reopening strait of Hormuz and lifting sanctions on Iran, and for Houthis to withdraw in Yemen A multipronged peace deal to reopen the strait of Hormuz within fo"
-      },
-      {
-        "title": "Beau Lamarre-Condon’s friend tells court she drank champagne while he scrubbed van used to move bodies",
-        "url": "https://www.theguardian.com/australia-news/2026/oct/28/beau-lamarre-condon-friend-tells-court-she-drank-champagne-while-he-cleaned-van-ntwnfb",
-        "source": "The Guardian",
-        "published": "2026-10-28T04:55:48.000Z",
-        "image": "https://i.guim.co.uk/img/media/9121e130e1a0424273a784f6febc21cfcb53dd1d/444_120_2573_2058/master/2573.jpg?width=140&quality=85&auto=format&fit=max&s=b5e433c438ad8fb701bd8fae71fff843",
-        "summary": "Lamarre-Condon, who has pleaded not guilty to murders of Jesse Baird and Luke Davies, allegedly told friend he had ‘come to say goodbye’ Follow our Australia politics live blog for"
-      },
-      {
-        "title": "Erin Patterson to learn fate in appeal against mushroom murders convictions",
-        "url": "https://www.theguardian.com/australia-news/2026/oct/28/erin-patterson-to-learn-fate-appeal-mushroom-murders-convictions-ntwnfb",
-        "source": "The Guardian",
-        "published": "2026-10-28T04:30:33.000Z",
-        "image": "https://i.guim.co.uk/img/media/712dc31c4d482c5820cce6e3e0a764cd69898138/454_194_1035_828/master/1035.jpg?width=140&quality=85&auto=format&fit=max&s=84fef62ca6f97d9c73214d9a4aea3893",
-        "summary": "Victorian court of appeal to hand down judgment on triple-murderer’s conviction and sentence after her lawyers argued she was denied fair trial Follow our Australia politics live b"
-      },
-      {
-        "title": "Mbappe faces backlash in China for meme fiasco",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/mbappe-faces-backlash-in-china-for-meme-fiasco?traffic_source=rss",
+        "title": "Israeli voters: hope and despair as election ballots are counted",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/israeli-voters-hope-and-despair-as-election-ballots-are-counted?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-28T04:28:22.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793161589.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Three major Chinese brands have ended partnerships with French football star Kylian Mbappe"
+        "published": "2026-10-28T11:55:08.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793188498.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Israeli voters in Tel Aviv expressed mixed emotions as ballots were counted after the election."
       },
       {
-        "title": "Watch: What happens now after close vote in Israeli election?",
-        "url": "https://www.bbc.co.uk/news/videos/cm79p5pxqey2o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-10-28T04:22:59.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c34b/live/eebe6880-d262-11f1-b441-2b33b063138f.jpg",
-        "summary": "Polls have closed in the Israeli election, but there is no clear winner."
+        "title": "Would you read the world’s LARGEST comic book? - Guinness World Records",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLWl6bjJ1U2RxYVkwUjZrRmtvM3NCaENQRmlfb0JnOGlHcVlSY0RSTUNQZGxYNHZRaFNRSWFkT25XbDBwWUotOTdyRzFlUnpkeEUzVTVQcTlldVBYbWZ5bUpycWM0MVpTdWF0dzVVbkdZYTB0SzN4UFd6VjE2UG0ya29Oc3kyNkxFMmVuOVlvVXRTZXYtYi1JUjM1VjdBTTlybEE?oc=5",
+        "source": "Guinness World Records",
+        "published": "2026-10-28T11:51:27.000Z",
+        "image": "",
+        "summary": "Would you read the world’s LARGEST comic book? Guinness World Records"
       },
       {
-        "title": "Mahmoud Khalil credits Palestinian activism for reshaping US politics",
-        "url": "https://www.aljazeera.com/news/2026/10/28/mahmoud-khalil-credits-palestinian-activism-for-reshaping-us-politics?traffic_source=rss",
+        "title": "Hackers target US campaign finance system days before midterm elections",
+        "url": "https://www.aljazeera.com/news/2026/10/28/hackers-target-us-campaign-finance-system-days-before-midterm-elections?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-28T04:13:28.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AP26195615149837-1793157796.jpg?resize=1920%2C1440",
-        "summary": "Khalil returned to Columbia University to discuss his memoir detailing his arrest and detention by US immigration agents"
-      },
-      {
-        "title": "Major Israeli TV networks revise polling projections – as it happened",
-        "url": "https://www.theguardian.com/world/live/2026/oct/27/israel-elections-knesset-netanyahu-likud-eisenkot-gaza-latest-updates",
-        "source": "The Guardian",
-        "published": "2026-10-28T04:08:29.000Z",
-        "image": "https://i.guim.co.uk/img/media/d9d9e368239771778a4246a6eb4f8bcd2ca49136/602_0_4585_3668/master/4585.jpg?width=140&quality=85&auto=format&fit=max&s=4258d9779600489da5b7448c75f645c6",
-        "summary": "This blog had now closed – our live Israel election results coverage continues here Israel election results live updates Across Israel , voting is now under way. Here are some of t"
-      },
-      {
-        "title": "Bolsonaro ally denies knowledge of senator’s plan to flee Brazil",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/bolsonaro-ally-denies-knowledge-of-senators-plan-to-flee-brazil?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-28T03:49:40.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793159360.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Flavio Bolsonaro’s former campaign manager says the senator did not inform him that he planned to flee Brazil."
-      },
-      {
-        "title": "‘Backdrop for countless local love stories’: Geelong gingko named Victorian tree of the year",
-        "url": "https://www.theguardian.com/australia-news/2026/oct/28/backdrop-for-countless-local-love-stories-geelong-gingko-named-victorian-tree-of-the-year",
-        "source": "The Guardian",
-        "published": "2026-10-28T03:23:35.000Z",
-        "image": "https://i.guim.co.uk/img/media/56fd5972da71e25bc7784d0abc49977c8d4576df/125_0_3750_3000/master/3750.jpg?width=140&quality=85&auto=format&fit=max&s=415bb9b024f59cf8c18380c16396fb9c",
-        "summary": "National trust of Victoria award celebrates much-loved arboreal icons while calling for protection of green spaces Follow our Australia politics live blog for latest updates Get ou"
+        "published": "2026-10-28T11:47:10.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/05/reuters_6a0c54dc-1779193052.jpg?resize=1920%2C1440",
+        "summary": "An FEC email said a 'bad actor' tried to breach its systems as the US prepares for its most expensive elections ever."
       }
     ],
     "ai": [
+      {
+        "title": "Will it be AI or the climate crisis that ends humanity? We can make it neither | Adam McKay and Philip Eubanks",
+        "url": "https://www.theguardian.com/commentisfree/2026/oct/28/ai-climate-crisis-humanity",
+        "source": "The Guardian",
+        "published": "2026-10-28T12:00:04.000Z",
+        "image": "https://i.guim.co.uk/img/media/a596cf6ca3a9bbf57916a82d78076b7948a71372/175_0_1753_1403/master/1753.jpg?width=140&quality=85&auto=format&fit=max&s=7420788847ebafd8ab5da9b4346db131",
+        "summary": "Both of these threats have the same roots: private entities seeking to cash in. We have the power to stand against them A summer of extreme heat, entire villages obliterated in Nep"
+      },
+      {
+        "title": "Voters in Texas agree: They hate data centers",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
+        "source": "The Verge",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/268813_TEXAS_DATA_CENTERS_CVirginia.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "Ask Texas NAACP president Gary Bledsoe what it's been like to see data center developers descend upon Austin and its surrounding suburbs and he can rattle off project after project"
+      },
+      {
+        "title": "Pairing industrial AI autonomy and human control",
+        "url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control/",
+        "source": "MIT Tech Review",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "https://wp.technologyreview.com/wp-content/uploads/2026/10/iStock-2264572193.jpg?resize=1200,600",
+        "summary": ""
+      },
+      {
+        "title": "‘Elonville’: US residents say Musk’s xAI offered to buy homes if they don’t sue over datacenter noise",
+        "url": "https://www.theguardian.com/us-news/2026/oct/28/datacenter-noise-lawsuit-elon-musk-mississippi",
+        "source": "The Guardian",
+        "published": "2026-10-28T11:30:01.000Z",
+        "image": "https://i.guim.co.uk/img/media/348dbc85214c965490fc99f4d07ce31c26d36a5c/389_0_6003_4803/master/6003.jpg?width=140&quality=85&auto=format&fit=max&s=c0ccf9d6429b849fb81965c7a7e2d0d1",
+        "summary": "Several Mississippi homes have been purchased near datacenters and one resident said realtor outlined target to buy more than 400 People in a Mississippi neighborhood, many of whom"
+      },
+      {
+        "title": "Meta quietly launched an ‘AI pet journal’ app",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world",
+        "source": "The Verge",
+        "published": "2026-10-28T11:27:30.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/Waddle-World-meta-app-hero.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "Meta has launched a \"tamagotchi-style\" pet game called Waddle World, with virtual creatures that chat with users and create doodles to illustrate conversations. According to its Ap"
+      },
+      {
+        "title": "‘There is no inevitable dystopia’: Jeanette Winterson on AI and the future of humanity",
+        "url": "https://www.theguardian.com/books/2026/oct/28/no-inevitable-dystopia-jeanette-winterson-ai-future-of-humanity",
+        "source": "The Guardian",
+        "published": "2026-10-28T10:00:05.000Z",
+        "image": "https://i.guim.co.uk/img/media/a8bb7ed7e6602f38677e183ed940fad6e2200bc1/176_0_6160_4928/master/6160.jpg?width=140&quality=85&auto=format&fit=max&s=e8e4fa1c7b98d5d73ea0ec5263d5370e",
+        "summary": "The author believes we are at a turning point as a species – and even in the shadow of big tech it’s up to us how we want to proceed ‘I am a storyteller by trade,” writes Jeanette "
+      },
       {
         "title": "‘Emotional intimacy’ from AI chatbots would be banned under Australia’s digital duty of care laws",
         "url": "https://www.theguardian.com/australia-news/2026/oct/28/emotional-intimacy-ai-chatbots-ban-digital-duty-of-care-laws-australian-politics",
         "source": "The Guardian",
         "published": "2026-10-28T05:31:55.000Z",
         "image": "https://i.guim.co.uk/img/media/b3e44fb72cc705d89a54b8eb9719b50630ca675c/549_0_5485_4388/master/5485.jpg?width=140&quality=85&auto=format&fit=max&s=0bfc40ec0228d608101e4331782d6dce",
-        "summary": "Labor government under pressure to create social media watchdog as new online safety standards bill passes lower house The federal government wants to ban AI chatbots which seek to"
+        "summary": "Labor government under pressure to create social media watchdog as new online safety standards bill passes lower house Follow our Australia politics live blog for latest updates Ge"
       },
       {
         "title": "AI bots flooded 2023 UK government consultation on disposable vapes ban",
@@ -124,54 +172,6 @@
         "published": "2026-10-27T20:48:58.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/STKS537_AI_MATH_7.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "On Monday, OpenAI announced impressive breakthroughs in mathematics, computer science, and physics, along with what the company says is an evolving approach to communicating its fi"
-      },
-      {
-        "title": "VisionQuest is what happens when AI really goes rogue",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1017064/visionquest-marvel-rogue-ai",
-        "source": "The Verge",
-        "published": "2026-10-27T17:30:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/107-90190_RC.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "In Marvel's VisionQuest, a superpowered robot tries to better understand humanity by getting lost in elaborate, digital daydreams in which he and other artificial intelligence-powe"
-      },
-      {
-        "title": "Anthropic’s elaborate plan to keep Wall Street at bay",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1019470/anthropic-ipo-resist-investor-pressure-cut-corners-safety",
-        "source": "The Verge",
-        "published": "2026-10-27T16:51:22.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/gettyimages-2280291188.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Anthropic wants to have it both ways. With its impending IPO, it wants to tap the vast riches of the public markets and insists it doesn't want to compromise its core mission of de"
-      },
-      {
-        "title": "Firefox’s Smart Window adds AI form filling and webpage monitoring",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1019551/firefox-smart-window-ai-fill-forms",
-        "source": "The Verge",
-        "published": "2026-10-27T16:14:18.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/firefox-fill.png?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Mozilla is updating Smart Window - Firefox's AI-powered browsing experience - with a new feature that can help you fill out online forms based on your open tabs. As an example, Moz"
-      },
-      {
-        "title": "Google’s next Genie AI model generates more realistic experiences",
-        "url": "https://www.theverge.com/tech/1019076/google-genie-4-ai-model",
-        "source": "The Verge",
-        "published": "2026-10-27T16:00:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/Screenshot-2026-10-26-at-3.00.35-PM.png?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Google announced today its Genie 4 world model for generating interactive experiences using AI. The company says the model has four main updates: It allows for more realistic world"
-      },
-      {
-        "title": "Elon Musk says he has ‘cyber psychosis’. Do you too? | Arwa Mahdawi",
-        "url": "https://www.theguardian.com/commentisfree/2026/oct/27/elon-musk-cyber-psychosis-ai-tech",
-        "source": "The Guardian",
-        "published": "2026-10-27T15:01:14.000Z",
-        "image": "https://i.guim.co.uk/img/media/121853e4d08bed46c56e62c752f7dc3127c80dc0/1121_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=5493b838af134f5a7f4e995c5337d6ce",
-        "summary": "Whether using chatbots for childcare or taking up smoking, a new affliction is sweeping through the tech world. Here are the signs In the least surprising news you’ll hear all week"
-      },
-      {
-        "title": "‘Meaningless as a laptop screensaver’: reviewers slate Musk’s AI-made Odyssey film",
-        "url": "https://www.theguardian.com/technology/2026/oct/27/reviewers-slate-musk-ai-grok-odyssey-film-nolan",
-        "source": "The Guardian",
-        "published": "2026-10-27T14:08:41.000Z",
-        "image": "https://i.guim.co.uk/img/media/f5bb844cbf76398948b5d3efa0fb0e79205a0c23/408_0_1983_1586/master/1983.jpg?width=140&quality=85&auto=format&fit=max&s=36c9f5dfa8f5fbfd22bbacb9882bab09",
-        "summary": "Tesla tycoon launched Grok project after criticising Christoper Nolan’s diverse casting for his Homeric blockbuster Elon Musk has released an AI-generated rival to Christopher Nola"
       }
     ],
     "fashion": [
@@ -179,147 +179,147 @@
         "title": "Vivienne Westwood Spring 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/spring-2027-ready-to-wear/vivienne-westwood",
         "source": "Vogue",
-        "published": "2026-10-28T05:37:16.000Z",
+        "published": "2026-10-28T12:51:23.000Z",
         "image": "https://assets.vogue.com/photos/6adf671c5176862795ee628b/master/pass/00001-vivienne-westwood-spring-2027-ready-to-wear-credit-brand.jpg",
         "summary": ""
       },
       {
-        "title": "At Celine, CEO Séverine Merle Is Taking Things One Triomphe at a Time",
-        "url": "https://www.vogue.com/article/at-celine-ceo-severine-merle-is-taking-things-one-triomphe-at-a-time",
+        "title": "VF Corp. Beats the Street in Q2 as Timberland, North Face, Altra Deliver and Vans Sees Progress",
+        "url": "https://wwd.com/footwear-news/shoe-industry-news/vf-corp-vfc-q2-earnings-vans-timberland-north-face-1239388847/",
+        "source": "WWD",
+        "published": "2026-10-28T12:14:15.000Z",
+        "image": "",
+        "summary": "VF Corp. expects Vans to see improvement in the wholesale channel in the back half of fiscal 2027."
+      },
+      {
+        "title": "WWF Details Textile Water Conservation Collaborations, Launches Forest Traceability Tool Finder",
+        "url": "https://wwd.com/sourcing-journal/sustainability/wwf-textile-water-conservation-projects-forest-traceability-tool-finder-1239388557/",
+        "source": "WWD",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "",
+        "summary": "The organization's \"Drop by Drop\" report spotlights five case studies of supply chain-wide collaboration on water management."
+      },
+      {
+        "title": "True Religion Survey Finds Heritage Still Matters to Shoppers",
+        "url": "https://wwd.com/sourcing-journal/sj-denim/true-religion-wired-research-survey-heritage-apparel-brands-1239387895/",
+        "source": "WWD",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "",
+        "summary": "Most respondents aged 18-45 said they adjust their shopping when prices rise, but only 20 percent expected to cut spending."
+      },
+      {
+        "title": "Money Moves: Apparel Supply Chain Investments Shift to AI, Robotics and Last-Mile Logistics",
+        "url": "https://wwd.com/sourcing-journal/industry-news/money-moves-companies-shift-their-investments-1239385271/",
+        "source": "WWD",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "",
+        "summary": "The most visible investment is in high-density warehouse automation and robotics."
+      },
+      {
+        "title": "The Best Nike Sneakers Releasing in November",
+        "url": "https://wwd.com/footwear-news/sneaker-news/nike-sneaker-release-date-calendar-november-2026-1239387948/",
+        "source": "WWD",
+        "published": "2026-10-28T12:00:00.000Z",
+        "image": "",
+        "summary": "Including One Block Down's luxurious Air Max 95 and the debut of square-toed Air Force 1 Lows."
+      },
+      {
+        "title": "Puig Aims to Cross 8-Billion-Euro Yearly Sales Mark by 2032",
+        "url": "https://wwd.com/beauty-industry-news/beauty-features/puig-aims-cross-8-billion-euro-yearly-sales-mark-2032-1239388818/",
+        "source": "WWD",
+        "published": "2026-10-28T11:52:36.000Z",
+        "image": "",
+        "summary": "The Spanish beauty and fashion group is unveiling its Vision 2032 strategy during the group’s first Capital Markets Day."
+      },
+      {
+        "title": "We’re Mary-Kate and Ashley, Duh! 14 Fashion People on Their Best Halloween Costumes",
+        "url": "https://www.vogue.com/article/fashion-people-on-their-best-halloween-costumes",
         "source": "Vogue",
-        "published": "2026-10-28T05:30:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0cf8cdb26470407738a71/master/pass/-story%20(9).jpg",
-        "summary": "The Celine CEO shares her strategy for growing desirability at a difficult time for luxury."
+        "published": "2026-10-28T11:01:27.000Z",
+        "image": "https://assets.vogue.com/photos/6ada193db3446b7829a7359b/master/pass/Fashion_Halloween_16x9.jpg",
+        "summary": "From Anna Sui’s cinematic disguise to Lynn Yaeger’s almost-too-convincing flapper, fashion’s finest revisit their Halloween finest."
       },
       {
-        "title": "EXCLUSIVE: Versace Confirms a Couture Debut for Pieter Mulier",
-        "url": "https://wwd.com/fashion-news/fashion-scoops/atelier-versace-couture-return-pieter-mulier-1239384891/",
-        "source": "WWD",
-        "published": "2026-10-28T05:01:00.000Z",
-        "image": "",
-        "summary": "His Atelier Versace collection will hit the runway during Paris Couture Week in January."
-      },
-      {
-        "title": "How Jordan Roth Is Fashioning His Life Into Art",
-        "url": "https://wwd.com/eye/people/jordan-roth-theater-producer-artist-actor-the-shards-1239387973/",
-        "source": "WWD",
-        "published": "2026-10-28T05:00:00.000Z",
-        "image": "",
-        "summary": "With a new book, an installation in Paris and a burgeoning acting career, the Tony Award-winning theater producer is revealing fresh layers of creative depth."
-      },
-      {
-        "title": "More Pieces, More Possibilities: How to Merchandise Maximalism",
-        "url": "https://www.vogue.com/article/more-pieces-more-possibilities-how-to-merchandise-maximalism",
+        "title": "Winter Wedding Inspiration From Real Vogue Weddings",
+        "url": "https://www.vogue.com/article/winter-wedding-ideas",
         "source": "Vogue",
-        "published": "2026-10-28T04:30:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0b2d487fadb191e729373/master/pass/-story%20copy.jpg",
-        "summary": "The brands that offer uniform-building wardrobes that go beyond the minimalist days of yore — in line with this season’s ‘messy girl’ trend — will win."
-      },
-      {
-        "title": "EXCLUSIVE: Ugg Opens First Store in Five Years With New Brooklyn Location",
-        "url": "https://wwd.com/footwear-news/shoe-industry-news/ugg-williamsburg-brooklyn-store-details-interview-1239388341/",
-        "source": "WWD",
-        "published": "2026-10-28T04:01:00.000Z",
-        "image": "",
-        "summary": "The 3,001-square-foot store is located at 129 North 6th Street."
-      },
-      {
-        "title": "EXCLUSIVE: Offe Market Raises $3 Million to Shake Up Off-Price Retail",
-        "url": "https://wwd.com/fashion-news/fashion-features/offe-market-3-million-seed-funding-off-price-retail-1239388003/",
-        "source": "WWD",
-        "published": "2026-10-28T04:01:00.000Z",
-        "image": "",
-        "summary": "The Los Angeles-based marketplace, founded by Rachel Gannon, is investing in AI-powered inventory management and personalized shopping as it expands its roster of more than 200 bra"
-      },
-      {
-        "title": "Amanda Seyfried Makes Her Tiffany & Co. Debut in a Holiday Film About Love and Family",
-        "url": "https://wwd.com/accessories-news/jewelry/amanda-seyfried-makes-tiffany-debut-holiday-film-about-love-1239387542/",
-        "source": "WWD",
-        "published": "2026-10-28T04:01:00.000Z",
-        "image": "",
-        "summary": "Directed by Derek Cianfrance, the jeweler’s latest campaign explores the memories and traditions that make a gift meaningful across generations."
-      },
-      {
-        "title": "How Fashion Should Think About AI",
-        "url": "https://wwd.com/business-news/technology/ai-impact-fashion-industry-future-1239386483/",
-        "source": "WWD",
-        "published": "2026-10-28T04:01:00.000Z",
-        "image": "",
-        "summary": "Navigating the promise and peril of an AI future in the fashion industry."
+        "published": "2026-10-28T10:58:41.000Z",
+        "image": "https://assets.vogue.com/photos/69db9dd4693c6e91ee126ddf/master/pass/madison-jordan_011.JPG",
+        "summary": "Searching for winter wedding ideas? These cold-weather nuptials will have you dreaming of a candlelit ceremony amid a snowfall/"
       }
     ],
     "markets": [
       {
-        "title": "Meta- and Google-backed Jio Platforms’ shares soar over 21% on trading debut after record IPO",
-        "url": "https://www.cnbc.com/2026/10/28/jio-ipo-india-listing-.html",
+        "title": "New Zealand dollar tanks after central bank defies markets' near-certainty it would hike rates",
+        "url": "https://www.cnbc.com/2026/10/28/new-zealand-dollar-rbnz-rates.html",
         "source": "CNBC World",
-        "published": "2026-10-28T05:16:41.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108472576-1793163135126-gettyimages-2301839789-INDIA_JIO_IPO.jpeg?v=1793163164&w=1920&h=1080",
-        "summary": "Jio had offered 270 million shares in the IPO priced at 1,119 rupees apiece, raising 302 billion rupees ($3.2 billion) in the country's largest-ever IPO."
+        "published": "2026-10-28T12:52:41.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108474407-1793191905277-gettyimages-957398898-100046715.jpeg?v=1793191936&w=1920&h=1080",
+        "summary": "The currency has lost almost 5% against the U.S. dollar in six months."
       },
       {
-        "title": "Trump jokes $5,000 would buy 'a hamburger and maybe a small dessert' at Mar-a-Lago as cost of living looms over midterms",
+        "title": "Trump jokes $5,000 would buy 'a hamburger and maybe a small dessert' at Mar-a-Lago as affordability looms over midterm",
         "url": "https://www.cnbc.com/2026/10/28/trump-jokes-5000-cash-would-buy-hamburger-and-dessert-at-mar-a-lago.html",
         "source": "CNBC World",
-        "published": "2026-10-28T04:29:20.000Z",
+        "published": "2026-10-28T12:49:09.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108443181-1792612088462-gettyimages-2300763942-AFP_D3ZP8NR.jpeg?v=1792698410&w=1920&h=1080",
-        "summary": "Trump joked that the $5,000 payments for U.S. adults would buy little more than \"a hamburger and maybe a small dessert\" as cost of living looms over midterms."
+        "summary": "Trump's joke comes as Americans say in polls they believe that Democrats would do a better job than Republicans at address concerns about affordability."
       },
       {
-        "title": "Kylian Mbappé faces China backlash as sponsors cut ties over viral meme",
-        "url": "https://www.cnbc.com/2026/10/28/china-mbappe-football-sponsor-meme-controversy.html",
+        "title": "Vertiv earnings just sent an upbeat signal about AI ahead of Big Tech results",
+        "url": "https://www.marketwatch.com/story/vertiv-earnings-just-sent-an-upbeat-signal-about-ai-ahead-of-big-tech-results-5714a105?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-28T12:48:00.000Z",
+        "image": "https://images.mktw.net/im-21062271",
+        "summary": "Vertiv’s big sales beat affirms that the AI buildout is accelerating."
+      },
+      {
+        "title": "We are in our 70s. Should we pay off our 2.5% mortgage early or build up our savings?",
+        "url": "https://www.marketwatch.com/story/we-are-in-our-70s-should-we-pay-off-our-2-5-mortgage-or-build-up-our-savings-5a35e9c1?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-28T12:45:00.000Z",
+        "image": "https://images.mktw.net/im-65126339",
+        "summary": "“Let’s say 10 years from now, when I’m 84, we need a substantial amount of cash.”"
+      },
+      {
+        "title": "Oil prices rise as Houthi attacks on Saudi refinery raise supply worries",
+        "url": "https://www.cnbc.com/2026/10/28/oil-price-today-wti-brent-hormuz.html",
         "source": "CNBC World",
-        "published": "2026-10-28T03:33:53.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108471995-1793153124158-gettyimages-2301742439-AFP_D4J68CQ.jpeg?v=1793154769&w=1920&h=1080",
-        "summary": "Chinese state media has warned Kylian Mbappé that his apology over remarks referring to Mao Zedong as a dictator will be judged against his actions."
+        "published": "2026-10-28T12:34:29.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108419670-1792156386789-gettyimages-2299888156-US_OIL.jpeg?v=1792156436&w=1920&h=1080",
+        "summary": "Oil prices climbed Wednesday as investors weighed the prospect of a prolonged conflict in the Middle East."
       },
       {
-        "title": "Trump says Iran war will end 'when I want it to' as costs reportedly balloon to $47 billion",
-        "url": "https://www.cnbc.com/2026/10/28/us-iran-war-trump-hormuz-costs-centcom.html",
-        "source": "CNBC World",
-        "published": "2026-10-28T03:02:44.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108469575-1793116126073-gettyimages-2301782444-AFP_D4L24FR.jpeg?v=1793116206&w=1920&h=1080",
-        "summary": "Trump's statement comes as a report from The Hill revealed that the costs of the Iran conflict has ballooned to $47 billion."
+        "title": "SK Hynix delivered on third-quarter results — but the outlook is what really mattered to Wall Street and the AI trade",
+        "url": "https://www.marketwatch.com/story/sk-hynix-delivered-on-third-quarter-results-but-the-outlook-is-what-really-mattered-to-wall-street-and-the-ai-trade-2fde9a57?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-28T12:34:00.000Z",
+        "image": "https://images.mktw.net/im-89156249",
+        "summary": "South Korea memory-chip giant says supply constraints will last through 2030."
       },
       {
-        "title": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
-        "url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
-        "source": "CNBC World",
-        "published": "2026-10-28T02:57:36.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108472094-1793155944826-gettyimages-2234550101-jr_11473_jn99mcqi.jpeg?v=1793155965&w=1920&h=1080",
-        "summary": "The company reported a 45% to 50% year-on-year drop in third-quarter revenue."
+        "title": "My wife cried when I found out she had only $80,000 in her 401(k). I have $2.2 million. Am I wrong to be shocked?",
+        "url": "https://www.marketwatch.com/story/my-wife-has-only-80-000-saved-for-retirement-i-have-2-2-million-am-i-wrong-to-be-shocked-3e27b490?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-28T12:30:00.000Z",
+        "image": "https://images.mktw.net/im-19916000",
+        "summary": "“When I brought up retiring last spring, she said she was ready whenever I was, and I took that to mean we were in good shape.”"
       },
       {
-        "title": "Israel election appears to have no clear winner with Netanyahu, opponent Eisenkot far short of majorities",
+        "title": "My abusive ex-husband promised $20,000 for our kids’ education. Now he refuses to pay. Is he legally obligated?",
+        "url": "https://www.marketwatch.com/story/my-abusive-ex-husband-promised-20-000-for-our-kids-education-now-he-refuses-to-pay-is-he-legally-obligated-325ef50f?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-28T12:30:00.000Z",
+        "image": "https://images.mktw.net/im-95596293",
+        "summary": "“Before our divorce, my former mother-in-law entrusted him with $20,000 for each of our daughters to invest on their behalf.”"
+      },
+      {
+        "title": "Israeli bonds, shekel fall as election leaves Netanyahu and others far short of majorities",
         "url": "https://www.cnbc.com/2026/10/28/israel-election-netanyahu-trump-gaza-.html",
         "source": "CNBC World",
-        "published": "2026-10-28T02:15:55.000Z",
+        "published": "2026-10-28T12:27:07.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108471491-1793144780727-gettyimages-2301467717-AA_25102026_3009268.jpeg?v=1793144798&w=1920&h=1080",
         "summary": "Exit polls show Prime Minister Benjamin Netanyahu's alliance and Gadi Eisenkot's opposition bloc both well off the numbers needed to form a governing majority."
-      },
-      {
-        "title": "A leading Silicon Valley cheerleader just showed all the reasons to be worried about the AI bubble",
-        "url": "https://www.marketwatch.com/story/a-leading-silicon-valley-cheerleader-just-showed-all-the-reasons-to-be-worried-about-the-ai-bubble-e3b32fe1?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-28T02:15:00.000Z",
-        "image": "https://images.mktw.net/im-38942746",
-        "summary": "If you needed any further reasons to be worried about the bubble that has inflated the stock market, look no further."
-      },
-      {
-        "title": "SK Hynix shares soar over 8% as profit beats, chipmaker to return $25 billion to investors",
-        "url": "https://www.cnbc.com/2026/10/28/sk-hynix-third-quarter-profit.html",
-        "source": "CNBC World",
-        "published": "2026-10-28T01:56:59.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108333293-1783682220679-gettyimages-2283571654-SKOREA_SK_HYNIX.jpeg?v=1783682246&w=1920&h=1080",
-        "summary": "Shares of South Korean chipmaker SK Hynix soared over 8% on Wednesday as third-quarter profit sharply beats estimates."
-      },
-      {
-        "title": "Anthropic's IPO is risky business",
-        "url": "https://www.cnbc.com/2026/10/27/anthropic-five-surprising-risks-s1.html",
-        "source": "CNBC World",
-        "published": "2026-10-28T00:43:59.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108368277-1790360556847-108368277-17903603812026-09-25t180005z_1304128046_rc29lnaagwzx_rtrmadp_0_usa-pentagon-anthropic-lawsuit.jpg?v=1790360568&w=1920&h=1080",
-        "summary": "Anthropic's much-anticipated IPO is giving potential investors some perspective on the risky business of artificial intelligence."
       }
     ]
   }
