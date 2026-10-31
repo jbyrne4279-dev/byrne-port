@@ -1,106 +1,130 @@
 {
-  "generatedAt": "2026-10-31T12:29:38.176Z",
+  "generatedAt": "2026-10-31T19:18:24.529Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "US approves sale of 500 Patriot missiles to Ukraine",
-        "url": "https://www.bbc.co.uk/news/articles/c3vgxznlx7jzo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-10-31T12:21:25.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ea75/live/f93e2820-d4b7-11f1-a701-fddedf244c16.jpg",
-        "summary": "The American-made interceptors are the only effective weapon for downing Russia's ballistic missiles."
+        "title": "Disquiet grows in Albanese’s back yard as Grayndler artists unite against ‘insane’ AI proposal",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/01/artists-against-ai-proposal-anthony-albanese-grayndler-sydney-inner-west",
+        "source": "The Guardian",
+        "published": "2026-10-31T19:00:52.000Z",
+        "image": "https://i.guim.co.uk/img/media/807757f27fc7edd5bb144e03b8fbb5e5681bfa56/196_36_2835_2268/master/2835.jpg?width=140&quality=85&auto=format&fit=max&s=f774176952b35a2f6f87a9e3e6fa6a60",
+        "summary": "Inner west Sydney seat has long been safely held by the PM – but potential changes to copyright laws are angering its large creative community Get our daily political email , free "
       },
       {
-        "title": "Aston Villa to sue ex-Liverpool star Carragher over ‘unacceptable insults’",
-        "url": "https://www.aljazeera.com/sports/2026/10/31/aston-villa-jamie-carragher-legal-action-sue-premier-league-football?traffic_source=rss",
+        "title": "Who is Arafat Minhas, Pakistan cricket’s rising star all-rounder?",
+        "url": "https://www.aljazeera.com/sports/2026/10/31/who-is-arafat-minhas-pakistan-crickets-rising-star-all-rounder?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T12:14:15.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6938660233db6-1765303810-1793443976.jpg?resize=1200%2C630&quality=80",
-        "summary": "Aston Villa chairman accuses ex-Liverpool defender Jamie Carragher of insulting the club, with legal action threatened."
+        "published": "2026-10-31T18:50:25.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/AFP__20261020__D3VD6AB__v1__HighRes__CricketPakEngOdi-1793470860.jpg?resize=1800%2C1200&quality=80",
+        "summary": "A calm head on young shoulders, Arafat Minhas has swiftly earned the reputation of a match-winner for Pakistan."
       },
       {
-        "title": "Iran warns of unfettered retaliation if attacked as mediators try for peace",
-        "url": "https://www.aljazeera.com/news/2026/10/31/iran-warns-of-unfettered-retaliation-if-attacked-as-mediators-try-for-peace?traffic_source=rss",
+        "title": "London police arrest 48 as hundreds protest Palestine Action ban",
+        "url": "https://www.aljazeera.com/news/2026/10/31/london-police-arrest-48-as-hundreds-protest-palestine-action-ban?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T12:13:42.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6adf96615801-1793037921.jpg?resize=1920%2C1440",
-        "summary": "Iran’s supreme leader says Tehran’s potential response will not be restricted by geography."
+        "published": "2026-10-31T18:48:29.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae629da1790-1793468890.jpg?resize=1920%2C1440",
+        "summary": "Demonstrations in London and Edinburgh come days before a UK Supreme Court appeal challenging the group's proscription."
       },
       {
-        "title": "France and Germany braced for unrest with hundreds of demonstrations planned – Europe live",
+        "title": "Clashes break out as hundreds of thousands protest in France - International - World - Ahram Online",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQT1NaQU5BWng2WWhLTXR3dS1hOTBpWlp4ZHdxUlFYbTU1NTA2V0I5d0VwUzB0VkdnbEF1ODRBcjVndE1hbWhLU0NzRDZ0TjlLeElLZlNIcWF6ZFN1MzhDWXV4ang1UDNad2hiQkFQSWZOa19OVWpaWTREcFFwV2NhdHFfYWNYVkduUnNxeWlWdFZjb1diWlNHdldnTDVjWWxIVmx1QmkwcU5LZURmcDI4ejVn?oc=5",
+        "source": "Ahram Online",
+        "published": "2026-10-31T18:46:28.000Z",
+        "image": "",
+        "summary": "Clashes break out as hundreds of thousands protest in France - International - World Ahram Online"
+      },
+      {
+        "title": "Evacuees of Russian-occupied Oleshky reunited with families",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/aje-onl-nf_evacuees-from-oleshky-reunite-w-families-in-ukraine-311026?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-31T18:32:20.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793471534.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Ukrainian residents evacuated from Russian-occupied city of Oleshky have arrived in Ukrainian-controlled territory."
+      },
+      {
+        "title": "Protests under way in Germany and France as minister warns against use of Halloween masks – Europe live",
         "url": "https://www.theguardian.com/world/live/2026/oct/31/france-germany-protests-paris-europe-latest-news-updates",
         "source": "The Guardian",
-        "published": "2026-10-31T12:09:22.000Z",
-        "image": "https://i.guim.co.uk/img/media/c2c1f4d3ca9aba5bea8a24095c58a324cb8404f8/680_0_4692_3754/master/4692.jpg?width=140&quality=85&auto=format&fit=max&s=f8c650b6a428e93b69cd1ad08a335b01",
-        "summary": "French interior minister, Laurent Nuñez, warned earlier this week of a ‘very high risk of public disorder’ Here are some of the latest images from around France: In Paris, two sepa"
+        "published": "2026-10-31T18:31:38.000Z",
+        "image": "https://i.guim.co.uk/img/media/44bb99bd91da42dacd8498932568e88c7f5b702a/838_171_4274_3420/master/4274.jpg?width=140&quality=85&auto=format&fit=max&s=665eae78c3f02e83de454c28893308c3",
+        "summary": "France’s interior minister, Laurent Nuñez, has warned protesters that covering their faces with Halloween costumes could result in fines Protesters in Paris have begun marching fro"
       },
       {
-        "title": "Evacuees from Russia-occupied city where residents ate weeds on way to Ukraine",
-        "url": "https://www.bbc.co.uk/news/articles/cqx2818elrnzo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-10-31T12:05:04.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/62ec/live/4e7bd090-d516-11f1-93e1-3b657b665bcf.jpg",
-        "summary": "Residents left the devastated city on Friday following a ceasefire brokered by US First Lady Melania Trump."
-      },
-      {
-        "title": "Healey to veto new offshore wind projects if they will not lower bills",
-        "url": "https://www.theguardian.com/environment/2026/oct/31/john-healey-chancellor-offshore-wind-projects-veto",
+        "title": "Almost 140 arrested at protest against Palestine Action ban outside US embassy in London",
+        "url": "https://www.theguardian.com/uk-news/2026/oct/31/protest-against-palestine-action-ban-outside-us-embassy-in-london",
         "source": "The Guardian",
-        "published": "2026-10-31T11:48:14.000Z",
-        "image": "https://i.guim.co.uk/img/media/1b421be8971c5f4e293889e1c1004b2259e48cf8/0_0_4638_3710/master/4638.jpg?width=140&quality=85&auto=format&fit=max&s=d841d35b7e5810b0d75396e51d233a96",
-        "summary": "UK chancellor’s plans add to concerns government is moving away from pro-renewables agenda John Healey has said he will veto new offshore wind projects if they will not lower bills"
+        "published": "2026-10-31T18:28:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/6807820322847a216baf62975e1cb66f78e36b30/808_0_4041_3233/master/4041.jpg?width=140&quality=85&auto=format&fit=max&s=7bb8e1c324b0bddb15e9b7da0a9f2767",
+        "summary": "Met alleges demonstrators ‘meeting to purposefully commit a crime’ in largest such gathering under Burnham Almost 140 people have been arrested at the largest mass demonstrations u"
       },
       {
-        "title": "UN closes Somalia mission, ending three decades of political engagement",
-        "url": "https://www.aljazeera.com/news/2026/10/31/un-closes-somalia-mission-ending-three-decades-of-political-engagement?traffic_source=rss",
+        "title": "Tension and clashes as hundreds of thousands protest again in France",
+        "url": "https://www.aljazeera.com/news/2026/10/31/tension-and-clashes-as-hundreds-of-thousands-protest-again-in-france?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T11:37:21.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T003012Z_1511557306_RC2RPNAVAYE6_RTRMADP_3_UN-ASSEMBLY-1793439984.jpg?resize=1920%2C1440",
-        "summary": "Somalia hails the UN mission's closure as a milestone amid political tensions and cuts to international support."
+        "published": "2026-10-31T18:28:14.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ae621fd-1793466877.jpg?resize=1920%2C1440",
+        "summary": "Authorities say 320,000 march on third consecutive weekend of demonstrations over cost of living and state of schools."
       },
       {
-        "title": "Do tough laws deter drug crimes? Lessons from Singapore and Malaysia",
-        "url": "https://www.aljazeera.com/video/101-east/2026/10/31/do-tough-laws-deter-drug-crimes-lessons-from-singapore-and-malaysia?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T11:30:00.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793323873.jpg?resize=1920%2C1080&quality=80",
-        "summary": "As Malaysia rethinks the death penalty for drug offences, Singapore insists tough laws deter substance abuse."
-      },
-      {
-        "title": "Protests outside Poland’s constitutional court: What’s the crisis about?",
-        "url": "https://www.aljazeera.com/news/2026/10/31/protests-outside-polands-constitutional-court-whats-the-crisis-about?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T11:27:07.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae5b99c9481-1793440156.jpg?resize=1920%2C1440",
-        "summary": "Poland’s centrist government says it is restoring judicial independence after years of far-right political interference."
-      },
-      {
-        "title": "Thousands protest across Italy over living costs and military spending",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/thousands-protest-across-italy-over-living-costs-and-military-spending?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T11:07:39.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793444851.jpg?resize=1620%2C1080&quality=80",
-        "summary": "Thousands have protested across Italy against rising living costs and increased military spending."
-      },
-      {
-        "title": "UFC champion Islam Makhachev says his next fight will be ‘one of last’",
-        "url": "https://www.aljazeera.com/sports/2026/10/31/islam-makhachev-ufc-welterweight-title-one-of-last-fight-prates-morales?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T11:02:05.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/08/AFP__20260816__2290665803__v1__HighRes__Ufc330MakhachevVMachadoGarry-1786861640_0d68f3-1786863820.jpg?resize=1200%2C630&quality=80",
-        "summary": "Makhachev, one of the best fighters in UFC history, wants to face the winner of next year's Prates vs Morales fight."
-      },
-      {
-        "title": "Railway engineering work over Christmas will cause 10 days of disruption",
-        "url": "https://www.theguardian.com/business/2026/oct/31/railway-engineering-work-christmas-disruption-london-birmingham",
+        "title": "Police clash with masked rioters after largely peaceful protests across France",
+        "url": "https://www.theguardian.com/world/2026/oct/31/police-clash-rioters-after-largely-peaceful-protests-across-france",
         "source": "The Guardian",
-        "published": "2026-10-31T11:00:41.000Z",
-        "image": "https://i.guim.co.uk/img/media/3291566d297d05139ad70f54090d09e49ab0344c/437_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=4994821e5e3fd4a1e8a8038a7a515793",
-        "summary": "London Paddington and Birmingham New Street stations will shut for five days but most routes will stay open Passengers travelling on some of Great Britain’s busiest railway lines a"
+        "published": "2026-10-31T18:23:56.000Z",
+        "image": "https://i.guim.co.uk/img/media/3546bec1281afb0dcb3d211110686c453d00fa3e/0_0_4914_3933/master/4914.jpg?width=140&quality=85&auto=format&fit=max&s=28e4f98442489f9988db1c362c0869cb",
+        "summary": "Demonstrations also taking place in Germany, where officers fire teargas to disperse crowds as evening falls Clashes have erupted in Paris, Marseille and other cities after tens of"
+      },
+      {
+        "title": "Last Chance Cypher - Red Bull",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQTUFGYTY3VDJHRkVHTmpXRmRhbzE0Ti1CZF85MlpuMERYWm9WSEROUUtFNjNHWkpNZVczVFV3SV9VOEJ5ZEk0WFhkMTdqbjdwbmZpQ0VyX2EwRlQ3Q3hQa1FaOVB2UDhLLUJyR2JkV0l0UTdoZ2wtTVdMc1V5ZmI4T09CMjBiSjhOUWJnN014UXNTSTZLMGRTX1BRQVdyUElQcFRCMGVBRlpjZkFDNnZWa1lPQzFlQzFFYjllNE9XTDFZd3g0cEE?oc=5",
+        "source": "Red Bull",
+        "published": "2026-10-31T18:14:06.000Z",
+        "image": "",
+        "summary": "Last Chance Cypher Red Bull"
+      },
+      {
+        "title": "Red Bull BC One World Final 2026: Last Chance Cypher - Red Bull",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOMXFyd1hXTTJFaEFGV1RhVDUwQVZCMGxkQ0ZRTlNwVDJzdnVUMkxySTJtU2dzTXB1c2RrT0hqMGViUVM2N2N5S01EdS01QVRsdXluN3hscDFkZ3llbG5OcHlBVjZIbHo1RU5ZZ0wzOFM2NU1WNmM0dXFlcHhPZi1RMDdpVWUxaUg4aEtjc1lhWDd1WlNlYWtPYkZzc0RSVTZzc2lHRVdBWUJRMUVMTmJPVThOVUFmdFBIU3F3UDhRQmxQQXJfMnc?oc=5",
+        "source": "Red Bull",
+        "published": "2026-10-31T18:12:09.000Z",
+        "image": "",
+        "summary": "Red Bull BC One World Final 2026: Last Chance Cypher Red Bull"
+      },
+      {
+        "title": "Camp workshops - Red Bull",
+        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOU3VLbmR3NGp1d2w5OGpUNDJ5cWttWDBpbU81bEhQQ2hpLUI1NHBDY3ZvWDJ0S05mZC1FaWwxQnNxR3BvOEF3bS1qcEhDYUN4X01xWnpvTG9McWRxWktwS013bjYyWklEM3Q5M254NGpjQU5kcU1JeXB5bnFFVHFfeU95UjNIMno3dHQ2WTlxZ3VfT3R0QnpYMHMzUDdPcEloRmM1YkFxNHdJYTRxUGZuOGdzUmptbDFyVy15RHRGMFQ?oc=5",
+        "source": "Red Bull",
+        "published": "2026-10-31T18:12:08.000Z",
+        "image": "",
+        "summary": "Camp workshops Red Bull"
       }
     ],
     "ai": [
+      {
+        "title": "Disquiet grows in Albanese’s back yard as Grayndler artists unite against ‘insane’ AI proposal",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/01/artists-against-ai-proposal-anthony-albanese-grayndler-sydney-inner-west",
+        "source": "The Guardian",
+        "published": "2026-10-31T19:00:52.000Z",
+        "image": "https://i.guim.co.uk/img/media/807757f27fc7edd5bb144e03b8fbb5e5681bfa56/196_36_2835_2268/master/2835.jpg?width=140&quality=85&auto=format&fit=max&s=f774176952b35a2f6f87a9e3e6fa6a60",
+        "summary": "Inner west Sydney seat has long been safely held by the PM – but potential changes to copyright laws are angering its large creative community Get our daily political email , free "
+      },
+      {
+        "title": "I built an AI Tamagotchi before Meta could",
+        "url": "https://www.theverge.com/gadgets/1013375/muse-charm-gadgets-preview-waveshare-esp32-claude-vibe-code",
+        "source": "The Verge",
+        "published": "2026-10-31T16:05:00.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/verge-sean-hollister-muse-gadget-331A2564-01-3.jpg?quality=90&strip=all&crop=4,0,96,94.899920311255",
+        "summary": "Mark Zuckerberg's Meta made AI look so stinking cute by giving it a squishy little face - and this holiday season, he wants to sell you a Muse Charm so you can carry your jolly AI "
+      },
+      {
+        "title": "A-listers and AI stylists: how high-street brands are staging a fashion comeback",
+        "url": "https://www.theguardian.com/fashion/2026/oct/31/a-listers-ai-stylists-high-street-brands-fashion-comeback",
+        "source": "The Guardian",
+        "published": "2026-10-31T16:00:47.000Z",
+        "image": "https://i.guim.co.uk/img/media/392bac3568445a08a38ac339fc9393a9fd479db7/0_507_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=4649f1c8decf36e3c9aecd71297f15b3",
+        "summary": "Gap, M&S, Topshop and more are taking a leaf from luxury label playbooks to satisfy savvier generation of shoppers High street brands that boomed in the noughties before the squeez"
+      },
       {
         "title": "Is AI your new wingman? How chatbots are transforming dating",
         "url": "https://www.theguardian.com/lifeandstyle/2026/oct/31/ai-your-wingman-chatbots-transforming-dating",
@@ -148,30 +172,6 @@
         "published": "2026-10-30T19:57:13.000Z",
         "image": "https://i.guim.co.uk/img/media/287a932e6182e9c13725a754a783f28dac7965a5/509_0_5029_4024/master/5029.jpg?width=140&quality=85&auto=format&fit=max&s=9dcafd63ef1a53d66ee342b865c9d181",
         "summary": "Anthropic, the creator of Claude, filed to go public on the US stock market on 26 October. The company's filing statement contains a 92-page risk factor document in which it acknow"
-      },
-      {
-        "title": "Tech sell-off drives US markets down by nearly $1tn after subpar earnings reports",
-        "url": "https://www.theguardian.com/technology/2026/oct/30/tech-stocks-drop-earnings-report",
-        "source": "The Guardian",
-        "published": "2026-10-30T18:27:51.000Z",
-        "image": "https://i.guim.co.uk/img/media/7a052dd1015720ea8d19c722dd7b8bcd0586aab3/452_0_4515_3613/master/4515.jpg?width=140&quality=85&auto=format&fit=max&s=caca7d3f30c1eef3ea87cd4a8a986b56",
-        "summary": "Big tech stocks falter as investors question whether billions being poured into AI can generate returns quickly enough A sell-off of tech stocks that began earlier this month and g"
-      },
-      {
-        "title": "Google’s satellite AI server transmits its first response to Earth",
-        "url": "https://www.theverge.com/tech/1023528/google-project-suncatcher-ai-satellite-transmission",
-        "source": "The Verge",
-        "published": "2026-10-30T18:21:38.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/project-suncatcher-google.png?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Google's AI chip-equipped satellite has generated its first response from space. In a blog post on Friday, Google says it successfully booted up the satellite's Tensor Processing U"
-      },
-      {
-        "title": "Starbucks wants to use AI to show you a ‘personalized digital menu’ at the drive-thru",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1023440/starbucks-ai-personalized-menu-drive-thru",
-        "source": "The Verge",
-        "published": "2026-10-30T17:38:04.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/gettyimages-2268681559.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Starbucks could eventually show you a personalized digital menu when you pull up to the drive-thru. During an earnings call on Thursday, Starbucks CEO Brian Niccol said the company"
       }
     ],
     "fashion": [
@@ -179,7 +179,7 @@
         "title": "Hertunba Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/hertunba",
         "source": "Vogue",
-        "published": "2026-10-31T12:27:50.000Z",
+        "published": "2026-10-31T19:18:10.000Z",
         "image": "https://assets.vogue.com/photos/6ae47b1aa08c1246b0f9e849/master/pass/00001-hertunba-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -187,7 +187,7 @@
         "title": "Oshobor Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/oshobor",
         "source": "Vogue",
-        "published": "2026-10-31T12:27:50.000Z",
+        "published": "2026-10-31T19:18:10.000Z",
         "image": "https://assets.vogue.com/photos/6ae47cd6fff3bc82384b1320/master/pass/00001-oshobor-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -195,131 +195,131 @@
         "title": "Nkwo Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/nkwo",
         "source": "Vogue",
-        "published": "2026-10-31T12:27:50.000Z",
+        "published": "2026-10-31T19:18:10.000Z",
         "image": "https://assets.vogue.com/photos/6ae478fd2e524bafba4604e6/master/pass/00001-nkwo-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
       {
-        "title": "How The Craft Became a Teen Girl Touchstone",
-        "url": "https://www.harpersbazaar.com/culture/film-tv/a74297462/the-craft-horror-legacy/",
+        "title": "Gigi Hadid’s Preppy Look Is Full of Fall Statement Pieces",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74302543/gigi-hadid-preppy-fall-statements-guest-in-residence-plaid-skirt-cowboy-boots-moschino-flower-pot-bag-photos/",
         "source": "Harper's Bazaar",
-        "published": "2026-10-31T12:00:00.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/6d9814cb-c951-4edf-83bd-946ddc1c84f9.jpg",
-        "summary": "In honor of the cult film’s 30th anniversary, Bazaar spoke to the actors, producer, and director about how it was made—and why it still resonates today"
+        "published": "2026-10-31T19:00:07.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/ef873622-6e75-40ce-acab-0054a77fcf5d.jpeg",
+        "summary": "Including a novelty bag"
       },
       {
-        "title": "The Best Restaurants in Paris Now, From Classic Bistros to Cutting-Edge Tasting Menus",
-        "url": "https://www.vogue.com/article/best-restaurants-in-paris",
-        "source": "Vogue",
-        "published": "2026-10-31T12:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/663d1ea5b4933304ec06a3aa/master/pass/GettyImages-1495733716.jpg",
-        "summary": "From quintessential bistros to fashion-crowd favorites, find Vogue’s guide to the best restaurants in Paris here."
-      },
-      {
-        "title": "Need Halloween Inspo? Look No Further Than These IRL Street Style Pics",
-        "url": "https://www.vogue.com/article/street-style-trend-tracker-halloween-outfits-2023",
-        "source": "Vogue",
-        "published": "2026-10-31T10:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6324848dbee7fa2be1d21e60/master/pass/NYFW-STREETSTYLE-PHILOH-DAY6-11.jpg",
-        "summary": "If you’re in a bind this Halloween, chances are you can pull together a costume straight from your closet, using these street style looks as inspiration."
-      },
-      {
-        "title": "Toxic Friendship: How to Spot One—and What to Do About It",
-        "url": "https://www.vogue.com/article/toxic-friendships",
-        "source": "Vogue",
-        "published": "2026-10-31T10:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae574881bf0fda7d3fc8eab/master/pass/M8DDEBE_EC008.jpg",
-        "summary": "Wondering if you're in a toxic friendship? Experts reveal the warning signs, how to set boundaries, when to walk away, and when the problem is actually you."
-      },
-      {
-        "title": "Beauty Marks: The Best Beauty Looks of the Week",
-        "url": "https://www.vogue.com/slideshow/best-beauty-looks-of-the-week-october-30",
-        "source": "Vogue",
-        "published": "2026-10-31T09:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae51c03106544f9d134662c/master/pass/SnapInsta.to_866478819_18354554188253703_975782057174707239_n.jpg",
-        "summary": "From sculptural updos and dramatic bangs to frosted lids and full-body glitter, this week’s best beauty looks were anything but understated."
-      },
-      {
-        "title": "Rachel Zegler Diversifies Suiting in a Mark Gong Bra Top Ensemble & John Hardy Jewelry at ‘A Few Good Men’ Opening in New York",
-        "url": "https://wwd.com/pop-culture/celebrity-news/rachel-zegler-bra-top-mark-gong-john-hardy-a-few-good-men-1239394442/",
+        "title": "Willy Chavarria Teams With Xinú for Limited-Edition Candle Vessel",
+        "url": "https://wwd.com/beauty-industry-news/fragrance/willy-chavarria-xinu-candle-collab-mexico-1239393054/",
         "source": "WWD",
-        "published": "2026-10-31T01:48:08.000Z",
+        "published": "2026-10-31T19:00:00.000Z",
         "image": "",
-        "summary": "'A Few Good Men' opened on Broadway and will run for a limited 13 weeks."
+        "summary": "The fashion designer is officially launching the collaboration he teased during his spring 2027 ready-to-wear presentation last June."
+      },
+      {
+        "title": "Gigi Hadid Gets Cozy in “Sweater Weather Cocktail Attire” to Celebrate Opening of Madison Avenue Guest in Residence Location",
+        "url": "https://wwd.com/pop-culture/celebrity-news/gigi-hadid-madison-avenue-nyc-guest-in-residence-1239394716/",
+        "source": "WWD",
+        "published": "2026-10-31T17:21:26.000Z",
+        "image": "",
+        "summary": "On Thursday night, Hadid hosted a party to mark the opening of Guest in Residence’s Madison Avenue location, appearing in a cashmere plaid skirt paired with a halter top and cowboy"
+      },
+      {
+        "title": "The Royals Share a Throwback Photo of Prince Louis for Halloween",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74302346/prince-william-kate-middleton-throwback-halloween-photo-prince-louis/",
+        "source": "Harper's Bazaar",
+        "published": "2026-10-31T16:15:37.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/1d72e8a4-3bc1-4692-9612-b30d8b4132a9.jpg",
+        "summary": "Photographed by Princess Kate herself"
+      },
+      {
+        "title": "Tracee Ellis Ross Styles Herself in an All-Black with Sharp Giuseppe Zanotti Slingbacks at Daytime Emmys 2026",
+        "url": "https://wwd.com/footwear-news/shoe-trends/tracee-ellis-ross-giuseppe-zanotti-daytime-emmys-2026-1239394681/",
+        "source": "WWD",
+        "published": "2026-10-31T16:06:37.000Z",
+        "image": "",
+        "summary": "The actress took home an award for \"Outstanding Travel and Adventure Program\" for her Roku series \"Solo Traveling with Tracee Ellis Ross.\""
+      },
+      {
+        "title": "EXCLUSIVE: Ouai and Heaven Mayhem Team Up on Refillable Fragrance Necklaces",
+        "url": "https://wwd.com/beauty-industry-news/fragrance/ouai-heaven-mayhem-fragrance-necklace-collaboration-1239394550/",
+        "source": "WWD",
+        "published": "2026-10-31T16:00:00.000Z",
+        "image": "",
+        "summary": "The amulet necklaces bring together Ouai’s signature scents and Heaven Mayhem’s vintage-inspired jewelry designs."
       }
     ],
     "markets": [
       {
-        "title": "Qatari mediators held talks in Tehran aimed at restarting direct U.S.-Iran negotiations, source says",
-        "url": "https://www.cnbc.com/2026/10/31/qatar-iran-us-talks-mediation.html",
+        "title": "Binance says 90% of $6.3 billion hack losses are now covered, plans to resume withdrawals Sunday",
+        "url": "https://www.cnbc.com/2026/10/31/binance-hack-asset-coverage-withdrawals.html",
         "source": "CNBC World",
-        "published": "2026-10-31T12:11:12.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108491532-1793445317575-gettyimages-2302114677-nikoubazl-antiusai261029_npfpi.jpeg?v=1793445335&w=1920&h=1080",
-        "summary": "Axios reported that Qatari mediators held more than 12 hours of talks in Tehran on Friday to reach a deal to avoid a resumption of American-led attacks on Iran."
+        "published": "2026-10-31T19:16:25.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/106907103-1625597281111-gettyimages-1233700528-porzycki-binancep210628_npNRz.jpeg?v=1680785353&w=1920&h=1080",
+        "summary": "Binance says it has restored backing for 90% of assets affected by its $6.3 billion hack and is planning to resume withdrawals, subject to security checks."
       },
       {
-        "title": "These 10 megadonors have spent a total of $1 billion on the midterm elections",
-        "url": "https://www.marketwatch.com/story/these-10-megadonors-have-spent-a-total-of-1-billion-on-the-midterm-elections-0dc279cf?mod=mw_rss_topstories",
+        "title": "This is where most people go wrong in their 30s and 40s",
+        "url": "https://www.marketwatch.com/story/the-house-the-kids-college-and-the-raise-where-people-in-their-30s-and-40s-go-wrong-69ec6c90?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-31T12:00:00.000Z",
-        "image": "https://images.mktw.net/im-27816959",
-        "summary": "They’ve helped turn this year’s midterms into “the most expensive election cycle on record.”"
+        "published": "2026-10-31T19:02:00.000Z",
+        "image": "https://images.mktw.net/im-15921386",
+        "summary": "These big life decisions will determine just how well you retire."
       },
       {
-        "title": "The staggering $446m Elon Musk has spent on the US midterms – visualized",
-        "url": "https://www.theguardian.com/us-news/ng-interactive/2026/oct/31/elon-musk-midterms-spending-visualized",
-        "source": "The Guardian",
-        "published": "2026-10-31T10:00:40.000Z",
-        "image": "https://i.guim.co.uk/img/media/87f71c610e349be86307c3bc3899c73108b60411/1_0_2999_2400/master/2999.jpg?width=140&quality=85&auto=format&fit=max&s=677a3b257b8a6e5d7d53780c68c3e1dc",
-        "summary": "The tech mogul’s midterm donations backing Republicans have made him the largest single-cycle political donor in modern US history Elon Musk has poured so much money into US politi"
-      },
-      {
-        "title": "Trump called out Big Oil profits. Here’s how much their refining earnings have surged since",
-        "url": "https://www.cnbc.com/2026/10/31/trump-big-oil-refining-profits.html",
-        "source": "CNBC World",
-        "published": "2026-10-31T06:00:02.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108478855-1793252242563-gettyimages-2265325794-US-.jpeg?v=1793376733&w=1920&h=1080",
-        "summary": "Trump criticized Big Oil for making “too much money,” but oil majors have since reported surging refining earnings as fuel supplies tightened."
-      },
-      {
-        "title": "AI is coming to construction sites. But does it make workers safer?",
-        "url": "https://www.cnbc.com/2026/10/31/ai-construction-worker-safety.html",
-        "source": "CNBC World",
-        "published": "2026-10-31T06:00:02.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108469976-1793123070639-gettyimages-2149414808-engcon_1121.jpeg?v=1793397004&w=1920&h=1080",
-        "summary": "AI is flagging hazards on construction sites, but researchers say evidence that the technology prevents injuries remains limited."
-      },
-      {
-        "title": "Grand Theft Callout: ‘GTA 6’ fans are missing work on the game’s release day because they ‘don’t want to wait’ anymore",
-        "url": "https://www.marketwatch.com/story/grand-theft-callout-gta-6-fans-are-missing-work-on-the-games-release-day-because-they-dont-want-to-wait-anymore-5f2fa2e3?mod=mw_rss_topstories",
+        "title": "We’re in our 70s. Should we pay off our 2.5% mortgage — or put the money in a high-yield savings account?",
+        "url": "https://www.marketwatch.com/story/we-are-in-our-70s-should-we-pay-off-our-2-5-mortgage-or-build-up-our-savings-5a35e9c1?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-31T04:30:00.000Z",
-        "image": "https://images.mktw.net/im-40951496",
-        "summary": "After waiting 13 years for this videogame, almost one-fifth of workers plan to take the day off to play ‘Grand Theft Auto VI’ when it drops on Nov. 19"
+        "published": "2026-10-31T19:00:00.000Z",
+        "image": "https://images.mktw.net/im-65126339",
+        "summary": "“Let’s say 10 years from now, when I’m 84, we need a substantial amount of cash.”"
       },
       {
-        "title": "Has the tech bubble burst? Why the Nasdaq’s rough ride looks eerily like 2000.",
-        "url": "https://www.marketwatch.com/story/has-the-tech-bubble-burst-why-the-nasdaqs-rough-ride-looks-eerily-like-2000-5bcefcb2?mod=mw_rss_topstories",
+        "title": "‘He was heartbroken’: My husband’s kids abandoned him when he was dying. Was he right to leave everything to me?",
+        "url": "https://www.marketwatch.com/story/he-was-heartbroken-my-husbands-kids-never-helped-when-he-was-gravely-ill-was-he-right-to-leave-everything-to-me-1ad0616b?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-30T23:14:00.000Z",
-        "image": "https://images.mktw.net/im-50502559",
-        "summary": "Friday’s big plunge raises disturbing parallels with the top of the dot-com bubble"
+        "published": "2026-10-31T18:50:00.000Z",
+        "image": "https://images.mktw.net/im-56448073",
+        "summary": "“In the end, he left them a few sentimental mementos, some collectibles and old photographs.”"
       },
       {
-        "title": "Meta outlook revised downward by S&P on cash flow and capex concerns",
-        "url": "https://www.cnbc.com/2026/10/30/meta-outlook-to-revised-to-negative-by-sp-after-cash-flow-negative.html",
-        "source": "CNBC World",
-        "published": "2026-10-30T22:42:26.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108443816-1792619674334-gettyimages-2296213884-META_CONNECT.jpeg?v=1792619769&w=1920&h=1080",
-        "summary": "Meta has been given a negative outlook by S&P Global Ratings due to the company's hefty capital expenditures and concerns about free cash flow."
-      },
-      {
-        "title": "This cybersecurity stock will be the next to join the S&P 500",
-        "url": "https://www.marketwatch.com/story/this-cybersecurity-stock-will-be-the-next-to-join-the-s-p-500-dc976803?mod=mw_rss_topstories",
+        "title": "Is it curtains for COLA? Saving Social Security could mean changing the cost-of-living adjustment.",
+        "url": "https://www.marketwatch.com/story/is-it-curtains-for-cola-saving-social-security-could-mean-changing-the-cost-of-living-adjustment-867c6bd8?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-30T22:20:00.000Z",
-        "image": "https://images.mktw.net/im-37151738",
-        "summary": "Okta is slated to join the index on Wednesday, replacing Kenvue."
+        "published": "2026-10-31T18:33:00.000Z",
+        "image": "https://images.mktw.net/im-24279758",
+        "summary": "Several proposals consider changing the way retirees receive inflation protection. Here’s what it could cost you."
+      },
+      {
+        "title": "Caregivers are now spending more than $11,000 a year out of pocket—up 60% in five years",
+        "url": "https://www.marketwatch.com/story/were-spending-more-than-11-000-a-year-of-our-own-money-caring-for-our-aging-parents-and-loved-ones-8fc5b2dc?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-31T18:10:00.000Z",
+        "image": "https://images.mktw.net/im-86491605",
+        "summary": "An AARP study shows the financial sacrifices families make and their long-term impacts."
+      },
+      {
+        "title": "Medicare used AI to pre-approve patient care, and it immediately led to a large drop in medical services",
+        "url": "https://www.marketwatch.com/story/medicare-used-ai-to-pre-approve-patient-care-and-it-immediately-led-to-a-large-drop-in-medical-services-dc38a210?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-31T17:26:00.000Z",
+        "image": "https://images.mktw.net/im-74822336",
+        "summary": "Medicare is testing the use of AI to conduct prior authorizations to target wasteful medical spending"
+      },
+      {
+        "title": "80% of workers make this 401(k) mistake when they retire",
+        "url": "https://www.marketwatch.com/story/whats-the-first-thing-most-people-do-with-their-401-k-after-they-retire-nothing-8a606518?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-31T16:46:00.000Z",
+        "image": "https://images.mktw.net/im-26475652",
+        "summary": "Other tax repercussions crop up down the road because balances build up, and RMDs get complicated"
+      },
+      {
+        "title": "Want guaranteed income in retirement without an annuity? Try laddering I bonds.",
+        "url": "https://www.marketwatch.com/story/how-to-use-i-bonds-to-create-guaranteed-inflation-proof-income-in-retirement-50753fea?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-31T16:02:00.000Z",
+        "image": "https://images.mktw.net/im-39326019",
+        "summary": "The new I-bond interest rate could be 5.5% or 5.4%, but that shouldn’t change your strategy."
       }
     ]
   }
