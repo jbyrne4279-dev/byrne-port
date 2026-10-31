@@ -1,106 +1,122 @@
 {
-  "generatedAt": "2026-10-31T05:41:10.666Z",
+  "generatedAt": "2026-10-31T12:29:38.176Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Mohammed Deif, rare footage and October 7 documents",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/mohammed-deif-rare-footage-and-october-7-documents?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T05:07:34.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793423241.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Rare footage obtained by Al Jazeera offers a look at the life of former Hamas military commander, Mohammed Deif."
-      },
-      {
-        "title": "Trump tells voters to send El-Sayed ‘back to where he came from’",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/trump-tells-voters-to-send-el-sayed-back-to-where-he-came?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T05:07:25.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793423226.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Speaking at a campaign rally, Donald Trump told voters to send Michigan’s Abdul El-Sayed ‘back to where he came from’."
-      },
-      {
-        "title": "US greenlights $2.1bn Patriot missile sale to Ukraine",
-        "url": "https://www.aljazeera.com/news/2026/10/31/us-greenlights-2-1bn-patriot-missile-sale-to-ukraine?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T04:51:25.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2024-06-11T184031Z_1488011364_RC2698ANC965_RTRMADP_3_UKRAINE-CRISIS-GERMANY-1793417971.jpg?resize=1920%2C1440",
-        "summary": "Deal would be one of the most significant steps to supply defensive weapons to Kyiv since ​Trump took office in 2025."
-      },
-      {
-        "title": "US jails two Chinese nationals for spying",
-        "url": "https://www.aljazeera.com/news/2026/10/31/us-jails-two-chinese-nationals-for-spying?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T04:41:32.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2025-11-14T175725Z_1911234304_RC2HWHAS611Y_RTRMADP_3_USA-TRUMP-EPSTEIN-1793418298.jpg?resize=1920%2C1440",
-        "summary": "Liren Lai and Yuance Chen admitted to facilitating 'dead drop' cash payments worth at least $30,000 to people in the US."
-      },
-      {
-        "title": "Suited and booted: How Joseph Kabila went from president to rebel leader",
-        "url": "https://www.bbc.co.uk/news/articles/cr3wv311dwnlo?at_medium=RSS&at_campaign=rss",
+        "title": "US approves sale of 500 Patriot missiles to Ukraine",
+        "url": "https://www.bbc.co.uk/news/articles/c3vgxznlx7jzo?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-10-31T04:32:07.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a56b/live/5a0952f0-d487-11f1-80bc-6d398902272f.jpg",
-        "summary": "What does Joseph Kabila launching a new rebel movement mean for DR Congo?"
+        "published": "2026-10-31T12:21:25.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ea75/live/f93e2820-d4b7-11f1-a701-fddedf244c16.jpg",
+        "summary": "The American-made interceptors are the only effective weapon for downing Russia's ballistic missiles."
       },
       {
-        "title": "Riot police deployed to Poland’s constitutional court after judge suspended",
-        "url": "https://www.theguardian.com/world/2026/oct/31/riot-police-deployed-to-polands-constitutional-court-after-judge-suspended",
+        "title": "Aston Villa to sue ex-Liverpool star Carragher over ‘unacceptable insults’",
+        "url": "https://www.aljazeera.com/sports/2026/10/31/aston-villa-jamie-carragher-legal-action-sue-premier-league-football?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-31T12:14:15.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/ap_6938660233db6-1765303810-1793443976.jpg?resize=1200%2C630&quality=80",
+        "summary": "Aston Villa chairman accuses ex-Liverpool defender Jamie Carragher of insulting the club, with legal action threatened."
+      },
+      {
+        "title": "Iran warns of unfettered retaliation if attacked as mediators try for peace",
+        "url": "https://www.aljazeera.com/news/2026/10/31/iran-warns-of-unfettered-retaliation-if-attacked-as-mediators-try-for-peace?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-31T12:13:42.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6adf96615801-1793037921.jpg?resize=1920%2C1440",
+        "summary": "Iran’s supreme leader says Tehran’s potential response will not be restricted by geography."
+      },
+      {
+        "title": "France and Germany braced for unrest with hundreds of demonstrations planned – Europe live",
+        "url": "https://www.theguardian.com/world/live/2026/oct/31/france-germany-protests-paris-europe-latest-news-updates",
         "source": "The Guardian",
-        "published": "2026-10-31T04:27:25.000Z",
-        "image": "https://i.guim.co.uk/img/media/b595186b872d72d05a5c01e8ce0be90bb9af8d06/1355_185_5926_4743/master/5926.jpg?width=140&quality=85&auto=format&fit=max&s=694d71b1d782d4dd5f332088dec4289e",
-        "summary": "President Karol Nawrocki seen struggling to gain entry to court building in Warsaw amid long-running row over the court’s legitimacy Riot police were locked in a tense standoff wit"
+        "published": "2026-10-31T12:09:22.000Z",
+        "image": "https://i.guim.co.uk/img/media/c2c1f4d3ca9aba5bea8a24095c58a324cb8404f8/680_0_4692_3754/master/4692.jpg?width=140&quality=85&auto=format&fit=max&s=f8c650b6a428e93b69cd1ad08a335b01",
+        "summary": "French interior minister, Laurent Nuñez, warned earlier this week of a ‘very high risk of public disorder’ Here are some of the latest images from around France: In Paris, two sepa"
       },
       {
-        "title": "Luigi Mangione’s lawyers file to dismiss state charges, citing double jeopardy law",
-        "url": "https://www.theguardian.com/us-news/2026/oct/31/luigi-mangione-new-york-case",
+        "title": "Evacuees from Russia-occupied city where residents ate weeds on way to Ukraine",
+        "url": "https://www.bbc.co.uk/news/articles/cqx2818elrnzo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-10-31T12:05:04.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/62ec/live/4e7bd090-d516-11f1-93e1-3b657b665bcf.jpg",
+        "summary": "Residents left the devastated city on Friday following a ceasefire brokered by US First Lady Melania Trump."
+      },
+      {
+        "title": "Healey to veto new offshore wind projects if they will not lower bills",
+        "url": "https://www.theguardian.com/environment/2026/oct/31/john-healey-chancellor-offshore-wind-projects-veto",
         "source": "The Guardian",
-        "published": "2026-10-31T04:09:50.000Z",
-        "image": "https://i.guim.co.uk/img/media/52b86e6b5d88b4c7ebca5b536c9b8b4938517c3d/648_0_6480_5184/master/6480.jpg?width=140&quality=85&auto=format&fit=max&s=ef67e86fc11d7f5ffeb61c81e672997f",
-        "summary": "Mangione pleaded guilty in August in federal case in the killing of UnitedHealthcare executive Brian Thompson Luigi Mangione’s lawyers filed paperwork on Friday once again pushing "
+        "published": "2026-10-31T11:48:14.000Z",
+        "image": "https://i.guim.co.uk/img/media/1b421be8971c5f4e293889e1c1004b2259e48cf8/0_0_4638_3710/master/4638.jpg?width=140&quality=85&auto=format&fit=max&s=d841d35b7e5810b0d75396e51d233a96",
+        "summary": "UK chancellor’s plans add to concerns government is moving away from pro-renewables agenda John Healey has said he will veto new offshore wind projects if they will not lower bills"
       },
       {
-        "title": "Iran says four tankers on fire after striking mines in Hormuz",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/iran-says-four-tankers-on-fire-after-striking-mines-in-hormuz?traffic_source=rss",
+        "title": "UN closes Somalia mission, ending three decades of political engagement",
+        "url": "https://www.aljazeera.com/news/2026/10/31/un-closes-somalia-mission-ending-three-decades-of-political-engagement?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T03:55:48.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/wide-thumb-hormuz-fire-1793418911.png?resize=1920%2C1080&quality=80",
-        "summary": "Iran's Revolutionary Guard says four tankers have caught fire in the Strait of Hormuz."
+        "published": "2026-10-31T11:37:21.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-07T003012Z_1511557306_RC2RPNAVAYE6_RTRMADP_3_UN-ASSEMBLY-1793439984.jpg?resize=1920%2C1440",
+        "summary": "Somalia hails the UN mission's closure as a milestone amid political tensions and cuts to international support."
       },
       {
-        "title": "US execution survivor Christa Pike says she is now in ‘constant pain’",
-        "url": "https://www.aljazeera.com/news/2026/10/31/us-execution-survivor-christa-pike-says-she-is-now-in-constant?traffic_source=rss",
+        "title": "Do tough laws deter drug crimes? Lessons from Singapore and Malaysia",
+        "url": "https://www.aljazeera.com/video/101-east/2026/10/31/do-tough-laws-deter-drug-crimes-lessons-from-singapore-and-malaysia?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T03:42:14.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ae54d01-1793412353.jpg?resize=1920%2C1440",
-        "summary": "Pike, 50, is being held in solitary confinement and faces an uncertain future after surviving a failed lethal injection."
+        "published": "2026-10-31T11:30:00.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793323873.jpg?resize=1920%2C1080&quality=80",
+        "summary": "As Malaysia rethinks the death penalty for drug offences, Singapore insists tough laws deter substance abuse."
       },
       {
-        "title": "Russia’s Novaya Gazeta ‘killed off’ after murders, arrests and pressure",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/russias-novaya-gazeta-killed-off-after-murders-arrests-and-pressure?traffic_source=rss",
+        "title": "Protests outside Poland’s constitutional court: What’s the crisis about?",
+        "url": "https://www.aljazeera.com/news/2026/10/31/protests-outside-polands-constitutional-court-whats-the-crisis-about?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-10-31T03:27:21.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793417221.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Russia’s most prominent investigative newspaper is closing, with staff accusing the government of killing it off."
+        "published": "2026-10-31T11:27:07.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae5b99c9481-1793440156.jpg?resize=1920%2C1440",
+        "summary": "Poland’s centrist government says it is restoring judicial independence after years of far-right political interference."
       },
       {
-        "title": "The cursed cruise: how the dream of never-ending luxury at sea became a nightmare",
-        "url": "https://www.theguardian.com/news/ng-interactive/2026/oct/31/mv-odyssey-cruise-passengers-nightmare-stranded-cambodia",
+        "title": "Thousands protest across Italy over living costs and military spending",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/10/31/thousands-protest-across-italy-over-living-costs-and-military-spending?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-31T11:07:39.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/image-1793444851.jpg?resize=1620%2C1080&quality=80",
+        "summary": "Thousands have protested across Italy against rising living costs and increased military spending."
+      },
+      {
+        "title": "UFC champion Islam Makhachev says his next fight will be ‘one of last’",
+        "url": "https://www.aljazeera.com/sports/2026/10/31/islam-makhachev-ufc-welterweight-title-one-of-last-fight-prates-morales?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-10-31T11:02:05.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/08/AFP__20260816__2290665803__v1__HighRes__Ufc330MakhachevVMachadoGarry-1786861640_0d68f3-1786863820.jpg?resize=1200%2C630&quality=80",
+        "summary": "Makhachev, one of the best fighters in UFC history, wants to face the winner of next year's Prates vs Morales fight."
+      },
+      {
+        "title": "Railway engineering work over Christmas will cause 10 days of disruption",
+        "url": "https://www.theguardian.com/business/2026/oct/31/railway-engineering-work-christmas-disruption-london-birmingham",
         "source": "The Guardian",
-        "published": "2026-10-31T03:00:31.000Z",
-        "image": "https://i.guim.co.uk/img/media/e96410a2761eb0e162d5013cac119ec046f80576/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=1c4cc9344bd3544514ae2f5258d7254c",
-        "summary": "The MV Odyssey was billed as the ultimate escape from Donald Trump. Instead, the oil shock caused by his war has left passengers unceremoniously dumped in Cambodia The idea was a n"
-      },
-      {
-        "title": "Ebola death toll in DR Congo passes 5,000",
-        "url": "https://www.aljazeera.com/news/2026/10/31/ebola-death-toll-in-dr-congo-passes-5000?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-10-31T02:51:52.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-27T090659Z_740443050_RC20XNA2U8PN_RTRMADP_3_HEALTH-EBOLA-CONGO-1793411509.jpg?resize=1920%2C1440",
-        "summary": "Authorities ​are struggling to find a way to control the ⁠outbreak, with no approved treatments or vaccines."
+        "published": "2026-10-31T11:00:41.000Z",
+        "image": "https://i.guim.co.uk/img/media/3291566d297d05139ad70f54090d09e49ab0344c/437_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=4994821e5e3fd4a1e8a8038a7a515793",
+        "summary": "London Paddington and Birmingham New Street stations will shut for five days but most routes will stay open Passengers travelling on some of Great Britain’s busiest railway lines a"
       }
     ],
     "ai": [
+      {
+        "title": "Is AI your new wingman? How chatbots are transforming dating",
+        "url": "https://www.theguardian.com/lifeandstyle/2026/oct/31/ai-your-wingman-chatbots-transforming-dating",
+        "source": "The Guardian",
+        "published": "2026-10-31T12:00:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/f57dcf1a8bbea5c0f23d491b38cd69b5b7d99f18/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=e31ca46ee09a0e757f9394788a52ffd8",
+        "summary": "Almost 40% of British singles have used AI for romantic advice, from writing messages to assessing potential partners After Sam’s ex joked that her sister found him ugly, he turned"
+      },
+      {
+        "title": "Relying on AI is rotting your brain. But here’s what you can do about it | Carly Dober",
+        "url": "https://www.theguardian.com/commentisfree/2026/oct/31/ai-rely-brain-new-tech-product-lives-boredom",
+        "source": "The Guardian",
+        "published": "2026-10-31T08:00:37.000Z",
+        "image": "https://i.guim.co.uk/img/media/2d96ff893b43e6d48d9bdbb100b32e39e4f77ecc/0_0_5187_4150/master/5187.jpg?width=140&quality=85&auto=format&fit=max&s=a115b579b45dd4f8606794384ea2b7bb",
+        "summary": "Each new tech product is designed to make our lives easier and keep us mindlessly entertained. Switch off: embrace discomfort – and boredom Ever longed for your own personal assist"
+      },
       {
         "title": "Apple Intelligence is finally coming to China with iOS 27.3",
         "url": "https://www.theverge.com/tech/1023974/apple-intelligence-china-ios-27-3",
@@ -156,22 +172,6 @@
         "published": "2026-10-30T17:38:04.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/gettyimages-2268681559.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "Starbucks could eventually show you a personalized digital menu when you pull up to the drive-thru. During an earnings call on Thursday, Starbucks CEO Brian Niccol said the company"
-      },
-      {
-        "title": "Credit where it’s due to AI for uncovering the PHP flaw – and discredit to the leaker | Letters",
-        "url": "https://www.theguardian.com/technology/2026/oct/30/credit-where-its-due-to-ai-for-uncovering-the-php-flaw-and-discredit-to-the-leaker",
-        "source": "The Guardian",
-        "published": "2026-10-30T17:10:09.000Z",
-        "image": "https://i.guim.co.uk/img/media/98122b47991b59eb0c234aca89afd10ec17bbdbf/165_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=262584564544739925c4a0fc00eb7836",
-        "summary": "David Gibson says the problem is that details of the flaw were revealed before it was fixed, while Charles MacKinnon notes that we are at the mercy of technology we don’t understan"
-      },
-      {
-        "title": "A question for those who hate datacentres",
-        "url": "https://www.theguardian.com/uk-news/2026/oct/30/a-question-for-those-who-hate-datacentres",
-        "source": "The Guardian",
-        "published": "2026-10-30T17:10:03.000Z",
-        "image": "https://i.guim.co.uk/img/media/b06cb76a8d1930cd7908c77e28a524a5ece8ed02/0_0_6726_5381/master/6726.jpg?width=140&quality=85&auto=format&fit=max&s=1df3558b25246128eda322f42b43f5ff",
-        "summary": "Technology and urban planning | The Guardian letters page | Porridge Your account of the datacentre controversy in Cardiff ( The datacentre next door: on the frontline of tech’s la"
       }
     ],
     "fashion": [
@@ -179,7 +179,7 @@
         "title": "Hertunba Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/hertunba",
         "source": "Vogue",
-        "published": "2026-10-31T05:38:59.000Z",
+        "published": "2026-10-31T12:27:50.000Z",
         "image": "https://assets.vogue.com/photos/6ae47b1aa08c1246b0f9e849/master/pass/00001-hertunba-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -187,7 +187,7 @@
         "title": "Oshobor Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/oshobor",
         "source": "Vogue",
-        "published": "2026-10-31T05:38:59.000Z",
+        "published": "2026-10-31T12:27:50.000Z",
         "image": "https://assets.vogue.com/photos/6ae47cd6fff3bc82384b1320/master/pass/00001-oshobor-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -195,9 +195,49 @@
         "title": "Nkwo Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/nkwo",
         "source": "Vogue",
-        "published": "2026-10-31T05:38:59.000Z",
+        "published": "2026-10-31T12:27:50.000Z",
         "image": "https://assets.vogue.com/photos/6ae478fd2e524bafba4604e6/master/pass/00001-nkwo-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
+      },
+      {
+        "title": "How The Craft Became a Teen Girl Touchstone",
+        "url": "https://www.harpersbazaar.com/culture/film-tv/a74297462/the-craft-horror-legacy/",
+        "source": "Harper's Bazaar",
+        "published": "2026-10-31T12:00:00.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/6d9814cb-c951-4edf-83bd-946ddc1c84f9.jpg",
+        "summary": "In honor of the cult film’s 30th anniversary, Bazaar spoke to the actors, producer, and director about how it was made—and why it still resonates today"
+      },
+      {
+        "title": "The Best Restaurants in Paris Now, From Classic Bistros to Cutting-Edge Tasting Menus",
+        "url": "https://www.vogue.com/article/best-restaurants-in-paris",
+        "source": "Vogue",
+        "published": "2026-10-31T12:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/663d1ea5b4933304ec06a3aa/master/pass/GettyImages-1495733716.jpg",
+        "summary": "From quintessential bistros to fashion-crowd favorites, find Vogue’s guide to the best restaurants in Paris here."
+      },
+      {
+        "title": "Need Halloween Inspo? Look No Further Than These IRL Street Style Pics",
+        "url": "https://www.vogue.com/article/street-style-trend-tracker-halloween-outfits-2023",
+        "source": "Vogue",
+        "published": "2026-10-31T10:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6324848dbee7fa2be1d21e60/master/pass/NYFW-STREETSTYLE-PHILOH-DAY6-11.jpg",
+        "summary": "If you’re in a bind this Halloween, chances are you can pull together a costume straight from your closet, using these street style looks as inspiration."
+      },
+      {
+        "title": "Toxic Friendship: How to Spot One—and What to Do About It",
+        "url": "https://www.vogue.com/article/toxic-friendships",
+        "source": "Vogue",
+        "published": "2026-10-31T10:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6ae574881bf0fda7d3fc8eab/master/pass/M8DDEBE_EC008.jpg",
+        "summary": "Wondering if you're in a toxic friendship? Experts reveal the warning signs, how to set boundaries, when to walk away, and when the problem is actually you."
+      },
+      {
+        "title": "Beauty Marks: The Best Beauty Looks of the Week",
+        "url": "https://www.vogue.com/slideshow/best-beauty-looks-of-the-week-october-30",
+        "source": "Vogue",
+        "published": "2026-10-31T09:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6ae51c03106544f9d134662c/master/pass/SnapInsta.to_866478819_18354554188253703_975782057174707239_n.jpg",
+        "summary": "From sculptural updos and dramatic bangs to frosted lids and full-body glitter, this week’s best beauty looks were anything but understated."
       },
       {
         "title": "Rachel Zegler Diversifies Suiting in a Mark Gong Bra Top Ensemble & John Hardy Jewelry at ‘A Few Good Men’ Opening in New York",
@@ -206,49 +246,49 @@
         "published": "2026-10-31T01:48:08.000Z",
         "image": "",
         "summary": "'A Few Good Men' opened on Broadway and will run for a limited 13 weeks."
-      },
-      {
-        "title": "Gabourey Sidibe Emulates Viral Drake 40th Birthday Meme on ‘The Jennifer Hudson Show’ Halloween Episode",
-        "url": "https://wwd.com/pop-culture/celebrity-news/gabourey-sidibe-meme-drake-40-birthday-jennifer-hudson-show-1239394417/",
-        "source": "WWD",
-        "published": "2026-10-31T00:59:30.000Z",
-        "image": "",
-        "summary": "Janelle Monae was also on the show and dressed as a \"fish boy\" while Hudson was dressed as a butterfly."
-      },
-      {
-        "title": "Zara’s New Arrivals Have Fall and Winter Dressing Covered",
-        "url": "https://www.vogue.com/article/best-zara-finds",
-        "source": "Vogue",
-        "published": "2026-10-30T22:19:31.000Z",
-        "image": "https://assets.vogue.com/photos/6ae4b2e2fec1c32e05754077/master/pass/07521253250-p.jpg",
-        "summary": "From Leather Jackets to Party Dresses, Zara’s New Arrivals Have It All"
-      },
-      {
-        "title": "8 Fresh Ways to Wear Corduroy Pants—To Work, on the Weekend, and Beyond",
-        "url": "https://www.vogue.com/article/how-to-style-corduroy-pants",
-        "source": "Vogue",
-        "published": "2026-10-30T21:49:42.000Z",
-        "image": "https://assets.vogue.com/photos/6ae259a382728bf22bf47025/master/pass/image4.png",
-        "summary": "As seen on the fall 2026 runways, corduroy pants are a must-have. Shop the best pairs and discover how to style them now."
-      },
-      {
-        "title": "On the Line: Heat Stress Is Putting Workers—And Economies—At Risk",
-        "url": "https://wwd.com/sourcing-journal/sustainability/on-the-line-heat-stress-india-child-labor-fires-cambodia-1239394257/",
-        "source": "WWD",
-        "published": "2026-10-30T21:48:57.000Z",
-        "image": "",
-        "summary": "Also in this edition: 19 child laborers rescued from Indian factories and fires strike garment warehouses in Bangladesh and Cambodia."
-      },
-      {
-        "title": "Ralph Lauren’s Polofest Was a Fashion Obsessive’s Dream",
-        "url": "https://www.harpersbazaar.com/fashion/designers/a74299086/ralph-lauren-polofest-fashion/",
-        "source": "Harper's Bazaar",
-        "published": "2026-10-30T21:47:12.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/f7c01fc4-7fbe-4876-b3b8-eeef92ba6854.jpg",
-        "summary": "As the brand approaches 60, a three-day multidimensional experience brought together passionate fans from around the world"
       }
     ],
     "markets": [
+      {
+        "title": "Qatari mediators held talks in Tehran aimed at restarting direct U.S.-Iran negotiations, source says",
+        "url": "https://www.cnbc.com/2026/10/31/qatar-iran-us-talks-mediation.html",
+        "source": "CNBC World",
+        "published": "2026-10-31T12:11:12.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108491532-1793445317575-gettyimages-2302114677-nikoubazl-antiusai261029_npfpi.jpeg?v=1793445335&w=1920&h=1080",
+        "summary": "Axios reported that Qatari mediators held more than 12 hours of talks in Tehran on Friday to reach a deal to avoid a resumption of American-led attacks on Iran."
+      },
+      {
+        "title": "These 10 megadonors have spent a total of $1 billion on the midterm elections",
+        "url": "https://www.marketwatch.com/story/these-10-megadonors-have-spent-a-total-of-1-billion-on-the-midterm-elections-0dc279cf?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-10-31T12:00:00.000Z",
+        "image": "https://images.mktw.net/im-27816959",
+        "summary": "They’ve helped turn this year’s midterms into “the most expensive election cycle on record.”"
+      },
+      {
+        "title": "The staggering $446m Elon Musk has spent on the US midterms – visualized",
+        "url": "https://www.theguardian.com/us-news/ng-interactive/2026/oct/31/elon-musk-midterms-spending-visualized",
+        "source": "The Guardian",
+        "published": "2026-10-31T10:00:40.000Z",
+        "image": "https://i.guim.co.uk/img/media/87f71c610e349be86307c3bc3899c73108b60411/1_0_2999_2400/master/2999.jpg?width=140&quality=85&auto=format&fit=max&s=677a3b257b8a6e5d7d53780c68c3e1dc",
+        "summary": "The tech mogul’s midterm donations backing Republicans have made him the largest single-cycle political donor in modern US history Elon Musk has poured so much money into US politi"
+      },
+      {
+        "title": "Trump called out Big Oil profits. Here’s how much their refining earnings have surged since",
+        "url": "https://www.cnbc.com/2026/10/31/trump-big-oil-refining-profits.html",
+        "source": "CNBC World",
+        "published": "2026-10-31T06:00:02.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108478855-1793252242563-gettyimages-2265325794-US-.jpeg?v=1793376733&w=1920&h=1080",
+        "summary": "Trump criticized Big Oil for making “too much money,” but oil majors have since reported surging refining earnings as fuel supplies tightened."
+      },
+      {
+        "title": "AI is coming to construction sites. But does it make workers safer?",
+        "url": "https://www.cnbc.com/2026/10/31/ai-construction-worker-safety.html",
+        "source": "CNBC World",
+        "published": "2026-10-31T06:00:02.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108469976-1793123070639-gettyimages-2149414808-engcon_1121.jpeg?v=1793397004&w=1920&h=1080",
+        "summary": "AI is flagging hazards on construction sites, but researchers say evidence that the technology prevents injuries remains limited."
+      },
       {
         "title": "Grand Theft Callout: ‘GTA 6’ fans are missing work on the game’s release day because they ‘don’t want to wait’ anymore",
         "url": "https://www.marketwatch.com/story/grand-theft-callout-gta-6-fans-are-missing-work-on-the-games-release-day-because-they-dont-want-to-wait-anymore-5f2fa2e3?mod=mw_rss_topstories",
@@ -266,60 +306,20 @@
         "summary": "Friday’s big plunge raises disturbing parallels with the top of the dot-com bubble"
       },
       {
+        "title": "Meta outlook revised downward by S&P on cash flow and capex concerns",
+        "url": "https://www.cnbc.com/2026/10/30/meta-outlook-to-revised-to-negative-by-sp-after-cash-flow-negative.html",
+        "source": "CNBC World",
+        "published": "2026-10-30T22:42:26.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108443816-1792619674334-gettyimages-2296213884-META_CONNECT.jpeg?v=1792619769&w=1920&h=1080",
+        "summary": "Meta has been given a negative outlook by S&P Global Ratings due to the company's hefty capital expenditures and concerns about free cash flow."
+      },
+      {
         "title": "This cybersecurity stock will be the next to join the S&P 500",
         "url": "https://www.marketwatch.com/story/this-cybersecurity-stock-will-be-the-next-to-join-the-s-p-500-dc976803?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "published": "2026-10-30T22:20:00.000Z",
         "image": "https://images.mktw.net/im-37151738",
         "summary": "Okta is slated to join the index on Wednesday, replacing Kenvue."
-      },
-      {
-        "title": "Binance loses $6.3 billion in crypto heist—what happens to your money when an exchange gets hacked",
-        "url": "https://www.cnbc.com/make-it/2026/10/30/binance-crypto-hack-customer-funds.html",
-        "source": "CNBC World",
-        "published": "2026-10-30T21:45:52.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108487110-1793379149259-gettyimages-2302659444-gdp_9888_nekmmzmv.jpeg?v=1793380486&w=1920&h=1080",
-        "summary": "Crypto exchanges make it easier to buy, sell and store digital assets, but they come with risks, too."
-      },
-      {
-        "title": "Why gold plunged to its lowest price in a year despite renewed Iran jitters",
-        "url": "https://www.marketwatch.com/story/why-gold-plunged-to-its-lowest-price-in-a-year-despite-renewed-iran-jitters-365be0e2?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-30T21:30:00.000Z",
-        "image": "https://images.mktw.net/im-86036110",
-        "summary": "Safe-haven gold fell to its lowest price in a year, despite jitters around the potential for fresh Middle East attacks following the U.S. midterm elections on Tuesday"
-      },
-      {
-        "title": "Warsh wants the Fed to say less. Two officials are pushing for more transparency.",
-        "url": "https://www.marketwatch.com/story/the-fed-held-interest-rates-steady-but-these-officials-see-more-hikes-coming-soon-2098bbd8?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-30T21:23:00.000Z",
-        "image": "https://images.mktw.net/im-812380",
-        "summary": "More interest-rate hikes are needed to fight inflation, Fed officials say."
-      },
-      {
-        "title": "$6.3 billion Binance hack is largest crypto theft on record",
-        "url": "https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html",
-        "source": "CNBC World",
-        "published": "2026-10-30T21:21:17.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108486125-1793374296099-108486125-1793363753922-gettyimages-2302646831-vcg111678111014.jpeg?v=1793374312&w=1920&h=1080",
-        "summary": "Binance says a security breach impacted about $6.3 billion in assets. The exchange says roughly $3 billion has been frozen and losses will be covered."
-      },
-      {
-        "title": "In a wild October for markets, these stocks were the biggest winners and losers",
-        "url": "https://www.marketwatch.com/story/in-a-wild-october-for-markets-these-stocks-were-the-biggest-winners-and-losers-3736f043?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-30T20:52:00.000Z",
-        "image": "https://images.mktw.net/im-70367621",
-        "summary": "Many Big Tech stocks were hit hard but the S&P 500 showed strength under the surface, with a majority of stocks showing gains for the month."
-      },
-      {
-        "title": "Why Intel’s stock saw its worst day in decades — and a $140 billion wipeout",
-        "url": "https://www.marketwatch.com/story/why-intels-stock-is-sinking-toward-its-worst-drop-in-two-years-492d71a7?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-10-30T20:48:00.000Z",
-        "image": "https://images.mktw.net/im-37901280",
-        "summary": "Intel’s PC business is under pressure as memory-chip prices dent demand and as corporate IT teams have less budget for laptops."
       }
     ]
   }
