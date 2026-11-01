@@ -1,106 +1,122 @@
 {
-  "generatedAt": "2026-11-01T13:24:40.624Z",
+  "generatedAt": "2026-11-01T19:40:34.021Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Crypto firm Binance covers 90% of losses after $6.3bn hack",
-        "url": "https://www.bbc.co.uk/news/articles/ckpdg3ql4169o?at_medium=RSS&at_campaign=rss",
+        "title": "Connecticut senator Chris Murphy hospitalized after stroke",
+        "url": "https://www.theguardian.com/us-news/2026/nov/01/chris-murphy-stroke-hospitalized",
+        "source": "The Guardian",
+        "published": "2026-11-01T19:27:44.000Z",
+        "image": "https://i.guim.co.uk/img/media/84b89695bbd7999747e949f479240f65b4008bb0/482_0_6433_5147/master/6433.jpg?width=140&quality=85&auto=format&fit=max&s=7f60475006db6a480d97464249679d40",
+        "summary": "Democratic senator was at his son’s hockey game when he felt a numbness in his arm and was in Johns Hopkins Democratic US Senator Chris Murphy has been hospitalized after suffering"
+      },
+      {
+        "title": "Dublin-based student on the brink of breaking Ironman world record - Extra.ie",
+        "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9sMGN6N3czbDRsa0JNQWpzUkpZa0k2Y05Dc3hjZTBTOEprOWRRZklvdHRfc3o3X1NTWnF5LWR6aUhMVXFfYUV3Q0FEQnVaZ1lVajE0b3ZGeTVIQ0J0RGJia3ZMajNtSnVzb19QT1ZnSkQ2YUw0VWEzNA?oc=5",
+        "source": "Extra.ie",
+        "published": "2026-11-01T19:26:55.000Z",
+        "image": "",
+        "summary": "Dublin-based student on the brink of breaking Ironman world record Extra.ie"
+      },
+      {
+        "title": "Democrat endorses Republican candidate in key Michigan Senate race as party spat escalates",
+        "url": "https://www.bbc.co.uk/news/articles/c95ynzv88n68o?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-01T13:11:37.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2e52/live/ccbb9490-d53e-11f1-93de-81de9e959fac.jpg",
-        "summary": "The Federal Bureau of Investigation (FBI) says North Korea was responsible for the hack."
+        "published": "2026-11-01T19:17:34.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6ea1/live/d9896430-d625-11f1-93e1-3b657b665bcf.jpg",
+        "summary": "Haley Stevens, who lost out on the Democratic Senate nomination to Abdul El-Sayed, endorses his opponent days before the vote."
       },
       {
-        "title": "John Healey says UK apology over historic role in slave trade won’t lead to financial reparations – UK politics live",
-        "url": "https://www.theguardian.com/politics/live/2026/nov/01/andy-burnham-uk-historic-slave-trade-financial-reparations-badenoch-budget-defence-latest-politics-news-updates",
+        "title": "Democrat Haley Stevens endorses Abdul El-Sayed’s Republican rival Mike Rogers",
+        "url": "https://www.theguardian.com/us-news/2026/nov/01/abdul-el-sayed-haley-stevens-michigan-senate",
         "source": "The Guardian",
-        "published": "2026-11-01T13:05:11.000Z",
-        "image": "https://i.guim.co.uk/img/media/dc36157c22b3e1a933a63f18c6d6d67f9f867a54/382_0_2618_2095/master/2618.jpg?width=140&quality=85&auto=format&fit=max&s=dc0029ef6d3e787d1ad56667bf1c1ddb",
-        "summary": "Ahead of a meeting with Commonwealth leaders, Andy Burnham wrote that Britain needed to ‘acknowledge its complicated history’ At the end of his interview with Kuennsberg, Healey wa"
+        "published": "2026-11-01T19:17:12.000Z",
+        "image": "https://i.guim.co.uk/img/media/b74ef59dc193fbb01caa37d843c2625eeb29b433/111_0_2177_1741/master/2177.jpg?width=140&quality=85&auto=format&fit=max&s=cbf9e604b50c2516b75ee1714194ef1f",
+        "summary": "Some who worked for Stevens’ campaign also reportedly quit following her endorsement of Rogers Congresswoman Haley Stevens, who lost the Michigan Democratic Senate primary to Abdul"
       },
       {
-        "title": "Michigan race: All you need to know about Abdul El-Sayed v Mike Rogers",
-        "url": "https://www.aljazeera.com/news/2026/11/1/michigan-race-all-you-need-to-know-about-abdul-el-sayed-v-mike-rogers?traffic_source=rss",
+        "title": "Arsenal go top after narrow win at Liverpool",
+        "url": "https://www.aljazeera.com/sports/2026/11/1/arsenal-go-top-after-narrow-win-at-liverpool?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-01T13:03:38.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/afp_6ae64207bce1-1793475079.jpg?resize=1920%2C1440",
-        "summary": "Al Jazeera examines the crucial US Senate race in Michigan, including candidate positions and largest spenders."
+        "published": "2026-11-01T19:09:18.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2026-11-01T165338Z_1331376320_UP1EMB11ATV9Y_RTRMADP_3_SOCCER-ENGLAND-LIV-ARS-1793558089.jpg?resize=1893%2C1080",
+        "summary": "Arsenal pick up their first win at Anfield since 2012 to go three points clear of Man City"
       },
       {
-        "title": "Iran and US explore diplomacy amid rising threats of war",
-        "url": "https://www.aljazeera.com/news/2026/11/1/iran-and-us-explore-diplomacy-amid-rising-threats-of-war?traffic_source=rss",
+        "title": "How will the Iran war shape the outcome of the US midterm vote?",
+        "url": "https://www.aljazeera.com/video/inside-story/2026/11/1/how-will-the-iran-war-shape-the-outcome-of-the-u-s-midterm-vote?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-01T13:02:10.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/14405199-1793530960.jpg?resize=1920%2C1440",
-        "summary": "Iran says could reopen Hormuz in shorter period if conditions met, as Trump says US still has targets to 'take care of'."
+        "published": "2026-11-01T19:00:32.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793556339.jpg?resize=1920%2C1080&quality=80",
+        "summary": "The conflict has become a central issue ahead of Tuesday's polls."
       },
       {
-        "title": "Spirit of 1676: remembering the Native American cataclysm of King Philip’s war",
-        "url": "https://www.theguardian.com/us-news/2026/nov/01/king-philips-war-anniversary-native-american",
-        "source": "The Guardian",
-        "published": "2026-11-01T13:00:13.000Z",
-        "image": "https://i.guim.co.uk/img/media/ddf015b5996dac0d3343d1f558d3b79c1c2e370b/1088_424_2669_2136/master/2669.jpg?width=140&quality=85&auto=format&fit=max&s=349c5b6d8685dd3f35ce6669e404ae2d",
-        "summary": "The conflict that tore through New England 350 years ago was the bloodiest per capita in colonial or US history Massachusetts is proud of its ties to the American Revolution. From "
-      },
-      {
-        "title": "Binance restarts withdrawals after $6.3bn heist",
-        "url": "https://www.aljazeera.com/news/2026/11/1/binance-restarts-withdrawals-after-6-3bn-heist?traffic_source=rss",
+        "title": "France opens ‘attempted murder’ probe into petrol bomb attacks on police",
+        "url": "https://www.aljazeera.com/news/2026/11/1/france-opens-attempted-murder-probe-into-molotov-attacks-on-police?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-01T12:50:55.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6ae7290a-1793534218.jpg?resize=1920%2C1440",
-        "summary": "The FBI says hackers from North Korea are responsible for the theft."
+        "published": "2026-11-01T18:58:23.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6ae780295f69-1793556521.jpg?resize=1920%2C1440",
+        "summary": "No arrests made after several security officers were reportedly injured during incidents at Saturday's protests."
       },
       {
-        "title": "Senegal kicks off the Youth Games 2026",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/1/senegal-kicks-off-the-youth-games-2026?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-01T12:45:44.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793537120.jpg?resize=1619%2C1080&quality=80",
-        "summary": "Senegal kicks off the Youth Games 2026"
-      },
-      {
-        "title": "Yamaha pulls out of Qatar MotoGP over ‘situation in the Middle East’",
-        "url": "https://www.aljazeera.com/sports/2026/11/1/yamaha-pulls-out-of-qatar-motogp-over-situation-in-the-middle-east?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-01T12:32:24.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2024-03-09T160539Z_1341723459_UP1EK3918PDHE_RTRMADP_3_MOTOR-MOTOGP-QATAR-1793535777.jpg?resize=1920%2C1440",
-        "summary": "MotoGP says Yamaha's lack of participation at next weekend's event in Lusail 'carries sporting implications'."
-      },
-      {
-        "title": "Fire engulfs hotel in Nepal along Everest Base Camp route",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/1/fire-engulfs-hotel-in-nepal-along-everest-base-camp-route?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-01T12:12:31.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793535060.jpg?resize=1920%2C1080&quality=80",
-        "summary": "A fire broke out at a hotel in Dingboche, Nepal along the popular trekking route to Mount Everest Base Camp."
-      },
-      {
-        "title": "High street ‘slot farms’ could avoid budget tax rise through bingo hall loophole",
-        "url": "https://www.theguardian.com/society/2026/nov/01/high-street-slot-farms-budget-tax-rise-business-rates-bingo-licence-loophole",
-        "source": "The Guardian",
-        "published": "2026-11-01T12:04:59.000Z",
-        "image": "https://i.guim.co.uk/img/media/74447e5d4f5ad2b62edb20f02734b1ad2e4db383/719_0_6713_5373/master/6713.jpg?width=140&quality=85&auto=format&fit=max&s=80136ba19032fbe274061e595391ea46",
-        "summary": "Hundreds of adult gaming centres in England have bingo licences that still qualify them for discounted business rates Hundreds of high street “ slot farms ” could continue claiming"
-      },
-      {
-        "title": "The US-China trade war seems to have subsided – but the sense of calm is misleading",
-        "url": "https://www.theguardian.com/world/2026/nov/01/us-china-trade-war-trump-xi",
-        "source": "The Guardian",
-        "published": "2026-11-01T12:00:12.000Z",
-        "image": "https://i.guim.co.uk/img/media/2f8a0af67afa9f857d560117b8e1eced18fbc3ad/1801_315_3487_2790/master/3487.jpg?width=140&quality=85&auto=format&fit=max&s=0fed03aee66d9bdc808c3e0e1b05a1ed",
-        "summary": "A truce has cooled the trade conflict, but neither country has done anything to limit the outbreak of new hostilities Donald Trump ’s trade wars have largely fallen off the headlin"
-      },
-      {
-        "title": "Shops looted as German cost of living protests turn violent",
-        "url": "https://www.bbc.co.uk/news/articles/cqj34gnd3n30o?at_medium=RSS&at_campaign=rss",
+        "title": "Peaceful protests in Germany spiral into violence and looting",
+        "url": "https://www.bbc.co.uk/news/videos/cqgm0der7zkmo?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-01T11:57:48.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0ace/live/3e4ef120-d5d4-11f1-8629-7b9503d639be.jpg",
-        "summary": "The protests in cities across Germany - including Berlin, Hamburg and Frankfurt - came on the same day hundreds of thousands also protested in France."
+        "published": "2026-11-01T18:51:56.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0c8f/live/e077e4c0-d61f-11f1-beec-49c9509fcdec.jpg",
+        "summary": "Thousands joined largely orderly demonstrations earlier in the day, before violence erupted in Frankfurt, Berlin, Cologne and Hamburg."
+      },
+      {
+        "title": "Michigan Dem Haley Stevens endorses Republican Senate candidate Mike Rogers",
+        "url": "https://www.aljazeera.com/news/2026/11/1/michigan-dem-haley-stevens-endorses-republican-senate-candidate-mike-rogers?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-01T18:51:07.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/08/2026-07-28T005746Z_1347388485_RC2NMMABFKA4_RTRMADP_3_USA-ELECTION-MICHIGAN-1785693966.jpg?resize=1920%2C1440",
+        "summary": "US Rep Stevens lost Democratic primary to Abdul El-Sayed and now endorses his Republican opponent in the Senate race."
+      },
+      {
+        "title": "Home secretary to make some migrants wait 10 years or more for right to settle in UK",
+        "url": "https://www.theguardian.com/politics/2026/nov/01/home-secretary-shabana-mahmood-immigration-leave-to-remain-windrush",
+        "source": "The Guardian",
+        "published": "2026-11-01T18:48:23.000Z",
+        "image": "https://i.guim.co.uk/img/media/f1f16c15b5e42d5c5465fdf412d325d0b806220f/311_0_3090_2472/master/3090.jpg?width=140&quality=85&auto=format&fit=max&s=4244b11cfe318e5e114489cb963950e7",
+        "summary": "MPs say Shabana Mahmood’s new rules risk staff shortages in health and social care and second Windrush scandal Shabana Mahmood will announce sweeping new rules on Monday on how lon"
+      },
+      {
+        "title": "National Grid to site biggest substation in UK near planned Teesside datacentre",
+        "url": "https://www.theguardian.com/business/2026/nov/01/national-grid-to-site-biggest-substation-on-teesside-near-planned-ai-datacentre",
+        "source": "The Guardian",
+        "published": "2026-11-01T18:37:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/6454f44555fa48a5f38d1d066c370cb6e7376a80/0_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=e2c6966aba034a344664fd433e1e0b7f",
+        "summary": "New electricity generating capacity would enable north-east to attract investment for large-scale AI infrastructure National Grid has taken a step towards building Britain’s bigges"
+      },
+      {
+        "title": "Sullivan vows to honour Alaska race outcome, US judge dismisses DOJ lawsuit",
+        "url": "https://www.aljazeera.com/news/2026/11/1/sullivan-vows-to-honour-alaska-race-outcome-us-judge-dismisses-doj-lawsuit?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-01T18:37:37.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/08/AFP__20220913__1423463527__v2__HighRes__PelosiHoldsCeremonialSwearingInForMembersEle-2-1786989788.jpg?resize=1200%2C630",
+        "summary": "Senator Sullivan's pledge contrasts with the Trump administration's effort to challenge Alaska's election certification."
       }
     ],
     "ai": [
+      {
+        "title": "National Grid to site biggest substation in UK near planned Teesside datacentre",
+        "url": "https://www.theguardian.com/business/2026/nov/01/national-grid-to-site-biggest-substation-on-teesside-near-planned-ai-datacentre",
+        "source": "The Guardian",
+        "published": "2026-11-01T18:37:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/6454f44555fa48a5f38d1d066c370cb6e7376a80/0_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=e2c6966aba034a344664fd433e1e0b7f",
+        "summary": "New electricity generating capacity would enable north-east to attract investment for large-scale AI infrastructure National Grid has taken a step towards building Britain’s bigges"
+      },
+      {
+        "title": "AI is stealing Indigenous Australian art and churning out ‘Temu slop’, artist says",
+        "url": "https://www.theguardian.com/artanddesign/2026/nov/02/ai-stealing-indigenous-australian-art-temu-slop-artist-says-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-11-01T14:00:13.000Z",
+        "image": "https://i.guim.co.uk/img/media/d42e0956def730a6b1eb335fab858536fb224a9c/224_0_6880_5504/master/6880.jpg?width=140&quality=85&auto=format&fit=max&s=3b398433f56c1d072a5fbe34ddd5e80a",
+        "summary": "Chair of National Gallery’s First Nations advisory group says the technology is undermining artists’ agency and the authenticity of their work Get our breaking news email , free ap"
+      },
       {
         "title": "Disquiet grows in Albanese’s back yard as Grayndler artists unite against ‘insane’ AI proposal",
         "url": "https://www.theguardian.com/australia-news/2026/nov/01/artists-against-ai-proposal-anthony-albanese-grayndler-sydney-inner-west",
@@ -156,22 +172,6 @@
         "published": "2026-10-30T20:48:43.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/gettyimages-1778705436.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "Asked about supply chain shortages, like the ongoing RAM shortage, OpenAI CEO Sam Altman said in an interview that it's \"terrible\" to have RAM in personal PCs instead of data cente"
-      },
-      {
-        "title": "The biggest names in AI are backing a new way to opt out of scraping",
-        "url": "https://www.theverge.com/tech/1023763/openai-google-microsoft-ai-scraping-standard-opt-out",
-        "source": "The Verge",
-        "published": "2026-10-30T20:26:10.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25330660/STK414_AI_CHATBOT_H.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "OpenAI, Google, Microsoft, and Anthropic say they will adopt a new standard that publishers can use to opt out of being scraped by AI, as reported earlier by Search Engine Roundtab"
-      },
-      {
-        "title": "I read Anthropic's 92-page risk factor document, so you don't have to – video explainer",
-        "url": "https://www.theguardian.com/global/video/2026/oct/30/anthropic-92-page-risk-factor-document-ipo-filing-video-explainer",
-        "source": "The Guardian",
-        "published": "2026-10-30T19:57:13.000Z",
-        "image": "https://i.guim.co.uk/img/media/287a932e6182e9c13725a754a783f28dac7965a5/509_0_5029_4024/master/5029.jpg?width=140&quality=85&auto=format&fit=max&s=9dcafd63ef1a53d66ee342b865c9d181",
-        "summary": "Anthropic, the creator of Claude, filed to go public on the US stock market on 26 October. The company's filing statement contains a 92-page risk factor document in which it acknow"
       }
     ],
     "fashion": [
@@ -179,7 +179,7 @@
         "title": "Hertunba Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/hertunba",
         "source": "Vogue",
-        "published": "2026-11-01T13:19:51.000Z",
+        "published": "2026-11-01T19:35:28.000Z",
         "image": "https://assets.vogue.com/photos/6ae47b1aa08c1246b0f9e849/master/pass/00001-hertunba-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -187,139 +187,139 @@
         "title": "Oshobor Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/oshobor",
         "source": "Vogue",
-        "published": "2026-11-01T13:19:51.000Z",
+        "published": "2026-11-01T19:35:28.000Z",
         "image": "https://assets.vogue.com/photos/6ae47cd6fff3bc82384b1320/master/pass/00001-oshobor-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
       {
-        "title": "Jess Cartner-Morley’s November style essentials: fancy flats, sexy knits and a Christmassy pigeon",
-        "url": "https://www.theguardian.com/thefilter/2026/nov/01/jess-cartner-morleys-november-style-essentials-2026",
-        "source": "The Guardian",
-        "published": "2026-11-01T13:00:12.000Z",
-        "image": "https://i.guim.co.uk/img/media/79c88825b13e09bcab60c890881ecd26b904cb6b/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=de65a44e0746e82a948e753e988b3fa9",
-        "summary": "Whether it’s a two-in-one coat or a truly delicious handbag, add some fun to getting dressed during the cold, dark months with our expert’s favourites • The best women’s shoes and "
+        "title": "Kendall Jenner References Paris, Texas in a Striking Halloween Transformation",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74305430/kendall-jenner-paris-texas-blonde-hair-2026-halloween-costume-photos/",
+        "source": "Harper's Bazaar",
+        "published": "2026-11-01T18:42:42.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/19ebc220-ab00-44c5-b5c2-519a805c7d3d.jpg",
+        "summary": "Blonde hair and all"
       },
       {
-        "title": "Brancusi’s Appeal Is Eternal: Read Vogue’s 1995 Appreciation of the Sculptor",
-        "url": "https://www.vogue.com/article/1995/10/from-the-archives-spare-essentials",
+        "title": "The Best Dressed Stars of the Week Brought Fun Back to Fashion",
+        "url": "https://www.vogue.com/slideshow/10-best-dressed-stars-greta-lee-charlize-theron-elle-fanning",
         "source": "Vogue",
-        "published": "2026-11-01T13:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0c33ba19326b16e1f3928/master/pass/GettyImages-530848970.jpg",
-        "summary": "Ahead of MoMA’s new “Brancusi: The Artist and His Studio” exhibition, revisit an essay from Vogue’s October 1995 issue."
+        "published": "2026-11-01T17:21:22.000Z",
+        "image": "https://assets.vogue.com/photos/6ae3867cfb931d7a27626838/master/pass/GettyImages-2302464976.jpg",
+        "summary": "Theatrical headpieces! Off-kilter silhouettes! Hollywood stars were not afraid to play this week."
       },
       {
-        "title": "Ask Earl With Laurel Pantin: How to Style Leopard as a Neutral",
-        "url": "https://www.vogue.com/article/ask-earl-with-laurel-pantin",
+        "title": "This Halloween, Hailey and Justin Bieber Are the Angel and Devil on Your Shoulder",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74305248/justin-hailey-jack-blues-bieber-halloween-costumes-2026/",
+        "source": "Harper's Bazaar",
+        "published": "2026-11-01T16:36:17.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/152b499a-4908-4b0f-9edf-f5cd144582f0.png",
+        "summary": "Their 2026 couples costume was to die for"
+      },
+      {
+        "title": "Sheila Chepkirui, Andreas Almgren Win NYC Marathon to Cap Dominant Adidas Year and Give Nike Apex First Major",
+        "url": "https://wwd.com/footwear-news/sneaker-news/2026-nyc-marathon-winner-shoes-1239395020/",
+        "source": "WWD",
+        "published": "2026-11-01T15:43:15.000Z",
+        "image": "",
+        "summary": "Chepkirui is the eighth 2026 major marathon winner to wear the Adidas Adizero Adios Pro 3."
+      },
+      {
+        "title": "All the Best Celebrity Halloween Costumes of 2026",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74241593/best-celebrity-halloween-costumes-2026-photos/",
+        "source": "Harper's Bazaar",
+        "published": "2026-11-01T15:26:00.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/593b90ae-c1fa-41fc-a045-01636ffa85ed.png",
+        "summary": "From Sabrina Carpenter as Hairspray ’s Penny to Kendall Jenner’s Paris, Texas moment"
+      },
+      {
+        "title": "Harry Styles’s Thank-You Note to New York? A Special Issue of The Village Voice",
+        "url": "https://www.vogue.com/article/harry-styles-the-village-voice-special-issue",
         "source": "Vogue",
-        "published": "2026-11-01T11:30:00.000Z",
-        "image": "https://assets.vogue.com/clips/6ae0f78e53110ea307db6fb0/master/pass/VOGUESHOPPING_ASKEARL_HOLDING_1920x1080.mp4",
-        "summary": "In her monthly column, Ask Earl, writer, editor, mom, and entrepreneur, Laurel Pantin answers your latest style questions."
+        "published": "2026-11-01T15:05:00.000Z",
+        "image": "https://assets.vogue.com/photos/6ae6704c9f8696a299c0964f/master/pass/image1.png",
+        "summary": "“It has been an honour to live and work in your city for the past three months,” Harry Styles writes in a note addressed to “friends, strangers, citizens of New York.” “The energy "
       },
       {
-        "title": "Just One Thing: Polo Ralph Lauren’s Polo Blaze Bag",
-        "url": "https://www.vogue.com/article/just-one-thing-polo-ralph-lauren-blaze-bag",
-        "source": "Vogue",
-        "published": "2026-11-01T11:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6adfb0bccbf3b99ea907e7de/master/pass/092426_VogueShopping_Shot17_2170%20(3).jpg",
-        "summary": "Drawing on the house’s equestrian heritage, Polo Ralph Lauren’s new Polo Blaze bag combines saddle-inspired details with a sculptural silhouette. Here’s why it deserves a place in "
-      },
-      {
-        "title": "30 Items Vogue Editors Happily Shopped, From Flannel Shirts to Tomato-Red Knitwear",
-        "url": "https://www.vogue.com/article/what-vogue-editors-purchased",
-        "source": "Vogue",
-        "published": "2026-11-01T11:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6ae5079be75fc50b29fefe79/master/pass/103026_holding_buyersrejoice.jpg",
-        "summary": "Curious what Vogue editors actually spend their money on? These are the items that you’ll actually find in our closets this fall."
-      },
-      {
-        "title": "The Best Celebrity Halloween Costumes of 2026 So Far",
-        "url": "https://www.vogue.com/slideshow/the-best-halloween-costumes-of-2026",
-        "source": "Vogue",
-        "published": "2026-11-01T08:35:43.000Z",
-        "image": "https://assets.vogue.com/photos/6ae6f71c01c51004bb9d8e69/master/pass/zendaya.jpeg",
-        "summary": "From Kim Kardashian as North West to Zendaya as Halle Berry—this year, Halloween is all about imitation."
-      },
-      {
-        "title": "Let’s Give a Big Hand for Heidi Klum’s 2026 Halloween Costume",
+        "title": "How Heidi Klum Transformed Into a Giant Hand For Her 2026 Halloween Costume",
         "url": "https://www.vogue.com/article/heidi-klum-2026-halloween-costume-hand-10-31-2026",
         "source": "Vogue",
-        "published": "2026-11-01T02:38:33.000Z",
-        "image": "https://assets.vogue.com/photos/6ae6a5733e9b4246926c008b/master/pass/GettyImages-2302459032.jpg",
+        "published": "2026-11-01T14:29:53.000Z",
+        "image": "https://assets.vogue.com/photos/6ae74c21202d9b80cabcd4f3/master/pass/3%200073.jpg",
         "summary": "This year, the queen of Halloween transformed herself into a giant replica of her own hand. “I thought it would be funny and bizarre to take something so familiar and twist it.”"
       }
     ],
     "markets": [
       {
-        "title": "America is doing better than you think. Your algorithm is just hiding it.",
-        "url": "https://www.marketwatch.com/story/america-is-doing-better-than-you-think-your-algorithm-is-just-hiding-it-7dbdecff?mod=mw_rss_topstories",
+        "title": "‘Showy jewelry and fancy cars hold no appeal’: We have a 99% chance of outliving our life savings. Why not spend it all?",
+        "url": "https://www.marketwatch.com/story/fancy-cars-hold-no-appeal-my-wife-and-i-have-a-99-chance-of-outliving-our-savings-why-dont-we-spend-it-all-932a2166?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-01T13:00:00.000Z",
-        "image": "https://images.mktw.net/im-77447870",
-        "summary": "The bottom half of Americans has more than doubled its net worth since 2019. You wouldn’t know it from scrolling social media."
+        "published": "2026-11-01T19:20:00.000Z",
+        "image": "https://images.mktw.net/im-21005604",
+        "summary": "“I’m 68, she’s 74, and we’re both in good health. We married later in life and have no children.”"
       },
       {
-        "title": "Who really wins under Trump’s economy? Coastal liberal elites who hate him.",
-        "url": "https://www.marketwatch.com/story/who-really-wins-under-trumps-economy-coastal-liberal-elites-who-hate-him-d74c63cb?mod=mw_rss_topstories",
+        "title": "My father has Alzheimer’s and his caregiver is using his debit card for DoorDash. Do I intervene?",
+        "url": "https://www.marketwatch.com/story/theres-a-lot-of-hurt-between-us-my-fathers-caregiver-is-using-his-debit-card-for-doordash-orders-what-can-i-do-714de7a5?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-01T13:00:00.000Z",
-        "image": "https://images.mktw.net/im-99774246",
-        "summary": "In other words, not the people Republicans likely intended."
+        "published": "2026-11-01T17:30:00.000Z",
+        "image": "https://images.mktw.net/im-12441339",
+        "summary": "“I suspect the live-in caregiver is benefiting from my parent’s generosity.”"
       },
       {
-        "title": "Companies promised AI gains — here's how the payoff showed up in earnings",
-        "url": "https://www.cnbc.com/2026/11/01/ai-investments-company-earnings.html",
-        "source": "CNBC World",
-        "published": "2026-11-01T12:34:06.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108253381-1768531442124-gettyimages-2218925569-_dsc8484.jpeg?v=1793360711&w=1920&h=1080",
-        "summary": "Santander, Novartis and other companies say AI is beginning to boost revenue, cut costs or improve profitability as investors seek returns."
-      },
-      {
-        "title": "Binance resumes withdrawals following $6.3 billion hack, says 90% of stolen user assets are covered",
-        "url": "https://www.cnbc.com/2026/10/31/binance-hack-asset-coverage-withdrawals.html",
-        "source": "CNBC World",
-        "published": "2026-11-01T12:19:33.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108497070-1793535531836-gettyimages-2302112397-SKOREA_BINANCE.jpeg?v=1793535553&w=1920&h=1080",
-        "summary": "Binance says it has restored backing for 90% of assets affected by its $6.3 billion hack and resumed phased withdrawals."
-      },
-      {
-        "title": "The US-China trade war seems to have subsided – but the sense of calm is misleading",
-        "url": "https://www.theguardian.com/world/2026/nov/01/us-china-trade-war-trump-xi",
-        "source": "The Guardian",
-        "published": "2026-11-01T12:00:12.000Z",
-        "image": "https://i.guim.co.uk/img/media/2f8a0af67afa9f857d560117b8e1eced18fbc3ad/1801_315_3487_2790/master/3487.jpg?width=140&quality=85&auto=format&fit=max&s=0fed03aee66d9bdc808c3e0e1b05a1ed",
-        "summary": "A truce has cooled the trade conflict, but neither country has done anything to limit the outbreak of new hostilities Donald Trump ’s trade wars have largely fallen off the headlin"
-      },
-      {
-        "title": "Affordability top of mind for voters in final sprint to midterms: ‘I have to pick between medicine or groceries’",
-        "url": "https://www.theguardian.com/us-news/2026/nov/01/affordability-voters-final-sprint-midterms",
-        "source": "The Guardian",
-        "published": "2026-11-01T12:00:11.000Z",
-        "image": "https://i.guim.co.uk/img/media/b42001773186bc6ae7daa884a92f176ae4a00846/446_0_4853_3883/master/4853.jpg?width=140&quality=85&auto=format&fit=max&s=c4f7b795e372687c8b13058167e9b3fc",
-        "summary": "Cost of living has loomed over this election cycle as workers and unions champion candidates fighting for higher wages and tackling rising prices For millions of Americans heading "
-      },
-      {
-        "title": "Trump defamation suit against Murdoch, WSJ over Epstein letter dismissed with prejudice",
-        "url": "https://www.cnbc.com/2026/10/31/trump-murdoch-wsj-epstein-defamation-lawsuit-dismissed.html",
-        "source": "CNBC World",
-        "published": "2026-10-31T23:56:40.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108174185-1752873502792-Trump_Murdoch2.jpg?v=1752873942&w=1920&h=1080",
-        "summary": "President Donald Trump denied writing a birthday letter to sex offender Jeffrey Epstein, which was the subject of a 2025 Wall Street Journal article."
-      },
-      {
-        "title": "My abusive ex-husband promised $20,000 for our kids’ education. Now he refuses to pay. Is he legally obligated?",
-        "url": "https://www.marketwatch.com/story/my-abusive-ex-husband-promised-20-000-for-our-kids-education-now-he-refuses-to-pay-is-he-legally-obligated-325ef50f?mod=mw_rss_topstories",
+        "title": "‘He was heartbroken’: My husband’s kids abandoned him when he was dying. Was he right to leave everything to me?",
+        "url": "https://www.marketwatch.com/story/he-was-heartbroken-my-husbands-kids-never-helped-when-he-was-gravely-ill-was-he-right-to-leave-everything-to-me-1ad0616b?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-10-31T20:15:00.000Z",
-        "image": "https://images.mktw.net/im-95596293",
-        "summary": "“Before our divorce, my former mother-in-law entrusted him with $20,000 for each of our daughters to invest on their behalf.”"
+        "published": "2026-11-01T17:05:00.000Z",
+        "image": "https://images.mktw.net/im-56448073",
+        "summary": "“In the end, he left them a few sentimental mementos, some collectibles and old photographs.”"
       },
       {
-        "title": "OpenAI pares fundraising goal, now seeking up to $20 billion in latest round",
-        "url": "https://www.cnbc.com/2026/10/31/openai-fundraising-20-billion-valuation.html",
+        "title": "Grand Theft Callout: ‘GTA 6’ fans are missing work on the game’s release day because they ‘don’t want to wait’ anymore",
+        "url": "https://www.marketwatch.com/story/grand-theft-callout-gta-6-fans-are-missing-work-on-the-games-release-day-because-they-dont-want-to-wait-anymore-5f2fa2e3?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-01T16:35:00.000Z",
+        "image": "https://images.mktw.net/im-40951496",
+        "summary": "After waiting 13 years for this videogame, almost one-fifth of workers plan to take the day off to play ‘Grand Theft Auto VI’ when it drops on Nov. 19"
+      },
+      {
+        "title": "Everything changed for the oil, AI and bond trades over the past month",
+        "url": "https://www.cnbc.com/2026/11/01/oil-bond-yields-ai-market.html",
         "source": "CNBC World",
-        "published": "2026-10-31T19:56:23.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108469835-1793120540409-Screenshot_2026-10-27_at_10008_PM.png?v=1793474850&w=1920&h=1080",
-        "summary": "The funding round is still in progress and has not closed, so the figures are subject to change, a person directly familiar with the deal told CNBC."
+        "published": "2026-11-01T15:58:24.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/100617493-113215716.jpg?v=1677525346&w=1920&h=1080",
+        "summary": "The market expects oil to keep rising, but treasury yields have declined, a warning traders and investors may be more worried about an AI crash than inflation."
+      },
+      {
+        "title": "Apple’s new earnings era begins at a critical time for Big Tech",
+        "url": "https://www.marketwatch.com/story/apples-new-earnings-era-begins-at-a-critical-time-for-big-tech-2236a44e?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-01T15:00:00.000Z",
+        "image": "https://images.mktw.net/im-47165214",
+        "summary": "A rare Monday earnings report for Apple will give investors a glimpse into how new CEO John Ternus is managing inflated memory prices and a tougher backdrop for consumer spending."
+      },
+      {
+        "title": "I'm a psychologist who studies couples: People in the happiest relationships do 1 thing differently after time apart—whether it's hours, days or weeks",
+        "url": "https://www.cnbc.com/make-it/2026/11/01/reconnect-partner-after-time-apart.html",
+        "source": "CNBC World",
+        "published": "2026-11-01T14:36:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108487502-1793384862836-CNBC_Happy_Couples_Weeknights_Pink.jpg?v=1793385004&w=1920&h=1080",
+        "summary": "Psychologist Mark Travers argues that the first few minutes after time apart are key to a close, happy relationship, and shares five tips to get them right."
+      },
+      {
+        "title": "Why AI is boosting Meta's ad business while hurting Google search",
+        "url": "https://www.cnbc.com/2026/11/01/ai-meta-ads-google-search.html",
+        "source": "CNBC World",
+        "published": "2026-11-01T14:31:29.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108497472-1793543323692-gettyimages-2231576298-AA_27082025_2388287.jpeg?v=1793543337&w=1920&h=1080",
+        "summary": "The gap between Meta's ad revenue growth and Google's search expansion was the widest it's been since 2021 in the latest quarter."
+      },
+      {
+        "title": "This is the biggest threat to the AI-powered bull market",
+        "url": "https://www.marketwatch.com/story/this-is-the-biggest-threat-to-the-ai-powered-bull-market-e757ca37?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-01T14:00:00.000Z",
+        "image": "https://images.mktw.net/im-72130104",
+        "summary": "Blockbuster earnings growth has helped to power the stock market higher in 2026. In 2027, that engine might stall."
       }
     ]
   }
