@@ -3447,3 +3447,50 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   .cfs__dls { margin-top: clamp(12px, 1.4vw, 20px); }
   .cfs__pct { font-size: clamp(24px, 2.4vw, 38px); padding: 8px 12px 7px; }
 }
+
+/* ── Coursework folders: document previews fan out on hover ──
+   One first-page thumbnail per file, tucked behind the front of the
+   folder. Hovering the folder (or tabbing into it) slides them up and
+   fans them out, so visitors can see what's inside before opening it. */
+.cfs__docs { display: none; }
+@media (min-width: 600px) and (hover: hover) {
+  .cfs__docs {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 50%; top: 48%;
+    width: 0; height: 0;
+    pointer-events: none;
+  }
+  .cfs__doc {
+    position: absolute;
+    left: 0; bottom: 0;
+    width: clamp(110px, 13vw, 190px);
+    padding: 6px 6px 22px;
+    border-radius: 8px;
+    background: #f2efea;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transform: translate(-50%, 60%) rotate(0deg);
+    transition: transform 0.55s var(--ease-out), opacity 0.35s var(--ease-out);
+    transition-delay: calc(var(--d) * 40ms);
+  }
+  .cfs__doc img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-radius: 4px; background: #ddd; }
+  .cfs__doc em {
+    position: absolute; left: 8px; right: 8px; bottom: 5px;
+    font: 700 9px var(--font-mono); font-style: normal; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #3a3a40; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cfs__card:hover .cfs__doc,
+  .cfs__card:focus-within .cfs__doc {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--k) * 118%), calc(-38% - (1 - min(1, var(--k) * var(--k))) * 8%)) rotate(calc(var(--k) * 7deg));
+    transition-delay: calc(var(--d) * 70ms);
+  }
+  /* The cover tucks back down to make room for the documents */
+  .cfs__card:hover .cfs__card-img,
+  .cfs__card:focus-within .cfs__card-img { transform: translateY(16%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfs__doc { transition: opacity 0.2s; }
+}
