@@ -90,7 +90,7 @@
   }
 
   /* ── Open / close ── */
-  function open(btn) {
+  function open(btn, start) {
     try { files = JSON.parse(btn.dataset.files); } catch (e) { return; }
     if (!files.length) return;
     const card = btn.closest('.cfs__card');
@@ -106,8 +106,9 @@
     root.hidden = false;
     document.documentElement.classList.add('cv-open');
     requestAnimationFrame(() => root.classList.add('is-on'));
-    show(0);
-    setTimeout(() => (files.length > 1 ? filesEl.querySelector('.cv__file') : panel.querySelector('[data-cv-close].cv__btn')).focus(), 30);
+    const first = Math.min(Math.max(0, start || 0), files.length - 1);
+    show(first);
+    setTimeout(() => (files.length > 1 ? filesEl.querySelectorAll('.cv__file')[first] : panel.querySelector('[data-cv-close].cv__btn')).focus(), 30);
   }
 
   function close() {
@@ -236,6 +237,13 @@
 
   /* ── Events ── */
   buttons.forEach(btn => btn.addEventListener('click', () => open(btn)));
+  // A document preview that has slid out of a folder opens that file
+  document.addEventListener('click', e => {
+    const doc = e.target.closest('.cfs__doc[data-i]');
+    if (!doc) return;
+    const btn = doc.closest('.cfs__card').querySelector('.cfs__view[data-files]');
+    if (btn) { e.preventDefault(); open(btn, +doc.dataset.i); }
+  });
   root.addEventListener('click', e => { if (e.target.closest('[data-cv-close]')) close(); });
   filesEl.addEventListener('click', e => {
     const b = e.target.closest('.cv__file');

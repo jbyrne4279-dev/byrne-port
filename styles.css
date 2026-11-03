@@ -3429,3 +3429,19 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   }
   .cfs__doc { z-index: calc(10 - var(--d)); }
 }
+
+/* Popped-out document previews are clickable: each opens its file */
+.cfs__doc { font: inherit; color: inherit; cursor: pointer; }
+@media (min-width: 600px) and (hover: hover) {
+  .cfs__card:hover .cfs__docs,
+  .cfs__card:focus-within .cfs__docs { z-index: 3; }
+  .cfs__card:hover .cfs__doc,
+  .cfs__card:focus-within .cfs__doc { pointer-events: auto; }
+  .cfs__card:hover .cfs__doc:hover,
+  .cfs__card .cfs__doc:focus-visible {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 16px 34px rgba(0, 0, 0, 0.7);
+    z-index: 20;
+  }
+  .cfs__doc:focus-visible { outline: 2px solid #8a8a92; outline-offset: 2px; }
+}
