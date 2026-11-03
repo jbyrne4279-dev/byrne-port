@@ -3445,3 +3445,31 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   }
   .cfs__doc:focus-visible { outline: 2px solid #8a8a92; outline-offset: 2px; }
 }
+
+/* Document previews rise out of the folder either side of the cover,
+   with their lower half still tucked behind the folder front */
+@media (min-width: 600px) and (hover: hover) {
+  .cfs__docs,
+  .cfs__card:hover .cfs__docs,
+  .cfs__card:focus-within .cfs__docs {
+    left: 0; right: 0; top: 46%;
+    width: auto; height: 0;
+    z-index: 1;
+  }
+  .cfs__doc {
+    left: var(--x); bottom: auto; top: 0;
+    width: 20%;
+    padding: 24px 7px 7px;
+    transform: translate(-50%, 4%);
+  }
+  .cfs__doc em { top: 7px; bottom: auto; }
+  .cfs__card:hover .cfs__doc,
+  .cfs__card:focus-within .cfs__doc {
+    transform: translate(-50%, calc(-58% + var(--y))) rotate(var(--r));
+  }
+  .cfs__card:hover .cfs__doc:hover { transform: translate(-50%, calc(-66% + var(--y))) rotate(var(--r)); }
+  /* Cover stays put so the sheets read as coming out beside it */
+  .cfs__card:hover .cfs__card-img,
+  .cfs__card:focus-within .cfs__card-img { transform: translateY(10%); }
+  .cfs__card.is-active:hover .cfs__card-img { transform: translateY(-4%) rotate(-0.8deg); }
+}
