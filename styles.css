@@ -3366,50 +3366,6 @@ html.cv-open, html.cv-open body { overflow: hidden; }
 .cfs__view.is-soon { cursor: default; opacity: 0.55; }
 .cfs__view.is-soon::before { animation: none; display: none; }
 
-/* ── Coursework folders: sideways cinema reel on desktop ──
-   Replaces the old scroll-pinned stack. JS (coursework-reel.js) sets
-   each folder's transform; this just sizes the stage and the folders. */
-@media (min-width: 600px) {
-  .cfs { height: auto !important; margin-top: 24px; }
-  .cfs__track { height: auto; }
-  .cfs__sticky {
-    position: relative;
-    height: clamp(520px, 78vh, 820px);
-    padding: 0;
-    overflow: hidden;
-    touch-action: pan-y;
-    user-select: none;
-  }
-  .cfs__stage {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    max-width: none;
-    aspect-ratio: auto;
-    margin: 0;
-  }
-  .cfs__card {
-    inset: auto;
-    top: 52%; left: 50%;
-    width: min(960px, 60vw, calc((78vh - 70px) * 1.76));
-    height: auto;
-    aspect-ratio: 1.76 / 1;
-    cursor: grab;
-    transition: opacity 0.3s var(--ease-out);
-    will-change: transform, filter;
-  }
-  .cfs__sticky:active .cfs__card { cursor: grabbing; }
-  .cfs__card.is-active { cursor: default; }
-  .cfs__card img { -webkit-user-drag: none; pointer-events: none; }
-}
-@media (min-width: 600px) {
-  .cfs__card-img { height: 54%; }
-  .cfs__glass, .cfs__card.is-active .cfs__glass { top: 48%; padding: clamp(14px, 1.8vw, 26px) clamp(20px, 3vw, 44px); }
-  .cfs__title { font-size: clamp(22px, 2.6vw, 40px); max-width: 18ch; }
-  .cfs__desc { margin-top: 10px; font-size: clamp(11px, 0.95vw, 13px); line-height: 1.55; max-width: 34rem; }
-  .cfs__dls { margin-top: clamp(12px, 1.4vw, 20px); }
-  .cfs__pct { font-size: clamp(24px, 2.4vw, 38px); padding: 8px 12px 7px; }
-}
 
 /* ── Coursework folders: document previews fan out on hover ──
    One first-page thumbnail per file, tucked behind the front of the
@@ -3463,14 +3419,6 @@ html.cv-open, html.cv-open body { overflow: hidden; }
 /* Open phone menu sits above the nav bar so its close button shows */
 .mobile-menu { z-index: 101; }
 
-/* ── Coursework reel runs vertically on desktop ── */
-@media (min-width: 600px) {
-  .cfs__sticky { height: clamp(620px, 92vh, 1000px); touch-action: none; }
-  .cfs__card {
-    top: 50%;
-    width: min(900px, 62vw, calc(min(92vh, 1000px) * 0.5 * 1.76));
-  }
-}
 /* Document previews stack upwards out of the folder, like a pile of
    sheets being lifted out, instead of fanning sideways */
 @media (min-width: 600px) and (hover: hover) {
