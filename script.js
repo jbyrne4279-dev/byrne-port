@@ -105,6 +105,8 @@
 
   function activate() {
     if (active) return;
+    // Never cover the coursework viewer while someone is reading a file
+    if (document.documentElement.classList.contains('cv-open')) { timer = setTimeout(activate, IDLE_MS); return; }
     active = true;
     saver.classList.add('is-active');
     saver.setAttribute('aria-hidden', 'false');
