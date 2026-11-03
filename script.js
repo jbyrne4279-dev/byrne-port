@@ -994,6 +994,13 @@ window.TypeReveal = (function () {
     const card = el.closest('.project-card');
     if (card) {
       card.addEventListener('mouseenter', () => el.classList.add('is-typed'), { once: true });
+      // Also type in when the carousel brings the card to the centre, so
+      // touch screens (no hover) see the description on the folder front
+      const watch = new MutationObserver(() => {
+        if (card.classList.contains('is-active')) { el.classList.add('is-typed'); watch.disconnect(); }
+      });
+      watch.observe(card, { attributes: true, attributeFilter: ['class'] });
+      if (card.classList.contains('is-active')) el.classList.add('is-typed');
       return;
     }
 

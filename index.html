@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=108">
+  <link rel="stylesheet" href="styles.css?v=113">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -143,6 +143,14 @@
       <div class="about__grid">
         <div class="about-deck reveal" id="aboutDeck">
           <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
+          <div class="deck-prompt" aria-hidden="true">
+            <span class="deck-prompt__hand">
+              <span class="deck-prompt__ring"></span>
+              <svg class="deck-prompt__cursor" viewBox="0 0 24 24"><path d="M5 2.5l13.5 8-6 1.4 3.6 6.6-2.7 1.4-3.6-6.6L5 17.8z" fill="#fff" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/></svg>
+              <span class="deck-prompt__pinch"><i></i><i></i></span>
+            </span>
+            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Click &amp; drag</span><span class="deck-prompt__touch">Tap &amp; drag</span></span>
+          </div>
           <div class="about-deck__stack">
 
             <article class="about-card about-card--intro is-front" data-card="0">
@@ -227,12 +235,12 @@
           <a class="project-card__cover-link" href="project?slug=clothing-brand" aria-label="View My Clothing Brand project"></a>
           <div class="project-card__img project-card__img--1">
             <img class="project-card__cover" src="assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Fashion</span>
-              <h3 class="project-card__title">My Clothing Brand</h3>
-              <p class="project-card__desc type-reveal">Dark and grungy clothing brand built from scratch. Streetwear that's considered and elevated, from the brand identity to the garments.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Fashion</span>
+            <h3 class="project-card__title">My Clothing Brand</h3>
+            <p class="project-card__desc type-reveal">Dark and grungy clothing brand built from scratch. Streetwear that's considered and elevated, from the brand identity to the garments.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -241,12 +249,13 @@
           <a class="project-card__cover-link" href="project?slug=named-collective" aria-label="View Named Collective project"></a>
           <div class="project-card__img project-card__img--2">
             <img class="project-card__cover" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Brand Identity</span>
-              <h3 class="project-card__title">Named Collective</h3>
-              <p class="project-card__desc type-reveal">Uni Marketing and PR brief for Named Collective. Graded First Class, 77%.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__stat"><b>77%</b>First Class</span>
+            <span class="project-card__cat">Brand Identity</span>
+            <h3 class="project-card__title">Named Collective</h3>
+            <p class="project-card__desc type-reveal">Uni Marketing and PR brief for Named Collective. Graded First Class, 77%.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -255,12 +264,13 @@
           <a class="project-card__cover-link" href="project?slug=next-collection" aria-label="View NEXT A/W 25/26 Collection project"></a>
           <div class="project-card__img project-card__img--3">
             <img class="project-card__cover" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Buying &amp; Merchandising</span>
-              <h3 class="project-card__title">NEXT A/W 25/26 Collection</h3>
-              <p class="project-card__desc type-reveal">Fashion buying report for NEXT. Top score in the module at 82%, which got me a work experience offer and then a Buying &amp; Merchandising internship at NEXT in October 2026.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__stat"><b>82%</b>Top score</span>
+            <span class="project-card__cat">Buying &amp; Merchandising</span>
+            <h3 class="project-card__title">NEXT A/W 25/26 Collection</h3>
+            <p class="project-card__desc type-reveal">Fashion buying report for NEXT. Top score in the module at 82%, which got me a work experience offer and then a Buying &amp; Merchandising internship at NEXT in October 2026.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -269,12 +279,13 @@
           <a class="project-card__cover-link" href="project?slug=selfridges-project" aria-label="View Selfridges project"></a>
           <div class="project-card__img project-card__img--5">
             <img class="project-card__cover" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Retail Design</span>
-              <h3 class="project-card__title">Selfridges</h3>
-              <p class="project-card__desc type-reveal">Visual merchandising concept for Selfridges as part of my uni module. Graded 67%.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__stat"><b>67%</b>Grade</span>
+            <span class="project-card__cat">Retail Design</span>
+            <h3 class="project-card__title">Selfridges</h3>
+            <p class="project-card__desc type-reveal">Visual merchandising concept for Selfridges as part of my uni module. Graded 67%.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -283,12 +294,12 @@
           <a class="project-card__cover-link" href="project?slug=trimas-internship" aria-label="View TriMas Internship project"></a>
           <div class="project-card__img project-card__img--4">
             <img class="project-card__cover" src="assets/projects/trimas-internship/3group_v2.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Marketing</span>
-              <h3 class="project-card__title">TriMas Internship</h3>
-              <p class="project-card__desc type-reveal">Marketing internship where I actually got stuck in, running campaigns and creating brand assets in a proper corporate environment.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Marketing</span>
+            <h3 class="project-card__title">TriMas Internship</h3>
+            <p class="project-card__desc type-reveal">Marketing internship where I actually got stuck in, running campaigns and creating brand assets in a proper corporate environment.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -297,12 +308,13 @@
           <a class="project-card__cover-link" href="project?slug=cafe-compliance" aria-label="View North Hertfordshire Council project"></a>
           <div class="project-card__img project-card__img--11">
             <img class="project-card__cover" src="assets/projects/cafe-compliance/menu_bancroft_drinks_paninis.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Digital Product</span>
-              <h3 class="project-card__title">North Hertfordshire Council</h3>
-              <p class="project-card__desc type-reveal">Redesigned the menus and day-to-day running of three council sites, helping drive 76% year-on-year revenue growth. Also swapped the paper food-safety logs for a digital system I designed and built, with dashboards and staff tracking.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__stat"><b>76%</b>Revenue growth</span>
+            <span class="project-card__cat">Digital Product</span>
+            <h3 class="project-card__title">North Hertfordshire Council</h3>
+            <p class="project-card__desc type-reveal">Redesigned the menus and day-to-day running of three council sites, helping drive 76% year-on-year revenue growth. Also swapped the paper food-safety logs for a digital system I designed and built, with dashboards and staff tracking.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -311,12 +323,12 @@
           <a class="project-card__cover-link" href="project?slug=arc26" aria-label="View Arc26 project"></a>
           <div class="project-card__img project-card__img--12">
             <img class="project-card__cover" src="assets/projects/arc26/arc-logo.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">App Design</span>
-              <h3 class="project-card__title">Arc26</h3>
-              <p class="project-card__desc type-reveal">A productivity and accountability app I co-founded. Led product strategy and UI/UX, using AI-assisted design workflows to go from concept to prototype fast.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">App Design</span>
+            <h3 class="project-card__title">Arc26</h3>
+            <p class="project-card__desc type-reveal">A productivity and accountability app I co-founded. Led product strategy and UI/UX, using AI-assisted design workflows to go from concept to prototype fast.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -325,12 +337,13 @@
           <a class="project-card__cover-link" href="project?slug=reinstatement-cost-assessment" aria-label="View Surveying Firm project"></a>
           <div class="project-card__img project-card__img--13">
             <img class="project-card__cover" src="assets/projects/reinstatement-cost-assessment/21.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Web &amp; Marketing</span>
-              <h3 class="project-card__title">Surveying Firm</h3>
-              <p class="project-card__desc type-reveal">18 enquiries and 10 clients from £80 of ad spend in month one. Since then I've cut cost per acquisition by 87.1% and the Google Ads now return 3.60x their spend.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__stat"><b>87.1%</b>Lower CPA</span>
+            <span class="project-card__cat">Web &amp; Marketing</span>
+            <h3 class="project-card__title">Surveying Firm</h3>
+            <p class="project-card__desc type-reveal">18 enquiries and 10 clients from £80 of ad spend in month one. Since then I've cut cost per acquisition by 87.1% and the Google Ads now return 3.60x their spend.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -339,12 +352,12 @@
           <a class="project-card__cover-link" href="project?slug=trend-forecasting" aria-label="View Trend Forecasting project"></a>
           <div class="project-card__img project-card__img--8">
             <img class="project-card__cover" src="assets/projects/trend-forecasting/Trend Forcasting-01.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Trend Forecasting</span>
-              <h3 class="project-card__title">Trend Forecasting</h3>
-              <p class="project-card__desc type-reveal">Uni module on how trends actually start and spread, from subcultures and music scenes to what ends up in Zara six months later.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Trend Forecasting</span>
+            <h3 class="project-card__title">Trend Forecasting</h3>
+            <p class="project-card__desc type-reveal">Uni module on how trends actually start and spread, from subcultures and music scenes to what ends up in Zara six months later.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -353,12 +366,12 @@
           <a class="project-card__cover-link" href="project?slug=slimmer-app" aria-label="View Slimmer App project"></a>
           <div class="project-card__img project-card__img--9">
             <img class="project-card__cover" src="assets/projects/slimmer-app/photo_2026-04-16_22-19-47.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">App Design</span>
-              <h3 class="project-card__title">Slimmer App</h3>
-              <p class="project-card__desc type-reveal">Women's fitness app that uses AI facial scanning to personalise your workouts and photo recognition to auto-log your meals.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">App Design</span>
+            <h3 class="project-card__title">Slimmer App</h3>
+            <p class="project-card__desc type-reveal">Women's fitness app that uses AI facial scanning to personalise your workouts and photo recognition to auto-log your meals.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -367,12 +380,12 @@
           <a class="project-card__cover-link" href="project?slug=cv-lab" aria-label="View CV Lab SaaS project"></a>
           <div class="project-card__img project-card__img--6">
             <img class="project-card__cover" src="assets/projects/cv-lab/cv banner.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Digital Product</span>
-              <h3 class="project-card__title">CV Lab SaaS</h3>
-              <p class="project-card__desc type-reveal">Full UI/UX design for a CV building SaaS app, from early wireframes through to final screens and a complete design system.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Digital Product</span>
+            <h3 class="project-card__title">CV Lab SaaS</h3>
+            <p class="project-card__desc type-reveal">Full UI/UX design for a CV building SaaS app, from early wireframes through to final screens and a complete design system.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -381,12 +394,12 @@
           <a class="project-card__cover-link" href="soundbar-pro" aria-label="View Soundbar Pro concept case study"></a>
           <div class="project-card__img project-card__img--14">
             <img class="project-card__cover" src="assets/projects/apple-soundbar-pro/cover.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Product Design</span>
-              <h3 class="project-card__title">Soundbar Pro</h3>
-              <p class="project-card__desc type-reveal">Concept case study: why Apple's HomePod failed to lead the smart-home market, and a premium Apple-designed smart speaker concept to fix it.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Product Design</span>
+            <h3 class="project-card__title">Soundbar Pro</h3>
+            <p class="project-card__desc type-reveal">Concept case study: why Apple's HomePod failed to lead the smart-home market, and a premium Apple-designed smart speaker concept to fix it.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -395,12 +408,12 @@
           <a class="project-card__cover-link" href="project?slug=make-progress" aria-label="View Make Progress project"></a>
           <div class="project-card__img project-card__img--10">
             <img class="project-card__cover" src="assets/projects/make-progress/4.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Brand Identity</span>
-              <h3 class="project-card__title">Make Progress</h3>
-              <p class="project-card__desc type-reveal">Brand identity and Meta ads for a Birmingham community event. Built the visual identity from scratch and ran the paid social campaigns myself.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
+          </div>
+          <div class="project-card__inner">
+            <span class="project-card__cat">Brand Identity</span>
+            <h3 class="project-card__title">Make Progress</h3>
+            <p class="project-card__desc type-reveal">Brand identity and Meta ads for a Birmingham community event. Built the visual identity from scratch and ran the paid social campaigns myself.</p>
+            <span class="project-card__link">View Project</span>
           </div>
         </article>
 
@@ -836,7 +849,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=36"></script>
+  <script src="script.js?v=37"></script>
   <script src="particle-heading.js?v=1"></script>
   <script src="text-morph.js?v=2"></script>
   <script>

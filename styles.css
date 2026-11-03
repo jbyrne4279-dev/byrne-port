@@ -3059,3 +3059,175 @@ body { text-align: center; }
 .hero__name { flex-wrap: nowrap; white-space: nowrap; gap: 0.6em; margin-bottom: 34px; }
 .hero__name-line { font-size: min(112px, calc((100vw - 40px) / 8.8)); line-height: 1; }
 
+
+/* ── PROJECT CARDS AS FOLDERS ──
+   Each carousel card is a red Mac-style folder: a darker back panel with
+   a tab, the project cover tucked inside like a document, and a lighter
+   red front holding the text. The centred card "opens": its cover slides
+   up out of the folder and the front tips forward. */
+.portfolio__carousel .project-card {
+  --folder-back: #8e0d1c;
+  --folder-tab-h: clamp(30px, 6.5%, 54px);
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.55));
+}
+/* Back panel */
+.portfolio__carousel .project-card::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--folder-tab-h) - 1px) 0 0 0;
+  border-radius: 0 22px 22px 22px;
+  background: linear-gradient(180deg, #a31322 0%, var(--folder-back) 100%);
+}
+/* Tab */
+.portfolio__carousel .project-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: var(--folder-tab-h);
+  border-radius: 20px 0 0 0;
+  background: #a31322;
+  clip-path: polygon(0 0, 80% 0, 86% 22%, 100% 100%, 0 100%);
+}
+/* The cover, tucked into the folder like a sheet of paper */
+.portfolio__carousel .project-card__img,
+.portfolio__carousel .project-card--featured .project-card__img {
+  position: absolute;
+  top: calc(var(--folder-tab-h) + 14px);
+  left: 5%; right: 5%;
+  width: auto;
+  height: 58%;
+  border-radius: 12px;
+  box-shadow: 0 -2px 0 rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.45);
+  z-index: 1;
+  transform: translateY(14%);
+  transition: transform 0.7s var(--ease-out);
+}
+.portfolio__carousel .project-card__img::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 45%); }
+/* Front panel: text and stat live here */
+.portfolio__carousel .project-card__inner {
+  top: 44%;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 3vw, 34px);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #e6293b 0%, #cf1b2e 55%, #b51225 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 -8px 24px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  transform-origin: 50% 100%;
+  transform: none;
+  transition: transform 0.7s var(--ease-out);
+}
+.portfolio__carousel .project-card__cat { color: rgba(255, 255, 255, 0.85); }
+.portfolio__carousel .project-card__title { text-shadow: none; }
+.portfolio__carousel .project-card__desc { color: rgba(255, 255, 255, 0.92); }
+.portfolio__carousel .project-card__link,
+.portfolio__carousel .project-card:hover .project-card__link {
+  color: #fff; text-shadow: none; border-color: rgba(255, 255, 255, 0.55);
+}
+.portfolio__carousel .project-card__link:hover { background: #fff; color: #b51225; }
+/* Headline number, pinned to the top-right of the front */
+.project-card__stat {
+  position: absolute;
+  top: clamp(14px, 2.4vw, 24px);
+  right: clamp(16px, 2.6vw, 28px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font: 700 9px/1.2 var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+.project-card__stat b {
+  font: 400 clamp(34px, 4.6vw, 54px)/0.9 'Bebas Neue', var(--font-body);
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+/* Open the centred folder */
+.portfolio__carousel .project-card.is-active .project-card__img { transform: translateY(-6%) rotate(-1.2deg); }
+.portfolio__carousel .project-card.is-active .project-card__inner { transform: perspective(1200px) rotateX(-9deg); }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio__carousel .project-card__img,
+  .portfolio__carousel .project-card__inner { transition: none; }
+}
+@media (max-width: 600px) {
+  .portfolio__carousel .project-card__inner { top: 40%; }
+  .portfolio__carousel .project-card__desc { font-size: 12px; line-height: 1.5; margin-bottom: 12px; }
+}
+
+/* ── ABOUT DECK: animated "grab and drag" prompt on the top card ──
+   Desktop shows a mouse cursor that presses and drags right; touch screens
+   show two fingers pinching together and dragging. Hidden once dragged. */
+.deck-prompt {
+  position: absolute;
+  z-index: 70;
+  top: 64px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-70%);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+}
+.about-deck.has-dragged .deck-prompt { opacity: 0; }
+.deck-prompt__hand {
+  position: relative;
+  z-index: 2;
+  order: -1;
+  width: 34px; height: 34px;
+  animation: deck-drag 2.6s var(--ease-out) infinite;
+}
+.deck-prompt__cursor { position: absolute; left: 8px; top: 6px; width: 32px; height: 32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+.deck-prompt__ring {
+  position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--red); opacity: 0;
+  animation: deck-ring 2.6s ease-out infinite;
+}
+.deck-prompt__pinch { display: none; position: absolute; inset: 0; }
+.deck-prompt__pinch i {
+  position: absolute; top: 9px; width: 16px; height: 16px; border-radius: 50%;
+  background: rgba(255,255,255,.92); box-shadow: 0 0 0 4px rgba(255,255,255,.18), 0 2px 8px rgba(0,0,0,.5);
+}
+.deck-prompt__pinch i:first-child { left: -8px; animation: deck-pinch-l 2.6s var(--ease-out) infinite; }
+.deck-prompt__pinch i:last-child  { left: 26px; animation: deck-pinch-r 2.6s var(--ease-out) infinite; }
+.deck-prompt__label {
+  padding: 6px 11px; border-radius: 999px; background: var(--red); color: #fff;
+  font: 700 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+  box-shadow: 0 0 18px var(--red-dim);
+  animation: deck-flash 1.3s ease-in-out infinite;
+}
+.deck-prompt__touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .deck-prompt { gap: 30px; }
+  .deck-prompt__cursor, .deck-prompt__ring, .deck-prompt__mouse { display: none; }
+  .deck-prompt__pinch { display: block; }
+  .deck-prompt__touch { display: inline; }
+}
+@keyframes deck-drag {
+  0%   { opacity: 0; transform: translate(0, 0) scale(1); }
+  12%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  24%  { opacity: 1; transform: translate(0, 0) scale(.82); }
+  66%  { opacity: 1; transform: translate(96px, 6px) scale(.82); }
+  78%  { opacity: 0; transform: translate(112px, 8px) scale(1); }
+  100% { opacity: 0; transform: translate(0, 0) scale(1); }
+}
+@keyframes deck-ring {
+  0%, 20% { opacity: 0; transform: scale(.4); }
+  26%     { opacity: 1; transform: scale(1); }
+  40%     { opacity: 0; transform: scale(1.8); }
+  100%    { opacity: 0; }
+}
+@keyframes deck-pinch-l { 0%, 12% { transform: translateX(-6px); } 24%, 100% { transform: translateX(8px); } }
+@keyframes deck-pinch-r { 0%, 12% { transform: translateX(6px); }  24%, 100% { transform: translateX(-8px); } }
+@keyframes deck-flash { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) {
+  .deck-prompt__hand, .deck-prompt__ring, .deck-prompt__label, .deck-prompt__pinch i { animation: none; }
+}
