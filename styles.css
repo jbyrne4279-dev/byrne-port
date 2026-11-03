@@ -3060,108 +3060,6 @@ body { text-align: center; }
 .hero__name-line { font-size: min(112px, calc((100vw - 40px) / 8.8)); line-height: 1; }
 
 
-/* ── PROJECT CARDS AS FOLDERS ──
-   Each carousel card is a red Mac-style folder: a darker back panel with
-   a tab, the project cover tucked inside like a document, and a lighter
-   red front holding the text. The centred card "opens": its cover slides
-   up out of the folder and the front tips forward. */
-.portfolio__carousel .project-card {
-  --folder-back: #8e0d1c;
-  --folder-tab-h: clamp(30px, 6.5%, 54px);
-  overflow: visible;
-  border-radius: 0;
-  background: none;
-  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.55));
-}
-/* Back panel */
-.portfolio__carousel .project-card::before {
-  content: '';
-  position: absolute;
-  inset: calc(var(--folder-tab-h) - 1px) 0 0 0;
-  border-radius: 0 22px 22px 22px;
-  background: linear-gradient(180deg, #a31322 0%, var(--folder-back) 100%);
-}
-/* Tab */
-.portfolio__carousel .project-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 40%;
-  height: var(--folder-tab-h);
-  border-radius: 20px 0 0 0;
-  background: #a31322;
-  clip-path: polygon(0 0, 80% 0, 86% 22%, 100% 100%, 0 100%);
-}
-/* The cover, tucked into the folder like a sheet of paper */
-.portfolio__carousel .project-card__img,
-.portfolio__carousel .project-card--featured .project-card__img {
-  position: absolute;
-  top: calc(var(--folder-tab-h) + 14px);
-  left: 5%; right: 5%;
-  width: auto;
-  height: 58%;
-  border-radius: 12px;
-  box-shadow: 0 -2px 0 rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.45);
-  z-index: 1;
-  transform: translateY(14%);
-  transition: transform 0.7s var(--ease-out);
-}
-.portfolio__carousel .project-card__img::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 45%); }
-/* Front panel: text and stat live here */
-.portfolio__carousel .project-card__inner {
-  top: 44%;
-  bottom: 0; left: 0; right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(18px, 3vw, 34px);
-  border-radius: 22px;
-  background: linear-gradient(180deg, #e6293b 0%, #cf1b2e 55%, #b51225 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 -8px 24px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  transform-origin: 50% 100%;
-  transform: none;
-  transition: transform 0.7s var(--ease-out);
-}
-.portfolio__carousel .project-card__cat { color: rgba(255, 255, 255, 0.85); }
-.portfolio__carousel .project-card__title { text-shadow: none; }
-.portfolio__carousel .project-card__desc { color: rgba(255, 255, 255, 0.92); }
-.portfolio__carousel .project-card__link,
-.portfolio__carousel .project-card:hover .project-card__link {
-  color: #fff; text-shadow: none; border-color: rgba(255, 255, 255, 0.55);
-}
-.portfolio__carousel .project-card__link:hover { background: #fff; color: #b51225; }
-/* Headline number, pinned to the top-right of the front */
-.project-card__stat {
-  position: absolute;
-  top: clamp(14px, 2.4vw, 24px);
-  right: clamp(16px, 2.6vw, 28px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font: 700 9px/1.2 var(--font-mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
-}
-.project-card__stat b {
-  font: 400 clamp(34px, 4.6vw, 54px)/0.9 'Bebas Neue', var(--font-body);
-  letter-spacing: 0.02em;
-  color: #fff;
-}
-/* Open the centred folder */
-.portfolio__carousel .project-card.is-active .project-card__img { transform: translateY(-6%) rotate(-1.2deg); }
-.portfolio__carousel .project-card.is-active .project-card__inner { transform: perspective(1200px) rotateX(-9deg); }
-@media (prefers-reduced-motion: reduce) {
-  .portfolio__carousel .project-card__img,
-  .portfolio__carousel .project-card__inner { transition: none; }
-}
-@media (max-width: 600px) {
-  .portfolio__carousel .project-card__inner { top: 40%; }
-  .portfolio__carousel .project-card__desc { font-size: 12px; line-height: 1.5; margin-bottom: 12px; }
-}
-
 /* ── ABOUT DECK: animated "grab and drag" prompt on the top card ──
    Desktop shows a mouse cursor that presses and drags right; touch screens
    show two fingers pinching together and dragging. Hidden once dragged. */
@@ -3230,4 +3128,114 @@ body { text-align: center; }
 @keyframes deck-flash { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) {
   .deck-prompt__hand, .deck-prompt__ring, .deck-prompt__label, .deck-prompt__pinch i { animation: none; }
+}
+
+/* ── UNIVERSITY COURSEWORK AS FOLDERS ──
+   Each card is a dark carbon Mac-style folder: a back panel with a tab,
+   the coursework cover tucked inside like a sheet of paper, and a carbon
+   front holding the text and grade. The card the scroll lands on opens:
+   its cover rises out of the folder and the front tips forward. */
+.cfs__card {
+  --tab-h: clamp(28px, 6%, 52px);
+  --carbon: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 6px),
+            repeating-linear-gradient(-45deg, rgba(0,0,0,0.22) 0 2px, transparent 2px 6px);
+  background: transparent;
+  overflow: visible;
+  border-radius: 0;
+}
+.cfs__card,
+.cfs__card.is-active { box-shadow: none; animation: none; }
+.cfs__card.is-landing { animation: cfs-land 0.85s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.cfs__card::before { display: none; }
+.cfs__card-scrim { display: none; }
+
+.cfs__folder { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.cfs__folder::before {                       /* tab */
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 28%; height: var(--tab-h);
+  border-radius: 18px 0 0 0;
+  background: var(--carbon), linear-gradient(180deg, #2b2b30, #212126);
+  clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
+}
+.cfs__folder::after {                        /* back panel */
+  content: '';
+  position: absolute;
+  inset: calc(var(--tab-h) - 1px) 0 0 0;
+  border-radius: 0 22px 22px 22px;
+  background: var(--carbon), linear-gradient(180deg, #212126 0%, #141417 100%);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* The cover: a sheet tucked inside the folder */
+.cfs__card-img {
+  top: calc(var(--tab-h) + 16px);
+  left: 3%; right: auto;
+  width: 94%;
+  height: 58%;
+  border-radius: 12px;
+  z-index: 1;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+  transform: translateY(10%);
+  transition: transform 0.8s var(--ease-out);
+}
+.cfs__card.is-active .cfs__card-img { transform: translateY(-4%) rotate(-0.8deg); }
+
+/* Front of the folder: text, downloads and grade */
+.cfs__glass,
+.cfs__card.is-active .cfs__glass {
+  position: absolute;
+  z-index: 2;
+  top: 46%; bottom: 0; left: 0; right: 0;
+  width: auto; height: auto;
+  border: 0;
+  border-radius: 22px;
+  background: var(--carbon), linear-gradient(180deg, #2e2e33 0%, #1f1f23 55%, #161619 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09),
+              inset 0 -40px 60px -30px rgba(224, 20, 60, 0.22),
+              0 -10px 30px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  transform-origin: 50% 100%;
+  transition: transform 0.8s var(--ease-out);
+}
+.cfs__card.is-active .cfs__glass { transform: perspective(1400px) rotateX(-7deg); }
+.cfs__card.is-active .cfs__glass::before { border-radius: inherit; }
+
+.cfs__title { color: #f2efea; }
+.cfs__desc { color: rgba(242, 239, 234, 0.62); }
+.cfs__dl { color: #f2efea; border-color: rgba(255, 255, 255, 0.16); background: rgba(0, 0, 0, 0.25); }
+.cfs__pct {
+  top: 0; right: 0;
+  padding: clamp(16px, 2vw, 28px);
+  background: none;
+  font-family: 'Bebas Neue', var(--font-body);
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--cfs-accent, var(--red));
+  text-shadow: 0 0 24px rgba(224, 20, 60, 0.45);
+}
+
+@media (max-width: 599px) {
+  .cfs__card { padding-top: var(--tab-h); --tab-h: 30px; }
+  .cfs__folder::before { width: 40%; }
+  .cfs__card-img {
+    position: relative; top: auto; left: auto; right: auto;
+    width: 92%; height: auto; margin: 14px auto 0;
+    aspect-ratio: 4 / 3;
+    transform: none;
+  }
+  .cfs__card.is-active .cfs__card-img { transform: translateY(-6px) rotate(-0.8deg); }
+  .cfs__glass,
+  .cfs__card.is-active .cfs__glass {
+    position: relative; top: auto; bottom: auto; left: auto; right: auto;
+    margin-top: -22%;
+    padding: 46px 20px 22px;
+    border-radius: 20px;
+  }
+  .cfs__card.is-active .cfs__glass { transform: none; }
+  .cfs__pct { padding: 14px 18px; font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfs__card-img, .cfs__glass { transition: none; }
 }
