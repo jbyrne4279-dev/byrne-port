@@ -3058,3 +3058,24 @@ body { text-align: center; }
 /* Name: bigger, always on one line; scales down to fit the screen width */
 .hero__name { flex-wrap: nowrap; white-space: nowrap; gap: 0.6em; margin-bottom: 34px; }
 .hero__name-line { font-size: min(112px, calc((100vw - 40px) / 8.8)); line-height: 1; }
+
+/* Name: on fire. Top half stays white, bottom half burns red/orange,
+   and the flames flicker by sliding the gradient up and down. */
+.hero__name-line {
+  background: linear-gradient(180deg,
+    #fff 0%, #fff 58%,
+    #ffd27a 63%, #ff8a1f 70%, #ff3b1f 80%, #e0062a 90%, #8a0015 100%);
+  background-size: 100% 130%;
+  background-position: 0 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 6px 14px rgba(255, 50, 20, 0.35));
+  animation: name-fire 2.6s ease-in-out infinite alternate;
+}
+@keyframes name-fire {
+  0%   { background-position: 0 100%; filter: drop-shadow(0 6px 14px rgba(255, 50, 20, 0.3)); }
+  35%  { background-position: 0 78%; filter: drop-shadow(0 8px 18px rgba(255, 70, 20, 0.45)); }
+  70%  { background-position: 0 92%; filter: drop-shadow(0 5px 12px rgba(255, 40, 20, 0.28)); }
+  100% { background-position: 0 70%; filter: drop-shadow(0 9px 20px rgba(255, 80, 20, 0.5)); }
+}
+@media (prefers-reduced-motion: reduce) { .hero__name-line { animation: none; } }
