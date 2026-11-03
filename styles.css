@@ -3473,3 +3473,17 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   .cfs__card:focus-within .cfs__card-img { transform: translateY(10%); }
   .cfs__card.is-active:hover .cfs__card-img { transform: translateY(-4%) rotate(-0.8deg); }
 }
+
+/* Phones: the grade sits on the same row as the files button, same height */
+@media (max-width: 599px) {
+  .cfs__dls { align-items: stretch; flex-wrap: nowrap; gap: 10px; }
+  .cfs__dls .cfs__pct {
+    position: relative; top: auto; right: auto;
+    margin: 0; align-self: stretch;
+    justify-content: center;
+    padding: 6px 14px;
+    font-size: 26px;
+  }
+  .cfs__dls .cfs__pct::after { margin-top: 3px; }
+  .cfs__dls .cfs__dl { min-height: 56px; }
+}
