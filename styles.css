@@ -3462,3 +3462,22 @@ html.cv-open, html.cv-open body { overflow: hidden; }
 }
 /* Open phone menu sits above the nav bar so its close button shows */
 .mobile-menu { z-index: 101; }
+
+/* ── Coursework reel runs vertically on desktop ── */
+@media (min-width: 600px) {
+  .cfs__sticky { height: clamp(620px, 92vh, 1000px); touch-action: none; }
+  .cfs__card {
+    top: 50%;
+    width: min(900px, 62vw, calc(min(92vh, 1000px) * 0.5 * 1.76));
+  }
+}
+/* Document previews stack upwards out of the folder, like a pile of
+   sheets being lifted out, instead of fanning sideways */
+@media (min-width: 600px) and (hover: hover) {
+  .cfs__card:hover .cfs__doc,
+  .cfs__card:focus-within .cfs__doc {
+    transform: translate(calc(-50% + var(--k) * 10%), calc(-24% - var(--d) * 34%)) rotate(calc(var(--k) * -3deg));
+    z-index: calc(10 - var(--d));
+  }
+  .cfs__doc { z-index: calc(10 - var(--d)); }
+}

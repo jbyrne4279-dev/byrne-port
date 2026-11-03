@@ -1,10 +1,12 @@
 /* ============================================================
    COURSEWORK REEL | coursework-reel.js
-   Desktop: the coursework folders sit in a sideways cinema reel with
-   the same feel as the Projects slider. One folder in the centre, the
-   rest peeking either side. Hover the edges to glide, drag or flick
-   with momentum, arrow keys or a sideways trackpad swipe to step, and
-   click a side folder to bring it to the centre.
+   Desktop: the coursework folders sit in a vertical cinema reel with
+   the same feel as the Projects slider, turned on its side. One folder
+   in the middle, the rest peeking above and below. Hover near the top
+   or bottom to glide, drag or flick with momentum, scroll the wheel or
+   use the up/down arrows (while the pointer is over it) to step, and
+   click a folder above or below to bring it to the middle. At the
+   first and last folder the wheel scrolls the page as normal.
    Phones (under 600px): folders stack in a column; the one in the
    middle of the screen is marked active so it "opens".
    ============================================================ */
@@ -51,7 +53,7 @@
   const SNAP_EASE = 0.10;
   const FRICTION  = 0.93, FLICK_MULT = 1.25, FLICK_MIN = 1.4, MAX_FLING = 16, VEL_MIN = 0.2;
   const BLUR_MIN_SPEED = 1.0, BLUR_PER_SPEED = 1.5, MAX_BLUR = 10;
-  const STEP = 46;         // % of card width between neighbours
+  const STEP = 82;         // % of card height between neighbours
 
   function setActive(i) {
     cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
@@ -64,10 +66,10 @@
     cards.forEach((card, i) => {
       const offset = i - center;
       const abs = Math.abs(offset);
-      const scale = Math.max(0.6, 1 - abs * 0.16) * moveScale;
-      const bright = Math.max(0.45, 1 - abs * 0.22 - moveDim);
+      const scale = Math.max(0.6, 1 - abs * 0.14) * moveScale;
+      const bright = Math.max(0.3, 1 - abs * 0.42 - moveDim);
       const hidden = abs > 2.6;
-      card.style.transform = `translate(-50%, -50%) translateX(${(offset * STEP).toFixed(3)}%) scale(${scale.toFixed(4)})`;
+      card.style.transform = `translate(-50%, -50%) translateY(${(offset * STEP).toFixed(3)}%) scale(${scale.toFixed(4)})`;
       card.style.zIndex = String(100 - Math.round(abs * 10));
       card.style.opacity = hidden ? '0' : '1';
       card.style.filter = motionBlur > 0.05
@@ -121,17 +123,18 @@
   function focusCard(i) { vel = 0; snapTarget = clampN(i, 0, N - 1); ensureLoop(); }
 
   /* Pointer: drag to scrub with flick momentum; hover the edges to glide */
-  let startX = 0, startPos = 0, lastX = 0, lastMoveT = 0, dragVel = 0, pxPerCard = 300;
+  let startY = 0, startPos = 0, lastY = 0, lastMoveT = 0, dragVel = 0, pxPerCard = 300;
+  let hovering = false;
   let suppressClick = false, pointerId = null;
 
   reel.addEventListener('pointerdown', e => {
     if (mobileMq.matches || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    startX = lastX = e.clientX;
+    startY = lastY = e.clientY;
     startPos = pos;
     lastMoveT = performance.now();
     dragVel = 0; dragging = true; flinging = false; suppressClick = false;
     pointerId = e.pointerId; vel = 0; snapTarget = null;
-    pxPerCard = Math.max(80, cards[0].offsetWidth * STEP / 100);
+    pxPerCard = Math.max(60, cards[0].offsetHeight * STEP / 100);
     if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
   });
 
@@ -139,24 +142,27 @@
     if (mobileMq.matches) return;
     if (dragging) {
       const now = performance.now();
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 6 && !suppressClick) {
+      const dy = e.clientY - startY;
+      if (Math.abs(dy) > 6 && !suppressClick) {
         suppressClick = true;
         try { reel.setPointerCapture(e.pointerId); } catch (_) {}
       }
-      pos = clampN(startPos - dx / pxPerCard, 0, N - 1);
+      const want = startPos - dy / pxPerCard;
+      pos = clampN(want, 0, N - 1);
+      // Past the first or last folder a touch drag hands over to the page
+      if (e.pointerType === 'touch' && want !== pos) window.scrollBy(0, -(e.clientY - lastY));
       const ddt = (now - lastMoveT) / 1000;
-      if (ddt > 0) dragVel = dragVel * 0.7 + (-((e.clientX - lastX) / pxPerCard) / ddt) * 0.3;
-      lastX = e.clientX; lastMoveT = now;
+      if (ddt > 0) dragVel = dragVel * 0.7 + (-((e.clientY - lastY) / pxPerCard) / ddt) * 0.3;
+      lastY = e.clientY; lastMoveT = now;
       draw();
       return;
     }
-    // Hover glide only over the side folders, never over the centre one,
-    // so reading it or pressing its button never moves the reel.
+    // Hover glide only over the folders above and below, never over the
+    // middle one, so reading it or pressing its button never moves it.
     if (!canHover || reduce || flinging || (e.pointerType && e.pointerType !== 'mouse')) return;
     const r = reel.getBoundingClientRect();
-    const dead = Math.min(0.9, cards[0].offsetWidth / r.width);
-    const norm = clampN(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1);
+    const dead = Math.min(0.9, cards[0].offsetHeight / r.height);
+    const norm = clampN(((e.clientY - r.top) / r.height - 0.5) * 2, -1, 1);
     const a = Math.abs(norm);
     if (a <= dead) { vel = 0; if (snapTarget === null) snapTarget = Math.round(pos); }
     else { const m = (a - dead) / (1 - dead); vel = Math.sign(norm) * m * m * MAX_SPEED; }
@@ -173,10 +179,11 @@
   };
   reel.addEventListener('pointerup', endDrag);
   reel.addEventListener('pointercancel', endDrag);
-  if (canHover && !reduce) reel.addEventListener('pointerleave', () => { if (!dragging && !flinging) settle(); });
+  reel.addEventListener('pointerenter', () => { hovering = true; });
+  reel.addEventListener('pointerleave', () => { hovering = false; if (canHover && !reduce && !dragging && !flinging) settle(); });
 
-  // Clicks: a drag never counts as a click, and clicking a side folder
-  // (or its button) just brings that folder to the centre.
+  // Clicks: a drag never counts as a click, and clicking a folder above
+  // or below (or its button) just brings that folder to the middle.
   reel.addEventListener('click', e => {
     if (mobileMq.matches) return;
     if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
@@ -186,23 +193,27 @@
     if (i !== Math.round(pos)) { e.preventDefault(); e.stopPropagation(); focusCard(i); }
   }, true);
 
-  // Arrow keys while the reel is on screen (not while a file is open)
-  let inView = false;
-  new IntersectionObserver(en => { inView = en[0].isIntersecting; }, { threshold: 0.3 }).observe(reel);
+  // Up/down arrows while the pointer is over the reel (or a folder has
+  // keyboard focus), so they don't hijack normal page scrolling
   window.addEventListener('keydown', e => {
-    if (!inView || mobileMq.matches || document.documentElement.classList.contains('cv-open')) return;
+    if (mobileMq.matches || document.documentElement.classList.contains('cv-open')) return;
+    if (!hovering && !reel.contains(document.activeElement)) return;
     if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
-    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
-    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    const target = snapTarget !== null ? snapTarget : Math.round(pos);
+    if (e.key === 'ArrowUp' && target > 0) { e.preventDefault(); step(-1); }
+    else if (e.key === 'ArrowDown' && target < N - 1) { e.preventDefault(); step(1); }
   });
 
-  // Sideways trackpad swipe steps the reel; vertical scrolling passes through
+  // The mouse wheel steps the reel; at the first or last folder it lets
+  // the page carry on scrolling instead of getting stuck
   let wheelAcc = 0;
   reel.addEventListener('wheel', e => {
-    if (mobileMq.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-    let d = e.deltaX;
+    if (mobileMq.matches || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+    let d = e.deltaY;
     if (e.deltaMode === 1) d *= 16;
     if (!d) return;
+    const target = snapTarget !== null ? snapTarget : Math.round(pos);
+    if ((d < 0 && target <= 0) || (d > 0 && target >= N - 1)) { wheelAcc = 0; return; }
     e.preventDefault();
     vel = 0;
     wheelAcc += d;
