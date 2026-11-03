@@ -4,14 +4,27 @@
     {
       "source": "**/*.webp",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "**/*.{html,js,css,json}",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/survey",
+      "destination": "/",
+      "type": 301
     }
   ]
 }

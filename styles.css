@@ -678,39 +678,6 @@ h1, h2, h3, h4 {
   animation: fadeUp 0.8s var(--ease-out) 0.98s forwards;
 }
 
-/* Survey call-out under the hero buttons: fades in, then gently breathes */
-.hero__pill {
-  display: inline-flex; align-items: center; gap: 12px;
-  margin-top: 26px; padding: 8px 16px 8px 8px;
-  border: 1px solid var(--border-r); border-radius: 999px;
-  background: rgba(0, 0, 0, 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text);
-  opacity: 0;
-  animation: fadeUp 0.8s var(--ease-out) 1.3s forwards, pillBreathe 3.2s ease-in-out 2.1s infinite;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-}
-.hero__pill-new {
-  padding: 4px 9px; border-radius: 999px; background: var(--red); color: #fff;
-  box-shadow: 0 0 12px var(--red-glow);
-}
-.hero__pill-sub { color: var(--text-2); }
-.hero__pill svg { color: var(--red); transition: transform 0.2s var(--ease-out); }
-.hero__pill:hover {
-  border-color: var(--red); background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 0 22px var(--red-dim); animation: none; opacity: 1;
-}
-.hero__pill:hover svg { transform: translateX(3px); }
-.hero__pill:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
-@keyframes pillBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-@media (max-width: 560px) {
-  .hero__pill { font-size: 9px; letter-spacing: 0.1em; gap: 9px; }
-  .hero__pill-sub { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero__pill { animation: none; opacity: 1; }
-}
-
 .hero__scroll {
   position: absolute;
   bottom: 36px;
@@ -3039,15 +3006,11 @@ body { text-align: center; }
 
 /* ── Hero in the Apple system font (SF Pro on Apple devices) ── */
 .hero__tagline,
-.hero__cta .btn,
-.hero__pill {
+.hero__cta .btn {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Inter', system-ui, sans-serif;
 }
 .hero__tagline { letter-spacing: 0.08em; font-size: clamp(11px, 1.1vw, 13px); }
 .hero__cta .btn { letter-spacing: 0.08em; font-size: 12px; font-weight: 600; }
-.hero__pill { letter-spacing: 0.04em; font-size: 11px; font-weight: 600; text-transform: none; }
-.hero__pill-new { text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; }
-@media (max-width: 560px) { .hero__pill { font-size: 11px; letter-spacing: 0.02em; } }
 
 /* Tagline: each word steps a shade darker, white → soft grey */
 .hero__tagline-tags { color: rgba(255, 255, 255, 0.28); }
