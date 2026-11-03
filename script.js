@@ -196,6 +196,9 @@
 /* ── NAV: scroll state + active link ── */
 (function initNav() {
   const nav     = document.getElementById('nav');
+  if (!nav) return;
+  // Subpages keep a solid bar and their own highlighted section
+  if (!document.getElementById('home')) { nav.classList.add('is-scrolled'); return; }
   const links   = nav.querySelectorAll('.nav__links a');
   const sections = document.querySelectorAll('section[id]');
 
@@ -226,7 +229,8 @@
   const btn       = document.getElementById('menuBtn');
   const menu      = document.getElementById('mobileMenu');
   const closeBtn  = document.getElementById('menuClose');
-  if (!menu || !btn) return;
+  if (!menu || !btn || window.__jbNavMenu) return;
+  window.__jbNavMenu = true;
   const mobileLinks = menu.querySelectorAll('.mobile-link');
 
   function open() {

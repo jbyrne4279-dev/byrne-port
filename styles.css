@@ -3431,18 +3431,21 @@ html.cv-open, html.cv-open body { overflow: hidden; }
     width: clamp(110px, 13vw, 190px);
     padding: 6px 6px 22px;
     border-radius: 8px;
-    background: #f2efea;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px),
+                repeating-linear-gradient(-45deg, rgba(0,0,0,0.25) 0 2px, transparent 2px 6px),
+                linear-gradient(180deg, #2e2e33, #1b1b1f);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.6);
     opacity: 0;
     transform: translate(-50%, 60%) rotate(0deg);
     transition: transform 0.55s var(--ease-out), opacity 0.35s var(--ease-out);
     transition-delay: calc(var(--d) * 40ms);
   }
-  .cfs__doc img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-radius: 4px; background: #ddd; }
+  .cfs__doc img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-radius: 4px; background: #141417; }
   .cfs__doc em {
     position: absolute; left: 8px; right: 8px; bottom: 5px;
     font: 700 9px var(--font-mono); font-style: normal; letter-spacing: 0.12em; text-transform: uppercase;
-    color: #3a3a40; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: rgba(242, 239, 234, 0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .cfs__card:hover .cfs__doc,
   .cfs__card:focus-within .cfs__doc {
@@ -3457,3 +3460,5 @@ html.cv-open, html.cv-open body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .cfs__doc { transition: opacity 0.2s; }
 }
+/* Open phone menu sits above the nav bar so its close button shows */
+.mobile-menu { z-index: 101; }
