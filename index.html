@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=132">
+  <link rel="stylesheet" href="styles.css?v=134">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -139,12 +139,8 @@
         <div class="about-deck reveal" id="aboutDeck">
           <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
           <div class="deck-prompt" aria-hidden="true">
-            <span class="deck-prompt__hand">
-              <span class="deck-prompt__ring"></span>
-              <svg class="deck-prompt__cursor" viewBox="0 0 24 24"><path d="M5 2.5l13.5 8-6 1.4 3.6 6.6-2.7 1.4-3.6-6.6L5 17.8z" fill="#fff" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/></svg>
-              <span class="deck-prompt__pinch"><i></i><i></i></span>
-            </span>
-            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Click &amp; drag</span><span class="deck-prompt__touch">Tap &amp; drag</span></span>
+            <span class="deck-prompt__gesture"><i class="deck-prompt__trail"></i><i class="deck-prompt__dot"></i></span>
+            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Drag to explore</span><span class="deck-prompt__touch">Swipe to explore</span></span>
           </div>
           <div class="about-deck__stack">
 

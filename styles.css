@@ -3023,74 +3023,80 @@ body { text-align: center; }
 .hero__name-line { font-size: min(112px, calc((100vw - 40px) / 8.8)); line-height: 1; }
 
 
-/* ── ABOUT DECK: animated "grab and drag" prompt on the top card ──
-   Desktop shows a mouse cursor that presses and drags right; touch screens
-   show two fingers pinching together and dragging. Hidden once dragged. */
+/* ── ABOUT DECK: drag hint ──
+   A frosted-glass pill in the Apple system font. A small dot presses
+   and glides along a track, the way iOS shows a swipe gesture. Fades
+   away once the visitor drags a card. */
+.about-deck__hint { display: none; }
 .deck-prompt {
   position: absolute;
   z-index: 70;
-  top: 64px;
+  top: 22px;
   left: 50%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  transform: translateX(-70%);
+  gap: 10px;
+  padding: 8px 16px 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  transform: translateX(-50%);
   pointer-events: none;
-  transition: opacity 0.4s var(--ease-out);
+  animation: deck-prompt-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.about-deck.has-dragged .deck-prompt { opacity: 0; }
-.deck-prompt__hand {
+.about-deck.has-dragged .deck-prompt { opacity: 0; transform: translateX(-50%) scale(0.96); }
+.deck-prompt__gesture {
   position: relative;
-  z-index: 2;
-  order: -1;
-  width: 34px; height: 34px;
-  animation: deck-drag 2.6s var(--ease-out) infinite;
+  width: 40px; height: 22px;
 }
-.deck-prompt__cursor { position: absolute; left: 8px; top: 6px; width: 32px; height: 32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
-.deck-prompt__ring {
-  position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid var(--red); opacity: 0;
-  animation: deck-ring 2.6s ease-out infinite;
+.deck-prompt__dot {
+  position: absolute; top: 4px; left: 4px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  animation: deck-swipe 2.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
 }
-.deck-prompt__pinch { display: none; position: absolute; inset: 0; }
-.deck-prompt__pinch i {
-  position: absolute; top: 9px; width: 16px; height: 16px; border-radius: 50%;
-  background: rgba(255,255,255,.92); box-shadow: 0 0 0 4px rgba(255,255,255,.18), 0 2px 8px rgba(0,0,0,.5);
+.deck-prompt__trail {
+  position: absolute; top: 4px; left: 4px;
+  width: 14px; height: 14px; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35));
+  animation: deck-trail 2.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
 }
-.deck-prompt__pinch i:first-child { left: -8px; animation: deck-pinch-l 2.6s var(--ease-out) infinite; }
-.deck-prompt__pinch i:last-child  { left: 26px; animation: deck-pinch-r 2.6s var(--ease-out) infinite; }
 .deck-prompt__label {
-  padding: 6px 11px; border-radius: 999px; background: var(--red); color: #fff;
-  font: 700 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
-  box-shadow: 0 0 18px var(--red-dim);
-  animation: deck-flash 1.3s ease-in-out infinite;
+  font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: nowrap;
 }
 .deck-prompt__touch { display: none; }
 @media (hover: none), (pointer: coarse) {
-  .deck-prompt { gap: 30px; }
-  .deck-prompt__cursor, .deck-prompt__ring, .deck-prompt__mouse { display: none; }
-  .deck-prompt__pinch { display: block; }
+  .deck-prompt__mouse { display: none; }
   .deck-prompt__touch { display: inline; }
 }
-@keyframes deck-drag {
-  0%   { opacity: 0; transform: translate(0, 0) scale(1); }
-  12%  { opacity: 1; transform: translate(0, 0) scale(1); }
-  24%  { opacity: 1; transform: translate(0, 0) scale(.82); }
-  66%  { opacity: 1; transform: translate(96px, 6px) scale(.82); }
-  78%  { opacity: 0; transform: translate(112px, 8px) scale(1); }
-  100% { opacity: 0; transform: translate(0, 0) scale(1); }
+@keyframes deck-prompt-in {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
-@keyframes deck-ring {
-  0%, 20% { opacity: 0; transform: scale(.4); }
-  26%     { opacity: 1; transform: scale(1); }
-  40%     { opacity: 0; transform: scale(1.8); }
-  100%    { opacity: 0; }
+@keyframes deck-swipe {
+  0%, 12%  { transform: translateX(0) scale(1); opacity: 0; }
+  18%      { transform: translateX(0) scale(0.82); opacity: 1; }
+  62%      { transform: translateX(18px) scale(0.82); opacity: 1; }
+  72%      { transform: translateX(18px) scale(1); opacity: 0; }
+  100%     { transform: translateX(18px) scale(1); opacity: 0; }
 }
-@keyframes deck-pinch-l { 0%, 12% { transform: translateX(-6px); } 24%, 100% { transform: translateX(8px); } }
-@keyframes deck-pinch-r { 0%, 12% { transform: translateX(6px); }  24%, 100% { transform: translateX(-8px); } }
-@keyframes deck-flash { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes deck-trail {
+  0%, 18%  { width: 14px; opacity: 0; }
+  24%      { opacity: 1; }
+  62%      { width: 32px; opacity: 1; }
+  76%, 100% { width: 32px; opacity: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .deck-prompt__hand, .deck-prompt__ring, .deck-prompt__label, .deck-prompt__pinch i { animation: none; }
+  .deck-prompt { animation: none; }
+  .deck-prompt__dot, .deck-prompt__trail { animation: none; opacity: 1; }
 }
 
 /* ── UNIVERSITY COURSEWORK AS FOLDERS ──
