@@ -3508,3 +3508,33 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   .about-card--intro .about-card__lead { font-size: 36px; }
   .about-card--intro .about-card__lead--sub { font-size: 21px; }
 }
+
+/* Idle screen game: play hint, score and the way back */
+.screensaver.is-active { cursor: default; }
+.screensaver__msg { pointer-events: none; }
+.screensaver__play {
+  display: flex; gap: 14px; align-items: center;
+  font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.55);
+}
+.screensaver__touch { display: none; }
+@media (hover: none), (pointer: coarse) { .screensaver__mouse { display: none; } .screensaver__touch { display: inline; } }
+.screensaver__score:not(:empty) { color: #2ee082; font-variant-numeric: tabular-nums; }
+.screensaver__score:not(:empty)::before { content: '·'; margin-right: 14px; color: rgba(255,255,255,0.35); }
+.screensaver__back {
+  pointer-events: auto;
+  margin-top: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+  font: 600 14px/1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.screensaver__back:hover { background: rgba(255, 255, 255, 0.16); transform: translateY(-1px); }
+.screensaver__back:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }

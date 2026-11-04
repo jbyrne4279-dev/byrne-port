@@ -77,6 +77,11 @@
   let dpr = 1, cell = 28, cols = 0, rows = 0;
   let snake = [], dir = [1, 0], apple = null, grow = 0, lastStep = 0;
   let raf = null, active = false, timer = null;
+  // Once the visitor steers, they're playing: no autopilot, walls and their
+  // own tail end the game, and the score counts apples eaten.
+  let manual = false, queued = null, score = 0, best = 0;
+  const backBtn = document.getElementById('screensaverBack');
+  const scoreEl = document.getElementById('screensaverScore');
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -95,7 +100,14 @@
     snake = [[x, y], [x - 1, y], [x - 2, y], [x - 3, y]];
     dir = [1, 0];
     grow = 0;
+    manual = false; queued = null; score = 0;
+    showScore();
     placeApple();
+  }
+
+  function showScore() {
+    if (!scoreEl) return;
+    scoreEl.textContent = manual || best ? `Score ${score}${best ? ` · Best ${best}` : ''}` : '';
   }
 
   function placeApple() {
@@ -143,15 +155,22 @@
   }
 
   function step() {
-    const d = chooseDir();
-    if (!d) { reset(); return; }
-    dir = d;
+    if (manual) {
+      if (queued) { dir = queued; queued = null; }
+      const nx = snake[0][0] + dir[0], ny = snake[0][1] + dir[1];
+      const hitSelf = snake.slice(0, -1).some(([x, y]) => x === nx && y === ny);
+      if (nx < 0 || ny < 0 || nx >= cols || ny >= rows || hitSelf) { best = Math.max(best, score); reset(); return; }
+    } else {
+      const d = chooseDir();
+      if (!d) { reset(); return; }
+      dir = d;
+    }
     const head = [snake[0][0] + dir[0], snake[0][1] + dir[1]];
     snake.unshift(head);
-    if (head[0] === apple[0] && head[1] === apple[1]) { grow += 3; placeApple(); }
+    if (head[0] === apple[0] && head[1] === apple[1]) { grow += 3; if (manual) { score++; showScore(); } placeApple(); }
     if (grow > 0) grow--; else snake.pop();
     // Long enough to fill a good chunk of the screen: start a fresh game
-    if (snake.length > cols * rows * 0.35) reset();
+    if (!manual && snake.length > cols * rows * 0.35) reset();
   }
 
   function roundRect(x, y, w, h, r) {
@@ -216,6 +235,7 @@
     // Never cover the coursework viewer while someone is reading a file
     if (document.documentElement.classList.contains('cv-open')) { timer = setTimeout(activate, IDLE_MS); return; }
     active = true;
+    document.documentElement.style.overflow = 'hidden';
     saver.classList.add('is-active');
     saver.setAttribute('aria-hidden', 'false');
     if (!reduce) { resize(); lastStep = 0; raf = requestAnimationFrame(draw); }
@@ -224,13 +244,44 @@
   function deactivate() {
     if (!active) return;
     active = false;
+    document.documentElement.style.overflow = '';
     saver.classList.remove('is-active');
     saver.setAttribute('aria-hidden', 'true');
     if (raf) { cancelAnimationFrame(raf); raf = null; }
   }
 
+  // Steering: arrow keys / WASD, or a swipe on touch screens
+  function steer(dx, dy) {
+    if (!active || reduce) return;
+    if (!manual) { manual = true; score = 0; showScore(); }   // any key takes over
+    const cur = queued || dir;
+    if (dx === -cur[0] && dy === -cur[1] && snake.length > 1) return;   // no reversing into yourself
+    queued = [dx, dy];
+  }
+  const KEYS = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0], w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0], W: [0, -1], S: [0, 1], A: [-1, 0], D: [1, 0] };
+  window.addEventListener('keydown', e => {
+    if (!active) return;
+    if (e.key === 'Escape') { deactivate(); onActivity(); return; }
+    const k = KEYS[e.key];
+    if (k) { e.preventDefault(); steer(k[0], k[1]); }
+    e.stopImmediatePropagation();   // keep the keys away from the page underneath
+  }, true);
+  let touch0 = null;
+  saver.addEventListener('touchstart', e => { const t = e.touches[0]; touch0 = [t.clientX, t.clientY]; }, { passive: true });
+  saver.addEventListener('touchmove', e => { if (active) e.preventDefault(); }, { passive: false });
+  saver.addEventListener('touchend', e => {
+    if (!touch0) return;
+    const t = e.changedTouches[0], dx = t.clientX - touch0[0], dy = t.clientY - touch0[1];
+    touch0 = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+    if (Math.abs(dx) > Math.abs(dy)) steer(Math.sign(dx), 0); else steer(0, Math.sign(dy));
+  });
+  if (backBtn) backBtn.addEventListener('click', () => { deactivate(); onActivity(); });
+
+  // While the idle screen is up, moving the mouse or pressing keys no
+  // longer closes it: only "Back to website" (or Esc) does.
   function onActivity() {
-    if (active) deactivate();
+    if (active) return;
     clearTimeout(timer);
     timer = setTimeout(activate, IDLE_MS);
   }
