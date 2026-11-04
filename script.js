@@ -64,7 +64,7 @@
   }, 3100);
 })();
 
-/* ── AFK SCREENSAVER (idle → infinite red matrix rain) ── */
+/* ── AFK SCREENSAVER (idle → a game of Snake that plays itself) ── */
 (function initScreensaver() {
   const saver = document.getElementById('screensaver');
   const canvas = document.getElementById('screensaverCanvas');
@@ -72,34 +72,142 @@
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const IDLE_MS = 30000;
+  const STEP_MS = 70;                 // one move every 70ms
   const ctx = canvas.getContext('2d');
-  const chars = 'アカサタナハマヤラワ0123456789ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜｵ<>*/#JBAX'.split('');
-  let dpr = 1, fontSize = 16, cols = 0, drops = [];
+  let dpr = 1, cell = 28, cols = 0, rows = 0;
+  let snake = [], dir = [1, 0], apple = null, grow = 0, lastStep = 0;
   let raf = null, active = false, timer = null;
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
-    fontSize = 16 * dpr;
-    cols = Math.ceil(canvas.width / fontSize);
-    drops = Array.from({ length: cols }, () => Math.random() * -50);
+    cell = Math.round((window.innerWidth < 600 ? 22 : 28) * dpr);
+    cols = Math.max(8, Math.floor(canvas.width / cell));
+    rows = Math.max(8, Math.floor(canvas.height / cell));
+    reset();
   }
 
-  function draw() {
-    if (!active) return;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = fontSize + 'px "Space Mono", monospace';
-    for (let i = 0; i < cols; i++) {
-      const ch = chars[(Math.random() * chars.length) | 0];
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
-      ctx.fillStyle = Math.random() > 0.975 ? '#ff5a6e' : '#c8001f';
-      ctx.fillText(ch, x, y);
-      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
+  const key = (x, y) => y * cols + x;
+
+  function reset() {
+    const y = Math.floor(rows / 2), x = Math.floor(cols / 4);
+    snake = [[x, y], [x - 1, y], [x - 2, y], [x - 3, y]];
+    dir = [1, 0];
+    grow = 0;
+    placeApple();
+  }
+
+  function placeApple() {
+    const taken = new Set(snake.map(([x, y]) => key(x, y)));
+    if (taken.size >= cols * rows) { reset(); return; }
+    let x, y;
+    do { x = (Math.random() * cols) | 0; y = (Math.random() * rows) | 0; } while (taken.has(key(x, y)));
+    apple = [x, y];
+  }
+
+  // The snake steers itself: shortest safe path to the apple (BFS); if
+  // the apple is boxed in, it chases its own tail to buy time.
+  function bfs(from, to, blocked) {
+    const prev = new Int32Array(cols * rows).fill(-1);
+    const seen = new Uint8Array(cols * rows);
+    const q = [key(from[0], from[1])];
+    seen[q[0]] = 1;
+    const goal = key(to[0], to[1]);
+    for (let h = 0; h < q.length; h++) {
+      const k = q[h];
+      if (k === goal) break;
+      const x = k % cols, y = (k / cols) | 0;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = x + dx, ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
+        const nk = key(nx, ny);
+        if (seen[nk] || (blocked.has(nk) && nk !== goal)) continue;
+        seen[nk] = 1; prev[nk] = k; q.push(nk);
+      }
     }
+    if (!seen[goal]) return null;
+    let k = goal, first = goal;
+    while (prev[k] !== -1) { first = k; k = prev[k]; }
+    return [first % cols - from[0], ((first / cols) | 0) - from[1]];
+  }
+
+  function chooseDir() {
+    const head = snake[0];
+    const body = new Set(snake.slice(0, -1).map(([x, y]) => key(x, y)));
+    return bfs(head, apple, body) || bfs(head, snake[snake.length - 1], body) ||
+      [[1, 0], [-1, 0], [0, 1], [0, -1]].find(([dx, dy]) => {
+        const nx = head[0] + dx, ny = head[1] + dy;
+        return nx >= 0 && ny >= 0 && nx < cols && ny < rows && !body.has(key(nx, ny));
+      }) || null;
+  }
+
+  function step() {
+    const d = chooseDir();
+    if (!d) { reset(); return; }
+    dir = d;
+    const head = [snake[0][0] + dir[0], snake[0][1] + dir[1]];
+    snake.unshift(head);
+    if (head[0] === apple[0] && head[1] === apple[1]) { grow += 3; placeApple(); }
+    if (grow > 0) grow--; else snake.pop();
+    // Long enough to fill a good chunk of the screen: start a fresh game
+    if (snake.length > cols * rows * 0.35) reset();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+
+  function render() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const ox = (canvas.width - cols * cell) / 2, oy = (canvas.height - rows * cell) / 2;
+    // faint board grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.035)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= cols; x++) { ctx.moveTo(ox + x * cell + 0.5, oy); ctx.lineTo(ox + x * cell + 0.5, oy + rows * cell); }
+    for (let y = 0; y <= rows; y++) { ctx.moveTo(ox, oy + y * cell + 0.5); ctx.lineTo(ox + cols * cell, oy + y * cell + 0.5); }
+    ctx.stroke();
+
+    // green apple with a little leaf
+    const ax = ox + apple[0] * cell + cell / 2, ay = oy + apple[1] * cell + cell / 2;
+    ctx.shadowColor = 'rgba(39, 208, 127, 0.9)'; ctx.shadowBlur = 18 * dpr;
+    ctx.fillStyle = '#2ee082';
+    ctx.beginPath(); ctx.arc(ax, ay + cell * 0.04, cell * 0.36, 0, Math.PI * 2); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#0f7a3f';
+    ctx.beginPath(); ctx.ellipse(ax + cell * 0.12, ay - cell * 0.34, cell * 0.13, cell * 0.07, -0.6, 0, Math.PI * 2); ctx.fill();
+
+    // red snake, brightest at the head
+    const pad = Math.max(1, cell * 0.08);
+    ctx.shadowColor = 'rgba(255, 20, 60, 0.8)'; ctx.shadowBlur = 14 * dpr;
+    snake.forEach(([x, y], i) => {
+      const t = i / Math.max(1, snake.length - 1);
+      ctx.fillStyle = i === 0 ? '#ff3b5c' : `rgb(${Math.round(224 - t * 90)}, ${Math.round(20 - t * 10)}, ${Math.round(60 - t * 25)})`;
+      roundRect(ox + x * cell + pad, oy + y * cell + pad, cell - pad * 2, cell - pad * 2, cell * 0.28);
+      ctx.fill();
+    });
+    ctx.shadowBlur = 0;
+    // eyes
+    const [hx, hy] = snake[0];
+    const cx = ox + hx * cell + cell / 2, cy = oy + hy * cell + cell / 2;
+    const ex = -dir[1], ey = dir[0];
+    ctx.fillStyle = '#fff';
+    for (const s of [-1, 1]) {
+      ctx.beginPath();
+      ctx.arc(cx + dir[0] * cell * 0.16 + ex * s * cell * 0.17, cy + dir[1] * cell * 0.16 + ey * s * cell * 0.17, cell * 0.07, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function draw(t) {
+    if (!active) return;
+    if (!lastStep || t - lastStep > STEP_MS * 4) lastStep = t;
+    while (t - lastStep >= STEP_MS) { step(); lastStep += STEP_MS; }
+    render();
     raf = requestAnimationFrame(draw);
   }
 
@@ -110,7 +218,7 @@
     active = true;
     saver.classList.add('is-active');
     saver.setAttribute('aria-hidden', 'false');
-    if (!reduce) { resize(); draw(); }
+    if (!reduce) { resize(); lastStep = 0; raf = requestAnimationFrame(draw); }
   }
 
   function deactivate() {
