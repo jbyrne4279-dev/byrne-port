@@ -3499,3 +3499,12 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   .cfs__dls .cfs__pct::after { margin-top: 3px; }
   .cfs__dls .cfs__dl { min-height: 56px; }
 }
+
+/* About intro card: shorter copy now, so centre it and let it fill the card */
+.about-card--intro { justify-content: center; gap: 22px; }
+.about-card--intro .about-card__lead { font-size: clamp(32px, 4.8vw, 56px); line-height: 1.12; max-width: 14ch; }
+.about-card--intro .about-card__lead--sub { font-size: clamp(19px, 2.4vw, 28px); max-width: 20ch; }
+@media (max-width: 560px) {
+  .about-card--intro .about-card__lead { font-size: 36px; }
+  .about-card--intro .about-card__lead--sub { font-size: 21px; }
+}
