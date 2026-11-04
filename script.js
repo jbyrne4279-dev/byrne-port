@@ -1070,7 +1070,7 @@ window.TypeReveal = (function () {
     card.classList.add('is-dragging');
     card.style.transition = 'none';
     card.style.zIndex = '60';
-    deck.classList.add('has-dragged');
+    deck.classList.add('has-dragged', 'hint-gone');   // hint goes for good on first touch
   });
 
   stack.addEventListener('pointermove', e => {

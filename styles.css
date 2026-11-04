@@ -3048,7 +3048,13 @@ body { text-align: center; }
   animation: deck-prompt-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.about-deck.has-dragged .deck-prompt { opacity: 0; transform: translateX(-50%) scale(0.96); }
+.about-deck.hint-gone .deck-prompt {
+  animation: none;            /* the entrance animation would otherwise hold it visible */
+  opacity: 0;
+  transform: translateX(-50%) scale(0.96);
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0.25s;
+}
 .deck-prompt__gesture {
   position: relative;
   width: 40px; height: 22px;
