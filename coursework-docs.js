@@ -21,17 +21,12 @@
     const docs = document.createElement('div');
     docs.className = 'cfs__docs';
     docs.style.setProperty('--n', files.length);
-    // Sheets alternate left and right of the cover; a third or fourth
-    // tucks in beside the first on its side, a little lower
-    const spot = k => {
-      const side = k % 2 ? 73 : 27;
-      const row = Math.floor(k / 2);
-      return { x: side + (k % 2 ? 1 : -1) * row * 9, y: row * 12 };
-    };
+    // Sheets line up from the left edge of the folder, side by side
+    const spot = k => ({ x: 15 + k * 21, y: 0 });
     docs.innerHTML = files.map((f, k) => {
-      const { x, y } = files.length === 1 ? { x: 73, y: 0 } : spot(k);
+      const { x, y } = spot(k);
       const thumb = f.src.replace(/^assets\/coursework\//, 'assets/coursework/thumbs/').replace(/\.pdf$/i, '.webp');
-      return `<button type="button" class="cfs__doc" data-i="${k}" aria-label="Open ${f.name.replace(/"/g, '&quot;')}" style="--x:${x}%; --y:${y}%; --r:${((x - 50) * 0.12).toFixed(1)}deg; --d:${k}"><em>${f.name}</em><img src="${thumb}" alt="" loading="lazy" draggable="false"></button>`;
+      return `<button type="button" class="cfs__doc" data-i="${k}" aria-label="Open ${f.name.replace(/"/g, '&quot;')}" style="--x:${x}%; --y:${y}%; --r:${(k % 2 ? 1.5 : -1.5).toFixed(1)}deg; --d:${k}"><em>${f.name}</em><img src="${thumb}" alt="" loading="lazy" draggable="false"></button>`;
     }).join('');
     card.querySelector('.cfs__card-img').after(docs);
   });
