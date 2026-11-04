@@ -173,3 +173,40 @@
   .nw-ticker__track { animation: none; }
   .nw-card, .nw-card__media img, .nw-mini { transition: none; }
 }
+
+/* ---------- Adapts to the screen ----------
+   Phones: one column. Laptops: sections stacked, lead beside its list.
+   Wide screens: a 2 x 2 grid of sections. Ultrawide (21:9) monitors:
+   all four sections side by side with a compact header, so the whole
+   briefing fits on one screen. */
+.nw-board { display: block; }
+
+@media (min-width: 1600px) {
+  .nw { max-width: 1840px; }
+  .nw-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; align-items: start; }
+  .nw-board .nw-section { margin: 0; }
+  .nw-board .nw-feature { grid-template-columns: 1fr; }
+  .nw-board .nw-lead { position: static; }
+  .nw-board .nw-lead .nw-card__media { aspect-ratio: 16 / 8; }
+}
+
+@media (min-width: 2400px) {
+  .nw { max-width: none; padding-left: clamp(32px, 2.4vw, 72px); padding-right: clamp(32px, 2.4vw, 72px); }
+  /* Compact header: title and status on one line */
+  .nw-hero {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 48px;
+    padding: 104px 0 22px; text-align: left;
+  }
+  .nw-eyebrow { margin-bottom: 10px; }
+  .nw-title { font-size: 7rem; }
+  .nw-sub { margin: 0 0 6px; max-width: 760px; text-align: right; }
+  .nw-status { margin: 0 0 6px; flex-shrink: 0; }
+  .nw-hero__meta { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+  .nw-ticker { margin: 6px 0 28px; }
+  .nw-board { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .nw-sechead { margin-bottom: 18px; padding-bottom: 14px; }
+  .nw-sechead__title { font-size: 2rem; }
+  .nw-lead .nw-card__title { font-size: 1.35rem; }
+  .nw-feature__list { gap: 10px; }
+  .nw-mini__media { width: 84px; height: 62px; }
+}
