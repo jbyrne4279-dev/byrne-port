@@ -1,106 +1,114 @@
 {
-  "generatedAt": "2026-11-04T23:40:01.548Z",
+  "generatedAt": "2026-11-05T06:46:26.205Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "US midterm elections 2026 live: Democrats pick up more wins as vote counting in tight races continues and Republican blame game begins",
+        "title": "Joshua Wong, face of Hong Kong's pro-democracy protests, jailed for 10 years",
+        "url": "https://www.bbc.co.uk/news/articles/cwp9g3rlp8jlo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-05T06:35:25.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ff8f/live/68eb4bf0-d8e4-11f1-a701-fddedf244c16.jpg",
+        "summary": "Wong, 30, is among hundreds of Hongkongers detained under the controversial national security law."
+      },
+      {
+        "title": "New Zealand braces for knife-edge election: What you need to know",
+        "url": "https://www.aljazeera.com/news/2026/11/5/new-zealand-braces-for-knife-edge-election-what-you-need-to-know?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-05T06:34:50.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/10/2026-10-26T043254Z_1618939652_RC2PAOA1AN7K_RTRMADP_3_NEWZEALAND-ELECTION-LUXON-1793278823.jpg?resize=1920%2C1440",
+        "summary": "Smaller parties hold the key, with major contenders expected to fall short of the majority needed to govern alone."
+      },
+      {
+        "title": "US midterm elections 2026 live: Democrats eye historic upset in Mississippi Senate race as Republican blame game begins",
+        "url": "https://www.theguardian.com/us-news/live/2026/nov/05/midterm-elections-live-latest-updates-mississippi-senate-race",
+        "source": "The Guardian",
+        "published": "2026-11-05T06:14:12.000Z",
+        "image": "https://i.guim.co.uk/img/media/f20ab2475837b6e728d381377a54a75ad0c9c055/463_0_4628_3702/master/4628.jpg?width=140&quality=85&auto=format&fit=max&s=b94d3052d24282aa219c9b4bdb241874",
+        "summary": "Democrat Scott Colom is leading Republican incumbent Cindy Hyde-Smith in the southern state; JD Vance pointed to the war in Iran as the ‘obvious’ culprit for Republicans’ loss Live"
+      },
+      {
+        "title": "Has India’s democracy failed its Muslims? Jailed scholar triggers debate",
+        "url": "https://www.aljazeera.com/news/2026/11/5/has-indias-democracy-failed-its-muslims-jailed-scholar-triggers-debate?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-05T06:10:51.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/01/2020-01-28T105154Z_1959264632_RC2YOE90PSEJ_RTRMADP_3_INDIA-CITIZENSHIP-PROTESTS-STUDENT-1767610216.jpg?resize=1678%2C1080&quality=80",
+        "summary": "Sharjeel Imam questioned foundational ideas of India's nationalism in interview with The Quint, inspiring heated debate."
+      },
+      {
+        "title": "Norman conquest castle and Dickens chalet among sites added to heritage at risk register",
+        "url": "https://www.theguardian.com/artanddesign/2026/nov/05/hastings-castle-dickens-chalet-heritage-at-risk-register",
+        "source": "The Guardian",
+        "published": "2026-11-05T06:00:56.000Z",
+        "image": "https://i.guim.co.uk/img/media/555e7ab61246a17479af7856a7ea2ecfe8f9013a/549_0_6631_5304/master/6631.jpg?width=140&quality=85&auto=format&fit=max&s=2b4f1ac5c2587c716c607272a367dd3e",
+        "summary": "William the Conquerer-built Hastings Castle and Swiss-style writing retreat in Kent two of nearly 200 additions to list A castle built by William the Conquerer, a Swiss-style chale"
+      },
+      {
+        "title": "Beau Lamarre-Condon trial live updates: accused double murderer gives evidence in high-profile case",
+        "url": "https://www.theguardian.com/australia-news/live/2026/nov/05/beau-lamarre-condon-trial-former-police-accused-murder-case-jesse-baird-luke-davies-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-11-05T05:58:24.000Z",
+        "image": "https://i.guim.co.uk/img/media/ebfc885f7db8935002487a469a0f9baba836690e/317_347_2279_1823/master/2279.jpg?width=140&quality=85&auto=format&fit=max&s=b33c7ad733982967cf75a684d0a83644",
+        "summary": "The 31-year-old former police officer is accused of fatally shooting couple Jesse Baird and Luke Davies in Sydney in 2024 Former police officer Beau Lamarre-Condon enters witness b"
+      },
+      {
+        "title": "Israel’s opposition slams ‘toxic Netanyahu’ after Democrats win US Congress",
+        "url": "https://www.aljazeera.com/news/2026/11/5/israels-opposition-slams-toxic-netanyahu-after-democrats-win-us-congress?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-05T05:39:31.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2026-10-28T123350Z_597274871_RC2BCOAXNME7_RTRMADP_3_ISRAEL-ELECTION-1793857037_b6bd47-1793857065.jpg?resize=1200%2C630&quality=80",
+        "summary": "Netanyahu's rivals say US midterm results show Israel 'cannot afford' to have the prime minister remain in office."
+      },
+      {
+        "title": "Republican blame game begins as Democrat’s Mississippi lead grows – as it happened",
         "url": "https://www.theguardian.com/us-news/live/2026/nov/04/midterm-elections-results-senate-house-michigan-maine-mississippi-latest-updates",
         "source": "The Guardian",
-        "published": "2026-11-04T23:24:57.000Z",
-        "image": "https://i.guim.co.uk/img/media/1464dc27a78e6da6c35d92e886a31ac9205d5c26/621_0_7064_5655/master/7064.jpg?width=140&quality=85&auto=format&fit=max&s=a73b25b618ee512129f307ced04095f5",
-        "summary": "Florida governor Ron DeSantis called Democratic wins in the midterms ‘close to an extinction-level event for Republicans’ Live results | Republican losses mapped Tell us: how do yo"
+        "published": "2026-11-05T05:28:47.000Z",
+        "image": "https://i.guim.co.uk/img/media/4df18077e6ef6dbd140ed398cd00e92926713dc6/312_0_4859_3888/master/4859.jpg?width=140&quality=85&auto=format&fit=max&s=833f341739064bf50a2b68cc1d779bc5",
+        "summary": "This blog has now closed – our live US midterms results coverage continues here Wall Street surged at the open, after Democrats scored historic victories in midterm elections and s"
       },
       {
-        "title": "David Jones goes into administration, with store closures expected and thousands of jobs at risk",
-        "url": "https://www.theguardian.com/business/2026/nov/05/david-jones-stores-closing-down-collapse-administration",
+        "title": "‘Bring it on’: Pauline Hanson to appeal Mehreen Faruqi racial discrimination ruling in high court",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/05/pauline-hanson-to-appeal-mehreen-faruqi-racial-discrimination-ruling-high-court-ntwnfb",
         "source": "The Guardian",
-        "published": "2026-11-04T22:53:29.000Z",
-        "image": "https://i.guim.co.uk/img/media/77ef609db0a2cf50eb0f5ffeb7321102d010fa9c/1944_0_3844_3077/master/3844.jpg?width=140&quality=85&auto=format&fit=max&s=ab908f701cebafd7576bd4900ddd3da3",
-        "summary": "Future of department store in jeopardy after administrators appointed on Thursday morning Get our breaking news email , free app or daily news podcast Australia’s premier upmarket "
+        "published": "2026-11-05T05:03:08.000Z",
+        "image": "https://i.guim.co.uk/img/media/5a9ba9403b2b927439354c9d227c2c955856dbb8/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=87f6e3908d11b5b3fba11ac0aa02d8af",
+        "summary": "One Nation leader granted special leave to appeal after full federal court earlier this year agreed Hanson portrayed Faruqi as a ‘second-class citizen’ Get our daily political emai"
       },
       {
-        "title": "Ukraine says bodycam video shows deadly Russian double-tap bombing",
-        "url": "https://www.bbc.co.uk/news/articles/c98rz6penv86o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-04T22:48:43.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3f23/live/c9877cb0-d8a1-11f1-93e1-3b657b665bcf.png",
-        "summary": "At least 40 people were killed and another 30 may still be under the rubble after Monday's attack on a Ukrainian village, Kyiv says."
-      },
-      {
-        "title": "Democratic Socialists of America see record wins in US midterm elections",
-        "url": "https://www.aljazeera.com/news/2026/11/4/democratic-socialists-of-america-see-record-wins-in-us-midterm-elections?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T22:45:24.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/07/ap_6a68ebd1385dc-1785261009.jpg?resize=1920%2C1440",
-        "summary": "The left-wing movement has won support for its views on issues like the war in Gaza and universal healthcare."
-      },
-      {
-        "title": "Sudan factories struggle to restart after devastating wartime losses",
-        "url": "https://www.aljazeera.com/news/2026/11/4/sudan-factories-struggle-to-restart-after-devastating-wartime-losses?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T22:31:09.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/4U0A896.JPG.22-1793796339.jpg?resize=1200%2C630",
-        "summary": "War has left Sudanese workers jobless and consumers facing higher prices as factories struggle to reopen."
-      },
-      {
-        "title": "Palestinians, Israelis react after Democrats sweep US midterms",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/palestinians-israelis-react-after-democrats-sweep-us-midterms?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T22:06:24.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793829958.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Palestinians and Israelis are divided in their opinion following the win by Democrats in the US midterm elections."
-      },
-      {
-        "title": "Breaking: Nigeria’s Flamingos Demolish Brazil to Reach First-ever FIFA U17 Women’s World Cup Final - THISDAYLIVE",
-        "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQSncxV3htY3FwMXpSaVIwakNjQUpmb0VMYlZ5c2pleEx3Z2R1V3h0RkpwdXJLQmpJQjlSdE1yamw4MFoyUTFheXl4Ni1fQjlrb0wwOXlMZjVSTzcwcG9GNGpsemVjYkV1bFU2aXBWaTRyZ1BDdXhPM2NwT0tLUjc1Uy1vUk5rTzhhMHF3eVhJMWJ1dl9lQ3pHZm1ZNWJRRHVEckhiNmI0VnVIQWFZR0czNWdGRlM0cHVFWWhRS2g3RGl6VVJSRDBUMXdXQWdBaVVO?oc=5",
-        "source": "THISDAYLIVE",
-        "published": "2026-11-04T22:00:26.000Z",
-        "image": "",
-        "summary": "Breaking: Nigeria’s Flamingos Demolish Brazil to Reach First-ever FIFA U17 Women’s World Cup Final THISDAYLIVE"
-      },
-      {
-        "title": "Social media reacts to Democrats’ takeover of US Congress",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/social-media-reacts-to-democrats-takeover-of-us-congress?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T21:21:58.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/Screenshot-2026-11-04-at-21.17.58-1793827224.png?resize=1200%2C675",
-        "summary": "Social media is awash with reactions to Democrats’ sweeping midterm gains."
-      },
-      {
-        "title": "Israel restricting treatment for 1,100 child amputees in Gaza: NGO",
-        "url": "https://www.aljazeera.com/news/2026/11/4/israel-restricting-treatment-for-1100-child-amputees-in-gaza-ngo?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T21:13:56.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2025/03/Gaza-1742898358.jpg?resize=1920%2C1440",
-        "summary": "Israeli restrictions on travel and medical evacuations prevent children in Gaza from being treated abroad."
-      },
-      {
-        "title": "Debt relief and aid no replacement for slavery reparations, UK told",
-        "url": "https://www.theguardian.com/world/2026/nov/04/debt-relief-aid-no-replacement-slavery-reparations-uk-told-caribbean",
+        "title": "UK found to be ‘dangerously’ reliant on China for critical minerals needed for defence and AI",
+        "url": "https://www.theguardian.com/world/2026/nov/05/uk-dangerously-reliant-on-china-critical-minerals-military-ai-renewable-energy",
         "source": "The Guardian",
-        "published": "2026-11-04T21:10:55.000Z",
-        "image": "https://i.guim.co.uk/img/media/fd2785cfbd8978791c5ddc516656e88641b4c2aa/382_0_4106_3285/master/4106.jpg?width=140&quality=85&auto=format&fit=max&s=450459c5478c79863e56aaeb3a2a17da",
-        "summary": "Leading figures in Caribbean reparatory justice movement speak out after UK PM announced infrastructure package Offers of debt relief and development assistance from the UK cannot "
+        "published": "2026-11-05T05:00:55.000Z",
+        "image": "https://i.guim.co.uk/img/media/cb4db687d218902c0710319b5c22a27ce31c84f2/446_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=0f3485761702bce981808ccca6ab31bd",
+        "summary": "Delivering net zero also at risk, say MPs as they call for centralised policy and funding for mines and diversification The UK is “dangerously” dependent on China for critical raw "
       },
       {
-        "title": "Telstra apologises after customers mystified by phantom missed call notifications",
-        "url": "https://www.theguardian.com/business/2026/nov/05/telstra-customers-false-missed-call-notifications-apology",
+        "title": "Protesters to join nationwide march as France braces for day of strike action",
+        "url": "https://www.theguardian.com/world/2026/nov/05/protesters-france-march-strikes-education-cost-of-living",
         "source": "The Guardian",
-        "published": "2026-11-04T21:10:20.000Z",
-        "image": "https://i.guim.co.uk/img/media/796ecda27558efe2f42c6a46e199155c449ea794/182_0_2500_2000/master/2500.jpg?width=140&quality=85&auto=format&fit=max&s=c66291c98c9d09e22c976c2f2610a8b0",
-        "summary": "Telco blames its MessageBank service and apologises for customer confusion Get our breaking news email , free app or daily news podcast Thousands of Telstra users have reported pha"
+        "published": "2026-11-05T05:00:54.000Z",
+        "image": "https://i.guim.co.uk/img/media/d7a6c75e922d58651dce919e7f5dd5407fc0c0f3/874_0_6411_5127/master/6411.jpg?width=140&quality=85&auto=format&fit=max&s=bf9766473e87d6ba9a28c0232b5d8522",
+        "summary": "Hospital workers, air traffic and rail staff expected to join strikes amid renewed protests over education and rising living costs Hundreds of thousands are expected to march in de"
       },
       {
-        "title": "US midterm election results live: Trump blames Iran war after losses",
-        "url": "https://www.aljazeera.com/news/liveblog/2026/11/4/us-midterm-election-results-live-trump-reacts-as-more-results-awaited?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-04T21:00:00.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6aeb90f5ad3ed-1793822965.jpg?resize=1920%2C1440",
-        "summary": "A Democratic romp has rocked the US political landscape, but several closely contested races remain too close to call."
+        "title": "Historians say King Verica persuaded Rome to invade Britain. But could Verica actually have been a queen?",
+        "url": "https://www.theguardian.com/uk-news/2026/nov/05/verica-rome-invade-britain-queen-or-king",
+        "source": "The Guardian",
+        "published": "2026-11-05T05:00:54.000Z",
+        "image": "https://i.guim.co.uk/img/media/e267b155dd1ba39fe842b7a66990af23e442eff8/0_483_2411_1927/master/2411.jpg?width=140&quality=85&auto=format&fit=max&s=79fb6bedf6c3bad1b4731c3bfb2ae063",
+        "summary": "Controversial theory that Verica, who incited Emperor Claudius’s AD43 landing, was a woman could put a new spin on British history if true It was a moment that changed the course o"
       }
     ],
     "ai": [
+      {
+        "title": "UK found to be ‘dangerously’ reliant on China for critical minerals needed for defence and AI",
+        "url": "https://www.theguardian.com/world/2026/nov/05/uk-dangerously-reliant-on-china-critical-minerals-military-ai-renewable-energy",
+        "source": "The Guardian",
+        "published": "2026-11-05T05:00:55.000Z",
+        "image": "https://i.guim.co.uk/img/media/cb4db687d218902c0710319b5c22a27ce31c84f2/446_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=0f3485761702bce981808ccca6ab31bd",
+        "summary": "Delivering net zero also at risk, say MPs as they call for centralised policy and funding for mines and diversification The UK is “dangerously” dependent on China for critical raw "
+      },
       {
         "title": "Scare campaigns: Victoria’s major parties trade blows over AI-generated videos of leaders in election ads",
         "url": "https://www.theguardian.com/australia-news/2026/nov/05/victoria-election-2026-ai-generated-video-ads-ntwnfb",
@@ -108,6 +116,22 @@
         "published": "2026-11-04T23:00:46.000Z",
         "image": "https://i.guim.co.uk/img/media/98bda4ace9417a01039105abd323a4d517ff1463/0_0_2500_2000/master/2500.jpg?width=140&quality=85&auto=format&fit=max&s=ab34e037a9094ac5f3d3ace36eb4fff0",
         "summary": "Transparency and advertising experts say trust in politics could be further eroded as a result of ‘lies, deepfakes and AI-generated politicians’ Get our daily political email , fre"
+      },
+      {
+        "title": "Qualcomm is betting big on data centers as smartphone sales sink",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1026867/qualcomm-earnings-data-centers",
+        "source": "The Verge",
+        "published": "2026-11-04T22:42:15.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24007992/acastro_STK082_qualcomm_02.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "With smartphone sales tanking by around 20 percent compared to 2025, Qualcomm is looking to data centers to help boost its bottom line. During its Q4 2026 earnings call, the compan"
+      },
+      {
+        "title": "17 better ways Elon Musk could have wasted $446 million",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1026878/not-even-good-at-being-rich",
+        "source": "The Verge",
+        "published": "2026-11-04T21:45:00.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/268859_How_the_tech_right_could_have_spent_all_the_money_they_burned_on_the_midterms_CVirginia.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "One of the basic problems of spending too much time on social media is that you are cooking your brain by reading posts from a pack of attention-seeking lunatics. If your social me"
       },
       {
         "title": "Gemini for Home now plugs into AT&T’s smart security system",
@@ -148,30 +172,6 @@
         "published": "2026-11-04T18:00:00.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/STK155_OPEN_AI_CVirginia__C.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "ChatGPT can now create GIFs using a prompt or a photo uploaded to the AI chatbot. The update, which is rolling out alongside OpenAI's new Images 2.6 model, allows you to adjust the"
-      },
-      {
-        "title": "US parents and teachers: share your thoughts on Google turning off Search for schools that reject AI",
-        "url": "https://www.theguardian.com/technology/2026/nov/04/google-search-ai-schools",
-        "source": "The Guardian",
-        "published": "2026-11-04T17:41:31.000Z",
-        "image": "https://i.guim.co.uk/img/media/592729a1621dd23e3e2036f4db951e4da8a73036/220_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=f479cd0996a917d474612d8c42f9e0e6",
-        "summary": "Google announced that schools restricting AI entirely will lose access to Google Search. What do you think of this? Google announced this week that schools restricting AI entirely "
-      },
-      {
-        "title": "Jeanette Winterson’s point about AI brings to mind an Isaac Asimov story | Letters",
-        "url": "https://www.theguardian.com/books/2026/nov/04/jeanette-winterson-point-about-ai-brings-to-mind-an-isaac-asimov-story",
-        "source": "The Guardian",
-        "published": "2026-11-04T17:00:30.000Z",
-        "image": "https://i.guim.co.uk/img/media/46ac08ab5b8d2955c1f25f89c44ed860a2d65975/655_0_3699_2960/master/3699.jpg?width=140&quality=85&auto=format&fit=max&s=07b9bc2dc5b45c929aa7526b2e2a9b74",
-        "summary": "Ed Kelsey and Arthur Gould respond to an interview with the author in which she discussed AI and the future of humanity I thoroughly enjoyed the interview with Jeanette Winterson ("
-      },
-      {
-        "title": "Data centers lost the midterms",
-        "url": "https://www.theverge.com/policy/1026365/data-centers-midterms-results",
-        "source": "The Verge",
-        "published": "2026-11-04T16:05:39.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/STKS528_DATA_CENTERS2_D.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Data center developers are poised to face a more restrictive building environment after voters across the country voted in candidates who favor moratoriums and ballot measures that"
       }
     ],
     "fashion": [
@@ -179,147 +179,147 @@
         "title": "Palmer Harding Spring 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/spring-2027-ready-to-wear/palmerharding",
         "source": "Vogue",
-        "published": "2026-11-04T23:34:58.000Z",
+        "published": "2026-11-05T06:43:07.000Z",
         "image": "https://assets.vogue.com/photos/6ace3c790eaf136b9c9df698/master/pass/00001-palmer-harding-spring-2027-ready-to-wear-credit-brand.jpg",
         "summary": ""
       },
       {
-        "title": "Where Does Europe’s Used Clothing Go? Nordic Study Tracks the Trail",
-        "url": "https://wwd.com/sourcing-journal/sustainability/nordic-used-textile-exports-eunomia-tracking-study-1239400702/",
+        "title": "Ronnie Fieg Seeks Balance of Value, Restraint and Risk as Kith Continues to Expand",
+        "url": "https://wwd.com/footwear-news/shoe-features/ronnie-fieg-kith-expansion-values-1239398197/",
         "source": "WWD",
-        "published": "2026-11-04T23:01:00.000Z",
+        "published": "2026-11-05T06:28:00.000Z",
         "image": "",
-        "summary": "Researchers followed 200 discarded garments through global supply chains, finding reuse markets, unexpected destinations and major traceability gaps."
+        "summary": "The Kith founder partook in a fireside chat at the WWD Apparel and Retail CEO Summit."
       },
       {
-        "title": "I Just Learned How to Apply Leave-In Conditioner Correctly",
-        "url": "https://www.vogue.com/article/how-to-apply-leave-in-conditioner",
+        "title": "EXCLUSIVE: Louis Vuitton’s 2026 Holiday Campaign Celebrates Train Travel",
+        "url": "https://wwd.com/fashion-news/fashion-scoops/louis-vuitton-2026-holiday-campaign-art-of-travel-train-1239398871/",
+        "source": "WWD",
+        "published": "2026-11-05T06:00:00.000Z",
+        "image": "",
+        "summary": "The images conjure the excitement of Christmas getaways through encounters on a snowy train platform."
+      },
+      {
+        "title": "What Does the Blue Tsunami Mean for Fashion?",
+        "url": "https://www.vogue.com/article/what-does-the-blue-tsunami-mean-for-fashion",
         "source": "Vogue",
-        "published": "2026-11-04T22:57:40.000Z",
-        "image": "https://assets.vogue.com/photos/6aebb282d23ee8924ccde5e5/master/pass/Paris%20str%20S25%200239.jpg",
-        "summary": "Here, the experts answer all your burning questions about how to apply leave-in conditioner correctly—from the wet or dry hair debate, to whether you can actually apply too much."
+        "published": "2026-11-05T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6aeb8e15bf48bae4d8cae888/master/pass/-story.jpg",
+        "summary": "Following the Democratic party’s win in the midterm elections, fashion and luxury insiders are hoping for change. CFDA interim CEO Hildy Kuryk shares her prediction for the future "
       },
       {
-        "title": "Decisive U.S. Election Clears Way for Merry Holiday at Retail",
-        "url": "https://wwd.com/business-news/business-features/us-election-boosts-holiday-retail-outlook-confidence-1239400298/",
+        "title": "The It-Kids of the Philippines",
+        "url": "https://www.vogue.com/article/the-it-kids-of-the-philippines",
+        "source": "Vogue",
+        "published": "2026-11-05T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6aeb2fbde8f9c5c3db21507d/master/pass/11-04-26-IT-KIDS-PHILIPPINES-vogue-business-story.jpg",
+        "summary": "Here are the next-gen Filipino stars that luxury brands should have on their radars."
+      },
+      {
+        "title": "As Social Media Shoots for Long-Form, Should Brands Invest in Creator TV?",
+        "url": "https://www.vogue.com/article/as-social-media-shoots-for-long-form-should-brands-invest-in-creator-tv",
+        "source": "Vogue",
+        "published": "2026-11-05T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6aeb36c64b02323169873d78/master/pass/-story%20-%202026-11-04T134407.270.jpg",
+        "summary": "Amid escalating scrolling exhaustion and influencer antipathy, brands are repositioning to meet audiences’ demand for credible entertainment over disposable content."
+      },
+      {
+        "title": "Disney Hosts VIP Breakfast at WWD’s 2026 CEO Summit",
+        "url": "https://wwd.com/business-news/business-features/disney-vip-breakfast-wwd-2026-arceo-summit-1239393434/",
         "source": "WWD",
-        "published": "2026-11-04T22:21:49.000Z",
+        "published": "2026-11-05T05:15:00.000Z",
         "image": "",
-        "summary": "The election also carried a lesson for brands on keeping the consumer close."
+        "summary": "Disney Consumer Products hosted a VIP breakfast to kick off the summit, which was attended by decision-makers from major brands and retailers."
       },
       {
-        "title": "I Tried Hailey Bieber’s Favorite Creatine Gummies for Two Months, and I Have Thoughts",
-        "url": "https://www.harpersbazaar.com/beauty/diet-fitness/a74323963/hailey-bieber-arrae-creatine-review/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-04T22:15:30.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/c0ee9c28-7b11-4430-a6eb-a1aacd72e330.jpg",
-        "summary": "Why these candylike gumdrops have converted me into a creatine-lover—plus, the other formulas I love"
-      },
-      {
-        "title": "EXCLUSIVE: Madewell Opens Cobble Hill Brooklyn Store",
-        "url": "https://wwd.com/business-news/retail/madewell-cobble-hill-brooklyn-store-opening-1239400856/",
+        "title": "How Fashion Brands Can Successfully Merge AI With Human Creativity",
+        "url": "https://wwd.com/business-news/business-features/fashion-brands-ai-human-creativity-content-pixel-moda-1239399390/",
         "source": "WWD",
-        "published": "2026-11-04T22:02:18.000Z",
+        "published": "2026-11-05T05:05:00.000Z",
         "image": "",
-        "summary": "This marks the brand's second Brooklyn location and its ninth across the New York City area."
+        "summary": "Pixel Moda's Fabio Loparco offers brands the technology and tools for adaptable content creation while highlighting the irreplaceable role of human touch."
       },
       {
-        "title": "An Expert Guide to Nail Health, According to Professionals",
-        "url": "https://www.harpersbazaar.com/beauty/nails/a74324873/nail-care-guide/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-04T21:53:48.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/d6dbf17f-039a-4666-a0aa-618c75ff53ee.jpg",
-        "summary": "Here’s exactly how to keep them strong and healthy"
-      },
-      {
-        "title": "Amiri Opens First Latin American Store in Mexico City",
-        "url": "https://wwd.com/fashion-news/fashion-scoops/amiri-latin-america-store-mexico-city-mike-amiri-1239400857/",
+        "title": "From Leather Jackets to Luxury Brands: G-III’s Morris Goldfarb on Building a $3 Billion Fashion Powerhouse",
+        "url": "https://wwd.com/business-news/business-features/g-iiis-morris-goldfarb-building-3-billion-fashion-powerhouse-1239394544/",
         "source": "WWD",
-        "published": "2026-11-04T21:52:03.000Z",
+        "published": "2026-11-05T05:01:00.000Z",
         "image": "",
-        "summary": "The two-story boutique is on the high-end Avenida Presidente Masaryk in Polanco."
-      },
-      {
-        "title": "Caitlin Clark on Her New Relationship With Dick’s, Foot Locker",
-        "url": "https://wwd.com/business-news/marketing-promotion/caitlin-clark-dicks-foot-locker-ed-stack-1239400671/",
-        "source": "WWD",
-        "published": "2026-11-04T21:45:13.000Z",
-        "image": "",
-        "summary": "The WNBA star was revealed Wednesday as the first brand partner for the retailers."
+        "summary": "Goldfarb, who was the recipient of the WWD Honor for Creative Leadership, reflects on transforming G-III from a small leather business into a global fashion empire with brands such"
       }
     ],
     "markets": [
       {
-        "title": "A 'demand decade' ahead for energy? BP, Baker Hughes CEOs weigh the investment outlook",
-        "url": "https://www.cnbc.com/2026/11/05/energy-leaders-investment-outlook.html",
+        "title": "Russia, China may be more aggressive if they feel Trump is on 'his way out': Brookings",
+        "url": "https://www.cnbc.com/2026/11/05/trump-russia-china-summit-apec-midterms.html",
         "source": "CNBC World",
-        "published": "2026-11-04T23:23:03.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108511090-1793714798494-gettyimages-2302873944-UAE_ADIPEC.jpeg?v=1793714833&w=1920&h=1080",
-        "summary": "Rising energy demand offers investment opportunities, but geopolitical risks and oil price uncertainty cloud the outlook, executives and an analyst said."
+        "published": "2026-11-05T05:58:33.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108309757-1779284560057-gettyimages-2276638145-RUS_Russian_President_Putin_Visits_China.jpeg?v=1779284591&w=1920&h=1080",
+        "summary": "Russia and China may be more aggressive if they feel that U.S. President Donald Trump is on \"his way out\" after the Democratic Party flipped the midterms."
       },
       {
-        "title": "What Wall Street billionaires are saying about Democrats' midterm sweep",
-        "url": "https://www.cnbc.com/2026/11/04/billionaires-musk-branson-democrats-midterms-ai-wall-street.html",
+        "title": "Inside the chip talent war: Trade secrets and rising Chinese rivals",
+        "url": "https://www.cnbc.com/2026/11/05/semiconductor-china-korea-talents-rivalry.html",
         "source": "CNBC World",
-        "published": "2026-11-04T23:17:56.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108369772-17907103772026-09-29t193020z_933004631_rc27tnagbtu2_rtrmadp_0_usa-trump.jpeg?v=1793831589&w=1920&h=1080",
-        "summary": "Billionaire political spending met criticism from ... billionaires in the wake of Tuesday's blue wave election."
+        "published": "2026-11-05T03:53:18.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108069758-1733118336505-2024-12-02T050134Z_2373890_RC2VCZ9ITXAP_RTRMADP_3_USA-CHINA-CHIPS.JPG?v=1733118398&w=1920&h=1080",
+        "summary": "Growing competition for semiconductor talent is fueling a battle over trade secrets as Chinese chipmakers gain ground."
       },
       {
-        "title": "Democrats take Congress in a blue wave. Here's what it means for your money",
-        "url": "https://www.cnbc.com/2026/11/04/blue-wave-democrats-control-congress-your-money.html",
+        "title": "LIV Golf faces liquidation after BC Partners scraps rescue plan",
+        "url": "https://www.cnbc.com/2026/11/05/liv-golf-liquidation-bc-partners.html",
         "source": "CNBC World",
-        "published": "2026-11-04T23:11:48.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108519125-17938086942026-11-04t133744z_779983334_rc20hoa5bbs5_rtrmadp_0_usa-election.jpeg?v=1793826476&w=1920&h=1080",
-        "summary": "Blue wave gives Democrats control of Congress. Here's how their agenda could affect your money, from healthcare and taxes to student loans and Social Security."
+        "published": "2026-11-05T03:11:58.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108360037-1788900131079-gettyimages-2291856689-livmsm08232026_1013.jpeg?v=1788900333&w=1920&h=1080",
+        "summary": "LIV Golf faces liquidation after BC Partners dropped a proposed $300 million rescue plan amid insufficient player commitments."
       },
       {
-        "title": "Analysis: The Democrats have one chance to extract concessions from Trump. Markets will hate it",
-        "url": "https://www.cnbc.com/2026/11/04/democrats-trump-debt-ceiling-fight.html",
+        "title": "White House panel delays hearing on Fed's Lisa Cook to Dec. 14",
+        "url": "https://www.cnbc.com/2026/11/04/trump-federal-reserve-lisa-cook-hearing.html",
         "source": "CNBC World",
-        "published": "2026-11-04T22:46:43.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108249978-1767887539173-gettyimages-2255246069-kd1_7832_9ex7rskv.jpeg?v=1767887586&w=1920&h=1080",
-        "summary": "The next debt-ceiling confrontation could reverse Washington's traditional political roles, raising the possibility of spending concessions, market volatility and a damaging defaul"
-      },
-      {
-        "title": "This year’s worst-performing S&P 500 stock is finally seeing some major relief",
-        "url": "https://www.marketwatch.com/story/this-years-worst-performing-s-p-500-stock-is-finally-seeing-some-major-relief-fff3fa85?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-04T22:46:00.000Z",
-        "image": "https://images.mktw.net/im-833362",
-        "summary": "AppLovin’s stock is popping after “clearly positive” earnings results."
-      },
-      {
-        "title": "‘It seems bizarre’: We’re in our 80s with $950,000 in traditional IRAs. Why is our adviser pushing Roth conversions?",
-        "url": "https://www.marketwatch.com/story/it-seems-bizarre-were-in-our-80s-with-950-000-in-traditional-iras-why-is-our-adviser-pushing-us-to-do-roth-conversions-a665f990?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-04T22:15:00.000Z",
-        "image": "https://images.mktw.net/im-26708039",
-        "summary": "“Our basic living expenses are covered by $110,000 in annual pensions and Social Security.”"
-      },
-      {
-        "title": "How do Americans feel about the midterm results? It depends on how much money they make.",
-        "url": "https://www.marketwatch.com/story/how-do-americans-feel-about-the-midterm-results-it-depends-on-how-much-money-they-make-e2a43f08?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-04T22:06:00.000Z",
-        "image": "https://images.mktw.net/im-39213717",
-        "summary": "Most Americans are “thrilled” or “happy” about the results of this year’s election. Some are especially so."
+        "published": "2026-11-05T01:11:26.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108280427-1786124614115-108280427-1773939285477-gettyimages-2267401098-kd1_7891_8uve28ro.jpeg?v=1786124639&w=1920&h=1080",
+        "summary": "President Donald Trump first tried to fire Lisa Cook in August 2025, but the Supreme Court in June blocked him from doing so, for now."
       },
       {
         "title": "Qualcomm’s stock falls as twin forces pressure sales",
         "url": "https://www.marketwatch.com/story/qualcomms-stock-falls-as-twin-forces-pressure-sales-fa161159?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-04T22:03:00.000Z",
+        "published": "2026-11-05T01:06:00.000Z",
         "image": "https://images.mktw.net/im-775631",
         "summary": "Qualcomm faces the loss of Apple’s business and the negative impact of high memory costs on overall smartphone demand."
       },
       {
-        "title": "Micron and other chip stocks slip as election results strike at the core of data-center optimism",
-        "url": "https://www.marketwatch.com/story/micron-and-other-chip-stocks-slip-as-election-results-strike-at-the-core-of-data-center-optimism-b55d19b3?mod=mw_rss_topstories",
+        "title": "This year’s worst-performing S&P 500 stock is finally seeing some major relief",
+        "url": "https://www.marketwatch.com/story/this-years-worst-performing-s-p-500-stock-is-finally-seeing-some-major-relief-fff3fa85?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-04T21:55:00.000Z",
-        "image": "https://images.mktw.net/im-18553565",
-        "summary": "Democratic victories in Texas and other states raise long-term questions about the AI buildout, though they do not “unwind projects already funded.”"
+        "published": "2026-11-05T01:05:00.000Z",
+        "image": "https://images.mktw.net/im-833362",
+        "summary": "AppLovin’s stock is popping after “clearly positive” earnings results."
+      },
+      {
+        "title": "Figma’s stock dips as investors worry that AI momentum is coming at a high price",
+        "url": "https://www.marketwatch.com/story/figmas-stock-falls-as-investors-worry-that-ai-momentum-is-coming-at-a-high-price-1aa2134d?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-05T01:03:00.000Z",
+        "image": "https://images.mktw.net/im-97979674",
+        "summary": "Figma’s investments in AI models and agents are driving usage, but the cost of delivering these features is proving to be expensive"
+      },
+      {
+        "title": "McDonald’s tests new value menu as fast-food discount wars heat up",
+        "url": "https://www.marketwatch.com/story/mcdonalds-tests-new-value-menu-as-fast-food-discount-wars-heat-up-bfc57caf?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-05T01:01:00.000Z",
+        "image": "https://images.mktw.net/im-43181481",
+        "summary": "The burger chain is overhauling its menu and seeking to deliver a “clear and compelling value proposition.”"
+      },
+      {
+        "title": "As Vistra and other energy stocks slide, some analysts warn of an ‘excessive knee-jerk’ reaction",
+        "url": "https://www.marketwatch.com/story/as-vistra-and-other-energy-stocks-slide-some-analysts-warn-of-an-excessive-knee-jerk-reaction-aece0737?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-05T00:38:00.000Z",
+        "image": "https://images.mktw.net/im-25003167",
+        "summary": "Energy stocks have already been under pressure, and newly elected officials may not slow the data-center boom as much as feared."
       }
     ]
   }
