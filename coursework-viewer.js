@@ -11,7 +11,7 @@
 'use strict';
 
 (function initCourseworkViewer() {
-  const buttons = document.querySelectorAll('.cfs__view[data-files]');
+  const buttons = document.querySelectorAll('.cfs__view[data-files], .doc-view[data-files]');
   if (!buttons.length) return;
 
   const PDFJS_SRC    = 'assets/vendor/pdfjs/pdf.min.js';
@@ -55,6 +55,7 @@
 
   const panel    = root.querySelector('.cv__panel');
   const titleEl  = root.querySelector('#cvTitle');
+  const eyebrowEl = root.querySelector('.cv__eyebrow');
   const filesEl  = root.querySelector('.cv__files');
   const bodyEl   = root.querySelector('#cvBody');
   const pagesEl  = root.querySelector('#cvPages');
@@ -94,8 +95,9 @@
     try { files = JSON.parse(btn.dataset.files); } catch (e) { return; }
     if (!files.length) return;
     const card = btn.closest('.cfs__card');
-    const title = card && card.querySelector('.cfs__title');
-    titleEl.textContent = title ? title.textContent : 'Coursework';
+    const cardTitle = card && card.querySelector('.cfs__title');
+    titleEl.textContent = btn.dataset.title || (cardTitle ? cardTitle.textContent : 'Coursework');
+    eyebrowEl.textContent = btn.dataset.eyebrow || 'University coursework';
     lastFocus = btn;
 
     filesEl.innerHTML = files.map((f, i) =>
@@ -236,7 +238,7 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   /* ── Events ── */
-  buttons.forEach(btn => btn.addEventListener('click', () => open(btn)));
+  buttons.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); open(btn); }));
   // A document preview that has slid out of a folder opens that file
   document.addEventListener('click', e => {
     const doc = e.target.closest('.cfs__doc[data-i]');
