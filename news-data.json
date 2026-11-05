@@ -1,106 +1,146 @@
 {
-  "generatedAt": "2026-11-05T17:24:14.129Z",
+  "generatedAt": "2026-11-05T23:38:45.477Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Paraguay President Santiago Peña resigns after bank collapse",
-        "url": "https://www.bbc.co.uk/news/articles/c6p9g39vln3yo?at_medium=RSS&at_campaign=rss",
+        "title": "Major tech stocks plunge as US midterms add to fears of AI slowdown",
+        "url": "https://www.bbc.co.uk/news/articles/cmn04705rd8jo?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-05T17:14:41.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/12e6/live/3ccd15c0-d93a-11f1-95ea-8df9a040b6bf.jpg",
-        "summary": "The move follows a bank collapse and after the lower house of congress voted in favour of pursuing an impeachment trial against him."
+        "published": "2026-11-05T23:21:34.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6e01/live/e1c54f70-d958-11f1-a800-d9dce9e5aa21.jpg",
+        "summary": "The market has been reacting to possible tougher scrutiny of data centre construction and the AI industry following the US midterms"
       },
       {
-        "title": "K-pop group NewJeans’s contract omitted rights to ‘sleep and free choice’ – report",
-        "url": "https://www.theguardian.com/music/2026/nov/05/k-pop-group-newjeans-contract",
+        "title": "Beau Lamarre-Condon trial live updates: former police officer continues evidence in double murder trial",
+        "url": "https://www.theguardian.com/australia-news/live/2026/nov/06/beau-lamarre-condon-trial-former-police-accused-murder-case-jesse-baird-luke-davies-ntwnfb",
         "source": "The Guardian",
-        "published": "2026-11-05T17:08:29.000Z",
-        "image": "https://i.guim.co.uk/img/media/e19e5c2659dc5b85cbc7515c4bde9d66462e8fb8/94_0_2812_2250/master/2812.jpg?width=140&quality=85&auto=format&fit=max&s=6e31142ff89536d0f2a0a8053cd27028",
-        "summary": "New report finds that record label Ador stripped child protections from group’s contracts when they were minors The superstar K-pop group NewJeans signed restrictive record label c"
+        "published": "2026-11-05T23:16:57.000Z",
+        "image": "https://i.guim.co.uk/img/media/ebfc885f7db8935002487a469a0f9baba836690e/178_0_2715_2171/master/2715.jpg?width=140&quality=85&auto=format&fit=max&s=f28f36d7c46b054d98cea30d7767e80c",
+        "summary": "Lamarre-Condon returns to witness box for day two of his evidence. He’s accused of shooting couple Jesse Baird and Luke Davies in Sydney in 2024 Get our breaking news email , free "
       },
       {
-        "title": "Multiple planes diverted as bomb threats to commercial flights reported across Europe – live",
-        "url": "https://www.theguardian.com/world/live/2026/nov/05/aer-lingus-plane-bomb-threat-europe-latest-news-updates",
-        "source": "The Guardian",
-        "published": "2026-11-05T17:07:29.000Z",
-        "image": "https://i.guim.co.uk/img/media/ea6a1228985c75548960879b1e07ce091681abe5/322_234_1500_1200/master/1500.jpg?width=140&quality=85&auto=format&fit=max&s=50e2936ab2cf39c0fdf76e1fb1df7301",
-        "summary": "EU transport commissioner says ‘too early’ to say if bomb threats to 20 flights are linked Tell us: have you been affected by the bomb threats? And the Italian news agency Ansa rep"
+        "title": "Delhi's toxic winter air is back - is the Indian capital prepared for pollution?",
+        "url": "https://www.bbc.co.uk/news/articles/cm78p0n09q3xo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-05T23:16:53.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/f26c/live/86fa1990-d94e-11f1-a701-fddedf244c16.jpg",
+        "summary": "The Delhi government has announced a four-month winter action plan, but experts say that won't be enough."
       },
       {
-        "title": "US elections 2026 live: Republicans blast their party’s midterms collapse, blaming Iran war and affordability crisis",
+        "title": "California governor commutes sentences for state's 548 death row inmates",
+        "url": "https://www.bbc.co.uk/news/articles/cqrkyyd2j8mvo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-05T23:09:33.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/7e11/live/430c9930-d956-11f1-b7f4-8bd3c0617693.jpg",
+        "summary": "California has historically had the largest population of people on death row in the US."
+      },
+      {
+        "title": "US elections 2026 live: Democrats hold nearly 100 more House seats than Republicans as blue wave continues to grow",
         "url": "https://www.theguardian.com/us-news/live/2026/nov/05/midterm-elections-live-latest-updates-mississippi-senate-race",
         "source": "The Guardian",
-        "published": "2026-11-05T17:05:46.000Z",
-        "image": "https://i.guim.co.uk/img/media/3b1b29336690b79e26e8c45270028f218e3b1c1b/0_0_6537_5230/master/6537.jpg?width=140&quality=85&auto=format&fit=max&s=cf36ecd2aaf9693db2111169c04b88bb",
-        "summary": "Ted Cruz and Newt Gingrich call the US midterms election a failure and ‘Watergate-level repudiation’ as Democrats overtake both chambers of Congress Live results | How do you feel "
+        "published": "2026-11-05T23:06:47.000Z",
+        "image": "https://i.guim.co.uk/img/media/bce4d16194172ea30c2c9b3391b3adf7d6735573/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=b74039ecbc2c295778c2b38eb576a99d",
+        "summary": "Democrats widen gap in House chamber by flipping more seats, including in Ohio, Arizona and North Carolina; Ted Cruz calls election a ‘Watergate-level repudiation’ Live results Sig"
       },
       {
-        "title": "Russell Brand found guilty of rape and sexual assault",
-        "url": "https://www.theguardian.com/culture/2026/nov/05/russell-brand-found-guilty-rape-sexual-assault",
+        "title": "Powerhouse Parramatta opens this weekend – and it’s dazzling inside and out",
+        "url": "https://www.theguardian.com/culture/ng-interactive/2026/nov/06/powerhouse-parramatta-opening-festival",
         "source": "The Guardian",
-        "published": "2026-11-05T17:03:15.000Z",
-        "image": "https://i.guim.co.uk/img/media/a2fc838b4b1bfb896074a6f126b6dfe6bbdfb11f/653_249_3362_2690/master/3362.jpg?width=140&quality=85&auto=format&fit=max&s=660286b2e6100475ecab9e7801d8e575",
-        "summary": "Judge says actor and comedian faces ‘significant custodial term’ after being convicted of raping a woman and assaulting three others Russell Brand has been found guilty of raping a"
+        "published": "2026-11-05T23:00:36.000Z",
+        "image": "https://i.guim.co.uk/img/media/f98712649872f00498ef7bae039a13ef7ee16f70/605_0_6623_5301/master/6623.jpg?width=140&quality=85&auto=format&fit=max&s=95930b57eb532e9b0f8777ff5d602f8d",
+        "summary": "Coups de théâtre abound in the $915m addition to western Sydney’s skyline, which opens on Saturday with five new exhibitions – and a 23-day festival Get our weekend culture and lif"
       },
       {
-        "title": "Washington state passes ballot measure banning trans girls from school sports",
-        "url": "https://www.theguardian.com/us-news/2026/nov/05/washington-ballot-measure-trans-athlete-ban",
+        "title": "Fox News suffers ratings drop on bleak election night for Republicans",
+        "url": "https://www.theguardian.com/media/2026/nov/04/fox-news-midterm-ratings",
         "source": "The Guardian",
-        "published": "2026-11-05T17:02:02.000Z",
-        "image": "https://i.guim.co.uk/img/media/caec218d14cbe88d565a401da9681346ae52dcc0/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=2c32c131114ba0c18a6931e8e67b7685",
-        "summary": "Measure in Democratic state says students must submit health documents verifying biological sex for girls’ teams Voters in Washington state have passed a ballot measure banning tra"
+        "published": "2026-11-05T22:04:20.000Z",
+        "image": "https://i.guim.co.uk/img/media/37ef84d79f4790da044e8b58f149f13760b476a7/421_0_4210_3368/master/4210.jpg?width=140&quality=85&auto=format&fit=max&s=c08732c2af13b82821d498f38ed06ce6",
+        "summary": "News channel trailed NBC and ABC, but edged out CNN, MS Now and CBS in primetime hours on midterm election night On a midterm election night that was a huge disappointment for Repu"
       },
       {
-        "title": "Burnham says long-awaited 10-year plan may be delayed until January – UK politics live",
-        "url": "https://www.theguardian.com/politics/live/2026/nov/05/uk-politics-latest-news-updates-andy-burnham-eu-brexit-labour",
-        "source": "The Guardian",
-        "published": "2026-11-05T17:00:46.000Z",
-        "image": "https://i.guim.co.uk/img/media/aed2919813a17af91b19415c1b3bb956ef9ac548/200_180_3263_2610/master/3263.jpg?width=140&quality=85&auto=format&fit=max&s=67af9c30f96af2724e7f41e289e1b7d7",
-        "summary": "The document has been described as the core policy statement coming from No 10 Yesterday the pro-Brexit Guido Fawkes website published a list of items that it said could be banned "
-      },
-      {
-        "title": "EU presses UK to guarantee discounted university tuition fees for European students",
-        "url": "https://www.theguardian.com/world/2026/nov/05/eu-seeks-firmer-pledge-from-uk-discounted-university-tuition-fees",
-        "source": "The Guardian",
-        "published": "2026-11-05T16:58:54.000Z",
-        "image": "https://i.guim.co.uk/img/media/21d08802adfa44b6ba9d88050fcbacc956564ef7/2307_898_3559_2847/master/3559.jpg?width=140&quality=85&auto=format&fit=max&s=de59b48914c1a2f514da960edeb44b22",
-        "summary": "Failure to agree lower fees for EU citizens studying in UK should delay prized food and drink deal, members say UK politics live – latest updates The EU is seeking a firmer pledge "
-      },
-      {
-        "title": "Bishara: US election deals a blow to warmongers",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/5/aje-onl-nf_us-election-deals-a-blow-to-warmongers-051126?traffic_source=rss",
+        "title": "Generation Z and young voters help redefine US politics after midterms",
+        "url": "https://www.aljazeera.com/news/2026/11/5/generation-z-and-diversity-redefine-us-politics-in-groundbreaking-election?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-05T16:48:53.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793897327.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Al Jazeera's senior political analyst Marwan Bishara says the US election is a setback for warmongers."
+        "published": "2026-11-05T21:49:31.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6aeccf04a40eb-1793904388.jpg?resize=1920%2C1440",
+        "summary": "Melat Kiros becomes the first Generation Z woman elected to Congress, embodying a new era of political representation."
       },
       {
-        "title": "Gaza holds final of tournament honouring more than 1,000 slain athletes",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/5/gaza-holds-final-of-tournament-honouring-more-than-1000-slain-athletes?traffic_source=rss",
+        "title": "South Africa’s ANC on track for new lows in local polls",
+        "url": "https://www.aljazeera.com/news/2026/11/5/south-africas-anc-on-track-for-new-lows-in-local-polls?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-05T16:46:34.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/Screenshot-2026-11-05-at-16.39.39-1793896877.png?resize=1200%2C675",
-        "summary": "The final of Gaza’s ‘Thousand Martyrs’ Cup marks the return of organised football after nearly three years of war."
+        "published": "2026-11-05T21:48:16.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6aeac6a727ef-1793771175.jpg?resize=1920%2C1440",
+        "summary": "The ANC was on about 32 percent of the vote with more than 60 percent of votes counted in municipal elections."
       },
       {
-        "title": "Leon Black sues US congressman Robert Garcia for $7.5m over Epstein comments",
-        "url": "https://www.theguardian.com/us-news/2026/nov/05/leon-black-sues-congressman-robert-garcia-epstein",
-        "source": "The Guardian",
-        "published": "2026-11-05T16:44:08.000Z",
-        "image": "https://i.guim.co.uk/img/media/56bce7a779aab816db6dae1c283b469f316b8acf/1119_50_1750_1401/master/1750.jpg?width=140&quality=85&auto=format&fit=max&s=3180454127eeddb17d5622a936f32f73",
-        "summary": "Black in defamation lawsuit alleges California lawmaker made false statements about his ties to Jeffrey Epstein Billionaire Leon Black has filed a defamation lawsuit against Califo"
+        "title": "Spanish footballer Jesus de Miguel mourned by family and friends",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/5/spanish-footballer-jesus-de-miguel-mourned-by-family-and-friends?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-05T21:42:30.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793914940.jpg?resize=1200%2C675",
+        "summary": "The 30-year-old striker suffered cardiac arrest following an on-field collision."
       },
       {
-        "title": "Republicans hoping to succeed Trump in 2028 dissect midterm rout",
-        "url": "https://www.theguardian.com/us-news/2026/nov/05/republicans-cruz-desantis-vance-midterm-rout",
-        "source": "The Guardian",
-        "published": "2026-11-05T16:36:43.000Z",
-        "image": "https://i.guim.co.uk/img/media/2735d55b5c9bb00dccbcec8a1ac7b2a233bcf3ac/496_348_4729_3782/master/4729.jpg?width=140&quality=85&auto=format&fit=max&s=c57c677394ef732c5096142f34e77168",
-        "summary": "JD Vance, Ron DeSantis and Ted Cruz all pointed to Iran war and affordability as key factors in Democratic victory US midterms 2026 live – latest updates Republican hopefuls in the"
+        "title": "World's second best airport hits 1 billion passengers in record-breaking time - VnExpress International",
+        "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNOVFFWklzMmtJNE11TFpQb3JTOGVVWHp0MXBYTGd1c2dOQURoeUZwOUdGOUJxOV9YWVEtUmp1SklTYTdyVUQ1WVZpTVVXdUZQQ3ZSeHFYa3gzaUZBNHRTRHZFa3lBaVd3d0RSTkEtZnNLQkJwelNVenM0UHRxczlvaWo4LUFYRV90MFZYdnN2cENyS0h3bFZ0UmFGQldoSTRVaU1jc0tfX1hCb3l4eTNQNGpoRnJhRXhGM3pzMy00WkEyVTV1VzVBMmQwd2w0Zw?oc=5",
+        "source": "VnExpress International",
+        "published": "2026-11-05T21:37:56.000Z",
+        "image": "",
+        "summary": "World's second best airport hits 1 billion passengers in record-breaking time VnExpress International"
+      },
+      {
+        "title": "Israeli demolitions displace more than 100 Palestinians in Biddu",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/5/aje-onl-nf_israeli-demolitions-displace-palestinians-in-biddu-051126?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-05T21:33:40.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1793914414.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Israeli forces demolished five homes in Biddu, occupied West Bank, displacing more than 100 people."
       }
     ],
     "ai": [
+      {
+        "title": "Nasdaq sees worst day in 18 months as investors bet on AI slowdown after Democrats’ election triumph",
+        "url": "https://www.theguardian.com/business/2026/nov/05/nasdaq-heading-for-worst-day-in-18-months-as-wall-street-sustains-widespread-losses",
+        "source": "The Guardian",
+        "published": "2026-11-05T21:23:18.000Z",
+        "image": "https://i.guim.co.uk/img/media/3a568c8ddd6dd680b69418b3c568815a7cbbea29/261_0_3478_2784/master/3478.jpg?width=140&quality=85&auto=format&fit=max&s=06500e89cb38f5ecdd58baa634d2acb4",
+        "summary": "Nearly $2tn shaved off Nasdaq value as worries of curbs to AI datacenters ripple across bourses The Nasdaq share index had its worst day in 18 months after slumping 5.5% on Thursda"
+      },
+      {
+        "title": "Muse has a voice mode now",
+        "url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
+        "source": "The Verge",
+        "published": "2026-11-05T19:03:04.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/STKB394_MUSE_AI_CVIRGINIA_D.png?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "Meta now lets you have voice conversations with your Muse AI agent in real time, CEO Mark Zuckerberg announced today. The feature has been rolled out to me, and I gave it a spin on"
+      },
+      {
+        "title": "Winner of the Prix Goncourt literary prize admits to using AI",
+        "url": "https://www.theguardian.com/books/2026/nov/05/winner-of-the-prix-goncourt-literary-prize-admits-to-using-ai-philippe-jaenada",
+        "source": "The Guardian",
+        "published": "2026-11-05T18:08:58.000Z",
+        "image": "https://i.guim.co.uk/img/media/3828a993d195cb9ebff36c53aed34bb94581d25f/299_0_6000_4800/master/6000.jpg?width=140&quality=85&auto=format&fit=max&s=238b427a8fd2e13915e0fcbd73cffd7e",
+        "summary": "Philippe Jaenada told French radio that he used ChatGPT to ‘play with the reader’, after the prize removed a different book from its longlist over allegations of AI use The winner "
+      },
+      {
+        "title": "Claude AI can plug directly into your bank account",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1027652/anthropic-claude-plaid-personal-finance",
+        "source": "The Verge",
+        "published": "2026-11-05T18:00:00.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Personal-Finance-in-Claude-hed.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "Anthropic has a new pitch for managing your personal finances: let Claude do it instead, with a new Personal Finance feature that connects it to your bank and card accounts via the"
+      },
+      {
+        "title": "‘Total repudiation’: The blue wave is about to hit AI",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1026927/total-repudiation-the-blue-wave-is-about-to-hit-ai",
+        "source": "The Verge",
+        "published": "2026-11-05T17:51:52.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/STK423_ELECTIONS2.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "On Tuesday night, Democrats made history as they took control of the House and the Senate, and a blue wave swept through traditionally red and swing states - with the nation's firs"
+      },
       {
         "title": "Grimes is going to star in an AI movie that’s coming to theaters",
         "url": "https://www.theverge.com/entertainment/1026282/grimes-ai-movie",
@@ -132,54 +172,30 @@
         "published": "2026-11-05T15:00:00.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/gettyimages-1083228772.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "After partnering with Moises earlier this year, SoundCloud is now adding integration with another AI music platform, ElevenLabs. Now, rather than having to export and download your"
-      },
-      {
-        "title": "Australians are yet to see the benefits of AI and datacentres – and US midterms show they could be political kryptonite",
-        "url": "https://www.theguardian.com/australia-news/2026/nov/06/ai-datacentre-boom-could-be-political-kryptonite-australia",
-        "source": "The Guardian",
-        "published": "2026-11-05T14:00:26.000Z",
-        "image": "https://i.guim.co.uk/img/media/f237f8c427d9aa7bac910c3b553c853bfe1d3aa4/42_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=4393e0717ee879a5a4415ef7072cacc1",
-        "summary": "Albanese should tread carefully as he struggles to make case for how the new technology will benefit ordinary voters Get our daily political email , free app or daily news podcast "
-      },
-      {
-        "title": "Was Elon Musk the US midterms' biggest loser? – Stateside with Kai and Carter",
-        "url": "https://www.theguardian.com/us-news/video/2026/nov/05/was-elon-musk-the-us-midterms-biggest-loser-stateside-with-kai-and-carter",
-        "source": "The Guardian",
-        "published": "2026-11-05T11:00:23.000Z",
-        "image": "https://i.guim.co.uk/img/media/c38fdda580cd24d0aba4f136cafe5afcf2d72702/0_0_1350_1080/master/1350.jpg?width=140&quality=85&auto=format&fit=max&s=5edac0cd098702596636359823b415b2",
-        "summary": "The tech industry spent big on the midterms, but it turned out to be a poor investment. Elon Musk poured a staggering $446m dollars into Republican-aligned political action committ"
-      },
-      {
-        "title": "Big Tech’s big AI buildout will not end until someone stops it",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1027344/amazon-microsoft-alphabet-google-meta-data-centers-earnings-q3",
-        "source": "The Verge",
-        "published": "2026-11-05T10:45:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/STKS528_DATA_CENTERS2_B.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "After four of the biggest competitors in the AI race held quarterly earnings calls late last month, two things are clear: Big Tech is not done spending record amounts on the AI dat"
-      },
-      {
-        "title": "Activists across Europe prepare two days of protests against datacentres",
-        "url": "https://www.theguardian.com/world/2026/nov/05/activists-across-europe-protests-ai-against-datacentres",
-        "source": "The Guardian",
-        "published": "2026-11-05T09:00:01.000Z",
-        "image": "https://i.guim.co.uk/img/media/d71ddf5d851c953d692e59f548ed70931dae9c83/474_0_6830_5464/master/6830.jpg?width=140&quality=85&auto=format&fit=max&s=3c80ad70fbeac138911af992a1fb8413",
-        "summary": "More than 100 campaign groups will join together in 15 countries this week to call for a halt to major AI projects Protesters across Europe are planning two days of action against "
-      },
-      {
-        "title": "UK found to be ‘dangerously’ reliant on China for critical minerals needed for defence and AI",
-        "url": "https://www.theguardian.com/world/2026/nov/05/uk-dangerously-reliant-on-china-critical-minerals-military-ai-renewable-energy",
-        "source": "The Guardian",
-        "published": "2026-11-05T05:00:55.000Z",
-        "image": "https://i.guim.co.uk/img/media/cb4db687d218902c0710319b5c22a27ce31c84f2/446_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=0f3485761702bce981808ccca6ab31bd",
-        "summary": "Delivering net zero also at risk, say MPs as they call for centralised policy and funding for mines and diversification The UK is “dangerously” dependent on China for critical raw "
       }
     ],
     "fashion": [
       {
+        "title": "Simkhai Pre-Fall 2027 Menswear",
+        "url": "https://www.vogue.com/fashion-shows/pre-fall-2027-menswear/jonathan-simkhai",
+        "source": "Vogue",
+        "published": "2026-11-05T23:36:08.000Z",
+        "image": "https://assets.vogue.com/photos/6aecdb3998510106bb322840/master/pass/00001-simkhai-pre-fall-2027-menswear-credit-brand.jpg",
+        "summary": ""
+      },
+      {
+        "title": "Cult Gaia Resort 2027",
+        "url": "https://www.vogue.com/fashion-shows/resort-2027/cult-gaia",
+        "source": "Vogue",
+        "published": "2026-11-05T23:36:08.000Z",
+        "image": "https://assets.vogue.com/photos/6aec53227cd92884d451339d/master/pass/00001-cult-gaia-resort-2027-credit-brand.jpg",
+        "summary": ""
+      },
+      {
         "title": "Christie Brown Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/christie-brown",
         "source": "Vogue",
-        "published": "2026-11-05T17:19:56.000Z",
+        "published": "2026-11-05T23:36:08.000Z",
         "image": "https://assets.vogue.com/photos/6aecb1750de269a6d8729484/master/pass/00001-christie-brown-spring-2027-ready-to-wear-lagos-credit-kola-oshalusi.jpg",
         "summary": ""
       },
@@ -187,139 +203,123 @@
         "title": "Kilentar Lagos Spring 2027",
         "url": "https://www.vogue.com/fashion-shows/lagos-spring-2027/kilentar",
         "source": "Vogue",
-        "published": "2026-11-05T17:19:56.000Z",
+        "published": "2026-11-05T23:36:08.000Z",
         "image": "https://assets.vogue.com/photos/6ae8586ea0a1a79055fc0102/master/pass/00001-kilentar-spring-2027-ready-to-wear-lagos-credit-brand.jpg",
         "summary": ""
       },
       {
-        "title": "LA-Long Beach Watchmen Strike Delayed Again as Talks Run to Friday",
-        "url": "https://wwd.com/sourcing-journal/logistics/port-of-los-angeles-long-beach-watchmen-strike-delayed-friday-1239402057/",
+        "title": "Tesco Accused of Concealing Forced Labor at Thai Factory as UK Lawsuit Advances",
+        "url": "https://wwd.com/sourcing-journal/sustainability/tesco-uk-intertek-vk-garment-thailand-wrc-forced-labor-1239403667/",
         "source": "WWD",
-        "published": "2026-11-05T17:15:00.000Z",
+        "published": "2026-11-05T22:46:28.000Z",
         "image": "",
-        "summary": "An ILWU union local and their employers agreed to keep contract negotiations alive after failing to reach a deal late Wednesday, leaving the strike threat alive."
+        "summary": "A new Worker Rights Consortium report alleges Tesco and auditor Intertek downplayed evidence of forced labor at an F&F supplier and undermined Burmese workers' efforts to recover u"
       },
       {
-        "title": "How Palace Kept Its Cool",
-        "url": "https://www.vogue.com/article/how-palace-kept-its-cool",
-        "source": "Vogue",
-        "published": "2026-11-05T17:11:55.000Z",
-        "image": "https://assets.vogue.com/photos/6aecae0f245367e42983614e/master/pass/-story.jpg",
-        "summary": "Balancing subcultural capital with global growth and blue-chip collaborations is no mean feat. For Palace co-founder Gareth Skewis, physical retail and integrity go a long way."
-      },
-      {
-        "title": "Warby Parker and Rare Beauty Collaborate for New Campaign Starring Katseye’s Megan Skiendiel",
-        "url": "https://wwd.com/pop-culture/celebrity-news/warby-parker-rare-beauty-megan-skiendiel-1239400858/",
+        "title": "Reformation Continues Growth Streak With 19.1% Q3 Sales Gain",
+        "url": "https://wwd.com/business-news/financial/reformation-hali-borenstein-q3-2026-sales-gain-1239403268/",
         "source": "WWD",
-        "published": "2026-11-05T17:00:00.000Z",
+        "published": "2026-11-05T22:10:18.000Z",
         "image": "",
-        "summary": "The limited-edition collaboration features five coordinating eyewear pieces and blush."
+        "summary": "CEO Hali Borenstein also raised the sales outlook for the year, based in part on early fourth-quarter selling."
       },
       {
-        "title": "Meet Levi Alves McConaughey: Matthew McConaughey and Camila Alves’s Son",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74286255/who-is-levi-matthew-mcconaughey-camila-alves-son-details/",
+        "title": "Maersk Raises Guidance Again as Congestion Lifts Rates Despite Falling Volumes",
+        "url": "https://wwd.com/sourcing-journal/logistics/maersk-raises-guidance-again-port-congestion-lifts-freight-rates-q3-1239403347/",
+        "source": "WWD",
+        "published": "2026-11-05T21:51:13.000Z",
+        "image": "",
+        "summary": "The ocean carrier raised its outlook for the third time as soaring rates offset a 0.8 percent volume drop, which underperformed volume growth at ONE and Cosco Shipping."
+      },
+      {
+        "title": "A Definitive Guide to the Best Black Boots",
+        "url": "https://www.harpersbazaar.com/fashion/trends/a74333035/best-black-boots-fall-style/",
         "source": "Harper's Bazaar",
-        "published": "2026-11-05T16:59:21.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/dce74fe3-16c7-414c-a6c8-d4e2929ee72e.jpeg",
-        "summary": "The 18-year-old is stepping into the spotlight"
+        "published": "2026-11-05T21:44:52.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/bc703891-0c76-4560-9586-d76e37b06482.jpg",
+        "summary": "The ultimate fall wardrobe MVP"
       },
       {
-        "title": "The Whitaker Group Brings a Raw Design to One of New Balance’s Newer Retro-Inspired Sneakers",
-        "url": "https://wwd.com/footwear-news/sneaker-news/whitaker-group-new-balance-2010-for-identity-release-date-1239401766/",
+        "title": "A Closer Look at the Fall Footwear That Drove Steve Madden’s Wholesale Business in Q3",
+        "url": "https://wwd.com/footwear-news/shoe-industry-news/steve-madden-casual-heels-booties-loafers-tall-shaft-boots-1239402993/",
         "source": "WWD",
-        "published": "2026-11-05T16:55:17.000Z",
+        "published": "2026-11-05T21:40:00.000Z",
         "image": "",
-        "summary": "The 2010 gets embellished and frayed stitching in two colorways."
-      },
-      {
-        "title": "Wait, Iowa Governor-Elect Rob Sand Modeled for Prada?",
-        "url": "https://www.vogue.com/article/iowa-governor-elect-rob-sand-prada-model",
-        "source": "Vogue",
-        "published": "2026-11-05T16:49:36.000Z",
-        "image": "https://assets.vogue.com/photos/6aecb349d1fce5b979ae10ec/master/pass/1524917437",
-        "summary": "While in college in the early 2000s, Iowa governor-elect Rob Sand had a successful runway modeling career across Paris and Milan."
-      },
-      {
-        "title": "Pierpaolo Piccioli Exits Balenciaga Less Than 18 Months After Joining the Kering-Owned Brand",
-        "url": "https://wwd.com/fashion-news/fashion-features/pierpaolo-piccioli-exits-balenciaga-successor-named-shortly-1239402140/",
-        "source": "WWD",
-        "published": "2026-11-05T16:48:09.000Z",
-        "image": "",
-        "summary": "Owner Kering will announce his replacement shortly."
+        "summary": "Steven Madden CEO Edward Rosenfeld said casual footwear, heels, booties and loafers did well across brands, while sales of tall shaft boots were down."
       }
     ],
     "markets": [
       {
-        "title": "Democrats to probe JPMorgan's relationship with Jeffrey Epstein when they take Senate control",
-        "url": "https://www.cnbc.com/2026/11/05/jpmorgan-epstein-democrats-erdoes-midterm-election.html",
+        "title": "Jim Cramer explains why no AI stock seems safe from the market carnage",
+        "url": "https://www.cnbc.com/2026/11/05/jim-cramer-ai-stocks-data-center-uncertainty.html",
         "source": "CNBC World",
-        "published": "2026-11-05T17:16:48.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108338471-1784724287235-gettyimages-2281451826-DNI_POSTPONED.jpeg?v=1784724306&w=1920&h=1080",
-        "summary": "JPMorgan kept Jeffrey Epstein as a client for years after top executive Mary Erdoes hearing claims he paid to have underage girls brought to his home."
+        "published": "2026-11-05T23:25:04.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/107109969-NUP_198430_00200r.jpg?v=1694042675&w=1920&h=1080",
+        "summary": "CNBC’s Jim Cramer said AI stocks are becoming increasingly difficult to value."
       },
       {
-        "title": "Is this ‘the big one’ for the stock market? Wall Street sounds off as tech plunges.",
-        "url": "https://www.marketwatch.com/story/is-this-the-big-one-for-the-stock-market-wall-street-sounds-off-as-tech-plunges-185df529?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-05T17:11:00.000Z",
-        "image": "https://images.mktw.net/im-56123107",
-        "summary": "A punishing selloff in the tech space was dragging the stock market sharply lower on Thursday, one day after equities saw a big bounce after the Democrats swept Tuesday’s midterm v"
-      },
-      {
-        "title": "How to buy a new car for under $30,000 in this economy",
-        "url": "https://www.marketwatch.com/story/how-to-buy-a-new-car-for-under-30-000-in-this-economy-24b01f99?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-05T17:04:00.000Z",
-        "image": "https://images.mktw.net/im-73939478",
-        "summary": "Consumers burdened by the high cost of gas, insurance and maintenance are driving up demand for those low-cost cars."
-      },
-      {
-        "title": "Democratic sweep puts crypto on defensive in Washington",
-        "url": "https://www.cnbc.com/2026/11/05/crypto-midterms-democrats-clarity-act.html",
+        "title": "Jim Cramer says the AI sell-off isn't over, but it isn't another dot-com crash",
+        "url": "https://www.cnbc.com/2026/11/05/jim-cramer-ai-stocks-sell-off.html",
         "source": "CNBC World",
-        "published": "2026-11-05T16:48:34.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108503920-1793626236128-gettyimages-2302713434-AFP_D66N3CZ.jpeg?v=1793895224&w=1920&h=1080",
-        "summary": "Democrats in Congress could impose tougher rules on crypto and investigate President Donald Trump, ushering in a tougher era for the industry."
+        "published": "2026-11-05T23:17:51.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/107113454-NUP_198430_00638r.jpg?v=1695164732&w=1920&h=1080",
+        "summary": "Cramer warned that the sell-off in AI stocks likely has further to run."
       },
       {
-        "title": "Micron, Sandisk and other AI stocks are falling hard: ‘Investors don’t like uncertainty.’",
-        "url": "https://www.marketwatch.com/story/micron-sandisk-and-other-ai-stocks-are-falling-hard-investors-dont-like-uncertainty-94d2a3b9?mod=mw_rss_topstories",
+        "title": "Tech stocks log worst day since 2020 as carnage comes to the AI trade",
+        "url": "https://www.marketwatch.com/story/tech-stocks-log-worst-day-since-2020-as-carnage-comes-to-the-ai-trade-56109845?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-05T16:44:00.000Z",
-        "image": "https://images.mktw.net/im-14174916",
-        "summary": "Wall Street is digesting the prospect of a slower AI buildout in the wake of the midterm-election results."
+        "published": "2026-11-05T22:48:00.000Z",
+        "image": "https://images.mktw.net/im-71200494",
+        "summary": "The S&P 500 lost an estimated $2.9 trillion in market capitalization, the largest one-day loss of market value on record."
       },
       {
-        "title": "Barkin sees interest rate hikes ahead, but at a gradual pace",
-        "url": "https://www.cnbc.com/2026/11/05/barkin-sees-interest-rate-hikes-ahead-but-at-a-gradual-pace.html",
+        "title": "The 2027 tax brackets are out. See what the standard deduction and SALT tax breaks will be.",
+        "url": "https://www.marketwatch.com/story/the-2027-tax-brackets-are-out-see-what-the-standard-deduction-and-salt-tax-breaks-will-be-5dd1d293?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-05T22:40:00.000Z",
+        "image": "https://images.mktw.net/im-02135573",
+        "summary": "The tax brackets at the heart of Americans’ income-tax bills will be adjusting at a steeper level in 2027 compared to this year, underscoring inflation’s rekindled presence."
+      },
+      {
+        "title": "Nasdaq drops into correction territory — here’s what typically happens next",
+        "url": "https://www.cnbc.com/2026/11/05/nasdaq-drops-into-correction-territory-heres-what-typically-happens-next.html",
         "source": "CNBC Markets",
-        "published": "2026-11-05T16:34:33.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108129283-17442186262025-04-09t170949z_286163473_rc2hudaj0czq_rtrmadp_0_usa-fed-barkin.jpeg?v=1744218654&w=1920&h=1080",
-        "summary": "In a CNBC interview, the policymaker expressed concern over inflation and said monetary policy will need to adjust."
+        "published": "2026-11-05T22:31:24.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108528597-1793919829498-Nasdaq_100Plunges5_As_Traders_Dump_Chip_Stocks_Aft-2303211679-Getty.jpg?v=1793919846&w=1920&h=1080",
+        "summary": "Nasdaq’s slide into correction territory puts its history of recoveries in focus. Here's what history shows."
       },
       {
-        "title": "Marc Lore's Wonder confidentially files for IPO",
-        "url": "https://www.cnbc.com/2026/11/05/wonder-confidential-ipo-filing.html",
+        "title": "Elon Musk's Tesla and SpaceX lose over $420 billion in combined market cap after midterms",
+        "url": "https://www.cnbc.com/2026/11/05/tesla-spacex-stocks-fall-after-2026-midterms.html",
         "source": "CNBC World",
-        "published": "2026-11-05T16:27:10.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108448204-1792698576376-gettyimages-2235177281-McGregor250915NYCbusinesses04.jpeg?v=1793890557&w=1920&h=1080",
-        "summary": "Marc Lore's latest startup Wonder has confidentially filed for an initial public offering."
+        "published": "2026-11-05T22:31:13.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108443511-1792616630586-108443511-1792616084338-gettyimages-2297246496-AFP_C9Q98QB.jpeg?v=1792701546&w=1920&h=1080",
+        "summary": "Elon Musk's Tesla and SpaceX lose $420 billion in combined market cap after midterms"
       },
       {
-        "title": "Trump's energy deals are about to face a wave of investigations by Democrats",
-        "url": "https://www.cnbc.com/2026/11/05/trump-election-energy-venezuela-critical-mineral-renewable-iran.html",
-        "source": "CNBC World",
-        "published": "2026-11-05T16:23:48.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108244722-1766417176896-gettyimages-2227111307-US-NEWS-TRUMP-WIND-POWER-VP.jpeg?v=1766442970&w=1920&h=1080",
-        "summary": "Democrats are certain to scrutinize the U.S. intervention in Venezuela, administration mineral deals and the cancellation of previously funded energy projects."
-      },
-      {
-        "title": "The year’s most successful stock-market trades are unraveling — perhaps for good",
-        "url": "https://www.marketwatch.com/story/the-years-most-successful-stock-market-trades-are-unraveling-perhaps-for-good-45f7a0dd?mod=mw_rss_topstories",
+        "title": "How much in Roth conversions can you do in 2027 with the new tax brackets?",
+        "url": "https://www.marketwatch.com/story/how-much-roth-conversion-can-you-do-in-2027-with-the-new-tax-brackets-a2f940c8?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-05T16:23:00.000Z",
-        "image": "https://images.mktw.net/im-67259620",
-        "summary": "Wall Street’s top trades of 2026 are coming undone as a violent rotation rattles the U.S. stock market."
+        "published": "2026-11-05T22:24:00.000Z",
+        "image": "https://images.mktw.net/im-58357605",
+        "summary": "The math should actually start with “if” — not “how much.”"
+      },
+      {
+        "title": "Nvidia's Huang is asked to brief Congress on reported Chinese spy relationship",
+        "url": "https://www.cnbc.com/2026/11/05/nvidia-jensen-huang-china-spy-congress.html",
+        "source": "CNBC World",
+        "published": "2026-11-05T22:21:29.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108237918-1793908643837-108237918-1765118171532-gettyimages-2249151004-HUANG_SENATE.jpg?v=1793915165&w=1920&h=1080",
+        "summary": "President Donald Trump was briefed about a year ago about those intelligence findings, The New York Times reported."
+      },
+      {
+        "title": "Here’s what’s driving Iren’s stock higher after a brutal selloff",
+        "url": "https://www.marketwatch.com/story/heres-whats-driving-irens-stock-higher-after-a-brutal-selloff-0ced09b0?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-05T22:21:00.000Z",
+        "image": "https://images.mktw.net/im-26923108",
+        "summary": "Iren announced a new cloud-computing deal and noted that much of its backlog is tied to “investment-grade counterparties.”"
       }
     ]
   }
