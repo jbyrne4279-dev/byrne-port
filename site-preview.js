@@ -12,7 +12,7 @@
 'use strict';
 
 (function initSitePreview() {
-  const cards = document.querySelectorAll('.websites__grid a.site-card[href^="http"]');
+  const cards = document.querySelectorAll('a.site-card[href^="http"]');
   if (!cards.length) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
