@@ -3495,7 +3495,9 @@ html.cv-open, html.cv-open body { overflow: hidden; }
     justify-content: center;
     padding: 6px 14px;
     font-size: 26px;
+    order: 2; /* sit to the right of the files button on phones */
   }
+  .cfs__dls .cfs__dl { order: 1; }
   .cfs__dls .cfs__pct::after { margin-top: 3px; }
   .cfs__dls .cfs__dl { min-height: 56px; }
 }
