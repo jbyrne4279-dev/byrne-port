@@ -1,69 +1,477 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="#000000">
-  <meta name="color-scheme" content="dark">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="author" content="Joseph Byrne">
-  <meta name="keywords" content="Joseph Byrne, entrepreneur, design, fashion, brand identity, web design, creative direction, marketing, trend forecasting, portfolio">
-
-  <title>Joseph Byrne | Entrepreneur &mdash; Design, Marketing</title>
-  <meta name="description" content="Portfolio of Joseph Byrne, an entrepreneur pairing creative design direction with insight-driven marketing across fashion, products, and brand.">
-
-  <link rel="canonical" href="https://josephbyrne.org/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Joseph Byrne">
-  <meta property="og:title" content="Joseph Byrne | Entrepreneur">
-  <meta property="og:description" content="Entrepreneur pairing creative design direction with insight-driven marketing across fashion, products, and brand.">
-  <meta property="og:url" content="https://josephbyrne.org/">
-  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
-  <meta property="og:locale" content="en_GB">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Joseph Byrne | Entrepreneur">
-  <meta name="twitter:description" content="Entrepreneur pairing creative design direction with insight-driven marketing across fashion, products, and brand.">
-  <meta name="twitter:image" content="https://josephbyrne.org/assets/og-image.jpg">
-
-  <!-- Apple / Safari -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Joseph Byrne">
-
-  <!-- Favicon (inline SVG) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=140">
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Joseph Byrne",
-    "url": "https://josephbyrne.org/",
-    "jobTitle": "Entrepreneur",
-    "description": "Entrepreneur working across design, branding, and marketing.",
-"knowsAbout": ["Fashion Design", "Brand Identity", "Web Design", "App Design", "Trend Forecasting", "Marketing", "Visual Merchandising", "Graphic Design"]
-  }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joseph Byrne, Digital Designer</title>
+  <meta name="description" content="Joseph Byrne. Digital designer and entrepreneur working across fashion, brand and digital. Selected work, websites and university coursework.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d1d1f'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,Helvetica,Arial' font-weight='600' font-size='30' fill='%23fff'%3EJB%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="apple.css?v=3">
+  <link rel="stylesheet" href="coursework-carousel.css?v=1">
 </head>
 <body>
 
-  <!-- ── MATRIX RAIN INTRO ── -->
-  <div class="matrix-intro" id="matrixIntro" aria-hidden="true">
-    <canvas id="matrixCanvas"></canvas>
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#home">Joseph Byrne</a>
+      <ul class="nav__links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#websites">Sites</a></li>
+        <li><a href="#academic">Academic</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mnav" id="mobileMenu" aria-hidden="true">
+    <a href="#work" class="mnav__link">Work</a>
+    <a href="#websites" class="mnav__link">Sites</a>
+    <a href="#academic" class="mnav__link">Academic</a>
+    <a href="#tools" class="mnav__link">Tools</a>
+    <a href="#about" class="mnav__link">About</a>
+    <a href="#contact" class="mnav__link">Contact</a>
   </div>
 
-  <!-- ── AFK SCREENSAVER ── -->
+  <!-- ── WORK (first, with moving-gradient band) ── -->
+  <section class="section section--first" id="work">
+    <div class="gradient-band">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="gradient-band__inner">
+          <span class="eyebrow">Work</span>
+          <h1 class="band-title">Selected Work</h1>
+          <p class="band-sub">A mix of fashion, brand and digital work. A clothing label, apps, websites and graded uni coursework.</p>
+          <div class="filter" id="filter">
+            <button class="is-active" data-filter="all">All</button>
+            <button data-filter="fashion">Fashion</button>
+            <button data-filter="digital">Digital</button>
+            <button data-filter="brand">Brand</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="proj-grid" id="projGrid">
+
+        <article class="proj proj--featured" data-category="fashion">
+          <a class="proj__cover-link" href="project?slug=clothing-brand" aria-label="View My Clothing Brand project"></a>
+          <div class="proj__media"><img src="assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Fashion</span>
+            <h3 class="proj__title">My Clothing Brand</h3>
+            <p class="proj__desc">A dark, grungy streetwear label built from scratch. Considered and elevated, from the brand identity to the garments.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="brand">
+          <a class="proj__cover-link" href="project?slug=named-collective" aria-label="View Named Collective project"></a>
+          <div class="proj__media"><img src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Brand Identity</span>
+            <h3 class="proj__title">Named Collective</h3>
+            <p class="proj__desc">University Marketing &amp; PR brief for Named Collective. Graded First Class, 77%.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="fashion">
+          <a class="proj__cover-link" href="project?slug=next-collection" aria-label="View NEXT A/W 25/26 Collection project"></a>
+          <div class="proj__media"><img src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Buying &amp; Merchandising</span>
+            <h3 class="proj__title">NEXT A/W 25/26</h3>
+            <p class="proj__desc">Fashion buying report for NEXT. Top score in the module at 82%, which led to a work experience offer and a Buying &amp; Merchandising internship.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="fashion">
+          <a class="proj__cover-link" href="project?slug=selfridges-project" aria-label="View Selfridges project"></a>
+          <div class="proj__media"><img src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Retail Design</span>
+            <h3 class="proj__title">Selfridges</h3>
+            <p class="proj__desc">Visual merchandising concept for Selfridges as part of my university module. Graded 67%.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="brand">
+          <a class="proj__cover-link" href="project?slug=trimas-internship" aria-label="View TriMas Internship project"></a>
+          <div class="proj__media"><img src="assets/projects/trimas-internship/3group_v2.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Marketing</span>
+            <h3 class="proj__title">TriMas Internship</h3>
+            <p class="proj__desc">A marketing internship where I actually got stuck in, running campaigns and building brand assets in a proper corporate environment.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="project?slug=cafe-compliance" aria-label="View North Hertfordshire Council project"></a>
+          <div class="proj__media"><img src="assets/projects/cafe-compliance/menu_bancroft_drinks_paninis.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Digital Product</span>
+            <h3 class="proj__title">North Hertfordshire Council</h3>
+            <p class="proj__desc">Redesigned the menus and day-to-day running of three council sites, helping drive 76% year-on-year revenue growth. Also swapped the paper food-safety logs for a digital system I designed and built.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="project?slug=arc26" aria-label="View Arc26 project"></a>
+          <div class="proj__media"><img src="assets/projects/arc26/arc-logo.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">App Design</span>
+            <h3 class="proj__title">Arc26</h3>
+            <p class="proj__desc">A productivity and accountability app I co-founded. Led product strategy and UI/UX, using AI-assisted workflows to go from concept to prototype fast.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="project?slug=reinstatement-cost-assessment" aria-label="View Surveying Firm project"></a>
+          <div class="proj__media"><img src="assets/projects/reinstatement-cost-assessment/21.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Web &amp; Marketing</span>
+            <h3 class="proj__title">Surveying Firm</h3>
+            <p class="proj__desc">18 enquiries and 10 clients from £80 of ad spend in month one. Since then I&rsquo;ve cut cost-per-acquisition by 87.1% at a 3.60x return on ad spend.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="fashion">
+          <a class="proj__cover-link" href="project?slug=trend-forecasting" aria-label="View Trend Forecasting project"></a>
+          <div class="proj__media"><img src="assets/projects/trend-forecasting/Trend Forcasting-01.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Trend Forecasting</span>
+            <h3 class="proj__title">Trend Forecasting</h3>
+            <p class="proj__desc">Uni module on how trends actually start and spread, from subcultures and music scenes to what ends up in Zara six months later.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="project?slug=slimmer-app" aria-label="View Slimmer App project"></a>
+          <div class="proj__media"><img src="assets/projects/slimmer-app/photo_2026-04-16_22-19-47.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">App Design</span>
+            <h3 class="proj__title">Slimmer App</h3>
+            <p class="proj__desc">A women&rsquo;s fitness app that uses AI facial scanning to personalise workouts and photo recognition to auto-log meals.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="project?slug=cv-lab" aria-label="View CV Lab SaaS project"></a>
+          <div class="proj__media"><img src="assets/projects/cv-lab/cv banner.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Digital Product</span>
+            <h3 class="proj__title">CV Lab SaaS</h3>
+            <p class="proj__desc">Full UI/UX design for a CV building SaaS app, from early wireframes through to final screens and a complete design system.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="digital">
+          <a class="proj__cover-link" href="soundbar-pro" aria-label="View Soundbar Pro concept case study"></a>
+          <div class="proj__media"><img src="assets/projects/apple-soundbar-pro/cover.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Product Design</span>
+            <h3 class="proj__title">Soundbar Pro</h3>
+            <p class="proj__desc">Concept case study: why Apple&rsquo;s HomePod failed to lead the smart-home market, and a premium Apple-designed smart speaker to fix it.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+        <article class="proj" data-category="brand">
+          <a class="proj__cover-link" href="project?slug=make-progress" aria-label="View Make Progress project"></a>
+          <div class="proj__media"><img src="assets/projects/make-progress/4.webp" alt="" loading="lazy"></div>
+          <div class="proj__body">
+            <span class="proj__cat">Brand Identity</span>
+            <h3 class="proj__title">Make Progress</h3>
+            <p class="proj__desc">Brand identity and Meta ads for a Birmingham community event. Built the visual identity from scratch and ran the paid social campaigns myself.</p>
+            <span class="proj__link">View Project <span class="chev">›</span></span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WEBSITES ── -->
+  <section class="section section--soft" id="websites">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Websites</span>
+        <h2 class="section-title">Web Development</h2>
+        <p class="section-sub">Sites built to make products and services look good and sell. Each one designed and coded from scratch. Visually sharp, SEO optimised, and built to convert. Full stack, from design to deployment.</p>
+      </div>
+      <div class="site-grid">
+
+        <a class="site-card reveal" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer">
+          <div class="site-card__img-wrap"><img src="assets/sites/xtc-clothing.webp" alt="XTC Clothing homepage" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">XTC Clothing</span><span class="site-card__url">xtcclothing.com</span></div>
+            <span class="site-card__btn">Preview <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal d1" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer">
+          <div class="site-card__img-wrap"><img src="assets/sites/reinstatement-cost-assessment.webp" alt="Reinstatement Cost Assessment homepage" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">Reinstatement Cost Assessment</span><span class="site-card__url">reinstatementcostassessment.org</span></div>
+            <span class="site-card__btn">Preview <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal d2" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer">
+          <div class="site-card__img-wrap"><img src="assets/sites/stearling-reinstatement.webp" alt="Stearling Reinstatement homepage" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">Stearling Reinstatement</span><span class="site-card__url">stearlingreinstatement.com</span></div>
+            <span class="site-card__btn">Preview <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer">
+          <div class="site-card__img-wrap"><img src="assets/sites/botley-byrne.webp" alt="Botley Byrne Production homepage" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">Botley Byrne Production</span><span class="site-card__url">botleybyrne.co.uk</span></div>
+            <span class="site-card__btn">Preview <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal d1" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer">
+          <div class="site-card__img-wrap"><img src="assets/sites/cvlab.webp" alt="CV Lab homepage" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">CV Lab</span><span class="site-card__url">cvlab.ltd</span></div>
+            <span class="site-card__btn">Preview <span class="chev">›</span></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ACADEMIC ── -->
+  <section class="section coursework-cinema" id="academic">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Academic</span>
+        <h2 class="section-title">University Coursework</h2>
+        <p class="section-sub">Graded modules from my Fashion Business &amp; Marketing degree. Hover to either side to glide, or use the arrow keys.</p>
+      </div>
+    </div>
+    <div class="portfolio__carousel" id="projectCarousel" tabindex="0" role="group" aria-label="Coursework carousel">
+      <div class="portfolio__glow--carousel"></div>
+      <div class="carousel__stage" id="carouselStage">
+
+        <article class="project-card" data-category="coursework">
+          <div class="project-card__img project-card__img--1">
+            <img class="project-card__cover" src="assets/projects/trend-forecasting/hands-shadow-cover.webp" alt="" loading="lazy" aria-hidden="true">
+            <div class="project-card__inner">
+              <span class="project-card__cat">Graded 82%</span>
+              <h3 class="project-card__title">Trend Forecasting</h3>
+              <p class="project-card__desc">Top score in the module for my NEXT A/W 25/26 buying report, which got me a work experience offer from NEXT.</p>
+              <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/trend-forecasting-coursework.pdf"},{"name":"Zeitgeist Pack","src":"assets/coursework/trend-forecasting-zeitgeist.pdf"}]' aria-haspopup="dialog"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files <span class="cfs__view-count">2</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="coursework">
+          <div class="project-card__img project-card__img--2">
+            <img class="project-card__cover" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" aria-hidden="true" style="object-position:78% center">
+            <div class="project-card__inner">
+              <span class="project-card__cat">Graded 77%</span>
+              <h3 class="project-card__title">Marketing &amp; PR</h3>
+              <p class="project-card__desc">Named Collective brief. Full brand strategy and PR campaign from start to finish.</p>
+              <button type="button" class="cfs__view" data-files='[{"name":"Campaign","src":"assets/coursework/marketing-pr-campaign.pdf"},{"name":"Presentation","src":"assets/coursework/marketing-pr-presentation.pdf"},{"name":"Poster","src":"assets/coursework/marketing-pr-poster.pdf"}]' aria-haspopup="dialog"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files <span class="cfs__view-count">3</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="coursework">
+          <div class="project-card__img project-card__img--3">
+            <img class="project-card__cover" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy" aria-hidden="true">
+            <div class="project-card__inner">
+              <span class="project-card__cat">Graded 72%</span>
+              <h3 class="project-card__title">Buying &amp; Merchandising</h3>
+              <p class="project-card__desc">NEXT work-experience project that led to a formal offer to join their buying team.</p>
+              <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/buying-merch-coursework.pdf"},{"name":"Presentation","src":"assets/coursework/buying-merch-presentation.pdf"}]' aria-haspopup="dialog"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files <span class="cfs__view-count">2</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="coursework">
+          <div class="project-card__img project-card__img--4">
+            <img class="project-card__cover" src="assets/projects/international-retailing/cover.webp" alt="" loading="lazy" aria-hidden="true">
+            <div class="project-card__inner">
+              <span class="project-card__cat">Graded 69%</span>
+              <h3 class="project-card__title">International Retailing</h3>
+              <p class="project-card__desc">Global retail strategy and cross-market consumer research.</p>
+              <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/international-retailing-coursework.pdf"}]' aria-haspopup="dialog"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View file</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="coursework">
+          <div class="project-card__img project-card__img--5">
+            <img class="project-card__cover" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy" aria-hidden="true">
+            <div class="project-card__inner">
+              <span class="project-card__cat">Graded 67%</span>
+              <h3 class="project-card__title">Visual Merchandising</h3>
+              <p class="project-card__desc">Selfridges brief. Retail environment design and in-store experience concept.</p>
+              <button type="button" class="cfs__view is-soon" disabled><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Files coming soon</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="tools">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Free Tools</span>
+        <h2 class="section-title">Free Tools</h2>
+        <p class="section-sub">Small tools I&rsquo;ve built and given away. Free to use, no sign-up. Starting with the fashion and retail side of things.</p>
+      </div>
+      <div class="site-grid">
+
+        <a class="site-card reveal" href="/news">
+          <div class="site-card__img-wrap"><img src="assets/tools/the-brief.svg?v=2" alt="The Brief, a visual daily news briefing" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">The Brief</span><span class="site-card__url">Daily visual news briefing</span></div>
+            <span class="site-card__btn">Use Tool <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal d1" href="/calendar">
+          <div class="site-card__img-wrap"><img src="assets/tools/the-ultimate-calendar.svg?v=2" alt="The Ultimate Calendar, global holidays and retail demand tracker" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">The Ultimate Calendar</span><span class="site-card__url">Global holidays &amp; retail demand</span></div>
+            <span class="site-card__btn">Use Tool <span class="chev">›</span></span>
+          </div>
+        </a>
+
+        <a class="site-card reveal d2" href="/sales-analysis">
+          <div class="site-card__img-wrap"><img src="assets/tools/sales-analysis.svg?v=2" alt="Sales Analysis for merchandisers" class="site-card__img" loading="lazy"></div>
+          <div class="site-card__body">
+            <div class="site-card__meta"><span class="site-card__name">Sales Analysis</span><span class="site-card__url">Weekly trade review for merchandisers</span></div>
+            <span class="site-card__btn">Use Tool <span class="chev">›</span></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT (moved to bottom) ── -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">About</span>
+        <p class="about__lead">I&rsquo;m Joe, a <span class="blue">digital designer</span>. I turn ideas into products that <span class="blue">convert</span>.</p>
+      </div>
+      <div class="about__grid">
+        <div class="about-card about-card--inspire reveal" id="inspoCard">
+          <span class="about-card__tag">What inspires me</span>
+          <div class="inspo-scatter">
+            <span class="inspo-pill">Subcultures</span>
+            <span class="inspo-pill">Music</span>
+            <span class="inspo-pill">Streetwear</span>
+            <span class="inspo-pill">Trends</span>
+            <span class="inspo-pill">Marketing psychology</span>
+            <span class="inspo-pill">Fashion</span>
+            <span class="inspo-pill">Hypercars</span>
+            <span class="inspo-pill">Grunge</span>
+            <span class="inspo-pill">DC movies</span>
+          </div>
+          <div class="inspo-game" id="inspoGame">
+            <button type="button" class="inspo-game__btn inspo-game__btn--start" data-game="start">
+              <span class="inspo-game__btn-main">▶ Play</span>
+              <span class="inspo-game__btn-sub">15s pop challenge</span>
+            </button>
+            <div class="inspo-game__hud" aria-hidden="true">
+              <span class="inspo-game__score">Popped <b>0</b></span>
+              <span class="inspo-game__time"><b>15</b>s</span>
+            </div>
+            <div class="inspo-game__result" aria-hidden="true">
+              <span class="inspo-game__result-label">Time&rsquo;s up</span>
+              <span class="inspo-game__result-score"><b>0</b></span>
+              <span class="inspo-game__result-sub">bubbles popped</span>
+              <button type="button" class="inspo-game__btn" data-game="restart">Play again</button>
+            </div>
+          </div>
+        </div>
+        <div class="about-card reveal d1">
+          <span class="about-card__tag">Right now</span>
+          <h3>Final year</h3>
+          <p>Studying BA (Hons) Fashion Business &amp; Marketing, set to graduate in 2027, building real products alongside the degree.</p>
+        </div>
+        <div class="about-card reveal d2">
+          <span class="about-card__tag">Off the clock</span>
+          <h3>Fitness feen</h3>
+          <p>Heavily into the gym, Muay Thai, boxing and wrestling. The discipline there feeds straight back into the work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="section section--soft" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Contact</span>
+        <h2 class="section-title">Let&rsquo;s work together</h2>
+        <p class="section-sub">Open to freelance work, collabs and new opportunities. Best way to reach me is below.</p>
+      </div>
+      <div class="contact__cards reveal d1">
+        <a class="contact__card" href="mailto:jbyrne4279@gmail.com">
+          <span class="contact__card-label">Email</span>
+          <span class="contact__card-value">jbyrne4279@gmail.com</span>
+        </a>
+        <a class="contact__card" href="tel:+447841422281">
+          <span class="contact__card-label">Phone</span>
+          <span class="contact__card-value">🇬🇧 07841 422 281</span>
+        </a>
+        <a class="contact__card contact__card--cta doc-view" href="assets/cv.pdf?v=6" data-files='[{"name":"CV","src":"assets/cv.pdf?v=6"}]' data-title="Joseph Byrne CV" data-eyebrow="Curriculum Vitae" aria-haspopup="dialog" target="_blank" rel="noopener noreferrer">
+          <span class="contact__card-label">Document</span>
+          <span class="contact__card-value">View CV <span class="chev">›</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#academic">Academic</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <span class="footer__copy">© 2025 Joseph Byrne. All rights reserved.</span>
+      </div>
+      <a class="footer__cowork" href="/cowork">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        CoWork
+      </a>
+    </div>
+  </footer>
+
+  <!-- ── AFK SNAKE SCREENSAVER ── -->
   <div class="screensaver" id="screensaver" aria-hidden="true">
     <canvas id="screensaverCanvas"></canvas>
     <div class="screensaver__msg">
@@ -74,964 +482,11 @@
     </div>
   </div>
 
-  <!-- ── CURSOR ── -->
-  <div class="cursor" id="cursor"></div>
-
-  <!-- ── NAV ── -->
-  <nav class="nav" id="nav">
-    <ul class="nav__links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#portfolio">Work</a></li>
-      <li><a href="#websites">Sites</a></li>
-      <li><a href="#academic">Academic</a></li>
-      <li><a href="#tools">Tools</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="nav__menu" id="menuBtn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
-
-  <!-- ── MOBILE MENU ── -->
-  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
-    <ul>
-      <li><a href="#home" class="mobile-link">Home</a></li>
-      <li><a href="#portfolio" class="mobile-link">Work</a></li>
-      <li><a href="#websites" class="mobile-link">Web</a></li>
-      <li><a href="#academic" class="mobile-link">University</a></li>
-      <li><a href="#tools" class="mobile-link">Tools</a></li>
-      <li><a href="#contact" class="mobile-link">Contact</a></li>
-    </ul>
-  </div>
-
-  <!-- ── HERO ── -->
-  <section class="hero" id="home">
-    <div class="hero__noise"></div>
-    <canvas class="hero__mist" id="heroMist" aria-hidden="true"></canvas>
-    <div class="hero__glow hero__glow--1"></div>
-    <div class="hero__glow hero__glow--2"></div>
-    <div class="hero__content">
-      <h1 class="hero__name">
-        <span class="hero__name-line hero__name-line--outline" data-text="Joseph">Joseph</span>
-        <span class="hero__name-line hero__name-line--fill" data-text="Byrne">Byrne</span>
-      </h1>
-      <p class="hero__tagline type-reveal">
-        <span class="hero__tagline-tags"><span class="hero__w" style="--w:0; color:#e6e6e8">Entrepreneur</span> <span style="color:#4a4a50">&middot;</span> <span class="hero__w" style="--w:1; color:#a8a8ad">Design</span> <span style="color:#4a4a50">&middot;</span> <span class="hero__w" style="--w:2; color:#76767c">Marketing</span></span>
-      </p>
-      <div class="hero__cta">
-        <a href="#portfolio" class="btn btn--primary">View Work</a>
-        <a href="#contact" class="btn btn--outline">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero__scroll" aria-hidden="true">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- ── ABOUT ── -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">01 About</span>
-      </div>
-      <div class="about__grid">
-        <div class="about-deck reveal" id="aboutDeck">
-          <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
-          <div class="deck-prompt" aria-hidden="true">
-            <span class="deck-prompt__gesture"><i class="deck-prompt__trail"></i><i class="deck-prompt__dot"></i></span>
-            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Drag to explore</span><span class="deck-prompt__touch">Swipe to explore</span></span>
-          </div>
-          <div class="about-deck__stack">
-
-            <article class="about-card about-card--intro is-front" data-card="0">
-              <span class="about-card__no" aria-hidden="true">01</span>
-              <span class="about-card__tag">About</span>
-              <p class="about-card__lead">I&rsquo;m Joe, a <span class="glow-text"><strong>digital designer</strong></span>&nbsp;<svg class="uk-flag" viewBox="0 0 60 30" role="img" aria-label="United Kingdom"><clipPath id="ukA"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ukB"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#ukA)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ukB)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg></p>
-              <p class="about-card__lead about-card__lead--sub">I turn ideas into products that <span style="color:var(--red)">convert</span>.</p>
-            </article>
-
-            <article class="about-card about-card--inspire" data-card="1" id="inspoCard">
-              <span class="about-card__no" aria-hidden="true">02</span>
-              <span class="about-card__tag">What inspires me</span>
-              <div class="inspo-scatter">
-                <span class="inspo-pill">Subcultures</span>
-                <span class="inspo-pill">Music</span>
-                <span class="inspo-pill">Alternative Streetwear</span>
-                <span class="inspo-pill">Trends</span>
-                <span class="inspo-pill">Past &amp; future</span>
-                <span class="inspo-pill">DC Movies</span>
-                <span class="inspo-pill">Grunge aesthetics</span>
-                <span class="inspo-pill">Marketing Psychology</span>
-                <span class="inspo-pill">Hypercars</span>
-                <span class="inspo-pill">Fashion</span>
-              </div>
-              <div class="inspo-game" id="inspoGame">
-                <button type="button" class="inspo-game__btn inspo-game__btn--start" data-game="start">
-                  <span class="inspo-game__btn-main"><span class="inspo-game__play-tri">&#9654;</span> PLAY</span>
-                  <span class="inspo-game__btn-sub">15s &mdash; Aim Challenge</span>
-                </button>
-                <div class="inspo-game__hud" aria-hidden="true">
-                  <span class="inspo-game__score">Popped: <b>0</b></span>
-                  <span class="inspo-game__time"><b>15</b>s</span>
-                </div>
-                <div class="inspo-game__result" aria-hidden="true">
-                  <span class="inspo-game__result-label">Time&rsquo;s up!</span>
-                  <span class="inspo-game__result-score"><b>0</b></span>
-                  <span class="inspo-game__result-sub">bubbles popped</span>
-                  <button type="button" class="inspo-game__btn" data-game="restart">Play again</button>
-                </div>
-              </div>
-            </article>
-
-            <article class="about-card about-card--now" data-card="2">
-              <span class="about-card__no" aria-hidden="true">03</span>
-              <span class="about-card__tag">Right now</span>
-              <p class="about-card__body">Currently I&rsquo;m in my <span style="color:var(--red)">final year</span>, studying <span style="color:var(--red)">BA&nbsp;(Hons) Fashion Business &amp; Marketing</span> and set to <span style="color:var(--red)">graduate in 2027</span>.</p>
-            </article>
-
-            <article class="about-card about-card--off" data-card="3">
-              <span class="about-card__no" aria-hidden="true">04</span>
-              <span class="about-card__tag">Off the clock</span>
-              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness feen</strong></span>. HEAVILY into the <span style="color:#ff3b30">Gym</span>, <span style="color:#e12a45">Muay&nbsp;Thai</span>, <span style="color:#bf2233">boxing</span> and <span style="color:#9a1f2e">wrestling</span>&hellip;</p>
-              <p class="about-card__punch">A.K.A. <span class="about-card__whisper">getting my Sh* rocked.</span></p>
-            </article>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PORTFOLIO ── -->
-  <section class="portfolio section" id="portfolio">
-    <canvas class="hero__mist" id="portfolioMist" aria-hidden="true"></canvas>
-    <div class="hero__glow hero__glow--1"></div>
-    <div class="hero__glow hero__glow--2"></div>
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">02 Work</span>
-      </div>
-      <div class="portfolio__intro reveal">
-        <h2 class="section__title text-morph reveal" data-flicker-manual data-morph-words="<span style='color:var(--red)'>Pro</span>jects|<span style='color:var(--red)'>Case</span> Studies">Projects</h2>
-        <p class="portfolio__hint">Hover to either side to glide that way, or use the &larr; &rarr; arrow keys.</p>
-      </div>
-
-      <div class="portfolio__carousel reveal" id="projectCarousel" tabindex="0" role="group" aria-label="Projects carousel">
-        <div class="portfolio__glow--carousel"></div>
-        <div class="carousel__stage" id="carouselStage">
-
-        <!-- 1 — Featured: My Clothing Brand -->
-        <article class="project-card project-card--featured" data-category="fashion">
-          <a class="project-card__cover-link" href="project?slug=clothing-brand" aria-label="View My Clothing Brand project"></a>
-          <div class="project-card__img project-card__img--1">
-            <img class="project-card__cover" src="assets/projects/clothing-brand/XTC SUMMER SHORTS HOODIE T SHIRT JOGGERS-Cover.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Fashion</span>
-              <h3 class="project-card__title">My Clothing Brand</h3>
-              <p class="project-card__desc type-reveal">Dark and grungy clothing brand built from scratch. Streetwear that's considered and elevated, from the brand identity to the garments.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 2 — Named Collective -->
-        <article class="project-card" data-category="brand">
-          <a class="project-card__cover-link" href="project?slug=named-collective" aria-label="View Named Collective project"></a>
-          <div class="project-card__img project-card__img--2">
-            <img class="project-card__cover" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Brand Identity</span>
-              <h3 class="project-card__title">Named Collective</h3>
-              <p class="project-card__desc type-reveal">Uni Marketing and PR brief for Named Collective. Graded First Class, 77%.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3 — NEXT A/W 25/26 -->
-        <article class="project-card" data-category="fashion">
-          <a class="project-card__cover-link" href="project?slug=next-collection" aria-label="View NEXT A/W 25/26 Collection project"></a>
-          <div class="project-card__img project-card__img--3">
-            <img class="project-card__cover" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Buying &amp; Merchandising</span>
-              <h3 class="project-card__title">NEXT A/W 25/26 Collection</h3>
-              <p class="project-card__desc type-reveal">Fashion buying report for NEXT. Top score in the module at 82%, which got me a work experience offer and then a Buying &amp; Merchandising internship at NEXT in October 2026.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 4 — Selfridges -->
-        <article class="project-card" data-category="fashion">
-          <a class="project-card__cover-link" href="project?slug=selfridges-project" aria-label="View Selfridges project"></a>
-          <div class="project-card__img project-card__img--5">
-            <img class="project-card__cover" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Retail Design</span>
-              <h3 class="project-card__title">Selfridges</h3>
-              <p class="project-card__desc type-reveal">Visual merchandising concept for Selfridges as part of my uni module. Graded 67%.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 5 — TriMas Internship -->
-        <article class="project-card" data-category="brand">
-          <a class="project-card__cover-link" href="project?slug=trimas-internship" aria-label="View TriMas Internship project"></a>
-          <div class="project-card__img project-card__img--4">
-            <img class="project-card__cover" src="assets/projects/trimas-internship/3group_v2.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Marketing</span>
-              <h3 class="project-card__title">TriMas Internship</h3>
-              <p class="project-card__desc type-reveal">Marketing internship where I actually got stuck in, running campaigns and creating brand assets in a proper corporate environment.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 6 — North Hertfordshire Council -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="project?slug=cafe-compliance" aria-label="View North Hertfordshire Council project"></a>
-          <div class="project-card__img project-card__img--11">
-            <img class="project-card__cover" src="assets/projects/cafe-compliance/menu_bancroft_drinks_paninis.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Digital Product</span>
-              <h3 class="project-card__title">North Hertfordshire Council</h3>
-              <p class="project-card__desc type-reveal">Redesigned the menus and day-to-day running of three council sites, helping drive 76% year-on-year revenue growth. Also swapped the paper food-safety logs for a digital system I designed and built, with dashboards and staff tracking.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 7 — Arc26 -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="project?slug=arc26" aria-label="View Arc26 project"></a>
-          <div class="project-card__img project-card__img--12">
-            <img class="project-card__cover" src="assets/projects/arc26/arc-logo.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">App Design</span>
-              <h3 class="project-card__title">Arc26</h3>
-              <p class="project-card__desc type-reveal">A productivity and accountability app I co-founded. Led product strategy and UI/UX, using AI-assisted design workflows to go from concept to prototype fast.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 8 — Surveying Firm -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="project?slug=reinstatement-cost-assessment" aria-label="View Surveying Firm project"></a>
-          <div class="project-card__img project-card__img--13">
-            <img class="project-card__cover" src="assets/projects/reinstatement-cost-assessment/21.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Web &amp; Marketing</span>
-              <h3 class="project-card__title">Surveying Firm</h3>
-              <p class="project-card__desc type-reveal">18 enquiries and 10 clients from £80 of ad spend in month one. Since then I've cut cost per acquisition by 87.1% and the Google Ads now return 3.60x their spend.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 9 — Trend Forecasting -->
-        <article class="project-card" data-category="fashion">
-          <a class="project-card__cover-link" href="project?slug=trend-forecasting" aria-label="View Trend Forecasting project"></a>
-          <div class="project-card__img project-card__img--8">
-            <img class="project-card__cover" src="assets/projects/trend-forecasting/Trend Forcasting-01.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Trend Forecasting</span>
-              <h3 class="project-card__title">Trend Forecasting</h3>
-              <p class="project-card__desc type-reveal">Uni module on how trends actually start and spread, from subcultures and music scenes to what ends up in Zara six months later.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 10 — Slimmer App -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="project?slug=slimmer-app" aria-label="View Slimmer App project"></a>
-          <div class="project-card__img project-card__img--9">
-            <img class="project-card__cover" src="assets/projects/slimmer-app/photo_2026-04-16_22-19-47.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">App Design</span>
-              <h3 class="project-card__title">Slimmer App</h3>
-              <p class="project-card__desc type-reveal">Women's fitness app that uses AI facial scanning to personalise your workouts and photo recognition to auto-log your meals.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 11 — CV Lab SaaS -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="project?slug=cv-lab" aria-label="View CV Lab SaaS project"></a>
-          <div class="project-card__img project-card__img--6">
-            <img class="project-card__cover" src="assets/projects/cv-lab/cv banner.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Digital Product</span>
-              <h3 class="project-card__title">CV Lab SaaS</h3>
-              <p class="project-card__desc type-reveal">Full UI/UX design for a CV building SaaS app, from early wireframes through to final screens and a complete design system.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 13 — Soundbar Pro (concept case study, dedicated page) -->
-        <article class="project-card" data-category="digital">
-          <a class="project-card__cover-link" href="soundbar-pro" aria-label="View Soundbar Pro concept case study"></a>
-          <div class="project-card__img project-card__img--14">
-            <img class="project-card__cover" src="assets/projects/apple-soundbar-pro/cover.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Product Design</span>
-              <h3 class="project-card__title">Soundbar Pro</h3>
-              <p class="project-card__desc type-reveal">Concept case study: why Apple's HomePod failed to lead the smart-home market, and a premium Apple-designed smart speaker concept to fix it.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 12 — Make Progress -->
-        <article class="project-card" data-category="brand">
-          <a class="project-card__cover-link" href="project?slug=make-progress" aria-label="View Make Progress project"></a>
-          <div class="project-card__img project-card__img--10">
-            <img class="project-card__cover" src="assets/projects/make-progress/4.webp" alt="" loading="lazy" aria-hidden="true">
-            <div class="project-card__inner">
-              <span class="project-card__cat">Brand Identity</span>
-              <h3 class="project-card__title">Make Progress</h3>
-              <p class="project-card__desc type-reveal">Brand identity and Meta ads for a Birmingham community event. Built the visual identity from scratch and ran the paid social campaigns myself.</p>
-              <span class="project-card__link">View Project</span>
-            </div>
-          </div>
-        </article>
-
-        </div>
-      </div>
-
-      <div class="portfolio__filter reveal">
-        <button class="filter-btn is-active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="fashion">Fashion</button>
-        <button class="filter-btn" data-filter="digital">Digital</button>
-        <button class="filter-btn" data-filter="brand">Brand</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── WEBSITES ── -->
-  <section class="websites section" id="websites">
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">03 Websites</span>
-      </div>
-      <div class="websites__intro reveal">
-        <h2 class="section__title particle-heading reveal" id="webDevHeading" data-particle-text="Web Development" data-flicker-manual>
-          <canvas class="particle-heading__canvas" aria-hidden="true"></canvas>
-          <span class="particle-heading__fallback">Web Development</span>
-        </h2>
-        <p class="about__body type-reveal reveal">Sites built to make <span style="color:var(--red)">Products &amp; Services</span> look good and sell. Each one designed and coded from scratch. <span style="color:var(--red)">Visually sharp</span>, <span style="color:var(--red)">SEO optimised</span>, and built to actually <span style="color:var(--red)">convert</span>. <span style="color:var(--red)">Full stack</span> from design to deployment.</p>
-      </div>
-    </div>
-
-    <!-- Full-width infinite marquee — two identical card sets back to
-         back, translated exactly -50% so the loop point is seamless.
-         The second set is aria-hidden/untabbable, it's a visual clone. -->
-    <div class="websites__marquee" id="websitesMarquee">
-      <div class="websites__track">
-
-        <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/xtc-clothing.webp" alt="XTC Clothing homepage" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">XTC Clothing</span>
-              <span class="site-card__url">xtcclothing.com</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/reinstatement-cost-assessment.webp" alt="Reinstatement Cost Assessment homepage" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Reinstatement Cost Assessment</span>
-              <span class="site-card__url">reinstatementcostassessment.org</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/stearling-reinstatement.webp" alt="Stearling Reinstatement homepage" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Stearling Reinstatement</span>
-              <span class="site-card__url">stearlingreinstatement.com</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/botley-byrne.webp" alt="Botley Byrne Production homepage" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Botley Byrne Production</span>
-              <span class="site-card__url">botleybyrne.co.uk</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/cvlab.webp" alt="CV Lab homepage" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">CV Lab</span>
-              <span class="site-card__url">cvlab.ltd</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <!-- Duplicate set — purely visual, hidden from a11y/tab order -->
-        <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/xtc-clothing.webp" alt="" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">XTC Clothing</span>
-              <span class="site-card__url">xtcclothing.com</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/reinstatement-cost-assessment.webp" alt="" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Reinstatement Cost Assessment</span>
-              <span class="site-card__url">reinstatementcostassessment.org</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/stearling-reinstatement.webp" alt="" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Stearling Reinstatement</span>
-              <span class="site-card__url">stearlingreinstatement.com</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://www.botleybyrne.co.uk/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/botley-byrne.webp" alt="" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Botley Byrne Production</span>
-              <span class="site-card__url">botleybyrne.co.uk</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-        <a class="site-card" href="https://cvlab.ltd/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <div class="site-card__img-wrap">
-            <img src="assets/sites/cvlab.webp" alt="" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">CV Lab</span>
-              <span class="site-card__url">cvlab.ltd</span>
-            </div>
-            <span class="site-card__btn">Visit Site</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── ACADEMIC ── -->
-  <section class="academic section" id="academic">
-
-    <!-- Intro header sits inside normal flow -->
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">04 Academic</span>
-      </div>
-      <div class="academic__intro reveal">
-        <h2 class="section__title reveal" data-flicker-manual><span style="color:var(--red)">University</span> Coursework</h2>
-      </div>
-    </div>
-
-    <!-- FLIP STACK — full-width scroll-driven section, matches CaseStudyFlipStack exactly -->
-    <div class="cfs" id="cfs" aria-label="University coursework — scroll to browse">
-
-      <!-- Scroll track: 6 × 100vh (5 cards + 1 end buffer) -->
-      <div class="cfs__track">
-        <div class="cfs__sticky">
-          <div class="cfs__stage">
-
-            <!-- Card 0 — Trend Forecasting (rendered last = bottom of stack / z-index highest) -->
-            <article class="cfs__card" data-cfs-index="0"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:5">
-              <span class="cfs__folder" aria-hidden="true"></span>
-              <img class="cfs__card-img" src="assets/projects/trend-forecasting/hands-shadow-cover.webp" alt="" loading="lazy">
-              <div class="cfs__card-scrim" aria-hidden="true"></div>
-              <div class="cfs__glass">
-                <div class="cfs__body">
-                  <h3 class="cfs__title">Trend Forecasting</h3>
-                  <p class="cfs__desc">Top score in the module for my NEXT A/W 25/26 buying report. Got a work experience offer from NEXT off the back of it.</p>
-                  <div class="cfs__dls">
-                    <span class="cfs__pct" aria-hidden="true">82%</span>
-                    <button type="button" class="cfs__dl cfs__view" data-files="[{&quot;name&quot;: &quot;Coursework&quot;, &quot;src&quot;: &quot;assets/coursework/trend-forecasting-coursework.pdf&quot;}, {&quot;name&quot;: &quot;Zeitgeist Pack&quot;, &quot;src&quot;: &quot;assets/coursework/trend-forecasting-zeitgeist.pdf&quot;}]" aria-haspopup="dialog">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">2</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 1 — Marketing & PR -->
-            <article class="cfs__card" data-cfs-index="1"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:4">
-              <span class="cfs__folder" aria-hidden="true"></span>
-              <img class="cfs__card-img" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" style="object-position: 78% center;">
-              <div class="cfs__card-scrim" aria-hidden="true"></div>
-              <div class="cfs__glass">
-                <div class="cfs__body">
-                  <h3 class="cfs__title">Marketing &amp; PR</h3>
-                  <p class="cfs__desc">Named Collective brief. Full brand strategy and PR campaign from start to finish.</p>
-                  <div class="cfs__dls">
-                    <span class="cfs__pct" aria-hidden="true">77%</span>
-                    <button type="button" class="cfs__dl cfs__view" data-files="[{&quot;name&quot;: &quot;Campaign&quot;, &quot;src&quot;: &quot;assets/coursework/marketing-pr-campaign.pdf&quot;}, {&quot;name&quot;: &quot;Presentation&quot;, &quot;src&quot;: &quot;assets/coursework/marketing-pr-presentation.pdf&quot;}, {&quot;name&quot;: &quot;Poster&quot;, &quot;src&quot;: &quot;assets/coursework/marketing-pr-poster.pdf&quot;}]" aria-haspopup="dialog">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">3</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 2 — Buying & Merchandising -->
-            <article class="cfs__card" data-cfs-index="2"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:3">
-              <span class="cfs__folder" aria-hidden="true"></span>
-              <img class="cfs__card-img" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy">
-              <div class="cfs__card-scrim" aria-hidden="true"></div>
-              <div class="cfs__glass">
-                <div class="cfs__body">
-                  <h3 class="cfs__title">Buying &amp; Merchandising</h3>
-                  <p class="cfs__desc">NEXT work experience project that led to a formal offer to join their buying team.</p>
-                  <div class="cfs__dls">
-                    <span class="cfs__pct" aria-hidden="true">72%</span>
-                    <button type="button" class="cfs__dl cfs__view" data-files="[{&quot;name&quot;: &quot;Coursework&quot;, &quot;src&quot;: &quot;assets/coursework/buying-merch-coursework.pdf&quot;}, {&quot;name&quot;: &quot;Presentation&quot;, &quot;src&quot;: &quot;assets/coursework/buying-merch-presentation.pdf&quot;}]" aria-haspopup="dialog">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">2</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 3 — International Retailing -->
-            <article class="cfs__card" data-cfs-index="3"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:2">
-              <span class="cfs__folder" aria-hidden="true"></span>
-              <img class="cfs__card-img" src="assets/projects/international-retailing/cover.webp" alt="" loading="lazy">
-              <div class="cfs__card-scrim" aria-hidden="true"></div>
-              <div class="cfs__glass">
-                <div class="cfs__body">
-                  <h3 class="cfs__title">International Retailing</h3>
-                  <p class="cfs__desc">Global retail strategy and cross-market consumer research.</p>
-                  <div class="cfs__dls">
-                    <span class="cfs__pct" aria-hidden="true">69%</span>
-                    <button type="button" class="cfs__dl cfs__view" data-files="[{&quot;name&quot;: &quot;Coursework&quot;, &quot;src&quot;: &quot;assets/coursework/international-retailing-coursework.pdf&quot;}]" aria-haspopup="dialog">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View file
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 4 — Visual Merchandising -->
-            <article class="cfs__card" data-cfs-index="4"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#e0143c;--cfs-z:1">
-              <span class="cfs__folder" aria-hidden="true"></span>
-              <img class="cfs__card-img" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy">
-              <div class="cfs__card-scrim" aria-hidden="true"></div>
-              <div class="cfs__glass">
-                <div class="cfs__body">
-                  <h3 class="cfs__title">Visual Merchandising</h3>
-                  <p class="cfs__desc">Selfridges brief. Retail environment design and in-store experience concept.</p>
-                  <div class="cfs__dls">
-                    <span class="cfs__pct" aria-hidden="true">67%</span>
-                    <button type="button" class="cfs__dl cfs__view is-soon" disabled>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Files coming soon
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-          </div><!-- /cfs__stage -->
-        </div><!-- /cfs__sticky -->
-      </div><!-- /cfs__track -->
-
-    </div><!-- /cfs -->
-
-  </section>
-  <!-- ── FREE TOOLS ── -->
-  <section class="websites section" id="tools">
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">05 Free Tools</span>
-      </div>
-      <div class="websites__intro reveal">
-        <h2 class="section__title text-morph reveal" data-flicker-manual data-morph-words="<span style='color:var(--red)'>Free</span> Tools|Made By <span style='color:var(--red)'>Me</span>">Free Tools</h2>
-        <p class="about__body type-reveal reveal">Small tools I&rsquo;ve built and given away, <span style="color:var(--red)">free to use</span>, no sign-up. Starting with one for the fashion &amp; retail side of things.</p>
-      </div>
-      <div class="websites__grid">
-
-        <a class="site-card reveal" href="/news">
-          <div class="site-card__img-wrap">
-            <img src="assets/tools/the-brief.svg?v=2" alt="The Brief — a visual daily news briefing covering breaking news, AI, fashion and markets" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">The Brief</span>
-              <span class="site-card__url">Daily visual news briefing &middot; AI, fashion &amp; markets</span>
-            </div>
-            <span class="site-card__btn">Use Tool</span>
-          </div>
-        </a>
-
-        <a class="site-card reveal" href="/calendar">
-          <div class="site-card__img-wrap">
-            <img src="assets/tools/the-ultimate-calendar.svg?v=2" alt="The Ultimate Calendar — global holidays and retail demand tracker" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">The Ultimate Calendar</span>
-              <span class="site-card__url">Global holidays &amp; retail demand tracker</span>
-            </div>
-            <span class="site-card__btn">Use Tool</span>
-          </div>
-        </a>
-
-        <a class="site-card reveal" href="/sales-analysis">
-          <div class="site-card__img-wrap">
-            <img src="assets/tools/sales-analysis.svg?v=2" alt="Sales Analysis for Merchandisers: weekly sales report breakdown showing what to reorder" class="site-card__img" loading="lazy">
-          </div>
-          <div class="site-card__body">
-            <div class="site-card__meta">
-              <span class="site-card__name">Sales Analysis</span>
-              <span class="site-card__url">Weekly trade review for merchandisers</span>
-            </div>
-            <span class="site-card__btn">Use Tool</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ── CONTACT ── -->
-  <section class="contact section" id="contact">
-    <canvas class="hero__mist contact__smoke" id="contactSmoke" aria-hidden="true"></canvas>
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">06 Contact</span>
-      </div>
-      <div class="contact__heading reveal">
-        <h2 class="section__title reveal" data-flicker-manual>Let's <span style="color:var(--red)">Work</span> Together</h2>
-        <p class="contact__intro type-reveal reveal">Open to freelance work, collabs and new opportunities. Drop me a message.</p>
-      </div>
-
-      <div class="contact__grid">
-        <form class="contact__form reveal reveal--delay" id="contactForm" novalidate>
-          <div class="form-group">
-            <input type="text" id="f-name" name="name" placeholder="Your Name" autocomplete="name" required>
-            <label for="f-name">Your Name</label>
-          </div>
-          <div class="form-group">
-            <input type="email" id="f-email" name="email" placeholder="Your Email" autocomplete="email" required>
-            <label for="f-email">Your Email</label>
-          </div>
-          <div class="form-group form-group--textarea">
-            <textarea id="f-message" name="message" rows="5" placeholder="Your Message" required></textarea>
-            <label for="f-message">Your Message</label>
-          </div>
-          <div class="contact__form-actions">
-            <button type="submit" class="btn btn--primary" id="submitBtn">
-              Send Message
-            </button>
-            <a href="assets/cv.pdf?v=6" class="btn btn--outline contact__cv doc-view" data-files='[{"name": "CV", "src": "assets/cv.pdf?v=6"}]' data-title="Joseph Byrne — CV" data-eyebrow="Curriculum Vitae" aria-haspopup="dialog" target="_blank" rel="noopener noreferrer">
-              View CV
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-          <div class="contact__links contact__links--below">
-            <div class="contact__link">
-              <span class="contact__link-label">Email</span>
-              <span class="contact__link-value">jbyrne4279@gmail.com</span>
-            </div>
-            <div class="contact__link">
-              <span class="contact__link-label">Phone</span>
-              <span class="contact__link-value">🇬🇧 07841 422 281</span>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__bottom">
-        <nav class="footer__nav" aria-label="Footer navigation">
-          <a href="#about">About</a>
-          <a href="#portfolio">Work</a>
-          <a href="#academic">Academic</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <span class="footer__sep">·</span>
-        <span>&copy; 2025 Joseph Byrne. All rights reserved.</span>
-      </div>
-      <a class="footer__private" href="/cowork">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-        CoWork
-      </a>
-    </div>
-  </footer>
-
-  <script src="script.js?v=45"></script>
-  <script src="particle-heading.js?v=1"></script>
-  <script src="text-morph.js?v=2"></script>
+  <script src="apple.js?v=3"></script>
   <script src="coursework-viewer.js?v=3" defer></script>
   <script src="site-preview.js?v=2" defer></script>
-  <script src="coursework-docs.js?v=5"></script>
-  <script>
-  /* ── CaseStudyFlipStack — vanilla port of @componentry/case-study-flip-stack
-     Matches the React source exactly:
-     · scrollYProgress mapped 0→1 over the track element
-     · Spring-smoothed progress (stiffness 120, damping 22, mass 0.8)
-     · Per-card: exitY = translateY(-118%) + stacked offset, rotateX 22°
-     · Entry: scale from restingScale→1, y from restingOffset→0
-     · Reduced motion: skip transforms, simple opacity fade
-  ── */
-  (function () {
-    const cfs   = document.getElementById('cfs');
-    if (!cfs) return;
-
-    const track   = cfs.querySelector('.cfs__track');
-    const stage   = cfs.querySelector('.cfs__stage');
-    const cards   = Array.from(cfs.querySelectorAll('.cfs__card'))
-                         .sort((a, b) => +a.dataset.cfsIndex - +b.dataset.cfsIndex);
-    const TOTAL   = cards.length;
-    if (!TOTAL) return;
-
-    /* Set CSS custom property so CSS height formula works */
-    cfs.style.setProperty('--cfs-count', TOTAL);
-
-    /* Reduced-motion preference */
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* ── Spring implementation matching framer-motion useSpring defaults ──
-       stiffness:120, damping:22, mass:0.8, restDelta:0.0005              */
-    /* Slightly under-damped (ζ≈0.7) so the stack carries momentum and
-       overshoots a touch before settling, instead of gliding dead-stop. */
-    const K = 85, D = 15, M = 1;
-    let springPos = 0, springVel = 0, rawProgress = 0, rafId = null;
-
-    function springStep(dt) {
-      const F = -K * (springPos - rawProgress) - D * springVel;
-      springVel += (F / M) * dt;
-      springPos += springVel * dt;
-      if (Math.abs(springPos - rawProgress) < 0.0005 && Math.abs(springVel) < 0.0005) {
-        springPos = rawProgress;
-        springVel = 0;
-        return false; // settled
-      }
-      return true; // still moving
-    }
-
-    let lastT = null;
-    function loop(t) {
-      const dt = lastT ? Math.min((t - lastT) / 1000, 0.05) : 0.016;
-      lastT = t;
-      const running = springStep(dt);
-      applyCards(reduceMotion ? rawProgress : springPos);
-      if (running) rafId = requestAnimationFrame(loop);
-      else { rafId = null; lastT = null; }
-    }
-
-    function startSpring() {
-      if (!rafId) rafId = requestAnimationFrame(loop);
-    }
-
-    /* ── Per-card transform math, matching the React source exactly ── */
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    function clamp01(v) { return Math.max(0, Math.min(1, v)); }
-    function mapRange(v, a, b, c, d) { return lerp(c, d, clamp01((v - a) / (b - a))); }
-
-    /* Per-card personality: just how hard each one lands (0–1), used
-       by the landing float-up. No tilt/drift any more — cards travel
-       straight up, and dropping the rotateX/rotateZ/drift math (plus
-       the filter: blur it needed to sell the motion) was also a
-       meaningful chunk of the per-frame cost. */
-    const EXIT_VARIANTS = [
-      { impact: 1    },
-      { impact: 0.75 },
-      { impact: 0.9  },
-      { impact: 0.65 },
-      { impact: 0.85 }
-    ];
-
-    function applyCards(p) {
-      const segment = 1 / Math.max(TOTAL, 1);
-      const stackedCardGap = Math.min(24, 72 / Math.max(TOTAL - 1, 1)); // ~18px for 5 cards
-
-      cards.forEach((card, index) => {
-        const start       = index * segment;
-        const end         = Math.min(start + segment, 1);
-        const entryStart  = Math.max(0, start - segment);
-        const entryEnd    = index === 0 ? 0.0001 : Math.min(start, entryStart + segment * 0.7);
-        const exitStart   = start;
-        const exitEnd     = end;
-        const stackedOffset   = index * stackedCardGap;
-        const restingOffset   = Math.min(index * 12, 34);
-        const restingScale    = 1 - Math.min(index * 0.012, 0.035);
-
-        /* Exit: translateY(-118%) + stackedOffset, rotateX 22°.
-           The last card never exits — otherwise it flies away right
-           before the section unpins, leaving the sticky frame empty
-           for the final stretch of scroll. It just settles and stays. */
-        /* Weighted exit: progress is squared so a card starts peeling off
-           slowly then accelerates away, like it's being flung rather than
-           slid on rails. Each card also leaves with its own tilt/drift so
-           no two exits look the same. */
-        const isLast     = index === TOTAL - 1;
-        const tExit      = isLast || reduceMotion ? 0 : clamp01((p - exitStart) / (exitEnd - exitStart));
-        const g          = tExit * tExit;
-        const exitYPct   = -118 * g;
-        const exitStack  = stackedOffset * g;
-
-        /* Entry: scale + y from resting to rested */
-        const entryScale = index === 0 ? 1 : mapRange(p, entryStart, entryEnd, restingScale, 1);
-        const entryY     = index === 0 ? 0 : mapRange(p, entryStart, entryEnd, restingOffset, 0);
-
-        const translateY = `calc(${exitYPct.toFixed(3)}% + ${(exitStack + entryY).toFixed(3)}px)`;
-        const scale      = entryScale.toFixed(4);
-
-        /* Straight up, no sideways drift or 3D tilt, no motion-blur
-           filter — just translateY + scale. Cheaper to paint and
-           reads as a clean vertical float instead of a wobble. */
-        card.style.transform        = `translateY(${translateY}) scale(${scale})`;
-        card.style.zIndex           = TOTAL - index;
-
-        /* Links only clickable on front card (p hasn't advanced it yet) */
-        const isFront = p < exitEnd || index === TOTAL - 1;
-        card.style.pointerEvents = isFront ? '' : 'none';
-      });
-
-      if (!mobileMq.matches) setActive(Math.min(TOTAL - 1, Math.floor(p / segment + 0.5)));
-    }
-
-    /* The card the visitor has just landed on gets .is-active — red
-       outline glow + a one-shot sparkle on its buttons (CSS). Re-adding
-       the class restarts the animations each time a new card arrives. */
-    let activeIndex = -1;
-    function setActive(i) {
-      if (i === activeIndex) return;
-      if (cards[activeIndex]) cards[activeIndex].classList.remove('is-active');
-      const prev = activeIndex;
-      activeIndex = i;
-      if (!cards[i]) return;
-      cards[i].classList.add('is-active');
-      if (prev === -1) return; // no impact on initial page load
-
-      /* The arriving card floats straight up into place. Uses the CSS
-         `translate` property, which composes with the inline
-         `transform` the scroll math writes every frame. */
-      const v = EXIT_VARIANTS[i % EXIT_VARIANTS.length];
-      restartAnim(cards[i], 'is-landing', { '--impact': v.impact });
-    }
-
-    function restartAnim(el, cls, vars) {
-      el.classList.remove(cls);
-      Object.entries(vars || {}).forEach(([k, val]) => el.style.setProperty(k, val));
-      void el.offsetWidth; // reflow so the animation replays
-      el.classList.add(cls);
-      const animName = cls === 'is-landing' ? 'cfs-land' : 'cfs-jolt';
-      el.addEventListener('animationend', function done(e) {
-        if (e.target !== el || e.animationName !== animName) return;
-        el.classList.remove(cls);
-        el.removeEventListener('animationend', done);
-      });
-    }
-
-    /* Mobile lays the cards out as a plain column (no scroll-jack), so
-       "active" there means the card closest to the middle of the screen. */
-    const mobileMq = window.matchMedia('(max-width: 599px)');
-    const mobileIo = new IntersectionObserver(entries => {
-      if (!mobileMq.matches) return;
-      entries.forEach(entry => {
-        if (entry.isIntersecting) setActive(cards.indexOf(entry.target));
-      });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    cards.forEach(card => mobileIo.observe(card));
-
-    /* ── Scroll → rawProgress ──
-       Fast trackpad/wheel scrolling can fire far more 'scroll' events
-       than there are frames to paint them in; reading layout
-       (getBoundingClientRect/offsetHeight) on every single one was
-       piling up redundant forced-layout work on top of everything
-       else the stack already does each frame. Coalesce to at most
-       once per animation frame instead. */
-    let scrollQueued = false;
-    function readScroll() {
-      scrollQueued = false;
-      if (!track) return;
-      const rect  = track.getBoundingClientRect();
-      const total = track.offsetHeight - window.innerHeight;
-      rawProgress = total > 0 ? clamp01(-rect.top / total) : 0;
-      if (reduceMotion) { applyCards(rawProgress); return; }
-      startSpring();
-    }
-    function onScroll() {
-      if (scrollQueued) return;
-      scrollQueued = true;
-      requestAnimationFrame(readScroll);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    /* Initial render */
-    onScroll();
-  })();
-  </script>
+  <script src="carousel.js?v=1" defer></script>
+  <script src="snake-idle.js?v=1" defer></script>
+  <script src="inspo-game.js?v=1" defer></script>
 </body>
 </html>
