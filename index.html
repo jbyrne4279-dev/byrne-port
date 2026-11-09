@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=141">
+  <link rel="stylesheet" href="styles.css?v=145">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -106,79 +106,23 @@
     </ul>
   </div>
 
-  <!-- ── ABOUT ── -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="section__label">01 About</span>
-      </div>
-      <div class="about__grid">
-        <div class="about-deck reveal" id="aboutDeck">
-          <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
-          <div class="deck-prompt" aria-hidden="true">
-            <span class="deck-prompt__gesture"><i class="deck-prompt__trail"></i><i class="deck-prompt__dot"></i></span>
-            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Drag to explore</span><span class="deck-prompt__touch">Swipe to explore</span></span>
-          </div>
-          <div class="about-deck__stack">
-
-            <article class="about-card about-card--intro is-front" data-card="0">
-              <span class="about-card__no" aria-hidden="true">01</span>
-              <span class="about-card__tag">About</span>
-              <p class="about-card__lead">I&rsquo;m Joe, a <span class="glow-text"><strong>digital designer</strong></span>&nbsp;<svg class="uk-flag" viewBox="0 0 60 30" role="img" aria-label="United Kingdom"><clipPath id="ukA"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ukB"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#ukA)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ukB)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg></p>
-              <p class="about-card__lead about-card__lead--sub">I turn ideas into products that <span style="color:var(--red)">convert</span>.</p>
-            </article>
-
-            <article class="about-card about-card--inspire" data-card="1" id="inspoCard">
-              <span class="about-card__no" aria-hidden="true">02</span>
-              <span class="about-card__tag">What inspires me</span>
-              <div class="inspo-scatter">
-                <span class="inspo-pill">Subcultures</span>
-                <span class="inspo-pill">Music</span>
-                <span class="inspo-pill">Alternative Streetwear</span>
-                <span class="inspo-pill">Trends</span>
-                <span class="inspo-pill">Past &amp; future</span>
-                <span class="inspo-pill">DC Movies</span>
-                <span class="inspo-pill">Grunge aesthetics</span>
-                <span class="inspo-pill">Marketing Psychology</span>
-                <span class="inspo-pill">Hypercars</span>
-                <span class="inspo-pill">Fashion</span>
-              </div>
-              <div class="inspo-game" id="inspoGame">
-                <button type="button" class="inspo-game__btn inspo-game__btn--start" data-game="start">
-                  <span class="inspo-game__btn-main"><span class="inspo-game__play-tri">&#9654;</span> PLAY</span>
-                  <span class="inspo-game__btn-sub">15s &mdash; Aim Challenge</span>
-                </button>
-                <div class="inspo-game__hud" aria-hidden="true">
-                  <span class="inspo-game__score">Popped: <b>0</b></span>
-                  <span class="inspo-game__time"><b>15</b>s</span>
-                </div>
-                <div class="inspo-game__result" aria-hidden="true">
-                  <span class="inspo-game__result-label">Time&rsquo;s up!</span>
-                  <span class="inspo-game__result-score"><b>0</b></span>
-                  <span class="inspo-game__result-sub">bubbles popped</span>
-                  <button type="button" class="inspo-game__btn" data-game="restart">Play again</button>
-                </div>
-              </div>
-            </article>
-
-            <article class="about-card about-card--now" data-card="2">
-              <span class="about-card__no" aria-hidden="true">03</span>
-              <span class="about-card__tag">Right now</span>
-              <p class="about-card__body">Currently I&rsquo;m in my <span style="color:var(--red)">final year</span>, studying <span style="color:var(--red)">BA&nbsp;(Hons) Fashion Business &amp; Marketing</span> and set to <span style="color:var(--red)">graduate in 2027</span>.</p>
-            </article>
-
-            <article class="about-card about-card--off" data-card="3">
-              <span class="about-card__no" aria-hidden="true">04</span>
-              <span class="about-card__tag">Off the clock</span>
-              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness feen</strong></span>. HEAVILY into the <span style="color:#ff3b30">Gym</span>, <span style="color:#e12a45">Muay&nbsp;Thai</span>, <span style="color:#bf2233">boxing</span> and <span style="color:#9a1f2e">wrestling</span>&hellip;</p>
-              <p class="about-card__punch">A.K.A. <span class="about-card__whisper">getting my Sh* rocked.</span></p>
-            </article>
-
-          </div>
-        </div>
-      </div>
+  <!-- ── LEAD / TOP ── -->
+  <header class="lead" id="top">
+    <div class="lead__bg" aria-hidden="true"></div>
+    <a class="lead__mark" href="#top" aria-label="Joseph Byrne">JB</a>
+    <div class="lead__inner">
+      <h1 class="lead__name">joseph byrne</h1>
+      <p class="lead__bio">Designing products and brands that <b>convert</b>. Currently studying <b>Fashion Business &amp; Marketing</b>. Previously <b>NEXT</b>, <b>TriMas</b> &amp; <b>North Herts Council</b>.</p>
+      <nav class="lead__tabs" aria-label="Sections">
+        <a href="#portfolio" class="is-active">Work</a>
+        <a href="#websites">Sites</a>
+        <a href="#academic">Academic</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
   <!-- ── PORTFOLIO ── -->
   <section class="portfolio section" id="portfolio">
@@ -561,44 +505,54 @@
       </div>
       <div class="cw-grid reveal">
         <article class="cw-card">
+          <div class="cw-card__folder">
           <div class="cw-card__media"><img src="assets/projects/trend-forecasting/hands-shadow-cover.webp" alt="" loading="lazy"><span class="cw-card__pct">82%</span></div>
           <div class="cw-card__body">
             <h3 class="cw-card__title">Trend Forecasting</h3>
             <p class="cw-card__desc">Top score in the module for my NEXT A/W 25/26 buying report. Got a work experience offer from NEXT off the back of it.</p>
             <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/trend-forecasting-coursework.pdf"},{"name":"Zeitgeist Pack","src":"assets/coursework/trend-forecasting-zeitgeist.pdf"}]' aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">2</span></button>
           </div>
+        </div>
         </article>
         <article class="cw-card">
+          <div class="cw-card__folder">
           <div class="cw-card__media"><img src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" style="object-position:78% center"><span class="cw-card__pct">77%</span></div>
           <div class="cw-card__body">
             <h3 class="cw-card__title">Marketing &amp; PR</h3>
             <p class="cw-card__desc">Named Collective brief. Full brand strategy and PR campaign from start to finish.</p>
             <button type="button" class="cfs__view" data-files='[{"name":"Campaign","src":"assets/coursework/marketing-pr-campaign.pdf"},{"name":"Presentation","src":"assets/coursework/marketing-pr-presentation.pdf"},{"name":"Poster","src":"assets/coursework/marketing-pr-poster.pdf"}]' aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">3</span></button>
           </div>
+        </div>
         </article>
         <article class="cw-card">
+          <div class="cw-card__folder">
           <div class="cw-card__media"><img src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy"><span class="cw-card__pct">72%</span></div>
           <div class="cw-card__body">
             <h3 class="cw-card__title">Buying &amp; Merchandising</h3>
             <p class="cw-card__desc">NEXT work experience project that led to a formal offer to join their buying team.</p>
             <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/buying-merch-coursework.pdf"},{"name":"Presentation","src":"assets/coursework/buying-merch-presentation.pdf"}]' aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View files<span class="cfs__view-count">2</span></button>
           </div>
+        </div>
         </article>
         <article class="cw-card">
+          <div class="cw-card__folder">
           <div class="cw-card__media"><img src="assets/projects/international-retailing/cover.webp" alt="" loading="lazy"><span class="cw-card__pct">69%</span></div>
           <div class="cw-card__body">
             <h3 class="cw-card__title">International Retailing</h3>
             <p class="cw-card__desc">Global retail strategy and cross-market consumer research.</p>
             <button type="button" class="cfs__view" data-files='[{"name":"Coursework","src":"assets/coursework/international-retailing-coursework.pdf"}]' aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>View file</button>
           </div>
+        </div>
         </article>
         <article class="cw-card">
+          <div class="cw-card__folder">
           <div class="cw-card__media"><img src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy"><span class="cw-card__pct">67%</span></div>
           <div class="cw-card__body">
             <h3 class="cw-card__title">Visual Merchandising</h3>
             <p class="cw-card__desc">Selfridges brief. Retail environment design and in-store experience concept.</p>
             <button type="button" class="cfs__view is-soon" disabled><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h3l1.5 1.6h4.5A1.5 1.5 0 0 1 14 5.1v7.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Files coming soon</button>
           </div>
+        </div>
         </article>
       </div>
     </div>
@@ -669,43 +623,98 @@
       </div>
       <div class="contact__heading reveal">
         <h2 class="section__title reveal" data-flicker-manual>Let's <span style="color:var(--red)">Work</span> Together</h2>
-        <p class="contact__intro type-reveal reveal">Open to freelance work, collabs and new opportunities. Drop me a message.</p>
+        <p class="contact__intro type-reveal reveal">Open to freelance work, collabs and new opportunities. Best way to reach me is below.</p>
       </div>
 
       <div class="contact__grid">
-        <form class="contact__form reveal reveal--delay" id="contactForm" novalidate>
-          <div class="form-group">
-            <input type="text" id="f-name" name="name" placeholder="Your Name" autocomplete="name" required>
-            <label for="f-name">Your Name</label>
+        <div class="contact__links contact__links--below reveal reveal--delay">
+          <div class="contact__link">
+            <span class="contact__link-label">Email</span>
+            <span class="contact__link-value">jbyrne4279@gmail.com</span>
           </div>
-          <div class="form-group">
-            <input type="email" id="f-email" name="email" placeholder="Your Email" autocomplete="email" required>
-            <label for="f-email">Your Email</label>
+          <div class="contact__link">
+            <span class="contact__link-label">Phone</span>
+            <span class="contact__link-value">🇬🇧 07841 422 281</span>
           </div>
-          <div class="form-group form-group--textarea">
-            <textarea id="f-message" name="message" rows="5" placeholder="Your Message" required></textarea>
-            <label for="f-message">Your Message</label>
+          <a href="assets/cv.pdf?v=6" class="btn btn--outline contact__cv doc-view" data-files='[{"name": "CV", "src": "assets/cv.pdf?v=6"}]' data-title="Joseph Byrne CV" data-eyebrow="Curriculum Vitae" aria-haspopup="dialog" target="_blank" rel="noopener noreferrer">
+            View CV
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="section__label">07 About</span>
+      </div>
+      <div class="about__grid">
+        <div class="about-deck reveal" id="aboutDeck">
+          <p class="about-deck__hint" aria-hidden="true">Drag the card away to reveal more &rarr;</p>
+          <div class="deck-prompt" aria-hidden="true">
+            <span class="deck-prompt__gesture"><i class="deck-prompt__trail"></i><i class="deck-prompt__dot"></i></span>
+            <span class="deck-prompt__label"><span class="deck-prompt__mouse">Drag to explore</span><span class="deck-prompt__touch">Swipe to explore</span></span>
           </div>
-          <div class="contact__form-actions">
-            <button type="submit" class="btn btn--primary" id="submitBtn">
-              Send Message
-            </button>
-            <a href="assets/cv.pdf?v=6" class="btn btn--outline contact__cv doc-view" data-files='[{"name": "CV", "src": "assets/cv.pdf?v=6"}]' data-title="Joseph Byrne — CV" data-eyebrow="Curriculum Vitae" aria-haspopup="dialog" target="_blank" rel="noopener noreferrer">
-              View CV
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+          <div class="about-deck__stack">
+
+            <article class="about-card about-card--intro is-front" data-card="0">
+              <span class="about-card__no" aria-hidden="true">01</span>
+              <span class="about-card__tag">About</span>
+              <p class="about-card__lead">I&rsquo;m Joe, a <span class="glow-text"><strong>digital designer</strong></span>&nbsp;<svg class="uk-flag" viewBox="0 0 60 30" role="img" aria-label="United Kingdom"><clipPath id="ukA"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ukB"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#ukA)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ukB)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg></p>
+              <p class="about-card__lead about-card__lead--sub">I turn ideas into products that <span style="color:var(--red)">convert</span>.</p>
+            </article>
+
+            <article class="about-card about-card--inspire" data-card="1" id="inspoCard">
+              <span class="about-card__no" aria-hidden="true">02</span>
+              <span class="about-card__tag">What inspires me</span>
+              <div class="inspo-scatter">
+                <span class="inspo-pill">Subcultures</span>
+                <span class="inspo-pill">Music</span>
+                <span class="inspo-pill">Alternative Streetwear</span>
+                <span class="inspo-pill">Trends</span>
+                <span class="inspo-pill">Past &amp; future</span>
+                <span class="inspo-pill">DC Movies</span>
+                <span class="inspo-pill">Grunge aesthetics</span>
+                <span class="inspo-pill">Marketing Psychology</span>
+                <span class="inspo-pill">Hypercars</span>
+                <span class="inspo-pill">Fashion</span>
+              </div>
+              <div class="inspo-game" id="inspoGame">
+                <button type="button" class="inspo-game__btn inspo-game__btn--start" data-game="start">
+                  <span class="inspo-game__btn-main"><span class="inspo-game__play-tri">&#9654;</span> PLAY</span>
+                  <span class="inspo-game__btn-sub">15s &mdash; Aim Challenge</span>
+                </button>
+                <div class="inspo-game__hud" aria-hidden="true">
+                  <span class="inspo-game__score">Popped: <b>0</b></span>
+                  <span class="inspo-game__time"><b>15</b>s</span>
+                </div>
+                <div class="inspo-game__result" aria-hidden="true">
+                  <span class="inspo-game__result-label">Time&rsquo;s up!</span>
+                  <span class="inspo-game__result-score"><b>0</b></span>
+                  <span class="inspo-game__result-sub">bubbles popped</span>
+                  <button type="button" class="inspo-game__btn" data-game="restart">Play again</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="about-card about-card--now" data-card="2">
+              <span class="about-card__no" aria-hidden="true">03</span>
+              <span class="about-card__tag">Right now</span>
+              <p class="about-card__body">Currently I&rsquo;m in my <span style="color:var(--red)">final year</span>, studying <span style="color:var(--red)">BA&nbsp;(Hons) Fashion Business &amp; Marketing</span> and set to <span style="color:var(--red)">graduate in 2027</span>.</p>
+            </article>
+
+            <article class="about-card about-card--off" data-card="3">
+              <span class="about-card__no" aria-hidden="true">04</span>
+              <span class="about-card__tag">Off the clock</span>
+              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness feen</strong></span>. HEAVILY into the <span style="color:#ff3b30">Gym</span>, <span style="color:#e12a45">Muay&nbsp;Thai</span>, <span style="color:#bf2233">boxing</span> and <span style="color:#9a1f2e">wrestling</span>&hellip;</p>
+              <p class="about-card__punch">A.K.A. <span class="about-card__whisper">getting my Sh* rocked.</span></p>
+            </article>
+
           </div>
-          <div class="contact__links contact__links--below">
-            <div class="contact__link">
-              <span class="contact__link-label">Email</span>
-              <span class="contact__link-value">jbyrne4279@gmail.com</span>
-            </div>
-            <div class="contact__link">
-              <span class="contact__link-label">Phone</span>
-              <span class="contact__link-value">🇬🇧 07841 422 281</span>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
