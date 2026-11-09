@@ -275,16 +275,17 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 16px 32px;
-  border-radius: 0;
+  padding: 19px 44px;
+  border-radius: 999px;
   border: none;
   transition: all 0.25s var(--ease-out);
   position: relative;
 }
+.btn:hover { transform: translateY(-2px); }
 
 .btn--primary {
   background: var(--red);
