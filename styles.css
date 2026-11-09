@@ -1499,6 +1499,7 @@ h1, h2, h3, h4 {
 .project-card {
   position: relative;
   overflow: hidden;
+  border-radius: 20px;
   transition: transform 0.4s var(--ease-out), opacity 0.35s, box-shadow 0.4s;
 }
 
@@ -1720,7 +1721,7 @@ h1, h2, h3, h4 {
   width: clamp(300px, 58vw, 660px);
   height: clamp(440px, 80vh, 840px);
   margin: 0;
-  border-radius: 8px;
+  border-radius: 22px;
   overflow: hidden;
   cursor: pointer;
   transform: translate(-50%, -50%);
