@@ -3618,3 +3618,13 @@ html.sv-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .sv__panel, .sv__backdrop { transition: none; }
 }
+
+/* ── H1 SPLASH ENTRANCE ── */
+.splash-ready { opacity: 0; }
+.splash-go { animation: h1-splash 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes h1-splash {
+  0%   { opacity: 0; transform: scale(0.78) translateY(16px); filter: blur(14px); }
+  58%  { opacity: 1; transform: scale(1.05) translateY(0);    filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .splash-ready { opacity: 1; } .splash-go { animation: none; } }
