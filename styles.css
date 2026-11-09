@@ -3692,3 +3692,16 @@ html.sv-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .devices-ready #websites .site-card .device__screen { transition: none; transform: rotateX(0deg); }
 }
+
+/* ── Websites: gallery grid (not an auto-scroll slideshow) + bigger laptops ── */
+.websites__marquee { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+.websites__track {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: clamp(30px, 4vw, 52px);
+  width: 100%; max-width: var(--max-w); margin: 0 auto;
+  padding: 10px var(--gap-container) 0;
+  animation: none !important;
+}
+.websites__track .site-card[aria-hidden="true"] { display: none; }   /* drop the slideshow clones */
+.websites__track .site-card { flex: none; width: auto; }
+@media (max-width: 760px) { .websites__track { grid-template-columns: 1fr; } }
