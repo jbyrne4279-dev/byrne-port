@@ -3664,3 +3664,20 @@ html.sv-open { overflow: hidden; }
   content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
   width: 14%; height: 5px; background: rgba(0,0,0,0.22); border-radius: 0 0 7px 7px; z-index: 2;
 }
+
+/* ── Websites: drop the card container, float a tilted laptop ── */
+#websites .site-card { background: transparent; border: none; overflow: visible; }
+#websites .site-card:hover { border: none; box-shadow: none; transform: none; }
+#websites .site-card__img-wrap {
+  background: transparent; overflow: visible; padding: 12% 9% 2%;
+  perspective: 1500px; aspect-ratio: 16 / 12.5;
+}
+#websites .site-card__img-wrap::after { display: none; }
+#websites .site-card .device--laptop {
+  transform: rotateX(9deg) rotateY(-15deg);
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-out);
+  filter: drop-shadow(0 34px 44px rgba(0,0,0,0.6));
+}
+#websites .site-card:hover .device--laptop { transform: rotateX(3deg) rotateY(-5deg); }
+#websites .site-card__body { background: transparent; }
