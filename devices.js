@@ -22,9 +22,14 @@
     devices.push(dev);
   });
   if (reduce || !('IntersectionObserver' in window)) { devices.forEach(d => d.classList.add('is-open')); return; }
+  let n = 0;   // stagger so laptops open one after another
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('is-open'), 120); obs.unobserve(e.target); }
+      if (e.isIntersecting) {
+        const order = n++;
+        setTimeout(() => e.target.classList.add('is-open'), 140 + order * 170);
+        obs.unobserve(e.target);
+      }
     });
   }, { threshold: 0.3 });
   devices.forEach(d => io.observe(d));
