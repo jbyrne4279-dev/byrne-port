@@ -3701,3 +3701,26 @@ html.sv-open { overflow: hidden; }
 .matrix-intro { display: none !important; }
 .lead__inner, .lead__name, .lead__bio, .lead__tabs { text-align: left; }
 .lead__tabs { justify-content: flex-start; }
+
+/* Lead header: match the dark site theme + reduce the empty space above */
+.lead {
+  min-height: auto; align-items: flex-start; background: var(--bg);
+  padding: clamp(104px, 14vw, 150px) 0 clamp(44px, 6vw, 72px);
+}
+.lead__bg {
+  background:
+    radial-gradient(55% 75% at 90% -5%, rgba(176,0,32,0.22), transparent 60%),
+    radial-gradient(45% 55% at 8% 108%, rgba(176,0,32,0.10), transparent 60%),
+    #000;
+}
+.lead__mark { box-shadow: 0 6px 22px rgba(176,0,32,0.5); }
+.lead__name { color: #fff; }
+.lead__bio { color: var(--text-2); }
+.lead__bio b { color: #fff; }
+.lead__tabs { gap: 6px; margin-top: 26px; }
+.lead__tabs a {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-2); padding: 9px 16px; border: 1px solid transparent; border-radius: 999px;
+}
+.lead__tabs a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.lead__tabs a.is-active { color: #fff; background: rgba(176,0,32,0.18); border-color: rgba(176,0,32,0.5); }
