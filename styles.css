@@ -3674,10 +3674,10 @@ html.sv-open { overflow: hidden; }
 }
 #websites .site-card__img-wrap::after { display: none; }
 #websites .site-card .device--laptop {
-  transform: rotateX(9deg) rotateY(-15deg);
+  transform: rotateX(3deg) rotateY(-7deg);
   transform-style: preserve-3d;
   transition: transform 0.5s var(--ease-out);
   filter: drop-shadow(0 34px 44px rgba(0,0,0,0.6));
 }
-#websites .site-card:hover .device--laptop { transform: rotateX(3deg) rotateY(-5deg); }
+#websites .site-card:hover .device--laptop { transform: rotateX(1deg) rotateY(-2deg); }
 #websites .site-card__body { background: transparent; }
