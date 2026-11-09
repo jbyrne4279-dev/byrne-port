@@ -483,6 +483,20 @@
     if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
     if (Math.abs(dx) > Math.abs(dy)) steer(Math.sign(dx), 0); else steer(0, Math.sign(dy));
   });
+
+  // Mouse steering (slither.io style): the snake continuously turns toward the
+  // cursor. Grid-based, so the heading snaps to whichever axis points at the
+  // mouse most; steer() already blocks reversing into yourself.
+  saver.addEventListener('pointermove', e => {
+    if (!active || reduce || deadUntil || !snake.length) return;
+    const r = canvas.getBoundingClientRect();
+    const dx = (e.clientX - r.left) - cx(snake[0][0]);
+    const dy = (e.clientY - r.top)  - cy(snake[0][1]);
+    if (Math.abs(dx) < cell * 0.5 && Math.abs(dy) < cell * 0.5) return;  // on the head — hold course
+    if (Math.abs(dx) > Math.abs(dy)) steer(Math.sign(dx), 0);
+    else steer(0, Math.sign(dy));
+  }, { passive: true });
+
   if (backBtn) backBtn.addEventListener('click', () => { deactivate(); onActivity(); });
 
   // While the idle screen is up, moving the mouse or pressing keys no
