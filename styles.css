@@ -288,7 +288,7 @@ h1, h2, h3, h4 {
 .btn:hover { transform: translateY(-2px); }
 
 .btn--primary {
-  background: var(--red);
+  background: linear-gradient(135deg, var(--red) 0%, #3a0010 55%, #0a0002 100%);
   color: #fff;
   border: 1px solid var(--red);
   box-shadow: 0 0 16px var(--red-dim);
@@ -296,7 +296,7 @@ h1, h2, h3, h4 {
 }
 
 .btn--primary:hover {
-  background: var(--red);
+  background: linear-gradient(135deg, #d4002b 0%, #4a0014 55%, #140004 100%);
   color: #fff;
   box-shadow: 0 0 32px var(--red-glow);
   animation-play-state: paused;
