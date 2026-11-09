@@ -3681,3 +3681,14 @@ html.sv-open { overflow: hidden; }
 }
 #websites .site-card:hover .device--laptop { transform: rotateX(1deg) rotateY(-2deg); }
 #websites .site-card__body { background: transparent; }
+
+/* Website laptops: lid opens from closed when it scrolls into view */
+.devices-ready #websites .site-card .device__screen {
+  transform-origin: 50% 100%;
+  transform: rotateX(-90deg);
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.devices-ready #websites .site-card .device.is-open .device__screen { transform: rotateX(0deg); }
+@media (prefers-reduced-motion: reduce) {
+  .devices-ready #websites .site-card .device__screen { transition: none; transform: rotateX(0deg); }
+}
