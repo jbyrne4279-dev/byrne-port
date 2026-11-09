@@ -1167,6 +1167,8 @@ h1, h2, h3, h4 {
   gap: 5px;
   width: 144px;
   height: 144px;
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1;
   padding: 0 16px;
   border-radius: 50%;
   border: 1px solid var(--red);
