@@ -3636,3 +3636,44 @@ html.sv-open { overflow: hidden; }
 
 /* Round all remaining buttons into pills, site-wide */
 .site-card__btn, .cfs__dl, .cfs__view { border-radius: 999px; }
+
+/* ── PROJECT DEVICE MOCKUPS: MacBook (landscape) / iPhone (portrait) ── */
+.project-card.dev .project-card__img { background: radial-gradient(120% 95% at 50% 10%, #16171c 0%, #0a0a0c 72%); }
+.project-card.dev .project-card__img::before {
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 30%, transparent 56%);
+}
+.project-card.dev .project-card__inner { z-index: 4; }
+.device { position: absolute; left: 50%; transform: translateX(-50%); z-index: 2; }
+.device__screen .project-card__cover { position: static; inset: auto; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* iPhone */
+.device--phone { top: 7%; width: 52%; }
+.device--phone .device__screen {
+  position: relative; border: 11px solid #0c0c0e; border-radius: 40px; background: #000; overflow: hidden;
+  aspect-ratio: 9 / 19.5; box-shadow: 0 26px 60px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.07);
+}
+.device--phone .device__screen::before {
+  content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 34%; height: 15px; background: #0c0c0e; border-radius: 999px; z-index: 3;
+}
+
+/* MacBook */
+.device--laptop { top: 20%; width: 90%; }
+.device--laptop .device__screen {
+  position: relative; border: 9px solid #1b1b1d; border-radius: 14px 14px 0 0; background: #000; overflow: hidden;
+  aspect-ratio: 16 / 10; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+.device--laptop::after {
+  content: ''; display: block; position: relative; left: 50%; transform: translateX(-50%);
+  width: 115%; height: 15px;
+  background: linear-gradient(#d2d4d8 0%, #a8aaae 55%, #808287 100%);
+  border-radius: 2px 2px 12px 12px; box-shadow: 0 24px 46px rgba(0,0,0,0.55);
+}
+.device--laptop::before {
+  content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  width: 15%; height: 7px; background: rgba(0,0,0,0.22); border-radius: 0 0 8px 8px; z-index: 3;
+}
+
+/* device placement refinements so the frame clears the card title */
+.device--laptop { top: 14%; width: 86%; }
+.device--phone { top: 5%; width: 50%; }
