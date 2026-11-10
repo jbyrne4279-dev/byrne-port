@@ -795,3 +795,8 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 /* University coursework: folder titles and the viewer label in the heading style */
 .cfs__title { text-transform: none !important; letter-spacing: -0.02em !important; font-family: var(--font-serif) !important; font-weight: 600 !important; }
 .cv__eyebrow { font-family: var(--font-serif) !important; font-weight: 500 !important; font-size: 12px !important; letter-spacing: -0.005em !important; text-transform: none !important; }
+
+/* Gallery: every image at its own original shape, all the same height */
+.gallery__item { width: auto !important; aspect-ratio: auto !important; height: clamp(190px, 21vw, 300px); }
+.gallery__item img { width: auto !important; height: 100% !important; object-fit: contain !important; }
+.gallery__set { align-items: center; }
