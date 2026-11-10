@@ -43,6 +43,7 @@
   let dpr = 1, cols = 0, rows = 0;
   let snake = [], prev = [], dir = [1, 0], apple = null, grow = 0;
   let lastStep = 0, pulseAt = -1e9, sparks = [], offSince = 0;
+  let eaten = null, appleBorn = -1e9;   // the apple being swallowed, and when the next one appeared
 
   /* ── Which section it lives in, and the band of that section it roams ── */
   function visibleArea(el) {
@@ -82,35 +83,125 @@
   }
 
   /* ── Snake ── */
+  /* ── Keep clear of the page: a map of cells covered by content ──
+     Images, videos, buttons, links, cards and the actual lines of text are
+     marked as blocked; the snake steers around them and apples only appear
+     in clear space. Re-checked every second or so, as things move. */
+  const ASSETS = 'img, video, svg, canvas:not(.roam-snake):not(.hero__matrix):not(.hero__mist), button, a, input, select, textarea, ' +
+    '.site-card, .project-card, .cfs__card, .about-card, .gallery__item, .inspo-pill, .contact__icon, .device, .btn';
+  const TEXT = 'h1, h2, h3, h4, p, li, .section__label, .contact__link-value, .site-card__name, .site-card__url, .hero__tagline';
+  let blocked = new Uint8Array(0);
+  const idx = (x, y) => y * cols + x;
+  function scanAssets() {
+    blocked = new Uint8Array(cols * rows);
+    if (!host) return;
+    const cr = canvas.getBoundingClientRect();
+    const mark = r => {
+      if (r.width < 1 || r.height < 1 || r.bottom < cr.top || r.top > cr.bottom || r.right < cr.left || r.left > cr.right) return;
+      const pad = 6;
+      const x0 = Math.max(0, Math.floor((r.left - cr.left - pad) / CELL)), x1 = Math.min(cols - 1, Math.floor((r.right - cr.left + pad) / CELL));
+      const y0 = Math.max(0, Math.floor((r.top - cr.top - pad) / CELL)), y1 = Math.min(rows - 1, Math.floor((r.bottom - cr.top + pad) / CELL));
+      for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) blocked[idx(x, y)] = 1;
+    };
+    host.querySelectorAll(ASSETS).forEach(el => { if (el !== tag && el !== canvas) mark(el.getBoundingClientRect()); });
+    const range = document.createRange();
+    host.querySelectorAll(TEXT).forEach(el => {
+      range.selectNodeContents(el);
+      for (const r of range.getClientRects()) mark(r);
+    });
+  }
+  const inBounds = (x, y) => x >= 0 && y >= 1 && x < cols && y < rows;
+  const isFree = (x, y) => inBounds(x, y) && !blocked[idx(x, y)];
+  const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+  // Breadth-first search over clear cells: the first move on the shortest
+  // route to (gx, gy), or null if it can't be reached
+  function routeTo(gx, gy) {
+    const [hx, hy] = snake[0];
+    const body = new Set(snake.slice(0, -1).map(([x, y]) => idx(x, y)));
+    const from = new Int32Array(cols * rows).fill(-1);
+    const start = idx(hx, hy), goal = idx(gx, gy);
+    const q = [start]; from[start] = start;
+    for (let h = 0; h < q.length; h++) {
+      const c = q[h];
+      if (c === goal) break;
+      const cx = c % cols, cy = (c / cols) | 0;
+      for (const [dx, dy] of DIRS) {
+        const nx = cx + dx, ny = cy + dy, n2 = idx(nx, ny);
+        if (!isFree(nx, ny) || from[n2] !== -1 || body.has(n2)) continue;
+        from[n2] = c; q.push(n2);
+      }
+    }
+    if (from[goal] === -1) return null;
+    let c = goal;
+    while (from[c] !== start) c = from[c];
+    return [c % cols - hx, ((c / cols) | 0) - hy];
+  }
+  function reachable() {
+    const [hx, hy] = snake[0];
+    const seen = new Uint8Array(cols * rows), out = [];
+    const q = [idx(hx, hy)]; seen[q[0]] = 1;
+    for (let h = 0; h < q.length; h++) {
+      const c = q[h], cx = c % cols, cy = (c / cols) | 0;
+      for (const [dx, dy] of DIRS) {
+        const nx = cx + dx, ny = cy + dy;
+        if (!isFree(nx, ny) || seen[idx(nx, ny)]) continue;
+        seen[idx(nx, ny)] = 1; q.push(idx(nx, ny)); out.push([nx, ny]);
+      }
+    }
+    return out;
+  }
+
   function reset() {
-    const y = Math.floor(rows * 0.75), x = Math.min(MIN_LEN + 1, cols - 1);
-    snake = Array.from({ length: MIN_LEN }, (_, i) => [Math.max(0, x - i), y]);
+    scanAssets();
+    // start on a clear row, as close to three quarters down as possible
+    const want = MIN_LEN + 2;
+    let sx = Math.min(MIN_LEN + 1, cols - 1), sy = Math.floor(rows * 0.75);
+    search: for (let o = 0; o < rows; o++) {
+      for (const y of [Math.floor(rows * 0.75) + o, Math.floor(rows * 0.75) - o]) {
+        if (y < 1 || y >= rows) continue;
+        let run = 0;
+        for (let x = 0; x < cols; x++) {
+          run = isFree(x, y) ? run + 1 : 0;
+          if (run >= want) { sx = x - 1; sy = y; break search; }
+        }
+      }
+    }
+    snake = Array.from({ length: MIN_LEN }, (_, i) => [Math.max(0, sx - i), sy]);
     prev = snake.map(s => s.slice());
     dir = [1, 0]; grow = 0;
     placeApple();
   }
   const onSnake = (x, y) => snake.some(s => s[0] === x && s[1] === y);
   function placeApple() {
-    for (let i = 0; i < 50; i++) {
-      const x = 2 + Math.floor(Math.random() * Math.max(1, cols - 4));
-      const y = 3 + Math.floor(Math.random() * Math.max(1, rows - 6));
-      if (!onSnake(x, y)) { apple = [x, y]; return; }
+    // somewhere clear that the snake can actually get to, not right under its nose
+    const [hx, hy] = snake[0] || [0, 0];
+    const spots = reachable().filter(([x, y]) => !onSnake(x, y) && y >= 2 && Math.abs(x - hx) + Math.abs(y - hy) >= 5);
+    if (spots.length) { apple = spots[(Math.random() * spots.length) | 0]; return; }
+    for (let i = 0; i < 80; i++) {
+      const x = 1 + Math.floor(Math.random() * Math.max(1, cols - 2));
+      const y = 2 + Math.floor(Math.random() * Math.max(1, rows - 3));
+      if (isFree(x, y) && !onSnake(x, y)) { apple = [x, y]; return; }
     }
-    apple = [Math.floor(cols / 2), Math.floor(rows / 2)];
+    apple = null;                                   // nowhere clear: just wander
   }
   function chooseDir() {
     const [hx, hy] = snake[0];
-    const options = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(d => !(d[0] === -dir[0] && d[1] === -dir[1]));
-    const safe = options.filter(([dx, dy]) => {
+    if (apple) { const d = routeTo(apple[0], apple[1]); if (d) return d; }
+    // no route: keep moving through clear space, preferring to go straight
+    const body = snake.slice(0, -1);
+    const ok = ([dx, dy], needFree) => {
       const nx = hx + dx, ny = hy + dy;
-      return nx >= 0 && ny >= 2 && nx < cols && ny < rows && !snake.slice(0, -1).some(s => s[0] === nx && s[1] === ny);
-    });
-    if (!safe.length) return null;
-    const dist = ([dx, dy]) => Math.abs(hx + dx - apple[0]) + Math.abs(hy + dy - apple[1]);
-    safe.sort((a, b) => dist(a) - dist(b));
-    const straight = safe.find(d => d[0] === dir[0] && d[1] === dir[1]);
-    if (straight && dist(straight) <= dist(safe[0]) + 1 && Math.random() < 0.35) return straight;
-    return safe[0];
+      return inBounds(nx, ny) && (!needFree || !blocked[idx(nx, ny)]) && !body.some(s => s[0] === nx && s[1] === ny);
+    };
+    const opts = DIRS.filter(d => !(d[0] === -dir[0] && d[1] === -dir[1]));
+    const free = opts.filter(d => ok(d, true));
+    if (free.length) {
+      const straight = free.find(d => d[0] === dir[0] && d[1] === dir[1]);
+      return straight && Math.random() < 0.7 ? straight : free[(Math.random() * free.length) | 0];
+    }
+    const any = opts.filter(d => ok(d, false));
+    return any.length ? any[0] : null;
   }
   function step(now) {
     const d = chooseDir();
@@ -119,8 +210,8 @@
     prev = snake.map(s => s.slice());
     const head = [snake[0][0] + dir[0], snake[0][1] + dir[1]];
     snake.unshift(head);
-    if (head[0] === apple[0] && head[1] === apple[1]) {
-      grow += 2; pulseAt = now; burst(head); placeApple();
+    if (apple && head[0] === apple[0] && head[1] === apple[1]) {
+      grow += 2; pulseAt = now; eaten = { x: apple[0], y: apple[1], born: now }; burst(head); placeApple(); appleBorn = now;
     }
     if (grow > 0) { grow--; prev.push(prev[prev.length - 1]); }
     else snake.pop();
@@ -147,8 +238,9 @@
     ctx.clearRect(0, 0, w, bandH);
 
     // apple: glossy green with a leaf, gently bobbing
-    if (apple) {
-      const ax = (apple[0] + 0.5) * CELL, ay = (apple[1] + 0.5) * CELL + Math.sin(now / 300) * 1.5;
+    const backOut = t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+    const drawApple = (ax, ay, sc) => {
+      ctx.save(); ctx.translate(ax, ay); ctx.scale(sc, sc); ctx.translate(-ax, -ay);
       ctx.shadowColor = 'rgba(39, 208, 127, 0.55)'; ctx.shadowBlur = 8 * dpr;
       ctx.fillStyle = '#2ee082';
       ctx.beginPath(); ctx.arc(ax, ay + 1, CELL * 0.32, 0, Math.PI * 2); ctx.fill();
@@ -157,6 +249,12 @@
       ctx.beginPath(); ctx.arc(ax - CELL * 0.1, ay - CELL * 0.08, CELL * 0.08, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#0f7a3f';
       ctx.beginPath(); ctx.ellipse(ax + CELL * 0.12, ay - CELL * 0.32, CELL * 0.13, CELL * 0.06, -0.6, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    };
+    const popIn = Math.max(0, Math.min(1, (now - appleBorn - 420) / 320));
+    if (apple && popIn > 0) {
+      const ax = (apple[0] + 0.5) * CELL, ay = (apple[1] + 0.5) * CELL + Math.sin(now / 300) * 1.5;
+      drawApple(ax, ay, backOut(popIn));
     }
 
     // segment centres this frame (gliding between cells)
@@ -199,11 +297,25 @@
       rr(x + size * 0.16, y + size * 0.12, size * 0.5, size * 0.2, size * 0.1); ctx.fill();
     }
 
+    // eating: the mouth opens as the head closes in on the apple, the apple is
+    // pulled in and shrinks away, then the jaws snap shut with a little chomp
+    const EAT_MS = 260;
+    const eatT = eaten ? (now - eaten.born) / EAT_MS : 2;
+    if (eaten && eatT > 2.2) eaten = null;
+    let open = 0;
+    if (apple && popIn >= 1) {
+      const d = Math.hypot((apple[0] + 0.5) * CELL - C[0][0], (apple[1] + 0.5) * CELL - C[0][1]) / CELL;
+      open = Math.max(0, Math.min(1, (2.6 - d) / 1.8));
+    }
+    if (eatT < 1) open = Math.max(open, 1 - eatT);
+    const chomp = eatT >= 1 && eatT < 1.8 ? Math.sin((eatT - 1) / 0.8 * Math.PI) : 0;
+
     // head: a little bigger, with big eyes facing forward and a flicking tongue
     const [hdx, hdy] = C[0], ang = Math.atan2(dir[1], dir[0]);
     ctx.save();
     ctx.translate(hdx, hdy); ctx.rotate(ang);
-    if ((now % 2400) < 300) {
+    ctx.scale(1 + chomp * 0.14, 1 - chomp * 0.1);
+    if ((now % 2400) < 300 && open < 0.05) {
       ctx.strokeStyle = '#FF2D55'; ctx.lineWidth = 2; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(R * 0.9, 0); ctx.lineTo(R * 1.7, 0);
       ctx.moveTo(R * 1.7, 0); ctx.lineTo(R * 2.05, -R * 0.3);
@@ -216,18 +328,38 @@
     rr(-HS / 2, -HS / 2, HS, HS, HS * 0.3); ctx.fill();
     ctx.fillStyle = 'rgb(255,160,168)';
     rr(-HS * 0.34, -HS * 0.38, HS * 0.45, HS * 0.16, HS * 0.08); ctx.fill();
+    // the mouth: a dark wedge at the front with two little fangs
+    if (open > 0.02) {
+      const mh = HS * 0.36 * open, mx = HS * 0.12;
+      ctx.fillStyle = '#3A0610';
+      ctx.beginPath(); ctx.moveTo(mx, 0); ctx.lineTo(HS / 2 + 2, -mh); ctx.lineTo(HS / 2 + 2, mh); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#FF2D55';
+      ctx.beginPath(); ctx.ellipse(HS * 0.34, 0, HS * 0.12, mh * 0.35, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff';
+      for (const sd of [-1, 1]) {
+        const fy = sd * mh * 0.78;
+        ctx.beginPath(); ctx.moveTo(HS * 0.38, fy); ctx.lineTo(HS * 0.46, fy); ctx.lineTo(HS * 0.42, fy - sd * HS * 0.12 * open); ctx.closePath(); ctx.fill();
+      }
+    }
     const blink = (now % 4200) < 140;
     for (const sd of [-1, 1]) {
       ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.ellipse(R * 0.55, sd * R * 0.48, R * 0.36, blink ? R * 0.06 : R * 0.36, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(R * 0.05, sd * R * 0.5, R * 0.36, blink ? R * 0.06 : R * 0.36, 0, 0, Math.PI * 2); ctx.fill();
       if (!blink) {
         ctx.fillStyle = '#1A0306';
-        ctx.beginPath(); ctx.arc(R * 0.68, sd * R * 0.46, R * 0.18, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(R * 0.18, sd * R * 0.48, R * 0.18, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = '#fff';
-        ctx.beginPath(); ctx.arc(R * 0.62, sd * R * 0.4, R * 0.06, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(R * 0.12, sd * R * 0.42, R * 0.06, 0, Math.PI * 2); ctx.fill();
       }
     }
     ctx.restore();
+
+    if (eaten && eatT < 1) {
+      const ax = (eaten.x + 0.5) * CELL, ay = (eaten.y + 0.5) * CELL;
+      const mxp = hdx + Math.cos(ang) * CELL * 0.3, myp = hdy + Math.sin(ang) * CELL * 0.3;
+      const e = eatT * eatT;
+      drawApple(ax + (mxp - ax) * e, ay + (myp - ay) * e, 1 - eatT * 0.9);
+    }
 
     // little green sparks when an apple is eaten
     sparks = sparks.filter(p => now - p.born < 500);
@@ -251,6 +383,11 @@
     if (++checkN % 2 === 0) tag.classList.toggle('is-off', tagOverControl());
   }
   let tagX = null, tagY = null;
+  setInterval(() => {
+    if (document.hidden || !host) return;
+    scanAssets();
+    if (!apple || blocked[idx(apple[0], apple[1])]) { placeApple(); appleBorn = performance.now(); }
+  }, 1200);
   let checkN = 0;
   function tagOverControl() {
     const r = tag.getBoundingClientRect();
