@@ -283,3 +283,22 @@ html.theme-anim, html.theme-anim body, html.theme-anim section, html.theme-anim 
 .about-card.is-dragging { box-shadow: var(--card-shadow-drag) !important; }
 :root { --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.07); --card-shadow-drag: 0 12px 28px rgba(0, 0, 0, 0.12); }
 html.theme-dark { --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); --card-shadow-drag: 0 14px 32px rgba(0, 0, 0, 0.45); }
+
+/* ── Website laptops: room between each one, and a calm grow on hover
+   instead of the wiggle and bounce ── */
+@media (min-width: 1000px) {
+  .websites__track { column-gap: clamp(56px, 5vw, 96px) !important; row-gap: clamp(36px, 3vw, 56px) !important; }
+}
+#websites .site-card__img-wrap { padding-left: 7% !important; padding-right: 7% !important; }
+#websites .site-card:hover .site-card__img,
+#websites .site-card:hover .site-card__btn,
+#websites .site-card__btn { animation: none !important; }
+#websites .site-card .device--laptop {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+#websites .site-card:hover .device--laptop,
+#websites .site-card:focus-visible .device--laptop { transform: scale(1.05) !important; }
+#websites .site-card:hover .site-card__btn { transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  #websites .site-card:hover .device--laptop { transform: none !important; }
+}
