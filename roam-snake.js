@@ -19,7 +19,7 @@
     .map(id => document.getElementById(id)).filter(Boolean);
   if (!HOSTS.length) return;
 
-  const CELL = 12, STEP_MS = 135, MIN_LEN = 5, MAX_LEN = 14;
+  const CELL = 16, STEP_MS = 150, MIN_LEN = 5, MAX_LEN = 14;
 
   const canvas = document.createElement('canvas');
   canvas.className = 'roam-snake';
@@ -31,6 +31,9 @@
   tag.className = 'roam-snake__tag';
   tag.textContent = 'Click me';
   tag.setAttribute('aria-label', 'Play snake');
+  let hoverTag = false;
+  tag.addEventListener('pointerenter', () => { hoverTag = true; });
+  tag.addEventListener('pointerleave', () => { hoverTag = false; });
   tag.addEventListener('click', e => {
     e.preventDefault();
     if (window.__jbOpenSnake) window.__jbOpenSnake();
@@ -59,6 +62,7 @@
     canvas.style.height = bandH + 'px';
     host.appendChild(canvas);
     host.appendChild(tag);
+    tagX = tagY = null;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(bandH * dpr);
@@ -129,63 +133,170 @@
     }
   }
 
-  /* ── Drawing ── */
-  function roundRect(x, y, ww, hh, r) {
-    ctx.beginPath();
-    ctx.moveTo(x + r, y); ctx.arcTo(x + ww, y, x + ww, y + hh, r); ctx.arcTo(x + ww, y + hh, x, y + hh, r);
-    ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + ww, y, r); ctx.closePath();
+  /* ── Drawing: a little pixel-art snake ──
+     Each cell is an 8 x 8 sprite of 2px pixels. The head is drawn facing
+     right and turned to face where it's going; its tongue flicks out now
+     and then. Positions snap to whole pixels so it stays crisp. */
+  const PX = CELL / 8;
+  const PAL = {
+    O: '#4A0A12',   // outline
+    B: '#D91F3A',   // body
+    H: '#FF5C6C',   // highlight
+    S: '#9E1328',   // scales
+    W: '#FFFFFF',   // eye white
+    K: '#1A0306',   // pupil
+    T: '#FF2D55',   // tongue
+    g: '#2EE082', d: '#0F7A3F', l: '#B8FFD9', s: '#6B3E1E'
+  };
+  const HEAD = [
+    '.OOOOO..',
+    'OHHHHHOO',
+    'OHBBWWKO',
+    'OBBBWWKO',
+    'OBBBBBBS',
+    'OBBBWWKO',
+    'OHBBWWKO',
+    '.OOOOOO.'
+  ];
+  const BODY_A = [
+    '.OOOOOO.',
+    'OHHBBHHO',
+    'OBSBBSBO',
+    'OBBBBBBO',
+    'OBBSBBBO',
+    'OBSBBSBO',
+    'OBBBBBBO',
+    '.OOOOOO.'
+  ];
+  const BODY_B = [
+    '.OOOOOO.',
+    'OHBBHHBO',
+    'OBBSBBBO',
+    'OBSBBSBO',
+    'OBBBBBBO',
+    'OBBSBBSO',
+    'OBBBBBBO',
+    '.OOOOOO.'
+  ];
+  const TAIL = [
+    '........',
+    '..OOOO..',
+    '.OHHBBO.',
+    '.OBSBBO.',
+    '.OBBSBO.',
+    '.OBBBBO.',
+    '..OOOO..',
+    '........'
+  ];
+  const APPLE = [
+    '....d...',
+    '...sdd..',
+    '.gggsgg.',
+    'gglggggg',
+    'glgggggg',
+    'gggggggd',
+    '.gggggd.',
+    '..gg.gg.'
+  ];
+  function sprite(map, x, y, rot, flash) {
+    ctx.save();
+    ctx.translate(Math.round(x + CELL / 2), Math.round(y + CELL / 2));
+    if (rot) ctx.rotate(rot);
+    for (let r = 0; r < 8; r++) {
+      const row = map[r];
+      for (let c = 0; c < 8; c++) {
+        const ch = row[c];
+        if (ch === '.') continue;
+        let col = PAL[ch];
+        if (flash && (ch === 'B' || ch === 'S')) col = PAL.H;
+        ctx.fillStyle = col;
+        ctx.fillRect(-CELL / 2 + c * PX, -CELL / 2 + r * PX, PX, PX);
+      }
+    }
+    ctx.restore();
   }
+  const angle = ([dx, dy]) => Math.atan2(dy, dx);
+
   function render(now) {
     const k = Math.min(1, (now - lastStep) / STEP_MS);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, w, bandH);
 
     if (apple) {
-      const ax = (apple[0] + 0.5) * CELL, ay = (apple[1] + 0.5) * CELL, br = 1 + Math.sin(now / 300) * 0.06;
-      ctx.shadowColor = 'rgba(39, 208, 127, 0.8)'; ctx.shadowBlur = 8 * dpr;
-      ctx.fillStyle = '#2ee082';
-      ctx.beginPath(); ctx.arc(ax, ay + CELL * 0.04, CELL * 0.34 * br, 0, Math.PI * 2); ctx.fill();
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = '#0f7a3f';
-      ctx.beginPath(); ctx.ellipse(ax + CELL * 0.12, ay - CELL * 0.32, CELL * 0.13, CELL * 0.07, -0.6, 0, Math.PI * 2); ctx.fill();
+      const bob = Math.round(Math.sin(now / 280) * 1.5) * PX * 0.5;
+      sprite(APPLE, apple[0] * CELL, apple[1] * CELL + bob, 0, false);
     }
 
-    const pad = CELL * 0.1, age = (now - pulseAt) / 45;
-    ctx.shadowColor = 'rgba(255, 69, 58, 0.6)'; ctx.shadowBlur = 6 * dpr;
-    for (let i = snake.length - 1; i >= 0; i--) {
-      const a = prev[i] || snake[i], b = snake[i];
-      const x = a[0] + (b[0] - a[0]) * k, y = a[1] + (b[1] - a[1]) * k;
-      const t = i / Math.max(1, snake.length - 1);
-      const bulge = age < snake.length + 6 ? 0.3 * Math.exp(-((age - i) ** 2) / 3) : 0;
-      const sz = (CELL - pad * 2) * (1 + bulge), off = (CELL - sz) / 2;
-      ctx.fillStyle = i === 0 ? '#FF6961' : `rgb(${Math.round(224 - t * 90)}, ${Math.round(20 - t * 10)}, ${Math.round(60 - t * 25)})`;
-      roundRect(x * CELL + off, y * CELL + off, sz, sz, CELL * 0.28);
-      ctx.fill();
+    // positions of every segment this frame (gliding between cells, pixel-snapped)
+    const pos = snake.map((b, i) => {
+      const a = prev[i] || b;
+      return [Math.round((a[0] + (b[0] - a[0]) * k) * CELL / PX) * PX, Math.round((a[1] + (b[1] - a[1]) * k) * CELL / PX) * PX];
+    });
+    const gulpAt = (now - pulseAt) / STEP_MS;
+    const n = pos.length;
+    const thick = i => (i === n - 1 ? 4 : i === n - 2 ? 6 : 8) * PX;   // the tail tapers
+    // one continuous body: an outline pass, then the fill on top, then scales
+    const blob = (pad, i) => {
+      const [x, y] = pos[i], t = thick(i), o = (CELL - t) / 2;
+      ctx.fillRect(x + o + pad, y + o + pad, t - pad * 2, t - pad * 2);
+      if (i > 0) {                                    // bridge to the segment in front
+        const [px, py] = pos[i - 1], tt = Math.min(t, thick(i - 1)), oo = (CELL - tt) / 2;
+        const x0 = Math.min(x, px), y0 = Math.min(y, py), x1 = Math.max(x, px), y1 = Math.max(y, py);
+        ctx.fillRect(x0 + oo + pad, y0 + oo + pad, x1 - x0 + tt - pad * 2, y1 - y0 + tt - pad * 2);
+      }
+    };
+    ctx.fillStyle = PAL.O;
+    for (let i = n - 1; i >= 1; i--) blob(0, i);
+    for (let i = n - 1; i >= 1; i--) {
+      const flash = gulpAt < n + 1 && Math.abs(gulpAt - i) < 0.8;
+      ctx.fillStyle = flash ? PAL.H : PAL.B;
+      blob(PX, i);
     }
-    ctx.shadowBlur = 0;
-
-    const h0 = prev[0] || snake[0], h1 = snake[0];
-    const hx = (h0[0] + (h1[0] - h0[0]) * k + 0.5) * CELL, hy = (h0[1] + (h1[1] - h0[1]) * k + 0.5) * CELL;
-    const ex = -dir[1], ey = dir[0];
-    ctx.fillStyle = '#fff';
-    for (const sd of [-1, 1]) {
-      ctx.beginPath();
-      ctx.arc(hx + dir[0] * CELL * 0.16 + ex * sd * CELL * 0.17, hy + dir[1] * CELL * 0.16 + ey * sd * CELL * 0.17, CELL * 0.07, 0, Math.PI * 2);
-      ctx.fill();
+    for (let i = 1; i < n - 1; i++) {                 // diamond scale pattern + a highlight
+      const [x, y] = pos[i], c = CELL / 2;
+      ctx.fillStyle = PAL.S;
+      ctx.fillRect(x + c - PX, y + c - PX * (i % 2 ? 2 : 0), PX, PX);
+      ctx.fillRect(x + c + PX * (i % 2 ? 1 : -2), y + c + PX, PX, PX);
+      ctx.fillStyle = PAL.H;
+      ctx.fillRect(x + c - PX * 2, y + PX * 1.5 + (CELL - thick(i)) / 2, PX * 2, PX);
     }
 
+    // the head on top, facing where it's going, with a tongue that flicks out
+    const [hx0, hy0] = pos[0];
+    sprite(HEAD, hx0, hy0, angle(dir), false);
+    if ((now % 2200) < 260) {
+      ctx.save();
+      ctx.translate(hx0 + CELL / 2, hy0 + CELL / 2);
+      ctx.rotate(angle(dir));
+      ctx.fillStyle = PAL.T;
+      ctx.fillRect(CELL / 2, -PX / 2, PX * 2, PX);
+      ctx.fillRect(CELL / 2 + PX * 2, -PX * 1.5, PX, PX);
+      ctx.fillRect(CELL / 2 + PX * 2, PX * 0.5, PX, PX);
+      ctx.restore();
+    }
+
+    // pixel sparks when an apple is eaten
     sparks = sparks.filter(p => now - p.born < 500);
     for (const p of sparks) {
       const q = (now - p.born) / 500, d = (now - p.born) / 16;
       ctx.globalAlpha = 1 - q;
-      ctx.fillStyle = '#2ee082';
-      ctx.beginPath(); ctx.arc(p.x + p.vx * d * 1.6, p.y + p.vy * d * 1.6, 1.6 * (1 - q * 0.5), 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = q < 0.5 ? PAL.l : PAL.g;
+      ctx.fillRect(Math.round(p.x + p.vx * d * 1.6), Math.round(p.y + p.vy * d * 1.6), PX, PX);
     }
     ctx.globalAlpha = 1;
 
-    // "Click me" floats just above the head
-    tag.style.transform = `translate(${hx.toFixed(1)}px, ${(bandTop + hy - CELL * 1.4).toFixed(1)}px) translate(-50%, -100%)`;
+    // "Click me" glides after the head (eased so it's an easy target)
+    const h0 = prev[0] || snake[0], h1 = snake[0];
+    const hx = (h0[0] + (h1[0] - h0[0]) * k + 0.5) * CELL, hy = (h0[1] + (h1[1] - h0[1]) * k + 0.5) * CELL;
+    const tx = hx, ty = bandTop + hy - CELL * 1.2;
+    if (!hoverTag) {                      // hold still under the pointer
+      tagX = tagX == null ? tx : tagX + (tx - tagX) * 0.3;
+      tagY = tagY == null ? ty : tagY + (ty - tagY) * 0.3;
+    }
+    tag.style.transform = `translate(${tagX.toFixed(1)}px, ${tagY.toFixed(1)}px) translate(-50%, -100%)`;
   }
+  let tagX = null, tagY = null;
 
   const paused = () => document.hidden || document.documentElement.classList.contains('cv-open') ||
     (document.getElementById('screensaver') || {}).classList?.contains('is-active');
@@ -197,8 +308,8 @@
         if (!offSince) offSince = now;
         if (now - offSince > 1200) { offSince = 0; moveTo(bestHost()); lastStep = now; }
       } else offSince = 0;
-      if (!lastStep) lastStep = now;
-      while (now - lastStep >= STEP_MS) { step(now); lastStep += STEP_MS; if (now - lastStep > 1000) lastStep = now; }
+      if (!lastStep || hoverTag) lastStep = now - (hoverTag ? STEP_MS * 0.999 : 0);   // hold still while hovered
+      while (!hoverTag && now - lastStep >= STEP_MS) { step(now); lastStep += STEP_MS; if (now - lastStep > 1000) lastStep = now; }
       render(now);
     } else {
       lastStep = 0;
