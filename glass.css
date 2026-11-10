@@ -703,7 +703,9 @@ html.theme-dark #nav .nav__knob {
 @media (min-width: 561px) {
   .contact__links--below {
     display: flex !important;
-    flex-wrap: wrap;
+    flex-direction: row !important;
+    width: 100%;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     gap: 20px clamp(28px, 4vw, 56px);
