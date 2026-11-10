@@ -807,3 +807,7 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 /* the recording sits above the screenshot (which keeps z-index 1 from the base styles) */
 #websites .site-card .device__media .device__video { z-index: 2; }
 .roam-snake__tag.is-off { opacity: 0 !important; pointer-events: none; animation: none; }
+
+/* No browser bar: the screen is exactly the recording's shape (960 x 494) */
+#websites .site-card .device__screen { aspect-ratio: 960 / 494 !important; background: #000 !important; }
+#websites .site-card .device__bar { display: none !important; }

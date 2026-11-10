@@ -18,14 +18,7 @@
     screen.className = 'device__screen';
     wrap.insertBefore(dev, img);
     dev.appendChild(screen);
-    // A slim browser bar on top (the recordings are wider than a laptop
-    // screen), then the page itself at its true shape underneath
-    const urlEl = card.querySelector('.site-card__url');
-    const bar = document.createElement('div');
-    bar.className = 'device__bar';
-    bar.innerHTML = '<i></i><i></i><i></i><span></span>';
-    bar.querySelector('span').textContent = urlEl ? urlEl.textContent.trim() : '';
-    screen.appendChild(bar);
+    // The page itself, at the recording's true shape
     const media = document.createElement('div');
     media.className = 'device__media';
     screen.appendChild(media);

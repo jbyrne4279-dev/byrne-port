@@ -165,47 +165,38 @@
       const a = prev[i] || b;
       return [(a[0] + (b[0] - a[0]) * k + 0.5) * CELL, (a[1] + (b[1] - a[1]) * k + 0.5) * CELL];
     });
-    // dense points along the body so it reads as one smooth tube
-    const pts = [];
-    const SUB = 14;
-    for (let i = 0; i < n - 1; i++) {
-      for (let s2 = 0; s2 < SUB; s2++) {
-        const u = s2 / SUB;
-        pts.push([C[i][0] + (C[i + 1][0] - C[i][0]) * u, C[i][1] + (C[i + 1][1] - C[i][1]) * u, (i + u) / (n - 1)]);
-      }
-    }
-    pts.push([C[n - 1][0], C[n - 1][1], 1]);
-    // tail wag: a sideways wave that grows towards the tip
-    for (let q = 0; q < pts.length; q++) {
-      const p = pts[q], t = p[2];
-      if (t < 0.45) continue;
-      const a = pts[Math.max(0, q - 1)], b = pts[Math.min(pts.length - 1, q + 1)];
-      let dx = b[0] - a[0], dy = b[1] - a[1]; const len = Math.hypot(dx, dy) || 1; dx /= len; dy /= len;
-      const amt = Math.sin(now / 150 - t * 9) * CELL * 0.22 * Math.pow((t - 0.45) / 0.55, 1.5);
-      p[3] = p[0] - dy * amt; p[4] = p[1] + dx * amt;
-    }
-    const X = p => (p[3] != null ? p[3] : p[0]), Y = p => (p[4] != null ? p[4] : p[1]);
+    // blocky body: one rounded block per segment with a small gap, glossy on
+    // top, red to deep red down the body; the last few blocks shrink into a
+    // tail that wags from side to side
     const R = CELL * 0.4;
-    const rad = t => R * (t < 0.55 ? 1 : 1 - 0.92 * Math.pow((t - 0.55) / 0.45, 1.3));   // pointed tail
-
-    const gulpAt = (now - pulseAt) / STEP_MS / Math.max(1, n - 1);
-    // outline, then the red body, tail first so the head sits on top
-    ctx.fillStyle = '#6E0C1B';
-    for (let q = pts.length - 1; q >= 0; q--) { const p = pts[q]; ctx.beginPath(); ctx.arc(X(p), Y(p), rad(p[2]) + 1.6, 0, Math.PI * 2); ctx.fill(); }
-    for (let q = pts.length - 1; q >= 0; q--) {
-      const p = pts[q], t = p[2];
-      const bulge = gulpAt < 1.15 ? Math.exp(-((t - gulpAt) ** 2) / 0.004) * 0.35 : 0;   // a gulp travels down
+    const TAIL = 5;
+    const gulpAt = (now - pulseAt) / STEP_MS;
+    const rr = (x, y, ww, hh, r) => {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.arcTo(x + ww, y, x + ww, y + hh, r); ctx.arcTo(x + ww, y + hh, x, y + hh, r);
+      ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + ww, y, r); ctx.closePath();
+    };
+    for (let i = n - 1; i >= 1; i--) {
+      const t = i / Math.max(1, n - 1);
+      const fromEnd = n - 1 - i;
+      const shrink = fromEnd < TAIL ? 0.45 + 0.55 * (fromEnd / TAIL) : 1;
+      const bulge = gulpAt < n + 1 ? 0.25 * Math.exp(-((gulpAt - i) ** 2) / 2) : 0;
+      const size = CELL * 0.86 * shrink * (1 + bulge);
+      let [cx0, cy0] = C[i];
+      if (fromEnd < TAIL) {                       // wag: sideways to the body's direction
+        const a = C[i - 1], dx = a[0] - cx0, dy = a[1] - cy0, len = Math.hypot(dx, dy) || 1;
+        const amt = Math.sin(now / 140 - i * 0.9) * CELL * 0.16 * (1 - fromEnd / TAIL + 0.2);
+        cx0 += (-dy / len) * amt; cy0 += (dx / len) * amt;
+      }
       const c = mix(HEAD_RGB, TAIL_RGB, t);
+      const x = cx0 - size / 2, y = cy0 - size / 2, rad2 = size * 0.28;
+      ctx.fillStyle = '#6E0C1B';
+      rr(x - 1.5, y - 1.5, size + 3, size + 3, rad2 + 1.5); ctx.fill();
       ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
-      ctx.beginPath(); ctx.arc(X(p), Y(p), rad(t) * (1 + bulge), 0, Math.PI * 2); ctx.fill();
-    }
-    // glossy highlight along the back (solid colours, so no beading where they overlap)
-    for (let q = pts.length - 1; q >= 0; q--) {
-      const p = pts[q], t = p[2];
-      if (t > 0.88) continue;
-      const c = mix(mix(HEAD_RGB, TAIL_RGB, t), [255, 255, 255], 0.32 * (1 - t));
-      ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
-      ctx.beginPath(); ctx.arc(X(p) - rad(t) * 0.18, Y(p) - rad(t) * 0.36, rad(t) * 0.3, 0, Math.PI * 2); ctx.fill();
+      rr(x, y, size, size, rad2); ctx.fill();
+      const hl = mix(c, [255, 255, 255], 0.35);
+      ctx.fillStyle = `rgb(${hl[0]},${hl[1]},${hl[2]})`;
+      rr(x + size * 0.16, y + size * 0.12, size * 0.5, size * 0.2, size * 0.1); ctx.fill();
     }
 
     // head: a little bigger, with big eyes facing forward and a flicking tongue
@@ -218,12 +209,13 @@
       ctx.moveTo(R * 1.7, 0); ctx.lineTo(R * 2.05, -R * 0.3);
       ctx.moveTo(R * 1.7, 0); ctx.lineTo(R * 2.05, R * 0.3); ctx.stroke();
     }
+    const HS = CELL * 1.0;                         // the head block is a touch bigger
     ctx.fillStyle = '#6E0C1B';
-    ctx.beginPath(); ctx.ellipse(R * 0.15, 0, R * 1.22 + 1.6, R * 1.08 + 1.6, 0, 0, Math.PI * 2); ctx.fill();
+    rr(-HS / 2 - 1.5, -HS / 2 - 1.5, HS + 3, HS + 3, HS * 0.3 + 1.5); ctx.fill();
     ctx.fillStyle = `rgb(${HEAD_RGB.join(',')})`;
-    ctx.beginPath(); ctx.ellipse(R * 0.15, 0, R * 1.22, R * 1.08, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.beginPath(); ctx.ellipse(-R * 0.1, -R * 0.5, R * 0.5, R * 0.25, 0, 0, Math.PI * 2); ctx.fill();
+    rr(-HS / 2, -HS / 2, HS, HS, HS * 0.3); ctx.fill();
+    ctx.fillStyle = 'rgb(255,160,168)';
+    rr(-HS * 0.34, -HS * 0.38, HS * 0.45, HS * 0.16, HS * 0.08); ctx.fill();
     const blink = (now % 4200) < 140;
     for (const sd of [-1, 1]) {
       ctx.fillStyle = '#fff';
