@@ -5,7 +5,7 @@
   background: #000;
   --vl-panel: #0f0f11; --vl-panel-2: #17171a;
   --vl-line: rgba(255,255,255,0.08); --vl-line-2: rgba(255,255,255,0.16);
-  --vl-label: #f5f5f7; --vl-label-2: #a1a1a8; --vl-label-3: #6e6e76; --vl-accent: #e0143c;
+  --vl-label: #f5f5f7; --vl-label-2: #a1a1a8; --vl-label-3: #6e6e76; --vl-accent: #FF453A;
 }
 .vl-body.vl-lock { overflow: hidden; }
 .vl-page {
@@ -44,8 +44,8 @@
 .vl-btn:focus-visible, .vl-card:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 3px; }
 .vl-btn--ghost { background: transparent; border-color: var(--vl-line-2); color: var(--vl-label); }
 .vl-btn--ghost:hover { border-color: rgba(255,255,255,.35); }
-.vl-btn--danger { background: transparent; border-color: rgba(255,107,132,.35); color: #ff6b84; }
-.vl-btn--danger:hover { background: rgba(224,20,60,.12); }
+.vl-btn--danger { background: transparent; border-color: rgba(255,107,132,.35); color: #FF6961; }
+.vl-btn--danger:hover { background: rgba(255, 69, 58,.12); }
 
 /* Upload */
 .vl-upload { margin-bottom: 28px; padding: 22px; border-radius: 18px; border: 1px solid var(--vl-line); background: var(--vl-panel); }
@@ -55,7 +55,7 @@
 .vl-row input:focus { outline: 0; border-color: var(--vl-accent); }
 .vl-hint { margin: 10px 0 0; font-size: 13px; color: var(--vl-label-2); }
 .vl-drop { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 42px 20px; border-radius: 14px; border: 1.5px dashed rgba(255,255,255,.2); cursor: pointer; text-align: center; transition: border-color .2s, background .2s; }
-.vl-drop:hover, .vl-drop.is-over { border-color: var(--vl-accent); background: rgba(224,20,60,.05); }
+.vl-drop:hover, .vl-drop.is-over { border-color: var(--vl-accent); background: rgba(255, 69, 58,.05); }
 .vl-drop__title { font-size: 18px; font-weight: 600; }
 .vl-drop__hint { font-size: 13px; color: var(--vl-label-2); }
 .vl-queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -66,7 +66,7 @@
 .vl-job__bar i { display: block; height: 100%; width: 0; background: var(--vl-accent); border-radius: 6px; transition: width .25s; }
 .vl-job.is-done .vl-job__bar i { background: #34c759; }
 .vl-job__msg { margin: 0; font-size: 12.5px; color: var(--vl-label-2); }
-.vl-job.is-error .vl-job__msg { color: #ff6b84; }
+.vl-job.is-error .vl-job__msg { color: #FF6961; }
 .vl-job.is-done .vl-job__msg { color: #5fd884; }
 
 /* Grid */
@@ -90,7 +90,7 @@
 .vl-player__box { position: relative; width: min(1100px, 100%); max-height: 100%; overflow: auto; border-radius: 18px; background: #0f0f11; border: 1px solid rgba(255,255,255,.1); color: #f5f5f7; }
 .vl-player video { display: block; width: 100%; max-height: 70vh; background: #000; }
 .vl-player__close { position: absolute; top: 10px; right: 10px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
-.vl-player__close:hover { background: var(--vl-accent, #e0143c); }
+.vl-player__close:hover { background: var(--vl-accent, #FF453A); }
 .vl-player__warn { margin: 0; padding: 10px 20px; background: rgba(245,166,35,.1); color: #f7b955; font-size: 13px; }
 .vl-player__meta { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; padding: 18px 20px 20px; }
 .vl-player__meta h2 { margin: 0 0 4px; font: 600 19px/1.3 var(--font-body); letter-spacing: 0; text-transform: none; text-align: left; }
@@ -129,7 +129,7 @@
 .vl-field i { color: var(--vl-accent); font-style: normal; }
 .vl-field input { height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--vl-line-2); background: #0b0b0d; color: var(--vl-label); font: 400 14px var(--font-body); width: 100%; box-sizing: border-box; }
 .vl-field input:focus { outline: 0; border-color: var(--vl-accent); }
-.vl-field input.is-invalid { border-color: #ff6b84; box-shadow: 0 0 0 3px rgba(255,107,132,.15); }
+.vl-field input.is-invalid { border-color: #FF6961; box-shadow: 0 0 0 3px rgba(255,107,132,.15); }
 .vl-field input:disabled { opacity: .7; }
 .vl-job__chips { display: flex; flex-wrap: wrap; gap: 4px; font-style: normal; min-height: 0; }
 .vl-job__chips b { padding: 1px 7px; border-radius: 6px; background: rgba(76,141,255,.12); color: #8fb6ff; font: 500 11px var(--font-body); }

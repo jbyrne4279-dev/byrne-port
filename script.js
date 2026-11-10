@@ -43,7 +43,7 @@
       const x = i * fontSize;
       const y = drops[i] * fontSize;
       // bright leading glyph, dimmer red trail
-      ctx.fillStyle = Math.random() > 0.975 ? '#ff5a6e' : '#c8001f';
+      ctx.fillStyle = Math.random() > 0.975 ? '#FF6961' : '#FF453A';
       ctx.fillText(ch, x, y);
       if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;
@@ -201,7 +201,7 @@
 
   function die(x, y) {
     explode(x, y);
-    floatText(canvas.width / 2, canvas.height * 0.28, `Game over · ${score}`, '#ff3b5c');
+    floatText(canvas.width / 2, canvas.height * 0.28, `Game over · ${score}`, '#FF6961');
     best = Math.max(best, score);
     deadUntil = now + 900;            // freeze briefly on the explosion, then restart
   }
@@ -259,7 +259,7 @@
       const pts = effects.double > now ? 2 : 1;
       grow += 3;
       if (manual) score += pts;
-      burst(cx(nx), cy(ny), ['#2ee082', '#9dffc9', '#ff3b5c', '#ffffff'], 26, 0.32);
+      burst(cx(nx), cy(ny), ['#2ee082', '#9dffc9', '#FF6961', '#ffffff'], 26, 0.32);
       rings.push({ x: cx(nx), y: cy(ny), born: now, color: 'rgba(46,224,130,', max: cell * 2.2 });
       floatText(cx(nx), cy(ny) - cell * 0.4, `+${pts}`, pts > 1 ? POWERS.double.color : '#2ee082');
       pulseAt = now;
@@ -365,13 +365,13 @@
     // red snake, brightest at the head; a gulp ripples down it after eating
     const shielded = effects.shield > now, dead = now < deadUntil;
     const pad = Math.max(1, cell * 0.08), age = (now - pulseAt) / 45;
-    ctx.shadowColor = shielded ? 'rgba(77,163,255,.9)' : 'rgba(255, 20, 60, 0.8)'; ctx.shadowBlur = 14 * dpr;
+    ctx.shadowColor = shielded ? 'rgba(77,163,255,.9)' : 'rgba(255, 69, 58, 0.8)'; ctx.shadowBlur = 14 * dpr;
     snake.forEach(([x, y], i) => {
       const t = i / Math.max(1, snake.length - 1);
       const bulge = age < snake.length + 6 ? 0.28 * Math.exp(-((age - i) ** 2) / 3) : 0;
       const s = (cell - pad * 2) * (1 + bulge), off = (cell - s) / 2;
       ctx.fillStyle = dead ? `rgba(120,30,30,${1 - t * 0.6})`
-        : i === 0 ? '#ff3b5c' : `rgb(${Math.round(224 - t * 90)}, ${Math.round(20 - t * 10)}, ${Math.round(60 - t * 25)})`;
+        : i === 0 ? '#FF6961' : `rgb(${Math.round(224 - t * 90)}, ${Math.round(20 - t * 10)}, ${Math.round(60 - t * 25)})`;
       roundRect(ox + x * cell + off, oy + y * cell + off, s, s, cell * 0.28);
       ctx.fill();
     });
@@ -548,8 +548,8 @@
   // Red cursor trail flash on click
   document.addEventListener('mousedown', () => {
     cursor.style.opacity = '1';
-    cursor.style.border = '1px solid var(--red, #B00020)';
-    cursor.style.boxShadow = '0 0 24px rgba(176,0,32,0.7), inset 0 0 16px rgba(176,0,32,0.3)';
+    cursor.style.border = '1px solid var(--red, #FF453A)';
+    cursor.style.boxShadow = '0 0 24px rgba(255, 69, 58,0.7), inset 0 0 16px rgba(255, 69, 58,0.3)';
   });
   document.addEventListener('mouseup', () => {
     cursor.style.opacity = '';
@@ -1161,7 +1161,7 @@
 function initMist(canvasId) {
   // colour palette per canvas: red mist by default, charcoal smoke for contact
   const SMOKE = canvasId === 'contactSmoke';
-  const PALETTE = SMOKE ? ['200,15,35', '120,8,20'] : ['216,20,40', '140,10,24'];
+  const PALETTE = SMOKE ? ['255,69,58', '150,30,26'] : ['255,69,58', '170,36,30'];   // Apple system red, light and deep
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');

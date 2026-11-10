@@ -17,7 +17,7 @@
   --sep:     rgba(255,255,255,0.10);
   --fill:    rgba(255,255,255,0.07);   /* secondary system fill */
   --fill-2:  rgba(255,255,255,0.13);
-  --ap-red: #B00020;
+  --ap-red: #FF453A;
   /* Glass recipe: translucent panel + hairline + specular top edge + depth shadow */
   --glass-bg:      rgba(255,255,255,0.055);
   --glass-bg-2:    rgba(255,255,255,0.09);
@@ -147,7 +147,7 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 18px;
-  box-shadow: var(--glass-shadow), 0 0 28px rgba(176,0,32,0.14);
+  box-shadow: var(--glass-shadow), 0 0 28px rgba(255, 69, 58,0.14);
 }
 .cal-live__meta { grid-column: 2; }
 /* Electric-red edge trail running around the banner */
@@ -159,8 +159,8 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   padding: 2px;
   background: conic-gradient(from var(--cal-angle),
     transparent 0deg, transparent 200deg,
-    rgba(176,0,32,0.35) 250deg,
-    #B00020 300deg, #FF3B30 330deg, #FFFFFF 345deg, #B00020 360deg);
+    rgba(255, 69, 58,0.35) 250deg,
+    #FF453A 300deg, #FF3B30 330deg, #FFFFFF 345deg, #FF453A 360deg);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -170,7 +170,7 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
 }
 @keyframes cal-trail { to { --cal-angle: 360deg; } }
 @media (prefers-reduced-motion: reduce) {
-  .cal-live::before { animation: none; background: linear-gradient(90deg, #B00020, #FF3B30); opacity: 0.5; }
+  .cal-live::before { animation: none; background: linear-gradient(90deg, #FF453A, #FF3B30); opacity: 0.5; }
 }
 .cal-live__today { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .cal-live__dot {
@@ -225,14 +225,14 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   transition: left 0.9s var(--ease-out), box-shadow 0.15s, transform 0.15s;
   pointer-events: none;
 }
-.cal-live__track:hover .cal-live__marker { box-shadow: 0 0 0 6px rgba(176,0,32,0.18), 0 1px 5px rgba(0,0,0,0.35); }
+.cal-live__track:hover .cal-live__marker { box-shadow: 0 0 0 6px rgba(255, 69, 58,0.18), 0 1px 5px rgba(0,0,0,0.35); }
 .cal-live__track.is-scrubbing { cursor: grabbing; }
 .cal-live__track.is-scrubbing .cal-live__marker {
   transition: none;
   transform: translate(-50%, -50%) scale(1.15);
-  box-shadow: 0 0 0 8px rgba(176,0,32,0.22), 0 1px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 8px rgba(255, 69, 58,0.22), 0 1px 6px rgba(0,0,0,0.4);
 }
-.cal-live__track:focus-visible .cal-live__marker { box-shadow: 0 0 0 6px rgba(176,0,32,0.28); }
+.cal-live__track:focus-visible .cal-live__marker { box-shadow: 0 0 0 6px rgba(255, 69, 58,0.28); }
 /* Floating month bubble shown while scrubbing */
 .cal-live__bubble {
   position: absolute;
@@ -803,16 +803,16 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
 .cal-day.is-selected {
   border-color: var(--ap-red);
   box-shadow: 0 0 0 1.5px var(--ap-red),
-              0 0 14px -1px rgba(176,0,32,0.85),
-              0 0 34px -6px rgba(176,0,32,0.55);
+              0 0 14px -1px rgba(255, 69, 58,0.85),
+              0 0 34px -6px rgba(255, 69, 58,0.55);
 }
 /* Selecting today itself: the deliberate click wins over the ambient
    "today" ring so the two states stay visually distinct. */
 .cal-day.is-today.is-selected {
   border-color: var(--ap-red);
   box-shadow: 0 0 0 1.5px var(--ap-red),
-              0 0 14px -1px rgba(176,0,32,0.85),
-              0 0 34px -6px rgba(176,0,32,0.55);
+              0 0 14px -1px rgba(255, 69, 58,0.85),
+              0 0 34px -6px rgba(255, 69, 58,0.55);
 }
 
 /* ── AGENDA ── */

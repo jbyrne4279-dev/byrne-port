@@ -85,7 +85,7 @@
       }));
     }
 
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#B00020';
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#FF453A';
 
     function tick() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

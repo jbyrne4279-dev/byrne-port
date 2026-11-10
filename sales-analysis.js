@@ -778,8 +778,8 @@
   const PILLS = [
     { key: 'all',         label: 'All products',       dot: null,          test: () => true },
     { key: 'act',         label: 'Reorder now',        dot: 'var(--red)',  test: p => p.status === 'act' },
-    { key: 'runningOut',  label: 'Running out',        dot: '#ff6b84',     test: p => p.flags.has('runningOut') },
-    { key: 'outOfStock',  label: 'Sold out somewhere', dot: '#ff6b84',     test: p => p.flags.has('outOfStock') },
+    { key: 'runningOut',  label: 'Running out',        dot: '#FF6961',     test: p => p.flags.has('runningOut') },
+    { key: 'outOfStock',  label: 'Sold out somewhere', dot: '#FF6961',     test: p => p.flags.has('outOfStock') },
     { key: 'highSales',   label: 'High sales',         dot: '#4c8dff',     test: p => p.flags.has('highSales') },
     { key: 'lowSales',    label: 'Low sales',          dot: '#8a8a92',     test: p => p.flags.has('lowSales') },
     { key: 'highUnits',   label: 'Highest units sold', dot: '#4c8dff',     test: p => p.flags.has('highUnits'), needs: 'unitsAny' },
@@ -1606,7 +1606,7 @@
     return `<span class="sa-ico sa-ico--letter">${esc((label.trim()[0] || '?').toUpperCase())}</span>`;
   }
 
-  const PIE_PAL = ['#e0143c', '#4c8dff', '#f7b955', '#5fd884', '#b28bff', '#2ec4b6', '#ff8fab'];
+  const PIE_PAL = ['#FF453A', '#4c8dff', '#f7b955', '#5fd884', '#b28bff', '#2ec4b6', '#ff8fab'];
   // Top 6 slices by the given column, rest grouped as "Other"; colours follow
   // the actual colour for colour breakdowns, otherwise a fixed palette by rank
   function pieSlices(rows, col, labelCol, head, refCol) {

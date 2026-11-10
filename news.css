@@ -14,11 +14,11 @@
 }
 
 .nw {
-  --red: #ff002e;
+  --red: #FF453A;
   --ai: #3b82f6;      /* electric blue */
   --fashion: #ff3d8b; /* magenta */
   --markets: #27d07f; /* green */
-  --breaking: #ff002e;/* red */
+  --breaking: #FF453A;/* red */
   --ink: #ececf1;
   --muted: #8a8a98;
   --card: #0e0e13;
@@ -77,7 +77,7 @@
 .nw-ticker {
   display: flex; align-items: stretch; gap: 0;
   border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
-  background: linear-gradient(90deg, rgba(255,0,46,.08), transparent 40%);
+  background: linear-gradient(90deg, rgba(255, 69, 58,.08), transparent 40%);
   margin: 10px 0 44px;
 }
 .nw-ticker__tag {
