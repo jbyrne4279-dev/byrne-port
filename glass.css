@@ -733,7 +733,35 @@ html.theme-dark #nav .nav__knob {
 #websites .site-card .device__screen .device__video.is-playing { opacity: 1; }
 
 /* Laptop screens match the recordings exactly (960 x 494), so nothing is cropped */
-#websites .site-card .device__screen { aspect-ratio: 960 / 494 !important; box-sizing: content-box !important; width: calc(100% - 16px); }
+/* Laptop screen at MacBook proportions: a browser bar on top, then the
+   recording at its true 960 x 494 shape, so nothing is squashed or cropped */
+#websites .site-card .device__screen {
+  aspect-ratio: 16 / 10 !important; box-sizing: content-box !important; width: calc(100% - 16px);
+  display: flex; flex-direction: column;
+  background: #ECECEF;
+}
+html.theme-dark #websites .site-card .device__screen { background: #2C2C2E; }
+#websites .site-card .device__bar {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: center; gap: 4%;
+  padding: 0 3%;
+}
+#websites .site-card .device__bar i { flex: 0 0 auto; width: 2.2%; aspect-ratio: 1; border-radius: 50%; background: #FF5F57; margin-right: -2.4%; }
+#websites .site-card .device__bar i:nth-child(2) { background: #FEBC2E; }
+#websites .site-card .device__bar i:nth-child(3) { background: #28C840; margin-right: 0; }
+#websites .site-card .device__bar span {
+  flex: 1; margin: 0 8%;
+  height: 52%; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #6E6E73;
+  font: 500 clamp(6px, 0.62vw, 10px)/1 var(--g-font);
+  white-space: nowrap; overflow: hidden;
+}
+html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 255, 255, 0.1); color: #AEAEB2; }
+#websites .site-card .device__media { position: relative; flex: 0 0 auto; width: 100%; aspect-ratio: 960 / 494; overflow: hidden; background: #000; }
+#websites .site-card .device__media .site-card__img { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; object-fit: cover; object-position: top center; }
 #websites .site-card .device__screen .device__video { object-fit: contain !important; object-position: center !important; background: #000; }
 #websites .site-card__img-wrap { aspect-ratio: auto !important; }
 

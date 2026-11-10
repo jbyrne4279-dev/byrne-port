@@ -18,7 +18,18 @@
     screen.className = 'device__screen';
     wrap.insertBefore(dev, img);
     dev.appendChild(screen);
-    screen.appendChild(img);
+    // A slim browser bar on top (the recordings are wider than a laptop
+    // screen), then the page itself at its true shape underneath
+    const urlEl = card.querySelector('.site-card__url');
+    const bar = document.createElement('div');
+    bar.className = 'device__bar';
+    bar.innerHTML = '<i></i><i></i><i></i><span></span>';
+    bar.querySelector('span').textContent = urlEl ? urlEl.textContent.trim() : '';
+    screen.appendChild(bar);
+    const media = document.createElement('div');
+    media.className = 'device__media';
+    screen.appendChild(media);
+    media.appendChild(img);
     // A looping screen recording plays over the screenshot when there is one
     if (img.dataset.video && !reduce) {
       const v = document.createElement('video');
@@ -29,7 +40,7 @@
       if (img.dataset.poster) v.poster = img.dataset.poster;
       v.dataset.src = img.dataset.video;
       v.dataset.webm = img.dataset.video.replace(/\.mp4$/, '.webm');
-      screen.appendChild(v);
+      media.appendChild(v);
       dev._video = v;
     }
     devices.push(dev);
