@@ -14,6 +14,8 @@
 (function initRoamingSnake() {
   if (!document.getElementById('home')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Not on phones and tablets: the snake and its game are a desktop easter egg
+  if (window.matchMedia('(max-width: 768px), (hover: none), (pointer: coarse)').matches) return;
 
   const HOSTS = ['home', 'about', 'portfolio', 'websites', 'tools', 'contact']
     .map(id => document.getElementById(id)).filter(Boolean);

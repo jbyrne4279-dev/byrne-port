@@ -75,6 +75,8 @@
   const saver = document.getElementById('screensaver');
   const canvas = document.getElementById('screensaverCanvas');
   if (!saver || !canvas) return;
+  // No snake game on phones and tablets
+  if (window.matchMedia('(max-width: 768px), (hover: none), (pointer: coarse)').matches) { saver.remove(); return; }
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const IDLE_MS = 30000;
