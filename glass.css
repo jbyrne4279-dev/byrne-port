@@ -605,3 +605,6 @@ html.theme-dark .contact__icon { color: #FF453A; }
   .contact__links--below .contact__link { justify-content: flex-start !important; }
   .contact__links--below .contact__link-value { flex: 1; text-align: right; }
 }
+
+/* Hidden gem: the little roaming snake on the homepage */
+.roam-snake { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 90; pointer-events: none; }
