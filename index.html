@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=175" data-dark="styles.dark.css?v=1">
-  <link rel="stylesheet" href="glass.css?v=7">
+  <link rel="stylesheet" href="glass.css?v=8">
   <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 
   <!-- Structured Data -->
@@ -775,6 +775,41 @@
             <span class="contact__link-label">Phone</span>
             <span class="contact__link-value">🇬🇧 07841 422 281</span>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infinite gallery: two identical sets back to back, slid exactly -50%
+         so the loop is seamless. The second set is a visual clone. -->
+    <div class="gallery" aria-label="Project gallery">
+      <div class="gallery__track">
+        <div class="gallery__set">
+          <a class="gallery__item" href="project?slug=clothing-brand"><img src="assets/gallery/clothing-brand.webp" alt="My Clothing Brand" decoding="async"><span class="gallery__cap">My Clothing Brand</span></a>
+          <a class="gallery__item" href="project?slug=named-collective"><img src="assets/gallery/named-collective.webp" alt="Named Collective" decoding="async"><span class="gallery__cap">Named Collective</span></a>
+          <a class="gallery__item" href="project?slug=next-collection"><img src="assets/gallery/next-collection.webp" alt="NEXT A/W 25/26 Collection" decoding="async"><span class="gallery__cap">NEXT A/W 25/26 Collection</span></a>
+          <a class="gallery__item" href="project?slug=selfridges-project"><img src="assets/gallery/selfridges-project.webp" alt="Selfridges" decoding="async"><span class="gallery__cap">Selfridges</span></a>
+          <a class="gallery__item" href="project?slug=trimas-internship"><img src="assets/gallery/trimas-internship.webp" alt="TriMas Internship" decoding="async"><span class="gallery__cap">TriMas Internship</span></a>
+          <a class="gallery__item" href="project?slug=cafe-compliance"><img src="assets/gallery/cafe-compliance.webp" alt="North Hertfordshire Council" decoding="async"><span class="gallery__cap">North Hertfordshire Council</span></a>
+          <a class="gallery__item" href="project?slug=arc26"><img src="assets/gallery/arc26.webp" alt="Arc26" decoding="async"><span class="gallery__cap">Arc26</span></a>
+          <a class="gallery__item" href="project?slug=reinstatement-cost-assessment"><img src="assets/gallery/reinstatement-cost-assessment.webp" alt="Surveying Firm" decoding="async"><span class="gallery__cap">Surveying Firm</span></a>
+          <a class="gallery__item" href="project?slug=trend-forecasting"><img src="assets/gallery/trend-forecasting.webp" alt="Trend Forecasting" decoding="async"><span class="gallery__cap">Trend Forecasting</span></a>
+          <a class="gallery__item" href="project?slug=slimmer-app"><img src="assets/gallery/slimmer-app.webp" alt="Slimmer App" decoding="async"><span class="gallery__cap">Slimmer App</span></a>
+          <a class="gallery__item" href="project?slug=cv-lab"><img src="assets/gallery/cv-lab.webp" alt="CV Lab SaaS" decoding="async"><span class="gallery__cap">CV Lab SaaS</span></a>
+          <a class="gallery__item" href="project?slug=make-progress"><img src="assets/gallery/make-progress.webp" alt="Make Progress" decoding="async"><span class="gallery__cap">Make Progress</span></a>
+        </div>
+        <div class="gallery__set" aria-hidden="true">
+          <a class="gallery__item" href="project?slug=clothing-brand" tabindex="-1"><img src="assets/gallery/clothing-brand.webp" alt="My Clothing Brand" decoding="async"><span class="gallery__cap">My Clothing Brand</span></a>
+          <a class="gallery__item" href="project?slug=named-collective" tabindex="-1"><img src="assets/gallery/named-collective.webp" alt="Named Collective" decoding="async"><span class="gallery__cap">Named Collective</span></a>
+          <a class="gallery__item" href="project?slug=next-collection" tabindex="-1"><img src="assets/gallery/next-collection.webp" alt="NEXT A/W 25/26 Collection" decoding="async"><span class="gallery__cap">NEXT A/W 25/26 Collection</span></a>
+          <a class="gallery__item" href="project?slug=selfridges-project" tabindex="-1"><img src="assets/gallery/selfridges-project.webp" alt="Selfridges" decoding="async"><span class="gallery__cap">Selfridges</span></a>
+          <a class="gallery__item" href="project?slug=trimas-internship" tabindex="-1"><img src="assets/gallery/trimas-internship.webp" alt="TriMas Internship" decoding="async"><span class="gallery__cap">TriMas Internship</span></a>
+          <a class="gallery__item" href="project?slug=cafe-compliance" tabindex="-1"><img src="assets/gallery/cafe-compliance.webp" alt="North Hertfordshire Council" decoding="async"><span class="gallery__cap">North Hertfordshire Council</span></a>
+          <a class="gallery__item" href="project?slug=arc26" tabindex="-1"><img src="assets/gallery/arc26.webp" alt="Arc26" decoding="async"><span class="gallery__cap">Arc26</span></a>
+          <a class="gallery__item" href="project?slug=reinstatement-cost-assessment" tabindex="-1"><img src="assets/gallery/reinstatement-cost-assessment.webp" alt="Surveying Firm" decoding="async"><span class="gallery__cap">Surveying Firm</span></a>
+          <a class="gallery__item" href="project?slug=trend-forecasting" tabindex="-1"><img src="assets/gallery/trend-forecasting.webp" alt="Trend Forecasting" decoding="async"><span class="gallery__cap">Trend Forecasting</span></a>
+          <a class="gallery__item" href="project?slug=slimmer-app" tabindex="-1"><img src="assets/gallery/slimmer-app.webp" alt="Slimmer App" decoding="async"><span class="gallery__cap">Slimmer App</span></a>
+          <a class="gallery__item" href="project?slug=cv-lab" tabindex="-1"><img src="assets/gallery/cv-lab.webp" alt="CV Lab SaaS" decoding="async"><span class="gallery__cap">CV Lab SaaS</span></a>
+          <a class="gallery__item" href="project?slug=make-progress" tabindex="-1"><img src="assets/gallery/make-progress.webp" alt="Make Progress" decoding="async"><span class="gallery__cap">Make Progress</span></a>
         </div>
       </div>
     </div>
