@@ -879,3 +879,21 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 
 /* Snake game: the scoreboard replaces the old "Use the arrow keys · Score" line */
 .screensaver__play { display: none !important; }
+
+/* ── Phones: the same icon islands as desktop (no hamburger) ──
+   Tools + Contact on the left, Home / Work / Sites in the middle and the
+   day/night switch on the right. */
+@media (max-width: 768px) {
+  #nav ul.nav__links.nav__links--icons { display: flex !important; }
+  #nav .nav__menu, #menuBtn { display: none !important; }
+  #nav .nav__links--side { left: 12px; }
+  #nav .theme-switch { left: auto; right: 12px; }
+  #nav .nav__links--icons a, #nav .nav__knob { width: 34px; height: 30px; }
+  /* no hover tooltips on touch screens */
+  #nav .nav__links--icons a[data-tip]::before { display: none; }
+}
+@media (max-width: 340px) {
+  #nav .nav__links--icons a, #nav .nav__knob { width: 30px; }
+  #nav .theme-switch { width: 48px; }
+  html.theme-dark #nav .theme-switch__knob { transform: translateX(18px); }
+}
