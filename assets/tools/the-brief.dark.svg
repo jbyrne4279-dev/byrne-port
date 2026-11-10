@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#160403"/><stop offset="0.55" stop-color="#0b0202"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#FF453A" stroke-opacity="0.08" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect x="470" y="230" width="660" height="560" rx="60" fill="#FF453A" opacity="0.12" filter="url(#soft)"/>
+
+  <!-- Newspaper: front page with a folded-back inner page -->
+  <g filter="url(#glow)" fill="none" stroke="#FF453A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M560 250h480a50 50 0 0 1 50 50v430a60 60 0 0 1-60 60H530"/>
+    <path d="M560 250v480a60 60 0 0 1-60 60h0a60 60 0 0 1-60-60V420h120"/>
+    <line x1="640" y1="470" x2="1010" y2="470"/>
+    <line x1="640" y1="560" x2="800" y2="560"/>
+    <line x1="640" y1="640" x2="800" y2="640"/>
+    <line x1="640" y1="720" x2="800" y2="720"/>
+    <rect x="860" y="550" width="150" height="180" rx="18"/>
+  </g>
+  <!-- Masthead block -->
+  <rect x="640" y="320" width="370" height="80" rx="16" fill="#FF453A" opacity="0.22"/>
+  <g filter="url(#glow)" fill="#FF453A">
+    <rect x="640" y="320" width="230" height="80" rx="16"/>
+    <!-- live pulse -->
+    <circle cx="965" cy="360" r="20"/>
+  </g>
+  <circle cx="965" cy="360" r="40" fill="none" stroke="#FF453A" stroke-width="6" opacity="0.35"/>
+  <g fill="none" stroke="#FFD6D3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M560 250h480a50 50 0 0 1 50 50v430a60 60 0 0 1-60 60H530"/>
+    <path d="M560 250v480a60 60 0 0 1-60 60h0a60 60 0 0 1-60-60V420h120"/>
+  </g>
+</svg>

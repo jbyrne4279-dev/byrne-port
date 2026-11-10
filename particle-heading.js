@@ -85,7 +85,14 @@
       }));
     }
 
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#4D4D55';
+    let accent, ink;
+    const readInk = () => {
+      const cs = getComputedStyle(document.documentElement);
+      accent = cs.getPropertyValue('--red').trim() || '#4D4D55';
+      ink = cs.getPropertyValue('--ink').trim() || '#1D1D1F';
+    };
+    readInk();
+    document.addEventListener('jb-theme', readInk);
 
     function tick() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -115,7 +122,7 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = i % 11 === 0 ? accent : '#1D1D1F';
+        ctx.fillStyle = i % 11 === 0 ? accent : ink;
         ctx.fill();
       }
       rafId = requestAnimationFrame(tick);

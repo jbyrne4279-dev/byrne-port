@@ -1,0 +1,126 @@
+/* ============================================================
+   SITE NAV | site-nav.css
+   One nav bar for every page, matching the homepage. Loaded last on
+   each subpage so page-specific nav tweaks can't drift from it, and
+   self-contained (its own values) so pages without styles.css, like
+   Soundbar Pro, get the exact same bar.
+   ============================================================ */
+.nav, .mobile-menu {
+  --sn-bg: #000000;
+  --sn-text: #FFFFFF;
+  --sn-text-2: #777777;
+  --sn-text-3: #333333;
+  --sn-red: #FF453A;
+  --sn-red-dim: rgba(255, 69, 58, 0.25);
+  --sn-border: rgba(255,255,255,0.07);
+  --sn-display: 'Bebas Neue', 'Impact', sans-serif;
+  --sn-mono: 'Space Mono', 'Courier New', monospace;
+  --sn-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 72px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 clamp(24px, 5vw, 80px);
+  box-sizing: border-box;
+  transition: background 0.4s var(--sn-ease), border-color 0.4s;
+}
+.nav.is-scrolled {
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--sn-border);
+}
+.nav__links { display: flex; gap: 36px; margin: 0; padding: 0; list-style: none; }
+.nav__links li { list-style: none; }
+.nav__links a {
+  font-family: var(--sn-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--sn-text-2);
+  position: relative;
+  transition: color 0.2s;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--sn-red);
+  box-shadow: 0 0 6px var(--sn-red);
+  transition: width 0.3s var(--sn-ease);
+}
+.nav__links a:hover,
+.nav__links a.is-active { color: var(--sn-text); }
+.nav__links a:hover::after,
+.nav__links a.is-active::after { width: 100%; }
+.nav__menu {
+  display: none;
+  flex-direction: column;
+  gap: 7px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+.nav__menu span { display: block; width: 22px; height: 1px; background: var(--sn-text); transition: background 0.2s; }
+.nav__menu:hover span { background: var(--sn-red); }
+.nav__menu.is-open { visibility: hidden; }
+
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 99;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sn-bg);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s var(--sn-ease);
+}
+.mobile-menu::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 4px);
+}
+.mobile-menu.is-open { opacity: 1; pointer-events: all; }
+.mobile-menu__close {
+  position: absolute; top: 48px; left: 50%; transform: translateX(-50%); z-index: 1;
+  font-family: var(--sn-mono); font-size: 12px; letter-spacing: 0.1em;
+  background: none; border: 1px solid var(--sn-red); color: var(--sn-red);
+  padding: 8px 14px; cursor: pointer; transition: box-shadow 0.2s;
+}
+.mobile-menu__close:hover { box-shadow: 0 0 10px var(--sn-red-dim); }
+.mobile-menu ul { position: relative; z-index: 1; margin: 0; padding: 0; list-style: none; text-align: center; }
+.mobile-menu ul li + li { margin-top: 4px; }
+.mobile-menu ul li a {
+  display: block;
+  font-family: var(--sn-display);
+  font-size: clamp(56px, 16vw, 120px);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--sn-text-3);
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.mobile-menu ul li a:hover,
+.mobile-menu ul li a.is-active { color: var(--sn-text); text-shadow: 0 0 30px rgba(255,255,255,0.2); }
+
+@media (max-width: 768px) {
+  .nav__links { display: none !important; }
+  .nav__menu { display: flex; }
+}
+
+/* Page stylesheets used to restyle the bar (left-aligned, space-between,
+   hidden links). The id outranks those rules so every page matches. */
+#nav { justify-content: center; gap: 0; }
+#nav .nav__links { display: flex; }
+@media (max-width: 768px) {
+  #nav .nav__links { display: none !important; }
+  #nav .nav__menu { display: flex; }
+}
+/* The open phone menu sits above the bar so its close button shows */
+.mobile-menu { z-index: 101; }

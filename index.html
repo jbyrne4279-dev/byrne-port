@@ -41,7 +41,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=175">
+  <link rel="stylesheet" href="styles.css?v=175" data-dark="styles.dark.css?v=1">
+  <link rel="stylesheet" href="glass.css?v=1">
+  <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -118,7 +120,7 @@
         <span class="hero__name-line hero__name-line--fill" data-text="Byrne">Byrne</span>
       </h1>
       <p class="hero__tagline type-reveal">
-        <span class="hero__tagline-tags"><span class="hero__w" style="--w:0; color:#1d1d1f">Entrepreneur</span> <span style="color:#c7c7cc">&middot;</span> <span class="hero__w" style="--w:1; color:#6e6e73">Design</span> <span style="color:#c7c7cc">&middot;</span> <span class="hero__w" style="--w:2; color:#aeaeb2">Marketing</span></span>
+        <span class="hero__tagline-tags"><span class="hero__w" style="--w:0; color:var(--tag-1)">Entrepreneur</span> <span style="color:var(--tag-dot)">&middot;</span> <span class="hero__w" style="--w:1; color:var(--tag-2)">Design</span> <span style="color:var(--tag-dot)">&middot;</span> <span class="hero__w" style="--w:2; color:var(--tag-3)">Marketing</span></span>
       </p>
       <div class="hero__cta">
         <a href="#portfolio" class="btn btn--primary">View Work</a>
@@ -195,7 +197,7 @@
             <article class="about-card about-card--off" data-card="3">
               <span class="about-card__no" aria-hidden="true">04</span>
               <span class="about-card__tag">Off the clock</span>
-              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness feen</strong></span>. HEAVILY into the <span style="color:#4D4D55">Gym</span>, <span style="color:#8A8A93">Muay&nbsp;Thai</span>, <span style="color:#2E2E33">boxing</span> and <span style="color:#2E2E33">wrestling</span>&hellip;</p>
+              <p class="about-card__body">Outside of work, I&rsquo;m a <span class="glow-text"><strong>fitness feen</strong></span>. HEAVILY into the <span style="color:var(--tone-1)">Gym</span>, <span style="color:var(--tone-2)">Muay&nbsp;Thai</span>, <span style="color:var(--tone-3)">boxing</span> and <span style="color:var(--tone-4)">wrestling</span>&hellip;</p>
               <p class="about-card__punch">A.K.A. <span class="about-card__whisper">getting my Sh* rocked.</span></p>
             </article>
 
@@ -596,7 +598,7 @@
 
             <!-- Card 0 — Trend Forecasting (rendered last = bottom of stack / z-index highest) -->
             <article class="cfs__card" data-cfs-index="0"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#4D4D55;--cfs-z:5">
+              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:var(--red);--cfs-z:5">
               <span class="cfs__folder" aria-hidden="true"></span>
               <img class="cfs__card-img" src="assets/projects/trend-forecasting/hands-shadow-cover.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
@@ -616,7 +618,7 @@
 
             <!-- Card 1 — Marketing & PR -->
             <article class="cfs__card" data-cfs-index="1"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#4D4D55;--cfs-z:4">
+              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:var(--red);--cfs-z:4">
               <span class="cfs__folder" aria-hidden="true"></span>
               <img class="cfs__card-img" src="assets/projects/named-collective/1920X1080.webp" alt="" loading="lazy" style="object-position: 78% center;">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
@@ -636,7 +638,7 @@
 
             <!-- Card 2 — Buying & Merchandising -->
             <article class="cfs__card" data-cfs-index="2"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#4D4D55;--cfs-z:3">
+              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:var(--red);--cfs-z:3">
               <span class="cfs__folder" aria-hidden="true"></span>
               <img class="cfs__card-img" src="assets/projects/next-collection/IMG_0610.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
@@ -656,7 +658,7 @@
 
             <!-- Card 3 — International Retailing -->
             <article class="cfs__card" data-cfs-index="3"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#4D4D55;--cfs-z:2">
+              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:var(--red);--cfs-z:2">
               <span class="cfs__folder" aria-hidden="true"></span>
               <img class="cfs__card-img" src="assets/projects/international-retailing/cover.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
@@ -676,7 +678,7 @@
 
             <!-- Card 4 — Visual Merchandising -->
             <article class="cfs__card" data-cfs-index="4"
-              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:#4D4D55;--cfs-z:1">
+              style="--cfs-bg:#0d0005;--cfs-fg:#ffe8ef;--cfs-accent:var(--red);--cfs-z:1">
               <span class="cfs__folder" aria-hidden="true"></span>
               <img class="cfs__card-img" src="assets/projects/selfridges-project/tree-cloud.webp" alt="" loading="lazy">
               <div class="cfs__card-scrim" aria-hidden="true"></div>
@@ -715,7 +717,7 @@
 
         <a class="site-card reveal" href="/news">
           <div class="site-card__img-wrap">
-            <img src="assets/tools/the-brief.svg?v=6" alt="The Brief — a visual daily news briefing covering breaking news, AI, fashion and markets" class="site-card__img" loading="lazy">
+            <img src="assets/tools/the-brief.svg?v=6" data-dark-src="assets/tools/the-brief.dark.svg?v=1" alt="The Brief — a visual daily news briefing covering breaking news, AI, fashion and markets" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -728,7 +730,7 @@
 
         <a class="site-card reveal" href="/calendar">
           <div class="site-card__img-wrap">
-            <img src="assets/tools/the-ultimate-calendar.svg?v=6" alt="The Ultimate Calendar — global holidays and retail demand tracker" class="site-card__img" loading="lazy">
+            <img src="assets/tools/the-ultimate-calendar.svg?v=6" data-dark-src="assets/tools/the-ultimate-calendar.dark.svg?v=1" alt="The Ultimate Calendar — global holidays and retail demand tracker" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -741,7 +743,7 @@
 
         <a class="site-card reveal" href="/sales-analysis">
           <div class="site-card__img-wrap">
-            <img src="assets/tools/sales-analysis.svg?v=6" alt="Sales Analysis for Merchandisers: weekly sales report breakdown showing what to reorder" class="site-card__img" loading="lazy">
+            <img src="assets/tools/sales-analysis.svg?v=6" data-dark-src="assets/tools/sales-analysis.dark.svg?v=1" alt="Sales Analysis for Merchandisers: weekly sales report breakdown showing what to reorder" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -1018,5 +1020,6 @@
     onScroll();
   })();
   </script>
+  <script src="theme.js?v=1"></script>
 </body>
 </html>

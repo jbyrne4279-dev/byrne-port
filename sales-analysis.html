@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark light">
-  <script>try{if(localStorage.getItem('saTheme')!=='dark')document.documentElement.classList.add('sa-light')}catch(e){document.documentElement.classList.add('sa-light')}</script>
+  <script>try{if(localStorage.getItem('jbTheme')!=='dark')document.documentElement.classList.add('sa-light')}catch(e){document.documentElement.classList.add('sa-light')}</script>
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Joseph Byrne">
 
@@ -27,9 +27,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=141">
-  <link rel="stylesheet" href="sales-analysis.css?v=34">
-  <link rel="stylesheet" href="site-nav.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=141" data-dark="styles.dark.css?v=1">
+  <link rel="stylesheet" href="sales-analysis.css?v=34" data-dark="sales-analysis.dark.css?v=1">
+  <link rel="stylesheet" href="site-nav.css?v=7" data-dark="site-nav.dark.css?v=1">
+  <link rel="stylesheet" href="glass.css?v=1">
+  <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 </head>
 <body class="sa-body">
 
@@ -292,5 +294,6 @@
   <script src="script.js?v=145"></script>
   <script src="sales-analysis.js?v=33"></script>
   <script src="site-nav.js?v=1"></script>
+  <script src="theme.js?v=1"></script>
 </body>
 </html>
