@@ -736,3 +736,21 @@ html.theme-dark #nav .nav__knob {
 #websites .site-card .device__screen { aspect-ratio: 960 / 494 !important; box-sizing: content-box !important; width: calc(100% - 16px); }
 #websites .site-card .device__screen .device__video { object-fit: contain !important; object-position: center !important; background: #000; }
 #websites .site-card__img-wrap { aspect-ratio: auto !important; }
+
+/* Website laptops: names and addresses in the heading font (as the H1) */
+#websites .site-card__name {
+  font-family: var(--font-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+  font-size: clamp(20px, 1.7vw, 26px) !important;
+  line-height: 1.2 !important;
+}
+#websites .site-card__url {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em !important;
+  text-transform: none !important;
+  font-size: 14px !important;
+  color: var(--text-2) !important;
+}
