@@ -3763,3 +3763,21 @@ html.sv-open { overflow: hidden; }
   .websites__track { max-width: none; padding: 10px clamp(24px, 3vw, 56px) 0; gap: clamp(24px, 2.4vw, 44px) clamp(20px, 2vw, 36px); }
   #websites .site-card__img-wrap { padding: 6% 4% 1%; }
 }
+
+/* Contact: big View CV button, centred above the email and phone */
+.contact__links--below .contact__cv {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+  margin: 0 0 28px;
+  padding: 20px 48px;
+  font-size: 15px;
+  gap: 12px;
+}
+.contact__links--below .contact__cv svg { width: 18px; height: 18px; }
+
+/* CoWork link sits on the footer line, sized to match the footer text */
+.footer__bottom { flex-wrap: wrap; row-gap: 10px; }
+.footer__bottom .footer__private { margin: 0; min-height: 28px; padding: 0 12px; gap: 6px; }
+.footer__bottom .footer__private svg { width: 10px; height: 10px; }
+@media (max-width: 760px) { .footer__bottom .footer__sep { display: none; } }
