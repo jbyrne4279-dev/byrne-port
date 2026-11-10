@@ -43,6 +43,7 @@
   let dpr = 1, cols = 0, rows = 0;
   let snake = [], prev = [], dir = [1, 0], apple = null, grow = 0;
   let lastStep = 0, pulseAt = -1e9, sparks = [], offSince = 0;
+  let nextTrip = performance.now() + 45000 + Math.random() * 60000;
   let eaten = null, appleBorn = -1e9;   // the apple being swallowed, and when the next one appeared
 
   /* ── Which section it lives in, and the band of that section it roams ── */
@@ -57,8 +58,7 @@
     w = el.clientWidth;
     bandH = Math.min(el.offsetHeight, Math.max(320, innerHeight));
     // put the band over the part of the section that's on screen now
-    const onScreenTop = Math.max(0, -r.top);
-    bandTop = Math.max(0, Math.min(onScreenTop, el.offsetHeight - bandH));
+    bandTop = Math.round(Math.random() * Math.max(0, el.offsetHeight - bandH));
     canvas.style.top = bandTop + 'px';
     canvas.style.height = bandH + 'px';
     host.appendChild(canvas);
@@ -409,14 +409,17 @@
 
   function loop(now) {
     if (!paused()) {
-      // its section has gone off screen for a while: move into the one in view
-      if (!bandOnScreen()) {
-        if (!offSince) offSince = now;
-        if (now - offSince > 1200) { offSince = 0; moveTo(bestHost()); lastStep = now; }
-      } else offSince = 0;
+      // it has a mind of its own: every so often it wanders off to
+      // another part of the site, whether or not anyone is watching
+      if (now > nextTrip) {
+        nextTrip = now + 45000 + Math.random() * 60000;
+        const others = HOSTS.filter(h => h !== host);
+        moveTo(others[(Math.random() * others.length) | 0]);
+        lastStep = now;
+      }
       if (!lastStep || hoverTag) lastStep = now - (hoverTag ? STEP_MS * 0.999 : 0);   // hold still while hovered
       while (!hoverTag && now - lastStep >= STEP_MS) { step(now); lastStep += STEP_MS; if (now - lastStep > 1000) lastStep = now; }
-      render(now);
+      if (bandOnScreen()) render(now);           // carries on off screen, just isn't drawn
     } else {
       lastStep = 0;
     }
@@ -430,8 +433,8 @@
   window.addEventListener('resize', () => {
     if (Math.abs(innerWidth - lastW) < 2) return;
     lastW = innerWidth;
-    clearTimeout(rt); rt = setTimeout(() => moveTo(host || bestHost()), 200);
+    clearTimeout(rt); rt = setTimeout(() => moveTo(host || HOSTS[0]), 200);
   });
-  moveTo(bestHost());
+  moveTo(Math.random() < 0.6 ? HOSTS[0] : HOSTS[(Math.random() * HOSTS.length) | 0]);
   requestAnimationFrame(loop);
 })();
