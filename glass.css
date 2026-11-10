@@ -763,3 +763,7 @@ html.theme-dark #nav .nav__knob {
   transform: translateY(-50%);
 }
 @media (max-width: 768px) { #nav .nav__links--side { display: none !important; } }
+
+/* University coursework: folder titles and the viewer label in the heading style */
+.cfs__title { text-transform: none !important; letter-spacing: -0.02em !important; font-family: var(--font-serif) !important; font-weight: 600 !important; }
+.cv__eyebrow { font-family: var(--font-serif) !important; font-weight: 500 !important; font-size: 12px !important; letter-spacing: -0.005em !important; text-transform: none !important; }
