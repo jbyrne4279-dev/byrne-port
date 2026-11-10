@@ -606,8 +606,30 @@ html.theme-dark .contact__icon { color: #FF453A; }
   .contact__links--below .contact__link-value { flex: 1; text-align: right; }
 }
 
-/* Hidden gem: the little roaming snake on the homepage */
-.roam-snake { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 90; pointer-events: none; }
+/* Hidden gem: the little roaming snake, living in one section at a time */
+.roam-host { position: relative; }
+.roam-snake { position: absolute; left: 0; width: 100%; z-index: 3; pointer-events: none; }
+.roam-snake__tag {
+  position: absolute; left: 0; top: 0; z-index: 4;
+  padding: 4px 6px;
+  border: 0; background: none;
+  font: 600 11px/1 var(--g-font);
+  letter-spacing: 0.02em;
+  color: #AEAEB2;
+  white-space: nowrap;
+  cursor: pointer;
+  will-change: transform;
+  animation: roam-tag-flash 1.6s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.roam-snake__tag:hover { color: #6E6E73; animation-play-state: paused; opacity: 1; }
+.roam-snake__tag:focus-visible { outline: 2px solid var(--g-prim); outline-offset: 2px; border-radius: 6px; }
+html.theme-dark .roam-snake__tag { color: #8E8E93; }
+html.theme-dark .roam-snake__tag:hover { color: #F5F5F7; }
+@keyframes roam-tag-flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+/* The snake game opened from "Click me": no idle messages, just play */
+.screensaver.is-game .screensaver__title, .screensaver.is-game .screensaver__sub { display: none; }
 
 /* ── Nav links as an icon switch (same glass as the day / night toggle) ── */
 #nav .nav__links--icons {
@@ -675,3 +697,26 @@ html.theme-dark #nav .nav__knob {
 }
 #nav .nav__links--icons a:hover::before, #nav .nav__links--icons a:focus-visible::before { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-reduced-motion: reduce) { #nav .nav__knob { transition: none; } }
+
+/* Contact: icons only (no Email / Phone words), View CV between them */
+.contact__links--below .contact__link-label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (min-width: 561px) {
+  .contact__links--below {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px clamp(28px, 4vw, 56px);
+  }
+  .contact__links--below .contact__cv { margin: 0 !important; order: 2; }
+  .contact__links--below .contact__link:nth-of-type(1) { order: 1; }
+  .contact__links--below .contact__link:nth-of-type(2) { order: 3; }
+}
+@media (max-width: 560px) {
+  .contact__links--below { display: flex !important; flex-direction: column; align-items: center; gap: 18px; }
+  .contact__links--below .contact__link { justify-content: center !important; gap: 12px; }
+  .contact__links--below .contact__link-value { flex: 0 0 auto !important; text-align: left; }
+  .contact__links--below .contact__cv { margin: 0 !important; order: 2; }
+  .contact__links--below .contact__link:nth-of-type(1) { order: 1; }
+  .contact__links--below .contact__link:nth-of-type(2) { order: 3; }
+}

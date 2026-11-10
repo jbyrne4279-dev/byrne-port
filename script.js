@@ -247,6 +247,11 @@
       dir = d; nx = snake[0][0] + dir[0]; ny = snake[0][1] + dir[1];
     }
 
+    if (hitsBackButton(nx, ny)) {
+      burst(cx(nx), cy(ny), ['#FF6961', '#2ee082', '#ffffff'], 26, 0.32);
+      deactivate(); onActivity(); return;
+    }
+
     const bi = bombs.findIndex(b => b.x === nx && b.y === ny);
     if (bi >= 0) {
       const b = bombs.splice(bi, 1)[0];
@@ -438,8 +443,14 @@
     raf = requestAnimationFrame(draw);
   }
 
-  function activate() {
+  // mode 'game': opened from the homepage's roaming snake ("Click me").
+  // It hides the idle messages and the button reads "Back to portfolio".
+  let gameMode = false;
+  function activate(mode) {
     if (active) return;
+    gameMode = mode === 'game';
+    saver.classList.toggle('is-game', gameMode);
+    if (backBtn) backBtn.textContent = gameMode ? 'Back to portfolio' : 'Back to website';
     // Never cover the coursework viewer while someone is reading a file
     if (document.documentElement.classList.contains('cv-open')) { timer = setTimeout(activate, IDLE_MS); return; }
     active = true;
@@ -447,6 +458,16 @@
     saver.classList.add('is-active');
     saver.setAttribute('aria-hidden', 'false');
     if (!reduce) { now = performance.now(); resize(); lastStep = 0; raf = requestAnimationFrame(draw); }
+    if (gameMode && backBtn) setTimeout(() => backBtn.focus({ preventScroll: true }), 50);
+  }
+  window.__jbOpenSnake = () => { clearTimeout(timer); activate('game'); };
+
+  // Steering the snake into the back button takes you back to the site
+  function hitsBackButton(x, y) {
+    if (!backBtn || !manual) return false;
+    const r = backBtn.getBoundingClientRect();
+    const px = cx(x) / dpr, py = cy(y) / dpr;
+    return px >= r.left - 4 && px <= r.right + 4 && py >= r.top - 4 && py <= r.bottom + 4;
   }
 
   function deactivate() {

@@ -27,17 +27,17 @@
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = hero.clientWidth; h = hero.clientHeight;
     canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-    cell = w < 700 ? 15 : 18;
+    cell = w < 700 ? 17 : 22;
     cols = Math.ceil(w / cell); rows = Math.ceil(h / cell);
     glyphs = [];
-    const band = w < 700 ? 0.2 : 0.3;             // how far in from each side
+    const band = w < 700 ? 0.3 : 0.42;             // how far in from each side
     for (let c = 0; c < cols; c++) {
       const x = c * cell + cell / 2;
       const fromEdge = Math.min(x, w - x) / (w * band);   // 0 at the edge, 1 at the band's inner limit
       if (fromEdge >= 1) continue;
-      const edge = Math.pow(1 - fromEdge, 1.6);          // strongest at the very edge
+      const edge = Math.pow(1 - fromEdge, 1.1);          // strongest at the very edge
       for (let r = 0; r < rows; r++) {
-        if (Math.random() < 0.18) continue;              // a few gaps so it reads as code, not a grid
+        if (Math.random() < 0.12) continue;              // a few gaps so it reads as code, not a grid
         glyphs.push({
           x, y: r * cell + cell / 2,
           edge,
@@ -52,7 +52,7 @@
   function draw(t) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    ctx.font = `500 ${cell * 0.72}px "Space Mono", ui-monospace, monospace`;
+    ctx.font = `600 ${cell * 0.74}px "Space Mono", ui-monospace, monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     const s = t / 1000;
@@ -63,9 +63,9 @@
       let wave = Math.max(0, down * 0.6 + out * 0.4);
       wave = wave * wave * wave;                         // narrow, bright crests
       const flicker = 0.85 + 0.15 * Math.sin(s * 2 + g.seed);
-      const a = g.edge * (0.07 + wave * 0.38) * flicker;
+      const a = g.edge * (0.13 + wave * 0.62) * flicker;
       if (a < 0.012) continue;
-      ctx.fillStyle = `rgba(120, 120, 128, ${a.toFixed(3)})`;
+      ctx.fillStyle = `rgba(110, 110, 118, ${a.toFixed(3)})`;
       ctx.fillText(g.ch, g.x, g.y);
     }
     // now and then a few characters change
