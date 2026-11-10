@@ -806,3 +806,4 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 .roam-snake__tag:hover { background: var(--g-tint), var(--g-fill); border-radius: 999px; box-shadow: inset 0 1px 0 var(--g-edge), 0 2px 8px rgba(0, 0, 0, 0.08); }
 /* the recording sits above the screenshot (which keeps z-index 1 from the base styles) */
 #websites .site-card .device__media .device__video { z-index: 2; }
+.roam-snake__tag.is-off { opacity: 0 !important; pointer-events: none; animation: none; }

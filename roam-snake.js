@@ -19,7 +19,7 @@
     .map(id => document.getElementById(id)).filter(Boolean);
   if (!HOSTS.length) return;
 
-  const CELL = 16, STEP_MS = 150, MIN_LEN = 5, MAX_LEN = 14;
+  const CELL = 24, STEP_MS = 170, MIN_LEN = 10, MAX_LEN = 20;
 
   const canvas = document.createElement('canvas');
   canvas.className = 'roam-snake';
@@ -83,7 +83,7 @@
 
   /* ── Snake ── */
   function reset() {
-    const y = Math.floor(rows * 0.75), x = Math.min(4, cols - 1);
+    const y = Math.floor(rows * 0.75), x = Math.min(MIN_LEN + 1, cols - 1);
     snake = Array.from({ length: MIN_LEN }, (_, i) => [Math.max(0, x - i), y]);
     prev = snake.map(s => s.slice());
     dir = [1, 0]; grow = 0;
@@ -133,156 +133,117 @@
     }
   }
 
-  /* ── Drawing: a little pixel-art snake ──
-     Each cell is an 8 x 8 sprite of 2px pixels. The head is drawn facing
-     right and turned to face where it's going; its tongue flicks out now
-     and then. Positions snap to whole pixels so it stays crisp. */
-  const PX = CELL / 8;
-  const PAL = {
-    O: '#4A0A12',   // outline
-    B: '#D91F3A',   // body
-    H: '#FF5C6C',   // highlight
-    S: '#9E1328',   // scales
-    W: '#FFFFFF',   // eye white
-    K: '#1A0306',   // pupil
-    T: '#FF2D55',   // tongue
-    g: '#2EE082', d: '#0F7A3F', l: '#B8FFD9', s: '#6B3E1E'
-  };
-  const HEAD = [
-    '.OOOOO..',
-    'OHHHHHOO',
-    'OHBBWWKO',
-    'OBBBWWKO',
-    'OBBBBBBS',
-    'OBBBWWKO',
-    'OHBBWWKO',
-    '.OOOOOO.'
-  ];
-  const BODY_A = [
-    '.OOOOOO.',
-    'OHHBBHHO',
-    'OBSBBSBO',
-    'OBBBBBBO',
-    'OBBSBBBO',
-    'OBSBBSBO',
-    'OBBBBBBO',
-    '.OOOOOO.'
-  ];
-  const BODY_B = [
-    '.OOOOOO.',
-    'OHBBHHBO',
-    'OBBSBBBO',
-    'OBSBBSBO',
-    'OBBBBBBO',
-    'OBBSBBSO',
-    'OBBBBBBO',
-    '.OOOOOO.'
-  ];
-  const TAIL = [
-    '........',
-    '..OOOO..',
-    '.OHHBBO.',
-    '.OBSBBO.',
-    '.OBBSBO.',
-    '.OBBBBO.',
-    '..OOOO..',
-    '........'
-  ];
-  const APPLE = [
-    '....d...',
-    '...sdd..',
-    '.gggsgg.',
-    'gglggggg',
-    'glgggggg',
-    'gggggggd',
-    '.gggggd.',
-    '..gg.gg.'
-  ];
-  function sprite(map, x, y, rot, flash) {
-    ctx.save();
-    ctx.translate(Math.round(x + CELL / 2), Math.round(y + CELL / 2));
-    if (rot) ctx.rotate(rot);
-    for (let r = 0; r < 8; r++) {
-      const row = map[r];
-      for (let c = 0; c < 8; c++) {
-        const ch = row[c];
-        if (ch === '.') continue;
-        let col = PAL[ch];
-        if (flash && (ch === 'B' || ch === 'S')) col = PAL.H;
-        ctx.fillStyle = col;
-        ctx.fillRect(-CELL / 2 + c * PX, -CELL / 2 + r * PX, PX, PX);
-      }
-    }
-    ctx.restore();
-  }
-  const angle = ([dx, dy]) => Math.atan2(dy, dx);
+  /* ── Drawing: a smooth, glossy cartoon snake ──
+     The body is one rounded tube through the segment centres: a dark
+     outline, a red gradient from head to tail, and a glossy highlight
+     along the back. It tapers to a pointed tail that wags as it slithers,
+     and the head has big eyes and a tongue that flicks out now and then. */
+  const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+  const HEAD_RGB = [255, 77, 94], TAIL_RGB = [176, 18, 42];
 
   function render(now) {
     const k = Math.min(1, (now - lastStep) / STEP_MS);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, w, bandH);
 
+    // apple: glossy green with a leaf, gently bobbing
     if (apple) {
-      const bob = Math.round(Math.sin(now / 280) * 1.5) * PX * 0.5;
-      sprite(APPLE, apple[0] * CELL, apple[1] * CELL + bob, 0, false);
+      const ax = (apple[0] + 0.5) * CELL, ay = (apple[1] + 0.5) * CELL + Math.sin(now / 300) * 1.5;
+      ctx.shadowColor = 'rgba(39, 208, 127, 0.55)'; ctx.shadowBlur = 8 * dpr;
+      ctx.fillStyle = '#2ee082';
+      ctx.beginPath(); ctx.arc(ax, ay + 1, CELL * 0.32, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.beginPath(); ctx.arc(ax - CELL * 0.1, ay - CELL * 0.08, CELL * 0.08, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#0f7a3f';
+      ctx.beginPath(); ctx.ellipse(ax + CELL * 0.12, ay - CELL * 0.32, CELL * 0.13, CELL * 0.06, -0.6, 0, Math.PI * 2); ctx.fill();
     }
 
-    // positions of every segment this frame (gliding between cells, pixel-snapped)
-    const pos = snake.map((b, i) => {
+    // segment centres this frame (gliding between cells)
+    const n = snake.length;
+    const C = snake.map((b, i) => {
       const a = prev[i] || b;
-      return [Math.round((a[0] + (b[0] - a[0]) * k) * CELL / PX) * PX, Math.round((a[1] + (b[1] - a[1]) * k) * CELL / PX) * PX];
+      return [(a[0] + (b[0] - a[0]) * k + 0.5) * CELL, (a[1] + (b[1] - a[1]) * k + 0.5) * CELL];
     });
-    const gulpAt = (now - pulseAt) / STEP_MS;
-    const n = pos.length;
-    const thick = i => (i === n - 1 ? 4 : i === n - 2 ? 6 : 8) * PX;   // the tail tapers
-    // one continuous body: an outline pass, then the fill on top, then scales
-    const blob = (pad, i) => {
-      const [x, y] = pos[i], t = thick(i), o = (CELL - t) / 2;
-      ctx.fillRect(x + o + pad, y + o + pad, t - pad * 2, t - pad * 2);
-      if (i > 0) {                                    // bridge to the segment in front
-        const [px, py] = pos[i - 1], tt = Math.min(t, thick(i - 1)), oo = (CELL - tt) / 2;
-        const x0 = Math.min(x, px), y0 = Math.min(y, py), x1 = Math.max(x, px), y1 = Math.max(y, py);
-        ctx.fillRect(x0 + oo + pad, y0 + oo + pad, x1 - x0 + tt - pad * 2, y1 - y0 + tt - pad * 2);
+    // dense points along the body so it reads as one smooth tube
+    const pts = [];
+    const SUB = 14;
+    for (let i = 0; i < n - 1; i++) {
+      for (let s2 = 0; s2 < SUB; s2++) {
+        const u = s2 / SUB;
+        pts.push([C[i][0] + (C[i + 1][0] - C[i][0]) * u, C[i][1] + (C[i + 1][1] - C[i][1]) * u, (i + u) / (n - 1)]);
       }
-    };
-    ctx.fillStyle = PAL.O;
-    for (let i = n - 1; i >= 1; i--) blob(0, i);
-    for (let i = n - 1; i >= 1; i--) {
-      const flash = gulpAt < n + 1 && Math.abs(gulpAt - i) < 0.8;
-      ctx.fillStyle = flash ? PAL.H : PAL.B;
-      blob(PX, i);
     }
-    for (let i = 1; i < n - 1; i++) {                 // diamond scale pattern + a highlight
-      const [x, y] = pos[i], c = CELL / 2;
-      ctx.fillStyle = PAL.S;
-      ctx.fillRect(x + c - PX, y + c - PX * (i % 2 ? 2 : 0), PX, PX);
-      ctx.fillRect(x + c + PX * (i % 2 ? 1 : -2), y + c + PX, PX, PX);
-      ctx.fillStyle = PAL.H;
-      ctx.fillRect(x + c - PX * 2, y + PX * 1.5 + (CELL - thick(i)) / 2, PX * 2, PX);
+    pts.push([C[n - 1][0], C[n - 1][1], 1]);
+    // tail wag: a sideways wave that grows towards the tip
+    for (let q = 0; q < pts.length; q++) {
+      const p = pts[q], t = p[2];
+      if (t < 0.45) continue;
+      const a = pts[Math.max(0, q - 1)], b = pts[Math.min(pts.length - 1, q + 1)];
+      let dx = b[0] - a[0], dy = b[1] - a[1]; const len = Math.hypot(dx, dy) || 1; dx /= len; dy /= len;
+      const amt = Math.sin(now / 150 - t * 9) * CELL * 0.22 * Math.pow((t - 0.45) / 0.55, 1.5);
+      p[3] = p[0] - dy * amt; p[4] = p[1] + dx * amt;
+    }
+    const X = p => (p[3] != null ? p[3] : p[0]), Y = p => (p[4] != null ? p[4] : p[1]);
+    const R = CELL * 0.4;
+    const rad = t => R * (t < 0.55 ? 1 : 1 - 0.92 * Math.pow((t - 0.55) / 0.45, 1.3));   // pointed tail
+
+    const gulpAt = (now - pulseAt) / STEP_MS / Math.max(1, n - 1);
+    // outline, then the red body, tail first so the head sits on top
+    ctx.fillStyle = '#6E0C1B';
+    for (let q = pts.length - 1; q >= 0; q--) { const p = pts[q]; ctx.beginPath(); ctx.arc(X(p), Y(p), rad(p[2]) + 1.6, 0, Math.PI * 2); ctx.fill(); }
+    for (let q = pts.length - 1; q >= 0; q--) {
+      const p = pts[q], t = p[2];
+      const bulge = gulpAt < 1.15 ? Math.exp(-((t - gulpAt) ** 2) / 0.004) * 0.35 : 0;   // a gulp travels down
+      const c = mix(HEAD_RGB, TAIL_RGB, t);
+      ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
+      ctx.beginPath(); ctx.arc(X(p), Y(p), rad(t) * (1 + bulge), 0, Math.PI * 2); ctx.fill();
+    }
+    // glossy highlight along the back (solid colours, so no beading where they overlap)
+    for (let q = pts.length - 1; q >= 0; q--) {
+      const p = pts[q], t = p[2];
+      if (t > 0.88) continue;
+      const c = mix(mix(HEAD_RGB, TAIL_RGB, t), [255, 255, 255], 0.32 * (1 - t));
+      ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
+      ctx.beginPath(); ctx.arc(X(p) - rad(t) * 0.18, Y(p) - rad(t) * 0.36, rad(t) * 0.3, 0, Math.PI * 2); ctx.fill();
     }
 
-    // the head on top, facing where it's going, with a tongue that flicks out
-    const [hx0, hy0] = pos[0];
-    sprite(HEAD, hx0, hy0, angle(dir), false);
-    if ((now % 2200) < 260) {
-      ctx.save();
-      ctx.translate(hx0 + CELL / 2, hy0 + CELL / 2);
-      ctx.rotate(angle(dir));
-      ctx.fillStyle = PAL.T;
-      ctx.fillRect(CELL / 2, -PX / 2, PX * 2, PX);
-      ctx.fillRect(CELL / 2 + PX * 2, -PX * 1.5, PX, PX);
-      ctx.fillRect(CELL / 2 + PX * 2, PX * 0.5, PX, PX);
-      ctx.restore();
+    // head: a little bigger, with big eyes facing forward and a flicking tongue
+    const [hdx, hdy] = C[0], ang = Math.atan2(dir[1], dir[0]);
+    ctx.save();
+    ctx.translate(hdx, hdy); ctx.rotate(ang);
+    if ((now % 2400) < 300) {
+      ctx.strokeStyle = '#FF2D55'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(R * 0.9, 0); ctx.lineTo(R * 1.7, 0);
+      ctx.moveTo(R * 1.7, 0); ctx.lineTo(R * 2.05, -R * 0.3);
+      ctx.moveTo(R * 1.7, 0); ctx.lineTo(R * 2.05, R * 0.3); ctx.stroke();
     }
+    ctx.fillStyle = '#6E0C1B';
+    ctx.beginPath(); ctx.ellipse(R * 0.15, 0, R * 1.22 + 1.6, R * 1.08 + 1.6, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = `rgb(${HEAD_RGB.join(',')})`;
+    ctx.beginPath(); ctx.ellipse(R * 0.15, 0, R * 1.22, R * 1.08, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.beginPath(); ctx.ellipse(-R * 0.1, -R * 0.5, R * 0.5, R * 0.25, 0, 0, Math.PI * 2); ctx.fill();
+    const blink = (now % 4200) < 140;
+    for (const sd of [-1, 1]) {
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.ellipse(R * 0.55, sd * R * 0.48, R * 0.36, blink ? R * 0.06 : R * 0.36, 0, 0, Math.PI * 2); ctx.fill();
+      if (!blink) {
+        ctx.fillStyle = '#1A0306';
+        ctx.beginPath(); ctx.arc(R * 0.68, sd * R * 0.46, R * 0.18, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(R * 0.62, sd * R * 0.4, R * 0.06, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
 
-    // pixel sparks when an apple is eaten
+    // little green sparks when an apple is eaten
     sparks = sparks.filter(p => now - p.born < 500);
     for (const p of sparks) {
       const q = (now - p.born) / 500, d = (now - p.born) / 16;
       ctx.globalAlpha = 1 - q;
-      ctx.fillStyle = q < 0.5 ? PAL.l : PAL.g;
-      ctx.fillRect(Math.round(p.x + p.vx * d * 1.6), Math.round(p.y + p.vy * d * 1.6), PX, PX);
+      ctx.fillStyle = '#2ee082';
+      ctx.beginPath(); ctx.arc(p.x + p.vx * d * 1.6, p.y + p.vy * d * 1.6, 2 * (1 - q * 0.5), 0, Math.PI * 2); ctx.fill();
     }
     ctx.globalAlpha = 1;
 
@@ -295,8 +256,24 @@
       tagY = tagY == null ? ty : tagY + (ty - tagY) * 0.3;
     }
     tag.style.transform = `translate(${tagX.toFixed(1)}px, ${tagY.toFixed(1)}px) translate(-50%, -100%)`;
+    if (++checkN % 2 === 0) tag.classList.toggle('is-off', tagOverControl());
   }
   let tagX = null, tagY = null;
+  let checkN = 0;
+  function tagOverControl() {
+    const r = tag.getBoundingClientRect();
+    if (!r.width) return false;
+    const prevVis = tag.style.visibility;
+    tag.style.visibility = 'hidden';
+    const xs = [r.left - 6, r.left + r.width / 2, r.right + 6], ys = [r.top - 6, r.top + r.height / 2, r.bottom + 6];
+    let over = false;
+    for (const x of xs) for (const y of ys) {
+      const el = document.elementFromPoint(x, y);
+      if (el && el.closest('a, button, input, select, textarea, label, [role="button"], .site-card, .cfs__card, .about-card, .gallery')) { over = true; break; }
+    }
+    tag.style.visibility = prevVis;
+    return over;
+  }
 
   const paused = () => document.hidden || document.documentElement.classList.contains('cv-open') ||
     (document.getElementById('screensaver') || {}).classList?.contains('is-active');
