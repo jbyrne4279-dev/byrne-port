@@ -548,11 +548,12 @@
     el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
   });
 
-  // Red cursor trail flash on click
+  // Cursor flash on click (accent colour of the current theme)
   document.addEventListener('mousedown', () => {
     cursor.style.opacity = '1';
     cursor.style.border = '1px solid var(--red, #FF453A)';
-    cursor.style.boxShadow = '0 0 24px rgba(255, 69, 58,0.7), inset 0 0 16px rgba(255, 69, 58,0.3)';
+    const glow = document.documentElement.classList.contains('theme-dark') ? '255, 69, 58' : '77, 77, 85';
+    cursor.style.boxShadow = `0 0 24px rgba(${glow},0.45), inset 0 0 16px rgba(${glow},0.2)`;
   });
   document.addEventListener('mouseup', () => {
     cursor.style.opacity = '';
