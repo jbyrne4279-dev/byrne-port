@@ -1183,11 +1183,18 @@ function initMist(canvasId) {
     this.reset = function(initial) {
       this.x          = Math.random() * canvas.width;
       this.y          = initial ? Math.random() * canvas.height : canvas.height + 60;
-      this.radius     = 90 + Math.random() * 200;
+      // On narrow canvases (phones) the mist clouds are huge relative to the
+      // viewport, so with 'lighter' blending they stack into a solid red wash
+      // and the subtle rising-ember effect is lost. Scale each particle's size
+      // — and tone down how hard they stack — to the canvas width so the mist
+      // reads the same on mobile as it does on desktop. Read canvas.width live
+      // so the scale follows a resize / orientation change.
+      const sizeScale = Math.min(1, Math.max(0.4, canvas.width / 1200));
+      this.radius     = (90 + Math.random() * 200) * sizeScale;
       this.opacity    = 0;
-      this.maxOpacity = SMOKE
+      this.maxOpacity = (SMOKE
         ? 0.14 + Math.random() * 0.16
-        : 0.09 + Math.random() * 0.13;
+        : 0.09 + Math.random() * 0.13) * (0.6 + 0.4 * sizeScale);
       this.vy         = -(0.15 + Math.random() * 0.45);
       this.vx         = (Math.random() - 0.5) * 0.25;
       this.phase      = Math.random() * Math.PI * 2;
