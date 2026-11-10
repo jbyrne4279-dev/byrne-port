@@ -122,7 +122,7 @@ html.theme-dark {
 
 /* On the dark carbon folders, the file viewer and the idle screen
    the glass is always the dark kind */
-.cfs__view, .cv__btn, .screensaver__back {
+.cfs__view, .cv__btn, html.theme-dark .screensaver__back {
   color: #F5F5F7 !important;
   background:
     radial-gradient(140px circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.22), transparent 65%),
@@ -150,7 +150,7 @@ html.theme-dark {
     background-color: var(--g-prim-hover) !important;
     transform: translateY(-1px) scale(1.03);
   }
-  .cfs__view:hover, .cv__btn:hover, .screensaver__back:hover {
+  .cfs__view:hover, .cv__btn:hover, html.theme-dark .screensaver__back:hover {
     --gy: 0%;
     background-color: rgba(255, 255, 255, 0.13) !important;
     transform: translateY(-1px) scale(1.03);
@@ -302,3 +302,148 @@ html.theme-dark { --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); --card-shadow-d
 @media (prefers-reduced-motion: reduce) {
   #websites .site-card:hover .device--laptop { transform: none !important; }
 }
+
+/* ── Free Tools: Apple-style containers ──
+   One soft rounded panel per tool, artwork on top, clear type below,
+   a single quiet shadow and a gentle lift on hover. No glow, no wiggle. */
+#tools .websites__grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(16px, 2vw, 28px); }
+#tools .site-card {
+  display: flex; flex-direction: column;
+  border-radius: 28px !important;
+  overflow: hidden;
+  background: var(--tc-bg) !important;
+  border: 1px solid var(--tc-border) !important;
+  box-shadow: var(--tc-shadow) !important;
+  transform: none;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease !important;
+}
+#tools .site-card:hover, #tools .site-card:focus-visible {
+  transform: translateY(-4px) scale(1.015) !important;
+  border-color: var(--tc-border) !important;
+  box-shadow: var(--tc-shadow-hover) !important;
+}
+#tools .site-card:focus-visible { outline: 2px solid var(--g-prim) !important; outline-offset: 4px; }
+#tools .site-card__img-wrap {
+  aspect-ratio: 16 / 10;
+  margin: 10px 10px 0;
+  width: auto;
+  border-radius: 20px;
+  background: var(--tc-art) !important;
+}
+#tools .site-card__img-wrap::after { content: none; }
+#tools .site-card__img { animation: none !important; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+#tools .site-card:hover .site-card__img { transform: scale(1.04) !important; }
+#tools .site-card__body {
+  flex: 1;
+  border-top: 0 !important;
+  background: transparent !important;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
+  padding: 22px 26px 26px !important;
+}
+#tools .site-card__meta { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+#tools .site-card__name {
+  font-family: var(--g-font) !important;
+  font-size: 22px !important; font-weight: 600 !important;
+  letter-spacing: -0.02em !important; text-transform: none !important;
+  color: var(--g-text) !important; line-height: 1.2;
+}
+#tools .site-card__url {
+  font-family: var(--g-font) !important;
+  font-size: 15px !important; letter-spacing: -0.005em !important; text-transform: none !important;
+  color: var(--tc-sub) !important; line-height: 1.4; white-space: normal !important;
+}
+#tools .site-card__btn { animation: none !important; margin-top: auto; }
+#tools .site-card:hover .site-card__btn { transform: none !important; }
+
+:root {
+  --tc-bg: #FFFFFF;
+  --tc-art: #F5F5F7;
+  --tc-border: rgba(0, 0, 0, 0.06);
+  --tc-sub: #6E6E73;
+  --tc-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 2px 7px rgba(0, 0, 0, 0.05);
+  --tc-shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 13px rgba(0, 0, 0, 0.08);
+}
+html.theme-dark {
+  --tc-bg: #1C1C1E;
+  --tc-art: #000000;
+  --tc-border: rgba(255, 255, 255, 0.08);
+  --tc-sub: #8E8E93;
+  --tc-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 3px 8px rgba(0, 0, 0, 0.3);
+  --tc-shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  #tools .site-card:hover, #tools .site-card:hover .site-card__img { transform: none !important; }
+}
+#tools .site-card__meta, #tools .site-card__name, #tools .site-card__url { text-align: left !important; align-items: flex-start !important; }
+
+/* ── University coursework: two folders per scroll step on desktop ── */
+@media (min-width: 1000px) {
+  .cfs--pairs .cfs__stage { width: min(1720px, 94vw); aspect-ratio: auto; height: calc(100vh - var(--nav-h) - 2 * clamp(8px, 1.6vw, 20px) - 8px); max-height: 880px; }
+  .cfs--pairs .cfs__card--l { right: calc(50% + clamp(12px, 1.4vw, 24px)); }
+  .cfs--pairs .cfs__card--r { left: calc(50% + clamp(12px, 1.4vw, 24px)); }
+  .cfs--pairs .cfs__card--solo { left: 25%; right: 25%; margin: 0 clamp(6px, 0.7vw, 12px); }
+  .cfs--pairs .cfs__card--l, .cfs--pairs .cfs__card--r, .cfs--pairs .cfs__card--solo { --tab-h: clamp(26px, 4.5%, 44px); }
+  .cfs--pairs .cfs__folder::before { width: 34%; }
+  .cfs--pairs .cfs__title { font-size: clamp(28px, 2.6vw, 44px); }
+  .cfs--pairs .cfs__desc { font-size: clamp(12px, 0.95vw, 14px); max-width: 30rem; }
+  .cfs--pairs .cfs__glass, .cfs--pairs .cfs__card.is-active .cfs__glass { top: 50%; }
+  .cfs--pairs .cfs__card-img { height: 54%; }
+  .cfs--pairs .cfs__pct { font-size: clamp(22px, 2vw, 32px); }
+}
+
+/* ── University coursework folders: light grey in the light theme
+   (the dark theme keeps the carbon folders) ── */
+html:not(.theme-dark) .cfs__folder::before { background: linear-gradient(180deg, #E3E3E8, #D9D9DF); }
+html:not(.theme-dark) .cfs__folder::after {
+  background: linear-gradient(180deg, #DCDCE1 0%, #CFCFD5 100%);
+  box-shadow: 0 4px 11px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+html:not(.theme-dark) .cfs__card-img { box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14); }
+html:not(.theme-dark) .cfs__glass,
+html:not(.theme-dark) .cfs__card.is-active .cfs__glass {
+  background: linear-gradient(180deg, #F2F2F5 0%, #E9E9ED 55%, #E2E2E7 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 -3px 9px rgba(0, 0, 0, 0.08);
+}
+html:not(.theme-dark) .cfs__glass::before { display: none; }
+html:not(.theme-dark) .cfs__title { color: #1D1D1F; }
+html:not(.theme-dark) .cfs__desc { color: #6E6E73; opacity: 1; }
+html:not(.theme-dark) .cfs__pct {
+  color: #1D1D1F;
+  border-color: rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #FFFFFF, #F5F5F7);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+html:not(.theme-dark) .cfs__pct::after { color: #8A8A93; }
+html:not(.theme-dark) .cfs__view {
+  color: #1D1D1F !important;
+  background:
+    radial-gradient(140px circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.9), transparent 65%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.4) 100%),
+    rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: inset 0 1px 0 #fff, 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+html:not(.theme-dark) .cfs__view:hover { background-color: rgba(255, 255, 255, 0.8) !important; }
+html:not(.theme-dark) .cfs__view-count { background: rgba(0, 0, 0, 0.08); color: #1D1D1F; }
+
+/* Contact: less space above View CV */
+.contact__links--below { margin-top: 0 !important; }
+.contact__heading { margin-bottom: clamp(28px, 3vw, 40px) !important; }
+.contact__links--below .contact__cv { margin-bottom: 22px !important; }
+
+/* ── Idle-screen snake, light theme: white board, light grey grid ── */
+html:not(.theme-dark) .screensaver { background: #FFFFFF; }
+html:not(.theme-dark) .screensaver__play { color: rgba(29, 29, 31, 0.55); }
+html:not(.theme-dark) .screensaver__score:not(:empty)::before { color: rgba(0, 0, 0, 0.25); }
+html:not(.theme-dark) .screensaver__score:not(:empty) { color: #1E9E5A; }
+html:not(.theme-dark) .screensaver__title { text-shadow: none; animation: none; }
+html:not(.theme-dark) .screensaver__sub { text-shadow: none; }
+html:not(.theme-dark) .screensaver__back:focus-visible { outline-color: #1D1D1F; }
+
+/* Folders in the dark theme: half the shadow blur too */
+html.theme-dark .cfs__folder::after { box-shadow: 0 9px 25px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+html.theme-dark .cfs__card-img { box-shadow: 0 5px 13px rgba(0, 0, 0, 0.55); }
+html.theme-dark .cfs__glass, html.theme-dark .cfs__card.is-active .cfs__glass { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 -5px 15px rgba(0, 0, 0, 0.45); }
+
+/* Intro matrix rain, light theme: white with light grey characters */
+html:not(.theme-dark) .matrix-intro { background: #FFFFFF; }

@@ -35,7 +35,8 @@
   function draw() {
     if (!running) return;
     // fade the previous frame for the trailing streak
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.09)';
+    const lightRain = !document.documentElement.classList.contains('theme-dark');
+    ctx.fillStyle = lightRain ? 'rgba(255, 255, 255, 0.09)' : 'rgba(0, 0, 0, 0.09)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = fontSize + 'px "Space Mono", monospace';
     for (let i = 0; i < cols; i++) {
@@ -43,7 +44,8 @@
       const x = i * fontSize;
       const y = drops[i] * fontSize;
       // bright leading glyph, dimmer red trail
-      ctx.fillStyle = Math.random() > 0.975 ? '#FF6961' : '#FF453A';
+      ctx.fillStyle = lightRain ? (Math.random() > 0.975 ? '#8A8A93' : '#C7C7CC')
+                                : (Math.random() > 0.975 ? '#FF6961' : '#FF453A');
       ctx.fillText(ch, x, y);
       if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;
@@ -334,14 +336,15 @@
   function render() {
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.fillStyle = '#000';
+    const lightBoard = !document.documentElement.classList.contains('theme-dark');
+    ctx.fillStyle = lightBoard ? '#FFFFFF' : '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     if (now < shakeUntil) {
       const k = (shakeUntil - now) / 450 * 9 * dpr;
       ctx.translate((Math.random() - 0.5) * k, (Math.random() - 0.5) * k);
     }
     // faint board grid
-    ctx.strokeStyle = 'rgba(255,255,255,0.035)';
+    ctx.strokeStyle = lightBoard ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.035)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let x = 0; x <= cols; x++) { ctx.moveTo(ox + x * cell + 0.5, oy); ctx.lineTo(ox + x * cell + 0.5, oy + rows * cell); }

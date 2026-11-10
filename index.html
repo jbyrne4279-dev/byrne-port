@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=175" data-dark="styles.dark.css?v=1">
-  <link rel="stylesheet" href="glass.css?v=3">
+  <link rel="stylesheet" href="glass.css?v=6">
   <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 
   <!-- Structured Data -->
@@ -811,7 +811,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=148"></script>
+  <script src="script.js?v=150"></script>
   <script src="splash.js?v=1" defer></script>
   <script src="glitch.js?v=1" defer></script>
   <script src="particle-heading.js?v=4"></script>
@@ -840,8 +840,24 @@
     const TOTAL   = cards.length;
     if (!TOTAL) return;
 
-    /* Set CSS custom property so CSS height formula works */
-    cfs.style.setProperty('--cfs-count', TOTAL);
+    /* Desktop shows two folders side by side per scroll step; phones
+       and narrow screens keep one at a time. GROUPS = scroll steps. */
+    const pairMq = window.matchMedia('(min-width: 1000px)');
+    let PER = 1, GROUPS = TOTAL;
+    function layoutGroups() {
+      PER = pairMq.matches ? 2 : 1;
+      GROUPS = Math.ceil(TOTAL / PER);
+      cfs.classList.toggle('cfs--pairs', PER === 2);
+      cards.forEach((card, i) => {
+        const solo = PER === 2 && i === TOTAL - 1 && TOTAL % 2 === 1;
+        card.classList.toggle('cfs__card--l', PER === 2 && !solo && i % 2 === 0);
+        card.classList.toggle('cfs__card--r', PER === 2 && i % 2 === 1);
+        card.classList.toggle('cfs__card--solo', solo);
+      });
+      /* Set CSS custom property so CSS height formula works */
+      cfs.style.setProperty('--cfs-count', GROUPS);
+    }
+    layoutGroups();
 
     /* Reduced-motion preference */
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -898,10 +914,11 @@
     ];
 
     function applyCards(p) {
-      const segment = 1 / Math.max(TOTAL, 1);
-      const stackedCardGap = Math.min(24, 72 / Math.max(TOTAL - 1, 1)); // ~18px for 5 cards
+      const segment = 1 / Math.max(GROUPS, 1);
+      const stackedCardGap = Math.min(24, 72 / Math.max(GROUPS - 1, 1)); // ~18px for 5 cards
 
-      cards.forEach((card, index) => {
+      cards.forEach((card, cardIndex) => {
+        const index = Math.floor(cardIndex / PER);   // which scroll step
         const start       = index * segment;
         const end         = Math.min(start + segment, 1);
         const entryStart  = Math.max(0, start - segment);
@@ -920,7 +937,7 @@
            slowly then accelerates away, like it's being flung rather than
            slid on rails. Each card also leaves with its own tilt/drift so
            no two exits look the same. */
-        const isLast     = index === TOTAL - 1;
+        const isLast     = index === GROUPS - 1;
         const tExit      = isLast || reduceMotion ? 0 : clamp01((p - exitStart) / (exitEnd - exitStart));
         const g          = tExit * tExit;
         const exitYPct   = -118 * g;
@@ -937,35 +954,45 @@
            filter — just translateY + scale. Cheaper to paint and
            reads as a clean vertical float instead of a wobble. */
         card.style.transform        = `translateY(${translateY}) scale(${scale})`;
-        card.style.zIndex           = TOTAL - index;
+        card.style.zIndex           = GROUPS - index;
 
         /* Links only clickable on front card (p hasn't advanced it yet) */
-        const isFront = p < exitEnd || index === TOTAL - 1;
+        const isFront = p < exitEnd || index === GROUPS - 1;
         card.style.pointerEvents = isFront ? '' : 'none';
+        /* Folders waiting behind the current ones stay hidden; each
+           step fades in only once the step in front starts lifting away. */
+        card.style.opacity = index > 0
+          ? mapRange(p, (index - 1) * segment + segment * 0.05, (index - 1) * segment + segment * 0.35, 0, 1).toFixed(3) : '';
       });
 
-      if (!mobileMq.matches) setActive(Math.min(TOTAL - 1, Math.floor(p / segment + 0.5)));
+      if (!mobileMq.matches) setActive(Math.min(GROUPS - 1, Math.floor(p / segment + 0.5)));
     }
 
     /* The card the visitor has just landed on gets .is-active — red
        outline glow + a one-shot sparkle on its buttons (CSS). Re-adding
        the class restarts the animations each time a new card arrives. */
+    /* i is a scroll step: on desktop that's a pair of folders */
     let activeIndex = -1;
-    function setActive(i) {
-      if (i === activeIndex) return;
-      if (cards[activeIndex]) cards[activeIndex].classList.remove('is-active');
+    const inGroup = g => cards.filter((c, j) => Math.floor(j / PER) === g);
+    function setActive(i, force) {
+      if (i === activeIndex && !force) return;
+      cards.forEach(c => c.classList.remove('is-active'));
       const prev = activeIndex;
       activeIndex = i;
-      if (!cards[i]) return;
-      cards[i].classList.add('is-active');
-      if (prev === -1) return; // no impact on initial page load
+      const group = inGroup(i);
+      if (!group.length) return;
+      group.forEach(c => c.classList.add('is-active'));
+      if (prev === -1 || force) return; // no impact on initial page load
 
       /* The arriving card floats straight up into place. Uses the CSS
          `translate` property, which composes with the inline
          `transform` the scroll math writes every frame. */
-      const v = EXIT_VARIANTS[i % EXIT_VARIANTS.length];
-      restartAnim(cards[i], 'is-landing', { '--impact': v.impact });
+      group.forEach((c, k) => {
+        const v = EXIT_VARIANTS[(i + k) % EXIT_VARIANTS.length];
+        restartAnim(c, 'is-landing', { '--impact': v.impact });
+      });
     }
+    pairMq.addEventListener('change', () => { layoutGroups(); activeIndex = -1; onScroll(); });
 
     function restartAnim(el, cls, vars) {
       el.classList.remove(cls);
