@@ -11,26 +11,26 @@ ul { list-style: none; }
 
 /* ── TOKENS ── */
 :root {
-  --bg:       #000000;
-  --bg-2:     #0B0B0C;
-  --bg-3:     #1C1C1E;
-  --bg-4:     #111113;
+  --bg:       #FFFFFF;
+  --bg-2:     #F5F5F7;
+  --bg-3:     #FFFFFF;
+  --bg-4:     #F5F5F7;
 
-  --text:     #F5F5F7;
-  --text-2:   #8E8E93;
-  --text-3:   #48484A;
+  --text:     #1D1D1F;
+  --text-2:   #6E6E73;
+  --text-3:   #AEAEB2;
 
-  --red:      #FF453A;
-  --red-dim:  rgba(255, 69, 58, 0.25);
-  --red-glow: rgba(255, 69, 58, 0.55);
+  --red:      #FF3B30;
+  --red-dim:  rgba(255, 59, 48, 0.16);
+  --red-glow: rgba(255, 59, 48, 0.35);
 
-  --green:      #30D158;
+  --green:      #34C759;
   --green-dim:  rgba(48, 209, 88, 0.25);
   --green-glow: rgba(48, 209, 88, 0.55);
 
-  --border:   rgba(84, 84, 88, 0.36);
-  --border-2: rgba(84, 84, 88, 0.65);
-  --border-r: rgba(255, 69, 58, 0.3);
+  --border:   rgba(0, 0, 0, 0.08);
+  --border-2: rgba(0, 0, 0, 0.14);
+  --border-r: rgba(255, 59, 48, 0.3);
 
   --font-display: 'Bebas Neue', 'Impact', sans-serif;
   --font-serif:   'DM Sans', system-ui, sans-serif;
@@ -288,7 +288,7 @@ h1, h2, h3, h4 {
 .btn:hover { transform: translateY(-2px); }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--red) 0%, #3a0010 55%, #0a0002 100%);
+  background: var(--red);
   color: #fff;
   border: 1px solid var(--red);
   box-shadow: 0 0 16px var(--red-dim);
@@ -296,7 +296,7 @@ h1, h2, h3, h4 {
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, #d4002b 0%, #4a0014 55%, #140004 100%);
+  background: #E6352B;
   color: #fff;
   box-shadow: 0 0 32px var(--red-glow);
   animation-play-state: paused;
@@ -374,8 +374,8 @@ h1, h2, h3, h4 {
 }
 
 .nav.is-scrolled {
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
@@ -966,7 +966,7 @@ h1, h2, h3, h4 {
   font-size: clamp(18px, 2.6vw, 24px);
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255,255,255,0.82);
+  color: rgba(29,29,31,0.82);
 }
 .about-card__skills {
   margin: 6px 0 0;
@@ -1039,7 +1039,7 @@ h1, h2, h3, h4 {
   font-size: clamp(17px, 2.4vw, 24px);
   font-weight: 400;
   line-height: 1.4;
-  color: rgba(255,255,255,0.82);
+  color: rgba(29,29,31,0.82);
   max-width: 24ch;
 }
 
@@ -1190,7 +1190,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.78);
+  color: rgba(29,29,31,0.78);
 }
 /* flashing play triangle to grab attention */
 .inspo-game__play-tri {
@@ -3000,7 +3000,7 @@ body { text-align: center; }
 .hero__cta .btn { letter-spacing: 0.08em; font-size: 12px; font-weight: 600; }
 
 /* Tagline: each word steps a shade darker, white → soft grey */
-.hero__tagline-tags { color: rgba(255, 255, 255, 0.28); }
+.hero__tagline-tags { color: rgba(29, 29, 31, 0.4); }
 .hero__w { color: hsl(0 0% calc(100% - var(--w) * 9%)); transition: color 0.3s; }
 /* Name: back in Space Mono (its original font), kept in title case */
 .hero__name-line, .hero__name-line::before, .hero__name-line::after { text-transform: none; letter-spacing: 0.12em; }
@@ -3781,3 +3781,53 @@ html.sv-open { overflow: hidden; }
 .footer__bottom .footer__private { margin: 0; min-height: 28px; padding: 0 12px; gap: 6px; }
 .footer__bottom .footer__private svg { width: 10px; height: 10px; }
 @media (max-width: 760px) { .footer__bottom .footer__sep { display: none; } }
+
+
+/* ── LIGHT THEME (white and red) ──
+   The site was designed dark; these put the pieces that hard-code light
+   text or dark surfaces onto the white Apple light-mode palette. */
+.deck-prompt { background: rgba(255, 255, 255, 0.72); border-color: rgba(0, 0, 0, 0.1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+.deck-prompt__label { color: rgba(29, 29, 31, 0.85); }
+.deck-prompt__dot { background: #1D1D1F; box-shadow: none; }
+.deck-prompt__trail { background: linear-gradient(90deg, rgba(29, 29, 31, 0), rgba(29, 29, 31, 0.25)); }
+.footer__bottom span, .footer__nav a { color: var(--text-2); }
+.footer__private { color: var(--text); }
+.hero__name-line { color: var(--text); }
+
+/* Light theme: Apple-style buttons. Solid red pills for primary actions,
+   light grey pills for secondary ones, no pulsing glow. */
+.btn--primary, .hero__cta .btn--primary, .site-card__btn, #tools .site-card__btn, .contact__links--below .contact__cv {
+  background: var(--red) !important;
+  border: 1px solid var(--red) !important;
+  color: #fff !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(255, 59, 48, 0.22) !important;
+  animation: none !important;
+  text-shadow: none !important;
+}
+.btn--primary:hover, .site-card:hover .site-card__btn, .site-card__btn:hover, .contact__links--below .contact__cv:hover {
+  background: #E6352B !important; border-color: #E6352B !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 10px 24px rgba(255, 59, 48, 0.28) !important;
+}
+.btn--outline, .hero__cta .btn--outline {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid transparent !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+.btn--outline:hover, .hero__cta .btn--outline:hover {
+  background: rgba(0, 0, 0, 0.08) !important; color: var(--text) !important; box-shadow: none !important;
+}
+.filter-btn:hover { background: rgba(0, 0, 0, 0.05); }
+
+/* Light theme: the red mist, glows, scanlines and film grain are replaced
+   by a clean, soft red gradient that fades in from the top. */
+.hero__mist, .contact__smoke, .hero__glow, .hero__noise, .portfolio__glow--carousel { display: none !important; }
+.hero::after, .hero::before, body::before { display: none !important; }
+.hero, #portfolio, #contact {
+  background:
+    radial-gradient(ellipse 60% 42% at 50% 0%, rgba(255, 59, 48, 0.13) 0%, rgba(255, 59, 48, 0.04) 45%, rgba(255, 59, 48, 0) 72%),
+    radial-gradient(ellipse 34% 26% at 88% 92%, rgba(255, 105, 97, 0.07) 0%, rgba(255, 105, 97, 0) 70%),
+    var(--bg) !important;
+}
+#portfolio, #contact { background-color: var(--bg-2) !important; }

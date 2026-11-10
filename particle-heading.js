@@ -115,7 +115,7 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = i % 11 === 0 ? accent : '#F5F5F5';
+        ctx.fillStyle = i % 11 === 0 ? accent : '#1D1D1F';
         ctx.fill();
       }
       rafId = requestAnimationFrame(tick);

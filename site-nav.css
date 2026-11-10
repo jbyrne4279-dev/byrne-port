@@ -6,13 +6,13 @@
    Soundbar Pro, get the exact same bar.
    ============================================================ */
 .nav, .mobile-menu {
-  --sn-bg: #000000;
-  --sn-text: #FFFFFF;
-  --sn-text-2: #777777;
-  --sn-text-3: #333333;
-  --sn-red: #FF453A;
+  --sn-bg: #FFFFFF;
+  --sn-text: #1D1D1F;
+  --sn-text-2: #6E6E73;
+  --sn-text-3: #C7C7CC;
+  --sn-red: #FF3B30;
   --sn-red-dim: rgba(255, 69, 58, 0.25);
-  --sn-border: rgba(255,255,255,0.07);
+  --sn-border: rgba(0,0,0,0.08);
   --sn-display: 'Bebas Neue', 'Impact', sans-serif;
   --sn-mono: 'Space Mono', 'Courier New', monospace;
   --sn-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -31,8 +31,8 @@
   transition: background 0.4s var(--sn-ease), border-color 0.4s;
 }
 .nav.is-scrolled {
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--sn-border);
 }
@@ -107,7 +107,7 @@
   transition: color 0.2s, text-shadow 0.2s;
 }
 .mobile-menu ul li a:hover,
-.mobile-menu ul li a.is-active { color: var(--sn-text); text-shadow: 0 0 30px rgba(255,255,255,0.2); }
+.mobile-menu ul li a.is-active { color: var(--sn-text); text-shadow: none; }
 
 @media (max-width: 768px) {
   .nav__links { display: none !important; }
