@@ -1,5 +1,5 @@
-/* Put each website screenshot inside a MacBook mockup, and animate the lid
-   opening from closed as the card scrolls into view. */
+/* Put each website screenshot inside a MacBook mockup. The lid opens as
+   the card scrolls into view and closes again once it scrolls out. */
 'use strict';
 (function initDevices() {
   const cards = document.querySelectorAll('#websites .site-card');
@@ -22,15 +22,20 @@
     devices.push(dev);
   });
   if (reduce || !('IntersectionObserver' in window)) { devices.forEach(d => d.classList.add('is-open')); return; }
-  let n = 0;   // stagger so laptops open one after another
-  const io = new IntersectionObserver((entries, obs) => {
+  // Lids open as a laptop scrolls into view and close again once it has
+  // scrolled out (either way), so they reopen on the way back.
+  const timers = new Map();
+  const io = new IntersectionObserver(entries => {
+    let batch = 0;   // stagger laptops arriving together
     entries.forEach(e => {
+      const d = e.target;
+      clearTimeout(timers.get(d));
       if (e.isIntersecting) {
-        const order = n++;
-        setTimeout(() => e.target.classList.add('is-open'), 140 + order * 170);
-        obs.unobserve(e.target);
+        timers.set(d, setTimeout(() => d.classList.add('is-open'), 80 + batch++ * 150));
+      } else {
+        d.classList.remove('is-open');
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.25 });
   devices.forEach(d => io.observe(d));
 })();
