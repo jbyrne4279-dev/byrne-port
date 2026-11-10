@@ -277,3 +277,9 @@ html.theme-anim, html.theme-anim body, html.theme-anim section, html.theme-anim 
 @media (prefers-reduced-motion: reduce) {
   .theme-switch__knob, .theme-switch__knob svg { transition: none; }
 }
+
+/* ── About me cards: much softer shadow behind the stack ── */
+.about-card { box-shadow: var(--card-shadow) !important; }
+.about-card.is-dragging { box-shadow: var(--card-shadow-drag) !important; }
+:root { --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.07); --card-shadow-drag: 0 12px 28px rgba(0, 0, 0, 0.12); }
+html.theme-dark { --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); --card-shadow-drag: 0 14px 32px rgba(0, 0, 0, 0.45); }
