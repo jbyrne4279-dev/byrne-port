@@ -3757,3 +3757,9 @@ html.sv-open { overflow: hidden; }
   .websites__track .site-card__name { font-size: clamp(20px, 1.7vw, 26px); word-break: normal; overflow-wrap: normal; hyphens: none; }
   .websites__track .site-card__url { max-width: 100%; }
 }
+/* Websites: bigger laptops. The grid uses (nearly) the full screen width
+   and the empty frame around each laptop is trimmed. */
+@media (min-width: 1000px) {
+  .websites__track { max-width: none; padding: 10px clamp(24px, 3vw, 56px) 0; gap: clamp(24px, 2.4vw, 44px) clamp(20px, 2vw, 36px); }
+  #websites .site-card__img-wrap { padding: 6% 4% 1%; }
+}
