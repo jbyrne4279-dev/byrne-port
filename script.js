@@ -106,7 +106,7 @@
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
-    cell = Math.round((window.innerWidth < 600 ? 22 : 28) * dpr);
+    cell = Math.round((window.innerWidth < 600 ? 30 : 40) * dpr);
     cols = Math.max(8, Math.floor(canvas.width / cell));
     rows = Math.max(8, Math.floor(canvas.height / cell));
     ox = (canvas.width - cols * cell) / 2; oy = (canvas.height - rows * cell) / 2;
@@ -142,7 +142,57 @@
     return null;
   }
 
+  /* ── Scoreboard + event feed (styled like a competitive shooter's) ── */
+  const stats = { apples: 0, powers: 0, deaths: 0 };
+  const ICON = {
+    snake: '<svg viewBox="0 0 24 24"><rect x="3" y="9" width="6" height="6" rx="1.6"/><rect x="9" y="9" width="6" height="6" rx="1.6"/><rect x="15" y="7" width="7" height="8" rx="2"/><circle cx="19.5" cy="10" r="1" fill="#000"/></svg>',
+    apple: '<svg viewBox="0 0 24 24"><circle cx="12" cy="14" r="7" fill="#2ee082"/><path d="M12 7c0-2 1-3.5 3-4" stroke="#7a4b23" stroke-width="1.6" fill="none"/><ellipse cx="15" cy="5.5" rx="2.6" ry="1.3" fill="#0f7a3f" transform="rotate(-30 15 5.5)"/></svg>',
+    bomb: '<svg viewBox="0 0 24 24"><circle cx="11" cy="14" r="7" fill="#3a3a40" stroke="#9a9aa2" stroke-width="1.4"/><path d="M15 8l3-3" stroke="#aaa" stroke-width="1.8"/><circle cx="19" cy="4.5" r="2" fill="#ffc93c"/></svg>',
+    wall: '<svg viewBox="0 0 24 24" fill="#c9c9cf"><rect x="2" y="4" width="9" height="5" rx="1"/><rect x="13" y="4" width="9" height="5" rx="1"/><rect x="2" y="10" width="4" height="5" rx="1"/><rect x="8" y="10" width="9" height="5" rx="1"/><rect x="19" y="10" width="3" height="5" rx="1"/><rect x="2" y="16" width="9" height="5" rx="1"/><rect x="13" y="16" width="9" height="5" rx="1"/></svg>',
+    self: '<svg viewBox="0 0 24 24" fill="none" stroke="#FF6961" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    shield: '<svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z" fill="#4da3ff"/></svg>',
+    slow: '<svg viewBox="0 0 24 24" fill="none" stroke="#3ee6e0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M10 2h4"/></svg>',
+    double: '<svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="800" fill="#ffc93c" font-family="system-ui">2×</text></svg>',
+    shrink: '<svg viewBox="0 0 24 24" fill="none" stroke="#b57bff" stroke-width="2.4" stroke-linecap="round"><path d="M4 12h16M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>',
+    start: '<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#2ee082"/></svg>'
+  };
+  const board = document.createElement('div');
+  board.className = 'sg-board';
+  board.setAttribute('aria-live', 'polite');
+  board.innerHTML = `
+    <div class="sg-board__head"><span class="sg-board__title">Snake</span><span class="sg-board__mode">Competitive</span></div>
+    <div class="sg-board__cols"><span>Player</span><span>${ICON.apple}</span><span>${ICON.shield}</span><span>${ICON.bomb}</span><span>Score</span><span>Best</span></div>
+    <div class="sg-board__row"><span class="sg-board__player">${ICON.snake}<b class="sg-who">Autopilot</b></span><span class="sg-a">0</span><span class="sg-p">0</span><span class="sg-d">0</span><span class="sg-s">0</span><span class="sg-b">0</span></div>
+    <div class="sg-board__fx"></div>`;
+  const killfeed = document.createElement('div');
+  killfeed.className = 'sg-feed';
+  saver.appendChild(board);
+  saver.appendChild(killfeed);
+  function feed(kind, text, bad) {
+    const row = document.createElement('div');
+    row.className = 'sg-feed__row' + (bad ? ' is-bad' : '');
+    row.innerHTML = `<span class="sg-feed__ico">${ICON.snake}</span><span class="sg-feed__arrow"></span><span class="sg-feed__ico">${ICON[kind] || ICON.apple}</span><span class="sg-feed__txt"></span>`;
+    row.querySelector('.sg-feed__txt').textContent = text;
+    killfeed.prepend(row);
+    while (killfeed.children.length > 5) killfeed.lastChild.remove();
+    setTimeout(() => row.classList.add('is-old'), 4200);
+    setTimeout(() => row.remove(), 4800);
+  }
+  function paintBoard() {
+    board.querySelector('.sg-who').textContent = manual ? 'You' : 'Autopilot';
+    board.classList.toggle('is-you', manual);
+    board.querySelector('.sg-a').textContent = manual ? stats.apples : '–';
+    board.querySelector('.sg-p').textContent = manual ? stats.powers : '–';
+    board.querySelector('.sg-d').textContent = stats.deaths;
+    board.querySelector('.sg-s').textContent = manual ? score : '–';
+    board.querySelector('.sg-b').textContent = best;
+    const fx = Object.keys(effects).filter(k => effects[k] > now);
+    board.querySelector('.sg-board__fx').innerHTML = fx.map(k =>
+      `<span class="sg-fx">${ICON[k]}<i>${Math.ceil((effects[k] - now) / 1000)}s</i></span>`).join('');
+  }
+
   function showScore() {
+    paintBoard();
     if (!scoreEl) return;
     const on = Object.keys(effects).filter(k => effects[k] > now).map(k => POWERS[k].label);
     scoreEl.textContent = (manual || best)
@@ -201,8 +251,13 @@
     shakeUntil = now + 450;
   }
 
-  function die(x, y) {
+  function die(x, y, cause) {
     explode(x, y);
+    if (manual) {
+      stats.deaths++;
+      feed(cause === 'bomb' ? 'bomb' : cause === 'wall' ? 'wall' : 'self',
+        cause === 'bomb' ? `Hit a bomb · ${score} pts` : cause === 'wall' ? `Hit the wall · ${score} pts` : `Bit its own tail · ${score} pts`, true);
+    }
     floatText(canvas.width / 2, canvas.height * 0.28, `Game over · ${score}`, '#FF6961');
     best = Math.max(best, score);
     deadUntil = now + 900;            // freeze briefly on the explosion, then restart
@@ -234,12 +289,12 @@
       const shielded = effects.shield > now;
       const offBoard = nx < 0 || ny < 0 || nx >= cols || ny >= rows;
       if (offBoard) {                      // walls are solid — no wrap to the opposite side
-        die(cx(snake[0][0]), cy(snake[0][1])); return;
+        die(cx(snake[0][0]), cy(snake[0][1]), 'wall'); return;
       }
       const hitSelf = snake.slice(0, -1).some(([x, y]) => x === nx && y === ny);
       if (hitSelf) {
-        if (effects.shield <= now) { die(cx(nx), cy(ny)); return; }
-        effects.shield = 0; floatText(cx(nx), cy(ny), 'Shield used', POWERS.shield.color);
+        if (effects.shield <= now) { die(cx(nx), cy(ny), 'self'); return; }
+        effects.shield = 0; floatText(cx(nx), cy(ny), 'Shield used', POWERS.shield.color); feed('shield', 'Shield saved you');
       }
     } else {
       const d = chooseDir();
@@ -255,9 +310,9 @@
     const bi = bombs.findIndex(b => b.x === nx && b.y === ny);
     if (bi >= 0) {
       const b = bombs.splice(bi, 1)[0];
-      if (!manual || effects.shield <= now) { die(cx(b.x), cy(b.y)); return; }
+      if (!manual || effects.shield <= now) { die(cx(b.x), cy(b.y), 'bomb'); return; }
       explode(cx(b.x), cy(b.y)); effects.shield = 0;
-      floatText(cx(b.x), cy(b.y), 'Shield used', POWERS.shield.color);
+      floatText(cx(b.x), cy(b.y), 'Shield used', POWERS.shield.color); feed('bomb', 'Bomb blocked by shield');
     }
 
     snake.unshift([nx, ny]);
@@ -265,7 +320,7 @@
     if (apple && nx === apple[0] && ny === apple[1]) {
       const pts = effects.double > now ? 2 : 1;
       grow += 3;
-      if (manual) score += pts;
+      if (manual) { score += pts; stats.apples++; feed('apple', pts > 1 ? `Apple +${pts} (2×)` : 'Apple +1'); }
       burst(cx(nx), cy(ny), ['#2ee082', '#9dffc9', '#FF6961', '#ffffff'], 26, 0.32);
       rings.push({ x: cx(nx), y: cy(ny), born: now, color: 'rgba(46,224,130,', max: cell * 2.2 });
       floatText(cx(nx), cy(ny) - cell * 0.4, `+${pts}`, pts > 1 ? POWERS.double.color : '#2ee082');
@@ -279,6 +334,7 @@
       burst(cx(nx), cy(ny), [p.color, '#ffffff'], 22, 0.3);
       rings.push({ x: cx(nx), y: cy(ny), born: now, color: p.glow.replace(/[\d.]+\)$/, ''), max: cell * 2.6 });
       floatText(cx(nx), cy(ny) - cell * 0.4, p.label, p.color);
+      if (manual) { stats.powers++; feed(power.type, p.label); }
       if (power.type === 'shrink') {
         const cut = Math.floor(snake.length / 3);
         for (let i = 0; i < cut && snake.length > 4; i++) {
@@ -370,32 +426,59 @@
       ctx.beginPath(); ctx.ellipse(ax + cell * 0.12, ay - cell * 0.34, cell * 0.13, cell * 0.07, -0.6, 0, Math.PI * 2); ctx.fill();
     }
 
-    // red snake, brightest at the head; a gulp ripples down it after eating
+    // the snake: glossy rounded blocks like the homepage snake, red to deep
+    // red down the body, a tail that shrinks away, and a cartoon head
     const shielded = effects.shield > now, dead = now < deadUntil;
-    const pad = Math.max(1, cell * 0.08), age = (now - pulseAt) / 45;
-    ctx.shadowColor = shielded ? 'rgba(77,163,255,.9)' : 'rgba(255, 69, 58, 0.8)'; ctx.shadowBlur = 14 * dpr;
-    snake.forEach(([x, y], i) => {
-      const t = i / Math.max(1, snake.length - 1);
-      const bulge = age < snake.length + 6 ? 0.28 * Math.exp(-((age - i) ** 2) / 3) : 0;
-      const s = (cell - pad * 2) * (1 + bulge), off = (cell - s) / 2;
-      ctx.fillStyle = dead ? `rgba(120,30,30,${1 - t * 0.6})`
-        : i === 0 ? '#FF6961' : `rgb(${Math.round(224 - t * 90)}, ${Math.round(20 - t * 10)}, ${Math.round(60 - t * 25)})`;
-      roundRect(ox + x * cell + off, oy + y * cell + off, s, s, cell * 0.28);
-      ctx.fill();
-    });
+    const age = (now - pulseAt) / 45, n = snake.length, TAILN = 4, lw = 1.5 * dpr;
+    const mix = (a, b, t) => a.map((v, k) => Math.round(v + (b[k] - v) * t));
+    const HEADC = [255, 77, 94], TAILC = [176, 18, 42];
+    if (shielded) { ctx.shadowColor = 'rgba(77,163,255,.9)'; ctx.shadowBlur = 16 * dpr; }
+    for (let i = n - 1; i >= 1; i--) {
+      const [x, y] = snake[i], t = i / Math.max(1, n - 1), fromEnd = n - 1 - i;
+      const shrink = fromEnd < TAILN ? 0.5 + 0.5 * (fromEnd / TAILN) : 1;
+      const bulge = age < n + 6 ? 0.25 * Math.exp(-((age - i) ** 2) / 3) : 0;
+      const sz = cell * 0.86 * shrink * (1 + bulge), bx = cx(x) - sz / 2, by = cy(y) - sz / 2;
+      const c = dead ? [120, 40, 46] : mix(HEADC, TAILC, t);
+      ctx.fillStyle = '#6E0C1B'; roundRect(bx - lw, by - lw, sz + lw * 2, sz + lw * 2, sz * 0.28 + lw); ctx.fill();
+      ctx.fillStyle = `rgb(${c})`; roundRect(bx, by, sz, sz, sz * 0.28); ctx.fill();
+      const hl = mix(c, [255, 255, 255], 0.35);
+      ctx.fillStyle = `rgb(${hl})`; roundRect(bx + sz * 0.16, by + sz * 0.12, sz * 0.5, sz * 0.2, sz * 0.1); ctx.fill();
+    }
     ctx.shadowBlur = 0;
+    // head
+    const [hx, hy] = snake[0], HS = cell, ang = Math.atan2(dir[1], dir[0]);
+    let open = 0;
+    if (apple && !dead) {
+      const d = Math.abs(apple[0] - hx) + Math.abs(apple[1] - hy);
+      open = Math.max(0, Math.min(1, (3 - d) / 2));
+    }
+    const chompT = (now - pulseAt) / 220, chomp = chompT < 1 ? Math.sin(chompT * Math.PI) : 0;
+    ctx.save();
+    ctx.translate(cx(hx), cy(hy)); ctx.rotate(ang); ctx.scale(1 + chomp * 0.14, 1 - chomp * 0.1);
+    ctx.fillStyle = '#6E0C1B'; roundRect(-HS / 2 - lw, -HS / 2 - lw, HS + lw * 2, HS + lw * 2, HS * 0.3 + lw); ctx.fill();
+    ctx.fillStyle = dead ? 'rgb(120,40,46)' : `rgb(${HEADC})`; roundRect(-HS / 2, -HS / 2, HS, HS, HS * 0.3); ctx.fill();
+    ctx.fillStyle = 'rgb(255,160,168)'; roundRect(-HS * 0.34, -HS * 0.38, HS * 0.45, HS * 0.16, HS * 0.08); ctx.fill();
+    if (open > 0.02) {
+      const mh = HS * 0.34 * open;
+      ctx.fillStyle = '#3A0610';
+      ctx.beginPath(); ctx.moveTo(HS * 0.12, 0); ctx.lineTo(HS / 2 + lw, -mh); ctx.lineTo(HS / 2 + lw, mh); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#FF2D55'; ctx.beginPath(); ctx.ellipse(HS * 0.34, 0, HS * 0.12, mh * 0.35, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff';
+      for (const sd of [-1, 1]) { const fy = sd * mh * 0.78; ctx.beginPath(); ctx.moveTo(HS * 0.36, fy); ctx.lineTo(HS * 0.46, fy); ctx.lineTo(HS * 0.41, fy - sd * HS * 0.12 * open); ctx.closePath(); ctx.fill(); }
+    }
+    const blink = (now % 4200) < 140;
+    for (const sd of [-1, 1]) {
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.ellipse(-HS * 0.02, sd * HS * 0.2, HS * 0.15, blink || dead ? HS * 0.03 : HS * 0.15, 0, 0, Math.PI * 2); ctx.fill();
+      if (!blink && !dead) {
+        ctx.fillStyle = '#1A0306'; ctx.beginPath(); ctx.arc(HS * 0.04, sd * HS * 0.19, HS * 0.075, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(HS * 0.015, sd * HS * 0.165, HS * 0.025, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
     if (shielded) {
       ctx.strokeStyle = 'rgba(77,163,255,.8)'; ctx.lineWidth = 2 * dpr;
-      ctx.beginPath(); ctx.arc(cx(snake[0][0]), cy(snake[0][1]), cell * 0.62, 0, Math.PI * 2); ctx.stroke();
-    }
-    // eyes
-    const [hx, hy] = snake[0];
-    const ex = -dir[1], ey = dir[0];
-    ctx.fillStyle = '#fff';
-    for (const s of [-1, 1]) {
-      ctx.beginPath();
-      ctx.arc(cx(hx) + dir[0] * cell * 0.16 + ex * s * cell * 0.17, cy(hy) + dir[1] * cell * 0.16 + ey * s * cell * 0.17, cell * 0.07, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx(hx), cy(hy), cell * 0.72, 0, Math.PI * 2); ctx.stroke();
     }
 
     // expanding rings, sparks and floating labels
@@ -482,7 +565,7 @@
   // Steering: arrow keys / WASD, or a swipe on touch screens
   function steer(dx, dy) {
     if (!active || reduce || deadUntil) return;
-    if (!manual) { manual = true; score = 0; bombs = []; showScore(); }   // any key takes over
+    if (!manual) { manual = true; score = 0; bombs = []; stats.apples = 0; stats.powers = 0; feed('start', 'You took control'); showScore(); }   // any key takes over
     const cur = queued || dir;
     if (dx === -cur[0] && dy === -cur[1] && snake.length > 1) return;   // no reversing into yourself
     queued = [dx, dy];
