@@ -122,7 +122,7 @@ html.theme-dark {
 
 /* On the dark carbon folders, the file viewer and the idle screen
    the glass is always the dark kind */
-.cfs__view, .cv__btn, html.theme-dark .screensaver__back {
+.cfs__view, html.theme-dark .cv__btn, html.theme-dark .screensaver__back {
   color: #F5F5F7 !important;
   background:
     radial-gradient(140px circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.22), transparent 65%),
@@ -150,7 +150,7 @@ html.theme-dark {
     background-color: var(--g-prim-hover) !important;
     transform: translateY(-1px) scale(1.03);
   }
-  .cfs__view:hover, .cv__btn:hover, html.theme-dark .screensaver__back:hover {
+  .cfs__view:hover, html.theme-dark .cv__btn:hover, html.theme-dark .screensaver__back:hover {
     --gy: 0%;
     background-color: rgba(255, 255, 255, 0.13) !important;
     transform: translateY(-1px) scale(1.03);
@@ -545,3 +545,41 @@ html:not(.theme-dark) .matrix-intro { background: #FFFFFF; }
 /* About-card game: a plain "Play" glass button */
 .inspo-game__btn-main { font: 600 16px/1 var(--g-font) !important; letter-spacing: -0.01em !important; text-transform: none !important; display: inline-flex; align-items: center; gap: 8px; }
 .inspo-game__btn--start { padding: 0 28px !important; min-height: 48px; }
+
+/* ── Coursework files in the light theme: white, to match the folders ── */
+@media (min-width: 600px) and (hover: hover) {
+  html:not(.theme-dark) .cfs__doc {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  html:not(.theme-dark) .cfs__doc img { background: #F5F5F7; }
+  html:not(.theme-dark) .cfs__doc em { color: #6E6E73; }
+  html:not(.theme-dark) .cfs__card:hover .cfs__doc:hover,
+  html:not(.theme-dark) .cfs__card .cfs__doc:focus-visible {
+    border-color: rgba(0, 0, 0, 0.16);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 18px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* The file viewer in the light theme */
+html:not(.theme-dark) .cv__backdrop { background: rgba(245, 245, 247, 0.7); }
+html:not(.theme-dark) .cv__panel {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  color: #1D1D1F;
+}
+html:not(.theme-dark) .cv__tab { background: #FFFFFF; box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.04); }
+html:not(.theme-dark) .cv__eyebrow { color: #8A8A93; }
+html:not(.theme-dark) .cv__title { color: #1D1D1F; }
+html:not(.theme-dark) .cv__file { border-color: rgba(0, 0, 0, 0.1); color: #6E6E73; }
+html:not(.theme-dark) .cv__file:hover { background: rgba(0, 0, 0, 0.04); }
+html:not(.theme-dark) .cv__file[aria-selected="true"] { background: #1D1D1F; border-color: #1D1D1F; color: #FFFFFF; }
+html:not(.theme-dark) .cv__body { background: #F5F5F7; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06); }
+html:not(.theme-dark) .cv__page { background: #FFFFFF; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.08); }
+html:not(.theme-dark) .cv__page:not(.is-ready)::after { background: linear-gradient(100deg, transparent 30%, rgba(0, 0, 0, 0.04) 50%, transparent 70%) 0 0 / 200% 100%; }
+html:not(.theme-dark) .cv__status { color: #6E6E73; }
+html:not(.theme-dark) .cv__status.is-busy::before { border-color: rgba(0, 0, 0, 0.1); border-top-color: #1D1D1F; }
+html:not(.theme-dark) .cv__foot { color: #8A8A93; }
+html:not(.theme-dark) .cv__btn:focus-visible, html:not(.theme-dark) .cv__file:focus-visible, html:not(.theme-dark) .cv__body:focus-visible { outline-color: #1D1D1F; }
