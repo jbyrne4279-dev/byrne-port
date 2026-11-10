@@ -449,12 +449,43 @@ html.theme-dark .cfs__glass, html.theme-dark .cfs__card.is-active .cfs__glass { 
 html:not(.theme-dark) .matrix-intro { background: #FFFFFF; }
 
 /* Web Development intro line: a slow, smooth vertical float, forever */
+/* The float uses the separate `translate` property so it stacks on top
+   of any transform a heading already animates (reveals, glitches). */
 @keyframes float-y {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(0, -8px, 0); }
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -8px; }
 }
-.websites__float { animation: float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .websites__float { animation: none !important; } }
+.websites__float { animation: float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+
+/* Same float on every main heading */
+.hero__name {
+  animation: fadeUp 0.9s var(--ease-out) 0.5s forwards, ambient-glitch 9s 3s infinite,
+             float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) 1.4s infinite;
+}
+.section__title.reveal.in-view {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both,
+             float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) 0.7s infinite;
+}
+.cal-hero__title, .nw-title, .proj-hero__title, .vl-title { animation: float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.sa-title { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both, float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) 0.9s infinite; }
+.sb-hero__title { animation: sb-red-glow 2.6s ease-in-out infinite, float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .websites__float, .cal-hero__title, .nw-title, .proj-hero__title, .vl-title { animation: none !important; }
+  .hero__name { animation: fadeUp 0.9s var(--ease-out) 0.5s forwards; }
+  .section__title.reveal.in-view { animation: none; }
+  .sa-title { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both; }
+  .sb-hero__title { animation: sb-red-glow 2.6s ease-in-out infinite; }
+}
+
+/* Hero name in the same font as the section headings (Get in Touch) */
+.hero__name { gap: calc(min(128px, (100vw - 40px) / 6.4) * 0.26) !important; }
+.hero__name-line, .hero__name-line::before, .hero__name-line::after {
+  font-family: var(--font-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+.hero__name-line { font-size: min(128px, calc((100vw - 40px) / 6.4)) !important; line-height: 1.02 !important; }
 
 /* ── Infinite project gallery under Get in Touch ── */
 .gallery {
@@ -510,3 +541,7 @@ html:not(.theme-dark) .matrix-intro { background: #FFFFFF; }
   .gallery__track { animation: none; }
   .gallery__set[aria-hidden="true"] { display: none; }
 }
+
+/* About-card game: a plain "Play" glass button */
+.inspo-game__btn-main { font: 600 16px/1 var(--g-font) !important; letter-spacing: -0.01em !important; text-transform: none !important; display: inline-flex; align-items: center; gap: 8px; }
+.inspo-game__btn--start { padding: 0 28px !important; min-height: 48px; }
