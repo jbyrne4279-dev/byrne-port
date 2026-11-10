@@ -146,3 +146,9 @@
 
 @media (max-width: 600px) { .vl-bar select { flex: 1 1 40%; } }
 .vl-job, .vl-field > span, .vl-job__msg { text-align: left; }
+
+
+/* Light theme (white and Apple red) */
+.vl-body { background: #FFFFFF; color: #1D1D1F;
+  --vl-panel: #FFFFFF; --vl-panel-2: #F2F2F7; --vl-line: rgba(0,0,0,0.08); --vl-line-2: rgba(0,0,0,0.14);
+  --vl-label: #1D1D1F; --vl-label-2: #6E6E73; --vl-label-3: #8E8E93; --vl-accent: #FF3B30; }

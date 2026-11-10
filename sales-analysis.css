@@ -1114,7 +1114,7 @@ html.sa-light {
   color-scheme: light;
   --bg: #f4f4f6; --bg-2: #ececef; --bg-3: #e4e4e8; --bg-4: #dcdce1;
   --text: #111114; --text-2: #55555c; --text-3: #8a8a92;
-  --red: #c4001f;
+  --red: #FF3B30;
   --border: rgba(0,0,0,0.08); --border-2: rgba(0,0,0,0.16);
 }
 html.sa-light, html.sa-light body, html.sa-light .sa-body { background: #f4f4f6; }
