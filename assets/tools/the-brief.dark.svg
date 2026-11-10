@@ -5,28 +5,29 @@
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>
     <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#FF453A" stroke-opacity="0.08" stroke-width="1"/></pattern>
   </defs>
+  <style>.ring{transform-box:fill-box;transform-origin:center;animation:ring 2s ease-out infinite}@keyframes ring{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.9);opacity:0}}.dot{transform-box:fill-box;transform-origin:center;animation:dot 2s ease-in-out infinite}@keyframes dot{0%,100%{transform:scale(1)}50%{transform:scale(.8)}}.ln{stroke-dasharray:100;animation:type 5s ease-in-out infinite}.ln:nth-of-type(2){animation-delay:.25s}.ln:nth-of-type(3){animation-delay:.5s}.ln:nth-of-type(4){animation-delay:.75s}@keyframes type{0%{stroke-dashoffset:100}25%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-100}}.pic{transform-box:fill-box;transform-origin:center;animation:pic 5s ease-in-out infinite}@keyframes pic{0%,20%{opacity:.35}35%,85%{opacity:1}100%{opacity:.35}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
   <rect width="1600" height="1000" fill="url(#bg)"/>
   <rect width="1600" height="1000" fill="url(#grid)"/>
   <rect x="470" y="230" width="660" height="560" rx="60" fill="#FF453A" opacity="0.12" filter="url(#soft)"/>
 
   <!-- Newspaper: front page with a folded-back inner page -->
-  <g filter="url(#glow)" fill="none" stroke="#FF453A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+  <g class="paper" filter="url(#glow)" fill="none" stroke="#FF453A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
     <path d="M560 250h480a50 50 0 0 1 50 50v430a60 60 0 0 1-60 60H530"/>
     <path d="M560 250v480a60 60 0 0 1-60 60h0a60 60 0 0 1-60-60V420h120"/>
-    <line x1="640" y1="470" x2="1010" y2="470"/>
-    <line x1="640" y1="560" x2="800" y2="560"/>
-    <line x1="640" y1="640" x2="800" y2="640"/>
-    <line x1="640" y1="720" x2="800" y2="720"/>
-    <rect x="860" y="550" width="150" height="180" rx="18"/>
+    <line class="ln" x1="640" y1="470" x2="1010" y2="470" pathLength="100"/>
+    <line class="ln" x1="640" y1="560" x2="800" y2="560" pathLength="100"/>
+    <line class="ln" x1="640" y1="640" x2="800" y2="640" pathLength="100"/>
+    <line class="ln" x1="640" y1="720" x2="800" y2="720" pathLength="100"/>
+    <rect class="pic" x="860" y="550" width="150" height="180" rx="18"/>
   </g>
   <!-- Masthead block -->
   <rect x="640" y="320" width="370" height="80" rx="16" fill="#FF453A" opacity="0.22"/>
   <g filter="url(#glow)" fill="#FF453A">
     <rect x="640" y="320" width="230" height="80" rx="16"/>
     <!-- live pulse -->
-    <circle cx="965" cy="360" r="20"/>
+    <circle class="dot" cx="965" cy="360" r="20"/>
   </g>
-  <circle cx="965" cy="360" r="40" fill="none" stroke="#FF453A" stroke-width="6" opacity="0.35"/>
+  <circle class="ring" cx="965" cy="360" r="40" fill="none" stroke="#FF453A" stroke-width="6" opacity="0.35"/>
   <g fill="none" stroke="#FFD6D3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
     <path d="M560 250h480a50 50 0 0 1 50 50v430a60 60 0 0 1-60 60H530"/>
     <path d="M560 250v480a60 60 0 0 1-60 60h0a60 60 0 0 1-60-60V420h120"/>

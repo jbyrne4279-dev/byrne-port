@@ -6,24 +6,25 @@
     <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF453A" stop-opacity="0.15"/><stop offset="1" stop-color="#FF453A" stop-opacity="0"/></linearGradient>
     <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#FF453A" stroke-opacity="0.08" stroke-width="1"/></pattern>
   </defs>
+  <style>.bar{transform-box:fill-box;transform-origin:50% 100%;animation:bar 6s cubic-bezier(.22,1,.36,1) infinite}@keyframes bar{0%{transform:scaleY(.15)}25%,85%{transform:scaleY(1)}100%{transform:scaleY(.15)}}.trend{stroke-dasharray:100;animation:draw 6s ease-in-out infinite}@keyframes draw{0%,5%{stroke-dashoffset:100}40%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}.area{animation:area 6s ease-in-out infinite}@keyframes area{0%,20%{opacity:0}45%,85%{opacity:1}100%{opacity:0}}.pt{transform-box:fill-box;transform-origin:center;animation:pt 6s ease-in-out infinite}.pt:nth-of-type(2){animation-delay:.25s}.pt:nth-of-type(3){animation-delay:.5s}.pt:nth-of-type(4){animation-delay:.75s}@keyframes pt{0%,25%{transform:scale(0)}35%{transform:scale(1.6)}42%,85%{transform:scale(1)}100%{transform:scale(0)}}.arrow{animation:arrow 6s ease-in-out infinite}@keyframes arrow{0%,35%{opacity:0;transform:translate(-30px,30px)}45%,85%{opacity:1;transform:none}100%{opacity:0}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
   <rect width="1600" height="1000" fill="url(#bg)"/>
   <rect width="1600" height="1000" fill="url(#grid)"/>
   <g stroke="#FF453A" stroke-opacity="0.18" stroke-width="2">
     <line x1="260" y1="820" x2="1360" y2="820"/><line x1="260" y1="220" x2="260" y2="820"/>
   </g>
   <g fill="#FF453A" fill-opacity="0.16">
-    <rect x="330" y="700" width="70" height="120" rx="8"/><rect x="480" y="640" width="70" height="180" rx="8"/>
-    <rect x="630" y="670" width="70" height="150" rx="8"/><rect x="780" y="560" width="70" height="260" rx="8"/>
-    <rect x="930" y="500" width="70" height="320" rx="8"/><rect x="1080" y="400" width="70" height="420" rx="8"/>
+    <rect class="bar" style="animation-delay:0.00s" x="330" y="700" width="70" height="120" rx="8"/><rect class="bar" style="animation-delay:0.12s" x="480" y="640" width="70" height="180" rx="8"/>
+    <rect class="bar" style="animation-delay:0.24s" x="630" y="670" width="70" height="150" rx="8"/><rect class="bar" style="animation-delay:0.36s" x="780" y="560" width="70" height="260" rx="8"/>
+    <rect class="bar" style="animation-delay:0.48s" x="930" y="500" width="70" height="320" rx="8"/><rect class="bar" style="animation-delay:0.60s" x="1080" y="400" width="70" height="420" rx="8"/>
   </g>
-  <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1300 270 L1300 820 L300 820Z" fill="url(#area)"/>
-  <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#FF453A" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)" opacity="0.25"/>
+  <path class="area" d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1300 270 L1300 820 L300 820Z" fill="url(#area)"/>
+  <path class="trend glow" pathLength="100" d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#FF453A" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)" opacity="0.25"/>
   <g filter="url(#glow)" fill="none" stroke="#FF453A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280"/>
-    <path d="M1150 270 L1300 268 L1298 418"/>
+    <path class="trend" pathLength="100" d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280"/>
+    <path class="arrow" d="M1150 270 L1300 268 L1298 418"/>
   </g>
   <g fill="#fff" filter="url(#glow)">
-    <circle cx="520" cy="600" r="11"/><circle cx="680" cy="650" r="11"/><circle cx="880" cy="470" r="11"/><circle cx="1040" cy="520" r="11"/>
+    <circle class="pt" cx="520" cy="600" r="11"/><circle class="pt" cx="680" cy="650" r="11"/><circle class="pt" cx="880" cy="470" r="11"/><circle class="pt" cx="1040" cy="520" r="11"/>
   </g>
-  <path d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#FFD6D3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="trend" pathLength="100" d="M300 720 L520 600 L680 650 L880 470 L1040 520 L1290 280" fill="none" stroke="#FFD6D3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

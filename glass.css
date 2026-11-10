@@ -731,3 +731,8 @@ html.theme-dark #nav .nav__knob {
   pointer-events: none;
 }
 #websites .site-card .device__screen .device__video.is-playing { opacity: 1; }
+
+/* Laptop screens match the recordings exactly (960 x 494), so nothing is cropped */
+#websites .site-card .device__screen { aspect-ratio: 960 / 494 !important; box-sizing: content-box !important; width: calc(100% - 16px); }
+#websites .site-card .device__screen .device__video { object-fit: contain !important; object-position: center !important; background: #000; }
+#websites .site-card__img-wrap { aspect-ratio: auto !important; }

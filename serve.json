@@ -25,6 +25,11 @@
       "source": "/survey",
       "destination": "/",
       "type": 301
+    },
+    {
+      "source": "/cowork",
+      "destination": "/",
+      "type": 301
     }
   ]
 }
