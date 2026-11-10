@@ -754,3 +754,12 @@ html.theme-dark #nav .nav__knob {
   font-size: 14px !important;
   color: var(--text-2) !important;
 }
+
+/* Tools + Contact: a second nav island on the left */
+#nav .nav__links--side {
+  position: absolute;
+  top: 50%;
+  left: clamp(20px, 5vw, 80px);
+  transform: translateY(-50%);
+}
+@media (max-width: 768px) { #nav .nav__links--side { display: none !important; } }

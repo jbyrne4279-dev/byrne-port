@@ -100,29 +100,42 @@
   };
   const list = nav && nav.querySelector('.nav__links');
   if (list && !list.classList.contains('nav__links--icons')) {
-    list.classList.add('nav__links--icons');
-    const knob = document.createElement('li');
-    knob.className = 'nav__knob';
-    knob.setAttribute('aria-hidden', 'true');
-    list.prepend(knob);
-    const anchors = [...list.querySelectorAll('a')];
-    anchors.forEach(a => {
+    // Home, Work, Sites and Academic stay in the centre; Tools and Contact
+    // get their own island on the left, in the same glass style.
+    const side = document.createElement('ul');
+    side.className = 'nav__links nav__links--side';
+    side.setAttribute('aria-label', 'Tools and contact');
+    [...list.querySelectorAll('a')].forEach(a => {
       const key = (a.getAttribute('href') || '').split('#')[1];
-      if (!ICONS[key]) return;
-      const label = a.textContent.trim();
-      a.setAttribute('aria-label', label);
-      a.dataset.tip = label;
-      a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[key]}</svg>`;
+      if (key === 'tools' || key === 'contact') side.appendChild(a.parentElement);
     });
-    const place = () => {
-      const on = anchors.find(a => a.classList.contains('is-active'));
-      if (!on) { knob.style.opacity = '0'; return; }
-      knob.style.opacity = '1';
-      knob.style.transform = `translate(${on.parentElement.offsetLeft}px, ${on.parentElement.offsetTop}px)`;
-    };
-    new MutationObserver(place).observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
-    window.addEventListener('resize', place);
-    requestAnimationFrame(place);
+    nav.appendChild(side);
+
+    [list, side].forEach(ul => {
+      ul.classList.add('nav__links--icons');
+      const knob = document.createElement('li');
+      knob.className = 'nav__knob';
+      knob.setAttribute('aria-hidden', 'true');
+      ul.prepend(knob);
+      const anchors = [...ul.querySelectorAll('a')];
+      anchors.forEach(a => {
+        const key = (a.getAttribute('href') || '').split('#')[1];
+        if (!ICONS[key]) return;
+        const label = a.textContent.trim();
+        a.setAttribute('aria-label', label);
+        a.dataset.tip = label;
+        a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[key]}</svg>`;
+      });
+      const place = () => {
+        const on = anchors.find(a => a.classList.contains('is-active'));
+        if (!on) { knob.style.opacity = '0'; return; }
+        knob.style.opacity = '1';
+        knob.style.transform = `translate(${on.parentElement.offsetLeft}px, ${on.parentElement.offsetTop}px)`;
+      };
+      new MutationObserver(place).observe(ul, { subtree: true, attributes: true, attributeFilter: ['class'] });
+      window.addEventListener('resize', place);
+      requestAnimationFrame(place);
+    });
   }
 
   // Sync everything to the saved choice (the head script did the stylesheets)
