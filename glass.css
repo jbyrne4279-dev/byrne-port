@@ -583,3 +583,25 @@ html:not(.theme-dark) .cv__status { color: #6E6E73; }
 html:not(.theme-dark) .cv__status.is-busy::before { border-color: rgba(0, 0, 0, 0.1); border-top-color: #1D1D1F; }
 html:not(.theme-dark) .cv__foot { color: #8A8A93; }
 html:not(.theme-dark) .cv__btn:focus-visible, html:not(.theme-dark) .cv__file:focus-visible, html:not(.theme-dark) .cv__body:focus-visible { outline-color: #1D1D1F; }
+
+/* Hero: faint matrix field down both sides (light theme only) */
+.hero__matrix { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+html.theme-dark .hero__matrix { display: none; }
+
+/* Contact: icons for email and phone */
+.contact__icon {
+  flex: 0 0 auto;
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  color: var(--g-text);
+  background: var(--g-tint), var(--g-fill);
+  border: 1px solid var(--g-border);
+  box-shadow: inset 0 1px 0 var(--g-edge), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.contact__icon svg { width: 17px; height: 17px; }
+html.theme-dark .contact__icon { color: #FF453A; }
+@media (max-width: 560px) {
+  .contact__links--below .contact__link { justify-content: flex-start !important; }
+  .contact__links--below .contact__link-value { flex: 1; text-align: right; }
+}
