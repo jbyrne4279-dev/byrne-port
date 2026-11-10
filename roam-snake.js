@@ -318,7 +318,14 @@
   }
 
   let rt;
-  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => moveTo(host || bestHost()), 200); });
+  // Phones fire 'resize' whenever the address bar slides in or out while
+  // scrolling; only a real change of width should move the snake
+  let lastW = innerWidth;
+  window.addEventListener('resize', () => {
+    if (Math.abs(innerWidth - lastW) < 2) return;
+    lastW = innerWidth;
+    clearTimeout(rt); rt = setTimeout(() => moveTo(host || bestHost()), 200);
+  });
   moveTo(bestHost());
   requestAnimationFrame(loop);
 })();
