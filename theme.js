@@ -100,7 +100,7 @@
   };
   const list = nav && nav.querySelector('.nav__links');
   if (list && !list.classList.contains('nav__links--icons')) {
-    // Home, Work, Sites and Academic stay in the centre; Tools and Contact
+    // Home, Work and Sites stay in the centre; Tools and Contact
     // get their own island on the left, in the same glass style.
     const side = document.createElement('ul');
     side.className = 'nav__links nav__links--side';
@@ -108,6 +108,7 @@
     [...list.querySelectorAll('a')].forEach(a => {
       const key = (a.getAttribute('href') || '').split('#')[1];
       if (key === 'tools' || key === 'contact') side.appendChild(a.parentElement);
+      else if (key === 'academic') a.parentElement.remove();   // no shortcut to Academic in the bar
     });
     nav.appendChild(side);
 
