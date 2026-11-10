@@ -876,3 +876,6 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 }
 @media (prefers-reduced-motion: reduce) { .sg-feed__row { animation: none; } }
 .sg-board__cols svg { width: 16px; height: 16px; }
+
+/* Snake game: the scoreboard replaces the old "Use the arrow keys · Score" line */
+.screensaver__play { display: none !important; }
