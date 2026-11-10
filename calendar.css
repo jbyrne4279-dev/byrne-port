@@ -17,7 +17,7 @@
   --sep:     rgba(255,255,255,0.10);
   --fill:    rgba(255,255,255,0.07);   /* secondary system fill */
   --fill-2:  rgba(255,255,255,0.13);
-  --ap-red: #FF453A;
+  --ap-red: #4D4D55;
   /* Glass recipe: translucent panel + hairline + specular top edge + depth shadow */
   --glass-bg:      rgba(255,255,255,0.055);
   --glass-bg-2:    rgba(255,255,255,0.09);
@@ -147,7 +147,7 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 18px;
-  box-shadow: var(--glass-shadow), 0 0 28px rgba(255, 69, 58,0.14);
+  box-shadow: var(--glass-shadow), 0 0 28px rgba(77, 77, 85,0.14);
 }
 .cal-live__meta { grid-column: 2; }
 /* Electric-red edge trail running around the banner */
@@ -159,8 +159,8 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   padding: 2px;
   background: conic-gradient(from var(--cal-angle),
     transparent 0deg, transparent 200deg,
-    rgba(255, 69, 58,0.35) 250deg,
-    #FF453A 300deg, #FF3B30 330deg, #FFFFFF 345deg, #FF453A 360deg);
+    rgba(77, 77, 85,0.35) 250deg,
+    #4D4D55 300deg, #4D4D55 330deg, #FFFFFF 345deg, #4D4D55 360deg);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -170,12 +170,12 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
 }
 @keyframes cal-trail { to { --cal-angle: 360deg; } }
 @media (prefers-reduced-motion: reduce) {
-  .cal-live::before { animation: none; background: linear-gradient(90deg, #FF453A, #FF3B30); opacity: 0.5; }
+  .cal-live::before { animation: none; background: linear-gradient(90deg, #4D4D55, #4D4D55); opacity: 0.5; }
 }
 .cal-live__today { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .cal-live__dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: #FF453A;
+  background: #4D4D55;
   animation: cal-pulse 2s ease-in-out infinite;
 }
 @keyframes cal-pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
@@ -225,14 +225,14 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   transition: left 0.9s var(--ease-out), box-shadow 0.15s, transform 0.15s;
   pointer-events: none;
 }
-.cal-live__track:hover .cal-live__marker { box-shadow: 0 0 0 6px rgba(255, 69, 58,0.18), 0 1px 5px rgba(0,0,0,0.35); }
+.cal-live__track:hover .cal-live__marker { box-shadow: 0 0 0 6px rgba(77, 77, 85,0.18), 0 1px 5px rgba(0,0,0,0.35); }
 .cal-live__track.is-scrubbing { cursor: grabbing; }
 .cal-live__track.is-scrubbing .cal-live__marker {
   transition: none;
   transform: translate(-50%, -50%) scale(1.15);
-  box-shadow: 0 0 0 8px rgba(255, 69, 58,0.22), 0 1px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 8px rgba(77, 77, 85,0.22), 0 1px 6px rgba(0,0,0,0.4);
 }
-.cal-live__track:focus-visible .cal-live__marker { box-shadow: 0 0 0 6px rgba(255, 69, 58,0.28); }
+.cal-live__track:focus-visible .cal-live__marker { box-shadow: 0 0 0 6px rgba(77, 77, 85,0.28); }
 /* Floating month bubble shown while scrubbing */
 .cal-live__bubble {
   position: absolute;
@@ -624,7 +624,7 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
 }
 .cal-datepicker__day:hover { background: var(--fill); }
 .cal-datepicker__day.is-out { color: var(--label-3); opacity: 0.5; }
-.cal-datepicker__day.is-today { background: #FF453A; color: #fff; font-weight: 600; }
+.cal-datepicker__day.is-today { background: #4D4D55; color: #fff; font-weight: 600; }
 .cal-datepicker__day.is-selected { box-shadow: 0 0 0 2px var(--ap-red) inset; }
 .cal-datepicker__jump {
   display: block;
@@ -786,33 +786,33 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
   border-radius: 50%;
 }
 .cal-day.is-today .cal-day__num {
-  background: #FF453A;
+  background: #4D4D55;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 0 16px rgba(255,69,58,0.7);
+  box-shadow: 0 0 16px rgba(77, 77, 85,0.7);
 }
 /* Today and the currently-selected day get an obvious electric-glow
    ring around the whole cell, not just the small date badge, so
    "where am I" reads at a glance across the grid. */
 .cal-day.is-today {
-  border-color: #FF453A;
-  box-shadow: 0 0 0 1.5px #FF453A,
-              0 0 14px -1px rgba(255,69,58,0.85),
-              0 0 34px -6px rgba(255,69,58,0.55);
+  border-color: #4D4D55;
+  box-shadow: 0 0 0 1.5px #4D4D55,
+              0 0 14px -1px rgba(77, 77, 85,0.85),
+              0 0 34px -6px rgba(77, 77, 85,0.55);
 }
 .cal-day.is-selected {
   border-color: var(--ap-red);
   box-shadow: 0 0 0 1.5px var(--ap-red),
-              0 0 14px -1px rgba(255, 69, 58,0.85),
-              0 0 34px -6px rgba(255, 69, 58,0.55);
+              0 0 14px -1px rgba(77, 77, 85,0.85),
+              0 0 34px -6px rgba(77, 77, 85,0.55);
 }
 /* Selecting today itself: the deliberate click wins over the ambient
    "today" ring so the two states stay visually distinct. */
 .cal-day.is-today.is-selected {
   border-color: var(--ap-red);
   box-shadow: 0 0 0 1.5px var(--ap-red),
-              0 0 14px -1px rgba(255, 69, 58,0.85),
-              0 0 34px -6px rgba(255, 69, 58,0.55);
+              0 0 14px -1px rgba(77, 77, 85,0.85),
+              0 0 34px -6px rgba(77, 77, 85,0.55);
 }
 
 /* ── AGENDA ── */
@@ -918,7 +918,7 @@ body.cal-light, html:has(body.cal-light) { background: #000000; }
 }
 .cal-card__status--today {
   color: #fff;
-  background: #FF453A;
+  background: #4D4D55;
 }
 .cal-card__status--past { opacity: 0.5; }
 .cal-card__tags {
@@ -1252,7 +1252,7 @@ body.cal-light, html:has(body.cal-light) { background: #FFFFFF; }
   --page-bg: #FFFFFF;
   --label: #1D1D1F; --label-2: #6E6E73; --label-3: #8E8E93;
   --sep: rgba(0,0,0,0.08); --fill: rgba(0,0,0,0.04); --fill-2: rgba(0,0,0,0.07);
-  --ap-red: #FF3B30;
+  --ap-red: #4D4D55;
   --glass-bg: rgba(255,255,255,0.72); --glass-bg-2: rgba(255,255,255,0.85); --glass-border: rgba(0,0,0,0.08);
   --solid-bg: #FFFFFF; --solid-bg-2: #F2F2F7;
 }

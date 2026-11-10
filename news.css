@@ -14,11 +14,11 @@
 }
 
 .nw {
-  --red: #FF453A;
+  --red: #4D4D55;
   --ai: #3b82f6;      /* electric blue */
   --fashion: #ff3d8b; /* magenta */
   --markets: #27d07f; /* green */
-  --breaking: #FF453A;/* red */
+  --breaking: #4D4D55;/* red */
   --ink: #ececf1;
   --muted: #8a8a98;
   --card: #0e0e13;
@@ -77,7 +77,7 @@
 .nw-ticker {
   display: flex; align-items: stretch; gap: 0;
   border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
-  background: linear-gradient(90deg, rgba(255, 69, 58,.08), transparent 40%);
+  background: linear-gradient(90deg, rgba(77, 77, 85,.08), transparent 40%);
   margin: 10px 0 44px;
 }
 .nw-ticker__tag {
@@ -213,11 +213,11 @@
 
 /* ---------- Light theme (white and Apple red) ---------- */
 .nw-body { background: #FFFFFF; color: #1D1D1F; }
-.nw { --red: #FF3B30; --breaking: #FF3B30; --ink: #1D1D1F; --muted: #6E6E73; --card: #FFFFFF; --line: rgba(0,0,0,.08); }
-.nw-hero { background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(255,59,48,.10), rgba(255,59,48,0) 70%); }
+.nw { --red: #4D4D55; --breaking: #4D4D55; --ink: #1D1D1F; --muted: #6E6E73; --card: #FFFFFF; --line: rgba(0,0,0,.08); }
+.nw-hero { background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(77, 77, 85,.10), rgba(77, 77, 85,0) 70%); }
 .nw-title { color: #1D1D1F; }
 .nw-sechead__title, .nw-card__title { color: #1D1D1F; }
-.nw-ticker { background: linear-gradient(90deg, rgba(255,59,48,.06), #fff 40%); }
+.nw-ticker { background: linear-gradient(90deg, rgba(77, 77, 85,.06), #fff 40%); }
 .nw-ticker__track a { color: #3A3A3C; }
 .nw-ticker__track a:hover { color: #000; }
 .nw-card, .nw-mini { box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.05); }
