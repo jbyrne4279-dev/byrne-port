@@ -722,3 +722,12 @@ html.theme-dark #nav .nav__knob {
   .contact__links--below .contact__link:nth-of-type(1) { order: 1; }
   .contact__links--below .contact__link:nth-of-type(2) { order: 3; }
 }
+
+/* Website laptops: looping screen recordings over the screenshots */
+#websites .site-card .device__screen .device__video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  opacity: 0; transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+#websites .site-card .device__screen .device__video.is-playing { opacity: 1; }

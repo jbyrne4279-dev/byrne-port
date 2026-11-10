@@ -19,8 +19,36 @@
     wrap.insertBefore(dev, img);
     dev.appendChild(screen);
     screen.appendChild(img);
+    // A looping screen recording plays over the screenshot when there is one
+    if (img.dataset.video && !reduce) {
+      const v = document.createElement('video');
+      v.className = 'device__video';
+      v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+      v.preload = 'none';
+      if (img.dataset.poster) v.poster = img.dataset.poster;
+      v.dataset.src = img.dataset.video;
+      v.dataset.webm = img.dataset.video.replace(/\.mp4$/, '.webm');
+      screen.appendChild(v);
+      dev._video = v;
+    }
     devices.push(dev);
   });
+  function playVideo(d) {
+    const v = d._video;
+    if (!v) return;
+    if (!v.dataset.loaded) {
+      v.dataset.loaded = '1';
+      // MP4 (H.264) plays everywhere it's supported; WebM covers the rest
+      [[v.dataset.src, 'video/mp4'], [v.dataset.webm, 'video/webm']].forEach(([src, type]) => {
+        const so = document.createElement('source'); so.src = src; so.type = type; v.appendChild(so);
+      });
+      v.load();
+    }
+    v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
   if (reduce || !('IntersectionObserver' in window)) { devices.forEach(d => d.classList.add('is-open')); return; }
   // Lids open as a laptop scrolls into view and close again once it has
   // scrolled out (either way), so they reopen on the way back.
@@ -31,9 +59,10 @@
       const d = e.target;
       clearTimeout(timers.get(d));
       if (e.isIntersecting) {
-        timers.set(d, setTimeout(() => d.classList.add('is-open'), 80 + batch++ * 150));
+        timers.set(d, setTimeout(() => { d.classList.add('is-open'); playVideo(d); }, 80 + batch++ * 150));
       } else {
         d.classList.remove('is-open');
+        if (d._video) d._video.pause();
       }
     });
   }, { threshold: 0.25 });

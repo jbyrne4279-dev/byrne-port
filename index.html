@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=175" data-dark="styles.dark.css?v=1">
-  <link rel="stylesheet" href="glass.css?v=20">
+  <link rel="stylesheet" href="glass.css?v=21">
   <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 
   <!-- Structured Data -->
@@ -441,7 +441,7 @@
 
         <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/xtc-clothing.webp" alt="XTC Clothing homepage" class="site-card__img" loading="lazy">
+            <img src="assets/sites/xtc-clothing.webp" data-video="assets/sites/video/xtc-clothing.mp4" data-poster="assets/sites/video/xtc-clothing-poster.webp" alt="XTC Clothing homepage" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -453,7 +453,7 @@
 
         <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/reinstatement-cost-assessment.webp" alt="Reinstatement Cost Assessment homepage" class="site-card__img" loading="lazy">
+            <img src="assets/sites/reinstatement-cost-assessment.webp" data-video="assets/sites/video/reinstatement-cost-assessment.mp4" data-poster="assets/sites/video/reinstatement-cost-assessment-poster.webp" alt="Reinstatement Cost Assessment homepage" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -465,7 +465,7 @@
 
         <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/stearling-reinstatement.webp" alt="Stearling Reinstatement homepage" class="site-card__img" loading="lazy">
+            <img src="assets/sites/stearling-reinstatement.webp" data-video="assets/sites/video/stearling-reinstatement.mp4" data-poster="assets/sites/video/stearling-reinstatement-poster.webp" alt="Stearling Reinstatement homepage" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -502,7 +502,7 @@
         <!-- Duplicate set — purely visual, hidden from a11y/tab order -->
         <a class="site-card" href="https://xtcclothing.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/xtc-clothing.webp" alt="" class="site-card__img" loading="lazy">
+            <img src="assets/sites/xtc-clothing.webp" data-video="assets/sites/video/xtc-clothing.mp4" data-poster="assets/sites/video/xtc-clothing-poster.webp" alt="" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -514,7 +514,7 @@
 
         <a class="site-card" href="https://reinstatementcostassessment.org/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/reinstatement-cost-assessment.webp" alt="" class="site-card__img" loading="lazy">
+            <img src="assets/sites/reinstatement-cost-assessment.webp" data-video="assets/sites/video/reinstatement-cost-assessment.mp4" data-poster="assets/sites/video/reinstatement-cost-assessment-poster.webp" alt="" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -526,7 +526,7 @@
 
         <a class="site-card" href="https://stearlingreinstatement.com/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
           <div class="site-card__img-wrap">
-            <img src="assets/sites/stearling-reinstatement.webp" alt="" class="site-card__img" loading="lazy">
+            <img src="assets/sites/stearling-reinstatement.webp" data-video="assets/sites/video/stearling-reinstatement.mp4" data-poster="assets/sites/video/stearling-reinstatement-poster.webp" alt="" class="site-card__img" loading="lazy">
           </div>
           <div class="site-card__body">
             <div class="site-card__meta">
@@ -847,7 +847,7 @@
   <script src="coursework-viewer.js?v=3" defer></script>
   <script src="site-preview.js?v=2" defer></script>
   <script src="coursework-docs.js?v=5"></script>
-  <script src="devices.js?v=7" defer></script>
+  <script src="devices.js?v=9" defer></script>
   <script>
   /* ── CaseStudyFlipStack — vanilla port of @componentry/case-study-flip-stack
      Matches the React source exactly:
