@@ -447,3 +447,11 @@ html.theme-dark .cfs__glass, html.theme-dark .cfs__card.is-active .cfs__glass { 
 
 /* Intro matrix rain, light theme: white with light grey characters */
 html:not(.theme-dark) .matrix-intro { background: #FFFFFF; }
+
+/* Web Development intro line: a slow, smooth vertical float, forever */
+@keyframes float-y {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -8px, 0); }
+}
+.websites__float { animation: float-y 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .websites__float { animation: none !important; } }
