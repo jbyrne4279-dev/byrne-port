@@ -3743,3 +3743,17 @@ html.sv-open { overflow: hidden; }
   100% { transform: none; clip-path: inset(0 0 0 0); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .btn.is-glitching { animation: none !important; } .btn.is-glitching::after { display: none; } }
+
+/* Websites: 3 laptops on the top row, 2 centred underneath */
+@media (min-width: 1000px) {
+  .websites__track { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .websites__track .site-card { grid-column: span 2; }
+  .websites__track .site-card:nth-child(4) { grid-column: 2 / span 2; }
+  .websites__track .site-card:nth-child(5) { grid-column: 4 / span 2; }
+}
+@media (min-width: 1000px) {
+  .websites__track .site-card__body { flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 22px 16px; }
+  .websites__track .site-card__meta { align-items: center; min-width: 0; max-width: 100%; }
+  .websites__track .site-card__name { font-size: clamp(20px, 1.7vw, 26px); word-break: normal; overflow-wrap: normal; hyphens: none; }
+  .websites__track .site-card__url { max-width: 100%; }
+}
