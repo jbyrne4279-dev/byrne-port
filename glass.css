@@ -914,3 +914,40 @@ html.is-scrolling .roam-snake__tag { animation-play-state: paused !important; }
 /* the coursework folders each get their own layer so moving them is cheap */
 .cfs__card { contain: layout style; }
 .cfs__card-img { backface-visibility: hidden; }
+
+/* ── Dark mode: no grey panels — everything sits on black, with thin
+   outlines so cards and controls still read ── */
+html.theme-dark {
+  --bg-2: #000000; --bg-3: #000000; --bg-4: #000000;
+  --tc-bg: #000000; --tc-art: #000000;
+  --tc-border: rgba(255, 255, 255, 0.14);
+  --g-fill: rgba(0, 0, 0, 0.55);
+  --g-fill-hover: rgba(255, 255, 255, 0.06);
+  --g-tint: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 60%);
+  --g-border: rgba(255, 255, 255, 0.16);
+  --g-edge: rgba(255, 255, 255, 0.14);
+}
+html.theme-dark body, html.theme-dark section, html.theme-dark .section,
+html.theme-dark #portfolio, html.theme-dark #contact { background-color: #000 !important; }
+html.theme-dark .about-card { background: #000 !important; border-color: rgba(255, 255, 255, 0.16) !important; }
+html.theme-dark .nav.is-scrolled, html.theme-dark #nav.is-scrolled { background: rgba(0, 0, 0, 0.78) !important; }
+/* the switch and nav knobs */
+html.theme-dark .theme-switch__knob, html.theme-dark #nav .nav__knob {
+  background: #0E0E0F !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.6) !important;
+}
+/* coursework folders, file previews and the file viewer */
+html.theme-dark .cfs__folder::before { background: #0A0A0A !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); }
+html.theme-dark .cfs__folder::after { background: #000 !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 9px 25px rgba(0, 0, 0, 0.6) !important; }
+html.theme-dark .cfs__glass, html.theme-dark .cfs__card.is-active .cfs__glass {
+  background: linear-gradient(180deg, #0B0B0B 0%, #000 100%) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 -5px 15px rgba(0, 0, 0, 0.6) !important;
+}
+html.theme-dark .cfs__pct { background: #000 !important; border-color: rgba(255, 255, 255, 0.16) !important; }
+html.theme-dark .cfs__doc { background: #000 !important; border-color: rgba(255, 255, 255, 0.16) !important; }
+html.theme-dark .cv__panel, html.theme-dark .cv__tab { background: #000 !important; border-color: rgba(255, 255, 255, 0.14) !important; }
+html.theme-dark .cv__body { background: #050505 !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08) !important; }
+html.theme-dark .cv__page { background: #0A0A0A !important; }
+/* gallery tiles, contact icons and the glass buttons that aren't red */
+html.theme-dark .gallery__item { background: #000 !important; }
+html.theme-dark .contact__icon { background: #000 !important; border-color: rgba(255, 255, 255, 0.16) !important; }
