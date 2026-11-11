@@ -897,3 +897,5 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
   #nav .theme-switch { width: 48px; }
   html.theme-dark #nav .theme-switch__knob { transform: translateX(18px); }
 }
+/* the roaming snake is clickable anywhere along its body */
+html.snake-hover, html.snake-hover * { cursor: pointer !important; }

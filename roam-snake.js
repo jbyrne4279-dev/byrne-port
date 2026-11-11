@@ -17,7 +17,7 @@
   // Not on phones and tablets: the snake and its game are a desktop easter egg
   if (window.matchMedia('(max-width: 768px), (hover: none), (pointer: coarse)').matches) return;
 
-  const HOSTS = ['home', 'about', 'portfolio', 'websites', 'tools', 'contact']
+  const HOSTS = ['about', 'portfolio', 'websites', 'tools', 'contact']   // never the hero
     .map(id => document.getElementById(id)).filter(Boolean);
   if (!HOSTS.length) return;
 
@@ -33,7 +33,26 @@
   tag.className = 'roam-snake__tag';
   tag.textContent = 'Click me';
   tag.setAttribute('aria-label', 'Play snake');
-  let hoverTag = false;
+  let hoverTag = false, lastC = [];
+  // Click any part of the snake to play: the canvas ignores the pointer so the
+  // page stays usable, so this checks whether a click lands on the snake
+  function onSnakeAt(clientX, clientY) {
+    if (!host || !lastC.length) return false;
+    const r = canvas.getBoundingClientRect();
+    const x = clientX - r.left, y = clientY - r.top;
+    if (x < -CELL || y < -CELL || x > r.width + CELL || y > r.height + CELL) return false;
+    return lastC.some(([sx, sy], i) => Math.hypot(x - sx, y - sy) < CELL * (i === 0 ? 0.75 : 0.62));
+  }
+  let overSnake = false;
+  document.addEventListener('pointermove', e => {
+    const on = onSnakeAt(e.clientX, e.clientY);
+    if (on !== overSnake) { overSnake = on; document.documentElement.classList.toggle('snake-hover', on); }
+  }, { passive: true });
+  document.addEventListener('click', e => {
+    if (!onSnakeAt(e.clientX, e.clientY) || e.target.closest('.roam-snake__tag')) return;
+    e.preventDefault(); e.stopPropagation();
+    if (window.__jbOpenSnake) window.__jbOpenSnake();
+  }, true);
   tag.addEventListener('pointerenter', () => { hoverTag = true; });
   tag.addEventListener('pointerleave', () => { hoverTag = false; });
   tag.addEventListener('click', e => {
@@ -261,7 +280,7 @@
 
     // segment centres this frame (gliding between cells)
     const n = snake.length;
-    const C = snake.map((b, i) => {
+    const C = lastC = snake.map((b, i) => {
       const a = prev[i] || b;
       return [(a[0] + (b[0] - a[0]) * k + 0.5) * CELL, (a[1] + (b[1] - a[1]) * k + 0.5) * CELL];
     });
@@ -419,8 +438,9 @@
         moveTo(others[(Math.random() * others.length) | 0]);
         lastStep = now;
       }
-      if (!lastStep || hoverTag) lastStep = now - (hoverTag ? STEP_MS * 0.999 : 0);   // hold still while hovered
-      while (!hoverTag && now - lastStep >= STEP_MS) { step(now); lastStep += STEP_MS; if (now - lastStep > 1000) lastStep = now; }
+      const hold = hoverTag || overSnake;
+      if (!lastStep || hold) lastStep = now - (hold ? STEP_MS * 0.999 : 0);   // hold still while hovered
+      while (!hold && now - lastStep >= STEP_MS) { step(now); lastStep += STEP_MS; if (now - lastStep > 1000) lastStep = now; }
       if (bandOnScreen()) render(now);           // carries on off screen, just isn't drawn
     } else {
       lastStep = 0;
@@ -437,6 +457,6 @@
     lastW = innerWidth;
     clearTimeout(rt); rt = setTimeout(() => moveTo(host || HOSTS[0]), 200);
   });
-  moveTo(Math.random() < 0.6 ? HOSTS[0] : HOSTS[(Math.random() * HOSTS.length) | 0]);
+  moveTo(HOSTS[(Math.random() * HOSTS.length) | 0]);
   requestAnimationFrame(loop);
 })();
