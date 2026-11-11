@@ -899,3 +899,6 @@ html.theme-dark #websites .site-card .device__bar span { background: rgba(255, 2
 }
 /* the roaming snake is clickable anywhere along its body */
 html.snake-hover, html.snake-hover * { cursor: pointer !important; }
+
+/* Pop game: the countdown follows the theme (it was white, so invisible in light mode) */
+.inspo-game__time b { color: var(--text) !important; }
