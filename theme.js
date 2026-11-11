@@ -139,6 +139,16 @@
     });
   }
 
+  /* ── While the page is being scrolled, pause purely decorative looping
+     animations (they resume the moment scrolling stops) so the browser can
+     spend every frame on the scroll itself ── */
+  let scrollT = null;
+  window.addEventListener('scroll', () => {
+    if (!scrollT) html.classList.add('is-scrolling');
+    clearTimeout(scrollT);
+    scrollT = setTimeout(() => { html.classList.remove('is-scrolling'); scrollT = null; }, 160);
+  }, { passive: true });
+
   // Sync everything to the saved choice (the head script did the stylesheets)
   apply(isDark());
 })();

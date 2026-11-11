@@ -83,6 +83,7 @@
     canvas.style.top = bandTop + 'px';
     canvas.style.height = bandH + 'px';
     host.appendChild(canvas);
+    requestAnimationFrame(() => { bandDocTop = canvas.getBoundingClientRect().top + window.scrollY; });
     host.appendChild(tag);
     tagX = tagY = null;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -97,10 +98,11 @@
     HOSTS.forEach(el => { const a = visibleArea(el); if (a > area) { area = a; best = el; } });
     return best;
   }
+  let bandDocTop = 0;            // band position on the page, measured when it moves
   function bandOnScreen() {
     if (!host) return false;
-    const r = canvas.getBoundingClientRect();
-    return r.bottom > 0 && r.top < innerHeight;
+    const top = bandDocTop - window.scrollY;
+    return top + bandH > 0 && top < innerHeight;
   }
 
   /* ── Snake ── */
@@ -401,11 +403,12 @@
       tagY = tagY == null ? ty : tagY + (ty - tagY) * 0.3;
     }
     tag.style.transform = `translate(${tagX.toFixed(1)}px, ${tagY.toFixed(1)}px) translate(-50%, -100%)`;
-    if (++checkN % 2 === 0) tag.classList.toggle('is-off', tagOverControl());
+    if (++checkN % 8 === 0) tag.classList.toggle('is-off', tagOverControl());
   }
   let tagX = null, tagY = null;
   setInterval(() => {
-    if (document.hidden || !host) return;
+    if (document.hidden || !host || !bandOnScreen()) return;
+    bandDocTop = canvas.getBoundingClientRect().top + window.scrollY;
     scanAssets();
     if (!apple || blocked[idx(apple[0], apple[1])]) { placeApple(); appleBorn = performance.now(); }
   }, 1200);

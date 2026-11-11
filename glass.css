@@ -902,3 +902,15 @@ html.snake-hover, html.snake-hover * { cursor: pointer !important; }
 
 /* Pop game: the countdown follows the theme (it was white, so invisible in light mode) */
 .inspo-game__time b { color: var(--text) !important; }
+
+/* Smoother scrolling: decorative loops pause only while scrolling */
+html.is-scrolling .cfs__card::before,
+html.is-scrolling .cfs__glass::before,
+html.is-scrolling .cfs__dl::before,
+html.is-scrolling .websites__float,
+html.is-scrolling .section__title.reveal.in-view,
+html.is-scrolling .hero__name,
+html.is-scrolling .roam-snake__tag { animation-play-state: paused !important; }
+/* the coursework folders each get their own layer so moving them is cheap */
+.cfs__card { contain: layout style; }
+.cfs__card-img { backface-visibility: hidden; }

@@ -1344,11 +1344,23 @@ function initMist(canvasId) {
 
   ctx.globalCompositeOperation = 'lighter';
 
-  (function loop() {
+  // Only animate while the canvas is on screen and actually shown (it's
+  // hidden in the light theme); otherwise it was drawing every frame
+  // in the background and slowing down scrolling elsewhere on the page.
+  let onScreen = true, raf = null;
+  function loop() {
+    raf = null;
+    if (!onScreen || document.hidden || !canvas.offsetWidth) return;
+    if (canvas.width !== canvas.offsetWidth) resize();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(loop);
-  })();
+    raf = requestAnimationFrame(loop);
+  }
+  const wake = () => { if (!raf && onScreen && !document.hidden && canvas.offsetWidth) raf = requestAnimationFrame(loop); };
+  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; wake(); }, { rootMargin: '100px' }).observe(canvas);
+  document.addEventListener('visibilitychange', wake);
+  document.addEventListener('jb-theme', () => setTimeout(wake, 50));
+  wake();
 }
 
 /* ── HEADING TERMINAL FLICKER ── */
