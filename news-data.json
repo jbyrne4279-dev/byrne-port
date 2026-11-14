@@ -1,106 +1,122 @@
 {
-  "generatedAt": "2026-11-14T01:26:56.479Z",
+  "generatedAt": "2026-11-14T10:26:28.453Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "US flight outage live updates: Trump officials set to brief public hours after FAA grounds thousands of flights",
-        "url": "https://www.theguardian.com/us-news/live/2026/nov/13/us-politics-latest-news-updates-democrats-republicans-donald-trump-van-hollen-chuck-schumer",
-        "source": "The Guardian",
-        "published": "2026-11-14T01:22:23.000Z",
-        "image": "https://i.guim.co.uk/img/media/83ccb1e6582aa694e45d643abd29d837c8f217a2/451_0_4510_3608/master/4510.jpg?width=140&quality=85&auto=format&fit=max&s=f11dd51ed640dac66df42ee7190c2ac3",
-        "summary": "Democratic lawmakers press Trump officials for more details about communication system failures as nationwide flight fiasco continues FAA issues nationwide ground-stop order, delay"
-      },
-      {
-        "title": "FAA ground stop updates: Flights grounded across country, including Philadelphia International Airport - 6abc Philadelphia",
-        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPUENJWWJkN3Y2a2lXUkZyUURZbmgwMkI1VmlZcGNKcXZDYmJYRWh0LXpVOXYyUVZyVnhXbnJ5YlJRWnNadHVpbHlNTnQtUGpRT2ZhSHpsZGJoSEpib01TUmV6X0hFWnN1Q0J0eWZDVGV4YzAyZ0pyS1FUbzhlVmVCcnJEUlBJdG9IMDREMktNVEpuS0FOWnkzZ3RYRmktMVBqdzRCdlBka0VuTnlVQTVFNUI5amp2YkpYVmh6T9IBwgFBVV95cUxQM3hzZjc5Q3NmVUJ3SDlqaEkxaHhUU1pHWlBSazVFdlhHakZhcDNrUFNPSmppZlo1Qkpyak4tZ0NCR3dtSHBwZWs2VjZUQ1ZzZmdxUjJOUU0yazg3c2Z6cWt6N1FKSTM3dVhtRXRRZTVkMnoyajU0RkpRSVB4bFZMSXNvZXd6dkowamxwaGpUdG5KN01FOFRXRDluMFhxQzVnN3UyOGgzcHhHN2lHSWZuTG91RlRrS3NXZHBTVU5rdEh3UQ?oc=5",
-        "source": "6abc Philadelphia",
-        "published": "2026-11-14T01:07:30.000Z",
-        "image": "",
-        "summary": "FAA ground stop updates: Flights grounded across country, including Philadelphia International Airport 6abc Philadelphia"
-      },
-      {
-        "title": "Nationwide FAA ground stop: nearly 11,000 flights delayed or canceled at airports across the US",
-        "url": "https://www.theguardian.com/world/2026/nov/13/faa-nationwide-ground-stop-flights",
-        "source": "The Guardian",
-        "published": "2026-11-14T01:01:12.000Z",
-        "image": "https://i.guim.co.uk/img/media/81eae192052ffa6405a52ee2ee448552f4d92481/683_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=fd2dbf21f21395c9bf79c41eeb755986",
-        "summary": "Transportation secretary said stoppage is due to ‘communication issue’ and homeland security says there’s no indication of ‘nefarious attack’ FAA grounds thousands of flights – liv"
-      },
-      {
-        "title": "Stuart Bonds made ‘racist’ and ‘divisive’ comments. But One Nation is showing no sign of dumping the NSW candidate",
-        "url": "https://www.theguardian.com/australia-news/2026/nov/14/one-nation-nsw-candidate-stuart-bonds-ntwnfb",
-        "source": "The Guardian",
-        "published": "2026-11-14T01:00:30.000Z",
-        "image": "https://i.guim.co.uk/img/media/bad470fd72c96843e66c54b24e828b110309e74f/920_806_5642_4517/master/5642.jpg?width=140&quality=85&auto=format&fit=max&s=d26253caa471b9a1073a46e86c2ca7b0",
-        "summary": "The former coalminer’s claim Australians are being ‘demographically replaced’ sparked wide criticism, but his party has shown no signs of dumping him Get our breaking news email , "
-      },
-      {
-        "title": "SpaceX Starship megarocket blasts off before expected return for reuse",
-        "url": "https://www.theguardian.com/science/2026/nov/13/spacex-starship-megarocket-blasts-off-earth-orbit",
-        "source": "The Guardian",
-        "published": "2026-11-14T00:53:52.000Z",
-        "image": "https://i.guim.co.uk/img/media/e49347059f6c48431222b1105f2ca576e92c1c82/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=5c0c6d7edd01447ecc6dda30577aeb3d",
-        "summary": "Flight 15 expected to orbit Earth about 14 times over 22 hours, before company catches it at Starbase, Texas SpaceX’s Starship megarocket blasted off from Texas on Friday afternoon"
-      },
-      {
-        "title": "Microsoft ‘deeply sorry’ for global disruption that could have billion-dollar impact on Australia",
-        "url": "https://www.theguardian.com/australia-news/2026/nov/14/microsoft-deeply-sorry-for-global-disruption-that-could-have-billion-dollar-impact-on-australia",
-        "source": "The Guardian",
-        "published": "2026-11-14T00:52:48.000Z",
-        "image": "https://i.guim.co.uk/img/media/6e00c0e827484eda171fc2f542c59ea59f98fec9/411_82_4687_3752/master/4687.jpg?width=140&quality=85&auto=format&fit=max&s=32d07acfc6c3a30cd9dc6332d3e3023c",
-        "summary": "Experts say outage exposes ‘Australia’s reliance on foreign technology’ as software giant says services being restored Get our breaking news email , free app or daily news podcast "
-      },
-      {
-        "title": "FAA nationwide ground stop: Some international flights begin to depart at LAX, other SoCal airports - ABC7 Los Angeles",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNRHhwdEhqS3F6NW9EdWpSZVhEbEhPTlRzaDk2eGtGbUNRQzV6YXJPaUpLYVF1WnBybUp1RmxsMmFhZXVhSXNwRWZlN0JGNFpKaTBnS0tCTHljRTA5TmxZb0FzdzQxVzBRQTZxaUFQUE83STlOdFBWbzIyNzZ4SXUwZ2hjQlR3WW52VFVEdFNNWEpKdU1tTmhEaDMta0Q4d0Jf0gGmAUFVX3lxTE5GOGI5Q3hyeGFveHNtbzBpZGtFWEZNUzgzWmY5akxuc2hjdWJpaDJvT2Z1V1otbzdPeEhXTGNHaElaTlMyaGtfZnFOQTNTVUZzYmhQNUZtcVVHX2tYYTFZMkJnM216RUlQd3JwbWpIUzExM1ZIOVlEeVhKMUFCeHJweHJkNjY4SG14ang4VEtIdUFaMk05MEZSY0tqVGEtb0pkanNMYnc?oc=5",
-        "source": "ABC7 Los Angeles",
-        "published": "2026-11-14T00:40:42.000Z",
-        "image": "",
-        "summary": "FAA nationwide ground stop: Some international flights begin to depart at LAX, other SoCal airports ABC7 Los Angeles"
-      },
-      {
-        "title": "UK police open sex offence probe into comedian and author David Walliams",
-        "url": "https://www.aljazeera.com/news/2026/11/14/uk-police-open-sex-offence-probe-into-comedian-and-author-david-walliams?traffic_source=rss",
+        "title": "Sabalenka crashes out of season-ending WTA Finals after losing to Svitolina",
+        "url": "https://www.aljazeera.com/sports/2026/11/14/aryna-sabalenka-elina-svitolina-wta-finals-indian-wells-semifinals-tennis?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-14T00:22:07.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af7941c1aac-1794610204.jpg?resize=1920%2C1440",
-        "summary": "The British TV personality, 55, denies sexual assault allegations, saying he has not broken the law."
+        "published": "2026-11-14T10:03:12.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20261114__2305029649__v1__HighRes__FageWtaFinalsIndianWells2026Day6-1794648215.jpg?resize=1920%2C1440",
+        "summary": "World number two Sabalenka's season came to a disappointing end after she failed to reach the WTA Finals semifinals."
       },
       {
-        "title": "Microsoft services begin recovering after global outage",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/microsoft-services-begin-recovering-after-global-outage?traffic_source=rss",
+        "title": "Guardian to follow lives of eight young people in their search for work",
+        "url": "https://www.theguardian.com/business/2026/nov/14/guardian-young-people-search-for-work",
+        "source": "The Guardian",
+        "published": "2026-11-14T10:00:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/19987d2be5f3f7d0f862fc37ab9d9eb935fc7b4c/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=d129ae269b3c60af00d1fa2af52e7077",
+        "summary": "How long will it take? What challenges will they face? Series to shine light on one of biggest crises facing UK ‘The social contract is broken’: young people on feeling shut out of"
+      },
+      {
+        "title": "‘Still standing’: king jokes as he appears on Elton John’s Rocket Hour",
+        "url": "https://www.theguardian.com/uk-news/2026/nov/14/king-charles-elton-john-rocket-hour",
+        "source": "The Guardian",
+        "published": "2026-11-14T10:00:41.000Z",
+        "image": "https://i.guim.co.uk/img/media/985226fe36fee001f7409632fdef814c069b0588/147_0_1800_1440/master/1800.jpg?width=140&quality=85&auto=format&fit=max&s=20de86383d7ab9f486c5bc41bebc01f7",
+        "summary": "Charles marks 78th birthday and 50th anniversary of King’s Trust charity with a playlist for special episode of podcast King Charles marked his 78th birthday on Saturday joking wit"
+      },
+      {
+        "title": "Migrant caravan heads to US from Mexico after Democrats’ midterm win",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/migrant-caravan-heads-to-us-from-mexico-after-democrats-midterm-win?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-14T00:17:59.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794615411.jpg?resize=1620%2C1080&quality=80",
-        "summary": "Microsoft services began recovering on Friday after a global outage disrupted Outlook and Teams."
+        "published": "2026-11-14T09:43:54.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/wide-thumb-mexico-migrnts-1411-1794649384.png?resize=1920%2C1080&quality=80",
+        "summary": "A migrant caravan of more than a thousand people is heading towards the US border from southern Mexico."
       },
       {
-        "title": "Afghanistan’s new road to China ends at a closed border",
-        "url": "https://www.aljazeera.com/features/2026/11/14/wakhan-corridor-afghanistan-china-taliban?traffic_source=rss",
+        "title": "Netanyahu may fall, but his far-right legacy in Israel is going nowhere",
+        "url": "https://www.aljazeera.com/news/2026/11/14/netanyahu-may-fall-but-his-far-right-legacy-in-israel-is-going-nowhere?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-14T00:06:43.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6af78e3b3f194-1794608699.jpg?resize=1920%2C1440",
-        "summary": "Taliban government hopes its Wakhan Corridor road will open new trade routes and reduce reliance on Pakistan."
+        "published": "2026-11-14T09:43:27.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/06/getty_6a22ebf52b-1780673525.jpg?resize=1920%2C1440",
+        "summary": "Israel’s far-right is accused of embedding a hardline agenda so deeply that reversing it may prove almost impossible."
       },
       {
-        "title": "Jojo the gorilla has spent his life alone. Can he finally find a companion?",
-        "url": "https://www.bbc.co.uk/news/articles/cwm2mn272nqlo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-14T00:03:56.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/8212/live/9b2ab3f0-df54-11f1-93e1-3b657b665bcf.jpg",
-        "summary": "Jojo was poached as an infant and grew up in captivity. His keepers want to find him a friend - but it's not straightforward."
+        "title": "Pochettino bids emotional farewell to US football ahead of Man Utd move",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/pochettino-bids-emotional-farewell-to-us-football-ahead-of-man-utd-move?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T09:27:59.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794648466.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Mauricio Pochettino has bid an emotional farewell to US football as he prepares to take charge of Manchester United."
       },
       {
-        "title": "Arrested generals and a threatened VP: President's son fuels Ugandan succession fever",
-        "url": "https://www.bbc.co.uk/news/articles/cmlydy0xw45wo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-14T00:03:52.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/9975/live/51088590-df40-11f1-a48c-75dd2efdacb5.jpg",
-        "summary": "The 52-year-old general’s provocative posts and military threats have fuelled rumours of a dynastic succession."
+        "title": "Qatar and Turkiye sign a mutual defence pact: What do we know?",
+        "url": "https://www.aljazeera.com/news/2026/11/14/qatar-and-turkiye-sign-a-mutual-defence-pact-what-do-we-know?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T09:19:43.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6af72f8f-1794584463.jpg?resize=1920%2C1440",
+        "summary": "Analysts say the pact, agreed amid the US-Iran war, aims to deter attacks rather than build an offensive alliance."
+      },
+      {
+        "title": "Nearly $20m found in Hungary’s forests, buildings amid corruption probe",
+        "url": "https://www.aljazeera.com/news/2026/11/14/hungarian-investigators-uncover-19-5m-hidden-in-forests-and-buildings?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T09:08:21.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6af81fec4b902-1794645996.jpg?resize=1920%2C1440",
+        "summary": "An ex-minister faces a bribery probe as Hungary's new government investigates alleged corruption during Orban's rule."
+      },
+      {
+        "title": "Immersive show brings Kyffin Williams’ rugged Welsh landscapes to life",
+        "url": "https://www.theguardian.com/artanddesign/2026/nov/14/sir-kyffin-williams-artist-immersive-exhibition-national-library-wales-aberystwyth",
+        "source": "The Guardian",
+        "published": "2026-11-14T09:00:39.000Z",
+        "image": "https://i.guim.co.uk/img/media/b9f6172ba8f224dbb097628613f4b8f2f0f5d71a/720_0_7200_5760/master/7200.jpg?width=140&quality=85&auto=format&fit=max&s=6ce3cb7a7ab1e5d0183e1c525e89f8ee",
+        "summary": "Paintings by one of country’s most important artists have been animated and set to music at National Library of Wales The paintings of artists such as Vincent van Gogh, Paul Cézann"
+      },
+      {
+        "title": "Hungary seizes $18m cash tied to ex-Orban-era minister in probe",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/hungary-seizes-18m-cash-tied-to-ex-orban-era-minister-in-probe?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T08:39:07.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794645541.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Anti-corruption authorities in Hungary say they found around $18 million in hidden cash."
+      },
+      {
+        "title": "Warner accuses Cricket Australia of ‘cover-up’ in ball-tampering scandal",
+        "url": "https://www.aljazeera.com/sports/2026/11/14/warner-cricket-australia-ball-tampering-sandpapergate-khawaja-cummins?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T08:10:14.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/GettyImages-1908729549-1794642639.jpg?resize=1920%2C1440",
+        "summary": "Former opener Warner was banned for a year for his involvement in the 2018 'Sandpapergate' incident in South Africa."
+      },
+      {
+        "title": "Pacers hold off Knicks in NBA Cup thriller, Spurs rout Warriors",
+        "url": "https://www.aljazeera.com/sports/2026/11/14/nba-cup-basketball-pacers-knicks-spurs-warriors?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-14T08:01:23.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20261114__2304518287__v1__HighRes__NewYorkKnicksVIndianaPacersEmiratesNbaCup-1794640930.jpg?resize=1920%2C1440",
+        "summary": "The New York Knicks look unlikely to advance to the NBA Cup knockout rounds after falling to the Indiana Pacers."
       }
     ],
     "ai": [
+      {
+        "title": "‘The social contract is broken’: young people on feeling shut out of careers",
+        "url": "https://www.theguardian.com/business/2026/nov/14/young-people-shut-out-of-work-ai",
+        "source": "The Guardian",
+        "published": "2026-11-14T10:00:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/860911eab1a0affc10c2e4feb5a296c6527679b1/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=baff9692afed2be9f0668d0f20714d66",
+        "summary": "In the first instalment of a new series, four young people reveal the impact of an endless cycle of applications and rejections Guardian to follow lives of eight young people in th"
+      },
+      {
+        "title": "‘It’s like the wild west’: how AI has rocked the literary world",
+        "url": "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world",
+        "source": "The Guardian",
+        "published": "2026-11-14T09:00:40.000Z",
+        "image": "https://i.guim.co.uk/img/media/b8a39bdb32dea0bb0e41f2a5aa45ffef61974668/725_1297_5935_4748/master/5935.jpg?width=140&quality=85&auto=format&fit=max&s=927a09ab22659010f2178728a1ffac08",
+        "summary": "With authors losing lucrative deals and writers removed from prize shortlists, accusations of AI use are sending shock waves through the publishing industry. Is it too late to turn"
+      },
       {
         "title": "Amazon has a plan to index the world’s online shopping data",
         "url": "https://www.theverge.com/tech/1033697/amazon-world-product-graph-ai-search",
@@ -156,22 +172,6 @@
         "published": "2026-11-13T17:53:05.000Z",
         "image": "https://i.guim.co.uk/img/media/b492cc78910d604e67e0013a83af3f4da1ff5723/432_0_5029_4024/master/5029.jpg?width=140&quality=85&auto=format&fit=max&s=c4d17011787bbe2735537df992aa1e6c",
         "summary": "An investigator writes that a human-written grievance at least gets to the heart of the issue immediately. Plus letters from Dexter Jandoo and Pete Bibby Re your article ( ‘AI clog"
-      },
-      {
-        "title": "If Gen Z are asked to go to war, it might not be in the way they expect | Brief letters",
-        "url": "https://www.theguardian.com/world/2026/nov/13/if-gen-z-are-asked-to-go-to-war-it-might-not-be-in-the-way-they-expect",
-        "source": "The Guardian",
-        "published": "2026-11-13T17:52:28.000Z",
-        "image": "https://i.guim.co.uk/img/media/5302f817c9ffca31369c0ca5793631f39f9b326b/541_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=81fd26d9cdb68c9dd40cf657c5918d98",
-        "summary": "Fighting for your country | Starbucks | Sparta | Itching powder Jason Okundaye addresses the issue of whether Britain’s youth would be willing to lay down their lives in defence of"
-      },
-      {
-        "title": "‘Ahead of his time’: AI helps unlock discoveries hidden in notebooks of man who transformed maths",
-        "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
-        "source": "The Guardian",
-        "published": "2026-11-13T16:38:27.000Z",
-        "image": "https://i.guim.co.uk/img/media/6eeccf216579fe2181ae737d30f31abd7590125c/210_58_1759_1407/master/1759.jpg?width=140&quality=85&auto=format&fit=max&s=e95b645a4c0a5af395dfec056a8ec751",
-        "summary": "Kurt Gödel left 1,009 pages of densely written text – much of it in an obsolete shorthand – which is now said to contain hundreds of proved theorems The Austrian logician Kurt Göde"
       }
     ],
     "fashion": [
@@ -179,7 +179,7 @@
         "title": "Liu Jo Fall 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/fall-2027-ready-to-wear/liu-jo",
         "source": "Vogue",
-        "published": "2026-11-14T01:26:18.000Z",
+        "published": "2026-11-14T10:22:32.000Z",
         "image": "https://assets.vogue.com/photos/6af5f6f4da02c727486f5c00/master/pass/00001-liu-jo-fall-2027-ready-to-wear-credit-brand-sponsored.jpg",
         "summary": ""
       },
@@ -187,9 +187,33 @@
         "title": "Ferrari Spring 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/spring-2027-ready-to-wear/ferrari",
         "source": "Vogue",
-        "published": "2026-11-14T01:26:18.000Z",
+        "published": "2026-11-14T10:22:32.000Z",
         "image": "https://assets.vogue.com/photos/6af6d5bde7d5f4873b670c34/master/pass/00001-ferrari-spring-2027-ready-to-wear-credit-filippo-fior-brand.jpg",
         "summary": ""
+      },
+      {
+        "title": "Beauty Marks: The Best Beauty Looks of the Week",
+        "url": "https://www.vogue.com/slideshow/best-beauty-looks-of-the-week-november-14",
+        "source": "Vogue",
+        "published": "2026-11-14T09:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6af784b755c52fa4e05b44ce/master/pass/SnapInsta.to_890433244_18646888273041650_6958201635134599278_n.jpg",
+        "summary": "From Chappell Roan’s fiery red braid to Rosie Huntington-Whiteley’s smoldering glam, this week’s best beauty looks are all about making an impression."
+      },
+      {
+        "title": "Remembering Toukie Smith, a Trailblazer Who Redefined Runway Beauty",
+        "url": "https://wwd.com/fashion-news/fashion-features/toukie-smith-trailblazer-who-redefined-runway-beauty-1239416224/",
+        "source": "WWD",
+        "published": "2026-11-14T05:00:00.000Z",
+        "image": "",
+        "summary": "The model and actress helped expand fashion's vision of beauty, leaving her mark on the runways of America and Europe."
+      },
+      {
+        "title": "Inside the Y2K Costumes and Sets of Kelly O’Sullivan and Alex Thompson’s ‘Mouse’",
+        "url": "https://www.vogue.com/article/how-mouse-gets-the-early-2000s-so-right",
+        "source": "Vogue",
+        "published": "2026-11-14T01:39:04.000Z",
+        "image": "https://assets.vogue.com/photos/6af74d8efb238f95a4e9475b/master/pass/Mouse_PRImage7%20Shannon%20Attaway%20(1).jpg",
+        "summary": "From vintage prom dresses to Seventeen-covered bedrooms, the designers of “Mouse” reveal how fashion and interiors bring 2002 Arkansas to life."
       },
       {
         "title": "Painter Sascha Braunig Pushes Through the Void",
@@ -222,104 +246,80 @@
         "published": "2026-11-13T23:01:42.000Z",
         "image": "",
         "summary": "As tensions flare over Bangladesh’s minimum wage, here's the latest on factory closures, brand commitments and government relief."
-      },
-      {
-        "title": "I Want What Adorable New Moms Beanie Feldstein and Bonnie-Chance Roberts Have",
-        "url": "https://www.vogue.com/article/i-want-what-they-have-beanie-feldstein-and-bonnie-chance-roberts",
-        "source": "Vogue",
-        "published": "2026-11-13T23:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6af7b723f5fe2588ede062ec/master/pass/1993703215",
-        "summary": "“Getting to be a mom alongside my wife is the greatest gift. She’s such a good mom, and it’s so special to watch,” Feldstein said in a recent interview."
-      },
-      {
-        "title": "US Promises India Will See Lower Tariffs Than Competitors in Trade Deal",
-        "url": "https://wwd.com/sourcing-journal/trade/india-tariffs-trade-deal-trump-modi-g20-russia-1239416374/",
-        "source": "WWD",
-        "published": "2026-11-13T22:54:42.000Z",
-        "image": "",
-        "summary": "Washington has reportedly made assurances to New Delhi that India see a lower tariff rate than that of its regional competitors as a formalized interim trade deal remains elusive."
-      },
-      {
-        "title": "Tanker Hits Docked Cruise Ship Near Port NOLA, 30+ Hospitalized",
-        "url": "https://wwd.com/sourcing-journal/logistics/new-orleans-tanker-hits-docked-cruise-ship-port-nola-mississippi-river-1239416406/",
-        "source": "WWD",
-        "published": "2026-11-13T22:52:23.000Z",
-        "image": "",
-        "summary": "All aboard are accounted for with no deaths after the collision outside the New Orleans port. It is unclear if terminal operations have been impacted by the incident."
       }
     ],
     "markets": [
       {
-        "title": "FAA lifts ground stop after four hours, but flight cancellations will stretch into the weekend",
+        "title": "U.S. flights resume after FAA ground stop, but travel disruption continues",
+        "url": "https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html",
+        "source": "CNBC World",
+        "published": "2026-11-14T10:04:43.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551467-1794607964689-IMG_0076.jpg?v=1794609835&w=1920&h=1080",
+        "summary": "U.S. flights are resuming after the FAA ground stop, but delays and cancellations are still piling up."
+      },
+      {
+        "title": "Microsoft apologizes for massive outage that took down Outlook and other 365 services",
+        "url": "https://www.cnbc.com/2026/11/12/microsoft-outage-outlook-aws-google.html",
+        "source": "CNBC World",
+        "published": "2026-11-14T08:11:28.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551213-1794591477814-gettyimages-2304365626-media-notitle261113_np53Q.jpeg?v=1794591497&w=1920&h=1080",
+        "summary": "A Microsoft outage on Thursday and Friday affected users of services like Outlook, Teams and 365."
+      },
+      {
+        "title": "Analysis: Companies love a ‘rockstar’ CEO. Until they depend on one",
+        "url": "https://www.cnbc.com/2026/11/14/nvidia-jensen-huang-ceo-succession-risk.html",
+        "source": "CNBC World",
+        "published": "2026-11-14T07:08:45.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108279135-17737747902026-03-17t190331z_1569419364_rc2i6kamf29y_rtrmadp_0_nvidia-gtc.jpeg?v=1794580129&w=1920&h=1080",
+        "summary": "Jensen Huang’s exit tests Nvidia’s succession planning and governance, and offers lessons for companies that elevate their CEOs to rockstar status."
+      },
+      {
+        "title": "Ecuador wants to monetize its biodiversity — while still drilling for oil",
+        "url": "https://www.cnbc.com/2026/11/14/ecuador-biodiversity-green-finance-oil.html",
+        "source": "CNBC World",
+        "published": "2026-11-14T06:00:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108534376-1793994243435-gettyimages-2241473534-1020_24_9313-jgf-birds-hoatzin-ec.jpeg?v=1793994429&w=1920&h=1080",
+        "summary": "Ecuador is planning to channel funds into its biodiversity, but faces a key challenge: its reliance on oil."
+      },
+      {
+        "title": "FAA lifts ground stop after more than four hours, but flight cancellations will stretch into the weekend",
         "url": "https://www.cnbc.com/2026/11/13/faa-ground-stop.html",
         "source": "CNBC World",
-        "published": "2026-11-14T01:21:50.000Z",
+        "published": "2026-11-14T05:08:24.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108551466-1794607964688-IMG_0070.jpg?v=1794609835&w=1920&h=1080",
         "summary": "The Federal Aviation Administration issued a nationwide ground stop on Friday afternoon, disrupting thousands of departing of flights."
       },
       {
-        "title": "SpaceX launches Starship in key test flight of massive rocket",
-        "url": "https://www.cnbc.com/2026/11/13/spacex-launches-starship-in-key-test-flight-of-massive-rocket.html",
-        "source": "CNBC World",
-        "published": "2026-11-14T01:18:51.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108551491-1794611116156-gettyimages-2304487605-AFP_D7FF9MN.jpeg?v=1794611301&w=1920&h=1080",
-        "summary": "The test flight is SpaceX's first attempt to ​catch both the Super Heavy booster and upper stage spacecraft of the rocket at its launch site in Starbase, Texas."
+        "title": "FAA lifts rare nationwide ground stop on flights; air travel may take days to recover",
+        "url": "https://www.marketwatch.com/story/faa-declares-rare-widespread-ground-outage-bdc46393?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-14T02:42:00.000Z",
+        "image": "https://images.mktw.net/im-14527198",
+        "summary": "Homeland Security Secretary Mullin said that there was ‘zero evidence’ of cyberattack as fewer flights amid fuel-cost surge may hamper rebookings."
+      },
+      {
+        "title": "Flights slowly resume after US aviation agency lifts nationwide ground stop",
+        "url": "https://www.theguardian.com/world/2026/nov/13/faa-nationwide-ground-stop-flights",
+        "source": "The Guardian",
+        "published": "2026-11-14T02:15:53.000Z",
+        "image": "https://i.guim.co.uk/img/media/81eae192052ffa6405a52ee2ee448552f4d92481/683_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=fd2dbf21f21395c9bf79c41eeb755986",
+        "summary": "Transportation secretary Sean Duffy says the airspace is now open and the problem has been identified Chaos at US airports as stoppage grinds travel plans to a halt What to know ab"
+      },
+      {
+        "title": "14 dividend stocks selected for long-term growth",
+        "url": "https://www.marketwatch.com/story/14-dividend-stocks-selected-for-long-term-growth-0a095c0d?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-14T01:58:00.000Z",
+        "image": "https://images.mktw.net/im-27014870",
+        "summary": "These stocks feature attractive dividend payouts and are trading low to the companies’ intrinsic value, according to John Buckingham of Value87 Investment Partners."
       },
       {
         "title": "Trump doesn’t plan to raise Nvidia, spy issue during China trip: U.S. officials",
         "url": "https://www.cnbc.com/2026/11/13/trump-nvidia-huang-china.html",
         "source": "CNBC World",
-        "published": "2026-11-14T01:04:32.000Z",
+        "published": "2026-11-14T01:34:11.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108368185-1790352357255-gettyimages-2296459165-AFP_C9DQ94M.jpeg?v=1790352418&w=1920&h=1080",
         "summary": "Nvidia CEO Jensen Huang resigned this week after reports of multiple affairs, including one with a suspected Chinese spy, Alice Huang."
-      },
-      {
-        "title": "Nationwide FAA ground stop: nearly 11,000 flights delayed or canceled at airports across the US",
-        "url": "https://www.theguardian.com/world/2026/nov/13/faa-nationwide-ground-stop-flights",
-        "source": "The Guardian",
-        "published": "2026-11-14T01:01:12.000Z",
-        "image": "https://i.guim.co.uk/img/media/81eae192052ffa6405a52ee2ee448552f4d92481/683_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=fd2dbf21f21395c9bf79c41eeb755986",
-        "summary": "Transportation secretary said stoppage is due to ‘communication issue’ and homeland security says there’s no indication of ‘nefarious attack’ FAA grounds thousands of flights – liv"
-      },
-      {
-        "title": "FAA declares rare nationwide ground stop on flights, with more than 10,000 delayed so far",
-        "url": "https://www.marketwatch.com/story/faa-declares-rare-widespread-ground-outage-bdc46393?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-14T00:40:00.000Z",
-        "image": "https://images.mktw.net/im-24684025",
-        "summary": "Agency cites “extraordinary circumstances,” while Homeland Security Secretary Mullin says no indication of attack. Reduced flights amid fuel-cost surge may curtail rebooking option"
-      },
-      {
-        "title": "Nvidia is done with Jensen Huang. The fallout in Washington is just beginning",
-        "url": "https://www.cnbc.com/2026/11/13/nvidia-jensen-huang-washington-congress.html",
-        "source": "CNBC World",
-        "published": "2026-11-13T23:54:36.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108550303-17945044092026-09-24t223553z_950093079_rc2xpnal0xd8_rtrmadp_0_usa-china.jpeg?v=1794584634&w=1920&h=1080",
-        "summary": "The Republican-led Congress wants to see Jensen Huang in Washington before Democrats take control in January."
-      },
-      {
-        "title": "Lutnick faces questions over Nvidia spy scandal. His sons' firm has deep ties to the chipmaker",
-        "url": "https://www.cnbc.com/2026/11/13/howard-lutnick-nvidia-jensen-huang-china-cantor-fitzgerald.html",
-        "source": "CNBC Markets",
-        "published": "2026-11-13T23:42:18.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108358099-1788382594543-gettyimages-2292668728-AFP_C77N49R.jpeg?v=1788382709&w=1920&h=1080",
-        "summary": "Jensen Huang’s resignation as Nvidia CEO has brought renewed scrutiny to Commerce Secretary Howard Lutnick and his family's financial ties to the chipmaker."
-      },
-      {
-        "title": "‘The thought of living to 100 terrifies me’: Is Social Security a giant Ponzi scheme?",
-        "url": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-13T23:12:00.000Z",
-        "image": "https://images.mktw.net/im-49247042",
-        "summary": "There is already a demographic ‘run’ on Social Security."
-      },
-      {
-        "title": "4 expert tips for signing up for Medicare",
-        "url": "https://www.marketwatch.com/story/what-really-happens-during-medicare-counseling-6a4f618e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-13T22:45:00.000Z",
-        "image": "https://images.mktw.net/im-40479843",
-        "summary": "A day in the life of a Medicare counselor"
       }
     ]
   }
