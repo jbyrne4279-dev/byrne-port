@@ -1,106 +1,114 @@
 {
-  "generatedAt": "2026-11-14T22:24:24.585Z",
+  "generatedAt": "2026-11-15T06:32:09.118Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth",
-        "url": "https://www.bbc.co.uk/news/videos/cwlym2gy3y3eo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-14T22:09:40.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/aeb5/live/e1baf430-e074-11f1-a701-fddedf244c16.jpg",
-        "summary": "SpaceX has performed the historic catch using mechanical arms nicknamed \"chopsticks\"."
-      },
-      {
-        "title": "Ronaldo-less Portugal thrashed 4-1 by Denmark in the Nations League",
-        "url": "https://www.aljazeera.com/sports/2026/11/14/ronaldo-less-portugal-thrashed-4-1-by-denmark-in-the-nations-league?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-14T22:00:45.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6af8cefae487b-1794690810.jpg?resize=1920%2C1440",
-        "summary": "Rasmus Hojlund stars with brace on as Denmark close in on a spot in the Nations League quarterfinals."
-      },
-      {
-        "title": "US flights resume after ageing technology blamed for outage",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/us-flights-resume-after-ageing-technology-blamed-for-outage?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-14T21:36:19.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794692170.jpg?resize=1920%2C1080&quality=80",
-        "summary": "US flights resume after ageing technology blamed for outage"
-      },
-      {
-        "title": "RLWC: 'Unreal freak' in record-breaking race with fellow Kiwi - 1News",
-        "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQVllEZ056bnI5QjFxUFgwTFkxZlEtSU1WRUlsSC1kS01sLVJSWjJqTlNucXNsc1dXSldKYmtZVTBXc1NrbGQyMXluQWkyandZSXo1T1J6eThvS2YtNEl3NlhPMWJZY1ZDMzlqa2FQZGxHSm5fX2tlNFJGYmx1cTBIUmozbzVGeVJtTHlIZjhzSWdtV2ZvUVBtYmV3?oc=5",
-        "source": "1News",
-        "published": "2026-11-14T21:26:08.000Z",
-        "image": "",
-        "summary": "RLWC: 'Unreal freak' in record-breaking race with fellow Kiwi 1News"
-      },
-      {
-        "title": "US envoy Kushner says he aims to broker Europe-Russia talks on Ukraine",
-        "url": "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-14T21:10:26.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af8c810ac51-1794689040.jpg?resize=1920%2C1440",
-        "summary": "Europe's direct engagement with Moscow as part of Ukraine-Russia peace talks is edging closer to becoming a reality."
-      },
-      {
-        "title": "Trump: 'Trash Island' to be world's top golf course - Breakingthenews.net",
-        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOOEx3cTFYMWtxejNiUEFiZHVKS2plbTRJLXdpV1FqX0xHZEgycjgtNGk1ekJDaHk1dExmWHlOTnNCY0J6OGpWRzE1cVVUaDN2RXJ4YUo0UFRyaWgtbFdFV3BRaXBYZFRlWDQ3YmhabVRUX1hyaXlKbXo0LS1fQkNKVEJOXzVRQVNKd1hGbjJvQWdyVjJjS0RjNmVabEU?oc=5",
-        "source": "Breakingthenews.net",
-        "published": "2026-11-14T20:57:00.000Z",
-        "image": "",
-        "summary": "Trump: 'Trash Island' to be world's top golf course Breakingthenews.net"
-      },
-      {
-        "title": "US has floated Ukraine ceding Donbas for Nato membership, Zelensky says",
-        "url": "https://www.bbc.co.uk/news/articles/cwvg2l312ylqo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-14T20:41:45.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d028/live/47c10ab0-e013-11f1-b441-2b33b063138f.jpg",
-        "summary": "The US has not confirmed the Ukrainian president's comments which follow meetings US envoys had with him and Russia's Vladimir Putin."
-      },
-      {
-        "title": "'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision",
-        "url": "https://www.bbc.co.uk/news/articles/cw20xmy0m5yyo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-14T20:23:06.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0a5e/live/65a2f270-dfad-11f1-be1f-9dae57fabf82.jpg",
-        "summary": "The collision leaves 32 people in hospital with non-critical injuries, but no-one unaccounted for."
-      },
-      {
-        "title": "Evacuation zone lifted after bomb found at Illinois ethanol plant",
-        "url": "https://www.theguardian.com/us-news/2026/nov/14/peoria-illinois-evacuation-bomb",
+        "title": "Gymshark in trademark battle that threatens future of small fitness business",
+        "url": "https://www.theguardian.com/law/2026/nov/15/gymshark-trademark-battle-the-conditioning-club-gloucestershire",
         "source": "The Guardian",
-        "published": "2026-11-14T20:14:27.000Z",
-        "image": "https://i.guim.co.uk/img/media/c959bae56a786ff95913cb67d9c97a8fced81672/437_0_4680_3744/master/4680.jpg?width=140&quality=85&auto=format&fit=max&s=51fa3394626d131083ad4af9586ae6bb",
-        "summary": "Peoria officials said a bomb was found at BioUrja Renewables and later defused; FBI said it is investigating Residents were ordered to evacuate parts of an Illinois community on Fr"
+        "published": "2026-11-15T06:00:07.000Z",
+        "image": "https://i.guim.co.uk/img/media/e1da29897d579d3c5ce54dccb4e07d5ac5515acf/347_0_5600_4480/master/5600.jpg?width=140&quality=85&auto=format&fit=max&s=c1dbdf7133b015d46df76574e9cdf610",
+        "summary": "Exclusive: British sportswear firm is seeking to obtain rights to The Conditioning Club, which is also the name of a Gloucestershire gym Gymshark, the £1bn British sportswear firm "
       },
       {
-        "title": "India’s Assam state demolishes homes of 132 Muslim families",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/14-11-sv-assam-muslim-families-evicted-demolition-drive?traffic_source=rss",
+        "title": "World’s top court to rule if Myanmar committed genocide against Rohingya",
+        "url": "https://www.theguardian.com/world/2026/nov/15/myanmar-rohingya-genocide-icj",
+        "source": "The Guardian",
+        "published": "2026-11-15T06:00:05.000Z",
+        "image": "https://i.guim.co.uk/img/media/c5d561832d1bf74db164791e4e9b6d4e167dfae9/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=090ff017f584b6c02d4f46319d31927c",
+        "summary": "International court of justice has never before found a state guilty of genocide, and ruling will have implications for case against Israel The world’s top court will deliver a jud"
+      },
+      {
+        "title": "Planned asylum seeker detention centre next to Oxfordshire sewage works criticised",
+        "url": "https://www.theguardian.com/uk-news/2026/nov/15/planned-asylum-seeker-detention-centre-next-to-oxfordshire-sewage-works-criticised",
+        "source": "The Guardian",
+        "published": "2026-11-15T06:00:05.000Z",
+        "image": "https://i.guim.co.uk/img/media/d09ed18d9dd0cdd685e28614ca19c5a774a69750/268_0_2268_1816/master/2268.jpg?width=140&quality=85&auto=format&fit=max&s=a94ae645f7999f7bde5d4240fd8be790",
+        "summary": "Thames Water says detainees at proposed accommodation should expect to experience insect swarms and strong smells A Home Office plan to build asylum seeker detention facilities nex"
+      },
+      {
+        "title": "Francophone summit opens in Cambodia amid Rwanda-DR Congo rift",
+        "url": "https://www.aljazeera.com/news/2026/11/15/francophone-summit-opens-in-cambodia-amid-rwanda-dr-congo-rift?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-14T20:14:10.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794687262.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Authorities in India’s Assam have demolished the homes of 132 Muslim families."
+        "published": "2026-11-15T05:05:02.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af933691f04-1794716521.jpg?resize=1920%2C1440",
+        "summary": "Democratic Republic of the Congo and Rwanda clash over who should lead the organisation of French-speaking nations."
       },
       {
-        "title": "How telecoms upgrade work sparked US flight chaos",
-        "url": "https://www.bbc.co.uk/news/articles/cqx2wyvyr3zzo?at_medium=RSS&at_campaign=rss",
+        "title": "New York Democratic Socialists urge Ocasio-Cortez to run for US president",
+        "url": "https://www.aljazeera.com/news/2026/11/15/new-york-democratic-socialists-urge-ocasio-cortez-to-run-for-us-president?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-15T04:44:57.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AP26254425908327-1794714537.jpg?resize=1920%2C1440",
+        "summary": "Delegates at NYC-DSA convention pass resolution formally calling on Congresswoman AOC to run in 2028 presidential race."
+      },
+      {
+        "title": "Video shows moment of Brooklyn building collapse from inside",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/video-shows-moment-of-brooklyn-building-collapse-from-inside?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-15T04:31:55.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794717096.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Newly released nanny cam footage shows the moment an apartment building collapsed in Brooklyn as children played inside."
+      },
+      {
+        "title": "Zimbabwe’s HIV gains face a test among young people",
+        "url": "https://www.aljazeera.com/news/2026/11/15/zimbabwes-hiv-gains-face-a-test-among-young-people?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-15T04:13:00.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/A-patient-receives-ARVs-pills-at-a-clinic-in-Harare-Zimbabwe-credit-Deogracious-Kalima-1794649654.jpg?resize=1200%2C675",
+        "summary": "New prevention tools offer hope, but reaching young people remains a challenge."
+      },
+      {
+        "title": "World leaders head to Asia for back-to-back diplomatic summits",
+        "url": "https://www.theguardian.com/world/2026/nov/15/asia-diplomatic-summits-trump-xi-putin-apec-asean",
+        "source": "The Guardian",
+        "published": "2026-11-15T04:00:02.000Z",
+        "image": "https://i.guim.co.uk/img/media/ef4d680eeeb4b13e743836eee5388c60a984dd7c/0_0_5840_4672/master/5840.jpg?width=140&quality=85&auto=format&fit=max&s=5c0edeb347e23bbede89a1c6c3a7ee1c",
+        "summary": "Tussle for influence as trade, tech and regional security to take centre stage in China, Philippines and Cambodia meetings The global political centre of gravity will be firmly in "
+      },
+      {
+        "title": "Anthony Albanese apologises for hot-mic gaffe after Coalition criticises ‘locker-room talk’",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/15/anthony-albanese-apologises-for-hot-mic-gaffe-after-coalition-criticises-locker-room-talk",
+        "source": "The Guardian",
+        "published": "2026-11-15T03:49:21.000Z",
+        "image": "https://i.guim.co.uk/img/media/4234ff2cadfb5b400fae76732ca4c673a2b713e6/639_0_6877_5501/master/6877.jpg?width=140&quality=85&auto=format&fit=max&s=4d3cdc60bc8855259dcbf1ab9ce5da75",
+        "summary": "Prime minister says he and Chris Bowen were having ‘light-hearted banter’ when they were caught discussing where they keep their phones Get our daily political email , free app or "
+      },
+      {
+        "title": "Monkey attacks woman inside residential complex in India",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/monkey-attacks-woman-inside-residential-complex-in-india?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-15T03:39:39.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794713964.jpg?resize=1200%2C675",
+        "summary": "A woman was attacked and repeatedly bitten by a monkey at a residential apartment complex in India’s Gujarat state."
+      },
+      {
+        "title": "Italian artist reimagines Madonna paintings to expose Gaza’s pain",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/aje-onl-nf_italian-artist-rips-madonna-painting-to-reveal-gaza-141126?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-15T03:30:29.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794713406.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Italian artist Eduardo Castaldo has unveiled an artwork titled ‘Holy Mothers of Gaza’ inside Naples’ Pappacoda Chapel."
+      },
+      {
+        "title": "Judge temporarily blocks Trump from closing Washington DC golf course for renovation",
+        "url": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-14T20:03:48.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/14ef/live/f4aae840-dfd7-11f1-b441-2b33b063138f.jpg",
-        "summary": "US officials say the disruption was caused by old equipment overloading and not a cyber-attack."
-      },
-      {
-        "title": "Can being ‘non-Western’ cost you your home in Denmark?",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/adlern-can_non-westren_cost_home_denmark-141126?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-14T19:52:49.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794685914.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Denmark’s Supreme Court is set to rule on whether families can be forced from their homes under a law."
+        "published": "2026-11-15T03:21:04.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/4be0/live/054b94d0-e09e-11f1-a701-fddedf244c16.jpg",
+        "summary": "It is the latest development in a months-long challenge to the president's plans for East Potomac Golf Links."
       }
     ],
     "ai": [
+      {
+        "title": "‘Jensen Huang lost his mind’: how AI’s smartest man fell for the world’s oldest trick",
+        "url": "https://www.theguardian.com/technology/2026/nov/14/jensen-huang-affair-nvidia-nightmare",
+        "source": "The Guardian",
+        "published": "2026-11-15T06:00:06.000Z",
+        "image": "https://i.guim.co.uk/img/media/c688291392ebfaa491e16553c6a42ec3ff3c5b77/0_541_2400_1919/master/2400.jpg?width=140&quality=85&auto=format&fit=max&s=d86f59594943d3e382cf380ea2fd4e71",
+        "summary": "Jensen Huang’s affair with a suspected spy is Silicon Valley’s worst nightmare come true The resignation this week of Nvidia’s founder and CEO Jensen Huang is one of the most aston"
+      },
       {
         "title": "Art ‘must not be sacrificed on the altar of corporate profit’, Liberal senator says as AI policy debate rages",
         "url": "https://www.theguardian.com/australia-news/2026/nov/15/art-over-profit-ai-policy-debate-andrew-mclachlan",
@@ -164,14 +172,6 @@
         "published": "2026-11-13T20:45:10.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/STKS539_AI_AGENTS_SHOPPING_B.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "After launching its Dots AI agents platform earlier this year, OpenAI is launching a wallet for the agents. ChatGPT Wallet is rolling out starting today for ChatGPT Pro subscribers"
-      },
-      {
-        "title": "Nvidia scandal: US treasury chief blames Lutnick’s commerce department over alleged lack of action",
-        "url": "https://www.theguardian.com/technology/2026/nov/13/nvidia-scandal-sparks-us-national-security-concerns-china",
-        "source": "The Guardian",
-        "published": "2026-11-13T19:51:28.000Z",
-        "image": "https://i.guim.co.uk/img/media/5534caea091e39afe776168281e50dd327c8be8e/563_0_3334_2668/master/3334.jpg?width=140&quality=85&auto=format&fit=max&s=62c117f622bf4e5987845906efdee2f7",
-        "summary": "US commerce secretary faces sack as questions emerge over senior Trump officials’ knowledge of alleged Chinese spy’s ties to Jensen Huang US politics – live updates The US commerce"
       }
     ],
     "fashion": [
@@ -179,83 +179,115 @@
         "title": "Liu Jo Fall 2027 Ready-to-Wear",
         "url": "https://www.vogue.com/fashion-shows/fall-2027-ready-to-wear/liu-jo",
         "source": "Vogue",
-        "published": "2026-11-14T22:23:52.000Z",
+        "published": "2026-11-15T06:27:42.000Z",
         "image": "https://assets.vogue.com/photos/6af5f6f4da02c727486f5c00/master/pass/00001-liu-jo-fall-2027-ready-to-wear-credit-brand-sponsored.jpg",
         "summary": ""
       },
       {
-        "title": "Camila Cabello Embellishes Paris Texas’ Lidia Mules with Rosary Anklet at the 27th Annual Latin Grammy Awards",
-        "url": "https://wwd.com/footwear-news/shoe-trends/camila-cabello-lidia-mules-rosary-anklet-latin-grammys-1239416664/",
+        "title": "Leica Revives Its Rare Hammertone Finish for the M-A and M11-P Cameras",
+        "url": "https://hypebeast.com/2026/11/leica-m-a-m11-p-hammertone-finish-release-info",
+        "source": "Hypebeast",
+        "published": "2026-11-15T06:00:12.000Z",
+        "image": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2026%2F11%2F13%2Fleica-m-a-m11-p-hammertone-finish-release-info-0.jpg?w=800&cbr=1&q=90&fit=max",
+        "summary": "Summary Leica releases the M-A and M11-P cameras featuring a rare, vintage hammertone finish.The analog and digital models pair textured solid brass with vulcanite-style leatherett"
+      },
+      {
+        "title": "Katy Perry, Jackie Tohn, Olandria Carthen and More Go for Textured Gold at the 2026 Baby2Baby Gala",
+        "url": "https://wwd.com/pop-culture/celebrity-news/baby2baby-gala-2026-textured-gold-dress-trend-1239417167/",
         "source": "WWD",
-        "published": "2026-11-14T21:55:54.000Z",
+        "published": "2026-11-15T05:34:17.000Z",
         "image": "",
-        "summary": "Wearing a lingerie-inspired look from Simone Rocha, the singer-songwriter attached a rosary anklet to her right foot."
+        "summary": "Rachel Zoe, Kerry Washington, and Jenna Dewan also embraced the metallic trend, with draped fabrics, intricate embellishments and dimensional florals."
       },
       {
-        "title": "E.T., Phone Chanel! How Fashion’s Labels Got Personal Again",
-        "url": "https://www.vogue.com/article/how-fashions-labels-got-personal-again",
-        "source": "Vogue",
-        "published": "2026-11-14T21:39:45.000Z",
-        "image": "https://assets.vogue.com/photos/6af8d1e7f3830138ecc77bec/master/pass/SnapInsta.to_901924449_18655914754043699_7619360128406125069_n.jpg",
-        "summary": "From Steven Spielberg’s secret Chanel embroidery to love letters, playful logos, and little lambs, fashion is finding new ways to wear its heart on its sleeve—or, rather, inside it"
-      },
-      {
-        "title": "Julia Fox Pairs Her Preppy Purple Look With Her Vintage Prada Bowling Bag",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74431061/julia-fox-preppy-purple-look-prada-bowling-bag-street-style-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-14T20:31:55.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/8468b440-71fc-4990-928c-070948a673eb.jpg",
-        "summary": "The Y2K accessory is one of her favorites"
-      },
-      {
-        "title": "Florence Pugh Wears Gothic Mourning Dress with Vivienne Westwood Pumps at an East of Eden FYC Event in Los Angeles",
-        "url": "https://wwd.com/footwear-news/shoe-trends/florence-pugh-vivienne-westwood-pumps-east-of-eden-fyc-1239416648/",
+        "title": "Cardi B Goes All In on Feathered Drama With Tamara Ralph Couture at the 2026 Baby2Baby Gala",
+        "url": "https://wwd.com/pop-culture/celebrity-news/cardi-b-tamara-ralph-feather-hat-dress-2026-baby2baby-gala-1239417066/",
         "source": "WWD",
-        "published": "2026-11-14T19:25:40.000Z",
+        "published": "2026-11-15T04:32:14.000Z",
         "image": "",
-        "summary": "The star walked the red carpet sporting statement shoulders and a strappy pair of Vivienne Westwood pumps."
+        "summary": "The rapper, who is set to perform at the Los Angeles fundraiser, wore a selection from the designer's spring 2026 couture collection."
       },
       {
-        "title": "Alexander Skarsgård Glistens In Liquid Satin COS Men’s Shirt with Dusty Pink Cummerbund",
-        "url": "https://wwd.com/pop-culture/celebrity-news/alexander-skarsgard-satin-cos-mens-shirt-hamilton-awards-1239416644/",
+        "title": "ASICS Dresses the GEL-CUMULUS 16 in Three Earthy, Warm-Toned Colorways",
+        "url": "https://hypebeast.com/2026/11/asics-gel-cumulus-16-1203b439-200-mocha-burnt-umber-1203b439-201-pink-sand-coconut-1203b439-800-burnt-umber-pink-sand-official-images-info",
+        "source": "Hypebeast",
+        "published": "2026-11-15T04:00:04.000Z",
+        "image": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2026%2F11%2F13%2Fasics-gel-cumulus-16-1203b439-200-mocha-burnt-umber-1203b439-201-pink-sand-coconut-1203b439-800-burnt-umber-pink-sand-official-images-info-0.jpg?w=800&cbr=1&q=90&fit=max",
+        "summary": "Name: ASICS GEL-CUMULUS 16Colorway: Mocha/Burnt Umber, Pink Sand/Coconut, Burnt Umber/Pink SandSKU: 1203B439.200, 1203B439.201, 1203B439.800MSRP: €120 EUR (approx. $133 USD)Release"
+      },
+      {
+        "title": "Kerry Washington Twirls in Metallic Gold Gianvito Rossi Sandals at the 2026 Baby2Baby Gala",
+        "url": "https://wwd.com/footwear-news/shoe-trends/kerry-washington-gold-gianvito-rossi-sandals-baby2baby-gala-1239416964/",
         "source": "WWD",
-        "published": "2026-11-14T19:13:12.000Z",
+        "published": "2026-11-15T03:47:02.000Z",
         "image": "",
-        "summary": "The Swedish actor presented an award at the 15th Annual Hamilton Behind the Camera awards on Friday night."
+        "summary": "She paired them with a matching gold dress."
       },
       {
-        "title": "Dakota Johnson’s Latest Dose of Pajama Dressing Is All About Mismatched Prints",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74430805/dakota-johnson-sheer-pajama-dressing-flesh-impact-screening-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-14T18:58:51.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/c543b3b5-99d6-4903-a5cd-4f42a30bdcd1.jpeg",
-        "summary": "Bedtime chic"
-      },
-      {
-        "title": "Drake’s Nocta Brand Will Debut a New Nike Technology on Its Next Sneaker Release",
-        "url": "https://wwd.com/footwear-news/sneaker-news/nocta-nike-air-modmax-pink-spell-iq6711-600-release-date-1239416635/",
+        "title": "Billy Ray Cyrus and Elizabeth Hurley Make the Red Carpet a Family Affair at the Baby2Baby Gala",
+        "url": "https://wwd.com/pop-culture/celebrity-news/billy-ray-cyrus-elizabeth-hurley-2026-baby2baby-gala-1239416934/",
         "source": "WWD",
-        "published": "2026-11-14T18:15:43.000Z",
+        "published": "2026-11-15T03:36:22.000Z",
         "image": "",
-        "summary": "The first-of-its-kind Nocta x Nike Air Modmax will be released next week."
+        "summary": "The couple, who reportedly got engaged last month, was joined by Hurley's son, Damian."
       },
       {
-        "title": "Florence Pugh Puts a Sculptural Twist on Victorian Mourning Dressing for an East of Eden Event",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74430627/florence-pugh-victorian-mourning-dressing-statement-shoulders-east-of-eden-red-carpet-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-14T17:25:51.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/38902ef2-7541-4ba6-8253-c462c4a870d4.jpeg",
-        "summary": "She gave new meaning to the term power shoulders"
+        "title": "John Goldberger’s ‘100 Superlative Rolex Watches’ Returns in a Fully Revised Edition",
+        "url": "https://hypebeast.com/2026/11/john-goldberger-damiani-books-100-superlative-rolex-watches-revised-edition-book-release-info",
+        "source": "Hypebeast",
+        "published": "2026-11-15T02:00:21.000Z",
+        "image": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2026%2F11%2F13%2Fjohn-goldberger-damiani-books-100-superlative-rolex-watches-revised-edition-book-release-info-0.jpg?w=800&cbr=1&q=90&fit=max",
+        "summary": "Summary John Goldberger’s 100 Superlative Rolex Watches returns in a fully revised edition.New photography and updated research spotlight 100 of the rarest Rolex references.Physica"
+      },
+      {
+        "title": "Demi Moore Goes Big On Ruffles and a Blue Bow in Carolina Herrera as Baby2Baby Honors Her",
+        "url": "https://wwd.com/pop-culture/celebrity-news/demi-moore-carolina-herrera-dress-2026-baby2baby-gala-1239416705/",
+        "source": "WWD",
+        "published": "2026-11-15T01:58:15.000Z",
+        "image": "",
+        "summary": "The actress received the Giving Tree Award at Saturday night's gala in Los Angeles, wearing a look from the designer's spring 2027 collection."
       }
     ],
     "markets": [
       {
+        "title": "Could Budapest be the next digital nomad hotspot?",
+        "url": "https://www.cnbc.com/2026/11/15/budapest-europes-next-digital-nomad-hotspot.html",
+        "source": "CNBC World",
+        "published": "2026-11-15T06:00:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108380938-1791539020604-coworking-3372e.jpg?v=1791539620&w=1920&h=1080",
+        "summary": "With its mix of sights, cafés and culture, Hungary's capital Budapest has become popular with those embracing the \"work from anywhere\" trend."
+      },
+      {
+        "title": "Nationwide ground stop followed contractor upgrade to L3Harris telecommunication system: DOT’s Duffy",
+        "url": "https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html",
+        "source": "CNBC World",
+        "published": "2026-11-15T02:53:59.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551584-1794673404798-gettyimages-2304591847-AFP_D7GQ7BU.jpeg?v=1794673431&w=1920&h=1080",
+        "summary": "The FAA ground stop came after updates to an older communication system managed by L3Harris Technologies, Transportation Secretary Sean Duffy said Saturday."
+      },
+      {
+        "title": "SpaceX successfully catches Starship rocket in huge milestone for the space industry",
+        "url": "https://www.marketwatch.com/story/spacex-successfully-catches-starship-rocket-in-huge-milestone-for-the-space-industry-f42c136c?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-15T00:33:00.000Z",
+        "image": "https://images.mktw.net/im-16988916",
+        "summary": "The historic first gets SpaceX closer to “rapid reusability” of rockets."
+      },
+      {
         "title": "SpaceX catches upper stage of Starship rocket in historic first",
         "url": "https://www.cnbc.com/2026/11/14/spacex-plans-to-try-first-ever-catch-of-starship-rocket-from-orbit.html",
         "source": "CNBC World",
-        "published": "2026-11-14T21:52:01.000Z",
+        "published": "2026-11-14T23:10:14.000Z",
         "image": "https://image.cnbcfm.com/api/v1/image/108551593-17946919952026-11-14t212916z_181005512_rc2xnoanpi19_rtrmadp_0_space-spacex-starship.jpeg?v=1794692150&w=1920&h=1080",
         "summary": "Starship Test Flight 15 marked the first time Elon Musk's company tried to catch both the booster and upper stage of the rocket."
+      },
+      {
+        "title": "'Root cause’ of nationwide ground stop is unknown, FAA says",
+        "url": "https://www.cnbc.com/2026/11/14/root-cause-of-nationwide-ground-stop-is-unknown-faa-says.html",
+        "source": "CNBC World",
+        "published": "2026-11-14T22:54:47.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551583-1794673347013-gettyimages-2304592086-AFP_D7GQ7AY.jpeg?v=1794673377&w=1920&h=1080",
+        "summary": "Routers and networking equipment may be involved in the problems that led to the ground stop, but a definitive cause has not been established, officials said."
       },
       {
         "title": "I’m 63 and spending $95,000 on a roof deck for my $500,000 home. Is that a good investment?",
@@ -288,38 +320,6 @@
         "published": "2026-11-14T19:30:00.000Z",
         "image": "https://images.mktw.net/im-62799282",
         "summary": "“Maybe next time I’ll try the other approach: I’ll board whenever I feel like it and drop my suitcase in the first open slot I see.”"
-      },
-      {
-        "title": "Nationwide ground stop followed contractor upgrade to L3Harris telecommunication system: DOT’s Duffy",
-        "url": "https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html",
-        "source": "CNBC World",
-        "published": "2026-11-14T18:32:47.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108551584-1794673404798-gettyimages-2304591847-AFP_D7GQ7BU.jpeg?v=1794673431&w=1920&h=1080",
-        "summary": "The FAA ground stop came after updates to an older communication system managed by L3Harris Technologies, Transportation Secretary Sean Duffy said Saturday."
-      },
-      {
-        "title": "Should a widow leave her late partner’s home to her stepkids — or cut off contact with them?",
-        "url": "https://www.marketwatch.com/story/she-can-always-change-her-mind-should-a-widow-leave-the-family-home-to-her-stepchildren-649b06af?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-14T18:30:00.000Z",
-        "image": "https://images.mktw.net/im-06068042",
-        "summary": "“It would be a less drastic step than selling the home now and splitting the proceeds.”"
-      },
-      {
-        "title": "‘He calls my plans a fantasy’: My husband says we can’t afford a $200,000-a-year retirement. Is he being cheap?",
-        "url": "https://www.marketwatch.com/story/he-calls-my-plans-a-fantasy-my-husband-says-we-cant-afford-our-200-000-a-year-dream-retirement-i-think-hes-cheap-45bc5b4e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-14T18:00:00.000Z",
-        "image": "https://images.mktw.net/im-61252759",
-        "summary": "“We have $2 million saved in our retirement accounts and a house worth $1.3 million.”"
-      },
-      {
-        "title": "Here’s how Bernie Sanders wants to keep Social Security solvent ‘for generations’",
-        "url": "https://www.marketwatch.com/story/heres-how-bernie-sanders-wants-to-keep-social-security-solvent-for-generations-f5666a38?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-14T17:50:00.000Z",
-        "image": "https://images.mktw.net/im-95193263",
-        "summary": "The Vermont senator aims to eliminate the taxable maximum, making the wealthy pay more in taxes"
       }
     ]
   }
