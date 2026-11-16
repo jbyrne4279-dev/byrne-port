@@ -24,17 +24,22 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build news-data.json
+      - name: Build news-data.json (The Brief)
         run: node tools/build-news.mjs
+        continue-on-error: true
+
+      - name: Build home-brief-data.json (The Home Brief)
+        run: node tools/build-home-brief.mjs
+        continue-on-error: true
 
       - name: Commit if changed
         run: |
           git config user.name "news-bot"
           git config user.email "actions@users.noreply.github.com"
-          if ! git diff --quiet -- news-data.json; then
-            git add news-data.json
+          git add news-data.json home-brief-data.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
             git commit -m "chore(news): daily briefing refresh"
             git push
           else
-            echo "No changes to news-data.json"
+            echo "No changes to the briefings"
           fi

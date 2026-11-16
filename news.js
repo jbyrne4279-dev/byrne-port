@@ -1,5 +1,9 @@
 /* ============================================================
-   news.js — renders The Brief from news-data.json
+   news.js — renders The Brief (news-data.json) and The Home Brief
+   (home-brief-data.json). Each page says which data file to read and
+   which bucket feeds the ticker on <body data-feed / data-ticker>;
+   every .nw-section[data-topic] with a .nw-feature inside is filled
+   from the bucket of the same name.
    ============================================================ */
 (function () {
   'use strict';
@@ -9,13 +13,6 @@
   var elState = $('nwState');
   var elStateText = $('nwStateText');
   var elRefresh = $('nwRefresh');
-
-  var SECTIONS = [
-    { key: 'breaking', container: 'nwBreaking', section: 'breaking' },
-    { key: 'ai', container: 'nwAi', section: 'ai' },
-    { key: 'fashion', container: 'nwFashion', section: 'fashion' },
-    { key: 'markets', container: 'nwMarkets', section: 'markets' }
-  ];
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -114,11 +111,13 @@
     var buckets = (data && data.buckets) || {};
     var any = 0;
 
-    [['breaking', 'nwBreaking'], ['ai', 'nwAi'], ['fashion', 'nwFashion'], ['markets', 'nwMarkets']].forEach(function (pair) {
-      var items = buckets[pair[0]] || [];
-      if (renderFeature(pair[1], items)) { showSection(pair[0]); any += Math.min(items.length, 9); }
+    Array.prototype.forEach.call(document.querySelectorAll('.nw-section[data-topic]'), function (sec) {
+      var topic = sec.getAttribute('data-topic');
+      var host = sec.querySelector('.nw-feature');
+      var items = buckets[topic] || [];
+      if (host && renderFeature(host.id, items)) { showSection(topic); any += Math.min(items.length, 9); }
     });
-    renderTicker(buckets.breaking || []);
+    renderTicker(buckets[TICKER] || []);
 
     if (data && data.generatedAt) {
       elUpdated.textContent = 'Updated ' + timeAgo(data.generatedAt);
@@ -138,13 +137,15 @@
   // Always read the latest committed data straight from GitHub (updated
   // daily by the Action), so the page stays current with no redeploy.
   // Falls back to the locally deployed copy if GitHub can't be reached.
-  var RAW = 'https://raw.githubusercontent.com/jbyrne4279-dev/byrne-port/main/news-data.json';
+  var FEED = document.body.getAttribute('data-feed') || 'news-data.json';
+  var TICKER = document.body.getAttribute('data-ticker') || 'breaking';
+  var RAW = 'https://raw.githubusercontent.com/jbyrne4279-dev/byrne-port/main/' + FEED;
 
   function fetchData() {
     return fetch(RAW + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('raw ' + r.status); return r.json(); })
       .catch(function () {
-        return fetch('news-data.json?t=' + Date.now(), { cache: 'no-store' })
+        return fetch(FEED + '?t=' + Date.now(), { cache: 'no-store' })
           .then(function (r) { if (!r.ok) throw new Error('local ' + r.status); return r.json(); });
       });
   }

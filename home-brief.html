@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Joseph Byrne">
+
+  <title>The Home Brief | Homeware News &amp; Trends for NEXT Home</title>
+  <meta name="description" content="Homeware news for trend spotting: interiors, ornaments and seasonal decor, trade shows and the retailers shaping NEXT Home, refreshed every few hours.">
+
+  <link rel="canonical" href="https://josephbyrne.org/home-brief">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Joseph Byrne">
+  <meta property="og:title" content="The Home Brief | Homeware News &amp; Trends">
+  <meta property="og:description" content="Interiors, decor and ornaments, trade shows and homeware retail news, built for spotting trends for NEXT Home.">
+  <meta property="og:url" content="https://josephbyrne.org/home-brief">
+  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
+  <meta property="og:locale" content="en_GB">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=141" data-dark="styles.dark.css?v=1">
+  <link rel="stylesheet" href="news.css?v=8" data-dark="news.dark.css?v=1">
+  <link rel="stylesheet" href="site-nav.css?v=7" data-dark="site-nav.dark.css?v=1">
+  <link rel="stylesheet" href="glass.css?v=43">
+  <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
+</head>
+<body class="nw-body" data-feed="home-brief-data.json" data-ticker="interiors">
+
+  <!-- ── NAV ── -->
+  <nav class="nav is-scrolled" id="nav">
+    <ul class="nav__links">
+      <li><a href="/#home">Home</a></li>
+      <li><a href="/#portfolio">Work</a></li>
+      <li><a href="/#websites">Sites</a></li>
+      <li><a href="/#academic">Academic</a></li>
+      <li><a href="/#tools" class="is-active" aria-current="page">Tools</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <button class="nav__menu" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <ul>
+      <li><a href="/#home" class="mobile-link">Home</a></li>
+      <li><a href="/#portfolio" class="mobile-link">Work</a></li>
+      <li><a href="/#websites" class="mobile-link">Web</a></li>
+      <li><a href="/#academic" class="mobile-link">University</a></li>
+      <li><a href="/#tools" class="mobile-link is-active">Tools</a></li>
+      <li><a href="/#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <main class="nw">
+
+    <!-- HERO -->
+    <header class="nw-hero">
+      <div class="nw-hero__brand">
+        <p class="nw-eyebrow">Homeware Intelligence</p>
+        <h1 class="nw-title">The&nbsp;<span>Home</span>&nbsp;Brief</h1>
+      </div>
+      <div class="nw-hero__meta">
+      <p class="nw-sub">Homeware news for spotting trends for NEXT Home: interiors, ornaments and seasonal decor, the trade shows where ranges are set, and what the home retailers are doing.</p>
+      <div class="nw-status">
+        <span class="nw-live" aria-hidden="true"></span>
+        <span id="nwUpdated">Loading the latest&hellip;</span>
+        <button type="button" class="nw-refresh" id="nwRefresh" aria-label="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+      </div>
+    </header>
+
+    <!-- BREAKING TICKER -->
+    <div class="nw-ticker" id="nwTicker" hidden>
+      <span class="nw-ticker__tag">Interiors</span>
+      <div class="nw-ticker__viewport"><div class="nw-ticker__track" id="nwTickerTrack"></div></div>
+    </div>
+
+    <!-- LOADING / EMPTY -->
+    <div class="nw-state" id="nwState">
+      <div class="nw-spinner" aria-hidden="true"></div>
+      <p id="nwStateText">Compiling the latest homeware news&hellip;</p>
+    </div>
+
+    <!-- Sections: stacked on small screens, a 2 x 2 grid on wide ones,
+         one row of four on ultrawide monitors -->
+    <div class="nw-board">
+      <!-- INTERIORS (lead section + ticker) -->
+      <section class="nw-section nw-section--breaking" data-topic="interiors" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Trends</span><h2 class="nw-sechead__title">Interiors</h2></div>
+        <div class="nw-feature" id="nwInteriors"></div>
+      </section>
+
+      <!-- ORNAMENTS, DECOR & SEASONAL -->
+      <section class="nw-section" data-topic="decor" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Accessories</span><h2 class="nw-sechead__title">Ornaments &amp; Decor</h2></div>
+        <div class="nw-feature" id="nwDecor"></div>
+      </section>
+
+      <!-- TRADE SHOWS & EVENTS -->
+      <section class="nw-section" data-topic="shows" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Where ranges are set</span><h2 class="nw-sechead__title">Trade Shows &amp; Events</h2></div>
+        <div class="nw-feature" id="nwShows"></div>
+      </section>
+
+      <!-- HOMEWARE RETAIL -->
+      <section class="nw-section" data-topic="retail" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">NEXT &amp; rivals</span><h2 class="nw-sechead__title">Homeware Retail</h2></div>
+        <div class="nw-feature" id="nwRetail"></div>
+      </section>
+    </div>
+
+    <p class="nw-foot">Homeware headlines gathered from interiors titles and news search, refreshed automatically every few hours. Each card links to the original article. Built by Joseph Byrne.</p>
+
+  </main>
+
+  <script src="news.js?v=4"></script>
+  <script src="site-nav.js?v=1"></script>
+  <script src="theme.js?v=6"></script>
+  <script src="burst.js?v=1"></script>
+</body>
+</html>
