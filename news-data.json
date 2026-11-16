@@ -1,106 +1,130 @@
 {
-  "generatedAt": "2026-11-15T22:48:48.900Z",
+  "generatedAt": "2026-11-16T06:29:33.871Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Police ban protests near 10 schools and five universities in Paris",
-        "url": "https://www.bbc.co.uk/news/articles/cqm2j0jvep4eo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-15T22:28:54.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ff1f/live/556dd490-e13a-11f1-9d9b-d15c0ae9fc2e.jpg",
-        "summary": "The order will be in place from 16 to 20 November, Paris police chief Patrice Faure says."
-      },
-      {
-        "title": "Australia, UK, Canada and Italy urge Israel to allow critical aid to Gaza ahead of winter",
-        "url": "https://www.theguardian.com/australia-news/2026/nov/16/australia-uk-canada-italy-urge-israel-critical-aid-gaza-winter-ntwnfb",
-        "source": "The Guardian",
-        "published": "2026-11-15T22:28:02.000Z",
-        "image": "https://i.guim.co.uk/img/media/682a0487f17cbff2735306182cdbb7ec07b2d56c/785_0_3912_3131/master/3912.jpg?width=140&quality=85&auto=format&fit=max&s=f7bf201bcb081c3480d5b33a65ba7ba5",
-        "summary": "Four countries call situation ‘entirely reversible’ in joint statement as flooding exacerbates humanitarian crisis Australia, Canada, the United Kingdom and Italy have urged Israel"
-      },
-      {
-        "title": "Suspected China spy linked to Nvidia's ex-boss left in 2025, Megaspeed says",
-        "url": "https://www.bbc.co.uk/news/articles/cmdx1vpprk9vo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-15T22:24:20.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/fa43/live/e2a9a870-e10d-11f1-93e1-3b657b665bcf.jpg",
-        "summary": "The Nvidia scandal has raised questions over whether advanced AI chips ended up in China, despite US restrictions."
-      },
-      {
-        "title": "Estonia to close all border crossings with Russia after attack on drone maker",
-        "url": "https://www.theguardian.com/world/2026/nov/15/estonia-to-close-all-border-crossings-with-russia-after-attack-on-drone-maker",
-        "source": "The Guardian",
-        "published": "2026-11-15T22:17:09.000Z",
-        "image": "https://i.guim.co.uk/img/media/871b52d53845d358d898e60304c0661c3bf28013/293_0_4672_3738/master/4672.jpg?width=140&quality=85&auto=format&fit=max&s=4699c1636ab8599033326f36694ff0a4",
-        "summary": "Authorities say Russian intelligence service ordered attack which Estonian PM links to Tallinn’s support for Ukraine Estonia will close all its border crossings with Russia from 1 "
-      },
-      {
-        "title": "Australia, Canada, Italy and the UK urge Israel to allow aid into Gaza",
-        "url": "https://www.aljazeera.com/news/2026/11/15/australia-canada-italy-and-the-uk-urge-israel-to-allow-aid-into-gaza?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-15T22:06:38.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6afa1775392d4-1794774901.jpg?resize=1920%2C1440",
-        "summary": "The countries accuse Israel of preventing tents and other supplies from entering Gaza, despite the humanitarian crisis."
-      },
-      {
-        "title": "Prince Harry tells Ukrainians they are ‘going to win war’ on surprise trip to Lviv",
-        "url": "https://www.theguardian.com/uk-news/2026/nov/15/prince-harry-ukraine-war-surprise-trip-invictus-games",
-        "source": "The Guardian",
-        "published": "2026-11-15T22:00:24.000Z",
-        "image": "https://i.guim.co.uk/img/media/082248113d66f00317e3a188a707a740b59e16b9/191_193_2669_2135/master/2669.jpg?width=140&quality=85&auto=format&fit=max&s=ec896eb5e828c19c1a39e8a6177db095",
-        "summary": "Duke of Sussex meets wounded veterans in city and says country could one day host Invictus Games Prince Harry has told Ukrainian soldiers they are going to win the war with Russia,"
-      },
-      {
-        "title": "England hang on to beat world champions Spain 3-2 in Madrid thriller - Sky News",
-        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQMnI3WUVRTzlMUUh5MVIwbWJPQ0hGdFU4U2Iwem9Mc19SUV9hMmFGRElyWi1TRlUwQ2FIN3Q0LXozZmc4eE82YVpBRDJHSVdXNVBhUFNvNE9kTlhsTDExd2loZUlUNjVCdGd2Sm9hU2NoZktTQUhOdGRjNHU4WGgyZl9MTXlLNDA1dGdjYlowU1J5dG85bzRwcHRYejBDbzMwMEE?oc=5",
-        "source": "Sky News",
-        "published": "2026-11-15T21:51:38.000Z",
+        "title": "Beyond the ceiling: why world records are built to break - royalpurplenews.com",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQ2hfbnhkVlVFM3VjYktpVUNkZ0FpUDU3OGNIQ1I3N2VaMFptbjZwYnM2X3hCNDJfUXZiQ3VXMlJ0dVNtX2xzS1dCaFRhNU4yQ21RYWVlX0dxTDBxdTB0N19SbllBdVdva2FtaHJZZ0txTlVLSzNvdEptaU5EQ3Fxd25oRFV6R2FGZGtOUnBPbmJSVjZxbFNtZ2tsLWlFZ0d3?oc=5",
+        "source": "royalpurplenews.com",
+        "published": "2026-11-16T06:07:32.000Z",
         "image": "",
-        "summary": "England hang on to beat world champions Spain 3-2 in Madrid thriller Sky News"
+        "summary": "Beyond the ceiling: why world records are built to break royalpurplenews.com"
       },
       {
-        "title": "US Treasury chief calls for outsider to lead embattled tech firm Nvidia",
-        "url": "https://www.aljazeera.com/news/2026/11/15/us-treasury-chief-calls-for-outsider-to-lead-embattled-tech-firm-nvidia?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-15T21:47:47.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6afa0245-1794769477.jpg?resize=1920%2C1440",
-        "summary": "Scott Bessent gives Nvidia's board 10 days to show the company's compliance with US export controls."
-      },
-      {
-        "title": "Yemen’s Houthis unilaterally release 600 war detainees",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/yemens-houthis-unilaterally-release-600-war-detainees?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-15T21:19:08.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1794777486.jpg?resize=1620%2C1080&quality=80",
-        "summary": "Yemen’s Houthis have released 600 people imprisoned during the country’s civil war."
-      },
-      {
-        "title": "Iran-US War Breaking News: Iran Threatens Trump Cabinet? US Fully Prepared to Counter Iranian Assassination Plots Targeting US President And Cabinet Officials, Says DHS Secretary Markwayne Mullin - The Sunday Guardian",
-        "url": "https://news.google.com/rss/articles/CBMi2AJBVV95cUxQMThQS0hEcmxDeGlEZjBuQURQZk1YUFJoa21EajRCOUFla05TbFozSExfZ1FoU3RrajgwQVMyb2Iyd1Q0S0JVNlBqUU90RVlWR3k1Tmlnd3FuNzlvQTY4QkNsNmUtdVIwOUdNOG9HOWR1WG4zNU9xNENidnRSNlJ5YlBVNFBkalVReGNpTmVuZmNIMnpKWDFHVjJ1cERNUWtvTEZrVDhsYUszeUt0VEw2dG1NdGI2V2dkbU9GdF9INUFldlk3emhnZjY0RGx5YTh1bWJyTnU1UjhzYUpTTjUza0pVWERRU3hvbFNXdHExa3g5RFVRWjlhRHdZU2pYeEd0Rjdvb1hRb2ltMUNRdlFLb2lBX2hHUEctb3l3N0t1SzhCTW12NkZybndjUy05NzJaREhYQi03Rm13T1NndExWV3FKSDdrMHo3cTRLUVJ0OGh5SlBNS0hiddIB3gJBVV95cUxQSlVfd05GMUhZUHRUYWtHUFBMYnJQSjFNaUh2a3Rrem5zc1B5ZEUwaU80azFqUXJzMHJYeVRSR0YwZkdxMmk2R0VDSm9QWnBFXzh2dkxlUHM5a25BZzBXcjJueUZ1RjZUdDZ5dVg1dWluS2duN1VvMmxjbGFYaEkyVkFOTVNlS1V6SXhLRU5TSm1iLTIyMlpScEdYdS03VzJ0VVZlcnNKM0hBVUJyajBLeXhpcmtrTnlRb0J3emRVam5fZkZZVXpHSFlmQlZhMTNLUWhhSHJmUnJIQ0FpM2YzQXNXOXFqSEVMdHZGbERqS0hKS3RxMEpITmVTZGVqNlVqTG9rcFlra3VmUDVIdWFndUN2UGthYnptbkJfSVpRRExVbk1QY1pySGRzOUVDNkJrU2RnTDI1d0ZnLWIzREs1Tk9oVnZHX2x1RmRoNUoyR3REYmkwQXZqTEFZbTNDZw?oc=5",
-        "source": "The Sunday Guardian",
-        "published": "2026-11-15T21:18:38.000Z",
-        "image": "",
-        "summary": "Iran-US War Breaking News: Iran Threatens Trump Cabinet? US Fully Prepared to Counter Iranian Assassination Plots Targeting US President And Cabinet Officials, Says DHS Secretary M"
-      },
-      {
-        "title": "Somali-American Uber driver brutally assaulted in alleged hate crime in Minnesota",
-        "url": "https://www.theguardian.com/us-news/2026/nov/15/somali-american-uber-driver-attack-minnesota",
+        "title": "Home Office accused of trying to cancel online talk by Andreas Malm",
+        "url": "https://www.theguardian.com/politics/2026/nov/16/home-office-andreas-malm-climate-academic-online-talk",
         "source": "The Guardian",
-        "published": "2026-11-15T21:10:38.000Z",
-        "image": "https://i.guim.co.uk/img/media/eaf70ca42983b5c08eef285f4fbbbd931e425378/15_0_4680_3744/master/4680.jpg?width=140&quality=85&auto=format&fit=max&s=298cc8090b56056a7a6f8025484c0d67",
-        "summary": "Mohamed Yusuf is fighting for his life after alleged attack by passenger who said he did not like driver’s first name A Somali-American Uber driver was allegedly brutally assaulted"
+        "published": "2026-11-16T06:00:37.000Z",
+        "image": "https://i.guim.co.uk/img/media/930d01efe71df8352c4ebe534faf5b61d3fc8f15/0_0_4724_3780/master/4724.jpg?width=140&quality=85&auto=format&fit=max&s=b97a5e389c6e04fe4c81e5938a3069f3",
+        "summary": "Hackney mayor decries ‘assault’ on free speech over event featuring academic who is banned from entering UK Shabana Mahmood has been accused of an “assault” on free speech over cla"
       },
       {
-        "title": "Czechs rally against plan to switch funding of public media",
-        "url": "https://www.bbc.co.uk/news/articles/cm8e0knr7604o?at_medium=RSS&at_campaign=rss",
+        "title": "Weakening UK electric vehicle targets would hurt car industry, ministers told",
+        "url": "https://www.theguardian.com/environment/2026/nov/16/weakening-uk-electric-vehicle-targets-would-hurt-car-industry-ministers-told",
+        "source": "The Guardian",
+        "published": "2026-11-16T06:00:37.000Z",
+        "image": "https://i.guim.co.uk/img/media/2c482caa3e759cd7a5225f2c03f309598ab7e3a4/0_1589_3765_3012/master/3765.jpg?width=140&quality=85&auto=format&fit=max&s=01029c2819ff6e54c3548089e4148013",
+        "summary": "Exclusive: Experts say watering down ZEV mandate would slow market and hamper efforts to reduce cost of living Moves to weaken the UK’s targets on electric vehicles would hurt the "
+      },
+      {
+        "title": "Special needs overhaul in England could bring in new avenues for extra support",
+        "url": "https://www.theguardian.com/education/2026/nov/16/families-rights-appeal-support-send-overhaul-england",
+        "source": "The Guardian",
+        "published": "2026-11-16T06:00:35.000Z",
+        "image": "https://i.guim.co.uk/img/media/681dfa3b17c9c913ee0e3c919781fa3616c07b1d/479_0_2917_2333/master/2917.jpg?width=140&quality=85&auto=format&fit=max&s=1b73623dac318a1cc46941c9e4d3c148",
+        "summary": "Planned reforms could include appeals to ombudsman or review panel for parents dissatisfied with provisions Families of children with special needs may get new avenues to appeal fo"
+      },
+      {
+        "title": "Headline News Summaries, World News, and Breaking News - Newser",
+        "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE0zTjJ5dklGaHNRMDBfcHRBd2MzMk14WDNXWkhvZ0xfdkhjN2ptbXlYdUF3a1BjbG1tWWhoV3R3Rng4UnJyQWRWaXZrU1hQUQ?oc=5",
+        "source": "Newser",
+        "published": "2026-11-16T06:00:00.000Z",
+        "image": "",
+        "summary": "Headline News Summaries, World News, and Breaking News Newser"
+      },
+      {
+        "title": "US and rivals spar over next UN boss as race lurches towards deadline",
+        "url": "https://www.aljazeera.com/news/2026/11/16/us-and-rivals-spar-over-next-un-boss-as-race-lurches-towards-deadline?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-16T05:57:54.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6af5c9b99e860-1794492857.jpg?resize=1920%2C1440",
+        "summary": "Costa Rica's Rebeca Grynspan is the current frontrunner, polls suggest, but the US and Russia could veto her bid."
+      },
+      {
+        "title": "Widow of Haiti’s slain leader Moise to contest presidential vote",
+        "url": "https://www.aljazeera.com/news/2026/11/16/widow-of-haitis-slain-leader-moise-to-contest-presidential-vote?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-16T05:38:52.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2021-10-06T223122Z_1380088558_RC2E4Q9YWJU4_RTRMADP_3_HAITI-PRESIDENT-1794802877.jpg?resize=1920%2C1440",
+        "summary": "Martine Moise is one of ​33 registered candidates running in Haiti's first presidential election in a decade."
+      },
+      {
+        "title": "Wife of assassinated ex-Haitian leader registers for presidential election",
+        "url": "https://www.bbc.co.uk/news/articles/cmwy83432q1jo?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-15T21:03:40.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0f9f/live/b7b68ac0-e121-11f1-9705-e15ce514cc96.jpg",
-        "summary": "Protesters say the move will stifle media freedom, while the government insists broadcasters need to cut costs."
+        "published": "2026-11-16T05:06:59.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a9fe/live/01adab80-e178-11f1-9340-0b32bbf5495e.jpg",
+        "summary": "There has not been an election in Haiti since before the death of Jovenel Moise in 2021."
+      },
+      {
+        "title": "MP Helen Haines’s first words since leaving hospital after alleged attack led to double amputation",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/16/mp-helen-haines-out-of-hospital-after-attack-leg-amputation-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-11-16T05:05:07.000Z",
+        "image": "https://i.guim.co.uk/img/media/e095e9628412d9e77ce67e0af0ba05d71fc9eca9/698_0_5541_4435/master/5541.jpg?width=140&quality=85&auto=format&fit=max&s=758324403670a0e19ad94c4c31f87257",
+        "summary": "Independent MP says she is ‘overwhelmed’ by thousands of warm wishes and thanks Australians for charity donations Get our daily political email , free app or daily news podcast The"
+      },
+      {
+        "title": "Ministers accused of ‘gambling with safety’ for not knowing cost of NHS maternity unit repairs",
+        "url": "https://www.theguardian.com/society/2026/nov/16/ministers-safety-not-know-cost-nhs-maternity-unit-repairs-england",
+        "source": "The Guardian",
+        "published": "2026-11-16T05:00:34.000Z",
+        "image": "https://i.guim.co.uk/img/media/d901ca6c586349083a2bc87968d2bf82d7f3a91b/236_0_2363_1890/master/2363.jpg?width=140&quality=85&auto=format&fit=max&s=e08810d28ae1afb3a46d2886068d5197",
+        "summary": "NHS chiefs said last year that 43% of maternity and neonatal units in England do not meet safety standards Ministers have been accused of “gambling with the safety of mothers and b"
+      },
+      {
+        "title": "Will Spain’s snap election in November bring a far-right party into government?",
+        "url": "https://www.theguardian.com/world/2026/nov/16/will-spains-snap-election-in-november-bring-a-far-right-party-into-government",
+        "source": "The Guardian",
+        "published": "2026-11-16T05:00:33.000Z",
+        "image": "https://i.guim.co.uk/img/media/c46b1f3a569af276f2b14ada351a05bc52c2b586/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=acc24c62b099bb6cc270d23277605f38",
+        "summary": "Country’s sixth general election in 11 years could lead to far-right role in government for first time since Franco’s death Spaniards head to the polls on 29 November to vote in th"
+      },
+      {
+        "title": "Iraqi armed group denies involvement in oil smuggling, calls probe a ‘lie’",
+        "url": "https://www.aljazeera.com/news/2026/11/16/iraqi-armed-group-denies-involvement-in-oil-smuggling-calls-probe-a-lie?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-16T04:53:42.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20260408__A7499DR__v1__HighRes__IraqIranIsraelUsWar-1794800174.jpg?resize=1920%2C1440",
+        "summary": "Iran-aligned Kataib Hezbollah says the group is subjected to 'blackmail' to force disarmament amid US pressure on Iraq."
       }
     ],
     "ai": [
+      {
+        "title": "Apple’s new study looks to improve the effectiveness of AI health tools",
+        "url": "https://www.theverge.com/tech/1033355/apples-new-study-looks-to-improve-the-effectiveness-of-ai-health-tools",
+        "source": "The Verge",
+        "published": "2026-11-16T01:26:56.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/applestudy1b.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "Apple announced a new study today with the goal of better understanding how people interact with conversational AI health tools and how useful their responses actually are. The com"
+      },
+      {
+        "title": "Elon Musk joins 165,000 others calling for Nvidia to bring back Jensen Huang in open letter",
+        "url": "https://www.theguardian.com/technology/2026/nov/16/elon-musk-tech-execs-open-letter-jensen-huang-return-nvidia-ceo",
+        "source": "The Guardian",
+        "published": "2026-11-16T01:01:08.000Z",
+        "image": "https://i.guim.co.uk/img/media/e480adfe7860e9e4439f965fe15e55a5e4ff13f0/555_0_5960_4770/master/5960.jpg?width=140&quality=85&auto=format&fit=max&s=50878ed33290d246ee0c626a144dabdb",
+        "summary": "Silicon Valley figures back CEO ousted after revelations of affair with suspected Chinese spy, as US treasury secretary urges Nvidia to carry out ‘dramatic shake-up’ Elon Musk and "
+      },
+      {
+        "title": "Reports of AI-related child sexual abuse material rise 8,400% in two years, data shows",
+        "url": "https://www.theguardian.com/technology/2026/nov/16/ai-related-child-sexual-abuse-material-rise-exploitation-deepfakes",
+        "source": "The Guardian",
+        "published": "2026-11-16T00:01:27.000Z",
+        "image": "https://i.guim.co.uk/img/media/290c54f9326fd6704518afe33633827e4920b4e8/255_0_1269_1015/master/1269.jpg?width=140&quality=85&auto=format&fit=max&s=f5ee8eea520d92549e7558481c7ad85a",
+        "summary": "Calls for governments to recognise sexual exploitation of children as preventable public health emergency Reports of artificial intelligence being used to sexually exploit children"
+      },
       {
         "title": "Jensen Huang might be plotting a return and more of the latest Nvidia drama",
         "url": "https://www.theverge.com/tech/1033999/jensen-huang-return-nvidia-megaspeed",
@@ -148,178 +172,154 @@
         "published": "2026-11-15T08:56:11.000Z",
         "image": "https://i.guim.co.uk/img/media/a5f3ffab9cd63da939e5c4cfbd21bff5a434ce93/747_0_4581_3664/master/4581.jpg?width=140&quality=85&auto=format&fit=max&s=653a5ed8aed2d8882aaba908007315a7",
         "summary": "Fears for national college entrance exam next week as test taker admits sending photos of questions to AI tool The marks attained by the top scorer ⁠on South Korea’s national exam "
-      },
-      {
-        "title": "‘Jensen Huang lost his mind’: how AI’s smartest man fell for the world’s oldest trick",
-        "url": "https://www.theguardian.com/technology/2026/nov/14/jensen-huang-affair-nvidia-nightmare",
-        "source": "The Guardian",
-        "published": "2026-11-15T06:00:06.000Z",
-        "image": "https://i.guim.co.uk/img/media/c688291392ebfaa491e16553c6a42ec3ff3c5b77/0_541_2400_1919/master/2400.jpg?width=140&quality=85&auto=format&fit=max&s=d86f59594943d3e382cf380ea2fd4e71",
-        "summary": "Jensen Huang’s affair with a suspected spy is Silicon Valley’s worst nightmare come true The resignation this week of Nvidia’s founder and CEO Jensen Huang is one of the most aston"
-      },
-      {
-        "title": "Art ‘must not be sacrificed on the altar of corporate profit’, Liberal senator says as AI policy debate rages",
-        "url": "https://www.theguardian.com/australia-news/2026/nov/15/art-over-profit-ai-policy-debate-andrew-mclachlan",
-        "source": "The Guardian",
-        "published": "2026-11-14T19:00:52.000Z",
-        "image": "https://i.guim.co.uk/img/media/bb100c4ad17c64282442b40c27895d51765e32dd/0_0_3485_2789/master/3485.jpg?width=140&quality=85&auto=format&fit=max&s=d72d9f2961e3b70e5c920ce9fd1fa088",
-        "summary": "Andrew McLachlan says he chooses ‘real forests over virtual ones’ as he urges Labor government to consider AI’s impact on artists and environment Get our daily political email , fr"
-      },
-      {
-        "title": "The OpenAI board member who fired Sam Altman says we still can’t trust AI CEOs",
-        "url": "https://www.theverge.com/podcast/1032907/helen-toner-openai-cset-ai-safety-policy-interview",
-        "source": "The Verge",
-        "published": "2026-11-14T15:00:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/DCD-Helen-Toner.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Today, I’m talking with Helen Toner, the executive director of the Center for Security and Emerging Technology at Georgetown University. This episode is part two of our series on A"
       }
     ],
     "fashion": [
       {
-        "title": "Liu Jo Fall 2027 Ready-to-Wear",
-        "url": "https://www.vogue.com/fashion-shows/fall-2027-ready-to-wear/liu-jo",
-        "source": "Vogue",
-        "published": "2026-11-15T22:44:44.000Z",
-        "image": "https://assets.vogue.com/photos/6af5f6f4da02c727486f5c00/master/pass/00001-liu-jo-fall-2027-ready-to-wear-credit-brand-sponsored.jpg",
-        "summary": ""
-      },
-      {
-        "title": "Best Perfumes to Wear in Winter 2026, From Soft-Spoken, “Second-Skin” Picks to Unexpected Takes on the Gourmand Trend",
-        "url": "https://wwd.com/shop/shop-beauty/best-perfumes-to-wear-winter-2026-shop-online-1238439826/",
+        "title": "Beauty Takes Flight: Estée Lauder and Duty Free Americas Debut Luxe Trio at Miami Airport",
+        "url": "https://wwd.com/beauty-industry-news/beauty-features/estee-lauder-duty-free-americas-beauty-store-miami-airport-1239416168/",
         "source": "WWD",
-        "published": "2026-11-15T22:00:10.000Z",
+        "published": "2026-11-16T06:00:00.000Z",
         "image": "",
-        "summary": "You're tired of bland fragrance summaries, so we're here to offer up poetic descriptions of the most worth-it scents of the season."
+        "summary": "The Estée Lauder Cos. and Duty Free Americas are unveiling a new beauty destination at Miami International Airport, featuring Le Labo, Tom Ford Beauty and Jo Malone London."
       },
       {
-        "title": "Alexander Skarsgård Pairs Mint Green With Bubblegum Pink for a Colorful JW Anderson Fit",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74433389/alexander-skarsgard-jw-anderson-mint-green-bubblegum-pink-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-15T21:17:02.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/747323a4-66d9-4ce6-b21e-13667e613c6a.jpeg",
-        "summary": "The king of statement dressing"
-      },
-      {
-        "title": "A Deep Dive Into Hailey Bieber’s Many, Many Face Masks",
-        "url": "https://www.vogue.com/article/a-deep-dive-into-hailey-biebers-many-many-face-masks",
+        "title": "Key Takeaways From Luxury’s Q3 Earnings",
+        "url": "https://www.vogue.com/article/key-takeaways-from-luxurys-q3-earnings",
         "source": "Vogue",
-        "published": "2026-11-15T20:08:22.000Z",
-        "image": "https://assets.vogue.com/photos/6afa0f068b2e24462f0b52ce/master/pass/SnapInsta.to_902621270_18675304450037292_2186555865296106515_n.jpg",
-        "summary": "From cult K-beauty treatments to depuffing creams, collagen wraps, and LED light therapy, Rhode founder Hailey Bieber takes her masking seriously."
+        "published": "2026-11-16T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6af72a39e7d5f4873b671367/master/pass/11-16-26-EARNINGS-TAKEAWAYS-vogue-business-story.jpg",
+        "summary": "Will China get better from here? Will softness in the US continue? Will the European protests impact sales? Analysts unpack luxury’s quarterly results and weigh in on what’s ahead."
       },
       {
-        "title": "Wes Gordon and Aerin Lauder Kick Off the Holidays at The Vineta in Palm Beach",
-        "url": "https://wwd.com/fashion-news/fashion-scoops/wes-gordon-aerin-lauder-holiday-party-1239416685/",
+        "title": "Inside the New La Perla",
+        "url": "https://www.vogue.com/article/inside-the-new-la-perla",
+        "source": "Vogue",
+        "published": "2026-11-16T05:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6af74a30abdc9482e0bfbd3e/master/pass/11-16-26-LA-PERLA-vogue-business-story.jpg",
+        "summary": "After three years of dormancy, La Perla’s new CEO Alessio Vannetti is in position to bring the brand back with a new collection, e-commerce site, and a plan for global expansion."
+      },
+      {
+        "title": "Culture Corner: JFK Jr.’s Style Explored in New Book by Jeremy Freed",
+        "url": "https://wwd.com/menswear-news/mens-lifestyle/jfk-jr-style-book-jeremy-freed-michael-bastian-1239413292/",
         "source": "WWD",
-        "published": "2026-11-15T19:39:08.000Z",
+        "published": "2026-11-16T05:01:00.000Z",
         "image": "",
-        "summary": "Lauder arranged one of her famous tablescapes inside the hotel’s Pool House restaurant Thursday."
+        "summary": "The author and Brooks Brothers' creative director Michael Bastian will hold a conversation at the store's downtown flagship on Thursday."
       },
       {
-        "title": "On the Hunt for Hair-Matching Earmuffs à la Hunter Schafer",
-        "url": "https://www.vogue.com/article/hunter-schafer-earmuffs-outfit-2026-11-15",
-        "source": "Vogue",
-        "published": "2026-11-15T18:54:23.000Z",
-        "image": "https://assets.vogue.com/photos/6af9f142f82c71cb56301ee4/master/pass/SnapInsta.to_905686542_18675974755052993_250091764486214568_n.jpg",
-        "summary": "“Blade Runner: 2099” star Hunter Schafer donned a pair of sci-fi heroine-coded earmuffs—some winter headgear you can expect to see everywhere."
-      },
-      {
-        "title": "Hunter Schafer’s Blade Runner 2099 Press Tour Is Full of Vintage Finds and Colorful Statements",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74432951/hunter-schafers-blade-runner-2099-press-tour-style-streak-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-15T18:30:08.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/58cf6b66-d93d-49b7-b8d7-6e6d1a08816d.jpg",
-        "summary": "With custom Prada, Y2K Undercover, and straight-off-the-runway Lii"
-      },
-      {
-        "title": "Kith’s Artisanal Clarks Wallabee Collaboration With Proleta Re Art Took Three Years to Make",
-        "url": "https://wwd.com/footwear-news/sneaker-news/proleta-re-art-kith-clarks-originals-wallabee-release-date-1239417339/",
+        "title": "Haven Well Within Launching Menswear",
+        "url": "https://wwd.com/menswear-news/mens-sportswear/haven-well-within-menswear-tara-ellef-bill-miller-1239412258/",
         "source": "WWD",
-        "published": "2026-11-15T18:18:04.000Z",
+        "published": "2026-11-16T05:01:00.000Z",
         "image": "",
-        "summary": "The elaborate Clarks Wallabee collection will be released Monday for $1,982 each."
+        "summary": "This marks the first men's offering from parent KnitWell Group."
       },
       {
-        "title": "Katy Perry and Justin Trudeau Have Their Red Carpet Couple Style on Lock",
-        "url": "https://www.vogue.com/article/katy-perry-justin-trudeau-baby-2-baby-gala-2026-11-15",
-        "source": "Vogue",
-        "published": "2026-11-15T17:44:35.000Z",
-        "image": "https://assets.vogue.com/photos/6af9ee9660cabe6fe8769b41/master/pass/2305168474",
-        "summary": "Last night, the singer and former Canadian prime minister stepped out for the 2026 Baby2Baby Gala, proving they’re found their red carpet rhythm together."
+        "title": "Short Takes: Todd Snyder Goes Big in Chicago, Kevin Love Creates Merch With Ghurka and More",
+        "url": "https://wwd.com/menswear-news/mens-lifestyle/todd-snyder-chicago-kevin-ghurka-pony-waylon-jennings-1239411632/",
+        "source": "WWD",
+        "published": "2026-11-16T05:01:00.000Z",
+        "image": "",
+        "summary": "Quick hits from the menswear world."
+      },
+      {
+        "title": "Anthropologie and YoungArts Unveil 2026 ‘Leading With Creativity’ Award Recipients and Exclusive Art Collection",
+        "url": "https://wwd.com/business-news/media/anthropologie-youngarts-2026-leading-with-creativity-award-recipients-1239412184/",
+        "source": "WWD",
+        "published": "2026-11-16T05:01:00.000Z",
+        "image": "",
+        "summary": "Each recipient will receive a $10,000 grant to continue to pursue their creative endeavors."
+      },
+      {
+        "title": "Armarium Opens First Store",
+        "url": "https://wwd.com/fashion-news/designer-luxury/armarium-opens-first-store-milan-1239415716/",
+        "source": "WWD",
+        "published": "2026-11-16T05:01:00.000Z",
+        "image": "",
+        "summary": "The Italian brand launched and designed by Giorgia Gabriele has planted a flag in Milan."
+      },
+      {
+        "title": "Fendi Appoints New Global Private Client Relations Director",
+        "url": "https://wwd.com/fashion-news/fashion-scoops/fendi-new-worldwide-private-client-relations-director-1239415162/",
+        "source": "WWD",
+        "published": "2026-11-16T05:01:00.000Z",
+        "image": "",
+        "summary": "WWD has learned that Gianmaria Pizzoccheri is joining the Rome-based brand in this increasingly key role for luxury houses."
       }
     ],
     "markets": [
       {
+        "title": "AI is reshaping banking jobs – but its ability to drive profits remains unclear",
+        "url": "https://www.cnbc.com/2026/11/16/how-ai-is-changing-banking-jobs-hiring-and-revenue.html",
+        "source": "CNBC World",
+        "published": "2026-11-16T06:20:55.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108181056-1754310162874-gettyimages-2226898553-redstill25071501.jpeg?v=1760127393&w=1920&h=1080",
+        "summary": "Europe's banks are using AI to cut routine work, redeploy staff and hire more technical talent."
+      },
+      {
+        "title": "China confirms Xi-Trump-Putin historic summit. What will be on the agenda?",
+        "url": "https://www.cnbc.com/2026/11/16/trump-xi-putin-ukraine-nuclear-tariffs-russia-iran-.html",
+        "source": "CNBC World",
+        "published": "2026-11-16T04:34:00.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551686-1794792619751-gettyimages-2304231619-AFP_D79R6QM.jpeg?v=1794792633&w=1920&h=1080",
+        "summary": "The talks are expected to focus on issues including nuclear non-proliferation, the Middle East war, trade policies and, possibly, the Ukraine war."
+      },
+      {
         "title": "My older brother, who has no children, cut our only sister out of his will. I’ll get everything. Do I tell her?",
         "url": "https://www.marketwatch.com/story/she-has-a-history-of-financial-mismanagement-my-brother-cut-my-sister-out-of-his-will-im-getting-everything-do-i-tell-her-3e537851?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-15T22:15:00.000Z",
+        "published": "2026-11-16T04:15:00.000Z",
         "image": "https://images.mktw.net/im-10553254",
         "summary": "“I’m torn between respecting my brother’s wishes and being fair to my sister.”"
       },
       {
-        "title": "Nvidia is gearing up for one of Wall Street’s most anticipated earnings calls in years",
-        "url": "https://www.marketwatch.com/story/nvidia-is-gearing-up-for-one-of-wall-streets-most-anticipated-earnings-calls-in-years-91855b1e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-15T21:32:00.000Z",
-        "image": "https://images.mktw.net/im-53662543",
-        "summary": "Jensen Huang’s sudden departure has made Tuesday’s earnings call “the most important in the company’s history.”"
+        "title": "China’s slowdown deepens in October as industrial output, retail sales, investment miss estimates",
+        "url": "https://www.cnbc.com/2026/11/16/china-retail-sales-october-industrial-output-investment.html",
+        "source": "CNBC Markets",
+        "published": "2026-11-16T03:53:59.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551664-1794786973563-gettyimages-2299353111-img_6622.jpeg?v=1794787492&w=1920&h=1080",
+        "summary": "A deepening reliance on external demand leaves China more exposed to shocks abroad as domestic momentum fades, analysts say."
       },
       {
-        "title": "Budget airlines are going upscale with first-class seats and faster wifi",
-        "url": "https://www.marketwatch.com/story/budget-airlines-are-going-upscale-with-first-class-seats-and-faster-wifi-999868ab?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-15T21:31:00.000Z",
-        "image": "https://images.mktw.net/im-04466235",
-        "summary": "Forget no-frills: Frontier and JetBlue are chasing luxury flyers, and Wall Street is buying in."
+        "title": "Tech world's calls for Jensen Huang to return to Nvidia are growing",
+        "url": "https://www.cnbc.com/2026/11/16/nvidia-jensen-huang-return-tech.html",
+        "source": "CNBC World",
+        "published": "2026-11-16T03:35:09.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108354033-1787679027673-gettyimages-2266718139-NVIDIA_GTC.jpeg?v=1787679052&w=1920&h=1080",
+        "summary": "Calls for Jensen Huang's return as Nvidia CEO are growing, with tech executives and major shareholders backing a potential comeback following his resignation."
       },
       {
-        "title": "I inherited $1.4 million from my father. Am I wrong to ask my husband of 25 years for a postnuptial agreement?",
-        "url": "https://www.marketwatch.com/story/i-inherited-1-4-million-from-my-father-am-i-wrong-to-ask-my-husband-of-25-years-for-a-postnuptial-agreement-b739c51d?mod=mw_rss_topstories",
+        "title": "A big chunk of your 401(k) is likely invested in Nvidia",
+        "url": "https://www.marketwatch.com/story/the-scandal-at-nvidia-is-exactly-whats-wrong-with-the-s-p-500-7307457e?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-15T20:30:00.000Z",
-        "image": "https://images.mktw.net/im-95255307",
-        "summary": "“He has always said he wants his daughter to inherit a chunk of his estate, and I’ve never objected to that.”"
+        "published": "2026-11-16T03:11:00.000Z",
+        "image": "https://images.mktw.net/im-61305338",
+        "summary": "The scandal at the computer-chip giant is exactly what’s wrong with the S&P 500."
+      },
+      {
+        "title": "Japan's economy unexpectedly contracts in third-quarter as elevated energy costs bite",
+        "url": "https://www.cnbc.com/2026/11/16/japan-q3-gdp-energy-oil-prices.html",
+        "source": "CNBC World",
+        "published": "2026-11-16T02:56:24.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108551661-1794785886757-gettyimages-2288262163-Stanislav-Kogiku-1440900.jpeg?v=1794787901&w=1920&h=1080",
+        "summary": "Energy subsidies for households had reportedly expired in September, exposing the economy to the higher energy prices brought about by the Iran war."
       },
       {
         "title": "‘It leaves me with a sour taste’: My elderly mother gave our cousin $800 for a car repair. Should I be worried?",
         "url": "https://www.marketwatch.com/story/it-leaves-me-with-a-sour-taste-my-elderly-mother-gave-our-cousin-800-for-a-car-repair-should-i-be-worried-88dbd188?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-15T20:01:00.000Z",
+        "published": "2026-11-15T23:30:00.000Z",
         "image": "https://images.mktw.net/im-22072072",
         "summary": "“I know older people can easily feel patronized, and I don’t want that to happen.”"
       },
       {
-        "title": "‘He calls my plans a fantasy’: My husband says we can’t afford a $200,000-a-year retirement. Is he being cheap?",
-        "url": "https://www.marketwatch.com/story/he-calls-my-plans-a-fantasy-my-husband-says-we-cant-afford-our-200-000-a-year-dream-retirement-i-think-hes-cheap-45bc5b4e?mod=mw_rss_topstories",
+        "title": "Should a widow leave her late partner’s home to her stepkids — or cut off contact with them?",
+        "url": "https://www.marketwatch.com/story/she-can-always-change-her-mind-should-a-widow-leave-the-family-home-to-her-stepchildren-649b06af?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-15T20:00:00.000Z",
-        "image": "https://images.mktw.net/im-61252759",
-        "summary": "“We have $2 million saved in our retirement accounts and a house worth $1.3 million.”"
-      },
-      {
-        "title": "Lutnick faces questions over Nvidia spy scandal. His sons' firm has ties to the chipmaker",
-        "url": "https://www.cnbc.com/2026/11/13/howard-lutnick-nvidia-jensen-huang-china-cantor-fitzgerald.html",
-        "source": "CNBC Markets",
-        "published": "2026-11-15T19:58:21.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108358099-1788382594543-gettyimages-2292668728-AFP_C77N49R.jpeg?v=1788382709&w=1920&h=1080",
-        "summary": "Jensen Huang’s resignation as Nvidia CEO has brought renewed scrutiny to Commerce Secretary Howard Lutnick and his family's financial ties to the chipmaker."
-      },
-      {
-        "title": "DOT Sec. Duffy ties router in southern Arkansas to issues that led to nationwide ground stop",
-        "url": "https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html",
-        "source": "CNBC World",
-        "published": "2026-11-15T18:15:14.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108551584-1794673404798-gettyimages-2304591847-AFP_D7GQ7BU.jpeg?v=1794673431&w=1920&h=1080",
-        "summary": "The FAA ground stop came after updates to an older communication system managed by L3Harris Technologies, Transportation Secretary Sean Duffy said."
-      },
-      {
-        "title": "Bessent calls for ‘dramatic shakeup’ at Nvidia, urges outside CEO",
-        "url": "https://www.cnbc.com/2026/11/15/bessent-nvidia-ceo-lutnick-megaspeed.html",
-        "source": "CNBC World",
-        "published": "2026-11-15T18:10:18.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108487950-1793387874122-gettyimages-2302201596-lnb02366.jpeg?v=1793387920&w=1920&h=1080",
-        "summary": "Bessent has criticized Howard Lutnick’s department over suspected chip diversion to China while defending President Donald Trump’s handling of the matter."
+        "published": "2026-11-15T23:00:00.000Z",
+        "image": "https://images.mktw.net/im-06068042",
+        "summary": "“It would be a less drastic step than selling the home now and splitting the proceeds.”"
       }
     ]
   }
