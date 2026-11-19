@@ -1,106 +1,154 @@
 {
-  "generatedAt": "2026-11-19T02:34:38.756Z",
+  "generatedAt": "2026-11-19T11:40:31.648Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Claude-maker Anthropic poised for stock market debut worth up to $1.5tn",
-        "url": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-19T02:20:15.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3a11/live/4dfcb420-e37d-11f1-b879-03485a55c082.jpg",
-        "summary": "Anthropic started just five years ago an is now one of the biggest names in artificial intelligence."
-      },
-      {
-        "title": "Trump downplays US outages and Nvidia security concerns in remarks before China summit – live",
-        "url": "https://www.theguardian.com/us-news/live/2026/nov/18/donald-trump-mary-peltola-alaska-hakeem-jeffries-democrats-republicans-congress-house-senate-midterms-latest-news-updates",
+        "title": "Hakeem Jeffries on brink of Senate history as he tells Democrats to ‘fight Maga, not each other’ – US politics live",
+        "url": "https://www.theguardian.com/us-news/live/2026/nov/19/hakeem-jeffries-us-politics-demicrats-republicans-latest-news-updates",
         "source": "The Guardian",
-        "published": "2026-11-19T02:19:08.000Z",
-        "image": "https://i.guim.co.uk/img/media/f837a0e71abfc6b175a106e74b7d986199348ce2/712_0_3621_2898/master/3621.jpg?width=140&quality=85&auto=format&fit=max&s=52b073360cb78c8261904cd31199a12d",
-        "summary": "Asked by Fox News about China’s alleged spying operation, president says: ‘We spy on them too. I think we spy better than they do.’ Sign up for US breaking News email Linked to tha"
+        "published": "2026-11-19T11:24:28.000Z",
+        "image": "https://i.guim.co.uk/img/media/2f1f53d678806d2a7e2e1a749e6128d80c2e661c/667_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=ffa0fba487ca039470aa18c954a10a82",
+        "summary": "Democrats resoundingly nominated Jeffries to serve as speaker of the House when the new Congress is sworn in next year Denmark’s parliament on Thursday approved a hard-wrought agre"
       },
       {
-        "title": "North Carolina Courage winger Ashley Sanchez wins NWSL MVP after record-breaking season - The New York Times",
-        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPMC1PemFRalFkSkRkSGJjVkZ0RjljaTJJMmtzellMZF80ZWI2cW9WSGVvSWE2SHJlVm5XeUo2b1V6R0p1UTlkRUk3S0tKVFhFdlJMM3g2alhLSGhITklqU1FjVGo2T3Znd3lRUUtvRDd5RUdsdFZheEljT1dOUmtXT2Y5a0RnaTJ0ZXJIdTE5SVFsWTZKdWhId0pieWNsdmkzODN1cVlibw?oc=5",
-        "source": "The New York Times",
-        "published": "2026-11-19T01:58:31.000Z",
-        "image": "",
-        "summary": "North Carolina Courage winger Ashley Sanchez wins NWSL MVP after record-breaking season The New York Times"
+        "title": "Mark Speakman resigns and says Liberals face ‘existential threat’ as NSW exodus continues",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/19/mark-speakman-resigns-and-says-liberals-face-existential-threat-as-nsw-exodus-continues",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:23:41.000Z",
+        "image": "https://i.guim.co.uk/img/media/3efee6d1eaff0fd0c1f56834a875969ecd396eb3/2910_595_6221_4977/master/6221.jpg?width=140&quality=85&auto=format&fit=max&s=a84940e8f5bd344dbd4ab97d27c0d8f9",
+        "summary": "Former NSW opposition leader warns party against becoming ‘Labor lite’ or ‘One Nation lite’ in late-night speech Get our breaking news email , free app or daily news podcast Former"
       },
       {
-        "title": "Elon Musk says record spending on US midterms was 'pretty foolish'",
-        "url": "https://www.bbc.co.uk/news/articles/cm9q8j2z3gg8o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-19T01:56:28.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3333/live/c9ef87a0-e3b5-11f1-ac8e-bf9cbaf16b78.jpg",
-        "summary": "The multi-billionaire also said he was \"not Maga\", distancing himself from the political movement linked to Trump."
+        "title": "Israeli tanks cross ‘yellow line’ boundary into Hamas-controlled central Gaza",
+        "url": "https://www.theguardian.com/world/2026/nov/18/israeli-tanks-cross-yellow-line-boundary-into-hamas-controlled-central-gaza",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:23:11.000Z",
+        "image": "https://i.guim.co.uk/img/media/d94406113e8bb1466134873bf0554edf8a0ac2a7/340_0_3588_2871/master/3588.jpg?width=140&quality=85&auto=format&fit=max&s=c4c5f88e63f04ff190d99622bcb62fac",
+        "summary": "First incursion across boundary since ceasefire deal comes as Eisenkot seeks to form government without Netanyahu The Israeli military crossed into Hamas-controlled central Gaza on"
       },
       {
-        "title": "Hegseth unveils new US-Venezuela military deal",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/19/hegseth-unveils-new-us-venezuela-military-deal?traffic_source=rss",
+        "title": "Putin says US-China-Russia can strengthen global stability",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/19/putin-says-us-china-russia-can-strengthen-global-stability?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-19T01:48:46.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795052903.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Pete Hegseth has unveiled a new military deal with Venezuela in his first visit since the US capture of Nicolas Maduro."
+        "published": "2026-11-19T11:22:43.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/putin-1795087333.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Putin says US-China-Russia can strengthen global stability"
       },
       {
-        "title": "General Pants Co enters voluntary administration, putting hundreds of jobs at risk",
-        "url": "https://www.theguardian.com/business/2026/nov/19/general-pants-co-enters-voluntary-administration-jobs-at-risk",
-        "source": "The Guardian",
-        "published": "2026-11-19T01:46:21.000Z",
-        "image": "https://i.guim.co.uk/img/media/7d56f8d844b5cf5df1e5f586bc7ca3b43c5984d0/0_0_2497_1997/master/2497.jpg?width=140&quality=85&auto=format&fit=max&s=4eb8e029850f2e5e28dac2de2696cd1d",
-        "summary": "Australian fashion chain becomes latest retailer in trouble after David Jones, Cue and Veronika Maine Get our breaking news email , free app or daily news podcast Youth fashion cha"
-      },
-      {
-        "title": "Why a trio of experts alleges Jeffrey Epstein did not die by suicide",
-        "url": "https://www.aljazeera.com/news/2026/11/19/why-a-trio-of-experts-alleges-jeffrey-epstein-did-not-die-by-suicide?traffic_source=rss",
+        "title": "Will laser weapons change warfare?",
+        "url": "https://www.aljazeera.com/video/project-force-2/2026/11/19/will-lasers-weapons-change-warfare?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-19T01:17:08.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/epa_699ed56c1b28-1772017004.jpg?resize=1920%2C1440",
-        "summary": "A new report alleges that injuries on Epstein's body were overlooked by medical examiners during his 2019 autopsy."
+        "published": "2026-11-19T11:20:00.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/16-9-4-1795087159.jpg?resize=1920%2C1080&quality=80",
+        "summary": "The use of lasers is increasing in warfare — which countries are deploying them and how?"
       },
       {
-        "title": "Settler rams into Palestinians at multiple locations in central Israel",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/19/settler-rams-into-palestinians-at-multiple-locations-in-central-israel?traffic_source=rss",
+        "title": "Badenoch says using amputee athletes to justify cutting disability benefits was ‘message of hope’ – UK politics live",
+        "url": "https://www.theguardian.com/politics/live/2026/nov/19/kemi-badenoch-andy-burnham-uk-politics-latest-news-updates",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:17:43.000Z",
+        "image": "https://i.guim.co.uk/img/media/8c13e43ae8c115541cac6e3f64d48248544771ec/1435_1494_3905_3124/master/3905.jpg?width=140&quality=85&auto=format&fit=max&s=ac4315e50102570681509b0f40f64bec",
+        "summary": "PM has asked Badenoch to withdraw her suggestion that benefits should be cut because ‘double amputees run marathons’ These are from my colleague Peter Walker , who was at the Tory "
+      },
+      {
+        "title": "Guardian Australia takes home two Walkley awards for excellence in journalism",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/19/guardian-australia-takes-home-two-walkley-awards-for-excellence-in-journalism",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:13:32.000Z",
+        "image": "https://i.guim.co.uk/img/media/3bbff637fb02e511e32ade930f414ad77d600ab4/0_0_4235_3388/master/4235.jpg?width=140&quality=85&auto=format&fit=max&s=bd44ca33648d7c2025b5d4ba54d2e799",
+        "summary": "Stories revealing Pauline Hanson’s US trip with Gina Rinehart and the systematic betrayal of Kardell Lomas before her death recognised Guardian Australia journalists have won two W"
+      },
+      {
+        "title": "Tusk appears to mock Trump’s Putin comment as Ukraine’s allies meet in Berlin – Europe live",
+        "url": "https://www.theguardian.com/world/live/2026/nov/19/russia-ukraine-war-coalition-of-the-willing-europe-latest-news-updates",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:09:58.000Z",
+        "image": "https://i.guim.co.uk/img/media/194326eb18d0979185a01324bf8eb4f154a041d2/270_0_4520_3616/master/4520.jpg?width=140&quality=85&auto=format&fit=max&s=c1721f1dbbf726d5a03787329704a58d",
+        "summary": "After US president called Putin a friend, Poland’s PM said: ‘God, protect us from such friends’ For what it’s worth, the China-US-Russia ‘peace declaration’ issued after their meet"
+      },
+      {
+        "title": "Denmark parliament approves security deal with Greenland and US",
+        "url": "https://www.aljazeera.com/news/2026/11/19/denmark-parliament-approves-security-deal-with-greenland-and-us?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-19T01:13:45.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795050806.jpg?resize=1200%2C675",
-        "summary": "At least eight Palestinians were injured after a settler driver was caught on camera running them over."
+        "published": "2026-11-19T11:09:00.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6afecabe8240-1795082942.jpg?resize=1920%2C1440",
+        "summary": "All 109 Danish lawmakers present approved the deal, easing tensions over Trump's desire to annex the Arctic island."
       },
       {
-        "title": "Australia may have ‘one foot in recession’ as unemployment surges to five-year high",
-        "url": "https://www.theguardian.com/business/2026/nov/19/unemployment-rate-jumps-highest-level-five-years-job-figures",
+        "title": "Myanmar committed acts of genocide against Rohingya minority, world’s top court rules",
+        "url": "https://www.theguardian.com/world/2026/nov/19/genocide-rohingya-international-court-of-justice-ruling-myanmar",
         "source": "The Guardian",
-        "published": "2026-11-19T01:12:55.000Z",
-        "image": "https://i.guim.co.uk/img/media/ccbba5c44390f21ce8f21f8caaf8486c31bac8c4/529_0_4164_3333/master/4164.jpg?width=140&quality=85&auto=format&fit=max&s=cdc902f13711b00113b62f2359c282f2",
-        "summary": "Jobless rate rises from 4.7% to 4.9% for October, latest bureau of statistics figures reveal Get our daily political email , free app or daily news podcast Australia may already ha"
+        "published": "2026-11-19T11:08:44.000Z",
+        "image": "https://i.guim.co.uk/img/media/16e3b91946d9a70788aadd1f8242b43c0244fe94/443_0_2913_2329/master/2913.jpg?width=140&quality=85&auto=format&fit=max&s=dd0fed01b92f1c8ac94e55192bc965d1",
+        "summary": "Judgment ends seven-year legal battle and is seen as critical test for dealing with most serious of all state crimes Myanmar committed acts of genocide against its Rohingya minorit"
       },
       {
-        "title": "Elon Musk claims ‘I’m not Maga’ and says he regrets vast sums to back Republicans",
-        "url": "https://www.theguardian.com/us-news/2026/nov/18/elon-musk-maga-trump",
-        "source": "The Guardian",
-        "published": "2026-11-19T01:07:51.000Z",
-        "image": "https://i.guim.co.uk/img/media/0d10d08459c8b09152e92f3ebf55f9712a98d380/2128_149_4811_3852/master/4811.jpg?width=140&quality=85&auto=format&fit=max&s=8839487fb786add260720cdfc034e3e8",
-        "summary": "Musk, who aligned with Trump and was frequent White House guest, says he feels ‘pretty foolish’ about record midterm spending Elon Musk denied being Maga on Wednesday, despite alig"
-      },
-      {
-        "title": "Crimean Bridge attacked again, Russian official says",
-        "url": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_medium=RSS&at_campaign=rss",
+        "title": "Israeli military completes ground operation in Gaza beyond Yellow Line",
+        "url": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-19T01:05:03.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/e29a/live/4b7210d0-e3ad-11f1-b942-5da5bfac5a5a.jpg",
-        "summary": "The head of Crimea said traffic was suspended after another attack on the link between Russia and the occupied territory."
+        "published": "2026-11-19T11:07:37.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ee79/live/56061990-e382-11f1-a094-5fdc692f3e33.jpg",
+        "summary": "Hamas condemned the incursion, which the Israeli military said was to dismantle a \"terror tunnel\", as a \"flagrant\" ceasefire violation."
       },
       {
-        "title": "Record-breaking rain lashes California’s Bay area as ‘atmospheric river’ arrives",
-        "url": "https://www.theguardian.com/us-news/2026/nov/18/california-atmospheric-river-flooding",
+        "title": "Race to replant five South African baobabs after export blocked",
+        "url": "https://www.theguardian.com/environment/2026/nov/19/baobab-five-trees-south-africa-dug-up-export-blocked-georgia-aoe",
         "source": "The Guardian",
-        "published": "2026-11-19T01:03:34.000Z",
-        "image": "https://i.guim.co.uk/img/media/f9f5212fc0956900ba97c6edec783a649f9bb14b/630_0_6300_5042/master/6300.jpg?width=140&quality=85&auto=format&fit=max&s=a535c6eaf85cf6ca207953a5b7cc1559",
-        "summary": "Storm expected to move into southern California, with LA residents warned of potential evacuation orders Heavy rain pounded California’s Bay area, with record rainfall in downtown "
+        "published": "2026-11-19T11:03:24.000Z",
+        "image": "https://i.guim.co.uk/img/media/048c1619883c277fcef86d2ceda7a59071397137/0_191_1360_1088/master/1360.jpg?width=140&quality=85&auto=format&fit=max&s=beca2d51f3567cbad90b41ec6f97d5a4",
+        "summary": "The trees, intended for an unnamed buyer in Georgia, were reportedly dug up without the necessary permits Environmentalists in South Africa are racing to replant five centuries-old"
       }
     ],
     "ai": [
+      {
+        "title": "Anthropic to float on the stock market today as it raises $81bn in record IPO – business live",
+        "url": "https://www.theguardian.com/business/live/2026/nov/19/anthropic-float-stock-market-nasdaq-raises-81bn-record-ipo-latest-news-updates",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:21:59.000Z",
+        "image": "https://i.guim.co.uk/img/media/528c5e0e23b611527cf28de1432433186338dd96/424_0_4240_3392/master/4240.jpg?width=140&quality=85&auto=format&fit=max&s=2e98bfa657e5b7b733044f3950fd723d",
+        "summary": "Rolling coverage of Anthropic’s IPO, and the latest economic and financial news Anthropic needs to grow into its $1.5tn valuation, argues Kathleen Brooks, research director at XTB:"
+      },
+      {
+        "title": "Outages, spies, and trillion-dollar IPOs: is this our AI future? – Stateside with Kai and Carter",
+        "url": "https://www.theguardian.com/us-news/video/2026/nov/19/our-ai-future-stateside",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:00:26.000Z",
+        "image": "https://i.guim.co.uk/img/media/ccbfb20cc448f83eb6c97aa4bd0d48b9bf0ada9b/0_0_1350_1080/master/1350.jpg?width=140&quality=85&auto=format&fit=max&s=50d96cc8cb925210c559b488c0b3c29a",
+        "summary": "It has been a wild few weeks in the world of tech. First, Jensen Huang’s extramarital affairs, including with an alleged Chinese spy, forced an unimaginable leadership change at Nv"
+      },
+      {
+        "title": "Trump says the tech outages are ‘fine’. Who believes him? | Margaret Sullivan",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/19/trump-tech-outages",
+        "source": "The Guardian",
+        "published": "2026-11-19T11:00:24.000Z",
+        "image": "https://i.guim.co.uk/img/media/03be24ddeedb8c9f815f7e311ca93b64dfee5c24/190_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=40c6dd9c4aab4ccf6c8daa7f343aa18a",
+        "summary": "In normal times, we’d expect serious answers from our leaders on a topic of this magnitude. Not under this administration As outages and disruptions have piled up over recent days,"
+      },
+      {
+        "title": "When tech workers have to quit their jobs to raise the alarm, it’s time to worry | Isabelle Ferreras",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/19/tech-workers-quit-jobs-raise-alarm-worry-ai-humanity-autocracies",
+        "source": "The Guardian",
+        "published": "2026-11-19T08:59:17.000Z",
+        "image": "https://i.guim.co.uk/img/media/e7526f68fda36b80039b3f5dbc8c98e38d05eec2/493_0_4913_3933/master/4913.jpg?width=140&quality=85&auto=format&fit=max&s=26cd6c8e66bdbf57e49c6803683f409b",
+        "summary": "We can’t make AI safe for humanity if tech bosses are allowed to run their companies like autocracies Over the past two years, a troubling pattern has emerged across the world’s le"
+      },
+      {
+        "title": "Ram through datacentres no one wants and hope the AI bubble never bursts: that’s the UK’s growth plan | George Monbiot",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/19/uk-growth-plan-datacentres-ai-bubble-big-tech",
+        "source": "The Guardian",
+        "published": "2026-11-19T06:00:19.000Z",
+        "image": "https://i.guim.co.uk/img/media/7619fd79f40710c000b8d324d812ec60c73e5910/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=e05f011145aa9865de9da4fe263b138f",
+        "summary": "The government doesn’t know what they are going to be used for, but that’s beside the point. Their real purpose is to sustain the share price of big tech It should have the status "
+      },
+      {
+        "title": "Datacentres to create 70% more carbon emissions by 2030, IEA report warns",
+        "url": "https://www.theguardian.com/world/2026/nov/19/datacentres-to-create-70-more-carbon-emissions-by-2030-iea-report-warns",
+        "source": "The Guardian",
+        "published": "2026-11-19T05:00:18.000Z",
+        "image": "https://i.guim.co.uk/img/media/2ea7dda4257fc43543719a2d375cd85a1ce8cdb4/0_0_7157_5728/master/7157.jpg?width=140&quality=85&auto=format&fit=max&s=bacf77eb19490db5a05856675b08baa4",
+        "summary": "Global energy watchdog forecasts huge rise as US and China turn to fossil fuels to power AI growth agendas The world’s datacentres will create 70% more carbon emissions within the "
+      },
       {
         "title": "Four Maryland high school students sue after AI mistakes Doritos bag for gun",
         "url": "https://www.theguardian.com/us-news/2026/nov/18/maryland-baltimore-county-doritos-gun-ai-lawsuit",
@@ -124,202 +172,154 @@
         "published": "2026-11-18T22:00:09.000Z",
         "image": "https://i.guim.co.uk/img/media/fe9aab60932fe1cb7d519c49bff2fa37dfb99711/752_0_4027_3222/master/4027.jpg?width=140&quality=85&auto=format&fit=max&s=532dd0928a6abe38acdb8c7401f27268",
         "summary": "A defence bill being rushed through parliament could expand the definition of ‘defence official’ and see AI datacentres deemed ‘defence security zones’ In 2019, the New York Times "
-      },
-      {
-        "title": "Anthropic sets share price at $83 for stock market debut, above expected range",
-        "url": "https://www.theguardian.com/technology/2026/nov/18/anthropic-share-price-stock-market-ipo",
-        "source": "The Guardian",
-        "published": "2026-11-18T21:39:15.000Z",
-        "image": "https://i.guim.co.uk/img/media/946b0e05dd0e1b4c6e798b7dd5ff3846fd4f4783/718_0_6195_4958/master/6195.jpg?width=140&quality=85&auto=format&fit=max&s=52829c68a6669d7634536a562a880f8e",
-        "summary": "Artificial intelligence firm positioned for one of the biggest IPOs in history, with trading slated to begin Thursday Anthropic set the share price for its debut on the US stock ma"
-      },
-      {
-        "title": "Trump’s latest land grab is an AI hub in the Philippines",
-        "url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica",
-        "source": "The Verge",
-        "published": "2026-11-18T19:40:36.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2305507602.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "President Donald Trump was greeted by no less than five beauty queens when he landed in the Philippines on Tuesday, according to local news outlet Rappler. As he stepped onto the t"
-      },
-      {
-        "title": "Nvidia’s rise, visualized",
-        "url": "https://www.theverge.com/tech/1035924/nvidia-visualized-revenue-profit-earnings-after-huang",
-        "source": "The Verge",
-        "published": "2026-11-18T19:30:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24002526/acastro_STK083_01.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "If someone handed you $8,300 every second, what would you do? That's how much pure profit Nvidia now makes. By the time you finish reading this paragraph, Nvidia will likely have c"
-      },
-      {
-        "title": "Tech lawsuits defined 2026 — and lawmakers want more",
-        "url": "https://www.theverge.com/policy/1036935/congress-forced-arbitration-deepfakes-defiance-act",
-        "source": "The Verge",
-        "published": "2026-11-18T19:07:29.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/02/STK470_AI_LAW_CVIRGINIA_C.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "With just a few weeks remaining, lawmakers are trying to pass new protections for victims of online harm before the end of 2026, targeting deepfake creators and online platforms th"
-      },
-      {
-        "title": "What is Nvidia without AI’s sugar daddy in charge?",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1036776/nvidia-earnings-kress-jensen-huang-petition",
-        "source": "The Verge",
-        "published": "2026-11-18T18:34:15.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Nvidia_Jensen_huang_01.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "If the glorious AI revolution rests entirely on the well-being of one man, AI is perhaps not as robust a technology as I had previously been led to believe. Nonetheless, chunks of "
-      },
-      {
-        "title": "Disney’s new Star Wars animatronics interact with guests using AI",
-        "url": "https://www.theverge.com/tech/1036729/disney-star-wars-anzellans-animatronic-amazon-aws-cloud-ai",
-        "source": "The Verge",
-        "published": "2026-11-18T17:50:57.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/disney1.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "As advanced and lifelike as the animatronic characters at Disney parks have become, they typically either stick to predefined movements and routines, or there's an out of sight pup"
       }
     ],
     "fashion": [
       {
-        "title": "Taylor Swift Returns to Her Roots at the 2026 CMAs",
-        "url": "https://www.vogue.com/article/taylor-swift-2026-cmas",
+        "title": "Golden Goose and Shah Rukh Khan's D'YAVOL X Unveil Debut Collaboration",
+        "url": "https://hypebeast.com/2026/11/golden-goose-shah-rukh-khans-dyavol-x-debut-collaboration-release-info",
+        "source": "Hypebeast",
+        "published": "2026-11-19T11:30:39.000Z",
+        "image": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2026%2F11%2F19%2Fgolden-goose-shah-rukh-khans-dyavol-x-debut-collaboration-release-info-000.jpg?w=800&cbr=1&q=90&fit=max",
+        "summary": "Summary Golden Goose has teamed up with D'YAVOL X for a new collection of co-branded footwear and ready-to-wear apparelThe capsule reimagines the iconic Super-Star sneaker alongsid"
+      },
+      {
+        "title": "Vogue First! Dagmar’s Pre-Spring Collection Lands Early on Net-a-Porter",
+        "url": "https://www.vogue.com/article/dagmar-pre-spring-2027-collection-launch",
         "source": "Vogue",
-        "published": "2026-11-19T02:21:41.000Z",
-        "image": "https://assets.vogue.com/photos/6afe3f6df0fc260045048baa/master/pass/2305235859",
-        "summary": "Taylor Swift wore Oscar de la Renta and Erdem to the 2026 CMAs."
+        "published": "2026-11-19T11:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afde7d96c739aec5833a2ca/master/pass/image2.jpg",
+        "summary": "The collection marks a new chapter for the Dagmar woman, who Wallenstam describes as confident and living a busy, bustling life with a packed calendar."
       },
       {
-        "title": "7 Best Shampoos for Hair Growth and Thickness, According to Dermatologists",
-        "url": "https://www.vogue.com/article/shampoos-for-hair-growth",
+        "title": "James Who? These 30 Vintage Photos Prove That Bond Girls Have Always Been the Style Blueprint",
+        "url": "https://www.vogue.com/slideshow/30-vintage-photos-bond-girls",
         "source": "Vogue",
-        "published": "2026-11-19T01:20:58.000Z",
-        "image": "https://assets.vogue.com/photos/684afbbe13b5e6e7d0867756/master/pass/Jasmina-24.jpeg",
-        "summary": "Can you use a shampoo for hair growth? Here, experts break down everything you need to know and we break down our favorite shampoo recs to get fuller and thicker hair."
+        "published": "2026-11-19T11:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afeaf650c001b75de2bad9a/master/pass/MSDYOON_EC013.jpg",
+        "summary": "Yes, James Bond has always looked great on film, no matter who's playing him—but the franchise’s real fashionistas were the Bond girls."
       },
       {
-        "title": "Taylor Swift’s Oscar de la Renta Gown Has a Detail Worth Bragging About at the 2026 CMA Awards",
-        "url": "https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/",
-        "source": "WWD",
-        "published": "2026-11-19T00:19:36.000Z",
-        "image": "",
-        "summary": "The singer returned to the ceremony after a decade away in a voluminous yellow gown from the fashion house's spring 2027 collection."
-      },
-      {
-        "title": "How Fashion Is Getting Heat Stress Wrong",
-        "url": "https://wwd.com/sourcing-journal/sustainability/cop31-fair-labor-association-heat-stress-1239426206/",
-        "source": "WWD",
-        "published": "2026-11-19T00:06:16.000Z",
-        "image": "",
-        "summary": "As extreme temperatures threaten garment workers' health and productivity, experts say the industry needs to rethink how work gets done, not just how factories are cooled."
-      },
-      {
-        "title": "Report: Microplastic Leaks from Synthetic Clothing Waste Nearly Quadruple",
-        "url": "https://wwd.com/sourcing-journal/sustainability/earth-action-synthetic-clothing-waste-microplastic-report-1239425674/",
-        "source": "WWD",
-        "published": "2026-11-19T00:01:00.000Z",
-        "image": "",
-        "summary": "An Earth Action model estimates discarded synthetic clothing leaked 878,000 metric tons of microplastics in 2024."
-      },
-      {
-        "title": "The 19 Best Men’s Skincare Sets to Gift This Holiday",
-        "url": "https://www.harpersbazaar.com/beauty/skin-care/g60993454/best-mens-skincare-gift-sets/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-18T23:20:00.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/e530967f-4d49-4ea0-808e-d9cbc8b9adf5.jpg",
-        "summary": "Featuring discovery collections and full-size staples he’ll be thrilled to unwrap"
-      },
-      {
-        "title": "Totally Buggin'! Paid Nails Are Here for Fall",
-        "url": "https://www.vogue.com/article/plaid-nails-2026-winter-nail-trend",
+        "title": "29 Vintage Photos of a Young Meg Ryan, Fall Style Icon",
+        "url": "https://www.vogue.com/slideshow/vintage-pictures-of-meg-ryan",
         "source": "Vogue",
-        "published": "2026-11-18T23:07:03.000Z",
-        "image": "https://assets.vogue.com/photos/6afe2e740c001b75de2ba919/master/pass/SnapInsta.to_598060865_18110346733616563_1353604308545721650_n.jpg",
-        "summary": "Amid cozy season and collegiate-style fashion, the Argyle sweater is proving to be beauty’s latest inspo. Say hello to plaid nails."
+        "published": "2026-11-19T11:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/66f19ac83361bb435888640f/master/pass/Collage.jpg",
+        "summary": "Meg Ryan is the undisputed queen of cozy vibes, choppy layers, and thick, perfectly autumnal sweaters. Today, we celebrate her 65th birthday with some charming vintage pictures."
       },
       {
-        "title": "Jack Blues Bieber Really Is a Mini Justin",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74469085/hailey-son-jack-blues-bieber-instagram-video-motherhood-interview/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-18T22:53:22.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/1ce98ec3-22f1-47ca-b058-98a51a189dc2.png",
-        "summary": "Hailey shared the sweetest look at her little son in a new Rhode video"
+        "title": "Just Browsing: The H&M Studio Styles I’m Backing for Party Season and Beyond",
+        "url": "https://www.vogue.com/article/hm-studio-winter-collection-2026",
+        "source": "Vogue",
+        "published": "2026-11-19T11:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afc8313396b62478186fc64/master/pass/JB_MIA_LEAD.png",
+        "summary": "From versatile accessories, to LBDs and event-ready tailoring, the H&M Studio Holiday collection has everything you need this party season. Shop Vogue’s edit."
       },
       {
-        "title": "How to Watch the 2026 CMA Awards Red Carpet Live, From Taylor Swift’s Return to Country Music’s Biggest Fashion Moments",
-        "url": "https://wwd.com/shop/shop-fashion/cma-awards-2026-red-carpet-fashion-how-to-watch-online-free-1239426111/",
-        "source": "WWD",
-        "published": "2026-11-18T22:42:02.000Z",
-        "image": "",
-        "summary": "Country music’s biggest stars are heading to Nashville for a night of red carpet fashion and performances, including Taylor Swift’s first CMA Awards performance in 13 years."
+        "title": "Zara's New Arrivals Will Make You Want to RSVP to Every Holiday Party",
+        "url": "https://www.vogue.com/article/best-zara-finds",
+        "source": "Vogue",
+        "published": "2026-11-19T11:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afccefde67c82ac2be7132c/master/pass/02560158099-p.jpg",
+        "summary": "From leather jackets to party dresses, Zara’s new arrivals have it all."
+      },
+      {
+        "title": "Taylor Swift’s Matching Mani-Pedi Is a Perfect Pour of Fall’s Favorite Nail Color",
+        "url": "https://www.vogue.com/article/taylor-swift-matching-mani-pedi-cma-awards-2026-11-19",
+        "source": "Vogue",
+        "published": "2026-11-19T10:59:40.000Z",
+        "image": "https://assets.vogue.com/photos/6afed5103be2d745f459bb05/master/pass/2305800868",
+        "summary": "Appearing at the CMA Awards last night, Taylor Swift indulged in the autumnal shade beloved by Jennifer Lopez, Selena Gomez, and more."
+      },
+      {
+        "title": "How To Know If Your Nature Strategy Is Working",
+        "url": "https://www.vogue.com/article/how-to-know-if-your-nature-strategy-is-working",
+        "source": "Vogue",
+        "published": "2026-11-19T10:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afdca7961500db42515bd37/master/pass/-story%20-%202026-11-18T155412.667.jpg",
+        "summary": "Nature doesn’t fit into neat check-boxes. How can brands measure impact without getting lost in vanity metrics?"
+      },
+      {
+        "title": "Oil Prices Are Making Fashion’s Polyester Addiction Even Uglier",
+        "url": "https://www.vogue.com/article/oil-prices-are-making-fashions-polyester-addiction-even-uglier",
+        "source": "Vogue",
+        "published": "2026-11-19T10:30:00.000Z",
+        "image": "https://assets.vogue.com/photos/6afdfdc9ed3437a346495eb4/master/pass/oil-prices-vogue-business-LEAD-STORY.jpg",
+        "summary": "Brands are swapping out virgin polyester to protect themselves from turbulent oil markets. What will that mean for the future of fashion’s material makeup?"
       }
     ],
     "markets": [
       {
-        "title": "Palo Alto stock surges as all signs point to how important cybersecurity is in the AI age",
-        "url": "https://www.cnbc.com/investingclub/2026/11/18/palo-alto-surges-as-all-signs-point-to-cybersecurity-need-in-the-ai-age.html",
-        "source": "CNBC World",
-        "published": "2026-11-19T01:29:06.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/106237896-1573496538905nup_189015_1054.jpg?v=1692644644&w=1920&h=1080",
-        "summary": "The need for all-encompassing, rapid-response cybersecurity platforms has never been greater."
-      },
-      {
-        "title": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
-        "url": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
-        "source": "CNBC World",
-        "published": "2026-11-19T01:13:20.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108554572-1795033463943-108554572-1795033101955-gettyimages-2305196401-ANTHROPIC_IPO.jpg?v=1795033477&w=1920&h=1080",
-        "summary": "Anthropic stock is set to begin trading on the Nasdaq under the ticker symbol ANT on Thursday."
-      },
-      {
-        "title": "Intel signs first external customer for advanced 18A chips",
-        "url": "https://www.cnbc.com/2026/11/18/intel-first-18a-foundry-customer.html",
-        "source": "CNBC World",
-        "published": "2026-11-19T01:05:25.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108477593-1793228653611-gettyimages-2278669801-AFP_B4P96JJ.jpeg?v=1793228835&w=1920&h=1080",
-        "summary": "Intel CEO Lip-Bu Tan said Wednesday that the company signed its first outside customer for its 18A chips."
-      },
-      {
-        "title": "Palo Alto Networks’ stock gets a fresh AI-fueled boost from earnings",
-        "url": "https://www.marketwatch.com/story/palo-alto-networks-stock-soars-as-earnings-show-ai-has-upped-the-stakes-for-cybersecurity-308e34b8?mod=mw_rss_topstories",
+        "title": "This closely-watched investing guru just sold all of his stocks",
+        "url": "https://www.marketwatch.com/story/this-closely-watched-guru-just-sold-everything-474b4389?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-19T01:02:00.000Z",
-        "image": "https://images.mktw.net/im-839193",
-        "summary": "The company boosts its outlook in the face of the “current threat environment and demand we see ahead of us.”"
+        "published": "2026-11-19T11:37:00.000Z",
+        "image": "https://images.mktw.net/im-94115378",
+        "summary": "Panmure Liberum strategist and widely-followed stock-market commentator Joachim Klement has effectively had his personal retirement portfolio 100% invested in stocks for many years"
       },
       {
-        "title": "‘I’ve been a stay-at-home mom’: I’m 50 and have a chronic illness. My husband lost his job. Should he raid his 401(k)?",
-        "url": "https://www.marketwatch.com/story/ive-been-a-stay-at-home-mom-im-50-and-have-a-chronic-illness-my-husband-lost-his-job-should-he-raid-his-401-k-63e59123?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-19T01:00:00.000Z",
-        "image": "https://images.mktw.net/im-96657818",
-        "summary": "“Our financial and healthcare situation has become increasingly concerning.”"
-      },
-      {
-        "title": "One of the world's most contested seas is proving too much for Asia's leaders to resolve",
-        "url": "https://www.cnbc.com/2026/11/19/south-china-sea-china-asean-coc.html",
+        "title": "Data center electricity use could double by 2030, IEA says",
+        "url": "https://www.cnbc.com/2026/11/19/data-center-electricity-demand-iea.html",
         "source": "CNBC World",
-        "published": "2026-11-19T00:31:00.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/107281853-1691130754550-gettyimages-1150410055-AFP_1HL90P.jpeg?v=1691972262&w=1920&h=1080",
-        "summary": "The ASEAN summit in the Philippines failed to conclude the Code of Conduct for the South China Sea despite Manila pledging it would happen this year."
+        "published": "2026-11-19T11:34:24.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108554983-1795077775639-gettyimages-2256322513-dji_20260114174803_0111_d_fs0a4xfd.jpeg?v=1795077817&w=1920&h=1080",
+        "summary": "Global electricity use by data centers could double by 2030 as the AI boom adds pressure to power grids across the world, according to the IEA."
       },
       {
         "title": "‘Nvidia’s turmoil has me spooked’: Should I sell my stocks and buy real estate — or ride out the storm?",
         "url": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-19T00:30:00.000Z",
+        "published": "2026-11-19T11:15:00.000Z",
         "image": "https://images.mktw.net/im-49247042",
         "summary": "Tempted to ditch stocks for property or CDs? Take a deep breath before making any sudden moves."
       },
       {
-        "title": "Microsoft CEO Satya Nadella calls Outlook outage a 'perfect storm.' Here's what went wrong",
-        "url": "https://www.cnbc.com/2026/11/18/microsoft-put-the-ai-threat-to-software-behind-it-then-came-the-outage.html",
+        "title": "APEC final day in photos: Trump, Xi and Putin shake hands; Takaichi kept at a distance",
+        "url": "https://www.cnbc.com/2026/11/19/trump-xi-putin-photos-us-china-russia-trilateral-.html",
         "source": "CNBC World",
-        "published": "2026-11-19T00:18:28.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108374356-1791402610911-gettyimages-2298479544-MICROSOFT_NVIDIA.jpeg?v=1791402731&w=1920&h=1080",
-        "summary": "Microsoft shares have dropped nearly 9% since closing at a record high on Nov. 4."
+        "published": "2026-11-19T10:54:07.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108554917-1795067694140-gettyimages-2305267954-AFP_D7XJ9X3.jpeg?v=1795067710&w=1920&h=1080",
+        "summary": "Leaders gathered Thursday for the second day of the economic summit, ahead of a historic trilateral meeting between the U.S., Russia and China."
       },
       {
-        "title": "Kash Patel skips House hearing after Mar-a-Lago gala with $50,000 access",
-        "url": "https://www.cnbc.com/2026/11/18/kash-patel-hearing-mar-a-lago-gala.html",
+        "title": "Denmark ratifies Trump security deal over Greenland after months of diplomatic tensions",
+        "url": "https://www.cnbc.com/2026/11/19/greenland-denmark-trump-security-military-bases.html",
         "source": "CNBC World",
-        "published": "2026-11-19T00:08:14.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108295279-1776860361627-gettyimages-2272458684-0d6a2065_msqyjbqz.jpeg?v=1795046801&w=1920&h=1080",
-        "summary": "Kash Patel missed a congressional hearing after appearing the night before at a Mar-a-Lago gala offering donors of $50,000 access to top officials."
+        "published": "2026-11-19T10:41:32.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108331863-1783490022916-gettyimages-2267671378-AFP_A4HD2T3.jpeg?v=1783490104&w=1920&h=1080",
+        "summary": "It follows months of tensions after President Donald Trump repeatedly said the U.S. should take control of Greenland for national security reasons."
+      },
+      {
+        "title": "Trump says U.S., China, Russia ‘uniquely positioned’ to discuss reducing nuclear weapons at historic meeting",
+        "url": "https://www.cnbc.com/2026/11/19/trump-xi-putin-trilateral-meeting-china.html",
+        "source": "CNBC World",
+        "published": "2026-11-19T10:38:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108554981-1795077420593-gettyimages-2305839919-wm018086_eydfq2t1.jpeg?v=1795077451&w=1920&h=1080",
+        "summary": "The leaders of the U.S., China and Russia met in Shenzhen on Thursday for a rare trilateral gathering."
+      },
+      {
+        "title": "My wife pays thousands of dollars for her family to visit from Argentina. How can I convince her to stop?",
+        "url": "https://www.marketwatch.com/story/my-wife-pays-thousands-of-dollars-for-her-family-to-visit-from-argentina-how-can-i-convince-her-to-stop-9381351c?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-19T10:15:00.000Z",
+        "image": "https://images.mktw.net/im-46066589",
+        "summary": "“I don’t want my wife to feel that I’m asking her to choose between me and her family.”"
+      },
+      {
+        "title": "The real beneficiary of the AI tech revolution fueled by Anthropic may surprise you",
+        "url": "https://www.marketwatch.com/story/the-real-beneficiary-of-the-ai-tech-revolution-fueled-by-anthropic-may-surprise-you-6fa098b2?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-19T10:04:00.000Z",
+        "image": "https://images.mktw.net/im-71200898",
+        "summary": "India has a huge tech-savvy population and its relative backwardness in many sectors of the economy like health care, education and agriculture, may prove a real advantage in terms"
+      },
+      {
+        "title": "Former Fox News anchor Maria Bartiromo sells $7 million N.Y.C. townhouse",
+        "url": "https://www.marketwatch.com/story/former-fox-news-anchor-maria-bartiromo-sells-7-million-n-y-c-townhouse-ef993dbb?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-19T10:03:00.000Z",
+        "image": "https://images.mktw.net/im-66731197",
+        "summary": "Former Fox News host Maria Bartiromo has offloaded her Upper East Side townhouse for $7 million, according to property records."
       }
     ]
   }
