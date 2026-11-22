@@ -1,106 +1,170 @@
 {
-  "generatedAt": "2026-11-22T11:24:46.152Z",
+  "generatedAt": "2026-11-22T19:13:56.946Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Russian ship attacked by drone in Baltic Sea off Finland",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/22/russian-ship-attacked-by-drone-in-baltic-sea-off-finland?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-22T11:15:27.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795346116.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Russian ship attacked by drone in Baltic Sea off Finland"
+        "title": "What's next after no deal at COP31 climate talks?",
+        "url": "https://www.bbc.co.uk/news/videos/cr1ewge81q4qo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-22T18:57:24.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/4d3e/live/8a730770-e6a6-11f1-af06-85d9f9869f1b.jpg",
+        "summary": "The COP31 climate summit in Turkey has formally come to an end after countries failed to agree a deal."
       },
       {
-        "title": "Messi throws ball in opponent’s face, avoids red card as Inter Miami lose",
-        "url": "https://www.aljazeera.com/sports/2026/11/22/lionel-messi-inter-miami-yellow-red-card-mls-playoffs?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-22T11:07:30.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20261122__2306275537__v1__HighRes__InterMiamiCfVColumbusCrewAudi2026MlsCupPlayo-1795336051_ea026f-1795340841.jpg?resize=1200%2C630&quality=80",
-        "summary": "Lionel Messi escapes red-card booking for controversial throw-in in Miami's 3-0 defeat by Columbus in MLS Cup playoffs."
-      },
-      {
-        "title": "Conservative media weighs its future as cracks emerge in Trump’s movement",
-        "url": "https://www.theguardian.com/us-news/2026/nov/22/conservative-media-trump-midterm-elections-results",
+        "title": "Russian ship hit in Benghazi by suspected Ukrainian drone attack, say Libyan officials",
+        "url": "https://www.theguardian.com/world/2026/nov/22/blast-russian-ship-suspected-drone-attack-benghazi-libya",
         "source": "The Guardian",
-        "published": "2026-11-22T11:00:26.000Z",
-        "image": "https://i.guim.co.uk/img/media/8c42154ecfc0d97946047de44f3951732b270f97/333_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=fd376300e09a033582e60c8950224c71",
-        "summary": "Two weeks after Democrats flipped Congress, conservative outlets are having conversations on whether to distance themselves from Trump or double down on Maga As a so-called “blue w"
+        "published": "2026-11-22T18:50:56.000Z",
+        "image": "https://i.guim.co.uk/img/media/196206fc578eb19b5303b6bfe5930996ed24961b/0_0_900_720/master/900.jpg?width=140&quality=85&auto=format&fit=max&s=4a5a7fec09c73b0d217b6d1303a01b0c",
+        "summary": "No one has claimed responsibility for the strike on the vessel, which had docked on its way back to Russia A suspected Ukrainian drone attack caused an explosion on a Russian warsh"
       },
       {
-        "title": "Arizona grandfather hailed as a hero after finding missing toddler in desert",
-        "url": "https://www.theguardian.com/us-news/2026/nov/22/arizona-grandfather-toddler-missing-desert",
+        "title": "NHS savings drive leaves hospitals in England facing ‘unpalatable’ cuts",
+        "url": "https://www.theguardian.com/society/2026/nov/22/nhs-savings-hospitals-trusts-england-cuts",
         "source": "The Guardian",
-        "published": "2026-11-22T11:00:25.000Z",
-        "image": "https://i.guim.co.uk/img/media/344fad327814a7c4d3e23c11fa485edd4b67ea78/615_392_1933_1546/master/1933.jpg?width=140&quality=85&auto=format&fit=max&s=0d46bab0eec8ca4ef2912c0da6e5f264",
-        "summary": "Jay Stewart joined search party after two-year-old Vella Campillo wandered off into desert from front yard of home An Arizona granddad has been formally recognized as a hero after "
+        "published": "2026-11-22T18:45:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/5633df9594626ebd63708d53648d420366e97d6b/97_132_2807_2244/master/2807.jpg?width=140&quality=85&auto=format&fit=max&s=f5b4c8c7147bdcacc7cb25e6ba09e00d",
+        "summary": "Exclusive: Thirty-one trusts issue stark warning that cost-cutting demands threaten their ability to function normally Dozens of hospitals are so short of money they may not be abl"
       },
       {
-        "title": "UK-EU food deal hailed by British firms: ‘We’re pretty aligned anyway’",
-        "url": "https://www.theguardian.com/business/2026/nov/22/uk-eu-food-sps-deal-brexit-checks",
-        "source": "The Guardian",
-        "published": "2026-11-22T11:00:24.000Z",
-        "image": "https://i.guim.co.uk/img/media/33a5b500a62308f3c01515a3a29b8ff23a030773/0_365_4284_3426/master/4284.jpg?width=140&quality=85&auto=format&fit=max&s=a713af5cb808fbcdeef7fda59b9420dc",
-        "summary": "Exporters welcome end in sight for Brexit checks – but are frustrated that implementation will take so long British producers have broadly welcomed the UK’s deal with the EU, desig"
-      },
-      {
-        "title": "Exquisitely decorated home of Victorian workman David Parr wins blue plaque",
-        "url": "https://www.theguardian.com/culture/2026/nov/22/exquisitely-decorated-home-of-victorian-workman-david-parr-wins-blue-plaque-cambridge",
-        "source": "The Guardian",
-        "published": "2026-11-22T10:59:28.000Z",
-        "image": "https://i.guim.co.uk/img/media/d1fea1032667cb90a3d9f98ac52733569f92b2cc/0_84_2000_1600/master/2000.jpg?width=140&quality=85&auto=format&fit=max&s=5e37779bc5d993e7c70de598196a913b",
-        "summary": "Working-class man who covered mansions with William Morris’s patterns spent his nights filling his Cambridge terrace house with his own designs As a Victorian working-class laboure"
-      },
-      {
-        "title": "Burnham should ‘move on’ from Brexit, says Theresa May, as critics hit out over closer EU ties – UK politics live",
-        "url": "https://www.theguardian.com/politics/live/2026/nov/22/andy-burnham-brexit-theresa-may-michael-gove-latest-news-updates",
-        "source": "The Guardian",
-        "published": "2026-11-22T10:42:34.000Z",
-        "image": "https://i.guim.co.uk/img/media/fe3c1f101f487524f1490010fbd18d991551cffe/198_0_1961_1569/master/1961.jpg?width=140&quality=85&auto=format&fit=max&s=b9444122e4b177b023f8d84196ad4615",
-        "summary": "Issue dominates Sunday broadcast round following Friday’s deals on trade and youth mobility Theresa May ‘aghast’ at Andy Burnham’s talk about rejoining EU The Tories and Reform hav"
-      },
-      {
-        "title": "Russian cargo ship still on fire off Finland after drone attack",
-        "url": "https://www.aljazeera.com/news/2026/11/22/russian-cargo-ship-still-on-fire-off-finland-after-drone-attack?traffic_source=rss",
+        "title": "Liverpool thrash 10-man Man United in nightmare start for Pochettino",
+        "url": "https://www.aljazeera.com/sports/2026/11/22/liverpool-thrash-10-man-man-united-in-nightmare-start-for-pochettino?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-22T10:39:50.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b02b08a-1795338378.jpg?resize=1200%2C675",
-        "summary": "The ship, bound for Russia's Kaliningrad, was damaged in international waters before drifting into Finnish territory."
+        "published": "2026-11-22T18:44:24.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2026-11-22T163620Z_2012732391_UP1EMBM1A4J3R_RTRMADP_3_SOCCER-ENGLAND-LIV-MUN-1795365574.jpg?resize=1920%2C1440",
+        "summary": "Leny Yoro's red card for Manchester United after just eight minutes paved the way for a 4-0 football defeat at Anfield."
       },
       {
-        "title": "‘Intimidating’ vigilantes posing as far-right security on the rise, UK experts say",
-        "url": "https://www.theguardian.com/politics/2026/nov/22/intimidating-vigilantes-posing-as-far-right-security-on-the-rise-uk-experts-say",
+        "title": "US Army to detonate tonnes of unstable explosives in Iowa despite court order",
+        "url": "https://www.bbc.co.uk/news/articles/cvglrx764gdxo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-22T18:29:46.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c129/live/651f5c40-e68c-11f1-936e-1fd1d31671db.jpg",
+        "summary": "The Army says \"swift action\" is necessary to protect its personnel and nearby communities around its ammunition plant in Iowa."
+      },
+      {
+        "title": "Hakeem Jeffries willing to cross political aisle to work on Democrats’ agenda",
+        "url": "https://www.theguardian.com/us-news/2026/nov/22/hakeem-jeffries-democrats-agenda",
         "source": "The Guardian",
-        "published": "2026-11-22T09:49:16.000Z",
-        "image": "https://i.guim.co.uk/img/media/861d664ba85228e72cb0a7f3db310a200a7f892d/1369_308_4539_3631/master/4539.jpg?width=140&quality=85&auto=format&fit=max&s=bf0f1aed056975cbc76e0172d868bcc0",
-        "summary": "Volunteers in black uniforms and body armour increasingly seen with figures such as Tommy Robinson There is a worrying rise in “reckless and intimidating” vigilantes posing as secu"
+        "published": "2026-11-22T18:25:42.000Z",
+        "image": "https://i.guim.co.uk/img/media/4e6eb28d17340c345907199ceb683c4277945b37/471_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=b0e019bfc9f5c34467d6e1e99fef18b1",
+        "summary": "Incoming House speaker says party focused on affordability and fixing ‘broken’ healthcare and immigration systems The incoming US House speaker, Hakeem Jeffries , has said he and h"
       },
       {
-        "title": "Iraqi bodybuilding champion Sajad Jawad dies days after winning the Asian crown",
-        "url": "https://www.aljazeera.com/sports/2026/11/22/iraqi-bodybuilding-champion-sajad-jawad-dies-days-after-winning-the-asian-crown?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-22T09:45:48.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/GettyImages-2163591900-1-1795339406.jpg?resize=1920%2C1440",
-        "summary": "Sajad Jawad died three days after winning the gold medal in the 90kg category at the Asian Championships in Thailand."
+        "title": "COP31 fails to reach major climate deal as talks expose deep divisions",
+        "url": "https://www.bbc.co.uk/news/articles/cqwy06zrd26lo?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-22T18:17:59.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/afca/live/39aa8840-e69c-11f1-936e-1fd1d31671db.jpg",
+        "summary": "The talks fail to make breakthrough on tackling climate change after a row about mentioning fossil fuels."
       },
       {
-        "title": "Restored wells bring life back to Hebron’s occupied Old City",
-        "url": "https://www.aljazeera.com/features/2026/11/22/restored-wells-bring-life-back-to-hebrons-occupied-old-city?traffic_source=rss",
+        "title": "Civilians killed in RSF drone strikes in Sudan",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/22/civilians-killed-in-rsf-drone-strikes-in-sudan?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-22T09:33:16.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/163A6934-1795336739.jpg?resize=1920%2C1440",
-        "summary": "Hebron's Old City has been under constant siege by Israeli settlers and the military."
+        "published": "2026-11-22T18:12:07.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795371105.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Several civilians have been killed and several buildings damaged in drone strikes by Sudan’s Rapid Support Forces."
       },
       {
-        "title": "Photos: People rally across France over living costs, public services",
-        "url": "https://www.aljazeera.com/gallery/2026/11/22/photos-people-rally-across-france-over-living-costs-public-services?traffic_source=rss",
+        "title": "Suspected drone attack causes explosion on Russian ship in Libya",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/22/suspected-drone-attack-causes-explosion-on-russian-ship-in-libya?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-22T09:27:48.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20261121__D88Z66X__v1__HighRes__FrancePoliticsEducationStrikeDemo-1795332915.jpg?resize=1920%2C1440",
-        "summary": "Protests held on sixth weekend as tens of thousands march over inequality and organisers plan more rallies."
+        "published": "2026-11-22T18:11:30.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795370938.jpg?resize=1791%2C1080&quality=80",
+        "summary": "A Russian ship has been struck in a suspected drone attack while docked at Libya’s Benghazi naval base."
+      },
+      {
+        "title": "🚨 BREAKING WORLD NEWS | Dramatic footage captured a fireball tearing through the 344ft vessel at dawn on Sunday at Benghazi port - Facebook",
+        "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOTGt3aXBYd2xvdk83eDRYWXFDRmN4bERyYmlpSVVRZ016NE1hbWdJcXNyd2dpbk9scGxkN3pPZ0FDWm5FdTF1eVlvcmt4dVkzOF8wUWswSUlMZHpZSDdlZXJlcDRONW1lSkxpZGt0Yy1KZVpGNk5XXy01SENYM0QyOFdqd3k3bF9BUGV5dUkxeU0wTEsxbGFVamtYeWJvV1QxX1VQTnVHZ1FsNTJSYVlfNHNGY09XVVQtOHh4NWdxeTA2RUhsalJlWUxBcnFNMWRoUE1Tdmo3WlhVaVU1aFZIMVY3VkpJVUk?oc=5",
+        "source": "Facebook",
+        "published": "2026-11-22T18:08:14.000Z",
+        "image": "",
+        "summary": "🚨 BREAKING WORLD NEWS | Dramatic footage captured a fireball tearing through the 344ft vessel at dawn on Sunday at Benghazi port Facebook"
+      },
+      {
+        "title": "UN climate talks collapse without a deal",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/22/un-climate-talks-collapse-without-a-deal?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-22T18:04:25.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795370588.jpg?resize=1632%2C1080&quality=80",
+        "summary": "The longest UN climate summit in history ended without a deal in Turkiye, the first such failure since 2009."
+      },
+      {
+        "title": "Cox’s Bazar: Rohingya Life in Exile",
+        "url": "https://www.aljazeera.com/video/al-jazeera-world/2026/11/22/coxs-bazar-rohingya-life-in-exile?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-22T18:02:06.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795372447.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Rohingya families face hunger, loss and an uncertain future during Ramadan."
       }
     ],
     "ai": [
+      {
+        "title": "Datacentre bosses met Australian state premiers and ministers almost 120 times in three years, analysis finds",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/23/datacentre-bosses-met-australian-state-premiers-and-ministers-almost-120-times-in-three-years-analysis-finds",
+        "source": "The Guardian",
+        "published": "2026-11-22T19:00:34.000Z",
+        "image": "https://i.guim.co.uk/img/media/7c9ca8255b51e9604fa64118322f08bb4d19c764/475_0_3640_2912/master/3640.jpg?width=140&quality=85&auto=format&fit=max&s=841a5935e90b464a6f0e36a81358e58e",
+        "summary": "Transparency International says Queensland’s David Crisafulli was ‘by far the most frequently accessed’ state leader, with 13 meetings Get our breaking news email , free app or dai"
+      },
+      {
+        "title": "Two groups verify mathematician’s claim that Claude helped prove mathematics problem",
+        "url": "https://www.theguardian.com/technology/2026/nov/21/anthropic-riemann-hypothesis-solved-claude-ai",
+        "source": "The Guardian",
+        "published": "2026-11-22T17:55:27.000Z",
+        "image": "https://i.guim.co.uk/img/media/d3154f68df589c297fc3d173e2bb3d95faca05c9/530_0_4678_3742/master/4678.jpg?width=140&quality=85&auto=format&fit=max&s=2be6ea0855df616ea30ffc89afed2e1f",
+        "summary": "Anthropic’s Levent Alpöge says it took six weeks for him using the AI tool to solve 19th-century Riemann hypothesis A mathematician at Anthropic has said that the San Francisco -ba"
+      },
+      {
+        "title": "Binding of Isaac developer removes AI music from Repentance Plus",
+        "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
+        "source": "The Verge",
+        "published": "2026-11-22T17:25:20.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/j7yPmbNCP4I-HD.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "The Binding of Isaac: Repentance Plus has spent the last few days getting review-bombed on Steam after it was discovered that a particular segment of the game used AI music. Reddit"
+      },
+      {
+        "title": "I stopped talking to my husband and let AI do it instead. He didn’t even notice | Polly Hudson",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/22/stopped-talking-to-husband-let-ai-do-it-instead",
+        "source": "The Guardian",
+        "published": "2026-11-22T16:00:31.000Z",
+        "image": "https://i.guim.co.uk/img/media/8de114b421ebe5837795f62e223317d67e4528bd/719_0_6156_4923/master/6156.jpg?width=140&quality=85&auto=format&fit=max&s=e40cbde46c5a8db0f44e78010eefcfa2",
+        "summary": "What have I learned from my experiment with outsourcing? That I’m easily replaced – and awful I’ve just ventured deeper into my phone’s settings than anybody has ever been before. "
+      },
+      {
+        "title": "Will fragile bipartisanship on AI survive the silly season, or is parliament heading for a holiday meltdown? | Josh Butler",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/23/will-fragile-bipartisanship-on-ai-survive-silly-season-or-is-parliament-heading-for-a-holiday-meltdown-the-agenda",
+        "source": "The Guardian",
+        "published": "2026-11-22T14:00:32.000Z",
+        "image": "https://i.guim.co.uk/img/media/0703852cd8009754ed16a9c2bbad6d2d80b6fedd/864_0_6880_5504/master/6880.jpg?width=140&quality=85&auto=format&fit=max&s=ef5454aef90161188ef385ecfc373f52",
+        "summary": "A joint select committee report on Monday should signal where Labor is headed on issues including datacentres and copyright – and whether they’ll go it alone Get our daily politica"
+      },
+      {
+        "title": "The vibe-coding revolution is coming to all the gadgets",
+        "url": "https://www.theverge.com/column/1039139/vibe-coding-gadgets-tv-camera",
+        "source": "The Verge",
+        "published": "2026-11-22T13:00:00.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/AI_vibe_coding_hacker_hardware.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "summary": "This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on the vibe-hacking of everything, follow David Pierce. The Stepback arriv"
+      },
+      {
+        "title": "South Korean minister quits after AI cheating scandal engulfs university exams",
+        "url": "https://www.theguardian.com/world/2026/nov/22/south-korea-education-minister-resigns-after-ai-cheating-scandal-engulfs-university-exams",
+        "source": "The Guardian",
+        "published": "2026-11-22T12:12:07.000Z",
+        "image": "https://i.guim.co.uk/img/media/3d9052371f434580f71c25a962110e47f2e6a076/605_0_6228_4986/master/6228.jpg?width=140&quality=85&auto=format&fit=max&s=b27cbf562e91080e6b506b93ff0b44c3",
+        "summary": "Choi Kyo-jin says he ‘failed to prepare adequately’ for entrance exams following last-minute scramble to tighten measures South Korea’s education minister has resigned after an AI-"
+      },
+      {
+        "title": "As the real world falls apart, Grand Theft Auto looks more and more appealing | Dave Schilling",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/22/grand-theft-auto-vi-gaming",
+        "source": "The Guardian",
+        "published": "2026-11-22T12:00:29.000Z",
+        "image": "https://i.guim.co.uk/img/media/e7eaa186311ea0c3bdedb5ad98b467111917fadf/1_0_2999_2400/master/2999.jpg?width=140&quality=85&auto=format&fit=max&s=92b048daec82e0246119eb76282b3aa1",
+        "summary": "All these tech outages are a reminder we’re at the mercy of powers beyond our comprehension. At least in GTA we have control This week marked the release of the highly anticipated "
+      },
       {
         "title": "Why I won’t leave mathematics, despite AI solving centuries-old problems | Ken Ono",
         "url": "https://www.theguardian.com/commentisfree/2026/nov/22/why-i-wont-leave-mathematics-despite-ai-solving-centuries-old-problems",
@@ -108,218 +172,154 @@
         "published": "2026-11-22T11:00:26.000Z",
         "image": "https://i.guim.co.uk/img/media/df6c16bf913288657abe83afff8969abdd383bad/581_0_4307_3445/master/4307.jpg?width=140&quality=85&auto=format&fit=max&s=9c292058b38251501e72e01d722fd4b1",
         "summary": "I believe human judgment remains essential Last year, I nearly quit mathematics. On 20 November, Levent Alpöge announced that, working with Claude, he had proved the Riemann hypoth"
-      },
-      {
-        "title": "It will soon be too late to regulate use of autonomous weapons, warns Red Cross",
-        "url": "https://www.theguardian.com/science/2026/nov/22/red-cross-warns-too-late-regulate-autonomous-weapons-united-nations",
-        "source": "The Guardian",
-        "published": "2026-11-22T09:00:22.000Z",
-        "image": "https://i.guim.co.uk/img/media/e83253eef2712121e66a9774fee97fca01778307/875_229_5546_4437/master/5546.jpg?width=140&quality=85&auto=format&fit=max&s=d69854bb96be9dea188f9ed66bad2c16",
-        "summary": "Warning about putting ‘genie back in the bottle’ comes as UN conference fails to agree on regulation instrument The International Committee of the Red Cross and rights groups have "
-      },
-      {
-        "title": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
-        "url": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
-        "source": "The Guardian",
-        "published": "2026-11-22T06:00:21.000Z",
-        "image": "https://i.guim.co.uk/img/media/4d3b2eefdc19be5ce451b348a00b741e730d6dbd/1327_0_6144_4918/master/6144.jpg?width=140&quality=85&auto=format&fit=max&s=afb066577694373a8420080e6f970403",
-        "summary": "Kraftwerk Berlin, part of same development as techno club Tresor, transformed into ‘war room’ for arms firm event With their cavernous post-industrial venues, teeth-grinding four-b"
-      },
-      {
-        "title": "South Korea education minister resigns after AI cheating scandal engulfs university exams",
-        "url": "https://www.theguardian.com/world/2026/nov/22/south-korea-education-minister-resigns-after-ai-cheating-scandal-engulfs-university-exams",
-        "source": "The Guardian",
-        "published": "2026-11-22T05:04:39.000Z",
-        "image": "https://i.guim.co.uk/img/media/3d9052371f434580f71c25a962110e47f2e6a076/605_0_6228_4986/master/6228.jpg?width=140&quality=85&auto=format&fit=max&s=b27cbf562e91080e6b506b93ff0b44c3",
-        "summary": "Choi Kyo-jin said he ‘failed to prepare adequately’ for entrance exams, which this year had phones banned and checks for cameras hidden in clothing South Korea’s education minister"
-      },
-      {
-        "title": "Two groups verify mathematician’s claim that Claude helped prove mathematics problem",
-        "url": "https://www.theguardian.com/technology/2026/nov/21/anthropic-riemann-hypothesis-solved-claude-ai",
-        "source": "The Guardian",
-        "published": "2026-11-21T20:15:57.000Z",
-        "image": "https://i.guim.co.uk/img/media/d3154f68df589c297fc3d173e2bb3d95faca05c9/530_0_4678_3742/master/4678.jpg?width=140&quality=85&auto=format&fit=max&s=2be6ea0855df616ea30ffc89afed2e1f",
-        "summary": "Anthropic’s Levent Alpöge says it took six weeks for him using the AI tool to solve 19th-century Riemann hypothesis A mathematician at Anthropic has said that the San Francisco -ba"
-      },
-      {
-        "title": "The UN fails to agree on rules regulating ‘killer robots’",
-        "url": "https://www.theverge.com/tech/1039554/un-regulations-killer-robots",
-        "source": "The Verge",
-        "published": "2026-11-21T20:03:37.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/13611631/503831564.jpg.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "One of the items on the agenda for UN diplomats meeting in Geneva this week was working towards rules regarding the use of autonomous weapons, or so-called \"killer robots.\" Eventua"
-      },
-      {
-        "title": "Anthony Albanese talks a big game about sovereignty. But Australia remains in thrall to its ‘unreliable boyfriend’ | Julianne Schultz",
-        "url": "https://www.theguardian.com/commentisfree/2026/nov/22/anthony-albanese-talks-a-big-game-about-sovereignty-but-australia-remains-in-thrall-to-its-unreliable-boyfriend",
-        "source": "The Guardian",
-        "published": "2026-11-21T19:00:06.000Z",
-        "image": "https://i.guim.co.uk/img/media/07c5e1e60c18e0d209d22916b379ba24ab64a47c/484_0_3333_2667/master/3333.jpg?width=140&quality=85&auto=format&fit=max&s=3d1ea4fa65a9468ace4e4c86664e9ba8",
-        "summary": "We rely on US tech platforms to provide the digital infrastructure of daily life. What happens when they all go dark? Sovereignty has become the buzzword of political rhetoric at p"
-      },
-      {
-        "title": "International UN talks on controlling use of autonomous weapons collapse",
-        "url": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
-        "source": "The Guardian",
-        "published": "2026-11-21T16:36:11.000Z",
-        "image": "https://i.guim.co.uk/img/media/247601abada695f09f302253178bbc8f6e58cd42/415_0_4165_3333/master/4165.jpg?width=140&quality=85&auto=format&fit=max&s=19283afd22dbc9bfead542bffab860d5",
-        "summary": "Week-long efforts fail to establish negotiating mandate on AI warfare after Russian ‘filibustering’ Week-long efforts to agree a negotiating mandate for a legally binding internati"
-      },
-      {
-        "title": "Can Anthropic afford to put safety first?",
-        "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
-        "source": "The Verge",
-        "published": "2026-11-21T15:00:00.000Z",
-        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/VRG_DCD_1121_Site.jpg?quality=90&strip=all&crop=0,0,100,100",
-        "summary": "Today, I’m talking with Hayden Field, The Verge’s senior AI reporter, about the Anthropic IPO for the third and final episode in our series about AI in real life. The AI lab behind"
       }
     ],
     "fashion": [
       {
-        "title": "The Very Best Luggage Sets, According to Vogue Editors",
-        "url": "https://www.vogue.com/article/best-luggage-sets",
-        "source": "Vogue",
-        "published": "2026-11-22T11:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6aea56f9e8f9c5c3db2139d4/master/pass/GS1843913.jpg",
-        "summary": "Looking to invest in a new luggage set ahead of holiday travel? Vogue editors share their favorites from brands like Rimowa, Tumi, and more."
-      },
-      {
-        "title": "11 Best Airbnbs Near Acadia National Park for a Nature-Filled Vacation",
-        "url": "https://www.vogue.com/article/best-airbnbs-near-acadia-national-park",
-        "source": "Vogue",
-        "published": "2026-11-22T11:00:00.000Z",
-        "image": "https://assets.vogue.com/photos/6813818cec5c0ccf616e9418/master/pass/a4b31cad-d3da-4b0d-8f32-058fa526c62e.jpg",
-        "summary": "The best Airbnbs near Acadia National Park put you right in the middle of its coastal landscape; here are our favorite ones."
-      },
-      {
-        "title": "Miley Cyrus and Maxx Morando Are Married!",
-        "url": "https://www.vogue.com/article/miley-cyrus-and-maxx-morando-are-married",
-        "source": "Vogue",
-        "published": "2026-11-22T10:58:55.000Z",
-        "image": "https://assets.vogue.com/photos/6b02ca083bd6e7214e1ca92d/master/pass/2277142053",
-        "summary": "The couple tied the knot in a poolside ceremony in Palm Springs surrounded by dramatic flowers after five years together."
-      },
-      {
-        "title": "Dress for the dancefloor – and go big on jewellery: 51 ways to look fabulous this party season",
-        "url": "https://www.theguardian.com/thefilter/2026/nov/22/best-christmas-party-outfit-ideas",
-        "source": "The Guardian",
-        "published": "2026-11-22T06:00:19.000Z",
-        "image": "https://i.guim.co.uk/img/media/7c19269bbd3bc46087fa58e98ec96499430aa9e7/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=766d51af9a287ad9ba111317b9208827",
-        "summary": "Whether it’s styling tricks that cost nothing or chic festive finds, our fashion expert takes the stress out of getting ready • The best women’s coats Oh look, how lovely – a party"
-      },
-      {
-        "title": "The 8 Best James Bond Films",
-        "url": "https://www.vogue.com/article/8-best-bond-films",
-        "source": "Vogue",
-        "published": "2026-11-22T02:14:41.000Z",
-        "image": "https://assets.vogue.com/photos/6b024f33773820543b62af86/master/pass/MCDCARO_EC058.jpg",
-        "summary": "From “Dr. No” to “Skyfall,” these are the best James Bond movies to date."
-      },
-      {
-        "title": "Jennifer Lawrence Slips Into Statement Slippers for an Easy Autumn Walk",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74498328/jennifer-lawrence-red-slippers-row-car-coat-nyc-street-style-photos/",
+        "title": "Miley Cyrus Turns to Saint Laurent’s Anthony Vaccarello for a Backless Wedding Dress",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74501530/miley-cyrus-saint-laurent-wedding-dress-details/",
         "source": "Harper's Bazaar",
-        "published": "2026-11-21T22:11:44.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/b0ef318f-2421-4a65-a583-fb140196b2e0.jpg",
-        "summary": "She brightened up her porcelain car coat with a pop of red"
+        "published": "2026-11-22T19:02:11.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/b2ac579d-e7d6-40ae-a765-ad41a5f0746b.jpg",
+        "summary": "The star married Maxx Morando in Palm Springs"
       },
       {
-        "title": "Janelle James Attends Abbot Elementary 100 Episode Celebration in Balmain Ruby Monogram Slingback Pumps",
-        "url": "https://wwd.com/footwear-news/shoe-trends/janelle-james-balmain-ruby-monogram-slingback-pumps-1239461553/",
+        "title": "Liz Daly Byrne, Model and Wife of PMC Vice Chairman Gerry Byrne, Dies at 81",
+        "url": "https://wwd.com/fashion-news/designer-luxury/liz-daly-byrne-model-wife-pmc-vice-chairman-gerry-byrne-dies-1239461756/",
         "source": "WWD",
-        "published": "2026-11-21T21:56:38.000Z",
+        "published": "2026-11-22T18:58:39.000Z",
         "image": "",
-        "summary": "The actress’s bold choice in footwear paired well with her classic little black dress look."
+        "summary": "As a model, she worked with designers including Oscar de la Renta, Bob Mackie, Anne Klein, Donna Karan and more."
       },
       {
-        "title": "Quinta Brunson Attends Abbott Elementary 100 Episode Celebration in Modified Magda Butrym x H&M Dress",
-        "url": "https://wwd.com/pop-culture/celebrity-news/quinta-brunson-100-episode-magda-butrym-x-hm-dress-1239461547/",
+        "title": "Timberland’s Latest Limited-Edition Field Boot Collaboration Is Getting a Wide Release",
+        "url": "https://wwd.com/footwear-news/sneaker-news/loso-timberland-field-boot-wheat-nubuck-gold-release-date-1239461745/",
         "source": "WWD",
-        "published": "2026-11-21T21:11:46.000Z",
+        "published": "2026-11-22T18:19:55.000Z",
         "image": "",
-        "summary": "The actress sported a crimson midi-dress with 3D rose appliqué bustier cups."
+        "summary": "The outdoor brand's second official collaboration with Bronx-based customizer Loso will be released Monday."
       },
       {
-        "title": "Olivia Dean Goes Backless in Straight-Off-the-Runway Conner Ives",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74498196/olivia-dean-backless-pink-dress-conner-ives-los40-music-awards-red-carpet-photos/",
+        "title": "Everything We Know About Miley Cyrus and Maxx Morando’s Wedding",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74500779/miley-cyrus-maxx-morando-married-wedding-details/",
         "source": "Harper's Bazaar",
-        "published": "2026-11-21T20:54:03.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/1019eaea-20b6-43de-9246-ba4d1588f9ff.jpeg",
-        "summary": "The pop star brought a pop of pink to the Los40 Music Awards"
+        "published": "2026-11-22T17:58:00.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/a6491fb5-3079-454f-8df2-ba99a215e954.jpeg",
+        "summary": "The couple is officially wed!"
+      },
+      {
+        "title": "The Best Dressed Stars of the Week Leaned Into Extra Opulence",
+        "url": "https://www.vogue.com/slideshow/10-best-dressed-stars-taylor-swift-jennifer-lawrence-olivia-dean",
+        "source": "Vogue",
+        "published": "2026-11-22T17:00:55.000Z",
+        "image": "https://assets.vogue.com/photos/6b0316982b9969bbe5439b84/master/pass/GettyImages-2305471766.jpg",
+        "summary": "From voluminous silhouettes to feathers, it was not a week for subtlety on the red carpets."
+      },
+      {
+        "title": "Hailey Bieber’s 30 Best Looks in Honor of Her 30th Birthday",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/g74500941/hailey-bieber-best-looks-30th-birthday/",
+        "source": "Harper's Bazaar",
+        "published": "2026-11-22T16:35:26.000Z",
+        "image": "https://hips.hearstapps.com/hmg-prod/images/755b431f-84a0-4f9e-92df-2a654b2412b7.png",
+        "summary": "From polka dots and fur to red-carpet statements"
+      },
+      {
+        "title": "First Look: Nike Is Giving Its Classic Air Force 1 a New Mule Makeover",
+        "url": "https://wwd.com/footwear-news/sneaker-news/nike-air-force-1-mule-release-date-1239461664/",
+        "source": "WWD",
+        "published": "2026-11-22T16:32:19.000Z",
+        "image": "",
+        "summary": "The backless build is the latest new model to emerge from the brand's Investor Day presentation."
+      },
+      {
+        "title": "Get Augustinus Bader at Duty-Free Prices, With This 25% Off Deal for Black Friday",
+        "url": "https://wwd.com/shop/shop-beauty/augustinus-bader-black-friday-sale-2026-rich-cream-discount-1239461358/",
+        "source": "WWD",
+        "published": "2026-11-22T16:02:06.000Z",
+        "image": "",
+        "summary": "The luxe European skincare brand is beloved by skincare junkies and A-list stars alike."
+      },
+      {
+        "title": "Flashback to 1965: Truman Capote and the Seaside Studio He Designed for Work",
+        "url": "https://www.vogue.com/slideshow/flashback-to-1965-truman-capote-and-the-country-studio-he-designed-for-work",
+        "source": "Vogue",
+        "published": "2026-11-22T13:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6aeca848f5510d99da63d161/master/pass/196511-horst-CN00031897.jpg",
+        "summary": "Some of Truman Capote’s soon-to-be-auctioned possessions were photographed by Vogue in the author’s home in Sagaponack, Long Island."
       }
     ],
     "markets": [
       {
-        "title": "Quantum computing’s first real-world payoff may come in energy, not drug discovery",
-        "url": "https://www.cnbc.com/2026/11/22/quantum-computing-energy-applications.html",
+        "title": "Employees at Eric Trump-backed robot startup lose health benefits as company's cash crunch deepens",
+        "url": "https://www.cnbc.com/2026/11/22/foundation-future-industries-health-benefits-payroll-base-group.html",
         "source": "CNBC World",
-        "published": "2026-11-22T06:00:01.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108554063-1795006580677-gettyimages-2271702239-futuristic-microchip-glowing-data-connections.jpeg?v=1795006768&w=1920&h=1080",
-        "summary": "Quantum computing firms are testing energy-grid optimization, solar materials and hydrogen catalysts as they pursue practical uses."
+        "published": "2026-11-22T18:55:05.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108314199-1780134094393-Phantom_work2.png?v=1780135127&w=1920&h=1080",
+        "summary": "Foundation is pursuing an emergency bridge loan and has been in talks with VC firms as it waits for a $150 million investment from South Korea's Base Group."
       },
       {
-        "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
-        "url": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
+        "title": "These little-known investments could be among the best bargains in a crash",
+        "url": "https://www.marketwatch.com/story/these-little-known-investments-could-be-among-the-best-bargains-in-a-crash-78a379b4?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-22T01:15:00.000Z",
-        "image": "https://images.mktw.net/im-04093243",
-        "summary": "“I’m exhausted. My alarm goes off at 6 a.m., and I have a 50-minute commute.”"
+        "published": "2026-11-22T18:23:00.000Z",
+        "image": "https://images.mktw.net/im-78399260",
+        "summary": "If this stock market turmoil turns into a full-blown crash, look for low-risk investment bargains among closed-end funds."
       },
       {
-        "title": "My wife is bankrolling her family’s trips to New York and it’s draining our savings. Should I ask her to stop?",
-        "url": "https://www.marketwatch.com/story/my-wife-pays-thousands-of-dollars-for-her-family-to-visit-from-argentina-how-can-i-convince-her-to-stop-9381351c?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-22T00:03:00.000Z",
-        "image": "https://images.mktw.net/im-05393650",
-        "summary": "“Hotel rooms can cost as much as $400 per night.”"
+        "title": "I’ve studied over 200 kids—to avoid raising a people pleaser, ditch 6 parenting habits: It starts in ‘ordinary, well-intentioned moments’",
+        "url": "https://www.cnbc.com/make-it/2026/11/22/parenting-habits-people-pleaser.html",
+        "source": "CNBC World",
+        "published": "2026-11-22T17:33:25.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108555699-1795110748736-gettyimages-2235780194-dsc07810.jpeg?v=1795110791&w=1920&h=1080",
+        "summary": "Reem Raouda, a conscious parenting coach who's worked with over 200 families, shares six habits worth reconsidering, like treating disagreement as disrespect."
       },
       {
-        "title": "I’m in my 40s. Should I accept a lower pension in exchange for naming my husband or child as a beneficiary?",
-        "url": "https://www.marketwatch.com/story/im-in-my-40s-should-i-accept-a-lower-pension-in-exchange-for-naming-my-husband-or-child-as-a-beneficiary-b2352059?mod=mw_rss_topstories",
+        "title": "Private equity has been buying up hospice centers — with striking consequences",
+        "url": "https://www.marketwatch.com/story/private-equity-has-been-buying-up-hospice-centers-with-striking-consequences-63642545?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-21T23:05:00.000Z",
-        "image": "https://images.mktw.net/im-29241577",
-        "summary": "“If I die before my husband, he will receive a lifetime pension equal to 50%–66% of my monthly benefit.”"
+        "published": "2026-11-22T17:22:00.000Z",
+        "image": "https://images.mktw.net/im-33357334",
+        "summary": "Medicare costs are higher and patients stay longer at hospice providers owned by private-equity firms, new research has found."
       },
       {
-        "title": "‘It’s downright dirty’: My brother moved in with our ailing mother and closed her bank account. What can I do?",
-        "url": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
+        "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks and buy real estate?",
+        "url": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-21T20:15:00.000Z",
-        "image": "https://images.mktw.net/im-72281427",
-        "summary": "“It is devastating when the people you should be able to trust become the very people you have to protect yourself from.”"
+        "published": "2026-11-22T17:00:00.000Z",
+        "image": "https://images.mktw.net/im-49247042",
+        "summary": "If you are tempted to ditch stocks for property or CDs, take a deep breath before making any sudden moves."
       },
       {
-        "title": "‘I’ve been a stay-at-home mom’: I’m 50 and have a chronic illness. My husband lost his job. Should he raid his 401(k)?",
-        "url": "https://www.marketwatch.com/story/ive-been-a-stay-at-home-mom-im-50-and-have-a-chronic-illness-my-husband-lost-his-job-should-he-raid-his-401-k-63e59123?mod=mw_rss_topstories",
+        "title": "I’m terrified of a market crash. Should I put $400,000 of my $1 million retirement savings into an annuity?",
+        "url": "https://www.marketwatch.com/story/were-in-our-50s-and-terrified-of-a-market-crash-should-we-put-400-000-of-our-1-million-retirement-savings-into-an-annuity-1943f240?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-21T19:45:00.000Z",
-        "image": "https://images.mktw.net/im-96657818",
-        "summary": "“Our financial and healthcare situation has become increasingly concerning.”"
+        "published": "2026-11-22T16:32:00.000Z",
+        "image": "https://images.mktw.net/im-36389545",
+        "summary": "“We have a house worth $450,000. Our combined annual income is $125,000.”"
       },
       {
-        "title": "‘Buyers are out for blood’: With home sales at a record low, buyers are calling the shots",
-        "url": "https://www.marketwatch.com/story/buyers-are-out-for-blood-as-housing-market-finally-hits-rock-bottom-fa5093a6?mod=mw_rss_topstories",
+        "title": "‘I felt so seen’: Why families across America are laughing — and crying — over SNL’s ‘Sister’ sketch",
+        "url": "https://www.marketwatch.com/story/so-sad-and-so-true-has-your-family-talked-about-snls-sister-sketch-yet-19bf9d67?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-21T19:45:00.000Z",
-        "image": "https://images.mktw.net/im-39779425",
-        "summary": "The few buyers left in the market braving record-high home prices and 7% mortgage rates are starting to call the shots, real-estate agents say."
-      },
-      {
-        "title": "America is definitely rich enough to fix Social Security and Medicare. Here’s how.",
-        "url": "https://www.marketwatch.com/story/america-is-definitely-rich-enough-to-fix-social-security-and-medicare-heres-how-30678aa5?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-21T18:20:00.000Z",
-        "image": "https://images.mktw.net/im-64310568",
-        "summary": "This one, simple, low-pain tax solves all the problems."
+        "published": "2026-11-22T16:18:00.000Z",
+        "image": "https://images.mktw.net/im-87121453",
+        "summary": "The late-night comedy sketch does the impossible by making female caregivers feel seen."
       },
       {
         "title": "‘Never too late to start’: Practical investing advice from some of the top women in finance",
         "url": "https://www.marketwatch.com/story/never-too-late-to-start-practical-investing-advice-from-some-of-the-top-women-in-finance-e01f0755?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-21T18:19:00.000Z",
+        "published": "2026-11-22T16:15:00.000Z",
         "image": "https://images.mktw.net/im-39302735",
         "summary": "There are plenty of rich and influential women in the U.S. Their time may be coming."
+      },
+      {
+        "title": "My husband spent $80,000 on a boat, yet says my plans for a $100,000 pottery studio are irresponsible. Who’s right?",
+        "url": "https://www.marketwatch.com/story/my-husband-spent-80-000-on-a-boat-yet-says-my-plans-for-a-100-000-pottery-studio-are-irresponsible-whos-right-1a69436a?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-22T16:10:00.000Z",
+        "image": "https://images.mktw.net/im-13717696",
+        "summary": "“We have $2.9 million in retirement accounts. That includes some money that we inherited about 10 years ago.”"
       }
     ]
   }
