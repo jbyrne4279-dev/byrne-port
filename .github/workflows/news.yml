@@ -32,11 +32,15 @@ jobs:
         run: node tools/build-home-brief.mjs
         continue-on-error: true
 
+      - name: Build menswear-brief-data.json (The Menswear Brief)
+        run: node tools/build-menswear-brief.mjs
+        continue-on-error: true
+
       - name: Commit if changed
         run: |
           git config user.name "news-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add news-data.json home-brief-data.json 2>/dev/null || true
+          git add news-data.json home-brief-data.json menswear-brief-data.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "chore(news): daily briefing refresh"
             git push

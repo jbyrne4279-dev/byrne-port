@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Joseph Byrne">
+
+  <title>The Menswear Brief | Runways, Drops &amp; Trends in Men's Fashion</title>
+  <meta name="description" content="Menswear news only: the latest runway shows, drops and collabs, style trends and the designers behind them, refreshed every few hours.">
+
+  <link rel="canonical" href="https://josephbyrne.org/menswear-brief">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Joseph Byrne">
+  <meta property="og:title" content="The Menswear Brief | Runways, Drops &amp; Trends">
+  <meta property="og:description" content="Runway shows, product drops, style trends and design news for men's fashion, refreshed every few hours.">
+  <meta property="og:url" content="https://josephbyrne.org/menswear-brief">
+  <meta property="og:image" content="https://josephbyrne.org/assets/og-image.jpg">
+  <meta property="og:locale" content="en_GB">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='34' fill='%23ff002e'%3EJB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=141" data-dark="styles.dark.css?v=1">
+  <link rel="stylesheet" href="news.css?v=8" data-dark="news.dark.css?v=1">
+  <link rel="stylesheet" href="site-nav.css?v=7" data-dark="site-nav.dark.css?v=1">
+  <link rel="stylesheet" href="glass.css?v=43">
+  <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
+</head>
+<body class="nw-body" data-feed="menswear-brief-data.json" data-ticker="runway">
+
+  <!-- ── NAV ── -->
+  <nav class="nav is-scrolled" id="nav">
+    <ul class="nav__links">
+      <li><a href="/#home">Home</a></li>
+      <li><a href="/#portfolio">Work</a></li>
+      <li><a href="/#websites">Sites</a></li>
+      <li><a href="/#academic">Academic</a></li>
+      <li><a href="/#tools" class="is-active" aria-current="page">Tools</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <button class="nav__menu" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <ul>
+      <li><a href="/#home" class="mobile-link">Home</a></li>
+      <li><a href="/#portfolio" class="mobile-link">Work</a></li>
+      <li><a href="/#websites" class="mobile-link">Web</a></li>
+      <li><a href="/#academic" class="mobile-link">University</a></li>
+      <li><a href="/#tools" class="mobile-link is-active">Tools</a></li>
+      <li><a href="/#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <main class="nw">
+
+    <!-- HERO -->
+    <header class="nw-hero">
+      <div class="nw-hero__brand">
+        <p class="nw-eyebrow">Men&rsquo;s Fashion</p>
+        <h1 class="nw-title">The&nbsp;<span>Menswear</span>&nbsp;Brief</h1>
+      </div>
+      <div class="nw-hero__meta">
+      <p class="nw-sub">Menswear only: the latest runway shows and fashion weeks, drops and collabs, the trends worth knowing and the designers and brands behind them.</p>
+      <div class="nw-status">
+        <span class="nw-live" aria-hidden="true"></span>
+        <span id="nwUpdated">Loading the latest&hellip;</span>
+        <button type="button" class="nw-refresh" id="nwRefresh" aria-label="Refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+      </div>
+    </header>
+
+    <!-- BREAKING TICKER -->
+    <div class="nw-ticker" id="nwTicker" hidden>
+      <span class="nw-ticker__tag">Runway</span>
+      <div class="nw-ticker__viewport"><div class="nw-ticker__track" id="nwTickerTrack"></div></div>
+    </div>
+
+    <!-- LOADING / EMPTY -->
+    <div class="nw-state" id="nwState">
+      <div class="nw-spinner" aria-hidden="true"></div>
+      <p id="nwStateText">Compiling the latest menswear news&hellip;</p>
+    </div>
+
+    <!-- Sections: stacked on small screens, a 2 x 2 grid on wide ones,
+         one row of four on ultrawide monitors -->
+    <div class="nw-board">
+      <!-- RUNWAY (lead section + ticker) -->
+      <section class="nw-section nw-section--breaking" data-topic="runway" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Shows &amp; fashion weeks</span><h2 class="nw-sechead__title">Runway</h2></div>
+        <div class="nw-feature" id="nwRunway"></div>
+      </section>
+
+      <!-- DROPS -->
+      <section class="nw-section" data-topic="drops" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Releases &amp; collabs</span><h2 class="nw-sechead__title">Drops</h2></div>
+        <div class="nw-feature" id="nwDrops"></div>
+      </section>
+
+      <!-- TRENDS -->
+      <section class="nw-section" data-topic="trends" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Style</span><h2 class="nw-sechead__title">Trends</h2></div>
+        <div class="nw-feature" id="nwTrends"></div>
+      </section>
+
+      <!-- DESIGN & BUSINESS -->
+      <section class="nw-section" data-topic="design" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Designers &amp; brands</span><h2 class="nw-sechead__title">Design &amp; Industry</h2></div>
+        <div class="nw-feature" id="nwDesign"></div>
+      </section>
+    </div>
+
+    <p class="nw-foot">Menswear headlines gathered from fashion titles and news search, refreshed automatically every few hours. Each card links to the original article. Built by Joseph Byrne.</p>
+
+  </main>
+
+  <script src="news.js?v=4"></script>
+  <script src="site-nav.js?v=1"></script>
+  <script src="theme.js?v=6"></script>
+  <script src="burst.js?v=1"></script>
+</body>
+</html>

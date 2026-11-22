@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#160403"/><stop offset="0.55" stop-color="#0b0202"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#FF453A" stroke-opacity="0.08" stroke-width="1"/></pattern>
+  </defs>
+  <style>.ring{transform-box:fill-box;transform-origin:center;animation:ring 2s ease-out infinite}@keyframes ring{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.9);opacity:0}}.dot{transform-box:fill-box;transform-origin:center;animation:dot 2s ease-in-out infinite}@keyframes dot{0%,100%{transform:scale(1)}50%{transform:scale(.8)}}.ln{stroke-dasharray:100;animation:type 5s ease-in-out infinite}.ln:nth-of-type(2){animation-delay:.25s}.ln:nth-of-type(3){animation-delay:.5s}.ln:nth-of-type(4){animation-delay:.75s}@keyframes type{0%{stroke-dashoffset:100}25%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-100}}.pic{transform-box:fill-box;transform-origin:center;animation:pic 5s ease-in-out infinite}@keyframes pic{0%,20%{opacity:.35}35%,85%{opacity:1}100%{opacity:.35}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect x="470" y="230" width="660" height="560" rx="60" fill="#FF453A" opacity="0.12" filter="url(#soft)"/>
+
+  <!-- Jacket on a hanger, a drop sparkle and the runway: menswear -->
+  <g class="hang" filter="url(#glow)" fill="none" stroke="#FF453A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M800 210 a34 34 0 1 1 34 34 v22"/>
+    <path d="M834 266 L620 360 h360 z"/>
+    <path d="M660 360 L580 420 L600 720 H760 V470 L800 410 L840 470 V720 H1000 L1020 420 L940 360"/>
+    <path d="M800 410 V720"/>
+    <path d="M760 520 h-50 M840 520 h50"/>
+  </g>
+  <g class="spark" fill="#FF453A">
+    <path d="M1060 300 l12 28 28 12 -28 12 -12 28 -12-28 -28-12 28-12z"/>
+  </g>
+  <line class="runway" x1="520" y1="800" x2="1080" y2="800" stroke="#FF453A" stroke-width="10" stroke-linecap="round" stroke-dasharray="40 30"/>
+  <style>
+    .hang{transform-box:fill-box;transform-origin:50% 0;animation:sway 3.2s ease-in-out infinite}
+    @keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+    .spark path{transform-box:fill-box;transform-origin:center;animation:twinkle 2s ease-in-out infinite}
+    @keyframes twinkle{0%,100%{transform:scale(.4);opacity:.3}50%{transform:scale(1.15);opacity:1}}
+    .runway{animation:walk 1.4s linear infinite}
+    @keyframes walk{to{stroke-dashoffset:-70}}
+    @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+  </style>
+</svg>
