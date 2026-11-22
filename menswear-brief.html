@@ -29,10 +29,10 @@
   <link rel="stylesheet" href="styles.css?v=141" data-dark="styles.dark.css?v=1">
   <link rel="stylesheet" href="news.css?v=8" data-dark="news.dark.css?v=1">
   <link rel="stylesheet" href="site-nav.css?v=7" data-dark="site-nav.dark.css?v=1">
-  <link rel="stylesheet" href="glass.css?v=43">
+  <link rel="stylesheet" href="glass.css?v=44">
   <script>try{if(localStorage.getItem('jbTheme')==='dark'){document.documentElement.classList.add('theme-dark');document.querySelectorAll('link[data-dark]').forEach(function(l){l.setAttribute('data-light',l.getAttribute('href'));l.setAttribute('href',l.getAttribute('data-dark'))})}}catch(e){}</script>
 </head>
-<body class="nw-body" data-feed="menswear-brief-data.json" data-ticker="runway">
+<body class="nw-body" data-feed="menswear-brief-data.json" data-ticker="catwalk">
 
   <!-- ── NAV ── -->
   <nav class="nav is-scrolled" id="nav">
@@ -71,7 +71,7 @@
         <h1 class="nw-title">The&nbsp;<span>Menswear</span>&nbsp;Brief</h1>
       </div>
       <div class="nw-hero__meta">
-      <p class="nw-sub">Menswear only: the latest runway shows and fashion weeks, drops and collabs, the trends worth knowing and the designers and brands behind them.</p>
+      <p class="nw-sub">Menswear only: aspirational brands, the catwalk, online and in-store retail, new and emerging labels, how much sells online, fabric, fit and quality, colour and the customer.</p>
       <div class="nw-status">
         <span class="nw-live" aria-hidden="true"></span>
         <span id="nwUpdated">Loading the latest&hellip;</span>
@@ -84,7 +84,7 @@
 
     <!-- BREAKING TICKER -->
     <div class="nw-ticker" id="nwTicker" hidden>
-      <span class="nw-ticker__tag">Runway</span>
+      <span class="nw-ticker__tag">Catwalk</span>
       <div class="nw-ticker__viewport"><div class="nw-ticker__track" id="nwTickerTrack"></div></div>
     </div>
 
@@ -97,36 +97,73 @@
     <!-- Sections: stacked on small screens, a 2 x 2 grid on wide ones,
          one row of four on ultrawide monitors -->
     <div class="nw-board">
-      <!-- RUNWAY (lead section + ticker) -->
-      <section class="nw-section nw-section--breaking" data-topic="runway" hidden>
-        <div class="nw-sechead"><span class="nw-sechead__kicker">Shows &amp; fashion weeks</span><h2 class="nw-sechead__title">Runway</h2></div>
-        <div class="nw-feature" id="nwRunway"></div>
+      <section class="nw-section nw-section--breaking" data-topic="aspirational" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Luxury &amp; premium</span><h2 class="nw-sechead__title">Aspirational Brands</h2></div>
+        <div class="nw-feature" id="nwAspirational"></div>
       </section>
 
-      <!-- DROPS -->
+      <section class="nw-section" data-topic="catwalk" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Shows &amp; fashion weeks</span><h2 class="nw-sechead__title">Catwalk</h2></div>
+        <div class="nw-feature" id="nwCatwalk"></div>
+      </section>
+
+      <section class="nw-section" data-topic="online" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">E-commerce</span><h2 class="nw-sechead__title">Online</h2></div>
+        <div class="nw-feature" id="nwOnline"></div>
+      </section>
+
+      <section class="nw-section" data-topic="retail" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Stores &amp; high street</span><h2 class="nw-sechead__title">Retail</h2></div>
+        <div class="nw-feature" id="nwRetail"></div>
+      </section>
+
+      <section class="nw-section" data-topic="emerging" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">New &middot; Emerging &middot; Unique</span><h2 class="nw-sechead__title">New &amp; Emerging Brands</h2></div>
+        <div class="nw-feature" id="nwEmerging"></div>
+      </section>
+
+      <section class="nw-section" data-topic="onlinesales" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">The numbers</span><h2 class="nw-sechead__title">Percentage of Sales Online</h2></div>
+        <div class="nw-feature" id="nwOnlineSales"></div>
+      </section>
+
+      <section class="nw-section" data-topic="fabric" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Product</span><h2 class="nw-sechead__title">Fabric, Fit &amp; Quality</h2></div>
+        <div class="nw-feature" id="nwFabric"></div>
+      </section>
+
+      <section class="nw-section" data-topic="colour" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Palette</span><h2 class="nw-sechead__title">Colour</h2></div>
+        <div class="nw-feature" id="nwColour"></div>
+      </section>
+
+      <section class="nw-section" data-topic="customer" hidden>
+        <div class="nw-sechead"><span class="nw-sechead__kicker">Who buys</span><h2 class="nw-sechead__title">Customer Profile</h2></div>
+        <div class="nw-feature" id="nwCustomer"></div>
+      </section>
+
       <section class="nw-section" data-topic="drops" hidden>
         <div class="nw-sechead"><span class="nw-sechead__kicker">Releases &amp; collabs</span><h2 class="nw-sechead__title">Drops</h2></div>
         <div class="nw-feature" id="nwDrops"></div>
       </section>
 
-      <!-- TRENDS -->
       <section class="nw-section" data-topic="trends" hidden>
         <div class="nw-sechead"><span class="nw-sechead__kicker">Style</span><h2 class="nw-sechead__title">Trends</h2></div>
         <div class="nw-feature" id="nwTrends"></div>
       </section>
 
-      <!-- DESIGN & BUSINESS -->
       <section class="nw-section" data-topic="design" hidden>
         <div class="nw-sechead"><span class="nw-sechead__kicker">Designers &amp; brands</span><h2 class="nw-sechead__title">Design &amp; Industry</h2></div>
         <div class="nw-feature" id="nwDesign"></div>
       </section>
+
     </div>
 
     <p class="nw-foot">Menswear headlines gathered from fashion titles and news search, refreshed automatically every few hours. Each card links to the original article. Built by Joseph Byrne.</p>
 
   </main>
 
-  <script src="news.js?v=4"></script>
+  <script src="news.js?v=5"></script>
   <script src="site-nav.js?v=1"></script>
   <script src="theme.js?v=6"></script>
   <script src="burst.js?v=1"></script>

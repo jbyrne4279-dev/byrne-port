@@ -102,6 +102,23 @@
     wrap.hidden = false;
   }
 
+  // Pages with lots of sections get a row of jump links under the ticker
+  function renderJump() {
+    var secs = Array.prototype.filter.call(document.querySelectorAll('.nw-section[data-topic]'), function (sec) { return !sec.hidden; });
+    var old = document.querySelector('.nw-jump');
+    if (old) old.remove();
+    if (secs.length <= 4) return;
+    var nav = document.createElement('nav');
+    nav.className = 'nw-jump';
+    nav.setAttribute('aria-label', 'Jump to a section');
+    nav.innerHTML = secs.map(function (sec) {
+      if (!sec.id) sec.id = 'sec-' + sec.getAttribute('data-topic');
+      return '<a href="#' + sec.id + '">' + sec.querySelector('.nw-sechead__title').innerHTML + '</a>';
+    }).join('');
+    var board = document.querySelector('.nw-board');
+    board.parentNode.insertBefore(nav, board);
+  }
+
   function showSection(topic) {
     var sec = document.querySelector('.nw-section[data-topic="' + topic + '"]');
     if (sec) sec.hidden = false;
@@ -118,6 +135,7 @@
       if (host && renderFeature(host.id, items)) { showSection(topic); any += Math.min(items.length, 9); }
     });
     renderTicker(buckets[TICKER] || []);
+    renderJump();
 
     if (data && data.generatedAt) {
       elUpdated.textContent = 'Updated ' + timeAgo(data.generatedAt);
