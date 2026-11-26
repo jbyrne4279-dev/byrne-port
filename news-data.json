@@ -1,106 +1,114 @@
 {
-  "generatedAt": "2026-11-25T19:16:19.061Z",
+  "generatedAt": "2026-11-26T03:34:51.139Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "‘I am leaving with my freedom’: Kilmar Ábrego García lands in Spain after choosing to leave US - live",
+        "title": "Australian politics live: Liberals ‘tossing up whether to leave or remain’, Albanese says; Coalition warns energy prices to cause Christmas ‘pain’",
+        "url": "https://www.theguardian.com/australia-news/live/2026/nov/26/labor-anthony-albanese-pauline-hanson-one-nation-angus-taylor-coalition-ntwnfb",
+        "source": "The Guardian",
+        "published": "2026-11-26T03:28:18.000Z",
+        "image": "https://i.guim.co.uk/img/media/52b5b66c0f27e10da77f0807cf7933ab39d66fec/1067_534_5492_4394/master/5492.jpg?width=140&quality=85&auto=format&fit=max&s=4871ce862525bba05ae7ee81a3fb3552",
+        "summary": "Get our breaking news email , free app or daily news podcast Pauline Hanson has released a statement this morning welcoming South Australian senator Leah Blyth to her party . Blyth"
+      },
+      {
+        "title": "Why Women Should Never Be \"Muggles\" in the Tech World: Breaking Gender Barriers for Inclusive Digital Innovation - 36Kr",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9BMzJmSmdaNFpmeEVSd3hfZnlHdEFZT1EtVWFXSHJqTFA4YlNRbXZVRTdkeS0xaENsYjZYWHE0QVphMkRGR1pUdGxXVXhuOVFXWUdF?oc=5",
+        "source": "36Kr",
+        "published": "2026-11-26T03:14:37.000Z",
+        "image": "",
+        "summary": "Why Women Should Never Be \"Muggles\" in the Tech World: Breaking Gender Barriers for Inclusive Digital Innovation 36Kr"
+      },
+      {
+        "title": "US announces new tariffs on host of countries including China",
+        "url": "https://www.bbc.co.uk/news/articles/c893r9ke5p97o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-26T03:01:40.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/cdd4/live/6fdb6db0-e946-11f1-8b2f-671485cea0be.jpg",
+        "summary": "The new levies would hit many of America's biggest trading partners, including China and the EU."
+      },
+      {
+        "title": "FIFA turns to influencers to promote U17 World Cup",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/26/fifa-turns-to-influencers-to-promote-u17-world-cup?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-26T03:00:51.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795662042.jpg?resize=1920%2C1080&quality=80",
+        "summary": "FIFA has enlisted social media influencers to promote the Under-17 World Cup in Qatar."
+      },
+      {
+        "title": "Spain’s election: the end of a leftwing icon? - podcast",
+        "url": "https://www.theguardian.com/news/audio/2026/nov/26/spains-election-the-end-of-a-leftwing-icon-podcast",
+        "source": "The Guardian",
+        "published": "2026-11-26T03:00:43.000Z",
+        "image": "https://i.guim.co.uk/img/media/a4570fa84a7e3ee4aac3e257799591f91a8b2aba/175_0_6119_4896/master/6119.jpg?width=140&quality=85&auto=format&fit=max&s=2c0eb21083f234b613af4ccf88a4feeb",
+        "summary": "Madrid correspondent Sam Jones and European community affairs correspondent Ashifa Kassam report on a pivotal election in Spain this weekend, which could see longtime PM Pedro Sánc"
+      },
+      {
+        "title": "Coalition would privatise Melbourne’s sewage treatment while selling state-owned land and renewables to fund Victorian election promises",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/26/liberal-nationals-victoria-election-policy-costings-revealed-sewage-land-energy",
+        "source": "The Guardian",
+        "published": "2026-11-26T02:35:09.000Z",
+        "image": "https://i.guim.co.uk/img/media/ada4bb365561f12ee0ef729583d5ef8a1082d741/4_0_5040_4032/master/5040.jpg?width=140&quality=85&auto=format&fit=max&s=7fe8d3290955a71627069d699b669954",
+        "summary": "Liberal and Nationals’ pre-election policy costings also reveal that ‘air rights’ between Richmond train station and the MCG would be sold Follow our Australia politics live blog f"
+      },
+      {
+        "title": "BREAKING: Miami International Airport is closed after a FedEx aircraft overran a runway. No injuries were reported. - Facebook",
+        "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOY29LRDVLYncxVnNSWTdNdG9CR1lrYnZVajFGTWdpbXB2X0NQbzNYMlVPOEdCcDZERDlITjF3d202NS03UVpST01ZeG9yZ202OFlQODJzX0pYcE9FMUt4a2p3alFFQnJaeGFuWFAwTldjY01nay1FNUdZcmdoXzBqQWcxbXJzT1l0b2FfT1V2Q19kZEEwLWFQUlBLaDlSS0ZieXRkcjhIRzd0eEVYSVVKQzlRYkgwUFFNUDdYOVJJWHFSSFRMdk1JVkRyY1Q4Zld1X3hTUG9YTXFRVGtqMGtZ?oc=5",
+        "source": "Facebook",
+        "published": "2026-11-26T02:32:32.000Z",
+        "image": "",
+        "summary": "BREAKING: Miami International Airport is closed after a FedEx aircraft overran a runway. No injuries were reported. Facebook"
+      },
+      {
+        "title": "Australia projected to completely miss 2035 emissions target without new climate policies",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/26/australia-projected-to-miss-2035-emissions-targets-climate-policies",
+        "source": "The Guardian",
+        "published": "2026-11-26T02:26:10.000Z",
+        "image": "https://i.guim.co.uk/img/media/6bc9fc5f6a817cf2c3f2ae94fa662f095a4a7e4a/152_0_2369_1896/master/2369.jpg?width=140&quality=85&auto=format&fit=max&s=cfed3809fab50aa7547ab0cc010d00dc",
+        "summary": "New official projections show country nearly on track for 2030 goal but Chris Bowen warns of ‘undeniable headwinds’ Sign up for climate and environment editor Adam Morton’s free Cl"
+      },
+      {
+        "title": "Chris Van Hollen picks up more support for Senate majority leader role ahead of Democrats vote next week – as it happened",
         "url": "https://www.theguardian.com/us-news/live/2026/nov/25/donald-trump-jensen-huang-nvidia-pardon-senate-hearing-iowa-abdul-el-sayed-latest-news-updates",
         "source": "The Guardian",
-        "published": "2026-11-25T19:09:45.000Z",
-        "image": "https://i.guim.co.uk/img/media/fedd12377351e3e84402029d8354b6185d25dc6e/129_0_5040_4032/master/5040.jpg?width=140&quality=85&auto=format&fit=max&s=348024617bf12d96d12177bbf3846bc5",
-        "summary": "Before his departure, Immigration and Customs Enforcement agents met him at the airport and removed his ankle monitor, an advocacy group reported Sign up for the Breaking News US e"
+        "published": "2026-11-26T02:20:52.000Z",
+        "image": "https://i.guim.co.uk/img/media/1ded0ee0250a7ae31faed7b6ee3dc216c3eee7d6/683_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=a3e67bf3a7035af45285bc7c8dfd8e91",
+        "summary": "This live blog s now closed. Sign up for the Breaking News US email US trade representative Jamieson Greer claimed this morning that he did not expect the new proposed tariffs to r"
       },
       {
-        "title": "Poundland collapses, putting more than 10,000 jobs at risk",
-        "url": "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
-        "source": "The Guardian",
-        "published": "2026-11-25T18:50:54.000Z",
-        "image": "https://i.guim.co.uk/img/media/16edaa98dc3beaf524550e0893db04ce2ca3ac5b/2156_1095_3431_2745/master/3431.jpg?width=140&quality=85&auto=format&fit=max&s=fe7964b6da6859cdf695dd4361c10510",
-        "summary": "Budget retail chain expected to be broken up, with store closures, after US owner rejected at least two last-ditch bids Do you work for Poundland? Tell us how you’re affected Pound"
-      },
-      {
-        "title": "Colombian police storm supermarket to free 76 held hostage for 17 hours",
-        "url": "https://www.bbc.co.uk/news/articles/ckp80mjr9emyo?at_medium=RSS&at_campaign=rss",
+        "title": "As foreign troops withdraw from Somalia, could al-Shabab take over?",
+        "url": "https://www.bbc.co.uk/news/articles/ck62y23z58yeo?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-25T18:41:33.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/997a/live/4f4b3940-e8c4-11f1-ac76-db9e97f93d67.jpg",
-        "summary": "One gunman was killed after what the country's president described as a robbery of a cash-laden armoured car gone wrong."
+        "published": "2026-11-26T02:06:10.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/96e8/live/f14b1490-dc2b-11f1-a5b1-adf9c8e8d692.jpg",
+        "summary": "Somalia relies heavily on foreign funding and military support for its very survival."
       },
       {
-        "title": "Smoke seen from a mile away as army detonates US stockpile of bomb-making chemicals in Iowa",
-        "url": "https://www.theguardian.com/us-news/2026/nov/25/iowa-controlled-blast-lead-azide",
-        "source": "The Guardian",
-        "published": "2026-11-25T18:24:48.000Z",
-        "image": "https://i.guim.co.uk/img/media/0fcf154781a9c5157d16068123164b527040fcc0/367_0_1833_1466/master/1833.jpg?width=140&quality=85&auto=format&fit=max&s=a8c0638a7b921696350db323a86b067e",
-        "summary": "Controlled blast to dispose of lead azide risks releasing plumes of toxic chemicals in 100-mile radius The US army detonated the nation’s entire stockpile of the the bomb-making ma"
-      },
-      {
-        "title": "Trump administration approves Elon Musk’s plan for datacenters in space",
-        "url": "https://www.theguardian.com/us-news/2026/nov/25/spacex-datacenter-satellites-approval",
-        "source": "The Guardian",
-        "published": "2026-11-25T18:21:47.000Z",
-        "image": "https://i.guim.co.uk/img/media/e131dbd878a67c465c8f8b51ab93f09e9b8c5549/0_0_6723_5379/master/6723.jpg?width=140&quality=85&auto=format&fit=max&s=82f314e367a3512ca9d896f7cb5f4621",
-        "summary": "The FCC approved 1m Starmind satellites, with the deployment of 100,000 no later than November 2035 US federal regulators approved a constellation of datacenters to process data in"
-      },
-      {
-        "title": "All hostages rescued after Colombian security forces storm supermarket",
-        "url": "https://www.theguardian.com/world/2026/nov/25/hostages-freed-colombia-security-forces-storm-cartagena-supermarket",
-        "source": "The Guardian",
-        "published": "2026-11-25T18:20:20.000Z",
-        "image": "https://i.guim.co.uk/img/media/a3585592d60a650e6033ad7e718f5e89458d216d/440_75_2600_2080/master/2600.jpg?width=140&quality=85&auto=format&fit=max&s=33ea692d3cf725ee634c71826c01d100",
-        "summary": "Operation in which one hostage-taker was killed ends daylong siege in Cartagena shopping centre, where 30 people were initially held Colombian police have stormed a supermarket in "
-      },
-      {
-        "title": "EU nationals will pay higher tuition fees than UK students, Burnham indicates",
-        "url": "https://www.theguardian.com/uk-news/2026/nov/25/eu-nationals-will-pay-higher-tuition-fees-than-uk-students-burnham-indicates",
-        "source": "The Guardian",
-        "published": "2026-11-25T18:19:19.000Z",
-        "image": "https://i.guim.co.uk/img/media/abb0310bb3501ac3358a229274caaeb7c6a27f49/688_0_6880_5504/master/6880.jpg?width=140&quality=85&auto=format&fit=max&s=22f33d63ee9acbb593fd9cf35cdadf93",
-        "summary": "Asked by Kemi Badenoch to rule out equal rate for UK and EU students, PM says proposal ‘will not be put on the table’ European students will have to pay higher fees than their dome"
-      },
-      {
-        "title": "Nigeria’s Tinubu pledges to bring peace to rebellion-hit border region",
-        "url": "https://www.aljazeera.com/news/2026/11/25/nigerias-tinubu-pledges-to-bring-peace-to-insurgency-hit-northeast-region?traffic_source=rss",
+        "title": "Kim Jong Un says North Korea should widen deployment of tactical nukes",
+        "url": "https://www.aljazeera.com/news/2026/11/26/kim-jong-un-says-north-korea-should-widen-deployment-of-tactical-nukes?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-25T18:14:44.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6b0719bca5cf-1795627452.jpg?resize=1920%2C1440",
-        "summary": "Tinubu is under pressure to convince voters that military operations in the country's northeast will deliver security."
+        "published": "2026-11-26T02:03:03.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6b0788bbb53d-1795655867.jpg?resize=1920%2C1440",
+        "summary": "North Korean leader warns attempts to deny country's nuclear status will be seen as \"an open declaration of war\"."
       },
       {
-        "title": "UN sacked Palestinian staff on back of unproven Israeli allegations, tribunal rules",
-        "url": "https://www.theguardian.com/world/2026/nov/25/un-sacked-palestinian-staff-on-back-of-unproven-israel-allegations",
+        "title": "Out-of-control bushfire with flames 10-metres high destroys at least six homes on Flinders Island",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/25/large-bushfire-threatens-homes-and-properties-on-remote-island-off-tasmania",
         "source": "The Guardian",
-        "published": "2026-11-25T18:14:27.000Z",
-        "image": "https://i.guim.co.uk/img/media/65d32fbb43f0e7ee1a67c12068fb35f5cd6d3afb/780_0_6250_5000/master/6250.jpg?width=140&quality=85&auto=format&fit=max&s=b274c1d56c0497a8ae693e8ba87186da",
-        "summary": "Judgment casts doubt on evidence linking aid workers to Hamas and says humanitarian efforts in Gaza were damaged A UN tribunal has cast doubt on the evidence used to justify the sa"
-      },
-      {
-        "title": "Ecuador and US review joint military operations, official says",
-        "url": "https://www.aljazeera.com/news/2026/11/25/ecuador-and-us-review-joint-military-operations-official-says?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-25T17:50:41.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b0702d2-1795621586.jpg?resize=1920%2C1440",
-        "summary": "Joint military efforts have been paused as the US investigates a lethal operation carried out by Ecuador."
-      },
-      {
-        "title": "US stocks fall further as fears over AI intensify",
-        "url": "https://www.bbc.co.uk/news/articles/cq0md8g14zryo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-25T17:48:09.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/9f2e/live/6940e8e0-e8f1-11f1-99a1-253766e7ad8b.jpg",
-        "summary": "All three main US indexes were down in early trading, with the tech-dominated Nasdaq down almost 4%."
-      },
-      {
-        "title": "UK politics: Burnham dismisses Badenoch’s criticism over influencer and declines to apologise for ‘vile video’ – as it happened",
-        "url": "https://www.theguardian.com/politics/live/2026/nov/25/andy-burnham-kemi-badenoch-pmqs-energy-bills-tiktok-welfare-benefits-timms-reform-brexit-devolution-latest-news-updates",
-        "source": "The Guardian",
-        "published": "2026-11-25T17:42:31.000Z",
-        "image": "https://i.guim.co.uk/img/media/e4bc143c5a0521d085a742a9218aba3012f9fd1b/0_0_3000_2400/master/3000.jpg?width=140&quality=85&auto=format&fit=max&s=596241e2b70961d6d0328a99b4f2b736",
-        "summary": "Pair clashed at PMQs over a video shot outside No 10 by TikToker Max Balegde Diane Taylor is a Guardian reporter who covers migration. Britons get many of the facts about migration"
+        "published": "2026-11-26T01:59:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/233bcc415b139a4c7cb303ad0a176d9ff6433c48/66_0_880_704/master/880.jpg?width=140&quality=85&auto=format&fit=max&s=b202b3c29c5683ffa86cc26b07ff0f0b",
+        "summary": "Fire making a ‘significant run’ towards the south-west of Flinders Island on Thursday, Tasmania Fire Service says Get our breaking news email , free app or daily news podcast Resid"
       }
     ],
     "ai": [
+      {
+        "title": "Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future",
+        "url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
+        "source": "The Verge",
+        "published": "2026-11-25T21:51:26.000Z",
+        "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Screenshot-2026-11-25-at-11.34.07-AM.png?quality=90&strip=all&crop=2.859375,3.7218027238494,93.788122558594,91.658221639303",
+        "summary": "Last year, Google filed a patent for a system called My Channel that's designed to create feeds filled with personalized, AI-generated videos and advertisements based on informatio"
+      },
       {
         "title": "FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space",
         "url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers",
@@ -142,7 +150,7 @@
         "summary": "Amazon has held talks about letting Meta's Muse AI agent shop on its online marketplace, according to a report from Fortune. The discussions, which could end Amazon's block on Muse"
       },
       {
-        "title": "Aidan is one of thousands of students forced to verbally defend his honours thesis as universities take on AI",
+        "title": "Aidan didn’t expect a spoken-word component in his thesis - but universities hope it will help tackle AI",
         "url": "https://www.theguardian.com/australia-news/2026/nov/25/australian-universities-tackle-ai-plagiarism-oral-assessment-honours-masters-phd",
         "source": "The Guardian",
         "published": "2026-11-25T14:00:29.000Z",
@@ -164,162 +172,154 @@
         "published": "2026-11-25T13:00:00.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/vibe_coding_synths_.jpg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "The emergence of powerful vibe-coding agents and tools like Reverse Engineer Anything has caused chaos in the music gear world, leaving companies scrambling to figure out how to re"
-      },
-      {
-        "title": "Our ‘Paris manifesto’ proposes how to deal with extreme wealth in the AI age | Open letter",
-        "url": "https://www.theguardian.com/commentisfree/2026/nov/25/paris-manifesto-open-letter-ai-oligarchy",
-        "source": "The Guardian",
-        "published": "2026-11-25T11:00:47.000Z",
-        "image": "https://i.guim.co.uk/img/media/2dd975b73ad768204e517055d0fd577371cdf078/598_0_4903_3922/master/4903.jpg?width=140&quality=85&auto=format&fit=max&s=a9ed09c809e9d202b100178e38712dd4",
-        "summary": "It is possible for democracy to reverse the dynamic of oligarchy. But we must act now The explosion of extreme wealth in the world is the defining social fact of our times. When Fo"
       }
     ],
     "fashion": [
       {
-        "title": "The Garment Pre-Fall 2027",
-        "url": "https://www.vogue.com/fashion-shows/pre-fall-2027/the-garment",
+        "title": "With ‘A Kidman Carol,’ Marla Mindelle, Josh Sharp, and Kevin Zak Fête Australia’s Two Greatest Exports",
+        "url": "https://www.vogue.com/article/marla-mindelle-josh-sharp-and-kevin-zak-a-kidman-carol",
         "source": "Vogue",
-        "published": "2026-11-25T19:15:42.000Z",
-        "image": "https://assets.vogue.com/photos/6b055c38ccfb962a1985aaee/master/pass/00001-the-garment-pre-fall-2027-credit-brand.jpg",
-        "summary": ""
+        "published": "2026-11-26T01:00:00.000Z",
+        "image": "https://assets.vogue.com/photos/6b07a062058a1f53ed8f34ba/master/pass/Josh%20Sharp%20and%20Marla%20Mindelle%20-%20Photo%20by%20Austin%20Ruffer.jpg",
+        "summary": "Just in time for the holidays, and with awards season just around the corner, Vogue caught up with the comedy trio to discuss Nicole Kidman and Cate Blanchett’s unending star power"
       },
       {
-        "title": "Baum und Pferdgarten Pre-Fall 2027",
-        "url": "https://www.vogue.com/fashion-shows/pre-fall-2027/baum-und-pferdgarten",
+        "title": "“The Most Beautitul Woman in the World…”: Richard Avedon’s Ode to Veruschka in 1972",
+        "url": "https://www.vogue.com/article/the-most-beautitul-woman-in-the-world-richard-avedons-ode-to-veruschka-in-1972",
         "source": "Vogue",
-        "published": "2026-11-25T19:15:42.000Z",
-        "image": "https://assets.vogue.com/photos/6ae0bb538ebac1dc4e633530/master/pass/00001-baum-und-pferdgarten-pre-fall-2027-credit-brand.jpg",
-        "summary": ""
+        "published": "2026-11-26T00:39:58.000Z",
+        "image": "https://assets.vogue.com/photos/6b077b0bbc263148a5439fbb/master/pass/2%20Print%20Article_%20_Veruschka%20Is%20the%20Most%20Beautiful%20Woman%20in%20the%20World..._%20_%20Vogue%20_%20MAY%201972%20(1).jpg",
+        "summary": "In a story from the May 1972 of Vogue, Richard Avedon tells—in his own words and an extraordinary series of photographs—what made the late supermodel so unique."
       },
       {
-        "title": "Princess Diana’s Summer Outfits for Royal Ascot, Polo to Go Under the Hammer at Kerry Taylor Auctions",
-        "url": "https://wwd.com/fashion-news/fashion-scoops/princess-diana-outfits-royal-ascot-polo-kerry-taylor-sale-1239466215/",
+        "title": "Photographer Franco Rubartelli Shares the Stories Behind Some of Vogue’s Most Famous ‘60s Shoots",
+        "url": "https://www.vogue.com/article/from-the-archives-fashion-photographer-franco-rubartelli-veruschka-1960s-supermodels",
+        "source": "Vogue",
+        "published": "2026-11-26T00:15:48.000Z",
+        "image": "https://assets.vogue.com/photos/59a0323c6bc89b160b6f8dce/master/pass/00-lede-color.jpg",
+        "summary": "For Vogue, Franco Rubartelli took some of the most famous pictures of ‘60s icon Veruschka, “the most beautiful girl in the world.” Here he shares the stories behind the shoots."
+      },
+      {
+        "title": "Higher Fuel Costs Weigh on Apparel Retail Earnings",
+        "url": "https://wwd.com/sourcing-journal/logistics/fuel-costs-diesel-freight-burlington-abercrombie-fitch-kohls-urban-outfitters-gap-dollar-tree-1239466545/",
         "source": "WWD",
-        "published": "2026-11-25T19:09:36.000Z",
+        "published": "2026-11-25T23:10:00.000Z",
         "image": "",
-        "summary": "The auction, which will take place in London on Dec. 10, features a Catherine Walker suit with pastel tulips and a silk skirt by Paul Costelloe."
+        "summary": "Diesel and freight ate into retail margins in Q3, with Burlington, Dollar Tree, Abercrombie and Urban Outfitters all expecting more fuel pressures in Q4."
       },
       {
-        "title": "We’re Eyeing These Coach Handbags & Accessories This Black Friday — Especially Now That They’re Over 80% Off",
-        "url": "https://wwd.com/shop/shop-fashion/coach-black-friday-handbags-accessories-sale-2026-1239466136/",
+        "title": "Too Much, Too Little: Bangladesh’s Wage Hike Pleases No One",
+        "url": "https://wwd.com/sourcing-journal/sustainability/bangladesh-minimum-wage-increase-garment-workers-1239466520/",
         "source": "WWD",
-        "published": "2026-11-25T18:56:17.000Z",
+        "published": "2026-11-25T22:58:46.000Z",
         "image": "",
-        "summary": "After sifting through the markdowns, here are the Coach finds that deserve your attention (and a little room in your closet)."
+        "summary": "The sector's smallest percentage raise in four decades has left workers short of their demands and manufacturers pressing brands to share the cost."
       },
       {
-        "title": "Where to Watch the Philipp Plein Documentary Series Streaming Online for Free",
-        "url": "https://wwd.com/shop/shop-fashion/watch-philipp-plein-documentary-show-streaming-online-free-1239466135/",
+        "title": "The Best Moisturizers for Softer, Smoother, More Resilient Skin After 40",
+        "url": "https://www.vogue.com/article/moisturizer-for-aging-skin",
+        "source": "Vogue",
+        "published": "2026-11-25T22:56:46.000Z",
+        "image": "https://assets.vogue.com/photos/6b07649241ddc64d59eed43d/master/pass/112526_moisturizerforagingskin_polaroid_beautyholding.jpg",
+        "summary": "Looking for the best moisturizer for aging skin? Experts reveal the best face moisturizer for mature skin over 50 and 60 from Cerave, SkinCeuticals, and more."
+      },
+      {
+        "title": "Summer’s Coolest Manicure Is Fall-Approved, Too, According To Hailey Bieber",
+        "url": "https://www.vogue.com/article/hailey-bieber-charli-xcx-fall-blue-manicure",
+        "source": "Vogue",
+        "published": "2026-11-25T22:52:57.000Z",
+        "image": "https://assets.vogue.com/photos/6b07662e5d85ecbbee18f66b/master/pass/2305235916",
+        "summary": "Charli XCX was spotted with a flash of this shade too."
+      },
+      {
+        "title": "Michael Kors Bags Are Up to 75% Off for Black Friday, With Viral ‘Hamilton’ Satchel Among Discounted Picks",
+        "url": "https://wwd.com/shop/shop-fashion/michael-kors-black-friday-sale-2026-purse-tote-deal-discount-1239429104/",
         "source": "WWD",
-        "published": "2026-11-25T18:49:10.000Z",
+        "published": "2026-11-25T21:58:16.000Z",
         "image": "",
-        "summary": "In an Instagram post promoting the show, the fashion designer wrote that he was \"opening the doors to my world like never before.\""
+        "summary": "Shoppers can get their hands on the covet-worthy pieces at their lowest prices of the year."
       },
       {
-        "title": "The 11 Best Early Black Friday 2026 Skincare Deals for Women Over 50",
-        "url": "https://www.harpersbazaar.com/beauty/skin-care/a74512950/best-black-friday-mature-skin-beauty-sales-deals-2026/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-25T18:46:56.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/129ee4be-1753-415e-a58f-fda5b7d8b612.jpg",
-        "summary": "You can already save up to 40 percent on top brands like Caudalíe, Lyma, and Estée Lauder"
-      },
-      {
-        "title": "North-South Shipping Could Get its First Global Vessel-Sharing Alliance",
-        "url": "https://wwd.com/sourcing-journal/logistics/maersk-one-north-south-shipping-vessel-sharing-alliance-ocean-carriers-1239466190/",
-        "source": "WWD",
-        "published": "2026-11-25T18:32:41.000Z",
-        "image": "",
-        "summary": "Maersk and ONE are reportedly exploring an agreement covering north-south trade lanes, a break from the usual east-west cooperations."
-      },
-      {
-        "title": "Amanda Seyfried Makes the Case for Fall Florals in a Sheer Carolina Herrera Dress",
-        "url": "https://www.harpersbazaar.com/celebrity/latest/a74533467/amanda-seyfried-carolina-herrera-floral-cutout-dress-photos/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-25T18:31:05.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/cda65c90-1803-42eb-80f7-cb27163e40f8.jpg",
-        "summary": "The actor joined Jimmy Fallon in an embellished runway piece"
-      },
-      {
-        "title": "Nike’s Remastered Air Force 1 Sneaker Is Getting a Limited-Edition Metallic Makeover",
-        "url": "https://wwd.com/footwear-news/sneaker-news/nike-air-force-1-01-low-qs-metallic-platinum-release-date-ja0247-001-1239466239/",
-        "source": "WWD",
-        "published": "2026-11-25T18:23:04.000Z",
-        "image": "",
-        "summary": "The Air Force 1 '01 QS is expected to be released soon."
+        "title": "Your Winter Plans Called and They’re Requesting a Fair Isle Knit",
+        "url": "https://www.vogue.com/article/how-to-style-fair-isle-knits",
+        "source": "Vogue",
+        "published": "2026-11-25T21:40:59.000Z",
+        "image": "https://assets.vogue.com/photos/6994bc648c8796340b97b923/master/pass/00021-nili-lotan-fall-2026-ready-to-wear-credit-brand.JPG",
+        "summary": "Discover five ways to style a Fair Isle knit this winter, from après ski looks to holiday hosting."
       }
     ],
     "markets": [
       {
-        "title": "Nvidia leads tech sell-off as Huang comeback rally fizzles and AI concerns return",
-        "url": "https://www.cnbc.com/2026/11/25/nvidia-ai-stock-tech-selloff.html",
+        "title": "South Korea upgrades growth forecast, raises benchmark rates to highest in two years",
+        "url": "https://www.cnbc.com/2026/11/26/bok-rate-decision-korea-gdp-inflation.html",
         "source": "CNBC World",
-        "published": "2026-11-25T19:15:56.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108549914-1794489742468-108549914-1794487406211-gettyimages-2299714527-UK_HUANG.jpg?v=1795450267&w=1920&h=1080",
-        "summary": "Nvidia and other AI-linked stocks fell as investors weighed AI spending, inflation and higher-rate risks."
+        "published": "2026-11-26T03:32:53.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108081278-1735794858312-gettyimages-2186780528-jhk241128007.jpeg?v=1764205808&w=1920&h=1080",
+        "summary": "The central bank raised rates by 25 basis points to 3.25% for its final meeting of the year, in line with expectations from economists."
       },
       {
-        "title": "Grocery stores have ‘staggering deals’ for Thanksgiving — but don’t get used to these lower prices",
-        "url": "https://www.marketwatch.com/story/grocery-stores-have-staggering-deals-for-thanksgiving-but-dont-get-used-to-these-lower-prices-just-yet-7adfc7f5?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T18:52:00.000Z",
-        "image": "https://images.mktw.net/im-61665261",
-        "summary": "Walmart, Target and Amazon are some of the retailers offering meal-basket deals this year."
+        "title": "S&P warns Nvidia credit rating could be cut over 'rising' management and governance risk",
+        "url": "https://www.cnbc.com/2026/11/26/nvidia-market-governance-risk.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T03:19:44.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108559274-1795616819098-gettyimages-2306584360-vcg111684383907.jpeg?v=1795616838&w=1920&h=1080",
+        "summary": "S&P Global Ratings said Nvidia's credit rating could be cut by one notch as it flagged \"rising\" management and governance risk at the chipmaker."
       },
       {
-        "title": "We are living in perilous times if Nvidia’s Jensen Huang dictates your 401(k) balance",
-        "url": "https://www.marketwatch.com/story/we-are-living-in-perilous-times-if-nvidias-jensen-huang-dictates-your-401-k-balance-e0942d1e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T18:00:00.000Z",
-        "image": "https://images.mktw.net/im-58425830",
-        "summary": "Why did a futurist with Huang’s prescient vision build a company where all roads lead to him?"
+        "title": "‘Your booth is waiting’: Denny’s welcomes Jensen Huang back as Nvidia CEO",
+        "url": "https://www.cnbc.com/2026/11/26/dennys-jensen-huang-nvidia.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T03:13:43.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108559710-1795655986080-gettyimages-2290083650-golba-dailylif260808_npNHs.jpeg?v=1795656043&w=1920&h=1080",
+        "summary": "Denny's reaffirmed its longstanding ties with Jensen Huang following his return as Nvidia CEO, revealing that a plaque had been restored."
       },
       {
-        "title": "Why this stock-market selloff is probably going to get worse before it gets better",
-        "url": "https://www.marketwatch.com/story/why-this-stock-market-selloff-is-probably-going-to-get-worse-before-it-gets-better-fce63a89?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T17:39:00.000Z",
-        "image": "https://images.mktw.net/im-73383573",
-        "summary": "Monday’s rally helped to paper over deeper issues that must be resolved before a durable bottom can arrive."
+        "title": "K-beauty stocks rally as Korean brands top Amazon bestseller lists globally ahead of Black Friday",
+        "url": "https://www.cnbc.com/2026/11/26/k-beauty-firms-amazon-sales-black-friday.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T03:09:47.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108559736-1795660395389-gettyimages-2247206554-kalka-economya251121_npTnn.jpeg?v=1795660405&w=1920&h=1080",
+        "summary": "South Korean beauty stocks rose as K-beauty brands dominated Amazon's skincare rankings ahead of Black Friday."
       },
       {
-        "title": "Inflation gets worse. Now the Fed has no choice but to raise U.S. interest rates.",
-        "url": "https://www.marketwatch.com/story/inflation-gets-worse-now-the-fed-no-choice-but-to-raise-u-s-interest-rates-8b0c2c1f?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T17:31:00.000Z",
-        "image": "https://images.mktw.net/im-57804808",
-        "summary": "The measure of inflation used by the Federal Reserve to influence U.S. interest rates rose again in October at an accelerated rate, virtually assuring the central bank will increas"
-      },
-      {
-        "title": "HP’s stock is a standout gainer in the tech rout, as an earnings beat still matters",
-        "url": "https://www.marketwatch.com/story/hps-stock-is-a-standout-gainer-in-the-tech-rout-as-an-earnings-beat-still-matters-8f6c76ad?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T17:24:00.000Z",
-        "image": "https://images.mktw.net/im-59545420",
-        "summary": "PC maker’s ‘low-quality’ beat is enough to propel its shares amid the tech rout."
-      },
-      {
-        "title": "US proposes new tariffs on 14 trading partners, including China, Japan and the EU – as it happened",
-        "url": "https://www.theguardian.com/business/live/2026/nov/25/rise-energy-bills-britain-2166-impossible-high-millions-households-stocks-tumble-as-ai-rally-fizzles-live-updates",
+        "title": "Judge blocks Brendan Carr-led FCC from taking any further action against ABC’s licenses",
+        "url": "https://www.theguardian.com/us-news/2026/nov/25/brendan-carr-fcc-abc-licenses",
         "source": "The Guardian",
-        "published": "2026-11-25T17:19:11.000Z",
-        "image": "https://i.guim.co.uk/img/media/6430214b88ce13af167a04c542a1e9ee28c7de7d/666_0_4400_3520/master/4400.jpg?width=140&quality=85&auto=format&fit=max&s=5a88d52ee254faeff0a5d1f95734b0b7",
-        "summary": "New tariffs planned as Trump administration clamps down on ‘unfair trade practices’ Hannah Webster , senior economist at the think tank New Economics Foundation , also called for o"
+        "published": "2026-11-26T02:52:47.000Z",
+        "image": "https://i.guim.co.uk/img/media/2837d22e6ac7d6b68b6c62587ea76bcc88e46cf7/357_0_4376_3500/master/4376.jpg?width=140&quality=85&auto=format&fit=max&s=d356dd5a573054755e0fd9cb77445888",
+        "summary": "Federal judge Loren L AliKhan grants preliminary injunction in ABC’s favor after network sued FCC in August The federal judge Loren L AliKhan on Wednesday granted a preliminary inj"
       },
       {
-        "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
-        "url": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-25T17:15:00.000Z",
-        "image": "https://images.mktw.net/im-78896707",
-        "summary": "Doing nothing and maintaining an even temperament is often the work of gods."
+        "title": "SpaceX wins FCC approval to deploy 1 million orbital data center satellites",
+        "url": "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T02:35:39.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108368728-1790601399956-Screenshot_2026-09-28_at_91434_AM.png?v=1790601411&w=1920&h=1080",
+        "summary": "SpaceX won approval from the FCC to put 1 million orbital data center satellites into space, a proposal that was opposed by Amazon and other groups."
       },
       {
-        "title": "Prediction markets push OpenAI IPO expectations later into 2027",
-        "url": "https://www.cnbc.com/2026/11/25/openai-ipo-odds-2027-prediction-markets.html",
+        "title": "Norse Atlantic flights suspended after warning finances 'critical'",
+        "url": "https://www.cnbc.com/2026/11/26/norse-airline-finance-business.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T01:52:20.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108559107-1795599475604-gettyimages-1636812756-230831b6_lax_planes_b-gr_13.jpeg?v=1795599522&w=1920&h=1080",
+        "summary": "Norse Atlantic suspended flights as it warned its financial position was \"critical.\" The airline is seeking short-term financing and exploring a potential takeover."
+      },
+      {
+        "title": "South Korea's Kospi leads gains as tech rebound lifts Asia markets",
+        "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T01:45:52.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108094148-1738167165694-gettyimages-2195902460-JAPAN_STOCKS.jpeg?v=1758691768&w=1920&h=1080",
+        "summary": "Japan's Nikkei 225 rose 1.21% in early trade, while the Topix edged 0.71% higher. Australia's S&P/ASX 200 was up 0.15%."
+      },
+      {
+        "title": "Where the market may be mispricing risk most: AI boom, volatility, high-yield bonds",
+        "url": "https://www.cnbc.com/2026/11/26/mispricing-risk-fund-managers-ai-volatility.html",
         "source": "CNBC Markets",
-        "published": "2026-11-25T17:08:03.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108369813-1790712609527-gettyimages-2297765616-_q3a2873_m5g8wtsy.jpeg?v=1790712953&w=1920&h=1080",
-        "summary": "Kalshi traders have cut the odds of OpenAI confirming an IPO before June 2027, as AI stocks and related markets have weakened."
+        "published": "2026-11-26T01:34:58.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108268316-1771829545481-gettyimages-2201260900-omarques_24022025_phone_tech-4.jpeg?v=1771829556&w=1920&h=1080",
+        "summary": "The AI boom could trigger a recession, but data centers remain an attractive investment opportunity, a hedge fund manager said."
       }
     ]
   }
