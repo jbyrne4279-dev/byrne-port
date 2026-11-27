@@ -1,106 +1,114 @@
 {
-  "generatedAt": "2026-11-26T16:54:38.110Z",
+  "generatedAt": "2026-11-27T01:44:16.369Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "How a teen’s death raises questions about Colombia’s security crackdown",
-        "url": "https://www.aljazeera.com/news/longform/2026/11/26/how-a-teens-death-raises-questions-about-colombias-security-crackdown?traffic_source=rss",
+        "title": "Global news agency AFP reports cyberattack, shuts down content platform",
+        "url": "https://www.aljazeera.com/news/2026/11/27/global-news-agency-afp-reports-cyberattack-shuts-down-content-platform?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-26T16:49:59.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AFP__20260925__C9BM766__v1__HighRes__ColombiaConflictDrugs-1795137721.jpg?resize=1920%2C1440",
-        "summary": "President Abelardo de la Espriella's campaign against armed groups has resulted in accusations of extrajudicial killing."
+        "published": "2026-11-27T01:07:44.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b08c392-1795736466.jpg?resize=1920%2C1440",
+        "summary": "France's cybersecurity chief urges collective action to combat unprecedented threat levels in the nation."
       },
       {
-        "title": "Italy says two citizens killed in Iranian strike in Kuwait",
-        "url": "https://www.bbc.co.uk/news/articles/c39w9y5dx4k5o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-26T16:39:30.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/4cbd/live/babaff60-e9ac-11f1-a094-5fdc692f3e33.png",
-        "summary": "The pair were technicians for German company Rheinmetall, according to Italy's foreign ministry."
-      },
-      {
-        "title": "Mandelson tried to influence Starmer’s cabinet reshuffle, new documents reveal – UK politics live",
-        "url": "https://www.theguardian.com/politics/live/2026/nov/26/uk-eu-food-deal-farage-penalty-compensation-reform-net-migration-latest-news-updates",
+        "title": "Threat from China looms large over Taiwan’s local elections",
+        "url": "https://www.theguardian.com/world/2026/nov/27/threat-from-china-looms-large-over-taiwan-local-elections",
         "source": "The Guardian",
-        "published": "2026-11-26T16:34:56.000Z",
-        "image": "https://i.guim.co.uk/img/media/e3b6ac9ef90ac1b1de2bc7f9894728762310b412/433_94_2992_2394/master/2992.jpg?width=140&quality=85&auto=format&fit=max&s=37aae666cd23b18016a8cbf4baa6297d",
-        "summary": "In a WhatsApp exchange Mandelson told Starmer’s chief of staff at the time, Morgan McSweeney, to ‘solve your Darren issue’ – referring to Darren Jones The Liberal Democrats are say"
+        "published": "2026-11-27T01:00:49.000Z",
+        "image": "https://i.guim.co.uk/img/media/46917c80b05c42e1fe661080ca09495a31ff79a7/387_0_3750_3000/master/3750.jpg?width=140&quality=85&auto=format&fit=max&s=fe609d22179f2bf0a6ec3accbe60b685",
+        "summary": "Taiwanese officials raise alarm over interference by China in elections that will shape fortunes of ruling party Taiwanese voters go to the polls on Saturday in closely watched loc"
       },
       {
-        "title": "Two Italians killed by ‘drone strike debris’ in Kuwait",
-        "url": "https://www.aljazeera.com/news/2026/11/26/two-italians-killed-after-iranian-drones-strike-facility-says-kuwait?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-26T16:32:31.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6b0855ffcdbc7-1795708415.jpg?resize=1920%2C1440",
-        "summary": "The Italians were technicians working at an air-defence surveillance station."
-      },
-      {
-        "title": "Nine injured, three critically, after Bangkok oil refinery explosion",
-        "url": "https://www.bbc.co.uk/news/articles/crx209kwk4kzo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-26T16:21:19.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/579b/live/12356f50-e985-11f1-bb43-d1b6102e3b60.jpg",
-        "summary": "Black smoke could be seen across Bangkok's skyline after the blast, as officials urged residents to leave the area."
-      },
-      {
-        "title": "Spanish economist to become new European Central Bank chief",
-        "url": "https://www.aljazeera.com/news/2026/11/26/spanish-economist-to-become-new-european-central-bank-chief?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-26T16:20:54.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2025/03/2025-03-06T083121Z_402932991_RC2MX8A56XFO_RTRMADP_3_ECB-OUTAGES-1741258803.jpg?resize=1920%2C1440",
-        "summary": "This is a breaking news story."
-      },
-      {
-        "title": "Labour’s split over Rosebank oilfield exposed by letter from nearly 100 MPs",
-        "url": "https://www.theguardian.com/politics/2026/nov/26/labour-split-over-rosebank-oilfield-exposed-by-letter-from-nearly-100-mps",
-        "source": "The Guardian",
-        "published": "2026-11-26T16:13:09.000Z",
-        "image": "https://i.guim.co.uk/img/media/3b4b8cb55704a3ce1cd05925a86f51425692e4d8/617_0_4074_3259/master/4074.jpg?width=140&quality=85&auto=format&fit=max&s=06908736da2a2aea64361929ef2eb91b",
-        "summary": "Exclusive: Frontbenchers join scores of party colleagues urging Burnham not to let ministers approve project Opinion: Why Labour MPs are opposing Rosebank Labour’s internal divisio"
-      },
-      {
-        "title": "Georgia judge blocks own order to turn over US election ballot copies to state board",
-        "url": "https://www.theguardian.com/us-news/2026/nov/26/georgia-election-ballots-seized",
-        "source": "The Guardian",
-        "published": "2026-11-26T16:08:04.000Z",
-        "image": "https://i.guim.co.uk/img/media/c8d94de2a08fa77678a2dac6bea1535d4ef86e57/393_0_2420_1936/master/2420.jpg?width=140&quality=85&auto=format&fit=max&s=0f6ee7c3e0a42b65d2090a09e94a60e0",
-        "summary": "Superior court judge Kelly Lee Ellerbe paused the order after county election officials filed a notice of appeal A judge in Fulton county, Georgia , has blocked her own order to tu"
-      },
-      {
-        "title": "Trump says he wants Putin to ‘pull back all military aggression’ in Europe – as it happened",
-        "url": "https://www.theguardian.com/world/live/2026/nov/26/eu-budget-summit-ukraine-russia-spain-serbia-elections-latest-news-updates",
-        "source": "The Guardian",
-        "published": "2026-11-26T15:59:13.000Z",
-        "image": "https://i.guim.co.uk/img/media/1ce3a0578ea68206bed8e850874790711398c96a/222_0_3863_3089/master/3863.jpg?width=140&quality=85&auto=format&fit=max&s=03c76b2118de0137bee18c51f27d4996",
-        "summary": "This blog is now closed The Danish prime minister, Mette Frederiksen, has acknowledged that leaders remain “very far apart,” agreeing with Germany’s Merz that the current proposal "
-      },
-      {
-        "title": "Why is France roiling?",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/26/why-is-france-roiling?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-26T15:57:49.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795708626.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Al Jazeera’s Ramy Allahoum looks at how France's financial crisis is shaping next year’s vote."
-      },
-      {
-        "title": "Hundreds of flights cancelled as severe weather disrupts Thanksgiving travel in US",
+        "title": "Major Thanksgiving storm brings flooding, flight delays across US",
         "url": "https://www.bbc.co.uk/news/articles/ckm2mz3prq77o?at_medium=RSS&at_campaign=rss",
         "source": "BBC News",
-        "published": "2026-11-26T15:57:26.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/260a/live/9b64fe90-e9ac-11f1-859a-37130cd3a1d7.jpg",
-        "summary": "More than 80 million Americans are expected to be traveling as massive storms are forecast on the western and eastern coasts of the US."
+        "published": "2026-11-27T00:52:11.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/af5b/live/7a140030-e9f0-11f1-99b6-a35a62fa4264.jpg",
+        "summary": "Almost one million customers in the US had no power on Thursday evening as storms descended on both US coasts, bringing wind gusts, heavy rain and flooding."
       },
       {
-        "title": "Diesel tanker capsizes near Ibiza, killing crew member",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/26/aje-onl-nf_loaded-diesel-tanker-capsizes-off-ibiza-killing-one-261126?traffic_source=rss",
+        "title": "Met Police ruined my life, says Kenyan man wrongly sentenced over attack on UK couple",
+        "url": "https://www.bbc.co.uk/news/articles/cqvg2nlr8kd8o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-27T00:48:11.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/5cfa/live/2eeecd70-e99f-11f1-b880-15b494ba858d.jpg",
+        "summary": "Evidence from a British police officer helped convict Ali Kololo over a 2011 attack in the Kenyan resort of Lamu."
+      },
+      {
+        "title": "Death-sentenced Sheikh Hasina's planned return puts Bangladesh on edge - and India in a bind",
+        "url": "https://www.bbc.co.uk/news/articles/cx30g71rev23o?at_medium=RSS&at_campaign=rss",
+        "source": "BBC News",
+        "published": "2026-11-27T00:47:43.000Z",
+        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/fe82/live/56152150-e9af-11f1-a094-5fdc692f3e33.jpg",
+        "summary": "The ousted prime minister's December homecoming plan deepens Dhaka-Delhi tensions and risks fresh unrest."
+      },
+      {
+        "title": "Inside Ukraine’s power crisis amid its war with Russia",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/27/inside-ukraines-power-crisis-amid-its-war-with-russia?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-26T15:56:39.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795708592.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Aerial footage shows the capsized Maltese-flagged Med Emre chemical tanker off the Spanish island of Ibiza."
+        "published": "2026-11-27T00:46:19.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795740363.jpg?resize=1920%2C1080&quality=80",
+        "summary": "Electricity and water shortages have become part of daily life in Ukraine’s capital."
+      },
+      {
+        "title": "America’s Thanksgiving holiday seen through different eyes",
+        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/27/americas-thanksgiving-holiday-seen-through-different-eyes?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-27T00:41:28.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795740082.jpg?resize=1920%2C1080&quality=80",
+        "summary": "As millions of Americans celebrate Thanksgiving, Indigenous people gather in Plymouth for the National Day of Mourning."
+      },
+      {
+        "title": "Argentina bars Central Bank from printing money to fund government spending",
+        "url": "https://www.aljazeera.com/news/2026/11/27/argentina-bars-central-bank-from-printing-money-to-fund-government-spending?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-27T00:11:16.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b08cb01-1795738369.jpg?resize=1920%2C1440",
+        "summary": "The South American country's Senate also advances proposal to suspend primary elections ahead of 2027 presidential race."
+      },
+      {
+        "title": "Qantas and Air New Zealand planes too close at Sydney airport as ‘mental models’ of crews to be investigated",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/27/qantas-plane-aborted-landing-sydney-airport-mental-model-investigation",
+        "source": "The Guardian",
+        "published": "2026-11-27T00:10:55.000Z",
+        "image": "https://i.guim.co.uk/img/media/3a39c5f52fb7b585065ce4fc05a813feb4323c1a/146_0_5182_4146/master/5182.jpg?width=140&quality=85&auto=format&fit=max&s=4bc076c51986d8538b6449b136128a82",
+        "summary": "Aborted descent on Wednesday morning is latest in a series of landing incidents at Sydney airport Get our breaking news email , free app or daily news podcast The Australian Transp"
+      },
+      {
+        "title": "Coalition teams up with Labor to pass 20% gas reservation scheme for Australia’s largest exporters",
+        "url": "https://www.theguardian.com/australia-news/2026/nov/26/coalition-to-team-up-with-labor-to-pass-20-gas-reservation-scheme-for-australias-largest-exporters",
+        "source": "The Guardian",
+        "published": "2026-11-27T00:02:10.000Z",
+        "image": "https://i.guim.co.uk/img/media/5e85107add688802688910ec8b127178d48de914/435_0_4350_3480/master/4350.jpg?width=140&quality=85&auto=format&fit=max&s=6f4a4d12b8c33efe85ecbed1e2eea322",
+        "summary": "Labor passes final major piece of legislation for 2026, denying Greens’ bid for 25% tax on exports Get our daily political email , free app or daily news podcast A federal gas rese"
+      },
+      {
+        "title": "Water firms to identify 250,000 vulnerable households in England eligible for discounts",
+        "url": "https://www.theguardian.com/business/2026/nov/27/water-firms-to-identify-250000-vulnerable-households-in-england-eligible-for-discounts",
+        "source": "The Guardian",
+        "published": "2026-11-27T00:01:48.000Z",
+        "image": "https://i.guim.co.uk/img/media/94632807690955606802ebb1b2fec938e14f7658/500_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=28b839ff371b9946686f883c83390475",
+        "summary": "Department for Work and Pensions to provide data about households missing out on WaterSure support scheme Water companies will use government data to identify as many as 250,000 vu"
+      },
+      {
+        "title": "Nearly half of ethnic minority people in UK have faced racism at work in last year, survey finds",
+        "url": "https://www.theguardian.com/world/2026/nov/27/nearly-half-of-ethnic-minority-people-in-uk-have-faced-racism-at-work-in-last-year-survey-finds",
+        "source": "The Guardian",
+        "published": "2026-11-27T00:01:47.000Z",
+        "image": "https://i.guim.co.uk/img/media/2cd51a224b95acff1f82cd61a05255876794a920/534_454_4434_3546/master/4434.jpg?width=140&quality=85&auto=format&fit=max&s=750b4be14d08927c44a3a061062ee95a",
+        "summary": "Figures show impact on mental health, with majority having no confidence HR will take their concerns seriously Nearly half of people from minority ethnic backgrounds have experienc"
       }
     ],
     "ai": [
+      {
+        "title": "Can Elon Musk really put AI datacentres in space? - The Latest",
+        "url": "https://www.theguardian.com/news/video/2026/nov/26/can-elon-musk-really-put-ai-datacentres-in-space-the-latest",
+        "source": "The Guardian",
+        "published": "2026-11-26T18:34:17.000Z",
+        "image": "https://i.guim.co.uk/img/media/7da230064c1eaf9ac951b3f7766a1a4a840051b7/933_0_4663_3731/master/4663.jpg?width=140&quality=85&auto=format&fit=max&s=69727c1464ec8fefc0c01d72e509c049",
+        "summary": "The Trump administration has approved Elon Musk’s plan to create datacentres in space. US federal regulators have authorised the launch of one million Starmind orbital satellites, "
+      },
       {
         "title": "I’m an AI leader at a tech giant. Our industry has stopped taking safety seriously | Anonymous",
         "url": "https://www.theguardian.com/commentisfree/2026/nov/26/ai-leader-tech-giant-trust-safeguarding-privacy-profit",
@@ -164,162 +172,154 @@
         "published": "2026-11-25T16:00:59.000Z",
         "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/ear-note-nothing.jpeg?quality=90&strip=all&crop=0,0,100,100",
         "summary": "Nothing is showing off a much more detailed look at its upcoming AI earbuds ahead of their December 8th release. The Ear Note buds can record your calls, while their charging case "
-      },
-      {
-        "title": "New York bans AI toys, including those using internet to talk to children",
-        "url": "https://www.theguardian.com/us-news/2026/nov/25/new-york-bans-ai-toys",
-        "source": "The Guardian",
-        "published": "2026-11-25T15:29:21.000Z",
-        "image": "https://i.guim.co.uk/img/media/c63cd1b6d68275d8461c1bc612aa99fff6a89fc6/344_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=5d28722a369f9fd83cd445274e6f8376",
-        "summary": "The state attorney general says she would ‘not hesitate to enforce’ the five-year ban signed by Governor Kathy Hochul The New York governor, Kathy Hochul , signed legislation on We"
       }
     ],
     "fashion": [
       {
-        "title": "The Hardest-Working Jacket in Kate Middleton’s Wardrobe Was the Late Queen’s Favourite, Too",
+        "title": "Zara’s Black Friday Sale Is Here—And the Best Finds Won’t Stay in Stock for Long",
+        "url": "https://www.vogue.com/article/zara-black-friday-sale-11-26-2026",
+        "source": "Vogue",
+        "published": "2026-11-26T22:01:00.000Z",
+        "image": "https://assets.vogue.com/photos/6b076a4373002a033dce7553/master/pass/zara%20sale.jpg",
+        "summary": "From essential knits to oversized outerwear and cold-weather accessories, shop the best-of-the-best of Zara’s Black Friday sale."
+      },
+      {
+        "title": "How Costume Designer Trish Summerville Reimagined ’70s Hollywood Style for ‘The Further Mis-Adventures of Cliff Booth’",
+        "url": "https://www.vogue.com/article/the-further-mis-adventures-of-cliff-booth-costumes-trish-summerville-interview",
+        "source": "Vogue",
+        "published": "2026-11-26T17:45:24.000Z",
+        "image": "https://assets.vogue.com/photos/6b081d074b30407c2d9a97f7/master/pass/DSC_6447%20copy%203.jpg",
+        "summary": "From custom-printing vintage shirts for Brad Pitt to channeling Lauren Hutton for Elizabeth Debicki, the longtime David Fincher collaborator breaks down the film’s lived-in ’70s wa"
+      },
+      {
+        "title": "‘Not really the thing to take a victory lap in’: the meaning of Jensen Huang’s new jacket",
+        "url": "https://www.theguardian.com/fashion/2026/nov/26/soft-power-what-jensen-huangs-switch-from-leather-to-cotton-says-about-his-new-image",
+        "source": "The Guardian",
+        "published": "2026-11-26T17:30:40.000Z",
+        "image": "https://i.guim.co.uk/img/media/fb7cea8324429d0c2d9d41c175ee031e5f37efef/0_19_1197_958/master/1197.jpg?width=140&quality=85&auto=format&fit=max&s=4c975233ae5c0cf7b527af3315739950",
+        "summary": "Nvidia’s boss has returned in a new uniform. But what does swapping leather for cotton say about power and leadership? • Don’t get Fashion Statement delivered to your inbox? Sign u"
+      },
+      {
+        "title": "Hôtel de Crillon Taps French Cashmere Brand Kujten for Terrasse Holiday Takeover",
+        "url": "https://wwd.com/fashion-news/fashion-scoops/hotel-de-crillon-kujten-french-cashmere-holiday-takeover-1239467110/",
+        "source": "WWD",
+        "published": "2026-11-26T17:30:14.000Z",
+        "image": "",
+        "summary": "Guests of the Parisian palace’s winter terrasse can sip espresso martinis while sitting on custom cushions and swaddled in blankets."
+      },
+      {
+        "title": "The Body and The Teen Drama Fashion Machine",
+        "url": "https://www.vogue.com/article/the-body-and-the-teen-drama-fashion-machine",
+        "source": "Vogue",
+        "published": "2026-11-26T17:20:04.000Z",
+        "image": "https://assets.vogue.com/photos/6b085fc19b62f4841fe0be6b/master/pass/teen-dramas-vogue-business-story.jpg",
+        "summary": "Coming-of-age series continue to flood streaming services. For fashion brands and resale platforms, they’re no longer a marketing pillar, but a fully fledged positioning strategy."
+      },
+      {
+        "title": "The Art of Being Veruschka: Fashion Pays Tribute to a Legend",
+        "url": "https://www.vogue.com/article/veruschka-tributes",
+        "source": "Vogue",
+        "published": "2026-11-26T17:11:22.000Z",
+        "image": "https://assets.vogue.com/photos/6b06d7ccd56ac22cf02da87f/master/pass/CN00044214.jpg",
+        "summary": "Generations of fashion’s image-makers, designers, and models reflect on the late Veruschka: the woman who made modeling an art form of its own."
+      },
+      {
+        "title": "Kim and Khloé Kardashian’s Beauty Trip Didn’t Quite Go to Plan—Here’s What to Know Before Booking Yours",
+        "url": "https://www.vogue.com/article/kim-khloe-kardashian-beauty-vacation-tourism-tips",
+        "source": "Vogue",
+        "published": "2026-11-26T17:04:29.000Z",
+        "image": "https://assets.vogue.com/photos/6b082647a6bf4b44bc5efd19/master/pass/SnapInsta.to_535801247_18709714162060659_3058230308452666441_n.jpg",
+        "summary": "From vetting practitioners abroad to treatment stacking, experts weigh in on what to know before you go all-in on beauty tourism like the Kardashians."
+      },
+      {
+        "title": "Louis Vuitton Stages a Shanghai Concert With Yuja Wang",
+        "url": "https://wwd.com/fashion-news/designer-luxury/louis-vuitton-the-louis-yuja-wang-concert-1239467077/",
+        "source": "WWD",
+        "published": "2026-11-26T16:48:55.000Z",
+        "image": "",
+        "summary": "The pianist and house ambassador performed at the brand's boat-shaped Shanghai landmark, with Hélène Mercier-Arnault, Pietro Beccari, Jacksong Wang and Liu Yifei among the 300 gues"
+      },
+      {
+        "title": "The Hardest-Working Jacket in Kate Middleton’s Wardrobe Was the Late Queen’s Favorite, Too",
         "url": "https://www.vogue.com/article/kate-middleton-barbour-jacket-queens-favorite",
         "source": "Vogue",
         "published": "2026-11-26T16:43:36.000Z",
         "image": "https://assets.vogue.com/photos/6b085f76cfedfb149083de81/master/pass/GettyImages-2306404629.jpg",
-        "summary": "In Scotland this afternoon, the Princess of Wales swapped embroidered gowns for jeans, scuffed boots and a trusty Barbour jacket, opting for a more relaxed take on her official war"
-      },
-      {
-        "title": "This Jewelry Designer Bride Created Her Own Vintage-Inspired Dress for Her Polish Countryside Wedding",
-        "url": "https://www.vogue.com/article/natalia-kopiszka-something-bold-something-new",
-        "source": "Vogue",
-        "published": "2026-11-26T16:24:22.000Z",
-        "image": "https://assets.vogue.com/photos/6af3863fdeb34de0c7180a9e/master/pass/397.jpeg",
-        "summary": "Natalia Kopiszka, a Polish jewelry designer, couldn’t find her dream wedding dress—so she made one."
-      },
-      {
-        "title": "Pasquale Bruni Opens Paris Flagship on Faubourg Saint-Honoré",
-        "url": "https://wwd.com/accessories-news/jewelry/pasquale-bruni-paris-flagship-opening-european-expansion-1239466929/",
-        "source": "WWD",
-        "published": "2026-11-26T15:47:13.000Z",
-        "image": "",
-        "summary": "The 1,330-square-foot boutique marks a new step in the Italian jeweler’s European expansion, with a two-step London retail development kicking off next week."
-      },
-      {
-        "title": "Dubai-based Fragrance Brand Armaf Inks Partnership With Brazilian Soccer Player, Neymar Jr.",
-        "url": "https://wwd.com/beauty-industry-news/fragrance/armaf-fragrance-brand-neymar-jr-partnership-new-launch-2027-1239466914/",
-        "source": "WWD",
-        "published": "2026-11-26T15:15:55.000Z",
-        "image": "",
-        "summary": "The brand has made a name as one of the top-selling Middle Eastern fragrance brands on Amazon and TikTok Shop."
-      },
-      {
-        "title": "Meet the Vogue & Condé Nast PhotoVogue Committee",
-        "url": "https://www.vogue.com/article/meet-the-vogue-and-conde-nast-photovogue-committee",
-        "source": "Vogue",
-        "published": "2026-11-26T15:10:02.000Z",
-        "image": "https://assets.vogue.com/photos/67e428aa3b55dd439af7220d/master/pass/The%20Vogue%20&%20Conde%CC%81%20Nast%20Committee.jpg",
-        "summary": "Discover the expansive creative community of Vogue and Condé Nast talent from around the world collaborating with PhotoVogue"
-      },
-      {
-        "title": "The Berkshires Are Made for a Soft-Life Getaway",
-        "url": "https://www.harpersbazaar.com/culture/travel-dining/a74532952/berkshires-weekend-getaway-nyc/",
-        "source": "Harper's Bazaar",
-        "published": "2026-11-26T15:00:00.000Z",
-        "image": "https://hips.hearstapps.com/hmg-prod/images/8cad19ae-4b90-4c88-89ea-87b95b389ce0.jpg",
-        "summary": "Two hours from New York City, this corner of Massachusetts pairs farm-fresh finds and open-air beauty with restorative retreats"
-      },
-      {
-        "title": "Puma Taps Adidas Alum Will Newton to Run New Emerging Markets Region",
-        "url": "https://wwd.com/footwear-news/shoe-industry-news/puma-emerging-markets-will-newton-managing-director-1239466893/",
-        "source": "WWD",
-        "published": "2026-11-26T14:50:39.000Z",
-        "image": "",
-        "summary": "He will report to Arne Arens, the company's new chief commercial officer."
-      },
-      {
-        "title": "Rh+ Links With Thermore for Latest Skiwear Collection",
-        "url": "https://wwd.com/fashion-news/fashion-scoops/rh-skiwear-collection-thermore-padding-1239466890/",
-        "source": "WWD",
-        "published": "2026-11-26T14:44:58.000Z",
-        "image": "",
-        "summary": "Crafted from unexpected materials such as velvet and loden, the collection of ski suits features Thermore’s Classic and Ecodown Fibers padding."
-      },
-      {
-        "title": "Dree Hemingway and Conor Sánchez Help Launch JW Anderson’s New Anchor Sneaker",
-        "url": "https://wwd.com/footwear-news/sneaker-news/jw-anderson-anchor-sneaker-dree-hemingway-conor-sanchez-1239466885/",
-        "source": "WWD",
-        "published": "2026-11-26T14:27:54.000Z",
-        "image": "",
-        "summary": "The unisex shoe is inspired by the streamlined proportions of vintage running shoes."
+        "summary": "After a trip to India featuring heirloom jewels and a hand-embroidered anarkali, the Princess of Wales—Kate Middleton—is back in her beloved Barbour."
       }
     ],
     "markets": [
       {
+        "title": "China industrial profits growth surges to a 5-month high of 20.1% in October",
+        "url": "https://www.cnbc.com/2026/11/27/china-industrial-profits-october.html",
+        "source": "CNBC World",
+        "published": "2026-11-27T01:38:00.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108363244-1789497965297-gettyimages-2293419464-vcg111663866789.jpeg?v=1789497999&w=1920&h=1080",
+        "summary": "China's economy has been running at two speeds, with AI-related manufacturing and exports powering growth while household consumption has been lagging."
+      },
+      {
         "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
         "url": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-26T16:30:00.000Z",
+        "published": "2026-11-27T01:15:00.000Z",
         "image": "https://images.mktw.net/im-78896707",
         "summary": "Doing nothing and maintaining an even temperament is often the work of gods."
       },
       {
-        "title": "Trump, NATO chief caution Russia as attacks on Ukraine’s energy infrastructure intensify",
-        "url": "https://www.cnbc.com/2026/11/26/trump-nato-rutte-russia-ukraine-war.html",
-        "source": "CNBC World",
-        "published": "2026-11-26T16:12:47.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108559824-1795686703593-gettyimages-2283165053-ah809023_cxnkwed9.jpeg?v=1795686767&w=1920&h=1080",
-        "summary": "Trump and NATO chief Mark Rutte urged Russia to avoid actions that could expand the war and called for a rapid peaceful resolution."
-      },
-      {
-        "title": "Buyer beware? Nvidia's volatile swings expose risks of single-stock ETFs",
-        "url": "https://www.cnbc.com/2026/11/26/nvidias-volatile-swings-expose-risks-of-single-stock-etfs.html",
-        "source": "CNBC Markets",
-        "published": "2026-11-26T16:00:01.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108557772-1795464253141-gettyimages-2306068172-NVIDIA_HQ.jpeg?v=1795464293&w=1920&h=1080",
-        "summary": "ETF Action founding partner Mike Akins and GraniteShares CEO Will Rhind react to Nvidia's sharp losses and latest comeback."
-      },
-      {
-        "title": "I’m in my 70s and buying a new BMW X1. Should I put my only son on the title?",
-        "url": "https://www.marketwatch.com/story/im-in-my-70s-and-buying-a-new-bmw-x1-should-i-put-my-only-son-on-the-title-25731040?mod=mw_rss_topstories",
+        "title": "I’ve been married for 58 years. It’s ‘our’ money, not ‘his’ and ‘hers.’ Why do so many couples keep their finances separate?",
+        "url": "https://www.marketwatch.com/story/ive-been-married-for-58-years-its-our-money-not-his-and-hers-why-dont-others-feel-the-same-c5745889?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-26T16:00:00.000Z",
-        "image": "https://images.mktw.net/im-34995811",
-        "summary": "“Given my age, I never make a major new purchase without thinking about the future.”"
-      },
-      {
-        "title": "Nvidia chip buyers told to rule out Chinese renters to buy GPUs, sources say",
-        "url": "https://www.cnbc.com/2026/11/26/neoclouds-nvidia-china-ai.html",
-        "source": "CNBC World",
-        "published": "2026-11-26T15:34:08.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108553116-1794927200152-gettyimages-2305495249-vcg111682705669.jpeg?v=1794927260&w=1920&h=1080",
-        "summary": "A new BIS rule was intended to close \"loopholes,\" U.S. Trade Representative Jamieson Greer told CNBC's \"Squawk Box\" on Wednesday."
+        "published": "2026-11-27T01:00:00.000Z",
+        "image": "https://images.mktw.net/im-86538053",
+        "summary": "“My wife stopped working outside the home in 1970.”"
       },
       {
         "title": "We are living in perilous times if Nvidia CEO Jensen Huang dictates your 401(k) balance",
         "url": "https://www.marketwatch.com/story/we-are-living-in-perilous-times-if-nvidias-jensen-huang-dictates-your-401-k-balance-e0942d1e?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-26T15:30:00.000Z",
+        "published": "2026-11-27T00:31:00.000Z",
         "image": "https://images.mktw.net/im-58425830",
         "summary": "Why did a futurist with Huang’s prescient vision build a company where all roads lead to him?"
       },
       {
-        "title": "Spain’s Pablo Hernández de Cos set to lead European Central Bank",
-        "url": "https://www.cnbc.com/2026/11/26/pablo-hernandez-de-cos-ecb-president.html",
+        "title": "Sovereign wealth funds are acting more like private equity giants — and inheriting their risks",
+        "url": "https://www.cnbc.com/2026/11/27/swf-private-equity-risks.html",
         "source": "CNBC World",
-        "published": "2026-11-26T15:28:26.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108556424-1795181552746-gettyimages-2294015150-aditya-notitle260910_npipj.jpeg?v=1795181613&w=1920&h=1080",
-        "summary": "De Cos will lead the ECB into a period of political uncertainty and choppy growth, after winning the backing needed to succeed Christine Lagarde next year."
+        "published": "2026-11-27T00:22:29.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108356338-1788181104655-gettyimages-667735328-_mg_5102.jpeg?v=1788181165&w=1920&h=1080",
+        "summary": "Sovereign wealth funds are increasingly originating deals, taking controlling stakes and building their own investment platforms."
       },
       {
-        "title": "My husband secretly sends his ex-wife $1,500 a month after she lost her job. We have $2.4 million saved. Has he lied by omission?",
-        "url": "https://www.marketwatch.com/story/my-husband-secretly-sends-his-ex-wife-1-500-a-month-after-she-lost-her-job-we-have-2-4-million-saved-has-he-lied-by-omission-ede1972a?mod=mw_rss_topstories",
+        "title": "‘I’ve been a stay-at-home mom’: I’m 50 and have a chronic illness. My husband lost his job. Should he raid his 401(k)?",
+        "url": "https://www.marketwatch.com/story/ive-been-a-stay-at-home-mom-im-50-and-have-a-chronic-illness-my-husband-lost-his-job-should-he-raid-his-401-k-63e59123?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-26T15:13:00.000Z",
-        "image": "https://images.mktw.net/im-93318812",
-        "summary": "“He explained that he wasn’t trying to hide the payment, but his former wife lost her job in a medical billing company.”"
+        "published": "2026-11-26T22:00:00.000Z",
+        "image": "https://images.mktw.net/im-96657818",
+        "summary": "“Our financial and healthcare situation has become increasingly concerning.”"
       },
       {
-        "title": "This retired professor has reinvented himself — as a Taylor Swift scholar",
-        "url": "https://www.marketwatch.com/story/this-retired-professor-has-reinvented-himself-as-a-taylor-swift-scholar-88456c8d?mod=mw_rss_topstories",
+        "title": "I’m terrified of a market crash. Should I put $400,000 of my $1 million retirement savings into an annuity?",
+        "url": "https://www.marketwatch.com/story/were-in-our-50s-and-terrified-of-a-market-crash-should-we-put-400-000-of-our-1-million-retirement-savings-into-an-annuity-1943f240?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "published": "2026-11-26T14:35:00.000Z",
-        "image": "https://images.mktw.net/im-69887372",
-        "summary": "His niece convinced him to spend his retirement analyzing Taylor Swift lyrics. Now he’s a successful podcaster at 72."
+        "published": "2026-11-26T21:45:00.000Z",
+        "image": "https://images.mktw.net/im-36389545",
+        "summary": "“We have a house worth $450,000. Our combined annual income is $125,000.”"
+      },
+      {
+        "title": "Trump demands probe into ‘record setting error’ after third-quarter GDP data gets massive revision higher",
+        "url": "https://www.cnbc.com/2026/11/26/trump-gdp-revision-investigation.html",
+        "source": "CNBC World",
+        "published": "2026-11-26T21:13:17.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108558897-1795558539233-gettyimages-2306217982-TRUMP_TURKEY_PARDON.jpeg?v=1795558966&w=1920&h=1080",
+        "summary": "President Donald Trump on Thursday deemed the latest gross domestic product revision a mistake, claiming that it should be \"immediately investigated.\""
+      },
+      {
+        "title": "A 66-year-old nurse is facing down retirement with just $500 saved. Who’s to blame?",
+        "url": "https://www.marketwatch.com/story/a-66-year-old-nurse-faces-retirement-with-just-500-saved-whos-to-blame-4249a0fd?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-26T19:00:00.000Z",
+        "image": "https://images.mktw.net/im-83830528",
+        "summary": "“Retirement is a financial status, not an age.”"
       }
     ]
   }
