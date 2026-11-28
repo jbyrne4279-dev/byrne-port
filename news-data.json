@@ -1,106 +1,130 @@
 {
-  "generatedAt": "2026-11-27T23:27:30.017Z",
+  "generatedAt": "2026-11-28T07:48:56.008Z",
   "total": 39,
   "buckets": {
     "breaking": [
       {
-        "title": "Behind China's spectacular rise, voices who defied it say they are being drowned out",
-        "url": "https://www.bbc.co.uk/news/articles/cme3d4y094x7o?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-27T23:02:35.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c091/live/9ead0190-ea44-11f1-9fc4-ef897a334b75.jpg",
-        "summary": "China's immense clout now also has the flex of soft power. Critics and dissidents say their voices are being drowned out."
-      },
-      {
-        "title": "Charity set up by Captain Tom Moore’s family applies to be struck off",
-        "url": "https://www.theguardian.com/uk-news/2026/nov/27/charity-set-up-by-captain-tom-moores-family-applies-to-be-struck-off",
+        "title": "Victorian election 2026 live updates: polls point to Coalition win over Labor in state election results – latest news",
+        "url": "https://www.theguardian.com/australia-news/live/2026/nov/28/victorian-election-live-results-updates-premier-ben-carroll-jess-wilson-warren-pickering-2026-victoria-polls-votes-latest-news-ntwnfb",
         "source": "The Guardian",
-        "published": "2026-11-27T23:02:04.000Z",
-        "image": "https://i.guim.co.uk/img/media/3c6aab368545820aa749338a8b5e89de937a4299/234_538_1785_1428/master/1785.jpg?width=140&quality=85&auto=format&fit=max&s=99a7e2e1cc28581ebd9634c20019cd7d",
-        "summary": "Watchdog had found ‘repeated’ misconduct by veteran’s daughter and her husband in running the foundation A charity set up by the family of the pandemic fundraiser Captain Sir Tom M"
+        "published": "2026-11-28T07:35:12.000Z",
+        "image": "https://i.guim.co.uk/img/media/bb2db059012c85c6edac6613a79e6cc7f16055f1/0_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=033aba6c79bd77cdb16e282fc8422b86",
+        "summary": "Follow live updates today and results tonight as Labor’s Ben Carroll and Liberal leader Jess Wilson seek victory in Victoria’s state election Victoria election live results: votes "
       },
       {
-        "title": "Breaking through enemy blockade is underway: Iran Navy chief dismisses US blockade in Strait of Hormuz - The Tribune",
-        "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNNS1vekwwajlobEFTRDIyRUxCNXhFa3FldWJTVXJxZzZtc1hUeUZmdWxmd2YzNmVQd05LR3JKdFd1Q29ScnROZnRnWUdxYkdLU1o1VVg1RHNzVF9KUmdQLU8zS0dRS2pSN0d2T1hVY0J3UTFVeVc1TVFuel9Lc0lxQUhyVkJpQXA5YTg2d05JdnUtcUZfM3l0UzAxaWo1UFlMc3lfR2NidnlFYWJNbHo3U2NtblN4WXc3bWVGZUJDRHZiT2ZXUWRGZGdaRXFOWUdRMDE2bWtvNXFOWXlreFpJ0gHfAUFVX3lxTE01LW96TDBqOWhsQVNEMjJFTEI1eEVrcWV1YlNVcnFnNm1zWFR5RmZ1bGZ3ZjM2ZVB3TktHckp0V3VDb1JydE5mdGdZR3FiR0tTWjVVWDVEc3NUX0pSZ1AtTzNLR1FLalI3R3ZPWFVjQndRMVV5VzVNUW56X0tzSXFBSHJWQmlBcDlhODZ3Tkl2dS1xRl8zeXRTMDFpajVQWUxzeV9HY2J2eUVhYk1sejdTY21uU3hZdzdtZUZlQkNEdmJPZldRZEZkZ1pFcU5ZR1EwMTZta281cU5ZeWt4Wkk?oc=5",
-        "source": "The Tribune",
-        "published": "2026-11-27T22:52:27.000Z",
+        "title": "Uganda starts mRNA Ebola vaccine trial in first for Africa",
+        "url": "https://www.aljazeera.com/news/2026/11/28/uganda-starts-mrna-ebola-vaccine-trial-in-first-for-africa?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-28T07:22:17.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/AP26329472525576-1795846807.jpg?resize=1920%2C1440",
+        "summary": "The trial targets the less common Bundibugyo strain behind the Ebola outbreak in neighbouring DRC."
+      },
+      {
+        "title": "How Israel is fast-tracking data centres in bid to become ‘AI superpower’",
+        "url": "https://www.aljazeera.com/news/2026/11/28/how-israel-is-fast-tracking-data-centres-in-bid-to-become-ai-superpower?traffic_source=rss",
+        "source": "Al Jazeera",
+        "published": "2026-11-28T07:21:22.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af35c77cb29-1794333815.jpg?resize=1920%2C1440",
+        "summary": "Israel is looking to data centres to boost its data processing, military strength and global clout."
+      },
+      {
+        "title": "Red Bull BC One World Final Camp Results 2026 - Red Bull",
+        "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOaERFcXFkM1IyRVRIQ2xOOHp2RU55ZUVzVG0zZURJeG1xT2E5R1pyYkU2bzh2RDY2VFB3YVZCUnhiOEl4eVNmV21DRW5JRDZYN2dPUk5tcHdpbXp2amZPVk03RVF4TU9GLVctWXdWMzZfZ3RJZXNzbm1TRUh5RXZ1YzBSamE0ODFISndtVElHdXNXR1l5V0h5M20tVkg1T3BpMTdYMnVJa2VKeEN3X1pyV3B3ODJlVENKVUE?oc=5",
+        "source": "Red Bull",
+        "published": "2026-11-28T07:18:20.000Z",
         "image": "",
-        "summary": "Breaking through enemy blockade is underway: Iran Navy chief dismisses US blockade in Strait of Hormuz The Tribune"
+        "summary": "Red Bull BC One World Final Camp Results 2026 Red Bull"
       },
       {
-        "title": "Kenyan cult leader guilty of manslaughter more than 123 starvation deaths",
-        "url": "https://www.aljazeera.com/news/2026/11/27/kenyan-cult-leader-guilty-of-manslaughter-more-than-123-starvation-deaths?traffic_source=rss",
+        "title": "Trump’s tariffs have become America’s new normal",
+        "url": "https://www.aljazeera.com/opinions/2026/11/28/trumps-tariffs-have-become-americas-new-normal?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-27T22:33:17.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/epa_6b09fbef6bcd-1795816431.jpg?resize=1920%2C1440",
-        "summary": "Paul Mackenzie, already serving 200 years, is the founder and pastor of the Good News International Church."
+        "published": "2026-11-28T06:57:19.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2026-11-06T110126Z_2145072911_RC2XHOA6JC3U_RTRMADP_3_USA-TRUMP-TRUMPMEDIA-1795848849.jpg?resize=1920%2C1440",
+        "summary": "Even a Democratic administration may struggle to reverse tariffs that help finance Trump's tax cuts."
       },
       {
-        "title": "US military says it disabled merchant ship trying to breach Iran blockade",
-        "url": "https://www.aljazeera.com/news/2026/11/27/us-military-says-it-disabled-merchant-ship-trying-to-breach-iran-blockade?traffic_source=rss",
+        "title": "Mental health patients refusing NHS treatment over shared therapy notes",
+        "url": "https://www.theguardian.com/society/2026/nov/28/mental-health-patients-refusing-nhs-treatment-medical-history-shared",
+        "source": "The Guardian",
+        "published": "2026-11-28T06:47:29.000Z",
+        "image": "https://i.guim.co.uk/img/media/004c94c765569b58a3c94c48e641df8c020432a6/605_0_6030_4827/master/6030.jpg?width=140&quality=85&auto=format&fit=max&s=a5bc46a68538e509d395d49c01386282",
+        "summary": "Exclusive: Uploading of intimate psychiatric information to wider medical records prompts some to shun support altogether Some psychiatric patients are refusing treatment over the "
+      },
+      {
+        "title": "Who is Tomoka Nishiyama, the woman breaking a century-old barrier in Japanese shogi? - News9live",
+        "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPVFpHZlAzLUZpMFczbUdQbExiUWtkc1hTVzhlbmY4a3RBMWFIZWE2RUozTVpDNkc2bzhyanNrLTNvMXFhQU9wYkhoRGJ4YXVyVENsSVhxalppWlRFX0JFYXNUbU11WUtDeFhCRTQzNlk2WkZVUldCVkxhYmVjdk5ycU15aGFVaFZiMVAzbURqOUpCWHUzY3FRbTJMZHZGVUtPWFI0d1h4QU5oSzFsUzIxcE83WGVGRVVJQWxDWkhMSdIBxAFBVV95cUxOeGo3MzFWaGVlQ3pyMmU3UnQzaUhSeGw4S0R1bFQ1U0dqa09LRDZMS0ZLMU9LeFUyU3ktN3h2TWxVOVAtelhrR3lSNF8xT09xcGhNbTVFZy1IOHFqck9lVjQwRk1relFSNjFITnlSYWh4ZjJjWE5HcndadDBIY1Bfc014NmRsT0RCTEQzakVEU0hFbFRpenFReE5RVDFKQnlhcTBMWTI4WTN1NklpY0NFeGJ1T0dwM1EtZjFRWllQMHUxM0Y2?oc=5",
+        "source": "News9live",
+        "published": "2026-11-28T06:39:54.000Z",
+        "image": "",
+        "summary": "Who is Tomoka Nishiyama, the woman breaking a century-old barrier in Japanese shogi? News9live"
+      },
+      {
+        "title": "Elon Musk can afford a little MAGA amnesia",
+        "url": "https://www.aljazeera.com/opinions/2026/11/28/elon-musk-can-afford-a-little-maga-amnesia?traffic_source=rss",
         "source": "Al Jazeera",
-        "published": "2026-11-27T22:22:02.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6afba6a9-1794877097.jpg?resize=1920%2C1440",
-        "summary": "The US military says it disabled the Palau-flagged ship’s propulsion but its crew was unharmed."
+        "published": "2026-11-28T06:25:24.000Z",
+        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/ap_6b0970a38b9ad-1795780771_267de2-1795847053.jpg?resize=1200%2C630&quality=80",
+        "summary": "His failed bet on the Republicans has done nothing to diminish the bipartisan appeal of his fortune."
       },
       {
-        "title": "Thousands still without power after storms that snarled Thanksgiving travel",
-        "url": "https://www.theguardian.com/us-news/2026/nov/27/heavy-rain-wind-flooding-us-thanksgiving",
+        "title": "Palestinian tells of ‘devastating’ struggle after being made redundant by EU in Gaza",
+        "url": "https://www.theguardian.com/world/2026/nov/28/mohammad-baraka-palestinian-eu-gaza-redundancy-pay-access",
         "source": "The Guardian",
-        "published": "2026-11-27T22:14:56.000Z",
-        "image": "https://i.guim.co.uk/img/media/13899cb7af4121d5aac3418608943d1e81f34df4/95_0_2500_2001/master/2500.jpg?width=140&quality=85&auto=format&fit=max&s=c632060565bcd372c1823ea711eb5290",
-        "summary": "Heavy rains and high winds downed trees and power lines and led to water rescues from New York to Virginia Skies cleared along the US eastern seaboard on Friday, and power was bein"
+        "published": "2026-11-28T06:00:34.000Z",
+        "image": "https://i.guim.co.uk/img/media/fa5a5cac1eb2fc8328bff1d0190f9de2e0928a91/0_79_502_402/master/502.jpg?width=140&quality=85&auto=format&fit=max&s=698f8150cca5ae8ef4c34c52a8009b92",
+        "summary": "Mohammad Baraka unable to access redundancy pay for almost 20 years’ service as family’s situation becomes ‘increasingly desperate’ A Palestinian man who worked for the EU in Gaza "
       },
       {
-        "title": "Prosecutors seek 25-year prison term for 'poison seller' Kenneth Law",
-        "url": "https://www.bbc.co.uk/news/articles/cmx2898wq2qjo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-27T22:03:46.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6398/live/0d6eb230-5b6c-11f1-a914-b7de1b16af02.jpg",
-        "summary": "The Canadian man, who pleaded guilty to 14 counts of aiding and abetting suicide earlier this year, will be sentenced at a later date."
-      },
-      {
-        "title": "Princess of Wales documentary Heal charts ‘pilgrimage’ after cancer treatment",
-        "url": "https://www.theguardian.com/uk-news/2026/nov/27/catherine-princess-of-wales-heal-documentary-cancer",
+        "title": "Stunted sprouts: heatwaves and drought take toll on festive vegetable",
+        "url": "https://www.theguardian.com/business/2026/nov/28/sprouts-smaller-than-usual-heatwaves-drought-festive-vegetable",
         "source": "The Guardian",
-        "published": "2026-11-27T22:00:21.000Z",
-        "image": "https://i.guim.co.uk/img/media/a11a20908b66f136ae3b496074b25217cbc0b583/180_0_2700_2160/master/2700.jpg?width=140&quality=85&auto=format&fit=max&s=24a9dd38ea8ef219f57eb0637bd1fe66",
-        "summary": "BBC film follows Catherine as she undertakes Three Peaks challenge to search for what life can be post-chemotherapy On the day the Princess of Wales undertook the Three Peaks chall"
+        "published": "2026-11-28T06:00:34.000Z",
+        "image": "https://i.guim.co.uk/img/media/60e5c88dc6e8b92522341cef05d9996c4212e6a8/0_309_2142_1714/master/2142.jpg?width=140&quality=85&auto=format&fit=max&s=6154beea9d0f8bcb2042e6bf4edaace7",
+        "summary": "The Christmas staple is smaller this year after a hot, dry summer hit the water-loving – but versatile – brassica They are a key ingredient in many Christmas dinners, but brussels "
       },
       {
-        "title": "‘Activists of rhythm’: Fighting Spain’s far-right through art",
-        "url": "https://www.aljazeera.com/video/newsfeed/2026/11/27/activists-of-rhythm-fighting-spains-far-right-through-art?traffic_source=rss",
-        "source": "Al Jazeera",
-        "published": "2026-11-27T21:59:11.000Z",
-        "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/image-1795816686.jpg?resize=1920%2C1080&quality=80",
-        "summary": "Madrid’s La Parceria and Espacio Afro cultural centres are using the arts to fight racism and boost migrant voices."
+        "title": "Butcher, rugby international and sumo wrestler: the South African woman breaking boundaries in Antrim - The Irish Times",
+        "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbkktZWtqNXVUQlhzRXhRdnEzRWdLdDQ4TklncUZsY3RTRUROMjBNMjJ3LXdwd0RqY1FscGhXMG9JdlQ1Q25fVExXUS1lVHJZR3RhWl9oRXZBN1hPc3NqajIxUk5HbGNDam5GUHFnMlBsdDgxdDBjdmJsVmlvelFzbXpxdlhOOThvalYwdjh5NTVzVUNMa20yM0RDdXpSbFZZQ3dXa1dZTzg0VGJYQ3FmTjUxSjZsRDBuV0ZScWc5c3paRHdTQzB3SjVmZVNvZUVmNngyQ3FKdHkzTUU?oc=5",
+        "source": "The Irish Times",
+        "published": "2026-11-28T05:01:51.000Z",
+        "image": "",
+        "summary": "Butcher, rugby international and sumo wrestler: the South African woman breaking boundaries in Antrim The Irish Times"
       },
       {
-        "title": "Spanish PM and rivals rally supporters in final pitch for votes",
-        "url": "https://www.bbc.co.uk/news/articles/c8wy5p4gdnwvo?at_medium=RSS&at_campaign=rss",
-        "source": "BBC News",
-        "published": "2026-11-27T21:55:53.000Z",
-        "image": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1bb1/live/dd63ff10-ea99-11f1-a094-5fdc692f3e33.jpg",
-        "summary": "Prime Minister Pedro Sánchez wants to defy the polls, and his main rivals accuse him of not telling the truth and of \"betrayal\"."
-      },
-      {
-        "title": "Elderly ‘Scrooge’ severs neighbour’s Christmas lights in mobility-scooter raid",
-        "url": "https://www.theguardian.com/uk-news/2026/nov/27/elderly-scrooge-severs-neighbours-christmas-lights-in-mobility-scooter-raid",
+        "title": "La succession: France’s wealthiest family said to be battling over who will take over LVMH",
+        "url": "https://www.theguardian.com/business/2026/nov/28/french-succession-bernard-arnault-lvmh",
         "source": "The Guardian",
-        "published": "2026-11-27T21:31:40.000Z",
-        "image": "https://i.guim.co.uk/img/media/31002f7557ad88f90058fb5bc878bbf4f6900edd/4_0_844_675/master/844.jpg?width=140&quality=85&auto=format&fit=max&s=b0306ba3651f2a7f4bc12b3e7e67701b",
-        "summary": "CCTV shows unidentified woman taking scissors to Middlesbrough home’s festive display An elderly woman has been accused of defying the season of goodwill after appearing to cut dow"
-      },
-      {
-        "title": "‘Abusive and insulting to Canadians’: campaign to oust US ambassador presented to parliament",
-        "url": "https://www.theguardian.com/world/2026/nov/27/pete-hoekstra-canada-us-ambassador-petition",
-        "source": "The Guardian",
-        "published": "2026-11-27T21:24:10.000Z",
-        "image": "https://i.guim.co.uk/img/media/fdc570eb861d6cc0d756cc291a726de34670d964/418_0_4164_3332/master/4164.jpg?width=140&quality=85&auto=format&fit=max&s=f9e753676a68320c2d147c2a5561d6a1",
-        "summary": "Hundreds of thousands of Canadians call for Pete Hoekstra to be declared ‘persona non grata’ A petition signed by nearly 290,000 Canadians calling on Mark Carney’s government to ou"
+        "published": "2026-11-28T05:00:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/c46ffd41bf96b580a798224da7f19715e474c84a/929_0_5000_4000/master/5000.jpg?width=140&quality=85&auto=format&fit=max&s=9a4897c07361442e44e44358473596ab",
+        "summary": "Bernard Arnault’s children – described as ‘modern-day French royals’ – are subject of rivalry rumours over who will succeed him They are France’s richest family, leading the world’"
       }
     ],
     "ai": [
+      {
+        "title": "Grand Theft Anthropic: how GTA can inspire a fightback against AI | Alexander Hurst",
+        "url": "https://www.theguardian.com/commentisfree/2026/nov/28/grand-theft-anthropic-gta-fightback-against-ai",
+        "source": "The Guardian",
+        "published": "2026-11-28T07:00:34.000Z",
+        "image": "https://i.guim.co.uk/img/media/2122b6767c4f00241ae28941d7083ad487bff8c5/329_0_2428_1942/master/2428.jpg?width=140&quality=85&auto=format&fit=max&s=ef5f503eaa4a040eaf644813a67f1530",
+        "summary": "As Anthropic cashes in on the stock market, human-made masterpieces need greater defence from endless extraction Grand Theft Auto VI came out on the same day that Anthropic made it"
+      },
+      {
+        "title": "AI labs sitting on ‘bombshell’ revelations that could cause global chaos, experts warn",
+        "url": "https://www.theguardian.com/technology/2026/nov/28/ai-artificial-intelligence-encryption-global-chaos",
+        "source": "The Guardian",
+        "published": "2026-11-28T05:00:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/f08944d0a359b09c93c14ea8aeeac1ec4a540ba1/1397_0_5399_4320/master/5399.jpg?width=140&quality=85&auto=format&fit=max&s=471d54a8ec6343f8bb2eeba54c218081",
+        "summary": "Exclusive: AI may have cracked decades-old maths problems that underpin encryption at banks and government agencies AI companies are sitting on “bombshell” revelations that could d"
+      },
+      {
+        "title": "Could AI break encryption? What mathematical breakthroughs mean for cybersecurity",
+        "url": "https://www.theguardian.com/technology/2026/nov/28/could-ai-break-encryption-what-mathematical-breakthroughs-mean-for-cybersecurity",
+        "source": "The Guardian",
+        "published": "2026-11-28T05:00:30.000Z",
+        "image": "https://i.guim.co.uk/img/media/7b3c245cf23380f751f0177a251f8961f4cecd5a/0_0_2502_2003/master/2502.jpg?width=140&quality=85&auto=format&fit=max&s=1f74c586765dac1ab1ac3885371cc851",
+        "summary": "Experts suggest AI companies may be sitting on ‘bombshell’ that could have severe consequences for secret information Leading experts and the governor of the Bank of England have s"
+      },
       {
         "title": "Trump is destroying the rule of law in the US – to protect himself and the tech titans he worships as new gods | Jonathan Freedland",
         "url": "https://www.theguardian.com/commentisfree/2026/nov/27/donald-trump-destroying-us-law-tech-titans-jensen-huang-nvidia",
@@ -148,40 +172,40 @@
         "published": "2026-11-27T10:00:02.000Z",
         "image": "https://i.guim.co.uk/img/media/b00b5e8e8d672e254701571ca7a06b5d31716990/950_531_4337_3469/master/4337.jpg?width=140&quality=85&auto=format&fit=max&s=88f707a2ab8bf753941c28b1c5bcd775",
         "summary": "Labor leaders and advocates urge protections for workers and consumers as AI use becomes more commonplace As millions of Americans begin holiday shopping this Black Friday, consume"
-      },
-      {
-        "title": "‘I am scared’: Careless People author Sarah Wynn-Williams on living under a gag order - and why it’s time to speak out against big tech",
-        "url": "https://www.theguardian.com/books/2026/nov/27/careless-people-author-sarah-wynn-williams-the-silence-is-mine-it-doesnt-have-to-be-yours",
-        "source": "The Guardian",
-        "published": "2026-11-27T10:00:01.000Z",
-        "image": "https://i.guim.co.uk/img/media/bce0280d37537d266d3ab1f3d051baf4a80e95d6/683_0_6827_5464/master/6827.jpg?width=140&quality=85&auto=format&fit=max&s=9f6351449e52127a4ddd0d8f650a78b7",
-        "summary": "Since writing her bestselling exposé, the former employee has been forbidden from speaking publicly about Meta. In an exclusive extract from her Orwell lecture, she talks about cor"
-      },
-      {
-        "title": "Pizza history: AI agent’s cardless purchase is a first for UK",
-        "url": "https://www.theguardian.com/business/2026/nov/27/ai-agent-cardless-transaction-pizza-papa-john-uk-fca-truelayer",
-        "source": "The Guardian",
-        "published": "2026-11-27T09:53:11.000Z",
-        "image": "https://i.guim.co.uk/img/media/bf6bce003fbe74cd0f36f89414dd7b2fb6f3888f/996_0_5020_4016/master/5020.jpg?width=140&quality=85&auto=format&fit=max&s=cc476f12dc0c009172d0f11ea897ec28",
-        "summary": "Papa John’s order was made without sharing bank security details – tech that could revolutionise shopping Retailers enter the unknown with AI shopping assistants on Black Friday An"
-      },
-      {
-        "title": "Natural England objected to a datacentre. Weeks later ministers threatened to abolish the agency",
-        "url": "https://www.theguardian.com/environment/2026/nov/27/natural-england-objected-datacentre-ministers-abolish-bristol",
-        "source": "The Guardian",
-        "published": "2026-11-27T07:00:57.000Z",
-        "image": "https://i.guim.co.uk/img/media/b5748b57a64addd2c5bb997a92af840adb787b60/1358_0_4536_3629/master/4536.jpg?width=140&quality=85&auto=format&fit=max&s=fcc73496bafea207577837b9037886d4",
-        "summary": "Body urged Bristol city council to reject plan because of risk to nearby protected wildlife and habitats Natural England objected to the building of a large AI datacentre near Bris"
       }
     ],
     "fashion": [
       {
+        "title": "Victoria Beckham Pre-Fall 2027",
+        "url": "https://www.vogue.com/fashion-shows/pre-fall-2027/victoria-beckham",
+        "source": "Vogue",
+        "published": "2026-11-28T07:47:52.000Z",
+        "image": "https://assets.vogue.com/photos/6b083211e4152c646ed98c60/master/pass/00001-victoria-beckham-pre-fall-2027-credit-brand.jpg",
+        "summary": ""
+      },
+      {
         "title": "McQueen Pre-Fall 2027",
         "url": "https://www.vogue.com/fashion-shows/pre-fall-2027/alexander-mcqueen",
         "source": "Vogue",
-        "published": "2026-11-27T23:26:30.000Z",
+        "published": "2026-11-28T07:47:52.000Z",
         "image": "https://assets.vogue.com/photos/6b0708d4d35b5afde2e68468/master/pass/00001-alexander-mcqueen-pre-fall-2027-credit-brand.jpg",
         "summary": ""
+      },
+      {
+        "title": "Cozy Winter Shoe Styling Inspiration From Jennifer Lawrence, Timothée Chalamet and More Celebrities",
+        "url": "https://wwd.com/footwear-news/shoe-trends/cozy-winter-shoe-inspiration-celebrity-style-1239464883/",
+        "source": "WWD",
+        "published": "2026-11-28T07:00:00.000Z",
+        "image": "",
+        "summary": "From Jennifer Lawrence in The Row velvet slippers to Timothée Chalamet in Uggs, find styling inspiration for cozy winter shoes."
+      },
+      {
+        "title": "‘The Secret Lives of Mormon Wives’ Beauty Evolution: From Utah Curls to Bouncy Blowouts",
+        "url": "https://wwd.com/pop-culture/celebrity-news/the-secret-lives-of-mormon-wives-beauty-evolution-1239405032/",
+        "source": "WWD",
+        "published": "2026-11-28T06:00:00.000Z",
+        "image": "",
+        "summary": "WWD takes a deeper look at the hair and glam of Hulu's hit reality show."
       },
       {
         "title": "The Best Black Friday Fashion Deals, According to My Most Stylish Colleagues",
@@ -222,33 +246,41 @@
         "published": "2026-11-27T22:01:00.000Z",
         "image": "https://assets.vogue.com/photos/6b09d4d35c2e32babe2af2fb/master/pass/20261006_CONDENASTFASHION_64075.jpg",
         "summary": "From boots to cold-weather accessories, outerwear and denim, these are the Black Friday deals Vogue editors have bookmarked."
-      },
-      {
-        "title": "There’s More to Adidas Than the Samba, and Its Black Friday Sale Is Proof — With Shoes Up to 60% Off",
-        "url": "https://wwd.com/shop/shop-shoes/adidas-black-friday-sale-trending-sneaker-deals-1239467792/",
-        "source": "WWD",
-        "published": "2026-11-27T21:19:39.000Z",
-        "image": "",
-        "summary": "From slim retro silhouettes to sneakers that double as Mary Janes, Adidas’ Black Friday sale is an excuse to diversify your footwear collection."
-      },
-      {
-        "title": "On’s Under-the-Radar Black Friday Sale Includes Some of Its Most Popular Sneakers (With Finds Under $100)",
-        "url": "https://wwd.com/shop/shop-shoes/on-black-friday-sale-best-sneaker-deals-1239467752/",
-        "source": "WWD",
-        "published": "2026-11-27T20:27:17.000Z",
-        "image": "",
-        "summary": "The Swiss footwear brand that has won over runners and fashion insiders alike is quietly discounting some of its signature silhouettes."
-      },
-      {
-        "title": "Puig to Acquire 75 Percent of Parfums de Marly, Initio for 1.2 Billion Euros",
-        "url": "https://wwd.com/beauty-industry-news/fragrance/puig-acquire-75-percent-parfums-de-marly-initio-1-2-billion-1239467775/",
-        "source": "WWD",
-        "published": "2026-11-27T20:26:45.000Z",
-        "image": "",
-        "summary": "The move strengthens the Spanish company’s presence in niche perfumery."
       }
     ],
     "markets": [
+      {
+        "title": "Saudi Arabia shifts Vision 2030 spending amid economic and security pressure",
+        "url": "https://www.cnbc.com/2026/11/28/saudi-arabia-vision-2030-spending.html",
+        "source": "CNBC World",
+        "published": "2026-11-28T06:00:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108560129-1795788133101-gettyimages-2242624345-GERMANY_BGD2025.jpeg?v=1795788271&w=1920&h=1080",
+        "summary": "The Kingdom is moving from \"spending and delivery at any cost\" to \"spending and delivery at the right cost,\" Economic Minister Faisal Alibrahim told CNBC."
+      },
+      {
+        "title": "Africa’s richest man is taking his mega-refinery public in a blockbuster IPO",
+        "url": "https://www.cnbc.com/2026/11/28/dangote-refinery-oil-ipo-nigeria-africa-energy.html",
+        "source": "CNBC World",
+        "published": "2026-11-28T06:00:01.000Z",
+        "image": "https://image.cnbcfm.com/api/v1/image/108559960-1795761342779-gettyimages-2299595583-NIGERIA_DANGOTE.jpeg?v=1795761503&w=1920&h=1080",
+        "summary": "Dangote Refinery’s IPO could value the company at about $47 billion, in what is expected to be Africa’s biggest stock market listing."
+      },
+      {
+        "title": "I’m in my 70s and buying a new BMW X1. Should I put my only son on the title?",
+        "url": "https://www.marketwatch.com/story/im-in-my-70s-and-buying-a-new-bmw-x1-should-i-put-my-only-son-on-the-title-25731040?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-28T00:00:00.000Z",
+        "image": "https://images.mktw.net/im-34995811",
+        "summary": "“Given my age, I never make a major new purchase without thinking about the future.”"
+      },
+      {
+        "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
+        "url": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "published": "2026-11-27T23:30:00.000Z",
+        "image": "https://images.mktw.net/im-78896707",
+        "summary": "Doing nothing and maintaining an even temperament is often the work of gods."
+      },
       {
         "title": "Clearing out my parents’ house was a legal nightmare. How can I downsize without putting my kids through the same ordeal?",
         "url": "https://www.marketwatch.com/story/clearing-out-my-parents-house-was-a-legal-nightmare-how-can-i-downsize-without-putting-my-children-through-the-same-ordeal-6537d804?mod=mw_rss_topstories",
@@ -288,38 +320,6 @@
         "published": "2026-11-27T18:40:00.000Z",
         "image": "https://images.mktw.net/im-85185426",
         "summary": "Also in Weekend Reads: Important tips for Medicare enrollment, how to spot online shopping scams and marital advice from The Moneyist."
-      },
-      {
-        "title": "SpaceX shares jump over 4% amid tech rally and after Musk says he will expand on Trump Account share donations",
-        "url": "https://www.cnbc.com/2026/11/27/spacex-shares-musk-donations.html",
-        "source": "CNBC World",
-        "published": "2026-11-27T18:24:06.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108433898-1792439982335-gettyimages-2299248528-wm020115_ej7axcme.jpeg?v=1792440027&w=1920&h=1080",
-        "summary": "SpaceX shares jumped in trading Friday after Elon Musk said on X that he would donate shares to American children every year."
-      },
-      {
-        "title": "Budget airline Norse Atlantic files for bankruptcy in Europe after failing to secure funding",
-        "url": "https://www.cnbc.com/2026/11/27/norse-atlantic-bankruptcy-fuel-costs.html",
-        "source": "CNBC World",
-        "published": "2026-11-27T18:20:32.000Z",
-        "image": "https://image.cnbcfm.com/api/v1/image/108559107-1795599475604-gettyimages-1636812756-230831b6_lax_planes_b-gr_13.jpeg?v=1795802433&w=1920&h=1080",
-        "summary": "Budget carrier Norse Atlantic filed for bankruptcy Friday, saying it failed to secure funding after soaring fuel costs strained the company's operations."
-      },
-      {
-        "title": "12 days of sardines and Croc charms: Are Advent calendars getting out of control?",
-        "url": "https://www.marketwatch.com/story/12-days-of-sardines-and-croc-charms-are-advent-calendars-getting-out-of-control-81f24548?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-27T17:04:00.000Z",
-        "image": "https://images.mktw.net/im-44503864",
-        "summary": "Luxury Advent calendars in particular — which can run hundreds of dollars — have seen a spike in sales. Here’s why."
-      },
-      {
-        "title": "A 66-year-old nurse is facing down retirement with just $500 saved. Who’s to blame?",
-        "url": "https://www.marketwatch.com/story/a-66-year-old-nurse-faces-retirement-with-just-500-saved-whos-to-blame-4249a0fd?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "published": "2026-11-27T16:00:00.000Z",
-        "image": "https://images.mktw.net/im-83830528",
-        "summary": "“Retirement is a financial status, not an age.”"
       }
     ]
   }
